@@ -1,0 +1,20 @@
+{{#if category.products}}
+  <div class="listing-wrapper">
+    {{#each category.products}}
+      {{> components/products/product-list-item
+        this
+        show_rating=../settings.show_product_rating
+        show_compare=../category.show_compare
+        image_ratio=../theme_settings.product_grid_image_ratio
+        default_image=../theme_settings.default_image
+        quick_shop=../theme_settings.quick-shop
+        as_low_as=../theme_settings.price_as_low_as}}
+    {{/each}}
+  </div>
+
+  {{> components/common/pagination pagination.category}}
+{{else}}
+  <div>
+    {{lang 'category.empty'}}
+  </div>
+{{/if}}

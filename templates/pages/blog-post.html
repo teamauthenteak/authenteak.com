@@ -1,0 +1,51 @@
+{{#partial "page"}}
+
+<article class="blog-post-single post">
+
+  <header class="page-header post-header">
+    {{> components/common/breadcrumbs breadcrumbs}}
+    <h1 class="page-title">
+      {{blog.post.title}}
+    </h1>
+    {{> components/blog/blog-post-meta
+      author=blog.post.author
+      date_published=blog.post.date_published
+    }}
+  </header>
+
+  <div class="post-main">
+    {{#if blog.post.thumbnail}}
+      <figure class="featured-image-container">
+        <img src="{{getImage blog.post.thumbnail 'core-blog-thumbnail'}}" alt="{{blog.post.thumbnail.alt}}">
+      </figure>
+    {{/if}}
+
+    <div class="blog-content">
+      {{{blog.post.body}}}
+    </div>
+  </div>
+
+  <footer class="post-footer">
+    {{#if blog.post.tags.length}}
+      <nav class="post-tags">
+        {{#each blog.post.tags}}
+          <a class="post-tag" href="{{url}}">{{name}}</a>
+        {{/each}}
+      </nav>
+    {{/if}}
+
+    {{> components/common/share-buttons
+      share_buttons=settings.add_this
+      url=blog.post.url
+      image=(getImage blog.post.thumbnail 'thumb')
+      title=blog.post.title
+    }}
+  </footer>
+
+</article>
+
+{{> core/structured-data/blog-post}}
+
+{{/partial}}
+
+{{> layout/base}}

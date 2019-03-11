@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="11px" height="8px" viewBox="0 0 11 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.1 (12002) - http://www.bohemiancoding.com/sketch -->
+    <title>tick</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Category" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Category---list-view" sketch:type="MSArtboardGroup" transform="translate(-175.000000, -1646.000000)" fill="#FFFFFF">
+            <g id="sidebar" sketch:type="MSLayerGroup" transform="translate(120.000000, 821.500000)">
+                <g id="color" transform="translate(0.000000, 729.000000)" sketch:type="MSShapeGroup">
+                    <g id="selected" transform="translate(43.000000, 82.000000)">
+                        <path d="M22.2966033,13.9175272 C21.8126033,13.433288 21.0277772,13.433288 20.5437772,13.9175272 L16.2339293,18.2268967 L14.1159511,16.1089185 C13.6321902,15.6246793 12.8468859,15.6246793 12.363125,16.1089185 C11.879125,16.5929185 11.879125,17.3777446 12.363125,17.8617446 L15.3575163,20.856375 C15.5995163,21.0986141 15.9168424,21.219375 16.2339293,21.219375 C16.5510163,21.219375 16.8683424,21.0986141 17.1103424,20.856375 L22.2963641,15.6703533 C22.7806033,15.1863533 22.7806033,14.4015272 22.2966033,13.9175272" id="tick"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

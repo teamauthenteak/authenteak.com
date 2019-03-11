@@ -1,0 +1,91 @@
+<section class="product-tabs section" data-product-container>
+  <ul class="tabs" data-tabs>
+    {{#if theme_settings.product-additional-info}}
+      <li class="tab-title"><a href="#product-additional-info">{{lang 'product.additional_info'}}</a></li>
+    {{/if}}
+    {{#if product.videos.list.length}}
+      <li class="tab-title"><a href="#product-videos">{{lang 'product.videos'}}</a></li>
+    {{/if}}
+    {{#if settings.show_product_reviews}}
+      <li class="tab-title">
+        <a href="#product-reviews">
+          {{lang 'product.reviews_tab_title'}}
+          <span class="num-reviews" data-num-reviews="({{product.reviews.total}})"></span>
+        </a>
+      </li>
+    {{/if}}
+  </ul>
+  <div class="container container-small">
+
+    <div class="tabs-content">
+
+    {{#if theme_settings.product-additional-info}}
+      <div class="accordion-title">
+        <a href="#product-additional-info" data-scroll="#product-additional-info">
+          {{lang 'product.additional_info'}}
+          <svg class="icon icon-plus"><use xlink:href="#icon-plus" /></svg>
+          <svg class="icon icon-minus"><use xlink:href="#icon-minus" /></svg>
+        </a>
+      </div>
+      <div class="tab-content-panel" id="product-additional-info">
+        {{> components/products/additional-info}}
+      </div>
+    {{/if}}
+
+      {{#if product.videos.list.length}}
+        <div class="accordion-title">
+          <a href="#product-videos" data-scroll="#product-videos">
+            {{lang 'product.videos'}}
+            <svg class="icon icon-plus"><use xlink:href="#icon-plus" /></svg>
+            <svg class="icon icon-minus"><use xlink:href="#icon-minus" /></svg>
+          </a>
+        </div>
+        <div class="tab-content-panel" id="product-videos">
+          <div class="product-videos-list">
+            {{#each product.videos.list}}
+              {{> components/products/video-block video=this}}
+            {{/each}}
+          </div>
+        </div>
+      {{/if}}
+      {{#if settings.show_product_reviews}}
+        <div class="accordion-title">
+          <a href="#product-reviews" data-scroll="#product-reviews">
+            {{lang 'product.reviews_tab_title'}}
+            <svg class="icon icon-plus"><use xlink:href="#icon-plus" /></svg>
+            <svg class="icon icon-minus"><use xlink:href="#icon-minus" /></svg>
+          </a>
+        </div>
+        <div class="tab-content-panel" id="product-reviews">
+
+          {{{snippet 'reviews'}}}
+
+          <h3 class="product-reviews-title">
+            {{lang 'product.reviews.title' numReviews=product.num_reviews}}
+          </h3>
+          {{#if product.reviews.list.length}}
+            <div class="review-items">
+              {{#each product.reviews.list}}
+                {{> components/products/review-item index=@index}}
+              {{/each}}
+            </div>
+
+            {{#if product.reviews.list.length '>' 2}}
+              <div class="reviews-more-wrap">
+                <a class="reviews-show-more-link" href="#">
+                  {{lang 'product.reviews.show_more'}}
+                  {{> svg/arrow-down}}
+                </a>
+              </div>
+            {{/if}}
+          {{else}}
+            <h5>{{lang 'product.reviews.no_reviews'}}</h5>
+          {{/if}}
+
+          {{> components/products/review-form}}
+        </div>
+        <svg class="icon icon-spinner"><use xlink:href="#icon-spinner" /></svg>
+      </div>
+    {{/if}}
+  </div> <!-- /.container-small -->
+</section>

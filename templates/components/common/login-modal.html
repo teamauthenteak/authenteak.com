@@ -1,0 +1,16 @@
+<div class="login-modal hidden" id="login-modal">
+  <button class="button-modal-close">
+    {{> svg/close}}
+  </button>
+  <div class="login-register-block">
+    <h2 class="modal-title">{{lang 'header.account'}}</h2>
+    {{> core/auth/login}}
+  </div>
+  <div class="forgot-password-block">
+    <button class="button-forgot-password-close modal-close">
+      {{> svg/close}}
+    </button>
+    <h2 class="modal-title">{{lang 'core.auth.forgot.heading'}}</h2>
+    {{> core/auth/forgot-password}}
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.1 (12002) - http://www.bohemiancoding.com/sketch -->
+    <title>calendar icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Blog" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Blog---multiple" sketch:type="MSArtboardGroup" transform="translate(-570.000000, -948.000000)" fill="#B6BAC2">
+            <g id="blog-post-1" sketch:type="MSLayerGroup" transform="translate(121.000000, 397.000000)">
+                <g id="author-+-date" transform="translate(448.000000, 548.000000)" sketch:type="MSShapeGroup">
+                    <g id="date" transform="translate(0.751728, 0.000000)">
+                        <path d="M15.2482719,4 L12.2482719,4 C12.2482719,3.447 11.8012719,3 11.2482719,3 C10.6952719,3 10.2482719,3.447 10.2482719,4 L6.24827189,4 C6.24827189,3.447 5.80127189,3 5.24827189,3 C4.69527189,3 4.24827189,3.447 4.24827189,4 L1.24827189,4 C0.69527189,4 0.24827189,4.447 0.24827189,5 L0.24827189,18 C0.24827189,18.553 0.69527189,19 1.24827189,19 L15.2482719,19 C15.8012719,19 16.2482719,18.553 16.2482719,18 L16.2482719,5 C16.2482719,4.447 15.8012719,4 15.2482719,4 L15.2482719,4 Z M2.24827189,10 L14.2482719,10 L14.2482719,17 L2.24827189,17 L2.24827189,10 Z M14.2482719,8 L2.24827189,8 L2.24827189,6 L4.24827189,6 C4.24827189,6.553 4.69527189,7 5.24827189,7 C5.80127189,7 6.24827189,6.553 6.24827189,6 L10.2482719,6 C10.2482719,6.553 10.6952719,7 11.2482719,7 C11.8012719,7 12.2482719,6.553 12.2482719,6 L14.2482719,6 L14.2482719,8 L14.2482719,8 Z" id="calendar-icon"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

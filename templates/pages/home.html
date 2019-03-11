@@ -1,0 +1,166 @@
+---
+carousel: true
+products:
+  new:
+    limit: {{theme_settings.home-new-products}}
+  featured:
+    limit: {{theme_settings.home-featured-products}}
+  top_sellers:
+    limit: {{theme_settings.home-top-selling-products}}
+brands: true
+blog:
+  recent_posts:
+    limit: 3
+    summary: {{theme_settings.home-blog-summary-length}}
+---
+
+{{#partial "page"}}
+
+  {{#if carousel.slides.length}}
+    {{> components/carousel }}
+  {{/if}}
+
+  {{{snippet 'home_content'}}}
+
+  {{#if products.new}}
+    <section class="products-new section">
+      <h3 class="section-title">{{lang 'home.new_products'}}</h3>
+      <div class="container">
+        {{#each products.new}}
+          {{> components/products/product-grid-item
+            this
+            show_rating=../settings.show_product_rating
+            image_ratio=../theme_settings.product_grid_image_ratio
+            default_image=../theme_settings.default_image
+            quick_shop=../theme_settings.quick-shop
+            as_low_as=../theme_settings.price_as_low_as
+          }}
+        {{/each}}
+      </div>
+    </section>
+  {{/if}}
+
+  {{! Show tabs if both exist, else show single carousel grid}}
+  {{#if products.featured}}
+    {{#if products.top_sellers}}
+      <section class="products-featured section">
+        <div class="container">
+          <ul class="tabs" data-tabs>
+            <li class="tab-title"><a href="#featured-products">{{lang 'home.featured_products'}}</a></li>
+            <li class="tab-title"><a href="#best-sellers">{{lang 'home.best_sellers'}}</a></li>
+          </ul>
+          <div class="tabs-content">
+            <div class="tab-content-panel" id="featured-products">
+              <div class="product-grid product-carousel">
+                {{#each products.featured}}
+                  {{> components/products/product-grid-item
+                    this
+                    show_rating=../settings.show_product_rating
+                    image_ratio=../theme_settings.product_grid_image_ratio
+                    default_image=../theme_settings.default_image
+                    quick_shop=../theme_settings.quick-shop
+                    as_low_as=../theme_settings.price_as_low_as
+                    not_lazy=true
+                  }}
+                {{/each}}
+              </div>
+            </div>
+            <div class="tab-content-panel" id="best-sellers">
+              <div class="product-grid product-carousel">
+                {{#each products.top_sellers}}
+                  {{> components/products/product-grid-item
+                    this
+                    show_rating=../settings.show_product_rating
+                    image_ratio=../theme_settings.product_grid_image_ratio
+                    default_image=../theme_settings.default_image
+                    quick_shop=../theme_settings.quick-shop
+                    as_low_as=../theme_settings.price_as_low_as
+                    not_lazy=true
+                  }}
+                {{/each}}
+              </div>
+            </div>
+            <svg class="icon icon-spinner"><use xlink:href="#icon-spinner" /></svg>
+          </div>
+        </div>
+      </section>
+    {{/if}}
+  {{/if}}
+
+  {{#if products.top_sellers}}
+    {{#unless products.featured}}
+      <section class="products-featured section">
+        <div class="container">
+          <h3 class="section-title">{{lang 'home.best_sellers'}}</h3>
+          <div class="product-grid product-carousel">
+            {{#each products.top_sellers}}
+              {{> components/products/product-grid-item
+                this
+                show_rating=../settings.show_product_rating
+                image_ratio=../theme_settings.product_grid_image_ratio
+                default_image=../theme_settings.default_image
+                quick_shop=../theme_settings.quick-shop
+                as_low_as=../theme_settings.price_as_low_as
+              }}
+            {{/each}}
+          </div>
+        </div>
+      </section>
+    {{/unless}}
+  {{/if}}
+
+  {{#if products.featured}}
+    {{#unless products.top_sellers}}
+      <section class="products-featured section">
+        <div class="container">
+          <h3 class="section-title">{{lang 'home.featured_products'}}</h3>
+          <div class="product-grid product-carousel">
+            {{#each products.featured}}
+              {{> components/products/product-grid-item
+                this
+                show_rating=../settings.show_product_rating
+                image_ratio=../theme_settings.product_grid_image_ratio
+                default_image=../theme_settings.default_image
+                quick_shop=../theme_settings.quick-shop
+                as_low_as=../theme_settings.price_as_low_as
+              }}
+            {{/each}}
+          </div>
+        </div>
+      </section>
+    {{/unless}}
+  {{/if}}
+
+  {{#if theme_settings.home-show-brands}}
+    <section class="brand-list section">
+      <div class="container">
+        {{#each (limit brands 8)}}
+          {{#if this.image.data}}
+            <a class="brand-link" href="{{this.url}}">
+              <img class="brand-logo" src="{{getImage image 'thumb'}}" alt="{{this.image.alt}}" />
+            </a>
+          {{/if}}
+        {{/each}}
+      </div>
+    </section>
+  {{/if}}
+
+  {{#if theme_settings.home-show-blog}}
+    <section class="blog-latest-posts section">
+      <div class="container">
+        <h3 class="section-title">{{lang 'home.latest_blog_posts_title'}}</h3>
+        <div>
+          {{#each blog.recent_posts}}
+            {{> components/blog/blog-post-summary
+              this
+              summary_length=../theme_settings.home-blog-summary-length
+            }}
+          {{/each}}
+        </div>
+      </div>
+    </section>
+  {{/if}}
+
+{{/partial}}
+
+{{> layout/base}}

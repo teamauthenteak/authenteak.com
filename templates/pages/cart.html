@@ -1,0 +1,47 @@
+{{#partial "page"}}
+  <header class="cart-header page-header">
+    <h1 class="cart-title page-title">
+      {{#if theme_settings.cart_icon '==' 'bag'}}
+        {{lang 'cart.title_bag'}}
+      {{else}}
+        {{lang 'cart.title_cart'}}
+      {{/if}}
+    </h1>
+  </header>
+
+  <section class="product-listing section">
+    <div class="container">
+      {{#if cart.items}}
+        <div data-cart-content>
+          {{> components/cart/content
+            cart_icon=theme_settings.cart_icon
+          }}
+          
+          {{> components/header/shipping-messages}}
+    
+        </div>
+
+        <div class="cart-totals" data-cart-totals>
+          {{> components/cart/totals}}
+        </div>
+      {{else}}
+        <div class="cart-empty">
+          <h2>
+            {{#if ../theme_settings.cart_icon '==' 'bag'}}
+              {{lang 'cart.empty_bag'}}
+            {{else}}
+              {{lang 'cart.empty_cart'}}
+            {{/if}}
+          </h2>
+          <a href="{{urls.home}}" class="button">{{lang 'cart.keep_shopping'}}</a>
+        </div>
+      {{/if}}
+
+      {{{snippet 'cart'}}}
+    </div>
+  </section>
+
+  {{> components/cart/customizations/modal-edit }}
+
+{{/partial}}
+{{> layout/base}}

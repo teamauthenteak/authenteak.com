@@ -1,0 +1,90 @@
+{{#if product.warranty}}
+  <div class="product-warranty product-info-warranty">
+    <dl class="product-details-block">
+      <dt class="product-details-name">{{lang 'product.warranty'}}:</dt>
+      <dd class="product-details-value">{{product.warranty}}</dd>
+    </dl>
+  </div>
+{{/if}}
+
+<div class="product-details-blocks">
+  {{#if product.sku}}
+    <dl class="product-details-block product-info-sku">
+      <dt class="product-details-name">{{lang 'product.sku'}}:</dt>
+      <dd class="product-details-value" data-product-sku>{{product.sku}}</dd>
+    </dl>
+  {{/if}}
+  {{#if product.condition}}
+    <dl class="product-details-block product-info-condition">
+      <dt class="product-details-name">{{lang 'product.condition'}}:</dt>
+      <dd class="product-details-value">{{product.condition}}</dd>
+    </dl>
+  {{/if}}
+  {{#if product.release_date}}
+    <dl class="product-details-block product-info-release-date">
+      <dt class="product-details-name">{{lang 'product.release_date'}}:</dt>
+      <dd class="product-details-value">{{product.release_date}}</dd>
+    </dl>
+  {{/if}}
+  {{#if product.availability}}
+    <dl class="product-details-block product-info-availability">
+      <dt class="product-details-name">{{lang 'product.availability'}}:</dt>
+      <dd class="product-details-value">{{product.availability}}</dd>
+    </dl>
+  {{/if}}
+  {{#if theme_settings.product-dimensions}}
+    {{#if product.weight}}
+      <dl class="product-details-block product-info-weight">
+        <dt class="product-details-name">{{lang 'product.weight'}}:</dt>
+        <dd class="product-details-value" data-product-weight>{{product.weight}}</dd>
+      </dl>
+    {{/if}}
+    {{#if product.height}}
+      <dl class="product-details-block product-info-height">
+        <dt class="product-details-name">{{lang 'product.height'}}:</dt>
+        <dd class="product-details-value" data-product-height>{{product.height}}</dd>
+      </dl>
+    {{/if}}
+    {{#if product.width}}
+      <dl class="product-details-block product-info-width">
+        <dt class="product-details-name">{{lang 'product.width'}}:</dt>
+        <dd class="product-details-value" data-product-width>{{product.width}}</dd>
+      </dl>
+    {{/if}}
+    {{#if product.depth}}
+      <dl class="product-details-block product-info-depth">
+        <dt class="product-details-name">{{lang 'product.depth'}}:</dt>
+        <dd class="product-details-value" data-product-depth>{{product.depth}}</dd>
+      </dl>
+    {{/if}}
+  {{/if}}
+  {{#if product.gift_wrapping_available}}
+    <dl class="product-details-block product-info-gift-wrapping">
+      <dt class="product-details-name">{{lang 'product.gift_wrapping'}}:</dt>
+      <dd class="product-details-value">{{lang 'product.gift_wrapping_available'}}</dd>
+    </dl>
+  {{/if}}
+  {{#if product.shipping}}
+    <dl class="product-details-block product-info-shipping">
+      {{#if product.shipping.calculated}}
+        <dt class="product-details-name">{{lang 'product.shipping'}}:</dt>
+        <dd class="product-details-value">{{lang 'product.shipping_calculated'}}</dd>
+      {{else}}
+        {{#if product.shipping.price '===' 0}}
+          <dt class="product-details-name">{{lang 'product.shipping'}}:</dt>
+          <dd class="product-details-value">{{lang 'product.shipping_free'}}</dd>
+        {{else}}
+          <dt class="product-details-name">{{lang 'product.shipping'}}:</dt>
+          <dd class="product-details-value">{{lang 'product.shipping_fixed' amount=product.shipping.price.formatted}}</dd>
+        {{/if}}
+      {{/if}}
+    </dl>
+  {{/if}}
+
+  {{#each product.custom_fields}}
+    <dl class="product-details-block product-info-{{name}}">
+      <dt class="product-details-name">{{name}}:</dt>
+      <dd class="product-details-value">{{{value}}}</dd>
+    </dl>
+  {{/each}}
+</div>

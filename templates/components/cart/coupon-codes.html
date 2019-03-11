@@ -1,0 +1,19 @@
+{{inject 'couponCodeEmptyInput' (lang 'cart.coupon_codes.error')}}
+
+<div class="cart-totals-item coupon-code" data-coupon-codes>
+  <form class="form form-coupon" method="post" action="{{urls.cart}}" data-coupon-code-form>
+    <p class="cart-total-label coupon-code-title">{{lang 'cart.coupon_codes.title'}}</p>
+    <div class="input-group">
+      <div class="form-field input-group-item">
+        <label class="form-label" for="couponcode">
+          <span class="form-label-text sr-only">{{lang 'cart.coupon_codes.enter_code'}}</span>
+          <input class="form-input" id="couponcode" type="text" name="couponcode" value="" placeholder="{{lang 'cart.coupon_codes.enter_code'}}" data-coupon-code-input>
+        </label>
+      </div>
+      <div class="form-actions input-group-item">
+        <input class="button button-tertiary" type="submit" value="{{lang 'cart.coupon_codes.submit'}}">
+        <input type="hidden" name="action" value="applycoupon">
+      </div>
+    </div>
+  </form>
+</div>

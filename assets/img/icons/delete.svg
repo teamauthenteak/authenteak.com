@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.1 (12002) - http://www.bohemiancoding.com/sketch -->
+    <title>delete icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Account" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Account---wishlist" sketch:type="MSArtboardGroup" transform="translate(-1262.000000, -413.000000)" fill="#B6BAC2">
+            <g id="wishlist-table" sketch:type="MSLayerGroup" transform="translate(428.000000, 335.000000)">
+                <g id="wishlist-1" transform="translate(0.000000, 58.000000)" sketch:type="MSShapeGroup">
+                    <path d="M836,35 C836,35.553 836.447,36 837,36 L845,36 C845.553,36 846,35.553 846,35 L846,24 L836,24 L836,35 L836,35 Z M838,26 L844,26 L844,34 L838,34 L838,26 Z M847,21 L843,21 C843,20.447 842.553,20 842,20 L840,20 C839.447,20 839,20.447 839,21 L835,21 C834.447,21 834,21.447 834,22 C834,22.553 834.447,23 835,23 L847,23 C847.553,23 848,22.553 848,22 C848,21.447 847.553,21 847,21 Z" id="delete-icon"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

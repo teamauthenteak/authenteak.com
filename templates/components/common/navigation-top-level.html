@@ -1,0 +1,16 @@
+{{!
+  @param nav_items
+         > either "pages" or "categories", passed from parent template
+}}
+
+<nav class="navigation">
+  <ul>
+    {{#each nav_items}}
+      <li>
+        <a class="top-level-nav-link" href="{{url}}">
+          {{name}}
+        </a>
+      </li>
+    {{/each}}
+  </ul>
+</nav>

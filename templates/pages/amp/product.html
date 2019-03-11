@@ -1,0 +1,62 @@
+---
+product:
+  reviews:
+    limit: {{theme_settings.product-single-reviews-count}}
+  videos:
+    limit: {{theme_settings.product-single-videos-count}}
+  related_products:
+    limit: {{theme_settings.product-single-related-count}}
+brands: true
+---
+
+{{#partial 'amp-cart-icon'}}
+  <div class="amp-mini-cart">
+    <a href="{{urls.cart}}">
+      {{> components/header/cart-icon}}
+    </a>
+  </div>
+{{/partial}}
+
+{{#partial 'amp-custom-header-styles'}}
+  {{> components/amp/styles/header}}
+{{/partial}}
+
+{{> core/amp/pages/product
+  header_background=theme_settings.color-topbar-background
+  header_text=theme_settings.color-topbar-text
+  body_background=theme_settings.color-background
+  color_headings=theme_settings.color-bold
+  color_text=theme_settings.color-body
+  footer_background=theme_settings.color-footer-background
+  footer_text=theme_settings.color-footer-text
+  color_accent=theme_settings.color-accent
+  color_borders=theme_settings.color-border
+}}
+
+{{#partial 'amp-custom-product-styles'}}
+  {{> components/amp/styles/product}}
+{{/partial}}
+
+{{#partial 'amp-additional-info'}}
+  {{> components/products/additional-info}}
+{{/partial}}
+
+{{#partial 'amp-footer'}}
+  {{> core/amp/common/footer
+    theme_credits=theme_settings.theme-credits
+    theme_name="Peak"
+    store_copyright=theme_settings.store-copyright
+  }}
+{{/partial}}
+
+{{#partial 'amp-social'}}
+  <h4 class="amp-footer-heading">{{lang 'footer.social_title'}}</h4>
+  {{> components/common/social-media-links
+    links=social_media
+  }}
+{{/partial}}
+
+{{#partial 'amp-custom-footer-styles'}}
+  {{> components/amp/styles/footer}}
+{{/partial}}
+{{> layout/amp}}

@@ -1,0 +1,12 @@
+<div class="listing-utils">
+  {{> components/products/sort}}
+
+  <div class="button-group">
+    <button class="button-group-item view-mode-toggle {{#if theme_settings.collections-view-mode '===' 'grid'}}active{{/if}}" data-listing-view="grid">
+      {{> svg/grid-view}}
+    </button>
+    <button class="button-group-item view-mode-toggle {{#if theme_settings.collections-view-mode '===' 'list'}}active{{/if}}" data-listing-view="list">
+      {{> svg/list-view}}
+    </button>
+  </div>
+</div>

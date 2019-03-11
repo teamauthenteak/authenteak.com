@@ -1,0 +1,13 @@
+{{#startsWith "_" name}}{{ else }}
+<li {{#if children}}class="tier-dropdown"{{/if}}>
+  <a {{#if children}}class="tier-toggle"{{/if}} itemprop="url" href="{{url}}"{{#if image}}data-category-image="{{getImage image "large"}}"{{/if}}><span itemprop="name">{{name}}</span></a>
+  {{#if children}}
+    <ul class="tier-panel">
+      <li class="parent-all"><a href="{{url}}"{{#if image}}data-category-image="{{getImage image "large"}}"{{/if}}>{{lang 'common.navigation_all'}} {{name}}</a></li>
+      {{#each children}}
+        {{> components/common/customizations/site-navigation-submenus}}
+      {{/each}}
+    </ul>
+  {{/if}}
+</li>
+{{/startsWith}}

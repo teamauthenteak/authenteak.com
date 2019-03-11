@@ -1,0 +1,80 @@
+<footer class="site-footer">
+    <div class="container">
+      <div class="footer-nav-wrap">
+        <div class="footer-col footer-nav">
+          <h4 class="footer-title">{{lang 'footer.page_nav'}}</h4>
+          {{> components/common/navigation nav_items=pages}}
+        </div>
+        <div class="footer-col footer-nav">
+          {{#if theme_settings.footer-show-categories}}
+            <h4 class="footer-title">{{lang 'footer.category_nav'}}</h4>
+            {{> components/common/navigation-top-level nav_items=categories}}
+          {{else}}
+            {{> components/footer/brand-navigation}}
+          {{/if}}
+        </div>
+        {{#if theme_settings.footer-show-address}}
+          <div class="footer-col footer-info">
+            <h4 class="footer-title">{{lang 'footer.address'}}</h4>
+            <p>{{nl2br settings.address}}</p>
+            <p>{{settings.phone_number}}</p>
+          </div>
+        {{/if}}
+        {{#any social_media.length theme_settings.geotrust-ssl-common-name}}
+          <div class="footer-col footer-social">
+            {{#if social_media.length}}
+              <h4 class="footer-title">{{lang 'footer.social_title'}}</h4>
+              {{> components/common/social-media-links links=social_media}}
+            {{/if}}
+            {{#if theme_settings.geotrust-ssl-common-name}}
+              {{> core/geotrust-ssl-seal}}
+            {{/if}}
+          </div>
+        {{/any}}
+      </div>
+  
+  
+      <div class="bottom-bar {{#if theme_settings.theme-credits}}show-credits{{/if}}">
+        <div class="footer-payment-icons">
+          <ul class="footer-payment-icons-list">
+            {{#if theme_settings.payment_visa}}
+              <li>{{> svg/visa}}</li>
+            {{/if}}
+  
+            {{#if theme_settings.payment_mastercard}}
+              <li>{{> svg/mastercard}}</li>
+            {{/if}}
+  
+            {{#if theme_settings.payment_american_express}}
+              <li>{{> svg/amex}}</li>
+            {{/if}}
+  
+            {{#if theme_settings.payment_discover}}
+              <li>{{> svg/discover}}</li>
+            {{/if}}
+  
+            {{#if theme_settings.payment_paypal}}
+              <li>{{> svg/paypal}}</li>
+            {{/if}}
+  
+            {{#if theme_settings.payment_apple_pay}}
+              <li>{{> svg/applepay}}</li>
+            {{/if}}
+          </ul>
+        </div>
+  
+        {{#if theme_settings.store-copyright}}
+          <span class="footer-site-copyright">&copy; <script>document.write(new Date().getFullYear())</script> {{settings.store_name}}</span>
+        {{/if}}
+  
+        {{#if theme_settings.theme-credits}}
+          <p class="footer-theme-credits">Peak theme by <a href="https://pixelunion.net" target="_blank">Pixel Union</a>, powered by <a href="https://bigcommerce.com" target="_blank" rel="nofollow">BigCommerce</a></p>
+        {{/if}}
+  
+        {{#if theme_settings.sitemap}}
+          <p><a href="{{urls.sitemap}}">{{lang 'sitemap.title'}}</a></p>
+        {{/if}}
+      </div>
+    </div>
+  </footer>
+  

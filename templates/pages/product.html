@@ -1,0 +1,41 @@
+---
+product:
+  reviews:
+    limit: {{theme_settings.product-single-reviews-count}}
+  videos:
+    limit: {{theme_settings.product-single-videos-count}}
+  related_products:
+    limit: {{theme_settings.product-single-related-count}}
+brands: true
+---
+
+{{#partial "page"}}
+  {{> components/products/product-single-details
+    cart_icon=theme_settings.cart_icon
+  }}
+  {{> components/products/product-single-tabs-atmo}}
+
+  {{#if product.related_products.length}}
+    <section class="products-related section">
+      <div class="container">
+        <h3 class="section-title">{{lang 'product.related_products_heading'}}</h3>
+        <div class="product-grid product-carousel">
+          {{#each product.related_products}}
+            {{> components/products/product-grid-item
+              this
+              show_rating=../settings.show_product_rating
+              default_image=../theme_settings.default_image
+            }}
+          {{/each}}
+        </div>
+      </div>
+    </section>
+  {{/if}}
+
+  {{> core/structured-data/product}}
+  {{> core/structured-data/product-reviews}}
+
+  {{> components/products/customizations/modal-cart }}
+{{/partial}}
+
+{{> layout/base}}

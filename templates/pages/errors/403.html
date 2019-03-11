@@ -1,0 +1,15 @@
+{{#partial "page"}}
+  <header class="page-header">
+    {{> components/common/breadcrumbs breadcrumbs}}
+    <h1 class="page-title">{{lang 'errors.e403.title'}}</h1>
+  </header>
+
+  <section class="section error">
+    <div class="container">
+      <h4>{{lang 'errors.e403.message'}}</h4>
+
+      {{> components/common/search-form}}
+    </div>
+  </section>
+{{/partial}}
+{{> layout/base}}

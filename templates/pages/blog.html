@@ -1,0 +1,37 @@
+---
+brands: true
+blog:
+  posts:
+    limit: 5
+    pages: 3
+    summary: 200
+---
+
+{{#partial "page"}}
+
+  <header class="page-header">
+    {{> components/common/breadcrumbs breadcrumbs}}
+    <h1 class="page-title">
+      {{blog.name}}
+    </h1>
+  </header>
+
+  <div class="container">
+    <div class="blog-post-index">
+      <section class="blog-items-list" itemscope itemtype="http://schema.org/Blog">
+        {{#each blog.posts}}
+          {{> components/blog/blog-post-summary share_buttons=../settings.add_this url=url title=title}}
+        {{/each}}
+      </section>
+    </div>
+
+    {{#if pagination.blog.links.length}}
+      <footer class="pagination-wrapper">
+        {{> components/common/pagination pagination.blog}}
+      </footer>
+    {{/if}}
+  </div>
+
+{{/partial}}
+
+{{> layout/base}}

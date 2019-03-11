@@ -1,0 +1,1 @@
+{"components/common/navigation-top-level":"{{!\n  @param nav_items\n         > either \"pages\" or \"categories\", passed from parent template\n}}\n\n<nav class=\"navigation\">\n  <ul>\n    {{#each nav_items}}\n      <li>\n        <a class=\"top-level-nav-link\" href=\"{{url}}\">\n          {{name}}\n        </a>\n      </li>\n    {{/each}}\n  </ul>\n</nav>\n"}

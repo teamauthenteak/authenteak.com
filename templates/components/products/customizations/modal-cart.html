@@ -1,0 +1,84 @@
+<aside class="modal-cart">
+  <div class="modal-cart__inner">
+    <div class="modal-cart__top-bar">
+      <h2 class="modal-cart__title">Added to your Cart</h2>
+      <button class="modal-cart__close">{{> svg/close}}</button>
+    </div>
+    <div class="modal-cart__contents">
+      <div class="modal-cart__item-list">
+        <div class="mini-cart-item" data-product-id="{{product.product_id}}">
+          <div class="mini-cart-item-wrap">
+            {{#if type '==' 'GiftCertificate'}}
+              <a href="{{product.edit_url}}">
+                <svg class="giftcard-image" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                    viewBox="0 0 100 81.9" style="enable-background:new 0 0 100 81.9;" xml:space="preserve">
+                  <path style="fill:currentColor" d="M77.4,0.3L5.8,21.1c-4.3,1.2-6.7,5.7-5.5,10l12.3,42.3c1.2,4.3,5.7,6.7,10,5.5l71.6-20.8
+                    c4.3-1.2,6.7-5.7,5.5-10L87.4,5.8C86.2,1.5,81.7-0.9,77.4,0.3z M84.1,6.8l2.6,8.8L48.1,26.8c-0.7-2.2-1.8-5.4-3.2-7.6
+                    c0,0-7.6,1.7-11,5.6l-2.2-7.6L78.4,3.6C80.8,2.9,83.4,4.3,84.1,6.8z M6.8,24.5l17.4-5.1l2.4,8.1c-5.1-0.3-11.4,3.9-11.4,3.9
+                    c0.4,1.5,1,3,1.6,4.5L6.2,39l-2.6-8.8C2.9,27.7,4.3,25.2,6.8,24.5z M15.9,72.5l-7.6-26l17.1-5c-0.8,2.5-2,5.5-3.6,9.1l5.2,9.4
+                    c0,0,2.5-7.1,4.7-14.7l7.3,25.3l-17.4,5.1C19.2,76.3,16.6,74.9,15.9,72.5z M93.3,54.8L46.5,68.4l-8.3-28.5C45.9,46,55,52.5,55,52.5
+                    L53,42c-3.4-2.3-6.2-4.3-8.4-6l44.3-12.9l7.6,26C97.1,51.5,95.7,54.1,93.3,54.8z"/>
+                  <ellipse style="fill:currentColor" cx="53.6" cy="79.3" rx="41.3" ry="2.6"/>
+                </svg>
+              </a>
+            {{else}}
+              <a href="{{product.url}}">
+                <div
+                  class="mini-cart-item-thumb {{#unless product.main_image}}no-image{{/unless}}"
+                  style="background-image: url({{getImage product.main_image 'thumb' (cdn ../../theme_settings.default_image)}})">
+                </div>
+                <img
+                  class="sr-only"
+                  src="{{getImage product.main_image 'thumb' (cdn ../../theme_settings.default_image)}}"
+                  alt="{{product.main_image.alt}}"
+                />
+              </a>
+            {{/if}}
+            <div class="mini-cart-item-description">
+              <a href="{{product.url}}" class="mini-cart-item-title">{{product.title}}</a>
+              <div class="mini-cart-item-options">
+                {{#each product.options}}
+                  <span class="option-value" data-name="{{display_name}}">
+                    <span class="option-value-label-mc">
+                        {{#replace "Select" display_name}}
+                        Selected
+                      {{/replace}}:
+                    </span>
+                    <span class="option-value-wrapper" data-name="{{display_name}}" data-option-id="{{id}}"></span>
+                  </span>
+                {{/each}}
+              </div>
+            </div>
+            <div class="mini-cart-item-price">
+              <span data-quantity></span> &times;
+              <span data-price></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-cart__summary">
+        <div class="modal-cart__subtotal">
+            <span class="modal-cart__subtotal-label">Order Subtotal</span>
+            <span class="modal-cart__subtotal-value" data-value="{{cart.grand_total.value}}">{{cart.grand_total.formatted}}</span>
+        </div>
+        <div class="modal-cart__count">
+            <span class="modal-cart__count-value" data-quantity="{{cart.quantity}}">{{cart.quantity}}</span>
+            <span class="modal-cart__count-unit">{{#if cart.quantity "==" 1}}item{{else}}items{{/if}}</span>
+        </div>
+        <a class="button button-primary button-cart" href="{{urls.cart}}">
+          <span class="button-text">
+            {{#if theme_settings.cart_icon '==' 'bag'}}
+                {{lang 'mini_cart.view_bag'}}
+            {{else}}
+                {{lang 'mini_cart.view_cart'}}
+            {{/if}}
+          </span>
+        </a>
+        <div class="modal-cart__additional-checkout-buttons"></div>
+        <div class="modal-cart__marketing modal-cart__marketing--summary"></div>
+    </div>
+    <div class="modal-cart__marketing modal-cart__marketing--footer"></div>
+</div>
+  <div class="modal-cart__underlay"></div>
+</aside>

@@ -1,0 +1,22 @@
+{{#if currency_selector.currencies.length ">" 1}}
+  <div class="currency-selector dropdown{{#if settings.account_creation_enabled}} accounts-enabled{{/if}}">
+    <a class="dropdown-toggle top-bar-button" href="#">
+      <span class="currency-selector-active button-text">{{currency_selector.active_currency_code}}</span>
+      <span class="currency-selector-flag">{{{currency_selector.active_currency_flag}}}</span>
+      {{> svg/arrow-down}}
+    </a>
+    <ul class="dropdown-panel" tabindex="-1">
+      {{#each currency_selector.currencies}}
+        <li class="dropdown-menu-item">
+            <a href="{{switch_url}}">
+              {{#if is_active}}
+                <strong>{{name}}</strong>
+              {{else}}
+                {{name}}
+              {{/if}}
+            </a>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+{{/if}}

@@ -1,0 +1,1 @@
+{"components/amp/styles/product":".amp-additional-info {\n  margin-top: 20px;\n  margin-bottom: 20px;\n}\n\n.product-details-block {\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.product-details-name,\n.product-details-value {\n  display: inline-block;\n  margin: 0;\n}\n\n.product-details-name {\n  font-weight: 600;\n}\n"}

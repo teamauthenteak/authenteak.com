@@ -1,0 +1,26 @@
+{{!
+  @param nav_items
+         > either "pages" or "categories", passed from parent template
+}}
+
+{{#each nav_items}}
+  <li class="parent {{#if children}}has-children tier-dropdown{{/if}}">
+    <a href="{{url}}">{{name}}</a>
+    {{#if children}}
+      <ul class="children">
+        {{#each children}}
+          <li>
+            <a href="{{url}}">{{name}}</a>
+            {{#if children}}
+              <ul>
+                {{#each children}}
+                  {{> components/common/site-navigation-submenus}}
+                {{/each}}
+              </ul>
+            {{/if}}
+          </li>
+        {{/each}}
+      </ul>
+    {{/if}}
+  </li>
+{{/each}}

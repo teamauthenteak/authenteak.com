@@ -1,0 +1,67 @@
+---
+category:
+  products:
+    limit: {{theme_settings.product-count}}
+  shop_by_price: true
+---
+
+{{#partial "page"}}
+  {{!-- #if category.image.data}}
+    <figure class="category-banner banner-ratio-{{../theme_settings.product-banner-aspect-ratio}}">
+      <div class="category-banner-image" style="background-image: url({{getImage category.image 'zoom'}});"></div>
+      <img class="sr-only" src="{{getImage category.image 'zoom'}}" alt="{{{alt_text}}}" />
+    </figure>
+  {{/if --}}
+
+  <section class="product-listing section">
+      {{#if theme_settings.category-breadcrumbs}}
+        <div class="product-listing-desktop-breadcrumbs">
+          {{> components/common/breadcrumbs breadcrumbs}}
+        </div>
+      {{/if}}
+
+      <div class="container product-listing-wrapper product-listing-wrapper--category">
+
+      {{{snippet 'categories'}}}
+
+      {{#if theme_settings.category-breadcrumbs}}
+        <div class="product-listing-mobile-breadcrumbs">
+          {{> components/common/breadcrumbs breadcrumbs}}
+        </div>
+      {{/if}}
+
+        <header class="listing-header">
+          <h1 class="listing-title">{{chop category.name}}</h1>
+        </header>
+
+      {{#unless theme_settings.collections-sidebar-hidden}}
+        <aside class="listing-sidebar Left" data-category-sidebar>
+            <div class="listing-sidebar__mobile-toggle">Filter Options</div>
+            <div class="listing-sidebar__mobile-collapse">
+            {{> components/category/sidebar}}
+            {{> components/products/listing-utils}}
+          </div>
+        </aside>
+      {{/unless}}
+
+      <div class="Content">
+        <header class="listing-header">
+          {{> components/products/listing-utils}}
+        </header>
+
+        <div class="product-listing-grid" data-category {{#if category.show_compare}}data-product-compare{{/if}}>
+          {{#if theme_settings.collections-view-mode '===' 'grid'}}
+            {{> components/category/product-listing}}
+          {{else}}
+            {{> components/category/product-listing-list}}
+          {{/if}}
+        </div>
+      </div>
+
+      {{#if category.description}}<div class="listing-description">{{{category.description}}}</div>{{/if}}
+
+    </div>
+  </section>
+{{/partial}}
+
+{{> layout/base}}

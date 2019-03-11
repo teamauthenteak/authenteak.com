@@ -1,0 +1,8 @@
+<div class="form-field {{#if required }}required{{/if}}">
+  <label class="form-label" for="customization_{{this.id}}_{{../id}}">
+    <div class="form-label-text product-option-title">
+      {{display_name}}
+    </div>
+    <textarea class="form-input" id="customization_{{this.id}}_{{../id}}" name="ProductFields[{{this.id}}]" class="form-input" rows="4" placeholder="{{prefill}}"></textarea>
+  </label>
+</div>

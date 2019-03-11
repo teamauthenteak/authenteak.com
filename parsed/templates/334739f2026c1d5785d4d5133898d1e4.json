@@ -1,0 +1,1 @@
+{"components/products/video-block-atmo":"<div class=\"video-container\">\n    <div class=\"fluid-width-video-wrapper\">\n        <iframe src=\"https://www.youtube.com/embed/{{id}}?rel=0&showinfo=0&autohide=1\" frameborder=\"0\" allowfullscreen></iframe>\n    </div>\n</div>\n"}

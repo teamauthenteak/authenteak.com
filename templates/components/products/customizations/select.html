@@ -1,0 +1,12 @@
+<div class="form-field {{#if required }}required{{/if}}">
+  <label class="form-label" for="customization_{{this.id}}_{{../id}}">
+    <div class="form-label-text product-option-title">
+      {{ display_name }}
+    </div>
+    <select class="form-input form-select" id="customization_{{this.id}}_{{../id}}" name="ProductFields[{{this.id}}]">
+      {{#each values}}
+        <option value="{{this}}">{{this}}</option>
+      {{/each}}
+    </select>
+  </label>
+</div>

@@ -1,0 +1,93 @@
+<nav class="navigation">
+  <ul>
+    {{#if theme_settings.global-show-home-in-nav}}
+      <li><a class="top-level-nav-link" href="{{urls.home}}">{{lang 'header.home_nav_item'}}</a></li>
+    {{/if}}
+    {{#if theme_settings.global-show-categories-in-nav}}
+      {{#if ../theme_settings.shop-menu-categories-display-type '===' 'categories-main-nav'}}
+        {{#each categories}}
+          {{#if children}}
+            <li class="nav-page dropdown simple-list">
+              <!-- <a class="dropdown-toggle top-level-nav-link" href="#"> -->
+                {{name}}
+                {{> svg/arrow-down}}
+              </a>
+              <div class="dropdown-panel">{{> components/common/main-navigation-categories}}</div>
+            </li>
+          {{else}}
+            <li>
+              <a class="top-level-nav-link" href="{{url}}">{{name}}</a>
+            </li>
+          {{/if}}
+        {{/each}}
+      {{else if ../theme_settings.shop-menu-categories-display-type '===' 'categories-dropdown'}}
+        <li class="dropdown simple-list">
+          <a class="dropdown-toggle top-level-nav-link" href="#">
+            {{lang 'header.shop_nav_item'}}
+            {{> svg/arrow-down}}
+          </a>
+          <div class="dropdown-panel main-dropdown">{{> components/common/navigation nav_items=categories}}</div>
+        </li>
+      {{else if ../theme_settings.shop-menu-categories-display-type '===' 'shop-menu-meganav'}}
+        <li class="dropdown mega-nav">
+          <a class="dropdown-toggle top-level-nav-link" href="#">
+            {{lang 'header.shop_nav_item'}}
+            {{> svg/arrow-down}}
+          </a>
+          <div class="dropdown-panel mega-nav-panel">
+            <div class="container">
+              <ul class="mega-nav-list {{#if theme_settings.wrap-meganav}}wrap-cols{{/if}}">
+                {{> components/common/navigation-mega nav_items=categories}}
+              </ul>
+            </div>
+          </div>
+        </li>
+      {{else}}
+        <li class="dropdown mega-nav">
+          <a class="dropdown-toggle top-level-nav-link" href="#">
+            {{lang 'header.shop_nav_item'}}
+            {{> svg/arrow-down}}
+          </a>
+          <div class="dropdown-panel mega-nav-panel">
+            <div class="container">
+              {{> components/common/navigation-mega-variant nav_items=categories}}
+            </div>
+          </div>
+        </li>
+      {{/if}}
+    {{/if}}
+    {{#if theme_settings.global-show-pages-in-nav}}
+      {{#each pages}}
+        {{#if children}}
+          <li class="nav-page dropdown">
+            <a class="dropdown-toggle top-level-nav-link" href="#">
+              {{name}}
+              {{> svg/arrow-down}}
+            </a>
+            <div class="dropdown-panel">{{> components/common/main-navigation-pages}}</div>
+          </li>
+        {{else}}
+          <li class="nav-page">
+            <a class="top-level-nav-link" href="{{url}}">{{name}}</a>
+          </li>
+        {{/if}}
+      {{/each}}
+    {{/if}}
+    {{#if theme_settings.global-header-logo-alignment '===' 'center'}}
+      {{#if show_search}}
+        <li>
+          <button class="button-search-toggle">
+            {{> svg/search}}
+          </button>
+        </li>
+      {{/if}}
+    {{/if}}
+  </ul>
+
+  {{#if show_search}}
+    <button class="button-search-toggle">
+      {{> svg/search}}
+    </button>
+  {{/if}}
+
+</nav>

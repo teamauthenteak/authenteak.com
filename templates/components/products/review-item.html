@@ -1,0 +1,15 @@
+<article class="review-item {{#if index '>' 1}}hidden{{/if}}">
+  <div class="review-meta">
+    <div class="product-item-rating">
+      {{> components/products/ratings rating=rating size="medium"}}
+      <div class="review-item-score sr-only"><span>{{rating}}</span>/5</div>
+    </div>
+    {{#if name.length}}
+      <span class="review-author" content="{{name}}">{{name}}</span>
+    {{/if}}
+    <span class="review-date">{{date}}</span>
+  </div>
+
+  <h4 class="review-item-title">{{title}}</h4>
+  <p class="review-item-body">{{nl2br text}}</p>
+</article>

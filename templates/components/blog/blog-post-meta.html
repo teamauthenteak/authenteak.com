@@ -1,0 +1,18 @@
+{{!
+  @param date_published:
+         > blog.posts.date_published
+         > blog.post.date_published
+  @param author
+         > blog.posts.author
+         > blog.post.author
+}}
+
+<p class="post-meta">
+  <svg class="icon icon-calendar"><use xlink:href="#icon-calendar" /></svg>
+  <time class="post-date">{{date_published}}</time>
+
+  {{#if author.length}}
+    <svg class="icon icon-avatar"><use xlink:href="#icon-avatar" /></svg>
+    <span class="post-author">{{author}}</span>
+  {{/if}}
+</p>

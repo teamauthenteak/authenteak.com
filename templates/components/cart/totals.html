@@ -1,0 +1,96 @@
+<div class="cart-totals-column">
+  {{> components/cart/coupon-codes}}
+</div>
+<div class="cart-totals-column">
+  <div class="cart-sub-total cart-totals-item">
+    <span class="cart-total-label">{{lang 'cart.sub_total'}}</span>
+    <span class="cart-total-item">{{cart.sub_total.formatted}}</span>
+  </div>
+
+  {{#each cart.taxes}}
+    <div class="cart-totals-item">
+      <span class="cart-total-label">{{name}}:</span>
+      <span class="cart-total-item">{{cost.formatted}}</span>
+    </div>
+  {{/each}}
+
+  {{#if cart.discount.formatted}}
+    <div class="cart-totals-item">
+      <span class="cart-total-label">{{lang 'cart.discount'}}</span>
+      <span class="cart-total-item">{{cart.discount.formatted}}</span>
+    </div>
+  {{/if}}
+
+  {{#if cart.coupons}}
+    <div class="cart-totals-item">
+      <span class="cart-total-label">
+        {{lang 'cart.coupon_codes.coupon_code'}}
+      </span>
+      <ul class="coupons-active list-bulleted">
+        {{#each cart.coupons}}
+          <li>
+            {{lang 'cart.coupon_codes.label' code=code}}
+            <span class="cart-total-item">{{discount.formatted}}</span>
+            <a class="link" href="{{remove_url}}">
+              {{lang 'cart.coupon_codes.remove'}}
+            </a>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+  {{/if}}
+
+  {{!-- > components/cart/shipping-calculator cart.shipping_handling --}}
+  {{#if settings.gift_certificates_enabled}}
+    {{> components/cart/gift-certificates}}
+  {{/if}}
+
+  {{#if cart.gift_wrapping_cost.value ">" 0}}
+    <div class="cart-totals-item">
+      <span class="cart-total-label">{{lang 'cart.gift_wrapping.title'}}</span>
+      <span class="cart-total-item">{{cart.gift_wrapping_cost.formatted}}</span>
+    </div>
+  {{/if}}
+
+  <div class="cart-grand-total cart-totals-item">
+    <span class="cart-total-label">{{lang 'cart.grand_total'}}</span>
+    <span class="cart-total-item grand-total">
+      {{cart.grand_total.formatted}}
+    </span>
+  </div>
+  <div class="cart-actions">
+    <a class="button button-secondary button-wide" href="{{urls.home}}">
+      {{lang 'cart.keep_shopping'}}
+    </a>
+    <a
+      class="button button-primary button-wide button-checkout"
+      href="{{urls.checkout.single_address}}"
+    >
+      {{lang 'cart.checkout'}}
+    </a>
+    {{#if cart.show_multiple_address_shipping}}
+      <a class="checkout-multiple" href="{{urls.checkout.multiple_address}}">
+        {{lang 'cart.checkout_multiple'}}
+      </a>
+    {{/if}}
+  </div>
+
+  {{#if cart.additional_checkout_buttons.length}}
+    <div class="cart-additional-checkout-buttons">
+      {{#each cart.additional_checkout_buttons}}
+        {{{this}}}
+      {{/each}}
+    </div>
+  {{/if}}
+
+  <a class="prop-link">California's Residents see Proposition 65 Information</a>
+  
+  <div class="prop-wrapper">
+      <h4>Proposition 65</h4>
+    <p class="prop-text">California's Proposition 65 entitles California consumers to special warnings for certain products that contain chemicals above certain threshold levels.</p>
+    <p>⚠WARNING: Furniture products can expose you to chemicals including lead which is known to the State of California to cause cancer or birth defects or other reproductive harm.</p>
+    <p>⚠WARNING: Outdoor heating and fire products can expose you to chemicals including carbon dioxide which is known to the State of California to cause cancer or birth defects or other reproductive harm.</p>
+    <p>For more information, go to <a href="www.P65Warnings.ca.gov/">www.P65Warnings.ca.gov/</a></p>
+  </div>
+</div>
+

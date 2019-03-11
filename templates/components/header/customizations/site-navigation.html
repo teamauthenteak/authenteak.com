@@ -1,0 +1,44 @@
+{{> components/header/customizations/site-navigation-static}}{{!--
+<nav class="navigation" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
+  <ul>
+    {{#if theme_settings.global-show-home-in-nav}}
+      <li><a class="top-level-nav-link" href="{{urls.home}}"><span itemprop="name">{{lang 'header.home_nav_item'}}</span></a></li>
+    {{/if}}
+    {{#if theme_settings.global-show-categories-in-nav}}
+      {{#each categories}}
+        {{#startsWith "_" name}}{{ else }}
+        {{#if children}}
+          <li class="hover-dropdown mega-nav">
+            <a class="top-level-nav-link" itemprop="url" href="{{url}}">
+              <span itemprop="name">{{name}}</span>
+              <!--{{> svg/arrow-down}}-->
+            </a>
+            {{> components/common/customizations/navigation-mega nav_items=children}}
+          </li>
+        {{else}}
+          <li>
+            <a class="top-level-nav-link" itemprop="url" href="{{url}}"><span itemprop="name">{{name}}</span></a>
+          </li>
+        {{/if}}
+        {{/startsWith}}
+      {{/each}}
+    {{/if}}
+    {{#if theme_settings.global-header-logo-alignment '===' 'center'}}
+      {{#if show_search}}
+        <li>
+          <button class="button-search-toggle">
+            {{> svg/search}}
+          </button>
+        </li>
+      {{/if}}
+    {{/if}}
+  </ul>
+
+  {{#if show_search}}
+    <button class="button-search-toggle">
+      {{> svg/search}}
+    </button>
+  {{/if}}
+
+</nav>
+--}}

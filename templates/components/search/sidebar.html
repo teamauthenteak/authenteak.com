@@ -1,0 +1,65 @@
+{{#if product_results.faceted_search_enabled}}
+  <span class="link faceted-search-toggle" data-faceted-search-toggle>
+    {{lang 'faceted_search.toggle'}}
+    <span class="facet-list-toggle">
+      <svg class="icon icon-plus"><use xlink:href="#icon-plus" /></svg>
+      <svg class="icon icon-minus"><use xlink:href="#icon-minus" /></svg>
+    </span>
+  </span>
+  <div class="faceted-search" data-faceted-search data-search-query="{{forms.search.query}}">
+    {{#each product_results.facets}}
+      {{#if visible}}
+        {{#if items.length}}
+          <div class="facet-list {{display}}" data-facet-filter>
+
+            <h4
+              class="facet-list-title {{#unless start_collapsed}}is-open{{/unless}}"
+              data-facet-toggle
+            >
+              {{title}}
+              <span class="facet-list-toggle"></span>
+            </h4>
+
+            {{{dynamicComponent 'components/faceted-search/facets'}}}
+
+            {{#if remove_url}}
+              <a class="link facet-remove" href="{{remove_url}}" data-faceted-search-facet data-facet-remove>{{lang 'faceted_search.clear'}}</a>
+            {{/if}}
+          </div>
+        {{/if}}
+        {{#compare facet 'price'}}
+          <div class="facet-list {{display}}" data-facet-filter>
+
+            <h4
+              class="facet-list-title
+              {{#unless start_collapsed}}is-open{{/unless}}"
+              data-facet-toggle
+            >
+              {{title}}
+              <span class="facet-list-toggle"></span>
+            </h4>
+
+            {{{dynamicComponent 'components/faceted-search/facets'}}}
+
+            {{#if remove_url}}
+              <a class="link facet-remove" href="{{remove_url}}" data-faceted-search-facet data-facet-remove>{{lang 'faceted_search.clear'}}</a>
+            {{/if}}
+          </div>
+        {{/compare}}
+      {{/if}}
+    {{/each}}
+  </div>
+{{else}}
+  {{#if categories}}
+    <div class="category-nav facet-list">
+      <h4 class="facet-list-title">{{lang 'search.categories'}}</h4>
+      <ul class="category-nav-list">
+        {{#each categories}}
+          <li class="facet-item">
+            <a href="{{url}}">{{name}}</a>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+  {{/if}}
+{{/if}}

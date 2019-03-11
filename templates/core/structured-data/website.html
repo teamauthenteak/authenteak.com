@@ -1,0 +1,34 @@
+{{!-- Website: include in base.html --}}
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "url": "https://authenteak.com",
+    "name": "AuthenTEAK",
+    "logo": "http://www.w3.org/2000/svg",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+1-404-525-1995",
+      "contactType": "Customer service"
+    },
+    "sameAs": [
+      "https://www.facebook.com/Authenteak",
+      "https://www.instagram.com/authenteak/",
+      "https://www.pinterest.com/authenteak/?autologin=true",
+      "https://twitter.com/authenteak"
+    ]
+  }
+</script>
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "{{settings.store_name}}",
+    "url": "{{urls.home}}",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "{{urls.search}}?search_query={search_term_string}",
+      "query-input": "required name=search_term_string"
+  }
+</script>

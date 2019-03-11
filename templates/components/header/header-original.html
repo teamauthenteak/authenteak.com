@@ -1,0 +1,242 @@
+<header
+  class="
+    site-header
+    logo-align-{{theme_settings.global-header-logo-alignment}}
+  "
+  role="banner"
+>
+  <div data-alerts>
+    {{#each product.reviews.messages}}
+      {{#if error}}
+        {{> core/alerts/alert-error
+          message=error
+          dismissable=true
+        }}
+      {{/if}}
+      {{#if success}}
+        {{> core/alerts/alert-success
+          message=success
+          dismissable=true
+        }}
+      {{/if}}
+    {{/each}}
+
+    {{#if cart.status_messages}}
+      {{#each cart.status_messages}}
+        {{#if type '==' 0}}
+          {{> core/alerts/alert-error
+            message=message
+            dismissable=true
+          }}
+        {{/if}}
+
+        {{#if type '==' 1}}
+          {{> core/alerts/alert-success
+            message=message
+            dismissable=true
+          }}
+        {{/if}}
+
+        {{#if type '==' 3}}
+          {{> core/alerts/alert-error
+            message=message
+            dismissable=true
+          }}
+        {{/if}}
+      {{/each}}
+    {{/if}}
+  </div>
+
+  <section class="top-bar">
+    <div
+      class="site-alerts"
+      {{#if theme_settings.global-header-logo-alignment '==' 'center'}}
+        data-cart-promos
+      {{/if}}
+    >
+      {{> components/header/shipping-messages}}
+    </div>
+    <div class="container">
+      <div
+        class="
+          top-bar-left
+          {{#if currency_selector.currencies.length '===' 1}}
+            no-currency-selector
+          {{/if}}
+        "
+      >
+        {{#if settings.account_creation_enabled}}
+          <div class="customer-links">
+            {{#if customer}}
+              {{#contains page_type 'account'}}
+                <a class="top-bar-button" href="{{urls.auth.logout}}">
+                  {{> svg/account}}
+                  <span class="button-text">
+                    {{lang 'header.log_out'}}
+                  </span>
+                </a>
+              {{else}}
+                <a class="top-bar-button" href="{{urls.account.index}}">
+                  {{> svg/account}}
+                  <span class="button-text">
+                    {{lang 'header.account'}}
+                  </span>
+                </a>
+              {{/contains}}
+            {{else}}
+              <a class="top-bar-button" href="{{urls.auth.login}}">
+                {{> svg/account}}
+                <span class="button-text">
+                  {{lang 'header.account'}}
+                </span>
+              </a>
+            {{/if}}
+          </div>
+        {{/if}}
+
+        {{> components/header/currency-selector}}
+      </div>
+
+      <div class="top-bar-center">
+        {{#if theme_settings.global-header-logo-alignment '!=' 'center'}}
+          <div data-cart-promos>
+            {{> components/header/shipping-messages}}
+          </div>
+        {{/if}}
+
+        {{> components/header/site-branding}}
+      </div>
+
+      <div class="top-bar-right customer-utils">
+        
+        <!--Testing-->
+        {{#if settings.account_creation_enabled}}
+        <div class="customer-links">
+          {{#if customer}}
+            {{#contains page_type 'account'}}
+              <a class="top-bar-button" href="{{urls.auth.logout}}">
+                {{> svg/account}}
+                <span class="button-text">
+                  {{lang 'header.log_out'}}
+                </span>
+              </a>
+            {{else}}
+              <a class="top-bar-button" href="{{urls.account.index}}">
+                {{> svg/account}}
+                <span class="button-text">
+                  {{lang 'header.account'}}
+                </span>
+              </a>
+            {{/contains}}
+          {{else}}
+            <a class="top-bar-button" href="{{urls.auth.login}}">
+              {{> svg/account}}
+              <span class="button-text">
+                {{lang 'header.account'}}
+              </span>
+            </a>
+          {{/if}}
+        </div>
+      {{/if}}
+        <!--End Testing-->
+
+        <div class="compare-wrap" data-compare-widget>
+          <button class="top-bar-button button-compare-toggle">
+            {{lang 'header.compare'}}
+            <span class="compare-items-count"></span>
+          </button>
+          <div class="compare-tab" id="compare-tab">
+            <div class="compare-tab-upper">
+              <div class="item-limit">
+                {{lang 'compare.compare_up_to_x_items' num=4}}
+              </div>
+              <a href="#" class="clear-compare" data-compare-remove-all>
+                {{lang 'compare.clear_compare'}}
+              </a>
+            </div>
+            <ul
+              class="compare-items-list"
+              id="compare-items-wrapper"
+              data-compare-items
+            ></ul>
+            <a
+              class="button button-primary compare-submit"
+              href="{{urls.compare}}"
+              data-compare-link="{{urls.compare}}"
+            >
+              {{lang 'compare.compare_submit'}}
+            </a>
+          </div>
+        </div>
+
+        {{#if settings.show_wishlist}}
+          <a
+            class="top-bar-button button-wishlist"
+            href="{{urls.account.wishlists.all}}"
+          >
+            {{> svg/wishlist}}
+          </a>
+        {{/if}}
+
+        <button class="top-bar-button button-cart-toggle">
+            <span
+              class="mini-cart-subtotal button-text"
+              data-cart-subtotal="{{cart.sub_total.value}}"
+            >
+                {{cart.sub_total.formatted}}
+            </span>
+            {{> components/header/cart-icon}}
+        </button>
+      </div>
+
+      <span
+        class="
+          button-mobile-nav-cart
+          {{#if cart.status_messages}}
+            has-promo
+          {{/if}}
+        "
+      >
+        <a href="{{urls.cart}}">
+          {{> components/header/cart-icon}}
+        </a>
+        <span
+              class="mini-cart-subtotal button-text"
+              data-cart-subtotal="{{cart.sub_total.value}}"
+            >
+                {{cart.sub_total.formatted}}
+            </span>
+      </span>
+
+      <button
+        class="
+          button-mobile-nav-toggle
+          {{#if cart.status_messages}}
+            has-promo
+          {{/if}}
+        "
+      >
+        <i class="burger"></i>
+      </button>
+    </div>
+  </section>
+
+  <section class="main-nav-bar">
+    <div class="container">
+
+      {{#if theme_settings.global-header-logo-alignment '===' 'left'}}
+        {{> components/header/site-navigation-left-align}}
+      {{/if}}
+
+      {{#if theme_settings.global-header-logo-alignment '===' 'center'}}
+        {{> components/header/site-navigation-center-align}}
+      {{/if}}
+
+      {{#if theme_settings.global-header-logo-alignment '===' 'right'}}
+        {{> components/header/site-navigation-right-align}}
+      {{/if}}
+
+    </div>
+  </section>
+
+</header>

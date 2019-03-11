@@ -1,0 +1,1 @@
+{"components/search/content-result":"<article class=\"content-result\">\n  <h1><a href=\"{{url}}\">{{title}}</a></h1>\n  <p>{{{content}}}</p>\n</article>\n"}

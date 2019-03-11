@@ -1,0 +1,24 @@
+{{#if theme_settings.product-single-display-order '===' 'product-description-first'}}
+  <div class="product-description">
+    {{{product.description}}}
+
+    {{{snippet 'product_description'}}}
+  </div>
+
+  <div class="product-stock">
+    <span class="{{#unless product.stock_level}}product-details-hidden{{/unless}}" data-product-stock>{{lang 'product.current_stock'}}</span>
+    <span class="{{#unless product.stock_level}}product-details-hidden{{/unless}}" data-product-stock data-product-stock-level>{{#if product.stock_level}}{{product.stock_level}}{{else}}0{{/if}}</span>
+  </div>
+{{else}}
+  <div class="product-stock">
+    <span class="{{#unless product.stock_level}}product-details-hidden{{/unless}}" data-product-stock>{{lang 'product.current_stock'}}</span>
+    <span class="{{#unless product.stock_level}}product-details-hidden{{/unless}}" data-product-stock data-product-stock-level>{{#if product.stock_level}}{{product.stock_level}}{{else}}0{{/if}}</span>
+  </div>
+
+  <div class="product-description">
+    {{{product.description}}}
+
+    {{{snippet 'product_description'}}}
+  </div>
+{{/if}}
+{{> components/products/bulk-pricing}}

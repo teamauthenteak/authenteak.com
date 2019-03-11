@@ -1,0 +1,41 @@
+<div class="facet-filter-wrapper {{#unless start_collapsed}}is-open{{/unless}}" data-facet-filter-wrapper>
+  <ul
+    id="faceted-search-nav-list-{{#replace ' ' facet}}{{else}}{{facet}}{{/replace}}"
+    class="facet-list-items
+    facet-default
+    {{#if selected}}is-open{{/if}}
+    {{#unless start_collapsed}}is-open{{/unless}}"
+    data-count="{{items_count}}"
+    data-facet="{{facet}}"
+  >
+    {{#each items}}
+      <li class="facet-item" data-facet-item>
+        <a href="{{url}}" rel="nofollow" data-faceted-search-facet>
+          {{title}}
+          {{#if ../show_product_counts}}
+            <span data-facet-item-count>({{count}})</span>
+          {{/if}}
+        </a>
+      </li>
+    {{/each}}
+  </ul>
+
+  {{#if show_more_toggle}}
+    <a
+      href="#faceted-search-nav-list-{{#replace ' ' facet}}{{else}}{{facet}}{{/replace}}"
+      role="button"
+      class="facet-toggle-more"
+      rel="nofollow"
+      data-show-more-facets
+    >
+    <span class="facet-item toggle-link-text-off">
+      {{lang 'faceted_search.show_more'}}
+      <svg class="icon icon-arrow-down"><use xlink:href="#icon-arrow-down" /></svg>
+    </span>
+    <span class="facet-item toggle-link-text-on">
+      {{lang 'faceted_search.show_less'}}
+      <svg class="icon icon-arrow-up"><use xlink:href="#icon-arrow-up" /></svg>
+    </span>
+    </a>
+  {{/if}}
+</div>

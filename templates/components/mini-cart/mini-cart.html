@@ -1,0 +1,20 @@
+<aside class="mini-cart">
+  <div class="mini-cart-inner">
+    <header class="mini-cart-top-bar">
+      <h3 class="mini-cart-title">
+        {{#if cart_icon '===' 'bag'}}
+          {{lang 'mini_cart.title_bag'}}
+        {{else}}
+          {{lang 'mini_cart.title_cart'}}
+        {{/if}}
+      </h3>
+      <button class="button-cart-close">
+        {{> svg/close}}
+      </button>
+    </header>
+
+    <div class="mini-cart-contents">
+      {{> components/mini-cart/mini-cart-contents}}
+    </div>
+  </div>
+</aside>

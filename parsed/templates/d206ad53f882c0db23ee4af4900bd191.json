@@ -1,0 +1,1 @@
+{"components/products/ratings":"{{#for 1 5}}\n  <span class=\"{{#if ../this.rating '>=' $index}}full{{/if}}\">\n    <svg class=\"icon icon-star\"><use xlink:href=\"#icon-star\" /></svg>\n  </span>\n{{/for}}\n"}

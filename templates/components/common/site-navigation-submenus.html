@@ -1,0 +1,11 @@
+<li {{#if children}}class="tier-dropdown"{{/if}}>
+  <a {{#if children}}class="tier-toggle"{{/if}} href="{{url}}">{{name}}</a>
+  {{#if children}}
+    <ul class="tier-panel">
+      <li class="parent-all"><a href="{{url}}">{{lang 'common.navigation_all'}} {{name}}</a></li>
+      {{#each children}}
+        {{> components/common/site-navigation-submenus}}
+      {{/each}}
+    </ul>
+  {{/if}}
+</li>

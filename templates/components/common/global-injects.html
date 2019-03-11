@@ -1,0 +1,45 @@
+{{!-- form validation --}}
+{{inject 'validationRequired' (lang 'forms.validation.required')}}
+{{inject 'validationEmail' (lang 'forms.validation.email')}}
+{{inject 'validationNumber' (lang 'forms.validation.number')}}
+{{inject 'validationNumMax' (lang 'forms.validation.num_max')}}
+{{inject 'validationNumMin' (lang 'forms.validation.num_min')}}
+{{inject 'validationNumRange' (lang 'forms.validation.num_range')}}
+{{inject 'validationMaxLength' (lang 'forms.validation.max_length')}}
+{{inject 'validationMinLength' (lang 'forms.validation.min_length')}}
+{{inject 'validationMaxChecked' (lang 'forms.validation.max_checked')}}
+{{inject 'validationMinChecked' (lang 'forms.validation.min_checked')}}
+{{inject 'validationMaxSelected' (lang 'forms.validation.max_selected')}}
+{{inject 'validationMinSelected' (lang 'forms.validation.min_selected')}}
+{{inject 'validationNotEqual' (lang 'forms.validation.not_equal')}}
+{{inject 'validationDifferent' (lang 'forms.validation.different')}}
+
+{{!-- product-view messages --}}
+{{inject 'urlsCart' urls.cart}}
+{{inject 'urlsCheckout' urls.checkout.single_address}}
+{{inject 'messagesCartLink' (lang 'product.cart_link')}}
+{{inject 'messagesCheckoutLink' (lang 'product.checkout_link')}}
+{{inject 'messagesProductGeneral' (lang 'cart.error')}}
+{{inject 'messagesProductAddSuccessBag' (lang 'product.success_bag')}}
+{{inject 'messagesProductAddSuccessCart' (lang 'product.success_cart')}}
+{{inject 'bagLink' (lang 'product.bag_link')}}
+{{inject 'cartLink' (lang 'product.cart_link')}}
+{{inject 'checkoutLink' (lang 'product.checkout_link')}}
+
+{{!-- product --}}
+{{inject 'addSuccess' (lang 'product.success' cartUrl=urls.cart checkoutUrl=urls.checkout.single_address)}}
+{{inject 'productYouSave' (lang 'product.you_save')}}
+{{inject 'productIncludingTax' (lang 'product.including_tax')}}
+{{inject 'productExcludingTax' (lang 'product.excluding_tax')}}
+{{inject 'productPreviewVariation' (lang 'product.preview_variation')}}
+{{inject 'listingProductCount' theme_settings.product-count}}
+{{inject 'listingViewMode' theme_settings.collections-view-mode}}
+{{inject 'messagesWishlistAddSuccess' (lang 'product.wishlist.add_success')}}
+{{inject 'messagesWishlistAddError' (lang 'product.wishlist.add_error')}}
+
+{{!-- cart-view messages --}}
+{{inject 'messagesCartRemoveConfirm' (lang 'cart.remove_confirm')}}
+{{inject 'messagesCartOutOfStock' (lang 'cart.out_of_stock')}}
+{{inject 'messagesCartQuantityErrorGeneral' (lang 'product.quantity_error_general')}}
+
+{{inject 'shippingState' (lang 'cart.shipping_calculator.enter_a_state')}}

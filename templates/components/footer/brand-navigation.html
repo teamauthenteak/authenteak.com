@@ -1,0 +1,19 @@
+{{#if shop_by_brand}}
+  <h4 class="footer-title">{{lang 'footer.brand_nav'}}</h4>
+  <nav class="navigation">
+    <ul>
+      {{#each shop_by_brand}}
+        {{#if @index '<' 5}}
+          <li>
+            <a href="{{url}}">{{name}}</a>
+          </li>
+        {{/if}}
+      {{/each}}
+      {{#if shop_by_brand.length '>' 5}}
+        <li class="footer-link-separation">
+          <a href="{{urls.brands}}">{{lang 'footer.view_all'}}</a>
+        </li>
+      {{/if}}
+    </ul>
+  </nav>
+{{/if}}

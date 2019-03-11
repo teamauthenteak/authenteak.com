@@ -1,0 +1,22 @@
+{{#partial "page"}}
+  <header class="page-header">
+    <h1 class="page-title">
+      {{#if subscription.error}}
+        {{lang 'newsletter.subscribed_heading_error'}}
+      {{else}}
+        {{lang 'newsletter.subscribed_heading'}}
+      {{/if}}
+    </h1>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      {{#if subscription.error}}
+        {{> components/alerts/alert-error subscription.error}}
+      {{else}}
+        {{> components/alerts/alert-success (lang 'newsletter.subscribed_message')}}
+      {{/if}}
+    </div>
+  </section>
+{{/partial}}
+{{> layout/base}}

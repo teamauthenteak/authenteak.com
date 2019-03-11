@@ -1,0 +1,73 @@
+<div class="review-form">
+  <h3 class="review-form-heading">{{lang 'product.reviews.write_review'}}</h3>
+  <form class="form" id="form-leave-a-review" action="{{urls.product.post_review}}" method="post" data-validated-form>
+    <!-- Name -->
+    <div class="form-field rating-name">
+      <label class="form-label" for="rating-name">
+        <div class="form-label-text">{{lang 'product.reviews.form.name'}}:</div>
+        <input id="rating-name" class="form-input" type="text" placeholder="{{lang 'product.reviews.form.your_name'}}" name="revfromname" required>
+      </label>
+    </div>
+
+    <!-- Email -->
+    <div class="form-field rating-email">
+      <label class="form-label" for="rating-email">
+        <div class="form-label-text">{{lang 'product.reviews.form.email'}}:</div>
+        <input id="rating-email" class="form-input" type="email" name="email" placeholder="{{lang 'product.reviews.form.your_email'}}" required>
+      </label>
+    </div>
+
+    <!-- Rating -->
+    <div class="form-field rating-number">
+      <label class="form-label" for="rating-stars">
+        <div class="form-label-text">{{lang 'product.reviews.form.rating_label'}}:</div>
+        <div class="rating-stars-wrap">
+          <select class="form-input input-select rating-stars" id="rating-stars" name="revrating">
+            {{#for 1 5}}
+              <option value="{{$index}}" {{#if $index '===' 5}}selected{{/if}}>{{lang 'product.reviews.stars_count' NUM=$index}}</option>
+            {{/for}}
+          </select>
+          <div class="product-item-rating">
+            <span class="rating-stars-label">{{lang 'product.reviews.stars_count' NUM=5}}</span>
+            {{#for 1 5}}
+              <span class="icon-star-wrap full">
+                <svg class="icon icon-star"><use xlink:href="#icon-star" /></svg>
+              </span>
+            {{/for}}
+            <svg class="icon icon-arrow-down"><use xlink:href="#icon-arrow-down" /></svg>
+          </div>
+        </div>
+      </label>
+    </div>
+
+    <!-- Review Subject -->
+    <div class="form-field rating-subject">
+      <label class="form-label" for="rating-title">
+        <div class="form-label-text">{{lang 'product.reviews.form.subject'}}:</div>
+        <input id="rating-title" class="form-input" type="text" placeholder="{{lang 'product.reviews.form.your_subject'}}" name="revtitle" required>
+      </label>
+    </div>
+
+    <!-- Comments -->
+    <div class="form-field">
+      <label class="form-label" for="rating-comment">
+        <div class="form-label-text">{{lang 'product.reviews.form.comments'}}:</div>
+        <textarea id="rating-comment" class="form-input" name="revtext" placeholder="{{lang 'product.reviews.form.your_comments'}}" rows="4" required></textarea>
+      </label>
+    </div>
+
+    {{#if product.reviews.captcha}}
+      {{> core/forms/common/captcha captcha=product.reviews.captcha name=recaptcha_response_field}}
+    {{/if}}
+
+    <input type="hidden" name="product_id" value="{{product.id}}" />
+    <input type="hidden" name="action" value="post_review" />
+    {{#if product.reviews.throttleToken}}
+      <input type="hidden" name="throttleToken" value="{{product.reviews.throttleToken}}">
+    {{/if}}
+
+    <div class="form-submit-wrap">
+      <input type="submit" class="form-submit button button-primary button-wide" value="{{lang 'product.reviews.form.submit'}}">
+    </div>
+  </form>
+</div>

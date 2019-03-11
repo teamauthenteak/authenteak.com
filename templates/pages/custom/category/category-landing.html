@@ -1,0 +1,59 @@
+---
+category:
+  products:
+    limit: {{theme_settings.product-count}}
+  shop_by_price: true
+---
+
+{{#partial "page"}}
+  {{!-- #if category.image.data}}
+    <figure class="category-banner banner-ratio-{{../theme_settings.product-banner-aspect-ratio}}">
+      <div class="category-banner-image" style="background-image: url({{getImage category.image 'zoom'}});"></div>
+      <img class="sr-only" src="{{getImage category.image 'zoom'}}" alt="{{{alt_text}}}" />
+    </figure>
+  {{/if --}}
+
+  <section class="product-listing product-listing--category-landing section">
+    <div class="container">
+
+      {{#if theme_settings.category-breadcrumbs}}
+        <div class="product-listing-desktop-breadcrumbs">
+          {{> components/common/breadcrumbs breadcrumbs}}
+        </div>
+      {{/if}}
+
+      {{{snippet 'categories'}}}
+
+      <header class="listing-header">
+        <h1 class="listing-title">{{category.name}}</h1>
+      </header>
+
+      {{#if theme_settings.category-breadcrumbs}}
+        <div class="product-listing-mobile-breadcrumbs">
+          {{> components/common/breadcrumbs breadcrumbs}}
+        </div>
+      {{/if}}
+
+      {{#if category.subcategories}}
+        <ul class="category-landing-grid">
+          {{#each category.subcategories}}{{#startsWith "IMG:" name}}{{else}}
+            <li class="category-landing-grid__item">
+              <a href="{{url}}" class="category-landing-grid__link">
+                {{#if image}}
+                  <span class="category-landing-grid__image" style="background-image: url('{{getImage image 'category_card_size'}}');"></span>
+                {{else}}
+                  <span class="category-landing-grid__image category-landing-grid__image--placeholder"></span>
+                {{/if}}
+                <span class="category-landing-grid__title">{{name}}</span>
+              </a>
+            </li>
+          {{/startsWith}}{{/each}}
+        </ul>
+      {{/if}}
+      {{#if category.description}}<div class="listing-description">{{{category.description}}}</div>{{/if}}
+    </div>
+
+  </section>
+{{/partial}}
+
+{{> layout/base}}

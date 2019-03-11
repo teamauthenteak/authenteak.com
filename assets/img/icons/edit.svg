@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.1 (12002) - http://www.bohemiancoding.com/sketch -->
+    <title>edit icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Account" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Account---wishlist" sketch:type="MSArtboardGroup" transform="translate(-1215.000000, -413.000000)" fill="#B6BAC2">
+            <g id="wishlist-table" sketch:type="MSLayerGroup" transform="translate(428.000000, 335.000000)">
+                <g id="wishlist-1" transform="translate(0.000000, 58.000000)" sketch:type="MSShapeGroup">
+                    <path d="M801.783059,23.8788235 L798.179294,20.276 C797.811294,19.908 797.215529,19.908 796.848471,20.276 L787,30.1254118 L787,35.0590588 L791.934588,35.0590588 L801.783059,25.2105882 C802.151059,24.8425882 802.151059,24.2477647 801.783059,23.8788235 L801.783059,23.8788235 Z M791.235294,33.1767059 L788.882353,33.1767059 L788.882353,30.8237647 L788.922824,30.7832941 L791.275765,33.1362353 L791.235294,33.1767059 L791.235294,33.1767059 Z M792.606588,31.8054118 L790.253647,29.4524706 L797.352941,22.3531765 L799.705882,24.7061176 L792.606588,31.8054118 L792.606588,31.8054118 Z" id="edit-icon"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

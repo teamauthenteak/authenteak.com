@@ -1,0 +1,28 @@
+{{#partial "page"}}
+
+  <header class="search-header page-header">
+    {{> components/common/breadcrumbs breadcrumbs}}
+    <h1 class="search-title page-title">
+      {{page.title}}
+    </h1>
+  </header>
+
+  <section class="product-listing section">
+    <div class="container container-small">
+      {{#if forms.contact.success}}
+        {{> components/alerts/alert-success (lang 'contact.successful' shopPath=urls.home)}}
+      {{else}}
+        <p>{{{page.content}}}</p>
+      {{/if}}
+
+      {{#unless forms.contact.success}}
+        <div class="form-contact-us">
+          {{> core/forms/form-contact-us}}
+        </div>
+      {{/unless}}
+    </div>
+  </section>
+
+{{/partial}}
+
+{{> layout/base}}

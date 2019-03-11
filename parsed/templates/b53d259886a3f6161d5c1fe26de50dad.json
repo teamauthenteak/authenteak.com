@@ -1,0 +1,1 @@
+{"core/account/_private/layout-heading":"<div class=\"account-header\">\n  <div class=\"h1 account-heading\">{{#block 'account-heading'}}{{/block}}</div>\n\n  <div class=\"account-toolbar\">{{#block 'account-toolbar'}}{{/block}}</div>\n</div>\n"}

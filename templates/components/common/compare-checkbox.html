@@ -1,0 +1,10 @@
+<input
+  type="checkbox"
+  class="input-checkbox sr-only"
+  id="compare-{{id}}"
+  data-compare-checkbox
+  data-compare-id="{{id}}"
+  data-compare-title="{{name}}"
+  data-compare-url="{{url}}"
+  data-compare-price="{{> components/products/customizations/non-sale-price-fixed price=price}}"
+  data-compare-thumbnail="{{getImage image 'thumb' (cdn default_image)}}">

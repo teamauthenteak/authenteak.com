@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="16px" height="12px" viewBox="0 0 16 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.1 (12002) - http://www.bohemiancoding.com/sketch -->
+    <title>email icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Account" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Account---login" sketch:type="MSArtboardGroup" transform="translate(-598.000000, -420.000000)" fill="#B6BAC2">
+            <g id="existing-customers" sketch:type="MSLayerGroup" transform="translate(222.000000, 252.000000)">
+                <g id="email-input" transform="translate(73.000000, 118.000000)" sketch:type="MSShapeGroup">
+                    <path d="M318,50 L304,50 C303.447,50 303,50.447 303,51 L303,61 C303,61.553 303.447,62 304,62 L318,62 C318.553,62 319,61.553 319,61 L319,51 C319,50.447 318.553,50 318,50 L318,50 Z M317,52 L317,52.066 L311,56.733 L305,52.066 L305,52 L317,52 L317,52 Z M305,60 L305,54.6 L310.386,58.789 C310.566,58.93 310.783,59 311,59 C311.217,59 311.434,58.93 311.614,58.789 L317,54.6 L317,60 L305,60 L305,60 Z" id="email-icon"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

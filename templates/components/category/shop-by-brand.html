@@ -1,0 +1,26 @@
+{{#if shop_by_brand.length}}
+  <div class="sidebar-block shop-by-brand">
+    <h4 class="facet-list-title">{{lang 'category.shop_by_brand'}}</h4>
+    <ul>
+      {{#each shop_by_brand}}
+        {{#if @index '<' 5}}
+          <li class="facet-item">
+            <a
+              class="{{#if selected}}is-active{{/if}}"
+              rel="nofollow"
+              href="{{url}}"
+              alt="{{name}}"
+            >
+              {{name}}
+            </a>
+          </li>
+        {{/if}}
+      {{/each}}
+      {{#if shop_by_brand.length '>' 5}}
+        <li class="facet-item">
+          <a href="{{urls.brands}}">{{lang 'footer.view_all'}}</a>
+        </li>
+      {{/if}}
+    </ul>
+  </div>
+{{/if}}

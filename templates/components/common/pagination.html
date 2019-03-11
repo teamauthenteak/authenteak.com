@@ -1,0 +1,26 @@
+{{#if links.length}}
+  <nav class="pagination button-group">
+    <a
+      class="button-group-item pagination-link {{#unless previous}}disabled{{/unless}}"
+      href="{{previous}}"
+    >
+      <svg class="icon icon-arrow-left"><use xlink:href="#icon-arrow-left" /></svg>
+    </a>
+
+    {{#each links}}
+      <a
+        class="button-group-item pagination-link pagination-page-link {{#if ../current "==" number}}active{{/if}}"
+        href="{{url}}"
+      >
+        {{number}}
+      </a>
+    {{/each}}
+
+    <a
+      class="button-group-item pagination-link {{#unless next}}disabled{{/unless}}"
+      href="{{next}}"
+    >
+      <svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right" /></svg>
+    </a>
+  </nav>
+{{/if}}

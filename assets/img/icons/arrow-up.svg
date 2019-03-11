@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="16px" height="11px" viewBox="0 0 16 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.1 (12002) - http://www.bohemiancoding.com/sketch -->
+    <title>arrow_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Home" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g sketch:type="MSArtboardGroup" transform="translate(-1372.000000, -6565.000000)" id="footer" fill="#2E3036">
+            <g sketch:type="MSLayerGroup" transform="translate(0.000000, 6180.000000)">
+                <g id="back-to-top" transform="translate(1357.000000, 368.000000)" sketch:type="MSShapeGroup">
+                    <path d="M27.7429274,26.56352 L22.9991884,21.7648072 L18.2554494,26.56352 C17.5098048,27.3091646 16.3033798,27.3091646 15.5577352,26.56352 C14.8160887,25.8098792 14.8120906,24.5914599 15.5577352,23.8378192 L21.6528301,17.6847519 C22.3944766,16.9391073 23.6048997,16.9391073 24.3505443,17.6847519 L30.4416411,23.8378192 C31.1862861,24.5914599 31.1862861,25.8098792 30.4406415,26.56352 C29.6949969,27.3091646 28.488572,27.3091646 27.7429274,26.56352 Z" id="arrow_icon"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

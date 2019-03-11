@@ -1,0 +1,122 @@
+---
+product_results:
+    limit: {{theme_settings.product-count}}
+blog: true
+---
+
+{{#partial "page"}}
+
+  <section class="product-listing section">
+    <div class="container product-listing-wrapper">
+      <header class="listing-header listing-header--search">
+        {{!-- {{> components/common/breadcrumbs breadcrumbs}} --}}
+        <h1 class="search-title page-title">
+          {{lang 'search.title'}}
+          <span class="search-query">'{{forms.search.query}}'</span>
+        </h1>
+      </header>
+
+      {{{snippet 'search'}}}
+
+      <div id="product-results">
+        {{#if product_results.products}}
+          {{!-- <header class="listing-header">
+            {{> components/products/listing-utils}}
+          </header> --}}
+
+        {{#unless theme_settings.collections-sidebar-hidden}}
+          <aside class="listing-sidebar Left" data-search-sidebar>
+            <div class="listing-sidebar__mobile-toggle">Filter Options</div>
+            <div class="listing-sidebar__mobile-collapse">
+            {{> components/search/sidebar}}
+            {{> components/products/listing-utils}}
+            </div>
+          </aside>
+        {{/unless}}
+
+          <div class="Content">
+            <div class="product-listing-grid" data-search {{#if product_results.show_compare}}data-product-compare{{/if}}>
+              {{#if theme_settings.collections-view-mode '===' 'grid'}}
+                {{> components/search/product-listing}}
+              {{else}}
+                {{> components/search/product-listing-list}}
+              {{/if}}
+            </div>
+          </div>
+        {{else}}
+          <h4 class="text-center">{{lang 'search.no_results'}}</h4>
+        {{/if}}
+      </div>
+
+      {{!-- <ul class="tabs" data-tabs>
+        <li class="tab-title">
+          <a href="#product-results">{{lang 'search.products' num=product_results.products.length}}</a>
+        </li>
+        <li class="tab-title">
+          <a href="#content-results">{{lang 'search.content' num=content_results.length}}</a>
+        </li>
+      </ul>
+      <div class="tabs-content">
+        <div class="tab-content-panel" id="product-results">
+          {{#if product_results.products}}
+            <header class="listing-header">
+              {{> components/products/listing-utils}}
+            </header>
+
+          {{#unless theme_settings.collections-sidebar-hidden}}
+            <aside class="listing-sidebar" data-search-sidebar>
+              {{> components/search/sidebar}}
+              {{> components/products/listing-utils}}
+            </aside>
+          {{/unless}}
+
+            <div class="product-listing-grid" data-search {{#if product_results.show_compare}}data-product-compare{{/if}}>
+              {{#if theme_settings.collections-view-mode '===' 'grid'}}
+                {{> components/search/product-listing}}
+              {{else}}
+                {{> components/search/product-listing-list}}
+              {{/if}}
+            </div>
+          {{else}}
+            <h4 class="text-center">{{lang 'search.no_results'}}</h4>
+          {{/if}}
+        </div>
+        <div class="tab-content-panel" id="content-results">
+          {{#if content_results}}
+            <div class="content-results container container-small">
+              {{#any content_results type='Page'}}
+                <h3 class="section-title">{{lang 'search.pages'}}</h3>
+              {{/any}}
+              {{#each content_results}}
+                {{#if type '===' 'Page'}}
+                  {{> components/search/content-result}}
+                {{/if}}
+              {{/each}}
+            </div>
+
+            <div class="content-results container container-small">
+              {{#any content_results type='Post'}}
+                <h3 class="section-title">{{blog.name}}</h3>
+              {{/any}}
+              {{#each content_results}}
+                {{#if type '===' 'Post'}}
+                  {{> components/search/content-result}}
+                {{/if}}
+              {{/each}}
+            </div>
+
+            <div class="content-results-pagination">
+              {{> components/common/pagination pagination.content_results}}
+            </div>
+          {{else}}
+            <h4 class="text-center">{{lang 'search.no_results'}}</h4>
+          {{/if}}
+        </div>
+        <svg class="icon icon-spinner"><use xlink:href="#icon-spinner" /></svg>
+      </div> --}}
+    </div>
+  </section>
+
+{{/partial}}
+
+{{> layout/base}}

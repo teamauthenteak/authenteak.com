@@ -1,0 +1,36 @@
+<div class="mega-nav-variant-container">
+  <ul class="mega-nav-root-list">
+    {{#each nav_items}}
+      <li class="mega-nav-root-item" data-category-id="{{id}}" {{#if children}}data-mega-nav-root-item{{/if}}>
+        <a href="{{url}}">{{name}}</a>
+      </li>
+    {{/each}}
+  </ul>
+
+  <div class="mega-nav-child-container">
+    {{! For each root item, display a child container if it exists}}
+    {{#each nav_items}}
+      {{#if children}}
+        <div class="mega-nav-child-list-container" data-root-category-id="{{id}}">
+          <h2 class="mega-nav-child-header">{{name}}</h2>
+          <div class="mega-nav-child-list-inner-container">
+            <ul class="mega-nav-child-list" data-root-category-id="{{id}}">
+              <li class="mega-nav-child-item"><a href="{{url}}">All {{name}}</a></li>
+              {{#each children}}
+                {{#if children}}
+                  <li class="mega-nav-child-item" data-mega-nav-child-id="{{id}}" data-mega-nav-find-child>
+                    <a href="{{url}}">{{name}}</a>
+                    <span class="mega-nav-arrow">{{> svg/arrow-down}}</span>
+                  </li>
+                {{else}}
+                  <li class="mega-nav-child-item"><a href="{{url}}">{{name}}</a></li>
+                {{/if}}
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+        {{> components/common/navigation-mega-child-recursive}}
+      {{/if}}
+    {{/each}}
+  </div>
+</div>

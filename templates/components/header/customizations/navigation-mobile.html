@@ -1,0 +1,59 @@
+<div class="navigation-mobile">
+  <nav class="navigation">
+    <button class="button-mobile-nav-back {{#if cart.status_messages}}has-promo{{/if}}" data-toggle-mobile="all">
+      <svg class="icon icon-arrow-left"><use xlink:href="#icon-arrow-left" /></svg>
+    </button>
+    <ul>
+      <div class="nav-mobile-container">
+        {{> components/header/customizations/navigation-mobile-static}}
+        {{!-- <ul class="nav-mobile-panel nav-mobile-panel-parent is-active" data-panel-depth="0" data-mobile-menu="all">
+          {{#if theme_settings.global-show-home-in-nav}}
+            <li>
+              <a class="nav-page nav-mobile-item" href="{{urls.home}}">
+                {{lang 'header.home_nav_item'}}
+              </a>
+            </li>
+          {{/if}}
+          {{#if theme_settings.global-show-categories-in-nav}}
+            {{#each categories}}
+            <li class="nav-mobile-item nav-mobile-item-parent {{#if children}}has-children{{/if}}">
+                {{> components/common/multi-level-nav-item all_item=false}}
+            </li>
+            {{/each}}
+          {{/if}}
+        </ul>--}}
+      </div>
+    </ul>
+  </nav>
+
+  <div class="utils">
+    {{#if customer}}
+      <a class="button-util mobile-account-utils" href="{{urls.account.index}}">
+        {{> svg/account}}
+        {{lang 'header.account'}}
+      </a> /
+      <a class="button-util mobile-account-utils" href="{{urls.auth.logout}}">
+        {{lang 'header.log_out'}}
+      </a>
+    {{else}}
+      <a class="button-util mobile-account-utils" href="{{urls.auth.login}}">
+        {{> svg/account}}
+        {{lang 'header.account'}}
+      </a>
+    {{/if}}
+
+    {{#if settings.show_wishlist}}
+      <a class="button-util button-wishlist" href="{{urls.account.wishlists.all}}">
+        {{> svg/wishlist}}
+        {{lang 'header.wishlist'}}
+      </a>
+    {{/if}}
+
+    <a class="button-util" href="{{urls.cart}}">
+      {{> components/header/cart-icon}}
+      {{lang 'header.shopping_basket'}}
+    </a>
+
+    {{> components/header/currency-selector}}
+  </div>
+</div>

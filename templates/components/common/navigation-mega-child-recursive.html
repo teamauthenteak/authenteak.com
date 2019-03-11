@@ -1,0 +1,26 @@
+{{#each children}}
+  {{#if children}}
+    <div class="mega-nav-child-list-container" data-root-category-id="{{id}}">
+      <span class="mega-nav-child-list-back">
+         {{> svg/arrow-down}} <a href="#" data-mega-nav-find-parent>Back</a>
+      </span>
+      <h2 class="mega-nav-child-header">{{name}}</h2>
+      <div class="mega-nav-child-list-inner-container">
+        <ul class="mega-nav-child-list" >
+          <li class="mega-nav-child-item"><a href="{{url}}">All {{name}}</a></li>
+          {{#each children}}
+            {{#if children}}
+              <li class="mega-nav-child-item" data-mega-nav-child-id="{{id}}" data-mega-nav-find-child>
+                <a href="{{url}}">{{name}}</a>
+                <span class="mega-nav-arrow">{{> svg/arrow-down}}</span>
+              </li>
+            {{else}}
+              <li class="mega-nav-child-item"><a href="{{url}}">{{name}}</a></li>
+            {{/if}}
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+    {{> components/common/navigation-mega-child-recursive}}
+  {{/if}}
+{{/each}}

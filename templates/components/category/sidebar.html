@@ -1,0 +1,87 @@
+{{#if category.subcategories}}
+  <div class="category-nav facet-list">
+    <h4 class="facet-list-title">{{lang 'category.sub_categories'}}</h4>
+    <ul class="category-nav-list">
+      {{#each category.subcategories}}
+        <li class="facet-item">
+          <a href="{{url}}">{{name}}</a>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+{{/if}}
+
+{{#if category.faceted_search_enabled}}
+  <span class="link faceted-search-toggle" data-faceted-search-toggle>
+    {{lang 'faceted_search.toggle'}}
+    <span class="facet-list-toggle">
+      <svg class="icon icon-plus"><use xlink:href="#icon-plus" /></svg>
+      <svg class="icon icon-minus"><use xlink:href="#icon-minus" /></svg>
+    </span>
+  </span>
+  <div class="faceted-search" data-faceted-search>
+    {{#each category.facets}}
+      {{#if visible}}
+        {{#if items}}
+          <div class="facet-list {{display}}" data-facet-filter>
+
+            <h4
+              class="facet-list-title {{#unless start_collapsed}}is-open{{/unless}}"
+              data-facet-toggle
+            >
+              {{title}}
+              <span class="facet-list-toggle"></span>
+            </h4>
+
+            {{{dynamicComponent 'components/faceted-search/facets'}}}
+
+            {{#if remove_url}}
+              <a
+                class="link facet-remove"
+                href="{{remove_url}}"
+                data-faceted-search-facet
+                data-facet-remove
+              >
+                {{lang 'faceted_search.clear'}}
+              </a>
+            {{/if}}
+          </div>
+        {{/if}}
+        {{#compare facet 'price'}}
+          <div class="facet-list {{display}}" data-facet-filter>
+
+            <h4
+              class="facet-list-title
+              {{#unless start_collapsed}}is-open{{/unless}}"
+              data-facet-toggle
+            >
+              {{title}}
+              <span class="facet-list-toggle"></span>
+            </h4>
+
+            {{{dynamicComponent 'components/faceted-search/facets'}}}
+
+            {{#if remove_url}}
+              <a
+                class="link facet-remove"
+                href="{{remove_url}}"
+                data-faceted-search-facet
+                data-facet-remove
+              >
+                {{lang 'faceted_search.clear'}}
+              </a>
+            {{/if}}
+          </div>
+        {{/compare}}
+      {{/if}}
+    {{/each}}
+  </div>
+{{else}}
+  {{> components/category/shop-by-price
+    shop_by_price=category.shop_by_price
+    category_url=category.url
+  }}
+  {{#if theme_settings.category-shop-by-brands}}
+    {{> components/category/shop-by-brand category_url=category.url}}
+  {{/if}}
+{{/if}}

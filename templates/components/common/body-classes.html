@@ -1,0 +1,10 @@
+{{page_type}}
+{{#if theme_settings.product_grid_image_cropping '==' 'image-cover'}}
+  thumbnail-cover
+{{/if}}
+{{#if theme_settings.collections-sidebar-hidden}}no-sidebar{{/if}}
+{{#unless settings.store_logo.image}}
+  text-logo
+  {{#if settings.store_logo.title.length '>' 12}}long-logo-text{{/if}}
+{{/unless}}
+{{#unless in_production}} dev-environment{{/unless}}

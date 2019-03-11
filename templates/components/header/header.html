@@ -1,0 +1,244 @@
+<header
+  class="
+    site-header
+    logo-align-{{theme_settings.global-header-logo-alignment}}
+  "
+  role="banner"
+>
+  <div data-alerts>
+    {{#each product.reviews.messages}}
+      {{#if error}}
+        {{> core/alerts/alert-error
+          message=error
+          dismissable=true
+        }}
+      {{/if}}
+      {{#if success}}
+        {{> core/alerts/alert-success
+          message=success
+          dismissable=true
+        }}
+      {{/if}}
+    {{/each}}
+
+    {{#if cart.status_messages}}
+      {{#each cart.status_messages}}
+        {{#if type '==' 0}}
+          {{> core/alerts/alert-error
+            message=message
+            dismissable=true
+          }}
+        {{/if}}
+
+        {{#if type '==' 1}}
+          {{> core/alerts/alert-success
+            message=message
+            dismissable=true
+          }}
+        {{/if}}
+
+        {{#if type '==' 3}}
+          {{> core/alerts/alert-error
+            message=message
+            dismissable=true
+          }}
+        {{/if}}
+      {{/each}}
+    {{/if}}
+  </div>
+
+  <section class="top-bar">
+    <div class="container">
+      <div
+        class="
+          top-bar-left
+          {{#if currency_selector.currencies.length '===' 1}}
+            no-currency-selector
+          {{/if}}
+        "
+      >
+      <!-- Testing Logo -->
+      {{> components/header/site-branding}}
+      <!-- End Logo Testing -->
+      {{> components/header/currency-selector}}
+      </div>
+
+      <div class="top-bar-center">
+        
+        <!-- Adding the Search Button into the Header -->
+        <!-- <div class="search-button-wrap">
+          <button class="button-search-toggle">
+            {{> svg/search}}
+          </button>
+        </div> -->
+        {{> components/common/search-form}}
+        <!-- End Search Button -->
+        {{> components/header/site-branding-centered}}
+      </div>
+
+      <div class="top-bar-right customer-utils">
+        
+        <!--Testing Right Aligned Account-->
+        <a href="tel:1-866-350-8325">
+          <span class="head-phone-number">1-866-350-8325</span>
+        </a>
+        {{#if settings.account_creation_enabled}}
+        <div class="customer-links">
+          {{#if customer}}
+            {{#contains page_type 'account'}}
+              <a class="top-bar-button" href="{{urls.auth.logout}}">
+                {{> svg/account}}
+                <span class="button-text">
+                  {{lang 'header.log_out'}}
+                </span>
+              </a>
+            {{else}}
+              <a class="top-bar-button" href="{{urls.account.index}}">
+                <!--{{> svg/account}}-->
+                <span class="button-text">
+                  {{lang 'header.account'}}
+                </span>
+              </a>
+            {{/contains}}
+          {{else}}
+            <a class="top-bar-button" href="{{urls.auth.login}}">
+              <!--{{> svg/account}}-->
+              <span class="button-text">
+                {{lang 'header.account'}}
+              </span>
+            </a>
+          {{/if}}
+        </div>
+      {{/if}}
+      <!--End Testing - Right Aligned Account-->
+
+        <div class="compare-wrap" data-compare-widget>
+          <button class="top-bar-button button-compare-toggle">
+            {{lang 'header.compare'}}
+            <span class="compare-items-count"></span>
+          </button>
+          <div class="compare-tab" id="compare-tab">
+            <div class="compare-tab-upper">
+              <div class="item-limit">
+                {{lang 'compare.compare_up_to_x_items' num=4}}
+              </div>
+              <a href="#" class="clear-compare" data-compare-remove-all>
+                {{lang 'compare.clear_compare'}}
+              </a>
+            </div>
+            <ul
+              class="compare-items-list"
+              id="compare-items-wrapper"
+              data-compare-items
+            ></ul>
+            <a
+              class="button button-primary compare-submit"
+              href="{{urls.compare}}"
+              data-compare-link="{{urls.compare}}"
+            >
+              {{lang 'compare.compare_submit'}}
+            </a>
+          </div>
+        </div>
+
+        {{#if settings.show_wishlist}}
+          <a
+            class="top-bar-button button-wishlist"
+            href="{{urls.account.wishlists.all}}"
+          >
+            {{> svg/wishlist}}
+          </a>
+        {{/if}}
+
+        <button class="top-bar-button button-cart-toggle">
+            <span
+              class="mini-cart-subtotal button-text"
+              data-cart-quantity="{{cart.quantity}}"
+            >
+                {{cart.quantity}}
+            </span>
+            {{> components/header/cart-icon}}
+        </button>
+        <span class="global-header-text-promo"><script type="text/javascript">
+        {
+          var extra_config = document.querySelectorAll('[data-theme-config="global"]');
+          if (extra_config.length == 1) {
+            extra_config = JSON.parse(extra_config[0].innerHTML);
+            if (typeof extra_config.marketing_content !== "undefined"
+              && typeof extra_config.marketing_content.global !== "undefined"
+              && typeof extra_config.marketing_content.global.header_promo !== "undefined"
+            ) {
+              document.write(extra_config.marketing_content.global.header_promo);
+            }
+          }
+        }
+        </script></span>
+      </div>
+
+      <span
+        class="
+          button-mobile-nav-cart
+          {{#if cart.status_messages}}
+            has-promo
+          {{/if}}
+        "
+      >
+        <a href="{{urls.cart}}">
+          <span
+          class="mini-cart-subtotal button-text mini-cart-quantity-mobile"
+          data-cart-quantity="{{cart.quantity}}"
+        >
+            {{cart.quantity}}
+        </span>
+          {{> components/header/cart-icon}}
+          
+        </a>
+
+      </span>
+
+      <span
+        class="
+          button-mobile-nav-search
+        "
+      >
+        <a>
+          {{> components/header/search-icon}}
+        </a>
+      </span>
+
+
+      <button
+        class="
+          button-mobile-nav-toggle
+          {{#if cart.status_messages}}
+            has-promo
+          {{/if}}
+        "
+      >
+        <i class="burger"></i>
+      </button>
+      <div class="mobile-search-wrapper">
+        {{> components/common/search-form}}
+      </div>
+    </div>
+  </section>
+
+  <section class="main-nav-bar">
+    <div class="container nav-container-wide">
+      
+      {{#if theme_settings.global-header-logo-alignment '===' 'left'}}
+        {{> components/header/site-navigation-center-align}}
+      {{/if}}
+      
+      {{#if theme_settings.global-header-logo-alignment '===' 'center'}}
+        {{> components/header/site-navigation-center-align}}
+      {{/if}}
+      
+      {{#if theme_settings.global-header-logo-alignment '===' 'right'}}
+        {{> components/header/site-navigation-right-align}}
+      {{/if}}
+      
+    </div>
+  </section>
+
+</header>

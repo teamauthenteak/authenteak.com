@@ -1,0 +1,53 @@
+{{!--
+  Helper to display any image with alt text.
+
+  @param img          The image object
+  @param size         The preset size to use.
+  @param url          Optional: Set the url this image should link to.
+  @param default      Default image to display
+  @param image_ratio  The image class to apply to the wrapping element.
+  @param image_size  The image class to apply to the wrapping element.
+  @param not_lazy     Optional: do not lazy load (mainly used for ajax-loaded images)
+--}}
+
+{{#if not_lazy}}
+  {{#if url}}
+    <a
+      class="replaced-image {{image_ratio}}"
+      href="{{url}}"
+      style="background-image: url({{getImage img size (cdn default)}});">
+      <img src="{{getImage img size (cdn default)}}" alt="{{img.alt}}">
+    </a>
+  {{else}}
+    <div
+      class="replaced-image {{image_ratio}}"
+      style="background-image: url({{getImage img size (cdn default)}});">
+      <img src="{{getImage img size (cdn default)}}" alt="{{img.alt}}">
+    </div>
+  {{/if}}
+{{else}}
+  {{#if url}}
+    <a
+      class="lazy-image replaced-image {{image_ratio}}"
+      href="{{url}}"
+      data-src="{{getImage img size (cdn default)}}">
+      <img class="lazy-image" data-src="{{getImage img size (cdn default)}}" alt="{{img.alt}}">
+      <div class="spinner">
+        <svg class="icon icon-spinner">
+          <use xlink:href="#icon-spinner" />
+        </svg>
+      </div>
+    </a>
+  {{else}}
+    <div
+      class="lazy-image replaced-image {{image_ratio}}"
+      data-src="{{getImage img size (cdn default)}}">
+      <img class="lazy-image" data-src="{{getImage img size (cdn default)}}" alt="{{img.alt}}">
+      <div class="spinner">
+        <svg class="icon icon-spinner">
+          <use xlink:href="#icon-spinner" />
+        </svg>
+      </div>
+    </div>
+  {{/if}}
+{{/if}}

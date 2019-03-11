@@ -1,0 +1,24 @@
+<section class="carousel {{theme_settings.home-carousel-aspect-ratio}}" data-swap-frequency="{{carousel.swap_frequency}}">
+  {{#each carousel.slides}}
+    <figure class="carousel-item {{#if @first}}active{{/if}}">
+      {{#unless button_text}}
+        {{#if url}}<a href="{{url}}">{{/if}}
+      {{/unless}}
+      <div class="carousel-item-image" style="background-image: url({{image}});">
+        <img class="home-carousel-image" data-lazy="{{image}}" alt="{{{alt_text}}}" />
+      </div>
+      {{#any text heading button_text}}
+        <div class="container">
+          <figcaption class="carousel-item-info">
+            {{#if heading}}<h2 class="carousel-item-title">{{{heading}}}</h2>{{/if}}
+            {{#if text}}<p class="carousel-item-caption">{{{text}}}</p>{{/if}}
+            {{#if button_text}}<a class="carousel-item-link link" href="{{url}}">{{{button_text}}}</a>{{/if}}
+          </figcaption>
+        </div>
+      {{/any}}
+      {{#unless button_text}}
+        {{#if url}}</a>{{/if}}
+      {{/unless}}
+    </figure>
+  {{/each}}
+</section>

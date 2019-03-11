@@ -1,0 +1,23 @@
+<article class="post">
+  {{#if thumbnail.data.length}}
+    {{> components/common/image
+      img=thumbnail
+      url=url
+      size="blog-thumb"
+      default-image=default-image
+      image_ratio="ratio-4-3"
+      not_lazy=not_lazy
+    }}
+  {{/if}}
+  <h2 class="post-title"><a href="{{url}}">{{title}}</a></h2>
+  {{> components/blog/blog-post-meta author=author date_published=date_published}}
+  <div class="post-summary">{{{summary}}}{{#if show_read_more}}&hellip;{{/if}}</div>
+
+  <div class="post-summary-actions">
+    {{#if show_read_more}}
+      <a class="post-read-more" href="{{url}}">{{ lang 'blog.read_more_text' }}</a>
+    {{/if}}
+
+    {{> components/common/share-buttons share_buttons=share_buttons url=url title=title image=(getImage thumbnail 'thumb')}}
+  </div>
+</article>

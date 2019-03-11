@@ -1,0 +1,28 @@
+/*! Theme: Peak v1.18.6 */
+$color-background: stencilColor('color-background');
+$color-body: stencilColor('color-body');
+
+.header {
+  background-color: $color-background;
+  color: $color-body;
+
+  @if ($color-background == #FFFFFF) {
+    border-bottom: 1px solid #EEE;
+  } @else {
+    border-bottom: 0;
+  }
+}
+
+.header-logo {
+  padding: 10px 0;
+
+  a,
+  a:hover,
+  h1 {
+    color: inherit;
+  }
+
+  img {
+    max-height: 90px;
+  }
+}
