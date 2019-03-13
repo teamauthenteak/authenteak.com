@@ -24,8 +24,8 @@
           
         </div>
       {{/if}}
+      
       {{#if price.with_tax}}
-
         <div class="product-price-line{{#if price.without_tax}} price-second-line{{/if}}" data-product-price-wrapper="with-tax">
           {{#if page_type '!==' 'product'}}
             {{#if as_low_as}}
@@ -53,7 +53,11 @@
         {{/if}}
       {{/if}}
     </div>
+
+
   {{else}}
+
+
     <div>
       {{#if price.without_tax}}
 

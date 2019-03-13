@@ -60,13 +60,8 @@
       {{/if}}
 
       <div class="yotpo-pdp-wrapper">
-          <div class="yotpo bottomLine" data-product-id="{{ product.id }}">
-            </div>
-            
-            <div class='yotpo QABottomLine'
-                data-appkey='aS8rMIONwGgNbx1ATQmUtKY173Xk5HHc75qGrnuq'
-                data-product-id='{{ product.id }}'>
-            </div>
+          <div class="yotpo bottomLine" data-product-id="{{ product.id }}"></div>  
+          <div class='yotpo QABottomLine' data-appkey='aS8rMIONwGgNbx1ATQmUtKY173Xk5HHc75qGrnuq' data-product-id='{{ product.id }}'></div>
       </div>
       
 
@@ -116,6 +111,7 @@
         {{/if}}
       {{/each}}
 
+
       {{#if theme_settings.product-single-display-order '===' 'product-description-first'}}
         <ul class="highlight-group">
           {{#each product.custom_fields}}
@@ -129,19 +125,16 @@
           {{/each}}
         </ul>
         <hr>
+        {{> components/products/add-to-cart-form cart_icon=cart_icon}}
 
-        {{> components/products/add-to-cart-form
-          cart_icon=cart_icon
-        }}
       {{else}}
-        {{> components/products/add-to-cart-form
-          cart_icon=cart_icon
-        }}
+        {{> components/products/add-to-cart-form cart_icon=cart_icon}}
         <hr>
-
         {{> components/products/product-description}}
 
       {{/if}}
+
+
 
       <div class="product-message-area" data-product-alerts></div>
       {{#if quick_view}}
@@ -185,8 +178,7 @@
           <li><a data-tabval="warrantyTab" class="warrantyTab">Warranty</a></li>
         </ul>
       </div>
-      <div class="tab-content">
-      </div>
+      <div class="tab-content"></div>
   </div>
 
 
@@ -225,164 +217,168 @@ data-description="{{ product.description }}">
 </div>
 
 <script type="text/javascript">
-var dataDumpEl = document.querySelector('.tmp-prod-details');
-var prodSpecs = document.querySelector('#specsTab');
-var prodCare = document.querySelector('#careTab');
-var prodShip = document.querySelector('#shipTab');
-var prodRes = document.querySelector('#pdfTab');
-var prodVideo = document.querySelector('#videoTab');
-var prodWar = document.querySelector('#warrantyTab');
-var tabButtons = document.querySelectorAll('.tab-header ul li a');
-var tabValue; //Current tab content
+(function(){
 
-//Mobile Content Elements
-var mobileDesc = document.querySelector('.descContent');
-var mobileProdSpecs = document.querySelector('.specsContent');
-var mobileProdCare = document.querySelector('.careContent');
-var mobileProdShip = document.querySelector('.shipContent');
-var mobileProdRes = document.querySelector('.pdfContent');
-var mobileProdVideo = document.querySelector('.videoContent');
-var mobileProdWar = document.querySelector('.warrantyContent');
+  var dataDumpEl = document.querySelector('.tmp-prod-details');
+  var prodSpecs = document.querySelector('#specsTab');
+  var prodCare = document.querySelector('#careTab');
+  var prodShip = document.querySelector('#shipTab');
+  var prodRes = document.querySelector('#pdfTab');
+  var prodVideo = document.querySelector('#videoTab');
+  var prodWar = document.querySelector('#warrantyTab');
+  var tabButtons = document.querySelectorAll('.tab-header ul li a');
+  var tabValue; //Current tab content
 
-//Initialize tabbed content
-function initTabContent() {
-	var tabContentEl = document.querySelector('.tab-content');
-	var prodDescEl = document.createElement('div');
-  var clnDesc;
-  prodDescEl.setAttribute('id', "descTab");
-	prodDescEl.classList.add('active');
-	
-  
-  prodDescEl.appendChild(dataDumpEl);
-  clnDesc = prodDescEl.cloneNode(true);
+  //Mobile Content Elements
+  var mobileDesc = document.querySelector('.descContent');
+  var mobileProdSpecs = document.querySelector('.specsContent');
+  var mobileProdCare = document.querySelector('.careContent');
+  var mobileProdShip = document.querySelector('.shipContent');
+  var mobileProdRes = document.querySelector('.pdfContent');
+  var mobileProdVideo = document.querySelector('.videoContent');
+  var mobileProdWar = document.querySelector('.warrantyContent');
 
-  var mobileProdSpecsDump = clnDesc.querySelector('#specsTab');
-  var mobileProdCareDump = clnDesc.querySelector('#careTab');
-  var mobileProdShipDump = clnDesc.querySelector('#shipTab');
-  var mobileProdResDump = clnDesc.querySelector('#pdfTab');
-  var mobileProdVideoDump = clnDesc.querySelector('#videoTab');
-  var mobileProdWarDump = clnDesc.querySelector('#warrantyTab');
+  //Initialize tabbed content
+  function initTabContent() {
+    var tabContentEl = document.querySelector('.tab-content');
+    var prodDescEl = document.createElement('div');
+    var clnDesc;
+    prodDescEl.setAttribute('id', "descTab");
+    prodDescEl.classList.add('active');
+    
+    
+    prodDescEl.appendChild(dataDumpEl);
+    clnDesc = prodDescEl.cloneNode(true);
 
-  // clnDesc.querySelector('#specsTab').parentNode.removeChild(clnDesc.querySelector('#specsTab'));
-  // clnDesc.querySelector('#careTab').parentNode.removeChild(clnDesc.querySelector('#careTab'));
-  // clnDesc.querySelector('#shipTab').parentNode.removeChild(clnDesc.querySelector('#shipTab'));
-  // clnDesc.querySelector('#pdfTab').parentNode.removeChild(clnDesc.querySelector('#pdfTab'));
-  // clnDesc.querySelector('#videoTab').parentNode.removeChild(clnDesc.querySelector('#videoTab'));
-  // clnDesc.querySelector('#warrantyTab').parentNode.removeChild(clnDesc.querySelector('#warrantyTab'));
+    var mobileProdSpecsDump = clnDesc.querySelector('#specsTab');
+    var mobileProdCareDump = clnDesc.querySelector('#careTab');
+    var mobileProdShipDump = clnDesc.querySelector('#shipTab');
+    var mobileProdResDump = clnDesc.querySelector('#pdfTab');
+    var mobileProdVideoDump = clnDesc.querySelector('#videoTab');
+    var mobileProdWarDump = clnDesc.querySelector('#warrantyTab');
 
-  tabContentEl.appendChild(prodDescEl);
-  mobileDesc.appendChild(clnDesc);
-  
-  if (prodSpecs !== null) {
-    var cln = prodSpecs.cloneNode(true);
-    clnDesc.querySelector('#specsTab').parentNode.removeChild(clnDesc.querySelector('#specsTab'));
-    tabContentEl.appendChild(prodSpecs);
-    mobileProdSpecs.appendChild(cln);
-  } else {
-    document.querySelector('.specsBtn').parentElement.classList.add('innactive-tab');
-    document.querySelector('.mobile-specsTab').parentElement.classList.add('innactive-tab');
+    // clnDesc.querySelector('#specsTab').parentNode.removeChild(clnDesc.querySelector('#specsTab'));
+    // clnDesc.querySelector('#careTab').parentNode.removeChild(clnDesc.querySelector('#careTab'));
+    // clnDesc.querySelector('#shipTab').parentNode.removeChild(clnDesc.querySelector('#shipTab'));
+    // clnDesc.querySelector('#pdfTab').parentNode.removeChild(clnDesc.querySelector('#pdfTab'));
+    // clnDesc.querySelector('#videoTab').parentNode.removeChild(clnDesc.querySelector('#videoTab'));
+    // clnDesc.querySelector('#warrantyTab').parentNode.removeChild(clnDesc.querySelector('#warrantyTab'));
+
+    tabContentEl.appendChild(prodDescEl);
+    mobileDesc.appendChild(clnDesc);
+    
+    if (prodSpecs !== null) {
+      var cln = prodSpecs.cloneNode(true);
+      clnDesc.querySelector('#specsTab').parentNode.removeChild(clnDesc.querySelector('#specsTab'));
+      tabContentEl.appendChild(prodSpecs);
+      mobileProdSpecs.appendChild(cln);
+    } else {
+      document.querySelector('.specsBtn').parentElement.classList.add('innactive-tab');
+      document.querySelector('.mobile-specsTab').parentElement.classList.add('innactive-tab');
+    }
+
+    if (prodCare !== null) {
+      var cln = prodCare.cloneNode(true);
+      clnDesc.querySelector('#careTab').parentNode.removeChild(clnDesc.querySelector('#careTab'));
+      tabContentEl.appendChild(prodCare);
+      mobileProdCare.appendChild(cln);
+    } else {
+      document.querySelector('.careBtn').parentElement.classList.add('innactive-tab');
+      document.querySelector('.mobile-careTab').classList.add('innactive-tab');
+    }
+
+    if (prodShip !== null) {
+      var cln = prodShip.cloneNode(true);
+      clnDesc.querySelector('#shipTab').parentNode.removeChild(clnDesc.querySelector('#shipTab'));
+      tabContentEl.appendChild(prodShip);
+      mobileProdShip.appendChild(cln);
+    } else {
+      document.querySelector('.shipBtn').parentElement.classList.add('innactive-tab');
+      document.querySelector('.mobile-shipTab').classList.add('innactive-tab');
+    }
+
+    if (prodRes !== null) {
+      var cln = prodRes.cloneNode(true);
+      clnDesc.querySelector('#pdfTab').parentNode.removeChild(clnDesc.querySelector('#pdfTab'));
+      tabContentEl.appendChild(prodRes);
+      mobileProdRes.appendChild(cln);
+    } else {
+      document.querySelector('.pdfBtn').parentElement.classList.add('innactive-tab');
+      document.querySelector('.mobile-pdfTab').classList.add('innactive-tab');
+    }
+
+    if (prodVideo !== null) {
+      var cln = prodVideo.cloneNode(true);
+      clnDesc.querySelector('#videoTab').parentNode.removeChild(clnDesc.querySelector('#videoTab'));
+      tabContentEl.appendChild(prodVideo);
+      mobileProdVideo.appendChild(cln);
+    } else {
+      document.querySelector('.videoBtn').parentElement.classList.add('innactive-tab');
+      document.querySelector('.mobile-videoTab').classList.add('innactive-tab');
+    }
+
+    if (prodWar !== null) {
+      var cln = prodWar.cloneNode(true);
+      clnDesc.querySelector('#warrantyTab').parentNode.removeChild(clnDesc.querySelector('#warrantyTab'));
+      tabContentEl.appendChild(prodWar);
+      mobileProdWar.appendChild(cln);
+    } else {
+      document.querySelector('.warrantyBtn').parentElement.classList.add('innactive-tab');
+      document.querySelector('.mobile-warrantyTab').classList.add('innactive-tab');
+    } 
   }
 
-  if (prodCare !== null) {
-    var cln = prodCare.cloneNode(true);
-    clnDesc.querySelector('#careTab').parentNode.removeChild(clnDesc.querySelector('#careTab'));
-    tabContentEl.appendChild(prodCare);
-    mobileProdCare.appendChild(cln);
-  } else {
-    document.querySelector('.careBtn').parentElement.classList.add('innactive-tab');
-    document.querySelector('.mobile-careTab').classList.add('innactive-tab');
+  //Instantiate the Tab Content
+  initTabContent();
+
+  //Clear active tab headers
+  function clearTabHeaders() {
+    for (var i = 0; i < tabButtons.length; i++) {
+      tabButtons[i].parentElement.classList.remove('active');
+    }
   }
 
-  if (prodShip !== null) {
-    var cln = prodShip.cloneNode(true);
-    clnDesc.querySelector('#shipTab').parentNode.removeChild(clnDesc.querySelector('#shipTab'));
-    tabContentEl.appendChild(prodShip);
-    mobileProdShip.appendChild(cln);
-  } else {
-    document.querySelector('.shipBtn').parentElement.classList.add('innactive-tab');
-    document.querySelector('.mobile-shipTab').classList.add('innactive-tab');
+  //Clear active tab content
+  function clearTabContent() {
+    var tabContentElements = document.querySelectorAll('.tab-content div');
+    
+    for (var i = 0; i < tabContentElements.length; i++) {
+      tabContentElements[i].classList.remove('active');
+    }
   }
 
-  if (prodRes !== null) {
-    var cln = prodRes.cloneNode(true);
-    clnDesc.querySelector('#pdfTab').parentNode.removeChild(clnDesc.querySelector('#pdfTab'));
-    tabContentEl.appendChild(prodRes);
-    mobileProdRes.appendChild(cln);
-  } else {
-    document.querySelector('.pdfBtn').parentElement.classList.add('innactive-tab');
-    document.querySelector('.mobile-pdfTab').classList.add('innactive-tab');
+  //Update the tab contents based on tabValue
+  function updateTabContent() {
+    clearTabContent();
+    document.querySelector('#' + tabValue).classList.add('active');
   }
 
-  if (prodVideo !== null) {
-    var cln = prodVideo.cloneNode(true);
-    clnDesc.querySelector('#videoTab').parentNode.removeChild(clnDesc.querySelector('#videoTab'));
-    tabContentEl.appendChild(prodVideo);
-    mobileProdVideo.appendChild(cln);
-  } else {
-    document.querySelector('.videoBtn').parentElement.classList.add('innactive-tab');
-    document.querySelector('.mobile-videoTab').classList.add('innactive-tab');
+  //Add Tab Button Listeners
+  for (var i = 0; i < tabButtons.length; i++){
+    if (!tabButtons[i].parentElement.classList.contains('innactive-tab')) {
+      tabButtons[i].addEventListener('click', function(event) {
+        if (!this.parentElement.classList.contains('active')) {
+          event.preventDefault();
+          clearTabHeaders();
+          this.parentElement.classList.toggle('active');
+          tabValue = this.dataset.tabval;
+          updateTabContent();
+        }
+      });
+    }
   }
 
-  if (prodWar !== null) {
-    var cln = prodWar.cloneNode(true);
-    clnDesc.querySelector('#warrantyTab').parentNode.removeChild(clnDesc.querySelector('#warrantyTab'));
-    tabContentEl.appendChild(prodWar);
-    mobileProdWar.appendChild(cln);
-  } else {
-    document.querySelector('.warrantyBtn').parentElement.classList.add('innactive-tab');
-    document.querySelector('.mobile-warrantyTab').classList.add('innactive-tab');
-  } 
-}
-
-//Instantiate the Tab Content
-initTabContent();
-
-//Clear active tab headers
-function clearTabHeaders() {
-	for (var i = 0; i < tabButtons.length; i++) {
-		tabButtons[i].parentElement.classList.remove('active');
-	}
-}
-
-//Clear active tab content
-function clearTabContent() {
-	var tabContentElements = document.querySelectorAll('.tab-content div');
-	
-	for (var i = 0; i < tabContentElements.length; i++) {
-		tabContentElements[i].classList.remove('active');
-	}
-}
-
-//Update the tab contents based on tabValue
-function updateTabContent() {
-	clearTabContent();
-	document.querySelector('#' + tabValue).classList.add('active');
-}
-
-//Add Tab Button Listeners
-for (var i = 0; i < tabButtons.length; i++){
-	if (!tabButtons[i].parentElement.classList.contains('innactive-tab')) {
-    tabButtons[i].addEventListener('click', function(event) {
-      if (!this.parentElement.classList.contains('active')) {
-        event.preventDefault();
-        clearTabHeaders();
-        this.parentElement.classList.toggle('active');
-        tabValue = this.dataset.tabval;
-        updateTabContent();
-      }
+  //Add Mobile Tab Button Listeners
+  var mobileTabButtons = document.querySelectorAll('.mobile-tab-heading');
+  for (var j = 0; j < mobileTabButtons.length; j++) {
+    mobileTabButtons[j].addEventListener('click', function(event) {
+      event.preventDefault();
+      var mobileContent = document.querySelector('.mobile-tab-wrapper' + ' #' + this.getAttribute("data-tabval"));
+      mobileContent.classList.toggle('active');
     });
   }
-}
 
-//Add Mobile Tab Button Listeners
-var mobileTabButtons = document.querySelectorAll('.mobile-tab-heading');
-for (var j = 0; j < mobileTabButtons.length; j++) {
-  mobileTabButtons[j].addEventListener('click', function(event) {
-    event.preventDefault();
-    var mobileContent = document.querySelector('.mobile-tab-wrapper' + ' #' + this.getAttribute("data-tabval"));
-    mobileContent.classList.toggle('active');
-  });
-}
+}());
 
 </script>
 

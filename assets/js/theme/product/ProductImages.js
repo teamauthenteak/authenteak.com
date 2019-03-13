@@ -14,6 +14,7 @@ export default class ProductImages {
       pagination: '.product-images-pagination',
       paginationItem: '.pagination-item',
       loader: '.product-images-loader',
+      slidesCntr: ".product-slides-container"
     };
 
     this.$pagination = this.$el
@@ -41,10 +42,11 @@ export default class ProductImages {
       // Init carousel
       this.$el.slick({
         infinite: false,
-        arrows: false,
-        dots: false,
+        arrows: true,
+        dots: true,
         adaptiveHeight: true,
         asNavFor: this.classes.pagination,
+        appendDots: this.classes.slidesWrap
       });
 
       this.imageCount = this.$pagination

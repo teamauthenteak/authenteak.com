@@ -1,0 +1,12 @@
+{
+  "normalStoreUrl": "https://authenteak.com",
+  "port": "3300",
+  "clientId": "rz66zoq1909z88klo4taglvo5v15mq",
+  "accessToken": "dk2l4r767so2skfuexncnyh1ajf6xy2",
+  "customLayouts": {
+    "brand": {},
+    "category": {},
+    "page": {},
+    "product": {}
+  }
+}

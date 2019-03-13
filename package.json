@@ -1,7 +1,7 @@
 {
   "name": "peak",
   "description": "Peak theme for the BigCommerce platform.",
-  "version": "1.18.6",
+  "version": "1.19.0",
   "private": true,
   "dependencies": {
     "@bigcommerce/stencil-utils": "^1.0.9",
@@ -19,10 +19,10 @@
     "fitvids": "^2.0.0",
     "history.js": "github:browserstate/history.js",
     "imagesloaded": "^4.1.1",
-    "jquery": "*",
+    "jquery": "^3.3.1",
     "jquery-revealer": "github:pixelunion/jquery.revealer",
     "jquery-trend": "github:pixelunion/jquery.trend",
-    "lodash": "^3.5.0",
+    "lodash": "^4.17.11",
     "normalize.scss": "^0.1.0",
     "slick-carousel": "^1.6.0",
     "susy": "^2.2.12",
@@ -42,9 +42,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/atmosol/bc-authenteak.git"
+    "url": "https://github.com/teamauthenteak/authenteak.com.git"
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/atmosol/bc-authenteak#readme"
+  "homepage": "https://github.com/teamauthenteak/authenteak.com"
 }

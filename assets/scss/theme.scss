@@ -3732,6 +3732,7 @@ $_susy-media-context: ();
 
 
 
+
 /* scss-combine:../../node_modules/slick-carousel/slick/slick */
 /* Slider */
 
@@ -3833,6 +3834,9 @@ $_susy-media-context: ();
 .slick-arrow.slick-hidden {
     display: none;
 }
+
+@import "../../node_modules/slick-carousel/slick/slick-theme";
+
 
 
 // Modules
