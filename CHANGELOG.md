@@ -1,5 +1,32 @@
 # Change Log
 
+## [1.19.8] - 2019-05-03
+#### Fixed
+- Fixed an issue with ATC Modal where the incorrect keyboard is triggered due to text type as a input type instead of number
+- Fixed $NaN from appearing in ATC Modal
+#### Changed
+- Added new redesign cart page
+
+
+## [1.19.7] - 2019-04-18
+#### Fixed
+- Fixed an issue with the scroll not working on the swatch order modal when swatches are selected.
+
+
+## [1.19.6] - 2019-04-17
+#### Fixed
+- Font fixes and adjustments for the PIP pages
+- Replacement of messaging
+- Button size fixes
+
+
+## [1.19.5] - 2019-04-11
+#### Fixed
+- Modified font styles for PDP text
+- added logic to hid/show pricing based on apperance of configuration options
+- Fixed "chat with us" and ^ positioning conflicts
+
+
 ## [1.18.6] - 2009-02-25
 #### Changed
 - The login overlay was just not working right all the time so we removed it and

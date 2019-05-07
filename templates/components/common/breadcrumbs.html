@@ -3,7 +3,10 @@
     {{#each this}}
       {{#if url}}
         <li class="breadcrumb {{#if @last}}is-active{{/if}}">
-          <a href="{{url}}" class="breadcrumb-label breadcrumb-link"><span itemprop="name">{{chop name}}</span></a>
+          <a href="{{url}}" class="breadcrumb-label breadcrumb-link">
+            <span class="breadcrumb__mobileLabel">&lsaquo;</span>
+            <span itemprop="name">{{chop name}}</span>
+          </a>
         </li>
         {{else}}
         {{/if}}

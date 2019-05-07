@@ -1,6 +1,6 @@
 {
-  "name": "Peak (Mar 13) - Asana fixes Mar 6 - 13th",
-  "version": "1.19.0",
+  "name": "Peak (May 3, 2019) - New Cart Page",
+  "version": "1.19.8",
   "meta": {
     "price": 17000,
     "documentation_url": "http://support.pixelunion.net/category/147-peak",
@@ -29,9 +29,9 @@
       "google_amp",
       "pixel_pop"
     ],
-    "author_name": "Pixel Union",
-    "author_email": "support@pixelunion.net",
-    "author_support_url": "http://support.pixelunion.net/"
+    "author_name": "Authenteak.com",
+    "author_email": "marshall@sevengage.com",
+    "author_support_url": "http://sevengage.com"
   },
   "css_compiler": "scss",
   "autoprefixer_cascade": true,

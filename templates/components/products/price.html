@@ -4,7 +4,11 @@
     <div>
 
       {{#if price.without_tax}}
-        <div class="product-price-line" data-product-price-wrapper="without-tax">
+        <div class="product-price-line" data-product-price-wrapper="without-tax" one>
+          {{!-- This price is based on the qty count --}}
+          <span class="price-value">{{> components/products/customizations/non-sale-price-fixed price=price}}</span>
+       
+            
           {{#if page_type '!==' 'product'}}
             {{#if as_low_as}}
               <span class="as-low-as-pricing">{{lang 'product.as_low_as_price_message'}}</span>
@@ -15,8 +19,7 @@
             <span class="price-rrp {{#unless price.with_tax}}highlight{{/unless}}">{{price.rrp_without_tax.formatted}}</span>
           {{/if}}
 
-          {{!-- This price is based on the qty count --}}
-          <span class="price-value">{{> components/products/customizations/non-sale-price-fixed price=price}}</span>
+             
           {{!-- <p class="test-bit" data-test-bit="true">---</p>--}}
           {{#if price.with_tax}}
             <span class="tax-label"> {{lang 'product.excluding_tax'}}</span>
@@ -27,6 +30,8 @@
       
       {{#if price.with_tax}}
         <div class="product-price-line{{#if price.without_tax}} price-second-line{{/if}}" data-product-price-wrapper="with-tax">
+          <span class="price-value"> {{price.with_tax.formatted}}</span>
+
           {{#if page_type '!==' 'product'}}
             {{#if as_low_as}}
               <span class="as-low-as-pricing">{{lang 'product.as_low_as_price_message'}}</span>
@@ -37,8 +42,7 @@
             <span class="price-rrp {{#unless price.without_tax}}highlight{{/unless}}">{{price.rrp_with_tax.formatted}}</span>
           {{/if}}
 
-          <span class="price-value"> {{price.with_tax.formatted}}</span>
-
+         
           {{#if price.without_tax}}
             <span class="tax-label"> {{lang 'product.including_tax'}}</span>
           {{/if}}
@@ -48,7 +52,7 @@
       {{#if show_savings}}
         {{#if price.saved}}
           <div class="price-you-save" data-product-price-saved>
-            {{lang 'product.you_save'}} {{price.saved.formatted}}
+              {{!-- {{lang 'product.you_save'}} --}} {{price.saved.formatted}}
           </div>
         {{/if}}
       {{/if}}
@@ -61,13 +65,14 @@
     <div>
       {{#if price.without_tax}}
 
-        <div class="product-price-line" data-product-price-wrapper="without-tax">
+        <div class="product-price-line" data-product-price-wrapper="without-tax" two>
+          <span class="price-value"> {{> components/products/customizations/non-sale-price-fixed price=price}}</span>
+
           {{#if price.saved}}
             <span class="price-rrp {{#unless price.with_tax}}highlight{{/unless}}">{{price.rrp_without_tax.formatted}}</span>
           {{/if}}
           <br>
-          <span class="price-value"> {{> components/products/customizations/non-sale-price-fixed price=price}}</span>
-
+          
           {{#if price.with_tax}}
             <span class="tax-label"> {{lang 'product.excluding_tax'}}</span>
           {{/if}}
@@ -78,11 +83,11 @@
       {{#if price.with_tax}}
 
         <div class="product-price-line{{#if price.without_tax}} price-second-line{{/if}}" data-product-price-wrapper="with-tax">
+          <span class="price-value"> {{price.with_tax.formatted}}</span>
+
           {{#if price.saved}}
             <span class="price-rrp {{#unless price.without_tax}}highlight{{/unless}}">{{price.rrp_with_tax.formatted}}</span>
           {{/if}}
-
-          <span class="price-value"> {{price.with_tax.formatted}}</span>
 
           {{#if price.without_tax}}
             <span class="tax-label"> {{lang 'product.including_tax'}}</span>

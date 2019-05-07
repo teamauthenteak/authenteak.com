@@ -40,6 +40,7 @@ export default class AddToCartModal {
     let $form = $(form);
     let formData = $form.serializeArray();
     let item = {options: []};
+
     for (var i in formData) {
       switch (formData[i].name) {
         case 'product_id':
@@ -66,6 +67,7 @@ export default class AddToCartModal {
           }
           break;
       }
+
     }
 
     this.lastAddedProduct = item;
@@ -76,15 +78,16 @@ export default class AddToCartModal {
    * Update the cart modal contents
    */
   _update(callback) {
-    let self = this;
     let qty = $(document).find('input[name="qty[]"]').val();
     let price = $(document).find('.product-quantity-submit [data-product-price-wrapper="without-tax"] .price-value').text().trim().replace(',', '').replace(/\$(\d+)\.(\d\d)/, "$1$2");
     let unitPrice = price/qty;
+
     if (unitPrice < 10) {
       unitPrice = `00${unitPrice}`;
     } else if (unitPrice < 100) {
       unitPrice = `0${unitPrice}`;
     }
+
     unitPrice = `$${unitPrice}`.replace(/^(\$\d*)(\d\d)$/, "$1.$2").replace(/(\d)(\d\d\d)\./, "$1,$2.");
 
     $('.modal-cart .option-value-wrapper').each(function() {
@@ -94,6 +97,7 @@ export default class AddToCartModal {
       }
       $(this).text(value);
     });
+
     $('.modal-cart [data-quantity]').text(qty);
     $('.modal-cart [data-price]').text(unitPrice);
 
@@ -103,12 +107,16 @@ export default class AddToCartModal {
     });
 
     let pendingCartTotal = (Number.parseInt($('.modal-cart__subtotal-value').attr('data-value')) * 100);
-    pendingCartTotal += Number.parseInt(price);
+
+    pendingCartTotal += price === "" ? 0 : Number.parseInt(price);
+
     if (pendingCartTotal < 10) {
       pendingCartTotal = `00${pendingCartTotal}`;
+
     } else if (pendingCartTotal < 100) {
       pendingCartTotal = `0${pendingCartTotal}`;
     }
+
     pendingCartTotal = `$${pendingCartTotal}`.replace(/^(\$\d*)(\d\d)$/, "$1.$2").replace(/(\d)(\d\d\d)\./, "$1,$2.");
 
     let pendingCartQuantity = Number.parseInt($('.modal-cart__count-value').attr('data-quantity')) + Number.parseInt(qty);
@@ -186,6 +194,7 @@ export default class AddToCartModal {
   getGlobalScriptConfig() {
     let config = {};
     let $configTag = $('script[data-theme-config="global"]');
+
     if ($configTag.length === 1) {
       try {
         config = JSON.parse($configTag.text());

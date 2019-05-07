@@ -1,11 +1,15 @@
-<div class="cart-totals-column">
-  {{> components/cart/coupon-codes}}
-</div>
-<div class="cart-totals-column">
+
+
+<div class="span-1-1">
   <div class="cart-sub-total cart-totals-item">
     <span class="cart-total-label">{{lang 'cart.sub_total'}}</span>
     <span class="cart-total-item">{{cart.sub_total.formatted}}</span>
   </div>
+
+  <div class="cart-shipping-item">
+      <span class="cart-shipping-label">{{lang 'cart.shipping'}}</span>
+      <span class="cart-shipping-value">{{lang 'cart.free'}}</span>
+    </div>
 
   {{#each cart.taxes}}
     <div class="cart-totals-item">
@@ -59,9 +63,9 @@
     </span>
   </div>
   <div class="cart-actions">
-    <a class="button button-secondary button-wide" href="{{urls.home}}">
+    <!-- <a class="button button-secondary button-wide" href="{{urls.home}}">
       {{lang 'cart.keep_shopping'}}
-    </a>
+    </a> -->
     <a
       class="button button-primary button-wide button-checkout"
       href="{{urls.checkout.single_address}}"
@@ -83,14 +87,80 @@
     </div>
   {{/if}}
 
-  <a class="prop-link">California's Residents see Proposition 65 Information</a>
-  
-  <div class="prop-wrapper">
-      <h4>Proposition 65</h4>
-    <p class="prop-text">California's Proposition 65 entitles California consumers to special warnings for certain products that contain chemicals above certain threshold levels.</p>
-    <p>⚠WARNING: Furniture products can expose you to chemicals including lead which is known to the State of California to cause cancer or birth defects or other reproductive harm.</p>
-    <p>⚠WARNING: Outdoor heating and fire products can expose you to chemicals including carbon dioxide which is known to the State of California to cause cancer or birth defects or other reproductive harm.</p>
-    <p>For more information, go to <a href="www.P65Warnings.ca.gov/">www.P65Warnings.ca.gov/</a></p>
+  <div class="span-1-1 pad-bottom">
+      {{> components/cart/coupon-codes}}
   </div>
+
+  <div class="span-1-1 pad-top">
+    <a class="prop-link">California's Residents see Proposition 65 Information</a>
+    
+    <div class="prop-wrapper">
+        <h4>Proposition 65</h4>
+      <p class="prop-text">California's Proposition 65 entitles California consumers to special warnings for certain products that contain chemicals above certain threshold levels.</p>
+      <p>⚠WARNING: Furniture products can expose you to chemicals including lead which is known to the State of California to cause cancer or birth defects or other reproductive harm.</p>
+      <p>⚠WARNING: Outdoor heating and fire products can expose you to chemicals including carbon dioxide which is known to the State of California to cause cancer or birth defects or other reproductive harm.</p>
+      <p>For more information, go to <a href="www.P65Warnings.ca.gov/">www.P65Warnings.ca.gov/</a></p>
+          
+      <h5>For Weber Grills</h5>
+      <p>This product can expose you to chemicals including nickel, which is known to the State of California to cause cancer, birth defects, or other reproductive harm.  For more information go to <a href="http://www.P65Warnings.ca.gov" target="_blank" title="P65 Warnings">www.P65Warnings.ca.gov</a>.</p>
+    </div>
+  </div>
+
 </div>
 
+
+
+
+<script>
+/**
+ * NOTE: this is a hack.
+ * This is only a hack.
+ * This needs to be done at the paypal level becasue...it's a hack.
+ * This simply replaes the amazon button with a new one
+*/
+
+(function(document, window){
+
+  const change = {
+    chainAsync: fns => { let curr = 0;  const next = () => fns[curr++](next); next(); },
+    
+    init: () => {
+      change.chainAsync([
+        next => { setTimeout(swapButtonAmazon, 2000);  setTimeout(next, 2001); },
+        next => { setTimeout(showButtonAmazon, 1000); },
+      ]);
+    }
+  }; 
+
+
+  // swap out the amazon pay button ~ kamakizi style
+  function swapButtonAmazon(){
+    if (!window.OffAmazonPayments){ throw "SCRIPT_NOT_LOADED";}
+
+    let amazonBtn = document.getElementById("OffAmazonPaymentsWidgets0");
+
+    amazonBtn.src = "//authenteak.com/content/amazon-pay-btn.png";
+    amazonBtn.srcset = "//authenteak.com/content/amazon-pay-btn.png";
+  }
+
+
+  function showButtonAmazon(){
+    document.getElementById("OffAmazonPaymentsWidgets0").classList.add("amazonpay-button-inner-image--show");
+  }
+
+
+  // wait until the amazon script has loaded.
+  try {
+    change.init();
+
+  } catch (error) {
+    if (error === 'SCRIPT_NOT_LOADED' && document.getElementById("OffAmazonPaymentsWidgets0")) {
+      document.addEventListener('DOMContentLoaded', change.init);
+    
+    }else{
+      throw "SCRIPT_NOT_LOADED";
+    }
+  }
+
+}(document, window));
+</script>

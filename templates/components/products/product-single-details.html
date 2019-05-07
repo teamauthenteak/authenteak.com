@@ -18,6 +18,9 @@
     {{/unless}}
 
     <div class="product-details-column">
+      <h1 class="product-title mobileShow">{{this.product.title}}</h1>
+      <p class="item-number mobileShow">ITEM #: {{product.sku}}</p>
+
       {{> components/products/customizations/swatch-hover-detail}}
       {{> components/products/product-single-images
         images=product.images
@@ -56,8 +59,9 @@
       {{#if quick_view}}
         <h1 class="product-title"><a href="{{product.url}}">{{this.product.title}}</a></h1>
       {{else}}
-        <h1 class="product-title">{{this.product.title}}</h1>
+        <h1 class="product-title mobileHide">{{this.product.title}}</h1>
       {{/if}}
+        <p class="item-number mobileHide">ITEM #: {{product.sku}}</p>
 
       <div class="yotpo-pdp-wrapper">
           <div class="yotpo bottomLine" data-product-id="{{ product.id }}"></div>  
@@ -66,10 +70,15 @@
       
 
       <div class="price-range">
-        {{#if product.price}}
-          {{> components/products/price price=product.price show_savings=false save_block=false}}
-        {{/if}}
+          {{#if product.options}}
+            {{#if product.price}}
+              {{> components/products/price price=product.price show_savings=false save_block=false}}
+            {{/if}}
+          {{else}}
+            <!-- show no price -->
+          {{/if}}
       </div>
+
       <!-- moved to add-to-cart.html -->
       <!-- <div class="product-price">
         {{#if product.price}}
@@ -103,11 +112,10 @@
       {{#if product.release_date }}
         <p class="message neutral">{{product.release_date}}</p>
       {{/if}}
-      <p class="item-number">ITEM #: {{product.sku}}</p>
-
+      
       {{#each product.custom_fields}}
         {{#if this.name '==' "Lead-Time"}}   
-            <p class="shipping-range shipping-range--static">{{this.value}}</p>
+            <p class="shipping-range shipping-range--static mobileHide">{{this.value}}</p>
         {{/if}}
       {{/each}}
 
@@ -131,12 +139,10 @@
         {{> components/products/add-to-cart-form cart_icon=cart_icon}}
         <hr>
         {{> components/products/product-description}}
-
       {{/if}}
 
-
-
       <div class="product-message-area" data-product-alerts></div>
+
       {{#if quick_view}}
         <a class="quick-shop-details-lower link" href="{{this.product.url}}">{{lang 'product.view_full_details'}}</a>
       {{/if}}
@@ -206,179 +212,188 @@
   </div>
 </section>
 
-<div class="yotpo yotpo-main-widget" 
-data-product-id="{{ product.id }}"
-data-price="{{> components/products/customizations/non-sale-price-value-fixed price=product.price}}"
-data-currency="{{ currency_selector.active_currency_code }}" 
-data-name="{{ product.title }}" 
-data-url="{{ product.url }}" 
-data-image-url="{{getImage product.main_image}}" 
-data-description="{{ product.description }}"> 
-</div>
+<!-- moved yotpo to tempaltes/pages/product.html -->
 
-<script type="text/javascript">
-(function(){
+<script>
+(function(document){
 
-  var dataDumpEl = document.querySelector('.tmp-prod-details');
-  var prodSpecs = document.querySelector('#specsTab');
-  var prodCare = document.querySelector('#careTab');
-  var prodShip = document.querySelector('#shipTab');
-  var prodRes = document.querySelector('#pdfTab');
-  var prodVideo = document.querySelector('#videoTab');
-  var prodWar = document.querySelector('#warrantyTab');
-  var tabButtons = document.querySelectorAll('.tab-header ul li a');
-  var tabValue; //Current tab content
+  var tabClone, tabValue,
+      tabButtons = document.querySelectorAll('.tab-header a'),
+      tabContentEl = document.querySelector('.tab-content'),
+      mobileTabButtons = document.querySelectorAll('.mobile-tab-heading');
 
-  //Mobile Content Elements
-  var mobileDesc = document.querySelector('.descContent');
-  var mobileProdSpecs = document.querySelector('.specsContent');
-  var mobileProdCare = document.querySelector('.careContent');
-  var mobileProdShip = document.querySelector('.shipContent');
-  var mobileProdRes = document.querySelector('.pdfContent');
-  var mobileProdVideo = document.querySelector('.videoContent');
-  var mobileProdWar = document.querySelector('.warrantyContent');
+  const tabs = [
+          {
+            type: document.querySelector('#specsTab'),
+            id: "specsTab",
+            tabBtnClass: ".specsBtn",
+            mobileClass: ".mobile-specsTab",
+            mobileObj: document.querySelector('.specsContent')
+          },
+          {
+            type: document.querySelector('#careTab'),
+            id: "careTab",
+            tabBtnClass: ".careBtn",
+            mobileClass: ".mobile-careTab",
+            mobileObj: document.querySelector('.careContent')
+          },
+          {
+            type: document.querySelector('#shipTab'),
+            id: "shipTab",
+            tabBtnClass: ".shipBtn",
+            mobileClass: ".mobile-shipTab",
+            mobileObj: document.querySelector('.shipContent')
+          },
+          {
+            type: document.querySelector('#pdfTab'),
+            id: "pdfTab",
+            tabBtnClass: ".pdfBtn",
+            mobileClass: ".mobile-pdfTab",
+            mobileObj: document.querySelector('.pdfContent')
+          },
+          {
+            type: document.querySelector('#videoTab'),
+            id: "videoTab",
+            tabBtnClass: ".videoBtn",
+            mobileClass: ".mobile-videoTab",
+            mobileObj: document.querySelector('.videoContent')
+          },
+          {
+            type: document.querySelector('#warrantyTab'),
+            id: "warrantyTab",
+            tabBtnClass: ".warrantyBtn",
+            mobileClass: ".mobile-warrantyTab",
+            mobileObj: document.querySelector('.warrantyContent')
+          }
+        ];
 
-  //Initialize tabbed content
-  function initTabContent() {
-    var tabContentEl = document.querySelector('.tab-content');
-    var prodDescEl = document.createElement('div');
-    var clnDesc;
-    prodDescEl.setAttribute('id', "descTab");
-    prodDescEl.classList.add('active');
-    
-    
-    prodDescEl.appendChild(dataDumpEl);
-    clnDesc = prodDescEl.cloneNode(true);
 
-    var mobileProdSpecsDump = clnDesc.querySelector('#specsTab');
-    var mobileProdCareDump = clnDesc.querySelector('#careTab');
-    var mobileProdShipDump = clnDesc.querySelector('#shipTab');
-    var mobileProdResDump = clnDesc.querySelector('#pdfTab');
-    var mobileProdVideoDump = clnDesc.querySelector('#videoTab');
-    var mobileProdWarDump = clnDesc.querySelector('#warrantyTab');
 
-    // clnDesc.querySelector('#specsTab').parentNode.removeChild(clnDesc.querySelector('#specsTab'));
-    // clnDesc.querySelector('#careTab').parentNode.removeChild(clnDesc.querySelector('#careTab'));
-    // clnDesc.querySelector('#shipTab').parentNode.removeChild(clnDesc.querySelector('#shipTab'));
-    // clnDesc.querySelector('#pdfTab').parentNode.removeChild(clnDesc.querySelector('#pdfTab'));
-    // clnDesc.querySelector('#videoTab').parentNode.removeChild(clnDesc.querySelector('#videoTab'));
-    // clnDesc.querySelector('#warrantyTab').parentNode.removeChild(clnDesc.querySelector('#warrantyTab'));
+    const tabsModule = {
 
-    tabContentEl.appendChild(prodDescEl);
-    mobileDesc.appendChild(clnDesc);
-    
-    if (prodSpecs !== null) {
-      var cln = prodSpecs.cloneNode(true);
-      clnDesc.querySelector('#specsTab').parentNode.removeChild(clnDesc.querySelector('#specsTab'));
-      tabContentEl.appendChild(prodSpecs);
-      mobileProdSpecs.appendChild(cln);
-    } else {
-      document.querySelector('.specsBtn').parentElement.classList.add('innactive-tab');
-      document.querySelector('.mobile-specsTab').parentElement.classList.add('innactive-tab');
-    }
+      // activate the first tab
+      activateFirstTab: function(args){
+        var dataDumpEl = document.querySelector(args.dataClass),
+            mobileDesc = document.querySelector(args.contentClass),
+            prodDescEl = document.createElement('div');
 
-    if (prodCare !== null) {
-      var cln = prodCare.cloneNode(true);
-      clnDesc.querySelector('#careTab').parentNode.removeChild(clnDesc.querySelector('#careTab'));
-      tabContentEl.appendChild(prodCare);
-      mobileProdCare.appendChild(cln);
-    } else {
-      document.querySelector('.careBtn').parentElement.classList.add('innactive-tab');
-      document.querySelector('.mobile-careTab').classList.add('innactive-tab');
-    }
+        prodDescEl.setAttribute('id', args.id);
+        prodDescEl.classList.add('active');
+        prodDescEl.appendChild(dataDumpEl);
 
-    if (prodShip !== null) {
-      var cln = prodShip.cloneNode(true);
-      clnDesc.querySelector('#shipTab').parentNode.removeChild(clnDesc.querySelector('#shipTab'));
-      tabContentEl.appendChild(prodShip);
-      mobileProdShip.appendChild(cln);
-    } else {
-      document.querySelector('.shipBtn').parentElement.classList.add('innactive-tab');
-      document.querySelector('.mobile-shipTab').classList.add('innactive-tab');
-    }
+        tabClone = prodDescEl.cloneNode(true);
 
-    if (prodRes !== null) {
-      var cln = prodRes.cloneNode(true);
-      clnDesc.querySelector('#pdfTab').parentNode.removeChild(clnDesc.querySelector('#pdfTab'));
-      tabContentEl.appendChild(prodRes);
-      mobileProdRes.appendChild(cln);
-    } else {
-      document.querySelector('.pdfBtn').parentElement.classList.add('innactive-tab');
-      document.querySelector('.mobile-pdfTab').classList.add('innactive-tab');
-    }
+        tabContentEl.appendChild(prodDescEl);
+        mobileDesc.appendChild(tabClone);
 
-    if (prodVideo !== null) {
-      var cln = prodVideo.cloneNode(true);
-      clnDesc.querySelector('#videoTab').parentNode.removeChild(clnDesc.querySelector('#videoTab'));
-      tabContentEl.appendChild(prodVideo);
-      mobileProdVideo.appendChild(cln);
-    } else {
-      document.querySelector('.videoBtn').parentElement.classList.add('innactive-tab');
-      document.querySelector('.mobile-videoTab').classList.add('innactive-tab');
-    }
+        return this;
+      },
 
-    if (prodWar !== null) {
-      var cln = prodWar.cloneNode(true);
-      clnDesc.querySelector('#warrantyTab').parentNode.removeChild(clnDesc.querySelector('#warrantyTab'));
-      tabContentEl.appendChild(prodWar);
-      mobileProdWar.appendChild(cln);
-    } else {
-      document.querySelector('.warrantyBtn').parentElement.classList.add('innactive-tab');
-      document.querySelector('.mobile-warrantyTab').classList.add('innactive-tab');
-    } 
-  }
 
-  //Instantiate the Tab Content
-  initTabContent();
+      //Initialize tabbed content
+      initTabContent: function() {
 
-  //Clear active tab headers
-  function clearTabHeaders() {
-    for (var i = 0; i < tabButtons.length; i++) {
-      tabButtons[i].parentElement.classList.remove('active');
-    }
-  }
+        // itterate over our tabs object and build out each tab skipping any tabs that have no content
+        tabs.forEach( (element) => {
+          if (element.type !== null && document.getElementById(element.id).innerHTML.trim() !== "") {
+            let cln = element.type.cloneNode(true);
 
-  //Clear active tab content
-  function clearTabContent() {
-    var tabContentElements = document.querySelectorAll('.tab-content div');
-    
-    for (var i = 0; i < tabContentElements.length; i++) {
-      tabContentElements[i].classList.remove('active');
-    }
-  }
+            tabClone.querySelector('#' + element.id).parentNode.removeChild(tabClone.querySelector('#' + element.id))
+            tabContentEl.appendChild(element.type);
+            element.mobileObj.appendChild(cln);
 
-  //Update the tab contents based on tabValue
-  function updateTabContent() {
-    clearTabContent();
-    document.querySelector('#' + tabValue).classList.add('active');
-  }
+          } else {
+            // hide desktop button item 
+            document.querySelector("[data-tabval='"+ element.id +"']").parentElement.classList.add('innactive-tab');
+            // hide desktop pane
+            document.querySelector("[data-tabval='"+ element.id +"']").parentElement.classList.add('innactive-tab');
+            // hide mobile tab
+            document.querySelector("[data-tabval='"+ element.id +"'].mobile-tab-heading").classList.add('innactive-tab');
+          }
+
+        });
+
+        return this;
+      },
+
+
+      //Clear active tab headers
+      clearTabHeaders: function() {
+        tabButtons.forEach((element, i) => {
+          tabButtons[i].parentElement.classList.remove('active');
+        });
+
+        return this;
+      },
+
+
+      //Clear active tab content
+      clearTabContent: function() {
+        let tabContentElements = document.querySelectorAll('.tab-content div');
+        
+        tabContentElements.forEach((element, i) => {
+          tabContentElements[i].classList.remove('active');
+        });
+
+        return this;
+      },
+
+
+      //Update the tab contents based on tabValue
+      updateTabContent: function() {
+        this.clearTabContent();
+        document.querySelector('#' + tabValue).classList.add('active');
+
+        return this;
+      }
+
+  };
+
+
+  // Choose which tab to show first
+  // this is also used to build its sibbling tabs
+  // therefore we run this before we Instantiate the Tab Content
+  tabsModule.activateFirstTab({
+    id: "descTab",
+    dataClass: ".tmp-prod-details",
+    contentClass: ".descContent"
+
+  }).initTabContent();
+
+
 
   //Add Tab Button Listeners
-  for (var i = 0; i < tabButtons.length; i++){
+  tabButtons.forEach( (element, i) => {  
     if (!tabButtons[i].parentElement.classList.contains('innactive-tab')) {
+
       tabButtons[i].addEventListener('click', function(event) {
+
         if (!this.parentElement.classList.contains('active')) {
-          event.preventDefault();
-          clearTabHeaders();
-          this.parentElement.classList.toggle('active');
           tabValue = this.dataset.tabval;
-          updateTabContent();
+
+          tabsModule.clearTabHeaders();
+          this.parentElement.classList.toggle('active');
+          tabsModule.updateTabContent();
+
+          event.preventDefault();
         }
       });
     }
-  }
+  });
+
 
   //Add Mobile Tab Button Listeners
-  var mobileTabButtons = document.querySelectorAll('.mobile-tab-heading');
-  for (var j = 0; j < mobileTabButtons.length; j++) {
+  mobileTabButtons.forEach( (element, j) => {
     mobileTabButtons[j].addEventListener('click', function(event) {
-      event.preventDefault();
-      var mobileContent = document.querySelector('.mobile-tab-wrapper' + ' #' + this.getAttribute("data-tabval"));
+      let mobileContent = document.querySelector('.mobile-tab-wrapper' + ' #' + this.getAttribute("data-tabval"));
+     
       mobileContent.classList.toggle('active');
+      event.preventDefault();
     });
-  }
+  });
 
-}());
+
+}(document));
 
 </script>
 
