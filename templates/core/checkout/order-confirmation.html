@@ -11,6 +11,51 @@
     {{{stylesheet '/assets/css/optimized-checkout.css'}}}
     {{getFontsCollection}}
 
+    <style rel="stylesheet" type="text/css">
+      .klaviyo-form-MnvYmV{
+        position: fixed;
+        width: 500px;
+        top: 50%;
+        z-index: 9999;
+        left: 50%;
+        margin-top: -100px;
+        margin-left: -250px;
+        height: 200px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 0px 1px 50px 7px rgba(0, 0, 0, 0.34);
+        border-radius: 5px;
+        display: none;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+      }
+
+      .ResetElements__Div-sc-8e6zl9-0{
+        align-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+      }
+
+      .ResetElements__Input-sc-8e6zl9-6{
+        height: 32px !important;
+        width: 100% !important;
+      }
+
+      .unsubscribe__closeModal{
+        order: 1;
+        color: #222;
+        font-size: 1.6rem;
+        line-height: 1;
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 10px 20px;
+      }
+    </style>
+
     <script type="text/javascript">
       window.language = {{{langJson 'optimized_checkout'}}};
     </script>
@@ -35,6 +80,55 @@
     </header>
 
     {{{checkout.order_confirmation_content}}}
+
+    <script>
+      const TEAK = {} || TEAK;
+      
+      TEAK.Checkout = {
+
+        /* 
+          Injects the unsubscribe form into the pages
+          - Note: this is a work around because Bolt doesnt support Klaviyo email signup from it's UI
+        */
+        buildUI: function(){
+          let confirmSection = document.getElementById("micro-app-ng-checkout").querySelector(".orderConfirmation-section");
+
+          let klaviyoForm = document.createElement('div');
+          klaviyoForm.setAttribute("class", "klaviyo-form-MnvYmV");
+          
+          let text = document.createElement('p');
+          text.setAttribute("class", "unsubscribe__text");
+          text.innerHTML = "It's official, you're an AuthenTEAK Insider! You'll be the first to know about promotions, events & new arrivals. If you wish to unsubscribe, <a href='' onclick='TEAK.Checkout.unsubscribePopupOpen(event);'>let us know</a>.";
+
+          let closeBtn = document.createElement('a');
+          closeBtn.setAttribute("class", "unsubscribe__closeModal");
+          closeBtn.setAttribute("onclick", "TEAK.Checkout.unsubscribePopupClose(event)");
+          closeBtn.innerHTML = "&times;";
+          klaviyoForm.appendChild(closeBtn);
+
+          confirmSection.appendChild(text);
+          confirmSection.appendChild(klaviyoForm);
+
+          return this;
+        },
+
+        /* Open Modal */
+        unsubscribePopupOpen: function(event){
+          event.preventDefault();
+          document.querySelector(".klaviyo-form-MnvYmV").style.display = "flex";
+          return this;
+        },
+
+        /* Close Modal */
+        unsubscribePopupClose: function(event){
+          event.preventDefault();
+          document.querySelector(".klaviyo-form-MnvYmV").style.display = "none";
+          return this;
+        }
+      };
+
+      setTimeout(() => TEAK.Checkout.buildUI(), 500);
+    </script>
 
     {{{footer.scripts}}}
 
