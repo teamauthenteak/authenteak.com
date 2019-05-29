@@ -2,7 +2,7 @@
 
   <header class="cart-header">
     <h1 class="cart-title">
-      {{lang 'cart.title_cart'}} {{#if cart.items}}&nbsp; | &nbsp; {{cart.quantity}} Items{{/if}}
+      {{lang 'cart.title_cart'}} {{#if cart.items}}&nbsp; | &nbsp;  <span id="cartQty">{{cart.quantity}}</span> Item(s){{/if}}
     </h1>
   </header>
 
@@ -16,9 +16,11 @@
           {{> components/header/shipping-messages}}
         </div>
 
-        <div class="cart__totals" data-cart-totals>
+        <div class="cart__totals">
           <p class="cart__promoMsg">{{lang 'cart.free_shipping_message'}}</p>
-          {{> components/cart/totals}}
+          <div data-cart-totals>
+            {{> components/cart/totals}}
+          </div>
         </div>
       {{else}}
 

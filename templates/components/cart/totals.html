@@ -1,4 +1,10 @@
-
+<script
+  id="bolt-connect"
+  type="text/javascript"
+  src="https://connect.bolt.com/connect-bigcommerce.js"
+  data-publishable-key="3ximKwUWJJ6Q.SC4loucq5R6G.7c46996f8803dcf5a87ddc1ef5f9a9c866bbcb290f9c4ba450c92ef72081e578"
+  data-shopping-cart-id="BigCommerce">
+</script>
 
 <div class="span-1-1">
   <div class="cart-sub-total cart-totals-item">
@@ -66,9 +72,13 @@
     <!-- <a class="button button-secondary button-wide" href="{{urls.home}}">
       {{lang 'cart.keep_shopping'}}
     </a> -->
+    <div class="bolt-button-wrapper" style="display: contents;">
+      <div class="bolt-checkout-button large-width with-cards responsive bolt-multi-step-checkout" style="--bolt-primary-action-color:#6ea438"></div>
+    </div>
     <a
       class="button button-primary button-wide button-checkout"
       href="{{urls.checkout.single_address}}"
+      style="display: none;"
     >
       {{lang 'cart.checkout'}}
     </a>
@@ -118,8 +128,9 @@
  * This needs to be done at the paypal level becasue...it's a hack.
  * This simply replaes the amazon button with a new one
 */
-
 (function(document, window){
+  let observeGrandTotal = document.getElementById()
+
 
   const change = {
     chainAsync: fns => { let curr = 0;  const next = () => fns[curr++](next); next(); },
@@ -137,15 +148,28 @@
   function swapButtonAmazon(){
     if (!window.OffAmazonPayments){ throw "SCRIPT_NOT_LOADED";}
 
-    let amazonBtn = document.getElementById("OffAmazonPaymentsWidgets0");
+      // let newAmazonBtn = document.createElement("img");
+      // let amazonBtn = document.getElementById("OffAmazonPaymentsWidgets0");
+
+      // newAmazonBtn.setAttribute("src", "//authenteak.com/content/amazon-pay-btn.png");
+      // newAmazonBtn.setAttribute("srcset", "//authenteak.com/content/amazon-pay-btn.png");
+      // newAmazonBtn.setAttribute("class", "amazonpay-button-inner-image");
+      // newAmazonBtn.setAttribute("id", "OffAmazonPaymentsWidgets1");
+      // newAmazonBtn.setAttribute("data-metric-tags", "highres");
+      // newAmazonBtn.setAttribute("alt", "amazon");
+      // newAmazonBtn.style.opacity = 1;
+
+    let amazonBtn = document.getElementById("CheckoutButtonAmazon0").querySelector(".amazonpay-button-inner-image");
 
     amazonBtn.src = "//authenteak.com/content/amazon-pay-btn.png";
     amazonBtn.srcset = "//authenteak.com/content/amazon-pay-btn.png";
+
+    amazonBtn.style.opacity = 1;
   }
 
 
   function showButtonAmazon(){
-    document.getElementById("OffAmazonPaymentsWidgets0").classList.add("amazonpay-button-inner-image--show");
+    document.getElementById("CheckoutButtonAmazon0").querySelector(".amazonpay-button-inner-image").classList.add("amazonpay-button-inner-image--show");
   }
 
 
@@ -163,4 +187,76 @@
   }
 
 }(document, window));
+
+
+/*
+* Work Around: Observes the grand total and then updates the product qty
+* - should be done using a global object literal
+*/
+
+(function(document){
+    var grandTotal = document.getElementById("grandTotal"), totalObserver;
+    
+    function grandTotalListner(mutationsList, observer){
+        console.log(mutation.type);
+    }
+    
+    totalObserver = new MutationObserver(grandTotalListner);
+    totalObserver.observe(grandTotal, { attributes: true, childList: true, subtree: true });
+    
+}(document));
+
+</script>
+
+
+
+<script>
+/** -----------------------
+ * Bolt Integration
+--------------------------- */
+var originalCheckoutButton = document.querySelector(".cart-actions .button-primary");
+var boltButtons = document.getElementsByClassName("bolt-button-wrapper");
+
+if (true) {
+    for (var i = 0; i < boltButtons.length; i++) {
+       boltButtons[i].style.display = 'contents';
+    }
+    originalCheckoutButton.style.display = 'none';
+}
+
+var interval = setInterval(function(){
+  if (window.BoltCheckout) {
+      // console.log("HIT INTERVAL")
+      window.BoltCheckout.setClientCustomCallbacks({
+          success : function(trx){
+              fbq('track', 'Purchase', {
+                  value: trx.amount.amount / 100.0,
+                  currency: 'USD',
+              });
+          }
+      });
+      window.BoltCheckout.reloadBigCommerceCart(false);
+      clearInterval(interval);
+  }
+}, 200);
+
+var config = { childList: true, subtree: true };
+
+// Change totalClassName
+var totalClassName = "grand-total";
+var totalPrice = "";
+var callback = function(mutationsList) {
+    var elms = document.getElementsByClassName(totalClassName);
+    if (elms.length == 0) {
+        return;
+    }
+    var newPrice = elms[0].innerHTML;
+    // console.log('newprice: ', newPrice);
+    if (newPrice !== totalPrice && window.BoltCheckout) {
+        // console.log("Called Reload");
+        window.BoltCheckout.reloadBigCommerceCart(false);
+    }
+    totalPrice = newPrice;
+};
+new MutationObserver(callback).observe(document.body, config);
 </script>

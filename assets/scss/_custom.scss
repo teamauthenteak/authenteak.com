@@ -852,7 +852,7 @@ footer.mobile-footer .footer-col.footer-accordion .footer-title.accordion-open s
         }
 
         > .Content {
-            flex: 0 3 73%;
+            flex: 1;
         }
 
         > .listing-description {
@@ -1215,6 +1215,7 @@ h1.product-title {
     margin: 10px 0 0 0;
     display: flex;
     line-height: 1;
+    font-size: 1.6rem;
 }
 
 .slick-slide .product-price-line, .product-grid-item .product-price-line{
@@ -1224,6 +1225,11 @@ h1.product-title {
     justify-content: center;
 }
 
+.product-grid-item{
+    & .lazy-image{
+        height: 250px;
+    }
+}
 
 .price-rrp{
     margin: 0 10px;
@@ -2828,12 +2834,12 @@ span.head-phone-number {
 
 
 .cart-shipping-label{
-    font-weight: normal;
-    color: #ccc;
+    font-weight: 400;
+    // color: #ccc;
 }
 .cart-shipping-value{
     float: right;
-    color: #ccc;
+    // color: #ccc;
 }
 
 

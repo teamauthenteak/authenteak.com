@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.19.10] - 2019-05-13
+#### Changed
+- Merged Bolt checkout
+- Made a few ui updates
+
+## [1.19.9] - 2019-05-09
+#### Changed
+- Merged Bolt checkout files with new checkout integration
+
 ## [1.19.8] - 2019-05-03
 #### Fixed
 - Fixed an issue with ATC Modal where the incorrect keyboard is triggered due to text type as a input type instead of number
