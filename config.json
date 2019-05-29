@@ -1,6 +1,6 @@
 {
-  "name": "Peak (May 13, 2019) - Asana fixes with Bolt merge",
-  "version": "1.19.10",
+  "name": "Peak (April 18, 2019) - Asana task fixes - Bolt",
+  "version": "1.19.7",
   "meta": {
     "price": 17000,
     "documentation_url": "http://support.pixelunion.net/category/147-peak",
@@ -248,6 +248,13 @@
         ]
       },
       "settings": {
+        "paymentbuttons-paypal-layout": "horizontal",
+        "paymentbuttons-paypal-color": "gold",
+        "paymentbuttons-paypal-shape": "rect",
+        "paymentbuttons-paypal-size": "large",
+        "paymentbuttons-paypal-label": "checkout",
+        "paymentbuttons-paypal-tagline": true,
+        "paymentbuttons-paypal-fundingicons": false,
         "default_image": "/assets/img/no-image.svg",
         "_images": {
           "small-thumb": {

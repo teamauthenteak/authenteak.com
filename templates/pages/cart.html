@@ -1,30 +1,30 @@
 {{#partial "page"}}
-
-  <header class="cart-header">
-    <h1 class="cart-title">
-      {{lang 'cart.title_cart'}} {{#if cart.items}}&nbsp; | &nbsp;  <span id="cartQty">{{cart.quantity}}</span> Item(s){{/if}}
+  <header class="cart-header page-header">
+    <h1 class="cart-title page-title">
+      {{#if theme_settings.cart_icon '==' 'bag'}}
+        {{lang 'cart.title_bag'}}
+      {{else}}
+        {{lang 'cart.title_cart'}}
+      {{/if}}
     </h1>
   </header>
 
-
   <section class="product-listing section">
-    <div class="container cart__container">
-
+    <div class="container">
       {{#if cart.items}}
-        <div class="cart__content" data-cart-content>
-          {{> components/cart/content cart_icon=theme_settings.cart_icon }}
+        <div data-cart-content>
+          {{> components/cart/content
+            cart_icon=theme_settings.cart_icon
+          }}
+          
           {{> components/header/shipping-messages}}
+    
         </div>
 
-        <div class="cart__totals">
-          <p class="cart__promoMsg">{{lang 'cart.free_shipping_message'}}</p>
-          <div data-cart-totals>
-            {{> components/cart/totals}}
-          </div>
+        <div class="cart-totals" data-cart-totals>
+          {{> components/cart/totals}}
         </div>
       {{else}}
-
-
         <div class="cart-empty">
           <h2>
             {{#if ../theme_settings.cart_icon '==' 'bag'}}

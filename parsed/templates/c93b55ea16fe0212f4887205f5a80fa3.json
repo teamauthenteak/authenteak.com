@@ -1,1 +1,1 @@
-{"components/products/customizations/non-sale-price-fixed":"{{~default price.sale_price_without_tax.formatted price.without_tax.formatted~}}"}
+{"components/products/customizations/non-sale-price-fixed":"{{~default price.sale_price_without_tax.formatted price.without_tax.formatted~}}\n"}

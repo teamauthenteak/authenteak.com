@@ -1,26 +1,22 @@
-// globals
-@import "variables";
+/* Add all site style customizations in this file */
+$screen-xs: 400px; // mobile landscape
+$screen-sm: 568px; // tablet portrate
+$screen-md: 770px; // tablet landscape
+$screen-lg: 1020px; // Desktop
+$screen-xl: 1200px; // Large Desktop & HD TV
 
-//mixins
-@import "mixins/_grid-mixin";
+@import 'simplebar/simplebar';
 
 @mixin respond-at($media) {
     @media only screen and (max-width: $media){ @content; }
-};
+}
 
 @mixin placeholder {
-  &::-webkit-input-placeholder {@content};
-  &:-moz-placeholder           {@content};
-  &::-moz-placeholder          {@content};
-  &:-ms-input-placeholder      {@content};
-};
-
-// components
-@import "grid";
-@import "generics";
-@import 'simplebar/simplebar';
-
-
+  &::-webkit-input-placeholder {@content}
+  &:-moz-placeholder           {@content}
+  &::-moz-placeholder          {@content}
+  &:-ms-input-placeholder      {@content}
+}
 
 /*Colors*/
 $color-background-pdp: stencilColor('product-details-bg');
@@ -852,7 +848,7 @@ footer.mobile-footer .footer-col.footer-accordion .footer-title.accordion-open s
         }
 
         > .Content {
-            flex: 1;
+            flex: 0 3 73%;
         }
 
         > .listing-description {
@@ -1057,6 +1053,10 @@ a.nxt-img--no-ratio {
     padding: 0 20px;
 }
 
+.slick-list, .slick-slide a {
+    // max-height: calc(100vw - 60px);
+}
+
 .slick-dots{
     bottom: -50px;
     top: auto;
@@ -1215,7 +1215,6 @@ h1.product-title {
     margin: 10px 0 0 0;
     display: flex;
     line-height: 1;
-    font-size: 1.6rem;
 }
 
 .slick-slide .product-price-line, .product-grid-item .product-price-line{
@@ -1225,11 +1224,6 @@ h1.product-title {
     justify-content: center;
 }
 
-.product-grid-item{
-    & .lazy-image{
-        height: 250px;
-    }
-}
 
 .price-rrp{
     margin: 0 10px;
@@ -2319,6 +2313,14 @@ ul.highlight-group {
     }
 }
 
+// Cart Page Edit UI
+button.cart-item-edit {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
 .form-coupon .button-tertiary{
     background: #ccc;
     border: 2px solid #ccc;
@@ -2803,208 +2805,4 @@ span.head-phone-number {
 
 .yotpo-stars + a.text-m{
     display: none;
-}
-
-.cart-shipping-item{
-    padding: 1.625rem 0;
-    border-bottom: 1px solid #e6e9ef;
-
-    &:before{
-        display: table;
-        content: "";
-    }
-
-    &:after{
-        display: table;
-        content: "";
-        clear: both;
-    }
-}
-
-.button-checkout{
-    background-color: #c73a26;
-    border-color: #c73a26;
-    text-transform: uppercase;
-
-    &:hover{
-        border-color: #c73a26;
-        color: #c73a26;
-    }
-}
-
-
-.cart-shipping-label{
-    font-weight: 400;
-    // color: #ccc;
-}
-.cart-shipping-value{
-    float: right;
-    // color: #ccc;
-}
-
-
-.zoid-outlet{
-    @media screen and (max-width: $screen-md){
-        width: 220px !important;
-    }
-
-    @media screen and (max-width: $screen-sm){
-        width: 270px !important;
-    }
-}
-
-.cart-item-quantity .cart-label{
-    @media screen and (max-width: $screen-md){
-        display: none;
-    }
-}
-
-.cart{
-    &-item{
-        float: left;
-    }
-
-    &-header{
-        max-width: 1230px;
-        margin: 0 auto;
-        padding: 0 15px;
-    }
-
-    &-title{
-        font-size: 1.6rem;
-        padding-bottom: 0;
-        margin: 60px 0 0 0;
-
-        @media screen and (max-width: $screen-xl){
-            margin: 0;
-        }
-    }
-
-    &__container{
-        display: flex;
-
-        @media screen and (max-width: $screen-md){
-            margin-top: 40px;
-        }
-
-        @media screen and (max-width: $screen-sm){
-            flex-direction: column;
-        }
-    }
-
-    &__totals{
-        width: 40%;
-        float: left;
-        padding-left: 20px;
-        border-left: 1px solid #e6e9ef;
-        order: 1;
-
-        @media screen and (max-width: $screen-sm){
-            width: 100%;
-            padding: 0;
-            border: none;
-        }
-    }
-
-    &__content{
-        width: 60%;
-        float: right;
-        padding-right: 20px;
-        order: 0;
-
-        @media screen and (max-width: $screen-sm){
-            width: 100%;
-            padding: 0;
-        }
-    }
-
-    &__contentHeader{
-        display: flex !important;
-        border-bottom: 1px solid #e6e9ef;
-        align-items: center;
-        padding-bottom: 20px;
-    }
-
-    &__contentHeaderItem{
-        color: #2e3036;
-        flex: 1;
-
-        &--last{
-            align-self: flex-end;
-            width: 25%;
-            flex: 0 0 25%;
-            text-align: right;
-        }
-    }
-
-    &__productName{
-        margin: 0 0 15px 0;
-        font-size: 1.1rem;
-    }
-
-    &__option{
-        font-size: 0.8rem;
-        margin-bottom: 8px;
-        color: #777;
-        line-height: 1.25
-    }
-
-    &__quantControl{
-        float: left;
-    }
-
-    &__editDelete{
-        width: 100%;
-        padding: 20px 0 0 0;
-        float: left;
-        display: flex;
-        align-content: center;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center
-    }
-
-    &__itemEdit{
-        padding: 0;
-        display: flex;
-        align-items: center;
-        margin-right: 15px;
-        background: transparent;
-
-        & svg{
-            margin-left: 8px;
-        }
-    }
-
-    &__itemDelete{
-        padding: 5px;
-        display: flex;
-        align-items: center;
-
-        & svg{
-            margin-left: 8px;
-        }
-    }
-
-    &__itemPrice{
-        @media screen and (max-width: $screen-sm){
-            font-size: 100%
-        }
-    }
-
-    &__promoMsg{
-        display: block;
-        text-align: center;
-        background-color: #e5e5e5;
-        padding: 5px 20px;
-        margin: 0;
-        border-radius: 3px;
-        color: #333;
-        box-sizing: border-box;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-
 }

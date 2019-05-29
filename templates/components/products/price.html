@@ -6,9 +6,8 @@
       {{#if price.without_tax}}
         <div class="product-price-line" data-product-price-wrapper="without-tax" one>
           {{!-- This price is based on the qty count --}}
-          {{!-- <span class="price-value">{{> components/products/customizations/non-sale-price-fixed price=price}}</span> --}}
-          <span class="price-value"> {{price.without_tax.formatted}}</span>
-         
+          <span class="price-value">{{> components/products/customizations/non-sale-price-fixed price=price}}</span>
+       
             
           {{#if page_type '!==' 'product'}}
             {{#if as_low_as}}
@@ -67,8 +66,8 @@
       {{#if price.without_tax}}
 
         <div class="product-price-line" data-product-price-wrapper="without-tax" two>
-          {{!-- <span class="price-value"> {{> components/products/customizations/non-sale-price-fixed price=price}}</span> --}}
-          <span class="price-value"> {{price.without_tax.formatted}}</span>
+          <span class="price-value"> {{> components/products/customizations/non-sale-price-fixed price=price}}</span>
+
           {{#if price.saved}}
             <span class="price-rrp {{#unless price.with_tax}}highlight{{/unless}}">{{price.rrp_without_tax.formatted}}</span>
           {{/if}}

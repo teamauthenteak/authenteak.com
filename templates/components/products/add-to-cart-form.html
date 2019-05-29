@@ -47,7 +47,7 @@
         {{/each}}
       </p>
     
-    
+    <div class="mobileShow">
       {{#if product.price}}
         {{> components/products/price price=product.price show_savings=true save_block=true}}
       {{/if}}
@@ -55,7 +55,7 @@
       {{#if product.call_for_price}}
         <p>{{product.call_for_price}}</p>
       {{/if}}
-
+  </div>
 
 
 {{#if product.price.without_tax.value ">" 0.01}}
@@ -82,17 +82,19 @@
               <span class="product-quantity-toggle product-quantity-decrement">
                 <svg class="icon icon-minus"><use xlink:href="#icon-minus" /></svg>
               </span>
-
+              
               <span class="product-quantity-toggle product-quantity-increment">
                 <svg class="icon icon-plus"><use xlink:href="#icon-plus" /></svg>
               </span>
+             
             </div>
           </label>
         </div>
       {{/if}}
 
-       <!-- 
       <div class="product-price">
+
+        <div class="mobileHide">
           {{#if product.price}}
             {{> components/products/price price=product.price show_savings=true save_block=true}}
           {{/if}}
@@ -101,7 +103,7 @@
             <p>{{product.call_for_price}}</p>
           {{/if}}
           
-         
+          <!-- 
           {{#each product.custom_fields}}
             {{#if this.name '===' "Free Shipping Icon"}}   
               {{#if this.value '===' "Yes"}}
@@ -116,8 +118,11 @@
                   {{this.value}}
               {{/if}}
             {{/each}}
-          </p>
-      </div> -->
+          </p>-->
+
+        </div>
+
+      </div>
 
       <!--Share block was removed, placed below product images, can be found in product-single-details.html-->
     </div>
@@ -133,7 +138,8 @@
           button-progress
           spinner
         "
-        data-button-purchase>
+        data-button-purchase
+      >
         <span class="button-text">
           {{#if product.pre_order}}
             {{lang 'product.pre_order'}}

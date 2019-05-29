@@ -1,7 +1,7 @@
 {
   "name": "peak",
   "description": "Authenteak - (Peak theme)",
-  "version": "1.19.10",
+  "version": "1.19.7",
   "private": true,
   "dependencies": {
     "@bigcommerce/stencil-utils": "^1.0.9",

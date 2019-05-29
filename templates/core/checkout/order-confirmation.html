@@ -10,8 +10,8 @@
     {{{checkout.checkout_head}}}
     {{{stylesheet '/assets/css/optimized-checkout.css'}}}
     {{getFontsCollection}}
-
-    <style rel="stylesheet" type="text/css">
+    
+      <style rel="stylesheet" type="text/css">
       .klaviyo-form-MnvYmV{
         position: fixed;
         width: 500px;
@@ -31,15 +31,10 @@
         align-items: center;
         align-content: center;
       }
-
+      
       .ResetElements__Div-sc-8e6zl9-0{
         align-content: center !important;
         align-items: center !important;
-        width: 100% !important;
-      }
-
-      .ResetElements__Div-sc-8e6zl9-0 div{
-        min-width: 200px !important;
       }
 
       .ResetElements__Input-sc-8e6zl9-6{
@@ -60,8 +55,20 @@
       }
     </style>
 
-    <script>
+
+    <script type="text/javascript">
       window.language = {{{langJson 'optimized_checkout'}}};
+    setInterval(function() {
+        var tags = document.getElementsByClassName("orderConfirmation-section");
+        for (var i = 0; i < tags.length; i++) {
+            var elm = tags[i];
+            var txt = elm.innerText || elm.innerHTML;
+            if (txt.includes("pay by check")) {
+                elm.style.display = 'none';
+            }
+        }
+    }, 200);
+
     </script>
 
     {{{head.scripts}}}
@@ -84,15 +91,15 @@
     </header>
 
     {{{checkout.order_confirmation_content}}}
-
-    <script>
-      let TEAK = {} || TEAK;
+    
+   <script>
+      const TEAK = {} || TEAK;
       
       TEAK.Checkout = {
 
         /* 
           Injects the unsubscribe form into the pages
-          - Note: this is a work around because Bolt doesnt support Klaviyo email signup from it's UI
+          - Note: this is a work around because Bolt doesnt support Klaviyo  email signup from it's UI
         */
         buildUI: function(){
           let confirmSection = document.getElementById("micro-app-ng-checkout").querySelector(".orderConfirmation-section");
@@ -132,6 +139,7 @@
       };
 
       setTimeout(() => TEAK.Checkout.buildUI(), 500);
+      
     </script>
 
     {{{footer.scripts}}}

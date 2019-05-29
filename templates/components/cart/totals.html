@@ -5,17 +5,15 @@
   data-publishable-key="3ximKwUWJJ6Q.SC4loucq5R6G.7c46996f8803dcf5a87ddc1ef5f9a9c866bbcb290f9c4ba450c92ef72081e578"
   data-shopping-cart-id="BigCommerce">
 </script>
+<div class="cart-totals-column">
+  {{> components/cart/coupon-codes}}
+</div>
 
-<div class="span-1-1">
+<div class="cart-totals-column cart-totals-column--last">
   <div class="cart-sub-total cart-totals-item">
     <span class="cart-total-label">{{lang 'cart.sub_total'}}</span>
     <span class="cart-total-item">{{cart.sub_total.formatted}}</span>
   </div>
-
-  <div class="cart-shipping-item">
-      <span class="cart-shipping-label">{{lang 'cart.shipping'}}</span>
-      <span class="cart-shipping-value">{{lang 'cart.free'}}</span>
-    </div>
 
   {{#each cart.taxes}}
     <div class="cart-totals-item">
@@ -73,12 +71,13 @@
       {{lang 'cart.keep_shopping'}}
     </a> -->
     <div class="bolt-button-wrapper" style="display: contents;">
+        <!--To change the theme color place the new hex color after --bolt-primary-action-color-->
       <div class="bolt-checkout-button large-width with-cards responsive bolt-multi-step-checkout" style="--bolt-primary-action-color:#6ea438"></div>
     </div>
     <a
       class="button button-primary button-wide button-checkout"
       href="{{urls.checkout.single_address}}"
-      style="display: none;"
+      style="display:none"
     >
       {{lang 'cart.checkout'}}
     </a>
@@ -97,29 +96,19 @@
     </div>
   {{/if}}
 
-  <div class="span-1-1 pad-bottom">
-      {{> components/cart/coupon-codes}}
+  <a class="prop-link">California's Residents see Proposition 65 Information</a>
+  
+  <div class="prop-wrapper">
+      <h4>Proposition 65</h4>
+    <p class="prop-text">California's Proposition 65 entitles California consumers to special warnings for certain products that contain chemicals above certain threshold levels.</p>
+    <p>⚠WARNING: Furniture products can expose you to chemicals including lead which is known to the State of California to cause cancer or birth defects or other reproductive harm.</p>
+    <p>⚠WARNING: Outdoor heating and fire products can expose you to chemicals including carbon dioxide which is known to the State of California to cause cancer or birth defects or other reproductive harm.</p>
+    <p>For more information, go to <a href="www.P65Warnings.ca.gov/">www.P65Warnings.ca.gov/</a></p>
+        
+    <h5>For Weber Grills</h5>
+    <p>This product can expose you to chemicals including nickel, which is known to the State of California to cause cancer, birth defects, or other reproductive harm.  For more information go to <a href="http://www.P65Warnings.ca.gov" target="_blank" title="P65 Warnings">www.P65Warnings.ca.gov</a>.</p>
   </div>
-
-  <div class="span-1-1 pad-top">
-    <a class="prop-link">California's Residents see Proposition 65 Information</a>
-    
-    <div class="prop-wrapper">
-        <h4>Proposition 65</h4>
-      <p class="prop-text">California's Proposition 65 entitles California consumers to special warnings for certain products that contain chemicals above certain threshold levels.</p>
-      <p>⚠WARNING: Furniture products can expose you to chemicals including lead which is known to the State of California to cause cancer or birth defects or other reproductive harm.</p>
-      <p>⚠WARNING: Outdoor heating and fire products can expose you to chemicals including carbon dioxide which is known to the State of California to cause cancer or birth defects or other reproductive harm.</p>
-      <p>For more information, go to <a href="www.P65Warnings.ca.gov/">www.P65Warnings.ca.gov/</a></p>
-          
-      <h5>For Weber Grills</h5>
-      <p>This product can expose you to chemicals including nickel, which is known to the State of California to cause cancer, birth defects, or other reproductive harm.  For more information go to <a href="http://www.P65Warnings.ca.gov" target="_blank" title="P65 Warnings">www.P65Warnings.ca.gov</a>.</p>
-    </div>
-  </div>
-
 </div>
-
-
-
 
 <script>
 /**
@@ -128,9 +117,8 @@
  * This needs to be done at the paypal level becasue...it's a hack.
  * This simply replaes the amazon button with a new one
 */
-(function(document, window){
-  let observeGrandTotal = document.getElementById()
 
+(function(document, window){
 
   const change = {
     chainAsync: fns => { let curr = 0;  const next = () => fns[curr++](next); next(); },
@@ -148,16 +136,6 @@
   function swapButtonAmazon(){
     if (!window.OffAmazonPayments){ throw "SCRIPT_NOT_LOADED";}
 
-      // let newAmazonBtn = document.createElement("img");
-      // let amazonBtn = document.getElementById("OffAmazonPaymentsWidgets0");
-
-      // newAmazonBtn.setAttribute("src", "//authenteak.com/content/amazon-pay-btn.png");
-      // newAmazonBtn.setAttribute("srcset", "//authenteak.com/content/amazon-pay-btn.png");
-      // newAmazonBtn.setAttribute("class", "amazonpay-button-inner-image");
-      // newAmazonBtn.setAttribute("id", "OffAmazonPaymentsWidgets1");
-      // newAmazonBtn.setAttribute("data-metric-tags", "highres");
-      // newAmazonBtn.setAttribute("alt", "amazon");
-      // newAmazonBtn.style.opacity = 1;
 
     let amazonBtn = document.getElementById("CheckoutButtonAmazon0").querySelector(".amazonpay-button-inner-image");
 
@@ -169,7 +147,7 @@
 
 
   function showButtonAmazon(){
-    document.getElementById("CheckoutButtonAmazon0").querySelector(".amazonpay-button-inner-image").classList.add("amazonpay-button-inner-image--show");
+    document.getElementById("OffAmazonPaymentsWidgets0").classList.add("amazonpay-button-inner-image--show");
   }
 
 
@@ -187,33 +165,10 @@
   }
 
 }(document, window));
-
-
-/*
-* Work Around: Observes the grand total and then updates the product qty
-* - should be done using a global object literal
-*/
-
-(function(document){
-    var grandTotal = document.getElementById("grandTotal"), totalObserver;
-    
-    function grandTotalListner(mutationsList, observer){
-        console.log(mutation.type);
-    }
-    
-    totalObserver = new MutationObserver(grandTotalListner);
-    totalObserver.observe(grandTotal, { attributes: true, childList: true, subtree: true });
-    
-}(document));
-
 </script>
 
-
-
 <script>
-/** -----------------------
- * Bolt Integration
---------------------------- */
+
 var originalCheckoutButton = document.querySelector(".cart-actions .button-primary");
 var boltButtons = document.getElementsByClassName("bolt-button-wrapper");
 
@@ -225,24 +180,23 @@ if (true) {
 }
 
 var interval = setInterval(function(){
-  if (window.BoltCheckout) {
-      // console.log("HIT INTERVAL")
-      window.BoltCheckout.setClientCustomCallbacks({
-          success : function(trx){
-              fbq('track', 'Purchase', {
-                  value: trx.amount.amount / 100.0,
-                  currency: 'USD',
-              });
-          }
-      });
-      window.BoltCheckout.reloadBigCommerceCart(false);
-      clearInterval(interval);
-  }
+if (window.BoltCheckout) {
+    console.log("HIT INTERVAL")
+    window.BoltCheckout.setClientCustomCallbacks({
+        success : function(trx){
+            fbq('track', 'Purchase', {
+                value: trx.amount.amount / 100.0,
+                currency: 'USD',
+            });
+        }
+    });
+    window.BoltCheckout.reloadBigCommerceCart(false);
+    clearInterval(interval);
+}
 }, 200);
 
 var config = { childList: true, subtree: true };
-
-// Change totalClassName
+	// Change totalClassName
 var totalClassName = "grand-total";
 var totalPrice = "";
 var callback = function(mutationsList) {
@@ -251,12 +205,13 @@ var callback = function(mutationsList) {
         return;
     }
     var newPrice = elms[0].innerHTML;
-    // console.log('newprice: ', newPrice);
+    console.log('newprice: ', newPrice);
     if (newPrice !== totalPrice && window.BoltCheckout) {
-        // console.log("Called Reload");
+        console.log("Called Reload");
         window.BoltCheckout.reloadBigCommerceCart(false);
     }
     totalPrice = newPrice;
 };
 new MutationObserver(callback).observe(document.body, config);
+
 </script>
