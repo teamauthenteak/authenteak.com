@@ -25,7 +25,7 @@
     "offers": {
       "@type": "Offer",
       "priceCurrency": "{{currency_selector.active_currency_code}}",
-      "price": "{{#if product.price.without_tax}}{{> components/products/customizations/non-sale-price-fixed price=product.price}}{{/if}}{{#if product.price.with_tax}}{{#unless product.price.without_tax}}{{product.price.with_tax.value}}{{/unless}}{{/if}}",
+      "price": "{{#if product.price.without_tax}}{{> components/products/customizations/non-sale-price-fixed price=product.price}}{{/if}}{{#if product.price.with_tax}}{{#unless product.price.without_tax}}{{chop product.price.with_tax.value}}{{/unless}}{{/if}}",
       "itemCondition": "{{#if product.condition '===' 'New'}}http://schema.org/NewCondition{{/if}}{{#if product.condition '===' 'Used'}}http://schema.org/UsedCondition{{/if}}{{#if product.condition '===' 'Refurbished'}}http://schema.org/RefurbishedCondition{{/if}}",
       "availability": "{{#unless product.out_of_stock_message}}http://schema.org/InStock{{else}}http://schema.org/OutOfStock{{/unless}}",
       "seller": {
@@ -34,6 +34,8 @@
       }
     }
   });
+
+  schema.text = schema.text.replace("$", "");
 
   document.querySelector('body').appendChild(schema);
 

@@ -1,8 +1,22 @@
 # Change Log
 
+## [1.19.11] - 2019-04-18
+#### Fixed
+- Pixel tracking
+- Prop 65 on cart
+- Mega menu update
+- Search box
+- SEO structured data fix
+- PDP product sizes recomendation slider
+- removed the product price from recomendation slider
+
+
+
 ## [1.19.7] - 2019-04-18
 #### Fixed
 - Fixed an issue with the scroll not working on the swatch order modal when swatches are selected.
+
+- Rolled back version 1.19.7 from 1.19.10
 
 
 ## [1.19.6] - 2019-04-17

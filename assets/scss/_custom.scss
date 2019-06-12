@@ -331,10 +331,14 @@ $futura-font:'Futura', sans-serif;
     padding: 0 17px;
 
     .form-input:not([type="radio"]):not([type="checkbox"]):not(.quantity-input) {
-        box-shadow: 0 0 0 1px #e6e9ef inset;
+        box-shadow: 0 0 0 1px #929396 inset;
         height: 2rem;
         padding: 0 1rem;
-        @include placeholder() { color: $color-topbar-text; }
+        color: #444;
+
+        @include placeholder() { 
+            color: $color-topbar-text; 
+        }
     }
 
     button.button-search-submit {
@@ -1224,6 +1228,11 @@ h1.product-title {
     justify-content: center;
 }
 
+.product-grid-item{
+    & .lazy-image{
+        height: 250px;
+    }
+}
 
 .price-rrp{
     margin: 0 10px;
@@ -2671,7 +2680,7 @@ a[target="_blank"][href="http://www.nextopia.com"] {
 }
 
 //Prop 65 styles
-a.prop-link {
+a.prop-link-new {
     display: block;
     text-align: center;
     margin: 100px 0 0 0;
@@ -2686,7 +2695,7 @@ a.prop-link {
     user-select: none;
 }
 
-a.prop-link:hover {
+a.prop-link-new:hover {
     background-color: #fff;
     border: 2px solid #e5e5e5;
 }
@@ -2803,6 +2812,15 @@ span.head-phone-number {
     bottom: 50px;
 }
 
-.yotpo-stars + a.text-m{
+.yotpo-stars + a.text-m, .slick-list .product-price-line{
     display: none;
+}
+
+.slick-list .replaced-image{
+    height: 250px;
+}
+
+.form-input:not([type="radio"]):not([type="checkbox"]):not(.quantity-input), .navigation-mobile .search-input:not([type="radio"]):not([type="checkbox"]):not(.quantity-input), .review-form .product-item-rating:not([type="radio"]):not([type="checkbox"]):not(.quantity-input){
+    box-shadow: 0 0 0 1px #929396 inset;
+    color: #444;
 }
