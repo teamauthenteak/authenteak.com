@@ -98,7 +98,7 @@
 
   <a class="prop-link-new" href="/prop65" target="_blank">California Proposition 65 Warning Information</a>
   
-  <div class="prop-wrapper">
+  <div class="prop-wrapper prop-link">
     <h4>California Proposition 65 Warning Information</h4>
     <p class="prop-text">California's Proposition 65 entitles California consumers to special warnings for certain products that contain chemicals above certain threshold levels.</p>
     <p>⚠WARNING: Furniture products can expose you to chemicals including lead which is known to the State of California to cause cancer or birth defects or other reproductive harm.</p>
@@ -136,18 +136,25 @@
   function swapButtonAmazon(){
     if (!window.OffAmazonPayments){ throw "SCRIPT_NOT_LOADED";}
 
-
     let amazonBtn = document.getElementById("CheckoutButtonAmazon0").querySelector(".amazonpay-button-inner-image");
-
     amazonBtn.src = "//authenteak.com/content/amazon-pay-btn.png";
     amazonBtn.srcset = "//authenteak.com/content/amazon-pay-btn.png";
-
     amazonBtn.style.opacity = 1;
   }
 
 
   function showButtonAmazon(){
     document.getElementById("OffAmazonPaymentsWidgets0").classList.add("amazonpay-button-inner-image--show");
+
+    amazonBtn.addEventListener("click", function(){
+      var subTotal = "{{cart.sub_total.formatted}}".replace(/\$|,/g, ''),
+          qty = {{cart.quantity}};
+
+        subTotal = parseInt(subTotal);
+
+        TEAK.Modules.fbPixel.checkoutStart(subTotal, qty);
+    });
+
   }
 
 
@@ -168,20 +175,32 @@
 </script>
 
 <script>
-
 var originalCheckoutButton = document.querySelector(".cart-actions .button-primary");
 var boltButtons = document.getElementsByClassName("bolt-button-wrapper");
 
 if (true) {
     for (var i = 0; i < boltButtons.length; i++) {
        boltButtons[i].style.display = 'contents';
+
+      // Facebook Pixel track for Bolt - initate checkout
+      // cannot track 'AddPaymentInfo' because bolt is in a iframe
+      boltButtons[i].addEventListener("click", function(){
+        var subTotal = "{{cart.sub_total.formatted}}".replace(/\$|,/g, ''),
+            qty = {{cart.quantity}};
+
+        subTotal = parseInt(subTotal);
+
+        TEAK.Modules.fbPixel.checkoutStart(subTotal, qty);
+      });
+
     }
+
     originalCheckoutButton.style.display = 'none';
 }
 
 var interval = setInterval(function(){
 if (window.BoltCheckout) {
-    console.log("HIT INTERVAL")
+    // console.log("HIT INTERVAL")
     window.BoltCheckout.setClientCustomCallbacks({
         success : function(trx){
             fbq('track', 'Purchase', {
@@ -205,9 +224,9 @@ var callback = function(mutationsList) {
         return;
     }
     var newPrice = elms[0].innerHTML;
-    console.log('newprice: ', newPrice);
+    // console.log('newprice: ', newPrice);
     if (newPrice !== totalPrice && window.BoltCheckout) {
-        console.log("Called Reload");
+        // console.log("Called Reload");
         window.BoltCheckout.reloadBigCommerceCart(false);
     }
     totalPrice = newPrice;

@@ -47,7 +47,7 @@
         {{/each}}
       </p>
     
-    <div class="mobileShow">
+  <div class="product-price">
       {{#if product.price}}
         {{> components/products/price price=product.price show_savings=true save_block=true}}
       {{/if}}
@@ -94,7 +94,7 @@
 
       <div class="product-price">
 
-        <div class="mobileHide">
+        <div style="display: none;">
           {{#if product.price}}
             {{> components/products/price price=product.price show_savings=true save_block=true}}
           {{/if}}
@@ -197,3 +197,16 @@
   </div>
 {{/if}}
 </form>
+
+<script>
+(function(){
+  var atcBtn = document.querySelector("[data-button-purchase]"),
+      product = document.querySelector("[data-product-container]").dataset,
+      price = document.querySelector(".price-value").innerText.trim().replace(/\$|,/g, '');
+
+  atcBtn.addEventListener("click", function(){
+    TEAK.Modules.fbPixel.addToCart(product.productTitle, price, product.productId);
+  });
+
+}());
+</script>

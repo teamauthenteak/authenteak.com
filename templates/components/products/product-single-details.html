@@ -103,19 +103,21 @@
         {{/if}}
       </div>
 
-      {{#each product.custom_fields}}
-        {{#if this.name '==' "Promo Text"}}
-            <p class="pdp-promo-text">{{{this.value}}}</p>
-        {{/if}}
-      {{/each}}
-
       {{#if product.release_date }}
         <p class="message neutral">{{product.release_date}}</p>
       {{/if}}
       
+
       {{#each product.custom_fields}}
         {{#if this.name '==' "Lead-Time"}}   
             <p class="shipping-range shipping-range--static mobileHide">{{this.value}}</p>
+        {{/if}}
+      {{/each}}
+
+      
+      {{#each product.custom_fields}}
+        {{#if this.name '==' "Promo Text"}}
+            <p class="pdp-promo-text">{{{this.value}}}</p>
         {{/if}}
       {{/each}}
 

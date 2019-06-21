@@ -1,6 +1,11 @@
 # Change Log
 
-## [1.19.11] - 2019-04-18
+## [1.19.11.002] - 2019-06-19
+#### Fixed
+- issue with price being in the incorrect place
+
+
+## [1.19.11] - 2019-06-18
 #### Fixed
 - Pixel tracking
 - Prop 65 on cart

@@ -1,8 +1,9 @@
 {{!-- Product: include in product.html page template --}}
 
 <script id="schema-product">
-
   var schema = document.createElement('script');
+  var schemaPrice = "{{#if product.price.without_tax}}{{> components/products/customizations/non-sale-price-fixed price=product.price}}{{/if}}{{#if product.price.with_tax}}{{#unless product.price.without_tax}}{{chop product.price.with_tax.value}}{{/unless}}{{/if}}".replace(/\$|,/g, '');
+
   schema.type = 'application/ld+json';
   schema.text = JSON.stringify({
     "@context": "http://schema.org/",
@@ -25,7 +26,9 @@
     "offers": {
       "@type": "Offer",
       "priceCurrency": "{{currency_selector.active_currency_code}}",
-      "price": "{{#if product.price.without_tax}}{{> components/products/customizations/non-sale-price-fixed price=product.price}}{{/if}}{{#if product.price.with_tax}}{{#unless product.price.without_tax}}{{chop product.price.with_tax.value}}{{/unless}}{{/if}}",
+      "price": schemaPrice,
+      "priceValidUntil": "",
+      "url": window.location.href,
       "itemCondition": "{{#if product.condition '===' 'New'}}http://schema.org/NewCondition{{/if}}{{#if product.condition '===' 'Used'}}http://schema.org/UsedCondition{{/if}}{{#if product.condition '===' 'Refurbished'}}http://schema.org/RefurbishedCondition{{/if}}",
       "availability": "{{#unless product.out_of_stock_message}}http://schema.org/InStock{{else}}http://schema.org/OutOfStock{{/unless}}",
       "seller": {
@@ -34,8 +37,6 @@
       }
     }
   });
-
-  schema.text = schema.text.replace("$", "");
 
   document.querySelector('body').appendChild(schema);
 
