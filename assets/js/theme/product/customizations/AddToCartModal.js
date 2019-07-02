@@ -114,6 +114,7 @@ export default class AddToCartModal {
       e.preventDefault();
     });
 
+    // get product data from cart rather than calcualte from the UI
     let pendingCartTotal = window.localStorage.getItem('cartData');
     pendingCartTotal = JSON.parse(pendingCartTotal);
     pendingCartTotal = pendingCartTotal[0].cartAmount;
