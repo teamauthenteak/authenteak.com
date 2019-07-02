@@ -920,6 +920,10 @@ footer.mobile-footer .footer-col.footer-accordion .footer-title.accordion-open s
     }
 }
 
+.product-listing-grid .product-item-brand, .slick-list .product-item-brand{
+    display: none;
+}
+
 .product-listing-grid,
 .listing-header,
 .listing-sidebar {
@@ -1050,15 +1054,15 @@ a.nxt-img--no-ratio {
 
 /*Product Details Page Styles*/
 .product-details {
-    background-color: $color-background-pdp; 
+    background-color: $color-background-pdp;
+    // float: left;
+    padding-bottom: 0;
 }
+
+
 
 .product-details-column {
     padding: 0 20px;
-}
-
-.slick-list, .slick-slide a {
-    // max-height: calc(100vw - 60px);
 }
 
 .slick-dots{
@@ -1401,7 +1405,11 @@ ul.highlight-group {
         overflow: hidden;
         border: 1px solid transparent;
         border-radius: 4px;
-        box-shadow: 0 0 0 1px $color-border inset;
+        // box-shadow: 0 0 0 1px $color-border inset;
+
+        @media screen and (max-width: 915px){
+            max-height: none;
+        }
 
         // @media screen and (min-width: 420px) { max-width: $swatch-wrapper-base + (1 * $swatch-wrapper-inc); }
         // @media screen and (min-width: 530px) { max-width: $swatch-wrapper-base + (2 * $swatch-wrapper-inc); }
@@ -1421,13 +1429,17 @@ ul.highlight-group {
     }
 
     .form-field-control {
-        max-height: 190px;
+        max-height: 130px;
         //max-width: 455px;
         padding: 10px;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         flex: 1 0 auto;
+
+        @media screen and (max-width: 970px) {
+            max-height: none;
+        }
 
         .simplebar-content {
             padding: 10px !important;
@@ -1893,6 +1905,16 @@ ul.highlight-group {
 	display: block;
 }
 
+// remove space below tabs
+.section.product-tabs{
+    padding: 0;
+
+    & .tabs{
+        margin: 0;
+    }
+}
+
+
 /*Mobile Product Detail Custom Tabs*/
 .mobile-tab-wrapper {
     display: none;
@@ -2103,12 +2125,16 @@ ul.highlight-group {
             $swatch-wrapper-inc: 55px;
 
             clear: left;
-            max-height: 190px;
+            max-height: 130px;
             max-width: $swatch-wrapper-base;
             overflow: hidden;
             border: 1px solid transparent;
             border-radius: 4px;
             box-shadow: 0 0 0 1px $color-border inset;
+
+            @media screen and (min-width: 915px){
+                max-height: auto;
+            }
 
             @media screen and (min-width: 420px) { max-width: $swatch-wrapper-base + (1 * $swatch-wrapper-inc); }
             @media screen and (min-width: 530px) { max-width: $swatch-wrapper-base + (2 * $swatch-wrapper-inc); }
@@ -2176,43 +2202,43 @@ ul.highlight-group {
     margin: 0 1% 1% 0;
     display: flex;
     // flex: 1 0 10%;
-    width: 15%;
+    width: 3em;
     float: left;
-    height: 50px;
+    height: 3em;
 
 
-    @media only screen and (min-width: $screen-lg) {
-        height: 60px;
-    }
-    @media only screen and (min-width: $screen-md) {
-        height: 70px;
-    }
+    // @media only screen and (min-width: $screen-lg) {
+    //     height: 60px;
+    // }
+    // @media only screen and (min-width: $screen-md) {
+    //     height: 70px;
+    // }
 
 
-    @media only screen and (max-width: $screen-xl) {
-        width: 18%;
-    }
-    @media only screen and (max-width: $screen-lg) {
-        width: 10%;
-    }
-    @media only screen and (max-width: $screen-md) {
-        width: 10%;
-    }
-    @media only screen and (max-width: $screen-sm) {
-        width: 15.5%;
-    }
-    @media only screen and (max-width: $screen-xs) {
-        width: 15.5%;
-        height: 45px;
-    }
+    // @media only screen and (max-width: $screen-xl) {
+    //     width: 18%;
+    // }
+    // @media only screen and (max-width: $screen-lg) {
+    //     width: 10%;
+    // }
+    // @media only screen and (max-width: $screen-md) {
+    //     width: 10%;
+    // }
+    // @media only screen and (max-width: $screen-sm) {
+    //     width: 15.5%;
+    // }
+    // @media only screen and (max-width: $screen-xs) {
+    //     width: 15.5%;
+    //     height: 45px;
+    // }
 
-    @media only screen and (max-width: 325px) {
-        height: 35px;
-    }
+    // @media only screen and (max-width: 325px) {
+    //     height: 35px;
+    // }
 }
 
 .form-field-swatch .swatch {
-    border-radius: 0%;
+    border-radius: 50%;
     height: 100%;
     width: 100%;
 }
@@ -2344,6 +2370,24 @@ button.cart-item-edit {
 .CheckoutButtonAmazon{
     width: 100%;
     height: auto;
+}
+
+.cart-affirm-btn{
+    max-height: 55px;
+    width: 100%;
+}
+
+.cart-afirm-link{
+    display: block;
+    width: 100%;
+    line-height: 1;
+    background-color: #0fa0ea;
+    border-radius: 3px;
+    margin-top: 20px;
+}
+
+.cart-additional-checkout-buttons{
+    width: 100%
 }
 
 .amazonpay-button-inner-image{
@@ -2561,8 +2605,8 @@ body.is-printmode {
 
                     .swatch::after {
                         background: none;
-                        border: 2px solid #000;
-                        box-shadow: inset 0 0 0 1px #FFF;
+                        // border: 2px solid #000;
+                        // box-shadow: inset 0 0 0 1px #FFF;
                     }
 
                     .form-label-text {

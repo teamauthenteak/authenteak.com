@@ -40,9 +40,9 @@ export default class ProductOptions {
 
   // Build Product Custom Data Object ()
   buildCustomDataObject() {
-    window.authenteak = window.authenteak || {};
-    window.authenteak.currentSelections = {};
-    window.authenteak.lastHiResSwatch = '';
+    window.TEAK = window.TEAK || {};
+    window.TEAK.currentSelections = {};
+    window.TEAK.lastHiResSwatch = '';
 
     // Attempt to parse warranty field as JSON object (fallback to string)
     let warranty;
@@ -54,7 +54,7 @@ export default class ProductOptions {
 
     if (typeof warranty === "object") {
       // If warranty is object, assume PIP is in place and respect data structure
-      window.authenteak.productCustomData = warranty;
+      window.TEAK.productCustomData = warranty;
     } else {
       // Assemble custom object from warranty and option JSON
       let customData = {
@@ -69,6 +69,7 @@ export default class ProductOptions {
           name: raw.display_name,
           values: {}
         };
+
         for (var j in raw.values) {
           let rawVal = raw.values[j];
           let value = this.parseOptionLabel(rawVal.label);
@@ -76,82 +77,134 @@ export default class ProductOptions {
           if (rawVal.image) { value.swatch = this.getSwatchImages(rawVal.image.data); }
           optionData.values[value.label] = value;
         }
+
         customData.options[optionData.name] = optionData;
       }
-      window.authenteak.productCustomData = customData;
+      window.TEAK.productCustomData = customData;
     }
   }
 
   // Handle swatch hover and click events
   bindSwatchEvents() {
     let self = this;
-    this.$swatches.on('mouseover', 'label', (e) => {
-      window.clearTimeout(this.hoverTimeout); // Clear hover-off timeout to avoid flicker
-      let $el = $(e.currentTarget);
-      let $optionText = $el.closest('[data-swatch-selector]').find('.form-field-title');
-      let $swatchText = $el.closest('[data-swatch-selector]').find('.swatch-value');
-      let currentSelection = window.authenteak.currentSelections[$optionText.data('option-title')] || false;
-      let label = self.parseOptionLabel($el.data('swatch-value'));
-      let customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
+
+
+    // on hover - show swatch color in main view
+    function showSwatchColor(e){
+      window.clearTimeout(self.hoverTimeout);
+      
+      let $el = $(e.currentTarget),
+          $optionText = $el.closest('[data-swatch-selector]').find('.form-field-title'),
+          $swatchText = $el.closest('[data-swatch-selector]').find('.swatch-value'),
+          currentSelection = window.TEAK.currentSelections[$optionText.data('option-title')] || false,
+          label = self.parseOptionLabel($el.data('swatch-value')),
+          customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
+      
       if (customOptionData) {
         label = customOptionData;
         self.showHoverDetail(label);
       }
 
       $swatchText.text(self.formatLabelWithRelativePricing(label, currentSelection));
+    }
 
-      // $swatchText.text(
-      //   (label.grade ? `Grade ${label.grade}: ${label.text}` : label.text)
-      //   + (label.priceAdjust ? ` (${label.priceAdjust})` : '')
-      // );
-    });
 
-    this.$swatches.on('mouseout', 'label', (e) => {
-      this.hoverTimeout = window.setTimeout(function() {
-        let $el = $(e.currentTarget);
-        let $swatchText = $el.closest('[data-swatch-selector]').find('.swatch-value');
+
+    // on over off - hide the swatch color in the main view
+    function hideSwatchColor(e){
+      self.hoverTimeout = window.setTimeout(function() {
+        let $el = $(e.currentTarget),
+            $swatchText = $el.closest('[data-swatch-selector]').find('.swatch-value');
 
         $swatchText.text($swatchText.data('swatch-value'));
         self.hideHoverDetail();
-      }, 50);
-    });
 
-    this.$swatches.on('click', 'label', (e) => {
-      let $el = $(e.currentTarget);
-      let $optionText = $el.closest('[data-swatch-selector]').find('.form-field-title');
-      let $swatchText = $el.closest('[data-swatch-selector]').find('.swatch-value');
-      let label = self.parseOptionLabel($el.data('swatch-value'));
-      let customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
+      }, 50);
+    }
+
+
+    
+    // on click of the selected watch - then on a consequantal hoveroff, reshow the initally selected swatch
+    function showSelectedSwatchColor(e){        
+      showSwatchColor({
+        currentTarget: self.currentlySelectedSwatch
+      });
+    }
+
+
+
+    // on click - choose the swatch color selected
+    function selectSwatchColor(e){
+      let $el = $(e.currentTarget),
+          $optionText = $el.closest('[data-swatch-selector]').find('.form-field-title'),
+          $swatchText = $el.closest('[data-swatch-selector]').find('.swatch-value'),
+          label = self.parseOptionLabel($el.data('swatch-value')),
+          customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
+
+      // save the raw selection so we can use it later in other evenets
+      self.currentlySelectedSwatch = e.currentTarget;
+      
       if (customOptionData) {
         label = customOptionData;
-        for (var i in label.swatch) {
-          if (this.swatchImageResults[label.swatch[i]]) {
-            window.authenteak.lastHiResSwatch = label.swatch[i];
+
+        for (let i in label.swatch) {
+          if (self.swatchImageResults[label.swatch[i]]) {
+            window.TEAK.lastHiResSwatch = label.swatch[i];
           }
         }
       }
 
+      // if you uncheck the swatch
       if ($el.attr('data-is-selected')) {
         $el.find('input[type="radio"]').prop('checked', false);
         e.preventDefault();
 
-        $el.closest('.form-field-swatch').find('label[data-is-selected]').removeAttr('data-is-selected').trigger('mouseout');
-        delete window.authenteak.currentSelections[$optionText.data('option-title')];
+        // $el.closest('.form-field-swatch').find('label[data-is-selected]').removeAttr('data-is-selected').trigger('mouseout');
+        delete window.TEAK.currentSelections[$optionText.data('option-title')];
+        
         $swatchText.data('swatch-value', '');
         utils.hooks.emit('product-option-change', null, $el.find('input[type="radio"]')[0]);
-      } else {
+
+        self.$swatches
+          .off('mouseout')
+          .on('mouseout', 'label', () => {
+            hideSwatchColor({
+              currentTarget: self.currentlySelectedSwatch
+            });
+          });
+
         $el.closest('.form-field-swatch').find('label[data-is-selected]').removeAttr('data-is-selected');
+
+      
+      } else {
+        // $el.closest('.form-field-swatch').find('label[data-is-selected]').removeAttr('data-is-selected');
         $el.attr('data-is-selected', true);
+ 
+        window.TEAK.currentSelections[$optionText.data('option-title')] = label;
 
-        window.authenteak.currentSelections[$optionText.data('option-title')] = label;
+        $swatchText.data('swatch-value', label.text + (label.priceAdjust ? ` (${label.priceAdjust})` : ''));
 
-        $swatchText.data('swatch-value',
-          label.text + (label.priceAdjust ? ` (${label.priceAdjust})` : ''));
+        // prevent the swatch from switching back from the selected/clicked
+        window.clearTimeout(self.hoverTimeout);
+
+        self.$swatches
+          .off('mouseout')
+          .on('mouseout', 'label', showSelectedSwatchColor);
       }
 
       self.updateLeadTime();
-    });
+    }
+    
+
+    this.$swatches
+      .on('mouseover', 'label', showSwatchColor)
+      .on('mouseout', 'label', hideSwatchColor)
+      .on('click', 'label', selectSwatchColor);
+
   }
+
+
+
 
   // Bind dropdown events
   bindDropdownEvents() {
@@ -162,11 +215,12 @@ export default class ProductOptions {
       let $opt = $el.find('option:selected');
       let label = self.parseOptionLabel($opt.text().trim());
       let customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
+
       if (customOptionData) {
         label = customOptionData;
       }
 
-      window.authenteak.currentSelections[$optionText.data('option-title')] = label;
+      window.TEAK.currentSelections[$optionText.data('option-title')] = label;
 
       self.updateLeadTime();
       self.updateDropdownOptionLabels();
@@ -218,7 +272,7 @@ export default class ProductOptions {
     this.$dropdowns.each(function() {
       let $el = $(this);
       let $optionText = $el.closest('[data-product-attribute="set-select"]').find('.form-field-title');
-      let currentSelection = window.authenteak.currentSelections[$optionText.data('option-title')] || false;
+      let currentSelection = window.TEAK.currentSelections[$optionText.data('option-title')] || false;
       $el.find('option').each(function() {
         let $opt = $(this);
         if (!$opt.data('originalValue')) {
@@ -336,12 +390,12 @@ export default class ProductOptions {
 
   // Update lead time information
   updateLeadTime() {
-    if (typeof window.authenteak.optionsWithLeadTimes === 'undefined') {
+    if (typeof window.TEAK.optionsWithLeadTimes === 'undefined') {
       // Look at all product options to determine which have lead times
       // Do this once and store globally
       let optionsWithLeadTimes = [];
-      for (var i in window.authenteak.productCustomData.options) {
-        let opt = window.authenteak.productCustomData.options[i];
+      for (var i in window.TEAK.productCustomData.options) {
+        let opt = window.TEAK.productCustomData.options[i];
         for (var j in opt.values) {
           if (typeof opt.values[j].leadtime_from !== 'undefined') {
             optionsWithLeadTimes.push(i);
@@ -349,11 +403,11 @@ export default class ProductOptions {
           }
         }
       }
-      window.authenteak.optionsWithLeadTimes = optionsWithLeadTimes;
+      window.TEAK.optionsWithLeadTimes = optionsWithLeadTimes;
     }
 
     // If there are no options with lead times, go no further
-    if (window.authenteak.optionsWithLeadTimes.length === 0) {
+    if (window.TEAK.optionsWithLeadTimes.length === 0) {
       return;
     }
 
@@ -364,9 +418,9 @@ export default class ProductOptions {
     }
 
     // Iterate through options to determine if any with lead times are still unset
-    let unselectedLeadTimeOpts = window.authenteak.optionsWithLeadTimes.slice(0);
-    for (var i in window.authenteak.currentSelections) {
-      let opt = window.authenteak.currentSelections[i];
+    let unselectedLeadTimeOpts = window.TEAK.optionsWithLeadTimes.slice(0);
+    for (var i in window.TEAK.currentSelections) {
+      let opt = window.TEAK.currentSelections[i];
       if (typeof opt.leadtime_from !== 'undefined') {
         // If an option has a lead time value, remove it from the array of unset options
         let indexOfOpt = unselectedLeadTimeOpts.indexOf(i);
@@ -385,8 +439,8 @@ export default class ProductOptions {
       let longestLeadFrom = null;
       let maxLeadTimeTo = 0;
       let longestLeadTo = null;
-      for (var i in window.authenteak.currentSelections) {
-        let opt = window.authenteak.currentSelections[i];
+      for (var i in window.TEAK.currentSelections) {
+        let opt = window.TEAK.currentSelections[i];
         if (opt.leadtime_weeks_from > maxLeadTimeFrom) {
           maxLeadTimeFrom = opt.leadtime_weeks_from;
           longestLeadFrom = opt;
@@ -468,7 +522,7 @@ export default class ProductOptions {
   findCustomOptionData(option, value) {
     let result = {};
     try {
-      result = window.authenteak.productCustomData.options[option].values[value];
+      result = window.TEAK.productCustomData.options[option].values[value];
     } catch (e) {
       return false;
     }
@@ -522,8 +576,8 @@ export default class ProductOptions {
 
     let delay = 0, self = this;
     $(window).on('load', () => {
-      for (var i in window.authenteak.productCustomData.options) {
-        let opt = window.authenteak.productCustomData.options[i];
+      for (var i in window.TEAK.productCustomData.options) {
+        let opt = window.TEAK.productCustomData.options[i];
         for (var j in opt.values) {
           let val = opt.values[j];
           if (val.swatch) {

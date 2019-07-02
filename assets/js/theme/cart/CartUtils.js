@@ -73,9 +73,15 @@ export default class CartUtils {
       utils.api.cart.itemUpdate(itemId, newQuantity, (err, response) => {
         if (response.data.status === 'succeed') {
           const remove = (newQuantity === 0);
-          console.log('updated!fldskhf');
+          
           this.productData[itemId].oldQuantity = newQuantity;
           refreshContent(this.callbacks.didUpdate, remove);
+
+          // update our cart model data for other apps and UI
+          utils.api.cart.getCart({includeOptions: true}, (err, response) => {
+            window.TEAK.Modules.saveCartResponse(response);
+          });
+
         } else {
           $quantityInput.val(this.productData[itemId].oldQuantity);
           this.cartAlerts.error(response.data.errors.join('\n'), true);
@@ -85,6 +91,7 @@ export default class CartUtils {
 
         // this.cartPromos.empty();
       });
+
     }
   }
 
@@ -96,6 +103,12 @@ export default class CartUtils {
     utils.api.cart.itemRemove(itemId, (err, response) => {
       if (response.data.status === 'succeed') {
         refreshContent(this.callbacks.didUpdate, true);
+
+        // update our cart model data for other apps and UI
+        utils.api.cart.getCart({includeOptions: true}, (err, response) => {
+          window.TEAK.Modules.saveCartResponse(response);
+        });
+
       } else {
         this.cartAlerts.error(response.data.errors.join('\n'), true);
 

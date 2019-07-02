@@ -192,10 +192,10 @@ export default class ProductUtils {
             excludingTax: this.context.productExcludingTax,
           };
           viewModel.$price.html(this.options.priceWithoutTaxTemplate(priceStrings));
-          console.log('updating!');
-          console.log(this);
-          console.log(priceStrings);
-          console.log(data.price);
+          // console.log('updating!');
+          // console.log(this);
+          // console.log(priceStrings);
+          // console.log(data.price);
         }
 
         if (viewModel.$priceWithTax.length) {
@@ -415,11 +415,14 @@ export default class ProductUtils {
         // }, 50);
       }
 
-      // Reset the button state
-      this.progressButton.complete($button);
-
+    
       // Update the mini cart & clear inputs if success
       if (response.status === 'success') {
+
+        setTimeout(() => {
+          // Reset the button state
+          this.progressButton.complete($button);
+        }, 3000);
 
         // Custom success event to close the quick shop and open the mini cart
         $.event.trigger({
@@ -431,6 +434,14 @@ export default class ProductUtils {
           this.pageAlerts.clear();
         }, 5000);
       }
+
+      
+      // if fail
+      if (response.status === 'error') {
+        // Reset the button state
+        this.progressButton.complete($button);
+      }
+
     });
   }
 

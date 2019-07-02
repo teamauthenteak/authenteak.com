@@ -79,6 +79,9 @@
           {{/if}}
       </div>
 
+      <div class="affirm-pdp"></div>
+
+
       <!-- moved to add-to-cart.html -->
       <!-- <div class="product-price">
         {{#if product.price}}
@@ -160,6 +163,10 @@
           {{{product.warranty}}}
       </div>
 
+      <div id="returnTab">
+          
+      </div>
+
       <div id="videoTab">
         {{#if product.videos.list.length}}
         <div class="tab-content-panel" id="product-videos">
@@ -184,6 +191,7 @@
           <li><a data-tabval="pdfTab" class="pdfBtn">Resources</a></li>
           <li><a data-tabval="videoTab" class="videoBtn">{{lang 'product.videos'}}</a></li>
           <li><a data-tabval="warrantyTab" class="warrantyTab">Warranty</a></li>
+          <li><a data-tabval="returnTab" class="returnTab">Return Policy</a></li>
         </ul>
       </div>
       <div class="tab-content"></div>
@@ -211,6 +219,9 @@
     
     <a class="mobile-tab-heading mobile-warratyTab" data-tabVal="warrantyTab">Warranty</a>
     <div class="warrantyContent"></div>
+
+    <a class="mobile-tab-heading mobile-returnTab" data-tabVal="returnTab">Return Policy</a>
+    <div class="returnContent"></div>
   </div>
 </section>
 
@@ -266,6 +277,13 @@
             tabBtnClass: ".warrantyBtn",
             mobileClass: ".mobile-warrantyTab",
             mobileObj: document.querySelector('.warrantyContent')
+          },
+          {
+            type: document.querySelector('#returnTab'),
+            id: "returnTab",
+            tabBtnClass: ".returnBtn",
+            mobileClass: ".mobile-returnTab",
+            mobileObj: document.querySelector('.returnContent')
           }
         ];
 

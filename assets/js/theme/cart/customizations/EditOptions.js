@@ -16,8 +16,8 @@ export default class EditOptions {
 
     this.preloadedContent = {};
 
-    window.authenteak = window.authenteak || {};
-    window.authenteak.currentSelections = {};
+    window.TEAK = window.TEAK || {};
+    window.TEAK.currentSelections = {};
 
     // Handle events that require deliberate action (e.g. click)
     this.bindEditFunctionality();
@@ -52,7 +52,7 @@ export default class EditOptions {
 
       let optionsContent = self.preloadedContent[$(e.currentTarget).attr('data-edit-id')];
 
-      window.authenteak.currentSelections = {};
+      window.TEAK.currentSelections = {};
       self.updateDropdownOptionLabels();
 
       $(e.currentTarget).blur();
@@ -134,7 +134,7 @@ export default class EditOptions {
       let $el = $(e.currentTarget);
       let $optionText = $el.closest(self.swatchesSelector).find('.form-field-title');
       let $swatchText = $el.closest(self.swatchesSelector).find('.swatch-value');
-      let currentSelection = window.authenteak.currentSelections[$optionText.data('option-title')] || false;
+      let currentSelection = window.TEAK.currentSelections[$optionText.data('option-title')] || false;
       let label = self.parseOptionLabel($el.data('swatch-value'));
       // let customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
       // if (customOptionData) {
@@ -175,14 +175,14 @@ export default class EditOptions {
         e.preventDefault();
 
         $el.closest('.form-field-swatch').find('label[data-is-selected]').removeAttr('data-is-selected').trigger('mouseout');
-        delete window.authenteak.currentSelections[$optionText.data('option-title')];
+        delete window.TEAK.currentSelections[$optionText.data('option-title')];
         $swatchText.data('swatch-value', '');
         utils.hooks.emit('product-option-change', null, $el.find('input[type="radio"]')[0]);
       } else {
         $el.closest('.form-field-swatch').find('label[data-is-selected]').removeAttr('data-is-selected');
         $el.attr('data-is-selected', true);
 
-        window.authenteak.currentSelections[$optionText.data('option-title')] = label;
+        window.TEAK.currentSelections[$optionText.data('option-title')] = label;
 
         $swatchText.data('swatch-value',
           label.text + (label.priceAdjust ? ` (${label.priceAdjust})` : ''));
@@ -205,7 +205,7 @@ export default class EditOptions {
       //   label = customOptionData;
       // }
 
-      window.authenteak.currentSelections[$optionText.data('option-title')] = label;
+      window.TEAK.currentSelections[$optionText.data('option-title')] = label;
 
       // self.updateLeadTime();
       self.updateDropdownOptionLabels();
@@ -218,7 +218,7 @@ export default class EditOptions {
     this.$editModal.find(self.dropdownsSelector).each(function() {
       let $el = $(this);
       let $optionText = $el.closest('[data-product-attribute="set-select"]').find('.form-field-title');
-      let currentSelection = window.authenteak.currentSelections[$optionText.data('option-title')] || false;
+      let currentSelection = window.TEAK.currentSelections[$optionText.data('option-title')] || false;
       $el.find('option').each(function() {
         let $opt = $(this);
         if (!$opt.data('originalValue')) {

@@ -41,6 +41,7 @@ export default class Header {
       }
     });
 
+
     // Close UI elemets with esc key
     $(document).on('keyup', (e) => {
       // Mini cart
@@ -79,6 +80,8 @@ export default class Header {
 
     $(window).resize(this._handleResize);
   }
+
+
 
   _handleResize() {
     // Reset the mobile panel if window is made larger

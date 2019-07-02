@@ -50,6 +50,7 @@ export default class MiniCart {
     if(remove) {
       $cartQtyEl.attr('data-cart-quantity', cartQty);
       $cartQtyEl.html($cartQtyEl.attr('data-cart-quantity'));
+
     } else {
       $cartQtyEl.attr('data-cart-quantity', cartQty + pdpQty);
       $cartQtyEl.html(cartQty + pdpQty);
@@ -71,10 +72,11 @@ export default class MiniCart {
     // a product is added / removed
     utils.api.cart.getContent({ template: 'mini-cart/mini-cart-contents' }, (err, response) => {
       $miniCartContents.html(response);
+  
       // Update the header subtotal
       const subtotal = $(response).find('.mini-cart-subtotal').attr('data-cart-quantity');
       $miniCartTotal.html(subtotal).attr('data-cart-quantity', subtotal);
-
+     
       $miniCart.animate({
         top: 0
       });

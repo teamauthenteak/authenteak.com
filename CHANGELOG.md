@@ -1,5 +1,19 @@
 # Change Log
 
+## [1.19.13] - 2019-06-28
+#### Fixed
+- PDP changes
+- Bolt checkout
+- AFfirm
+- Price flicker
+- localstorage cart data save
+- ATC
+
+## [1.19.12] - 2019-06-19
+#### Fixed
+- Reverted Bolt Checktou button
+
+
 ## [1.19.11.002] - 2019-06-19
 #### Fixed
 - issue with price being in the incorrect place

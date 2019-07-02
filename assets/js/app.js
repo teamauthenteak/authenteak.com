@@ -9,6 +9,7 @@ import './simplebar/simplebar';
 import './DoubleTapToGo/jquery.doubletaptogo';
 
 import stencilUtils from '@bigcommerce/stencil-utils';
+import GlobalNamespace from './theme/utils/TEAK';
 import async from 'async';
 import account from './theme/core/Account';
 import auth from './theme/Auth';
