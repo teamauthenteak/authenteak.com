@@ -19,9 +19,10 @@
 
     <div class="product-details-column">
       <h1 class="product-title mobileShow">{{this.product.title}}</h1>
-      <p class="item-number mobileShow">ITEM #: {{product.sku}}</p>
+      <!-- <p class="item-number mobileShow">ITEM #: {{product.sku}}</p> -->
 
       {{> components/products/customizations/swatch-hover-detail}}
+
       {{> components/products/product-single-images
         images=product.images
         default_image=theme_settings.default_image
@@ -61,12 +62,13 @@
       {{else}}
         <h1 class="product-title mobileHide">{{this.product.title}}</h1>
       {{/if}}
-        <p class="item-number mobileHide">ITEM #: {{product.sku}}</p>
-
-      <div class="yotpo-pdp-wrapper">
-          <div class="yotpo bottomLine" data-product-id="{{ product.id }}"></div>  
-          <div class='yotpo QABottomLine' data-appkey='aS8rMIONwGgNbx1ATQmUtKY173Xk5HHc75qGrnuq' data-product-id='{{ product.id }}'></div>
-      </div>
+      
+        <div class="item-number mobileHide">ITEM #: {{product.sku}}
+          <span class="yotpo-pdp-wrapper">
+              <span class="yotpo bottomLine" data-product-id="{{ product.id }}"></span>  
+              <span class='yotpo QABottomLine' data-appkey='aS8rMIONwGgNbx1ATQmUtKY173Xk5HHc75qGrnuq' data-product-id='{{ product.id }}'></span>
+          </span>
+        </div>
       
 
       <div class="price-range">
@@ -78,9 +80,6 @@
             <!-- show no price -->
           {{/if}}
       </div>
-
-      <div class="affirm-pdp"></div>
-
 
       <!-- moved to add-to-cart.html -->
       <!-- <div class="product-price">

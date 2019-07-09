@@ -25,6 +25,14 @@ $color-background-pdp: stencilColor('product-details-bg');
 $futura-font:'Futura', sans-serif;
 */
 
+.container, .top-bar .container, .top-bar .product-tabs{
+    max-width: inherit;
+}
+
+.container, .product-tabs, .account-wrapper{
+    padding: 0 20px;
+}
+
 .site-branding {
     margin: 10px 0 0;
     .site-branding-link {
@@ -1160,7 +1168,7 @@ nav.share-buttons-nav {
 }
 
 .tmp-prod-details {
-    max-width: 1230px;
+    // max-width: 1230px;
     margin: 0 auto;
 }
 
@@ -1194,6 +1202,11 @@ h1.product-title {
 
 .item-number{
     font-size: .75rem !important;
+    margin-bottom: 20px !important;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: left;
 }
 
 
@@ -1367,17 +1380,37 @@ ul.highlight-group {
 
 /* Product Detail Options */
 .form-field-options {
+
+    .tool-tip-link{
+        display: flex;
+        align-self: flex-end;
+        justify-content: center;
+        align-items: center;
+        flex: 0;
+    }
+
+    .tool-tip-icon{
+        width: 20px;
+        height: 20px;
+        fill: #6ea438;
+    }
+
     .form-field-title {
         position: relative;
         float: none;
         margin-bottom: 0;
         text-transform: uppercase;
         font-size: 1em;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        align-content: center;
 
         .swatch-value {
-            display: block;
+            display: initial;
             text-transform: none;
             font-size: 1em;
+            flex: 1 0 auto;
 
             &:after { content: '\00a0'; }
         }
@@ -1423,9 +1456,9 @@ ul.highlight-group {
         // @media screen and (min-width: 915px) { max-width: $swatch-wrapper-base + (10 * $swatch-wrapper-inc); }
         // @media screen and (min-width: 970px) { max-width: $swatch-wrapper-base + (11 * $swatch-wrapper-inc); }
 
-        @media screen and (min-width: 1024px) { max-width: $swatch-wrapper-base + (3 * $swatch-wrapper-inc); }
-        @media screen and (min-width: 1080px) { max-width: $swatch-wrapper-base + (4 * $swatch-wrapper-inc); }
-        @media screen and (min-width: 1200px) { max-width: $swatch-wrapper-base + (5 * $swatch-wrapper-inc); }
+        // @media screen and (min-width: 1024px) { max-width: $swatch-wrapper-base + (3 * $swatch-wrapper-inc); }
+        // @media screen and (min-width: 1080px) { max-width: $swatch-wrapper-base + (4 * $swatch-wrapper-inc); }
+        // @media screen and (min-width: 1200px) { max-width: $swatch-wrapper-base + (5 * $swatch-wrapper-inc); }
     }
 
     .form-field-control {
@@ -1437,9 +1470,9 @@ ul.highlight-group {
         flex-wrap: wrap;
         flex: 1 0 auto;
 
-        @media screen and (max-width: 970px) {
-            max-height: none;
-        }
+        // @media screen and (max-width: 970px) {
+        //     max-height: none;
+        // }
 
         .simplebar-content {
             padding: 10px !important;
@@ -2132,9 +2165,9 @@ ul.highlight-group {
             border-radius: 4px;
             box-shadow: 0 0 0 1px $color-border inset;
 
-            @media screen and (min-width: 915px){
-                max-height: auto;
-            }
+            // @media screen and (min-width: 915px){
+            //     max-height: auto;
+            // }
 
             @media screen and (min-width: 420px) { max-width: $swatch-wrapper-base + (1 * $swatch-wrapper-inc); }
             @media screen and (min-width: 530px) { max-width: $swatch-wrapper-base + (2 * $swatch-wrapper-inc); }
@@ -2721,9 +2754,9 @@ a[target="_blank"][href="http://www.nextopia.com"] {
     display: none !important;
 }
 
-.yotpo {
-    padding: 10px 0;
-}
+// .yotpo {
+//     padding: 10px 0;
+// }
 
 .yotpo .text-m {
     margin-left: 15px;
@@ -2789,9 +2822,19 @@ img.lazy-image {
     min-width: 1px;
 }
 
+.yotpo-pdp-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    align-content: center;
+    flex: 1 0 auto;
+    margin-left: 20px;
+}
+
 .yotpo-pdp-wrapper .bottomLine,
 .yotpo-pdp-wrapper .QABottomLine {
-    display: inline-block;
+    display: flex;
+    flex: 1 0 auto;
 }
 
 .yotpo-pdp-wrapper .QABottomLine {

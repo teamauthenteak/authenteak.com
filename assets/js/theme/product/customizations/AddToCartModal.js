@@ -92,11 +92,14 @@ export default class AddToCartModal {
     let price = $(document).find('.product-quantity-submit [data-product-price-wrapper="without-tax"] .price-value').text().trim().replace(',', '').replace(/\$(\d+)\.(\d\d)/, "$1$2");
     let unitPrice = price/qty;
     
-    if (unitPrice < 10) {
-      unitPrice = `00${unitPrice}`;
-    } else if (unitPrice < 100) {
-      unitPrice = `0${unitPrice}`;
+    if(unitPrice > 0){
+      if (unitPrice < 10) {
+        unitPrice = `00${unitPrice}`;
+      } else if (unitPrice < 100) {
+        unitPrice = `0${unitPrice}`;
+      }
     }
+    
     unitPrice = `$${unitPrice}`.replace(/^(\$\d*)(\d\d)$/, "$1.$2").replace(/(\d)(\d\d\d)\./, "$1,$2.");
 
     $('.modal-cart .option-value-wrapper').each(function() {
@@ -119,11 +122,13 @@ export default class AddToCartModal {
     pendingCartTotal = JSON.parse(pendingCartTotal);
     pendingCartTotal = pendingCartTotal[0].cartAmount;
     
-    if (pendingCartTotal < 10) {
-      pendingCartTotal = `00${pendingCartTotal}`;
-
-    } else if (pendingCartTotal < 100) {
-      pendingCartTotal = `0${pendingCartTotal}`;
+    if (pendingCartTotal > 0){
+      if (pendingCartTotal < 10) {
+        pendingCartTotal = `00${pendingCartTotal}`;
+  
+      } else if (pendingCartTotal < 100) {
+        pendingCartTotal = `0${pendingCartTotal}`;
+      }
     }
 
     // pendingCartTotal = `$${pendingCartTotal}`.replace(/^(\$\d*)(\d\d)$/, "$1.$2").replace(/(\d)(\d\d\d)\./, "$1,$2.");
@@ -197,6 +202,8 @@ export default class AddToCartModal {
       if (callback) {
         callback();
       }
+
+      
     });
   }
 

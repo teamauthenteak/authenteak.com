@@ -93,9 +93,15 @@
     {{{checkout.order_confirmation_content}}}
     
    <script>
-      const TEAK = {} || TEAK;
-      
+      var TEAK = {} || TEAK;
+
       TEAK.Checkout = {
+
+        // clear cart from local storage
+        clearStorage: function(item){
+          window.localStorage.removeItem(item);
+          return this;
+        },
 
         /* 
           Injects the unsubscribe form into the pages
@@ -139,6 +145,10 @@
       };
 
       setTimeout(() => TEAK.Checkout.buildUI(), 500);
+
+
+      // clear out stored cart data
+      TEAK.Checkout.clearCart('cartData');
       
     </script>
 
