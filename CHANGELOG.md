@@ -1,9 +1,12 @@
 # Change Log
 
-## [1.19.14] - 2019-07-02
+## [1.19.14] - 2019-07-10
 #### Fixed
 - Circle swatches
+- full width site, header, plp and pip
 - ATC fix for free product swatches flicker
+- ALT tags for flyout menu (mobile & desktop)
+- swatch fix on click to keep label
 
 ## [1.19.13] - 2019-06-28
 #### Fixed

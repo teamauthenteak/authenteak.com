@@ -46,6 +46,7 @@ export default class ProductOptions {
 
     // Attempt to parse warranty field as JSON object (fallback to string)
     let warranty;
+
     try {
       warranty = JSON.parse(this.$warrantyJSON.text());
     } catch (e) {
@@ -125,10 +126,16 @@ export default class ProductOptions {
 
     
     // on click of the selected watch - then on a consequantal hoveroff, reshow the initally selected swatch
-    function showSelectedSwatchColor(e){        
+    function showSelectedSwatchColor(e){  
+      let $el = $(e.currentTarget),
+          label = self.parseOptionLabel($el.data('swatch-value'));
+
       showSwatchColor({
-        currentTarget: self.currentlySelectedSwatch
+        currentTarget: self.currentlySelectedSwatch,
+        type: e.type
       });
+
+      self.showHoverDetail(label);
     }
 
 
@@ -156,6 +163,7 @@ export default class ProductOptions {
 
       // if you uncheck the swatch
       if ($el.attr('data-is-selected')) {
+
         $el.find('input[type="radio"]').prop('checked', false);
         e.preventDefault();
 
