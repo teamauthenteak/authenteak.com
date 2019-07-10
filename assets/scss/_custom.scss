@@ -18,7 +18,7 @@ $screen-xl: 1200px; // Large Desktop & HD TV
   &:-ms-input-placeholder      {@content}
 }
 
-/*Colors*/
+/* Colors */
 $color-background-pdp: stencilColor('product-details-bg');
 
 /*
@@ -30,7 +30,11 @@ $futura-font:'Futura', sans-serif;
 }
 
 .container, .product-tabs, .account-wrapper{
-    padding: 0 20px;
+    padding: 0 5vw;
+
+    @media only screen and (min-width: $screen-md) {
+        padding: 0 2vw;
+    }
 }
 
 .site-branding {
@@ -1207,6 +1211,7 @@ h1.product-title {
     align-content: center;
     align-items: center;
     justify-content: left;
+    flex-wrap: wrap;
 }
 
 
@@ -1411,6 +1416,10 @@ ul.highlight-group {
             text-transform: none;
             font-size: 1em;
             flex: 1 0 auto;
+            width: 30%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
 
             &:after { content: '\00a0'; }
         }
@@ -2235,17 +2244,14 @@ ul.highlight-group {
     margin: 0 1% 1% 0;
     display: flex;
     // flex: 1 0 10%;
-    width: 3em;
+    width: 4em;
     float: left;
-    height: 3em;
+    height: 4em;
 
-
-    // @media only screen and (min-width: $screen-lg) {
-    //     height: 60px;
-    // }
-    // @media only screen and (min-width: $screen-md) {
-    //     height: 70px;
-    // }
+    @media only screen and (max-width: $screen-md) {
+        width: 3.5em;
+        height: 3.5em;
+    }
 
 
     // @media only screen and (max-width: $screen-xl) {
@@ -2829,12 +2835,16 @@ img.lazy-image {
     align-content: center;
     flex: 1 0 auto;
     margin-left: 20px;
+
+    @media screen and (max-width: $screen-md){
+        margin: 10px 0 0 0;
+    }
 }
 
 .yotpo-pdp-wrapper .bottomLine,
 .yotpo-pdp-wrapper .QABottomLine {
     display: flex;
-    flex: 1 0 auto;
+    // flex: 1 0 auto;
 }
 
 .yotpo-pdp-wrapper .QABottomLine {

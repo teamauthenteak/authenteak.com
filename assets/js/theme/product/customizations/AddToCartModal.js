@@ -109,6 +109,17 @@ export default class AddToCartModal {
       }
       $(this).text(value);
     });
+
+    // if the Request-a-Swatch free item was requested and consequentl atc modal opens to show the item added
+    // if we understand that a Request-a-Swatch form was submitted then we need to update the qty and price
+    if(window.TEAK.Modules.hasOwnProperty("requestASwatch") || window.TEAK.Modules.requestASwatch.itemAdded){
+      qty = window.TEAK.Modules.requestASwatch.qty,
+      unitPrice = window.TEAK.Modules.requestASwatch.unitPrice
+
+      // clear out the module data 
+      window.TEAK.Modules.requestASwatch = {};
+    }
+
     $('.modal-cart [data-quantity]').text(qty);
     $('.modal-cart [data-price]').text(unitPrice);
 

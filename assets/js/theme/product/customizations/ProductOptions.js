@@ -341,22 +341,32 @@ export default class ProductOptions {
       self.updateRequestASwatchForm();
     });
 
+    // Request-a-Swatch form close
     this.$raqModal.on('click', '.closepopup', (e) => {
       self.$raqModal.removeClass('is-open');
       $('body').off('click.closeRASModal');
     });
 
+    // Request-a-Swatch form close to show modal
     $(document).on('modal-cart-display', (e) => {
       self.$raqModal.removeClass('is-open');
       $('body').off('click.closeRASModal');
     });
 
+    // Request-a-Swatch form Submit
     this.$raqModal.on('submit', 'form', (e) => {
       e.preventDefault();
       const formData = new FormData(e.target);
+
       utils.hooks.emit('cart-item-add', e, e.target);
 
-      utils.api.cart.itemAdd(formData, () => {});
+      // once we get a success add to cart then update our module data
+      utils.api.cart.itemAdd(formData, (err, response) => {
+        if(response){
+          window.TEAK.Modules.requestASwatch = { itemAdded: true, ...window.TEAK.Modules.requestASwatch};
+        }
+      });
+
     });
   }
 
@@ -365,12 +375,15 @@ export default class ProductOptions {
     let swatches = [];
     let productName = this.$raqModal.find('[data-product-name]').first().data('product-name');
     let productSKU = this.$raqModal.find('[data-product-sku]').first().data('product-sku');
+
     this.$raqSwatches.find('li.is-selected').each(function() {
       swatches.push($(this).data('swatch-title'));
     });
+
     this.$raqModal.find('form input[data-request-swatch-values-input]').val(
       `${productName} SKU: ${productSKU}, ${swatches.join(',')}`
     );
+
     if (swatches.length >= 5) {
       this.$raqSwatches.addClass('has-max-selected');
     } else {
@@ -383,6 +396,13 @@ export default class ProductOptions {
       this.$raqModal.find('.previewswatch, form').removeClass('has-selections');
       this.$raqModal.find('button').prop('disabled', true);
     }
+
+    // save this object data to use in other places on the site
+    window.TEAK.Modules.requestASwatch = {
+      qty: swatches.length,
+      unitPrice: "$0.00"
+    }
+
   }
 
   // Bind parsed label data to swatch labels
