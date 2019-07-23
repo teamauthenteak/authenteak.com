@@ -235,8 +235,7 @@ $futura-font:'Futura', sans-serif;
         -ms-transform: translateY(-50%);
         transform: translateY(-50%);
         z-index: 999999;
-        right: 20px;
-        left: auto;
+        left: 85vw;
         top: 40px;
         background: transparent;
         width: 40px;
@@ -351,7 +350,7 @@ $futura-font:'Futura', sans-serif;
 }
 
 .nav-mobile-text{
-    flex: 1 0 94%;
+    flex: 1 0 92%;
     text-transform: capitalize;
     font-size: 1.1rem;
     line-height: 1.4;
@@ -544,6 +543,11 @@ $futura-font:'Futura', sans-serif;
         width: 190px !important;
         height: 38px;
     }
+
+    @media screen and (max-width: $screen-xs){
+        margin: 0 auto 10px 60px !important;
+        width: 160px !important;
+    }
 }
 
 
@@ -674,6 +678,10 @@ span.head-phone-number {
         display: none;
         font-size: 1.2rem;
         margin-right: 5px !important;
+
+        @media only screen and (max-width: $screen-xs) {
+            margin-right: 0 !important;
+        }
     }
 
     .mini-cart-subtotal.mini-cart-quantity-mobile {
@@ -2646,6 +2654,10 @@ ul.highlight-group {
 
     @media only screen and (max-width: $screen-sm) {
         display: flex;
+    }
+
+    @media only screen and (max-width: $screen-xs) {
+        right: 55px;
     }
 
     a{
