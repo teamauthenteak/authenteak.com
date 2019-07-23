@@ -1,6 +1,5 @@
 {{!
-  @param all_item
-         > either true or false, passed from parent template
+  @param all_item > either true or false, passed from parent template
 }}
 <a href="{{url}}" {{#if children}}data-toggle-mobile="{{url}}" data-mobile-name="{{name}}"{{/if}}>{{name}}{{#if children}}{{> svg/arrow-down}}{{/if}}</a>
 {{#if children}}

@@ -1,27 +1,27 @@
+<button class="button-mobile-nav-toggle button-mobile-nav-toggle--active">
+  <i class="burger"></i>
+</button>
+
 <div class="navigation-mobile">
   <nav class="navigation">
     <button class="button-mobile-nav-back {{#if cart.status_messages}}has-promo{{/if}}" data-toggle-mobile="all">
-      <svg class="icon icon-arrow-left"><use xlink:href="#icon-arrow-left" /></svg>
+      <svg class="icon icon-arrow-left"><use xlink:href="#icon-arrow-left" /></svg> Main menu 
     </button>
     <ul>
-      <div class="nav-mobile-container">
-        {{> components/header/customizations/navigation-mobile-static}}
-        {{!-- <ul class="nav-mobile-panel nav-mobile-panel-parent is-active" data-panel-depth="0" data-mobile-menu="all">
-          {{#if theme_settings.global-show-home-in-nav}}
-            <li>
-              <a class="nav-page nav-mobile-item" href="{{urls.home}}">
-                {{lang 'header.home_nav_item'}}
-              </a>
-            </li>
-          {{/if}}
+      <div class="nav-mobile-container" id="navMobileContainer">
+
+        <ul class="nav-mobile-panel nav-mobile-panel-parent is-active" data-panel-depth="0" data-mobile-menu="all">
           {{#if theme_settings.global-show-categories-in-nav}}
-            {{#each categories}}
-            <li class="nav-mobile-item nav-mobile-item-parent {{#if children}}has-children{{/if}}">
-                {{> components/common/multi-level-nav-item all_item=false}}
+            
+          {{#each categories}}           
+            <li class="nav-mobile-item nav-mobile-item-parent {{#if children}}has-children{{/if}}" mobile_category_{{id}}>
+                {{> components/common/customizations/multi-level-nav-item all_item=false parentId=id}}
             </li>
-            {{/each}}
+          {{/each}}
+
           {{/if}}
-        </ul>--}}
+        </ul>
+
       </div>
     </ul>
   </nav>

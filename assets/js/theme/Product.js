@@ -127,12 +127,15 @@ export default class Product extends PageManager {
   }
 
   _initSlick() {
+
     // Related Product carousels
     $('.product-carousel').slick({
         infinite: true,
         slidesToShow: 4,
         slidesToScroll: 4,
         autoplaySpeed: 4000,
+        appendDots: ".product-carousel",
+        dots: true,
         speed: 800,
         prevArrow: '<span class="carousel-navigation-item previous"><svg class="icon icon-arrow-left"><use xlink:href="#icon-arrow-left" /></svg></span>',
         nextArrow: '<span class="carousel-navigation-item next"><svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right" /></svg></span>',

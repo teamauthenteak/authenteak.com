@@ -347,11 +347,13 @@ export default class ProductOptions {
       $('body').off('click.closeRASModal');
     });
 
+    
     // Request-a-Swatch form close to show modal
     $(document).on('modal-cart-display', (e) => {
       self.$raqModal.removeClass('is-open');
       $('body').off('click.closeRASModal');
     });
+
 
     // Request-a-Swatch form Submit
     this.$raqModal.on('submit', 'form', (e) => {

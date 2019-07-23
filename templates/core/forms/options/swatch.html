@@ -30,7 +30,9 @@
 
         <span class="swatch {{#if data.[1]}}two-colors{{/if}}{{#if data.[2]}} three-colors{{/if}}">
           {{#and pattern image}}
-            <span class="swatch-color swatch-pattern" style="background-image: url('{{getImage image 'core-swatch'}}');"><img class="swatch-pattern-image" src="{{getImage image 'core-swatch'}}"></span>
+            <span class="swatch-color swatch-pattern" style="background-image: url('{{getImage image 'core-swatch'}}');">
+              <img class="swatch-pattern-image" src="{{getImage image 'core-swatch'}}" alt="{{trim label}}">
+            </span>
           {{/and}}
 
           {{#if data.[0]}}
@@ -54,7 +56,7 @@
 
         {{#if pattern}}
           <span class="swatch-pattern-expanded">
-            <img class="swatch-pattern-image" src="{{getImage image 'core-swatch'}}">
+            <img class="swatch-pattern-image" src="{{getImage image 'core-swatch'}}" alt="{{trim label}}">
           </span>
         {{/if}}
 

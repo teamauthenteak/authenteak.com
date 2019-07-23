@@ -1,17 +1,34 @@
 {{!
-  @param all_item
-         > either true or false, passed from parent template
+  @param all_item > either true or false, passed from parent template
+  @param parent > "parent" category
 }}
-{{#startsWith "_" name}}{{ else }}
-<a href="{{url}}" {{#if children}}data-toggle-mobile="{{url}}" data-mobile-name="{{name}}"{{/if}}>{{name}}{{#if children}}{{> svg/arrow-down}}{{/if}}</a>
-{{#if children}}
-  <ul class="nav-mobile-panel nav-mobile-panel-child is-right" data-mobile-menu="{{url}}">
-    <li class="nav-mobile-item nav-mobile-panel-title">{{name}}</li>
-    {{#each children}}
-      <li class="nav-mobile-item {{#if children}}has-children{{/if}}">
-        {{> components/common/customizations/multi-level-nav-item}}
-      </li>
-    {{/each}}
-  </ul>
-{{/if}}
-{{/startsWith}}
+
+{{#startsWith "Shop All Quick Ship" name}} {{ else }} {{#startsWith "Be" name}} {{ else }} {{#startsWith "Shop by Collection" name}}{{ else }}
+<a href="{{url}}" class="nav-mobile-link" {{#if children}}data-toggle-mobile="{{url}}" data-mobile-name="{{name}}"{{/if}}>
+  <span class="nav-mobile-text" itemprop="name">
+      {{#if name '===' 'Outdoor Rugs'}}
+        Rugs
+      {{else if name '===' 'Patio Umbrellas & Accessories'}}
+        Patio Umbrellas
+      {{else if name '===' 'Shop All Brands'}}
+        Shop By Brand
+      {{else}}
+        {{name}}
+      {{/if}}
+  </span>
+  {{#if children}}{{> svg/arrow-down}}{{/if}}
+</a>
+
+  {{#if children}}
+    <ul class="nav-mobile-panel nav-mobile-panel-child is-right" data-mobile-menu="{{url}}" id="mobile_category_{{parentId}}">
+      <li class="nav-mobile-item nav-mobile-panel-title">
+        {{name}}</li>
+      {{#each children}}
+        <li class="nav-mobile-item {{#if children}}has-children{{/if}}">
+          {{> components/common/customizations/multi-level-nav-item}}
+        </li>
+      {{/each}}
+    </ul>
+  {{/if}}
+
+{{/startsWith}}{{/startsWith}}{{/startsWith}}

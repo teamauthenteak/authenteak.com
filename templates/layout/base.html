@@ -1,107 +1,107 @@
 <!DOCTYPE html>
 <html class="no-js" lang="{{ locale_name }}" base-html>
-  <head>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>{{ chop head.title }}</title>
-    {{{ head.meta_tags }}}
-    {{{ head.config }}}
-    {{#block "head"}} {{/block}}
-    <link href="{{ head.favicon }}" rel="shortcut icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <script src="{{cdn '/assets/js/modernizr.js'}}"></script>
-    
-    <!-- Affirm -->
-    <script>
-    _affirm_config = {
-      public_api_key:  "YXSDQKAWLWQO1URY",
-      script:          "https://cdn1-sandbox.affirm.com/js/v2/affirm.js"
-    };
-    (function(l,g,m,e,a,f,b){var d,c=l[m]||{},h=document.createElement(f),n=document.getElementsByTagName(f)[0],k=function(a,b,c){return function(){a[b]._.push([c,arguments])}};c[e]=k(c,e,"set");d=c[e];c[a]={};c[a]._=[];d._=[];c[a][b]=k(c,a,b);a=0;for(b="set add save post open empty reset on off trigger ready setProduct".split(" ");a<b.length;a++)d[b[a]]=k(c,e,b[a]);a=0;for(b=["get","token","url","items"];a<b.length;a++)d[b[a]]=function(){};h.async=!0;h.src=g[f];n.parentNode.insertBefore(h,n);delete g[f];d(g);l[m]=c})(window,_affirm_config,"affirm","checkout","ui","script","ready");
-   // Use your live public API Key and https://cdn1.affirm.com/js/v2/affirm.js script to point to Affirm production environment.
-   </script>
-   <!-- End Affirm -->
-   
-    <script>
-      window.History = {options: {delayInit: true} }
-    </script>
-    
-    {{{stylesheet '/assets/css/theme.css'}}}
-    {{ getFontsCollection }}
 
-    {{{head.scripts}}}
-    {{{head.rsslinks}}}
+<head>
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<title>{{ chop head.title }}</title>
+{{{ head.meta_tags }}}
+{{{ head.config }}}
+{{#block "head"}} {{/block}}
+<link href="{{ head.favicon }}" rel="shortcut icon">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="{{cdn '/assets/js/modernizr.js'}}"></script>
 
-    {{inject 'themeImageSizes' theme_settings._images}}
-    {{> components/common/global-injects}}
+<!-- Affirm -->
+<script>
+	_affirm_config = {
+		public_api_key: "YXSDQKAWLWQO1URY",
+		script: "https://cdn1-sandbox.affirm.com/js/v2/affirm.js"
+	};
+	(function (l, g, m, e, a, f, b) { var d, c = l[m] || {}, h = document.createElement(f), n = document.getElementsByTagName(f)[0], k = function (a, b, c) { return function () { a[b]._.push([c, arguments]) } }; c[e] = k(c, e, "set"); d = c[e]; c[a] = {}; c[a]._ = []; d._ = []; c[a][b] = k(c, a, b); a = 0; for (b = "set add save post open empty reset on off trigger ready setProduct".split(" "); a < b.length; a++)d[b[a]] = k(c, e, b[a]); a = 0; for (b = ["get", "token", "url", "items"]; a < b.length; a++)d[b[a]] = function () { }; h.async = !0; h.src = g[f]; n.parentNode.insertBefore(h, n); delete g[f]; d(g); l[m] = c })(window, _affirm_config, "affirm", "checkout", "ui", "script", "ready");
+// Use your live public API Key and https://cdn1.affirm.com/js/v2/affirm.js script to point to Affirm production environment.
+</script>
+<!-- End Affirm -->
 
-    {{{snippet 'html_head'}}}
+<script>
+	window.History = { options: { delayInit: true } }
+</script>
 
-    {{> core/structured-data/website}}
+	{{{stylesheet '/assets/css/theme.css'}}}
+	{{ getFontsCollection }}
 
-    {{> components/header/customizations/facebook-pixel}}
-  </head>
+	{{{head.scripts}}}
+	{{{head.rsslinks}}}
 
-  <body class="{{> components/common/body-classes}}">
+	{{inject 'themeImageSizes' theme_settings._images}}
+	{{> components/common/global-injects}}
 
-    {{#if page_type '===' 'product'}}
-      {{> components/common/facebook-like}}
-    {{else if page_type '===' 'blog'}}
-      {{> components/common/facebook-like}}
-    {{else if page_type '===' 'blog_post'}}
-      {{> components/common/facebook-like}}
-    {{/if}}
+	{{{snippet 'html_head'}}}
 
-    <div class="icons-svg-sprite">{{> components/common/icons/icon-defs}}</div>
-    <div class="site-wrapper">
-      {{{snippet 'header'}}}
+	{{> core/structured-data/website}}
 
-      {{> components/header/header}}
-      <div class="site-canvas">
-        <div class="on-canvas">
-          {{#contains page_type 'account'}}
-            {{> components/common/breadcrumbs breadcrumbs}}
-          {{/contains}}
-          {{#contains page_type 'login'}}
-            {{> components/common/breadcrumbs breadcrumbs}}
-          {{/contains}}
+	{{> components/header/customizations/facebook-pixel}}
+</head>
 
-          {{> components/common/banners banners=banners.top class='banners-top'}}
+<body class="{{> components/common/body-classes}}">
 
-          <main class="main-content">
-            {{#block "page"}}{{/block}}
-          </main>
+	{{#if page_type '===' 'product'}}
+	{{> components/common/facebook-like}}
+	{{else if page_type '===' 'blog'}}
+	{{> components/common/facebook-like}}
+	{{else if page_type '===' 'blog_post'}}
+	{{> components/common/facebook-like}}
+	{{/if}}
 
-          {{> components/common/banners banners=banners.bottom class='banners-bottom'}}
+	<div class="icons-svg-sprite">{{> components/common/icons/icon-defs}}</div>
+	<div class="site-wrapper">
+		{{{snippet 'header'}}}
 
-          {{#if settings.show_newsletter_box}}
-            {{> components/common/newsletter-signup}}
-          {{/if}}
+		{{> components/header/header}}
+		<div class="site-canvas">
+			<div class="on-canvas">
+				{{#contains page_type 'account'}}
+				{{> components/common/breadcrumbs breadcrumbs}}
+				{{/contains}}
+				{{#contains page_type 'login'}}
+				{{> components/common/breadcrumbs breadcrumbs}}
+				{{/contains}}
 
-          {{> components/footer/footer }}
-        </div>
+				{{> components/common/banners banners=banners.top class='banners-top'}}
 
-        {{> components/header/customizations/navigation-mobile}}
-      </div> <!-- /site-canvas -->
+				<main class="main-content">
+					{{#block "page"}}{{/block}}
+				</main>
 
-      {{> components/mini-cart/mini-cart
-        cart_icon=theme_settings.cart_icon
-      }}
-      {{> components/common/search-panel}}
-      <button class="button-top" data-scroll="#">
-        <svg class="icon icon-arrow-up"><use xlink:href="#icon-arrow-up" /></svg>
-      </button>
+				{{> components/common/banners banners=banners.bottom class='banners-bottom'}}
 
-      {{> components/common/login-modal}}
-    </div> <!-- /site-wrapper -->
+				{{#if settings.show_newsletter_box}}
+				{{> components/common/newsletter-signup}}
+				{{/if}}
 
-    {{> core/structured-data/breadcrumbs}}
+				{{> components/footer/footer }}
+			</div>
 
-    <script src="{{cdn '/assets/js/bundle.js'}}"></script>
-    <script>
-      window.stencilBootstrap("{{template_file}}", {{jsContext}}).load();
-    </script>
+			{{> components/header/customizations/navigation-mobile}}
+		</div> <!-- /site-canvas -->
 
-    {{{footer.scripts}}}
-    {{{snippet 'footer'}}}
-  </body>
+		{{> components/mini-cart/mini-cart cart_icon=theme_settings.cart_icon }}
+		{{> components/common/search-panel}}
+		<button class="button-top" data-scroll="#">
+			<svg class="icon icon-arrow-up">
+				<use xlink:href="#icon-arrow-up" /></svg>
+		</button>
+
+		{{> components/common/login-modal}}
+	</div> <!-- /site-wrapper -->
+
+	{{> core/structured-data/breadcrumbs}}
+
+	<script src="{{cdn '/assets/js/bundle.js'}}"></script>
+	<script>
+		window.stencilBootstrap("{{template_file}}", {{ jsContext }}).load();
+	</script>
+
+	{{{footer.scripts}}}
+	{{{snippet 'footer'}}}
+</body>
 </html>

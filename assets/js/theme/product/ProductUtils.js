@@ -419,20 +419,21 @@ export default class ProductUtils {
       // Update the mini cart & clear inputs if success
       if (response.status === 'success') {
 
-        setTimeout(() => {
-          // Reset the button state
-          this.progressButton.complete($button);
-        }, 3000);
-
-        // Custom success event to close the quick shop and open the mini cart
+         // Custom success event to close the quick shop and open the mini cart
         $.event.trigger({
           type: 'cart-item-add-success',
           data: {}
         });
 
+        setTimeout(() => {  
+          // Reset the button state
+          this.progressButton.complete($button);
+        }, 10000);
+
         setTimeout(() => {
           this.pageAlerts.clear();
-        }, 5000);
+        }, 100);
+
       }
 
       

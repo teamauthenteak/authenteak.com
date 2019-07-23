@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.20.0] - 2019-07-23
+#### Enhanced
+- New Dynamic Enhanced Mega Menu (all devices)
+- Add dot nav to product recom slider for mobile
+- add scroll bar for swatches
+- add alt text to swatches
+
+
 ## [1.19.14] - 2019-07-10
 #### Fixed
 - Circle swatches
@@ -7,6 +15,10 @@
 - ATC fix for free product swatches flicker
 - ALT tags for flyout menu (mobile & desktop)
 - swatch fix on click to keep label
+- ATC modal to reflect free swatch
+- added back pdp div for affirm
+- fix ui issues for inline swatch and yopto
+- added correct alt tag words for flouts
 
 ## [1.19.13] - 2019-06-28
 #### Fixed

@@ -1,10 +1,4 @@
-<header
-  class="
-    site-header
-    logo-align-{{theme_settings.global-header-logo-alignment}}
-  "
-  role="banner"
->
+<header class=" site-header logo-align-{{theme_settings.global-header-logo-alignment}}" role="banner">
   <div data-alerts>
     {{#each product.reviews.messages}}
       {{#if error}}
@@ -48,15 +42,8 @@
   </div>
 
   <section class="top-bar">
-    <div class="container">
-      <div
-        class="
-          top-bar-left
-          {{#if currency_selector.currencies.length '===' 1}}
-            no-currency-selector
-          {{/if}}
-        "
-      >
+    <div class="container site-header--container">
+      <div class="top-bar-left {{#if currency_selector.currencies.length '===' 1}} no-currency-selector{{/if}}">
       <!-- Testing Logo -->
       {{> components/header/site-branding}}
       <!-- End Logo Testing -->
@@ -159,20 +146,33 @@
             </span>
             {{> components/header/cart-icon}}
         </button>
-        <span class="global-header-text-promo">
+        <span class="global-header-text-promo" id="globalHeaderPromo">
         <script>
-        {
-          var extra_config = document.querySelectorAll('[data-theme-config="global"]');
-          if (extra_config.length == 1) {
-            extra_config = JSON.parse(extra_config[0].innerHTML);
-            if (typeof extra_config.marketing_content !== "undefined"
-              && typeof extra_config.marketing_content.global !== "undefined"
-              && typeof extra_config.marketing_content.global.header_promo !== "undefined"
-            ) {
-              document.write(extra_config.marketing_content.global.header_promo);
-            }
-          }
-        }
+          (function(){
+                let extra_config = document.querySelectorAll('[data-theme-config="global"]'),
+                    promoNode = document.createElement("span"),
+                    promoText = "";
+    
+                if (extra_config.length == 1) {
+                    extra_config = JSON.parse(extra_config[0].innerHTML);
+        
+                    if (typeof extra_config.marketing_content !== "undefined"
+                      && typeof extra_config.marketing_content.global !== "undefined"
+                      && typeof extra_config.marketing_content.global.header_promo !== "undefined"
+                    ) {
+        
+                      if(extra_config.marketing_content.global.header_promo.indexOf("Join our Trade Program") !== -1){
+                        promoText = extra_config.marketing_content.global.header_promo.replace(/(Join our Trade Program)/g, '<strong class="promo-trade-program">Join our Trade Program</strong>');
+                      
+                      }else{
+                        promoText = extra_config.marketing_content.global.header_promo;
+                      }
+                      
+                      promoNode.innerHTML = promoText;
+                      document.getElementById('globalHeaderPromo').appendChild(promoNode);
+                    }
+                }
+            }());
         </script>
         </span>
       </div>
@@ -213,16 +213,14 @@
       </span>
 
 
-      <button
-        class="
-          button-mobile-nav-toggle
-          {{#if cart.status_messages}}
-            has-promo
-          {{/if}}
-        "
-      >
-        <i class="burger"></i>
+      <button class="button-mobile-nav-toggle {{#if cart.status_messages}}has-promo {{/if}}">
+        <svg class="burger" enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 11h-18c-0.6 0-1 0.4-1 1s0.4 1 1 1h18c0.6 0 1-0.4 1-1s-0.4-1-1-1z"></path>
+            <path d="M3 7h18c0.6 0 1-0.4 1-1s-0.4-1-1-1h-18c-0.6 0-1 0.4-1 1s0.4 1 1 1z"></path>
+            <path d="M21 17h-18c-0.6 0-1 0.4-1 1s0.4 1 1 1h18c0.6 0 1-0.4 1-1s-0.4-1-1-1z"></path>            
+        </svg>
       </button>
+
       <div class="mobile-search-wrapper">
         {{> components/common/search-form}}
       </div>
