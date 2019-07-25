@@ -161,14 +161,9 @@
                       && typeof extra_config.marketing_content.global.header_promo !== "undefined"
                     ) {
         
-                      if(extra_config.marketing_content.global.header_promo.indexOf("Join our Trade Program") !== -1){
-                        promoText = extra_config.marketing_content.global.header_promo.replace(/(Join our Trade Program)/g, '<strong class="promo-trade-program">Join our Trade Program</strong>');
-                      
-                      }else{
-                        promoText = extra_config.marketing_content.global.header_promo;
-                      }
-                      
+                      promoText = extra_config.marketing_content.global.header_promo;
                       promoNode.innerHTML = promoText;
+
                       document.getElementById('globalHeaderPromo').appendChild(promoNode);
                     }
                 }

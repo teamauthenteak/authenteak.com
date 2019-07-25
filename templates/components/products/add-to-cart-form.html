@@ -39,6 +39,7 @@
         {{/if}}
       {{/each}}
 
+      {{#if product.options}}
       <p class="shipping-range shipping-range--dynamic">
         {{#each product.custom_fields}}
           {{#if this.name '==' "Lead-Time"}}
@@ -46,6 +47,7 @@
           {{/if}}
         {{/each}}
       </p>
+      {{/if}}
     
   <div class="product-price">
       {{#if product.price}}

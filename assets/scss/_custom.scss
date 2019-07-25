@@ -26,7 +26,7 @@ $futura-font:'Futura', sans-serif;
 */
 
 .container, .top-bar .container, .top-bar .product-tabs{
-    max-width: inherit;
+    max-width: 1500px;
 }
 
 .container, .product-tabs, .account-wrapper{
@@ -211,6 +211,10 @@ $futura-font:'Futura', sans-serif;
 // mobile
 .scroll-locked{
     position: fixed;
+}
+
+.button-mobile-nav-toggle--active{
+    display: none;
 }
 
 .nav-mobile-open{
@@ -458,9 +462,9 @@ $futura-font:'Futura', sans-serif;
     border: none;
     // box-shadow: 0 3px 4px rgba(0, 0, 0, .20);
 
-    // & .container{
-    //     max-width: 1200px
-    // }
+    & .container{
+        max-width: 1500px
+    }
 }
 
 .site-header.compressed {
@@ -745,6 +749,10 @@ span.head-phone-number {
 span.global-header-text-promo {
     display: block;
     color: #6ea438;
+    margin-top: -15px;
+    font-size: 13px;
+    width: 100%;
+    text-align: center;
 
     a { color: inherit; }
 }
@@ -772,7 +780,7 @@ span.global-header-text-promo {
 .navigation > ul[enhancednav]{
     display: flex;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1500px;
     flex-direction: row;
     align-content: center;
     align-items: center;
@@ -2820,7 +2828,15 @@ button.cart-item-edit {
 }
 
 .cart-additional-checkout-buttons{
-    width: 100%
+    width: 100%;
+    max-width: 350px;
+    float: right;
+    overflow: hidden;
+
+    @media only screen and (max-width: $screen-sm) {
+        float: none;
+        margin: 0 auto;
+    }
 }
 
 .amazonpay-button-inner-image{
@@ -3166,7 +3182,7 @@ a[target="_blank"][href="http://www.nextopia.com"] {
 a.prop-link-new {
     display: block;
     text-align: center;
-    margin: 100px 0 0 0;
+    margin: 100px 0 20px 0;
     background-color: #e5e5e5;
     padding: 10px;
     border-radius: 3px;
@@ -3176,6 +3192,13 @@ a.prop-link-new {
     cursor: pointer;
     box-sizing: border-box;
     user-select: none;
+    float: right;
+    min-width: 350px;
+
+    @media only screen and (max-width: $screen-sm) {
+        margin: 80px 0 20px 0;
+        width: 100%;
+    }
 }
 
 a.prop-link-new:hover {
@@ -3258,8 +3281,12 @@ span.head-phone-number {
     padding-top: 37px;
 }
 
-@media screen and (min-width: 320px) {
-    .cart-actions {
+.cart-actions{
+    max-width: 350px;
+    float: right;
+    width: 100%;
+
+    @media screen and (max-width: $screen-sm) {
         display: -ms-flexbox;
         display: flex;
         -ms-flex-pack: justify;
@@ -3267,22 +3294,31 @@ span.head-phone-number {
         -ms-flex-wrap: wrap;
         flex-wrap: wrap;
         border-spacing: 2rem 2rem;
-        margin-top: 2rem;
+        margin: 20px auto 0 auto;
+        float: none;
     }
-}
 
-.cart-actions .button {
-    display: block;
-    margin: 1rem 0;
-    width: 100%;
+    @media screen and (max-width: $screen-xs) {
+        max-width: 100%;
+    }
+
+    & .button {
+        display: block;
+        margin: 1rem 0;
+        width: 100%;
+    }
 }
 
 .cart-totals-column--last {
     float: right;
     margin-right: 0;
+
+    @media screen and (max-width: $screen-sm) {
+        width: 100%;
+    }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: $screen-sm) {
     .cart-actions {
         flex-wrap: wrap-reverse;
     }
