@@ -5,6 +5,7 @@ export default class Footer {
         this.$footerCol =$('.footer-col.footer-accordion .footer-title');
 
         this._bindEvents();
+        this._setFooterDate();
     }
 
     _bindEvents() {
@@ -37,5 +38,11 @@ export default class Footer {
             $(event.target).toggleClass('accordion-open')
             $(event.target).parent().find('nav').slideToggle('fast');
         }
+    }
+
+
+    _setFooterDate(){
+        let year =  new Date().getFullYear();
+        document.getElementById("footerCurrentYear").innerHTML = year;
     }
 }

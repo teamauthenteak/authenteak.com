@@ -1,4 +1,12 @@
 {
+    "marketing_content": {
+        "global": {
+            "header_promo": "Shopping for a client? <strong>Join our trade program</strong>",
+            "header_promo_link": "/to-the-trade",
+            "header_promo_color": "green",
+            "header_custom_class": ""
+        }
+    },
     "category_2480":{
 		"makeShort": false,
         "shop_by_brand": {
@@ -78,7 +86,15 @@
 					"emphasis": true
 				}
         	]
-        }
+        },
+        "pages": [
+            {
+                "title": "Showroom Clearance ",
+                "url": "/outdoor-furniture/showroom-clearance/",
+                "highlight": false,
+                "emphasis": false
+            }
+        ]
     },
     "category_798":{
 		"makeShort": false,
@@ -420,27 +436,8 @@
 		"makeShort": false,
         "shop_by_brand": {
             "title": "Shop Luxury Brands",
-            "url": "/accessories/shop-by-luxuary-brands/",
-            "items": [
-                {
-                    "title": "Luxury Brand 1",
-                    "url": "",
-                    "highlight": false,
-                    "emphasis": false
-				},
-				{
-                    "title": "Luxury Brand #2",
-                    "url": "",
-                    "highlight": false,
-                    "emphasis": false
-				},
-				{
-                    "title": "Luxury Brand #3",
-                    "url": "",
-                    "highlight": false,
-                    "emphasis": false
-                }
-            ]
+            "url": "/accessories/shop-by-luxury-brands/",
+            "items": []
         }
     }
 }

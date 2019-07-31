@@ -38,7 +38,7 @@
           <div class="consult-showroom-wrap-mobile">
             <div class="showroom-block">
                 <span class="gallery-icon gallery-phone">{{> components/products/gallery-phone-icon}}</span>
-                <p>For a Free Design Consultation or to Order by Phone <br>Call: <a href="tel:1-866-360-8325">1-866-360-8325</a></p>
+                <p>For a Free Design Consultation or to Order by Phone <br>Call: <a href="tel:1-866-360-8325" title="calls us">1-866-360-8325</a></p>
             </div>
           </div>
         </div>
@@ -52,7 +52,7 @@
           <div class='blog-link'>
             <p>Get inspired with our blog</p>
             <a href="/blog">
-              <img src="https://cdn3.bigcommerce.com/s-r14v4z7cjw/product_images/uploaded_images/blog-footer-promo.png?t=1497549146&_ga=2.139326138.847722574.1497277559-170994603.1491244766" alt="">
+              <img src="https://cdn3.bigcommerce.com/s-r14v4z7cjw/product_images/uploaded_images/blog-footer-promo.png?t=1497549146&_ga=2.139326138.847722574.1497277559-170994603.1491244766" alt="blog">
             </a>
           </div>
         </div>
@@ -92,11 +92,11 @@
         {{> core/geotrust-ssl-seal}}
       {{/if}}
       {{#if theme_settings.store-copyright}}
-        <span class="footer-site-copyright">&copy; <script>document.write(new Date().getFullYear())</script> {{settings.store_name}}</span>
+         <span class="footer-site-copyright">&copy; <span id="footerCurrentYear"></span> {{settings.store_name}}</span>
       {{/if}}
 
       {{#if theme_settings.sitemap}}
-        <p><a href="{{urls.home}}">{{lang 'sitemap.title'}}</a></p>
+        <p><a href="{{urls.home}}" title="home">{{lang 'sitemap.title'}}</a></p>
       {{/if}}
     </div>
   </div>

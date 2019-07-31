@@ -28,28 +28,28 @@
 
   <div class="utils">
     {{#if customer}}
-      <a class="button-util mobile-account-utils" href="{{urls.account.index}}">
+      <a class="button-util mobile-account-utils" href="{{urls.account.index}}" title="{{lang 'header.account'}}">
         {{> svg/account}}
         {{lang 'header.account'}}
       </a> /
-      <a class="button-util mobile-account-utils" href="{{urls.auth.logout}}">
+      <a class="button-util mobile-account-utils" href="{{urls.auth.logout}}" title="{{lang 'header.log_out'}}">
         {{lang 'header.log_out'}}
       </a>
     {{else}}
-      <a class="button-util mobile-account-utils" href="{{urls.auth.login}}">
+      <a class="button-util mobile-account-utils" href="{{urls.auth.login}}" title=" {{lang 'header.account'}}">
         {{> svg/account}}
         {{lang 'header.account'}}
       </a>
     {{/if}}
 
     {{#if settings.show_wishlist}}
-      <a class="button-util button-wishlist" href="{{urls.account.wishlists.all}}">
+      <a class="button-util button-wishlist" href="{{urls.account.wishlists.all}}" title="{{lang 'header.wishlist'}}">
         {{> svg/wishlist}}
         {{lang 'header.wishlist'}}
       </a>
     {{/if}}
 
-    <a class="button-util" href="{{urls.cart}}">
+    <a class="button-util" href="{{urls.cart}}" title="{{lang 'header.shopping_basket'}}">
       {{> components/header/cart-icon}}
       {{lang 'header.shopping_basket'}}
     </a>

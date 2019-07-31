@@ -252,7 +252,6 @@
     
     var interval = setInterval(function(){
     if (window.BoltCheckout) {
-        // console.log("HIT INTERVAL")
         window.BoltCheckout.setClientCustomCallbacks({
             success : function(trx){
                 fbq('track', 'Purchase', {
@@ -261,7 +260,7 @@
                 });
             }
         });
-        window.BoltCheckout.reloadBigCommerceCart(false);
+        /* window.BoltCheckout.reloadBigCommerceCart(false);*/
         clearInterval(interval);
     }
     }, 200);
@@ -276,14 +275,12 @@
             return;
         }
         var newPrice = elms[0].innerHTML;
-        // console.log('newprice: ', newPrice);
         if (newPrice !== totalPrice && window.BoltCheckout) {
-            // console.log("Called Reload");
-            window.BoltCheckout.reloadBigCommerceCart(false);
+            window.BoltCheckout.reloadBigCommerceCart();
         }
         totalPrice = newPrice;
     };
     new MutationObserver(callback).observe(document.body, config);
     
-    </script>
+  </script>
     

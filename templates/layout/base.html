@@ -5,42 +5,28 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-<title>{{ chop head.title }}</title>
+<title>{{head.title}}</title>
 {{{ head.meta_tags }}}
 {{{ head.config }}}
 {{#block "head"}} {{/block}}
 <link href="{{ head.favicon }}" rel="shortcut icon">
-<script src="{{cdn '/assets/js/modernizr.js'}}" async></script>
+{{{head.rsslinks}}}
+{{{stylesheet '/assets/css/theme.css'}}}
+{{ getFontsCollection }}
+
+<script src="{{cdn '/assets/js/modernizr.js'}}"></script>
 <script>window.History = { options: { delayInit: true } }</script>
-
-	{{{stylesheet '/assets/css/theme.css'}}}
-	{{ getFontsCollection }}
-
-	{{{head.scripts}}}
-	{{{head.rsslinks}}}
-
-	{{inject 'themeImageSizes' theme_settings._images}}
-	{{> components/common/global-injects}}
-
-	{{{snippet 'html_head'}}}
-
-	{{> core/structured-data/website}}
-
-	{{> components/header/customizations/facebook-pixel}}
+{{{head.scripts}}}
+{{inject 'themeImageSizes' theme_settings._images}}
+{{> components/common/global-injects}}
+{{{snippet 'html_head'}}}
+{{> core/structured-data/website}}
+{{> components/header/customizations/facebook-pixel}}
 </head>
 
 <body class="{{> components/common/body-classes}}">
-
-	{{#if page_type '===' 'product'}}
-	{{> components/common/facebook-like}}
-	{{else if page_type '===' 'blog'}}
-	{{> components/common/facebook-like}}
-	{{else if page_type '===' 'blog_post'}}
-	{{> components/common/facebook-like}}
-	{{/if}}
-
 	<div class="icons-svg-sprite">{{> components/common/icons/icon-defs}}</div>
+
 	<div class="site-wrapper">
 		{{{snippet 'header'}}}
 
@@ -48,10 +34,11 @@
 		<div class="site-canvas">
 			<div class="on-canvas">
 				{{#contains page_type 'account'}}
-				{{> components/common/breadcrumbs breadcrumbs}}
+					{{> components/common/breadcrumbs breadcrumbs}}
 				{{/contains}}
+
 				{{#contains page_type 'login'}}
-				{{> components/common/breadcrumbs breadcrumbs}}
+					{{> components/common/breadcrumbs breadcrumbs}}
 				{{/contains}}
 
 				{{> components/common/banners banners=banners.top class='banners-top'}}
@@ -84,22 +71,21 @@
 
 	{{> core/structured-data/breadcrumbs}}
 
+	{{{snippet 'footer'}}}
+
 	<script src="{{cdn '/assets/js/bundle.js'}}"></script>
+	{{#if page_type '===' 'product'}}
+		{{> components/common/facebook-like}}
+	{{else if page_type '===' 'blog'}}
+		{{> components/common/facebook-like}}
+	{{else if page_type '===' 'blog_post'}}
+		{{> components/common/facebook-like}}
+	{{/if}}
 	<script>
 		window.stencilBootstrap("{{template_file}}", {{ jsContext }}).load();
-	</script>
-	
-	<!-- Affirm -->
-	<script>
-		_affirm_config = {
-			public_api_key: "YXSDQKAWLWQO1URY",
-			script: "https://cdn1-sandbox.affirm.com/js/v2/affirm.js"
-		};
+		_affirm_config = { public_api_key: "YXSDQKAWLWQO1URY", script: "https://cdn1-sandbox.affirm.com/js/v2/affirm.js", session_id: "sID"};
 		(function (l, g, m, e, a, f, b) { var d, c = l[m] || {}, h = document.createElement(f), n = document.getElementsByTagName(f)[0], k = function (a, b, c) { return function () { a[b]._.push([c, arguments]) } }; c[e] = k(c, e, "set"); d = c[e]; c[a] = {}; c[a]._ = []; d._ = []; c[a][b] = k(c, a, b); a = 0; for (b = "set add save post open empty reset on off trigger ready setProduct".split(" "); a < b.length; a++)d[b[a]] = k(c, e, b[a]); a = 0; for (b = ["get", "token", "url", "items"]; a < b.length; a++)d[b[a]] = function () { }; h.async = !0; h.src = g[f]; n.parentNode.insertBefore(h, n); delete g[f]; d(g); l[m] = c })(window, _affirm_config, "affirm", "checkout", "ui", "script", "ready");
 	</script>
-	<!-- End Affirm -->
-
 	{{{footer.scripts}}}
-	{{{snippet 'footer'}}}
 </body>
 </html>

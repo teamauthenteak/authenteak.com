@@ -1,5 +1,15 @@
 # Change Log
 
+## [1.20.1]
+- removed footer year inline document.write and added it to footer.js
+- added header promo script from header.html to header.js and refacored
+- added custom pages feature for header json
+- bolt - removed reloadBigCommerceCart() and boolean value
+- added atl and title attributes to some links
+- updated footer links
+- refactored confirmation page "pay by check" function
+- script async and order change for performance
+
 ## [1.20.0] - 2019-07-23
 #### Enhanced
 - New Dynamic Enhanced Mega Menu (all devices)

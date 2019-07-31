@@ -36,6 +36,8 @@ export default class ProductOptions {
     this.bindSwatchLabelData();
     // Handle functionality that occurs in background
     this.preloadImages();
+
+    window.TEAK.Modules.requestASwatch = {};
   }
 
   // Build Product Custom Data Object ()
@@ -245,7 +247,8 @@ export default class ProductOptions {
     let $grade = $hoverDetail.find(`.${this.hoverDetailBlockClass}__grade`);
     let $leadtime = $hoverDetail.find(`.${this.hoverDetailBlockClass}__leadtime`);
 
-    if (option.swatch && !option.label.match(/No Thanks/i)) {
+    /* if (option.swatch && !option.label.match(/No Thanks/i)) {*/
+    if (option.swatch) {
       // Only display if selected option has real images
       $label.text(option.label); // Set swatch label
       $grade.text(option.grade ? `Grade ${option.grade}` : ''); // Set/reset grade

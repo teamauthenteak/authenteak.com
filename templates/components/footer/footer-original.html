@@ -64,11 +64,7 @@
         </div>
   
         {{#if theme_settings.store-copyright}}
-          <span class="footer-site-copyright">&copy; <script>document.write(new Date().getFullYear())</script> {{settings.store_name}}</span>
-        {{/if}}
-  
-        {{#if theme_settings.theme-credits}}
-          <p class="footer-theme-credits">Peak theme by <a href="https://pixelunion.net" target="_blank">Pixel Union</a>, powered by <a href="https://bigcommerce.com" target="_blank" rel="nofollow">BigCommerce</a></p>
+          <span class="footer-site-copyright">&copy; <span id="footerCurrentYear"></span> {{settings.store_name}}</span>
         {{/if}}
   
         {{#if theme_settings.sitemap}}

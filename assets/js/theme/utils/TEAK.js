@@ -127,12 +127,15 @@ TEAK.Modules.megaMenu = {
 
     init: function(id){
         this
+            .setCustomMobilePages(id)
             .setCustomMobileCategory(id, "shop_by_collection")
             .setCustomMobileCategory(id, "shop_by_brand")
             .setCustomMobileImg(id);
+            
 
         if( !TEAK.Utils.isHandheld ){
             this
+                .setCustomPages(id)
                 .setLandingImage(id)
                 .setCustomCategory(id, "shop_by_collection")
                 .setCustomCategory(id, "shop_by_brand")
@@ -189,6 +192,29 @@ TEAK.Modules.megaMenu = {
         
         return this;
     },
+
+
+    // Desktop: sets custom pages
+    setCustomPages: function(id){
+        if( this.data[id].hasOwnProperty("pages") ){
+
+            this.data[id].pages.forEach((element) => {
+                let parentLi,
+                    tpl = `<a itemprop="url" href="${element.url}" title="${element.title}">
+                                <span itemprop="name">${element.title}</span>
+                            </a>`;
+
+                parentLi = document.createElement("li"),
+                parentLi.className = "parent parent--collapse tier-dropdown";
+                parentLi.innerHTML = tpl;
+
+                document.getElementById(id).querySelectorAll(".mega-nav-list")[0].appendChild(parentLi);
+            });
+        }
+
+        return this;
+    },
+
 
 
     // Desktop: sets the display height for the container
@@ -268,12 +294,32 @@ TEAK.Modules.megaMenu = {
             navItem = document.createElement("li")
             navItem.classList = "nav-mobile-item nav-mobile-item--image";
             navItem.innerHTML = tpl;
-            
-            document.getElementById("mobile_" + id).appendChild(navItem);
         }
 
         return this;
-    }
+    },
+
+
+
+    // Mobile: sets custom pages
+    setCustomMobilePages: function(id){
+        if( this.data[id].hasOwnProperty("pages") ){
+            this.data[id].pages.forEach((element) => {
+                let navItem,
+                    tpl =   `<a itemprop="url" href="${element.url}" title="${element.title}" class="nav-mobile-link">
+                                <span class="nav-mobile-text" itemprop="name">${element.title}</span>
+                            </a>`;
+
+                navItem = document.createElement("li"),
+                navItem.className = "nav-mobile-item";
+                navItem.innerHTML = tpl;
+
+                document.getElementById("mobile_" + id).appendChild(navItem);
+            });
+        }
+
+        return this;
+    },
 
 
 };

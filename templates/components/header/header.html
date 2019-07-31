@@ -1,4 +1,6 @@
 <header class=" site-header logo-align-{{theme_settings.global-header-logo-alignment}}" role="banner">
+  <div class="promoBanner" id="topHeaderPromo"></div>
+
   <div data-alerts>
     {{#each product.reviews.messages}}
       {{#if error}}
@@ -146,30 +148,6 @@
             </span>
             {{> components/header/cart-icon}}
         </button>
-        <span class="global-header-text-promo" id="globalHeaderPromo">
-        <script>
-          (function(){
-                let extra_config = document.querySelectorAll('[data-theme-config="global"]'),
-                    promoNode = document.createElement("span"),
-                    promoText = "";
-    
-                if (extra_config.length == 1) {
-                    extra_config = JSON.parse(extra_config[0].innerHTML);
-        
-                    if (typeof extra_config.marketing_content !== "undefined"
-                      && typeof extra_config.marketing_content.global !== "undefined"
-                      && typeof extra_config.marketing_content.global.header_promo !== "undefined"
-                    ) {
-        
-                      promoText = extra_config.marketing_content.global.header_promo;
-                      promoNode.innerHTML = promoText;
-
-                      document.getElementById('globalHeaderPromo').appendChild(promoNode);
-                    }
-                }
-            }());
-        </script>
-        </span>
       </div>
 
       <span class="button-mobile-nav-tel">

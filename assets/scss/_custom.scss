@@ -61,6 +61,39 @@ $futura-font:'Futura', sans-serif;
 }    
 
 
+.promoBanner{
+    width: 100%;
+    display: none;
+    padding: 2px;
+    align-items: center;
+    justify-content: center;
+
+    &__link{
+        display: block;
+        font-size: .9rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    &--green{
+        background-color:rgba(110, 163, 66, 0.09);
+        border-bottom: 1px solid rgba(191, 214, 171, 0.30);
+
+        & .promoBanner__link{
+            color:rgba(110, 163, 66, 1);
+        }
+    }
+
+    &--blue{
+        background-color:rgba(15, 160, 234, 0.09);
+        border-bottom: 1px solid rgba(15, 160, 234, 0.30);
+
+        & .promoBanner__link{
+            color: #0fa0ea;
+        }
+    }
+}
+
 
 /*Gen Styles*/
 .section {
@@ -144,11 +177,15 @@ $futura-font:'Futura', sans-serif;
     }
 
     .parent {
-        //max-width: 25%;
         margin-bottom: 20px;
-        padding: 0;
         white-space: normal;
         width: auto !important;
+        padding: 0 20px 0 0;
+        display: flex;
+        text-align: left;
+        align-items: flex-start;
+        flex-direction: column;
+        flex-wrap: nowrap;
 
         &--collapse {
             margin-bottom: 20px;
@@ -445,8 +482,6 @@ $futura-font:'Futura', sans-serif;
 
     .mega-nav-landing ~ .mega-nav-landing-list-wrapper .mega-nav-list {
         align-content: stretch;
-
-        .parent { max-width: 35%; }
     }
 
 }
@@ -460,6 +495,7 @@ $futura-font:'Futura', sans-serif;
 
 .site-header {
     border: none;
+    // position: static;
     // box-shadow: 0 3px 4px rgba(0, 0, 0, .20);
 
     & .container{
@@ -469,6 +505,7 @@ $futura-font:'Futura', sans-serif;
 
 .site-header.compressed {
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.09);
+    position: fixed;
 }
 
 .site-branding a {
@@ -712,6 +749,7 @@ span.head-phone-number {
         transform: none;
     }
 }
+
 .mini-cart {
     z-index: 1000;
 }
@@ -2658,6 +2696,7 @@ ul.highlight-group {
 
     @media only screen and (max-width: $screen-md) {
         display: flex;
+        right: 95px;
     }
 
     @media only screen and (max-width: $screen-sm) {
@@ -2665,7 +2704,7 @@ ul.highlight-group {
     }
 
     @media only screen and (max-width: $screen-xs) {
-        right: 55px;
+        right: 65px;
     }
 
     a{
@@ -3336,7 +3375,7 @@ span.head-phone-number {
     }
 
     @media only screen and (max-width: $screen-sm) {
-        // padding-top: 0;
+        padding-top: 32px;
     }
 }
 

@@ -14,7 +14,7 @@
 					{{#each nav_items}}
 					{{#startsWith "Shop by Collection" name}}{{ else }}
 					<li class="parent {{#if children}}has-children{{else}}parent--collapse{{/if}} tier-dropdown">
-						<a itemprop="url" href="{{url}}" {{#if image}}data-category-image="{{getImage image "large"}}"
+						<a itemprop="url" href="{{url}}" title="{{name}}" {{#if image}}data-category-image="{{getImage image "large"}}"
 							{{/if}}><span itemprop="name">{{name}}</span></a>
 
 						{{#if children}}
