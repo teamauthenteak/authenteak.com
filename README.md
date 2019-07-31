@@ -41,7 +41,7 @@ Trigger Affirm modal: add the custom class: `affirm-site-modal` to the `header_p
 │   		├── emphasis 		# (Optional) makes the sub category text italic
 │   ├── pages: [] 				# (Optional) Array - of top level page objects
 │   		├── title 			# (Required) Page title
-│   		├── url 			# (Required) URL of the page
+│   		├── url 		# (Required) URL of the page
 │   		├── highlight 		# (Optional) adds a class to make the text highlight red
 │   		├── emphasis 		# (Optional) makes the sub category text italic
 ├
