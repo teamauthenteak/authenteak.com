@@ -15,8 +15,8 @@ Trigger Affirm modal: add the custom class: `affirm-site-modal` to the `header_p
 ```
 .
 ├── marketing_content           	# (Optional) Extra header marking promotion content
-│   ├── global					# 
-│   	├── header_promo 			# (Required) - Promo Text
+│   ├── global				# 
+│   	├── header_promo 		# (Required) - Promo Text
 │   	├── header_promo_link 		# (Optional) - Link the promo to a given page
 │   	├── header_promo_color 		# (Optional) - Currently supports "green" or "blue" values
 │   	├── header_promo_class 		# (Optional) - if you need a custom class on the promo banner
@@ -39,7 +39,7 @@ Trigger Affirm modal: add the custom class: `affirm-site-modal` to the `header_p
 │   		├── url 		# (Required) URL of the sub category page
 │   		├── highlight 		# (Optional) adds a class to make the text highlight red
 │   		├── emphasis 		# (Optional) makes the sub category text italic
-│   ├── pages: [] 				# (Optional) Array - of top level page objects
+│   ├── pages: [] 			# (Optional) Array - of top level page objects
 │   		├── title 		# (Required) Page title
 │   		├── url 		# (Required) URL of the page
 │   		├── highlight 		# (Optional) adds a class to make the text highlight red
