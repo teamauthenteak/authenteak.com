@@ -18,12 +18,13 @@ $screen-xl: 1200px; // Large Desktop & HD TV
   &:-ms-input-placeholder      {@content}
 }
 
-/* Colors */
+*{
+    font-family: "Karla", "Helvetica", Arial, ssans-serif !important;
+}
+
+// Colors
 $color-background-pdp: stencilColor('product-details-bg');
 
-/*
-$futura-font:'Futura', sans-serif;
-*/
 
 .container, .top-bar .container, .top-bar .product-tabs{
     max-width: 1500px;
@@ -67,12 +68,35 @@ $futura-font:'Futura', sans-serif;
     padding: 2px;
     align-items: center;
     justify-content: center;
+    align-content: center;
+
+    &__affirmLogo{
+        width: 67px;
+        height: 20px;
+        display: inline-block;
+        margin: 3px 0 9px 0;
+        background-image: url(/assets/img/affirm-black_logo-white_bg.svg);
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+    &__psedoLink{
+        color: #56b3e2;
+    }
 
     &__link{
-        display: block;
+        display: flex;
         font-size: .9rem;
         width: 100%;
         text-align: center;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+
+        @media only screen and (max-width: $screen-xs) {
+            font-size: 0.7rem;
+            font-weight: 800;
+        }
     }
 
     &--green{
@@ -90,6 +114,15 @@ $futura-font:'Futura', sans-serif;
 
         & .promoBanner__link{
             color: #0fa0ea;
+        }
+    }
+
+    &--grey{
+        background-color: #e4e0dd;
+        border-bottom: 1px solid transparent;
+
+        & .promoBanner__link{
+            color: #403f3f;
         }
     }
 }
@@ -594,7 +627,7 @@ $futura-font:'Futura', sans-serif;
 
 .main-nav-bar .top-level-nav-link {
     padding: 15px !important;
-    font-size: calc(0.35vw + .40rem);
+    font-size: calc(0.45vw + .40rem);
     letter-spacing: 0.05em;
     display: flex;
     align-items: center;
@@ -3379,8 +3412,21 @@ span.head-phone-number {
     }
 }
 
-.button-top.show{
-    bottom: 50px;
+.button-top{
+    background-color: #C5C4C48F;
+    width: 35px;
+    height: 35px;
+    border-radius: 44px;
+
+    &:hover{
+        .icon{
+            fill: #fff;
+        }
+    }
+
+    .show{
+        bottom: 100px;
+    }
 }
 
 .yotpo-stars + a.text-m, .slick-list .product-price-line{

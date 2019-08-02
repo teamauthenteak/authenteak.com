@@ -32,7 +32,7 @@ window.TEAK.Utils = {
             // run it on on our local
             $.ajax({
                 dataType: "json",
-                url: "/assets/js/theme/megaMenu.json",
+                url: "/assets/js/theme/header.json",
                 async: false,
                 success: (res) => { data = res; }
             });

@@ -44,7 +44,7 @@ export default class Header {
 
 			promoBanner.classList.add("promoBanner--" + promo.header_promo_color);
 			promoBanner.appendChild(promoLink);
-			promoBanner.style.display = "flex";
+			promoBanner.style.display = promo.isVisable ? "flex" : "none";
 		}
 
 		function getConfigData() {
@@ -63,7 +63,7 @@ export default class Header {
 					// run it on on our local
 					$.ajax({
 						dataType: "json",
-						url: "/assets/js/theme/megaMenu.json",
+						url: "/assets/js/theme/header.json",
 						async: false,
 						success: (res) => { data = res; }
 					});

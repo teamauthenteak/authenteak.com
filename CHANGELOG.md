@@ -1,4 +1,7 @@
 # Change Log
+## [1.20.2]
+- added isVisable to global header json to control promo banner
+- renamed mega menu json to header json so we can use it for the whole header
 
 ## [1.20.1]
 - removed footer year inline document.write and added it to footer.js

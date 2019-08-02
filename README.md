@@ -1,21 +1,32 @@
 # authenteak.com
 Core Authenteak website 
 
-## Mega Menu JSON
+## Header JSON
 
-Used to generate additional non SEO critical pages, categories, sub-categories in the main navigation menu.
+Used to generate additional non SEO critical pages, categories, sub-categories in the main navigation menu. Also used to control other header objects requiring dyanmic udpates from content editors
 
-### Notes
-
-**Affirm**
+### Affirm
 
 Trigger Affirm modal: add the custom class: `affirm-site-modal` to the `header_promo_class` property AND leave `header_promo_link` as an empty string `""`.
 
-### Structure
+*Sample Affirm JSON Structure*
+
+```
+"global": {
+    "isVisable": true,
+    "header_promo": "Pay over time with financing from <span class='promoBanner__affirmLogo'></span> <strong class='promoBanner__psedoLink'><u>Learn more &rsaquo;</u></strong>",
+    "header_promo_link": "",
+    "header_promo_color": "grey",
+    "header_custom_class": "affirm-site-modal"
+}
+```
+
+### Header JSON Structure
 ```
 .
 ├── marketing_content           	# (Optional) Extra header marking promotion content
 │   ├── global				# 
+│   	├── isVisable 		# (Required) - Boolean to show/hide promo banner
 │   	├── header_promo 		# (Required) - Promo Text
 │   	├── header_promo_link 		# (Optional) - Link the promo to a given page
 │   	├── header_promo_color 		# (Optional) - Currently supports "green" or "blue" values
