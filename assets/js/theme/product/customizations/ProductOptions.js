@@ -92,10 +92,10 @@ export default class ProductOptions {
     let self = this;
 
 
-    // on hover - show swatch color in main view
+    // on hover & touchend - show swatch color in main view
     function showSwatchColor(e){
       window.clearTimeout(self.hoverTimeout);
-      
+
       let $el = $(e.currentTarget),
           $optionText = $el.closest('[data-swatch-selector]').find('.form-field-title'),
           $swatchText = $el.closest('[data-swatch-selector]').find('.swatch-value'),
@@ -131,7 +131,7 @@ export default class ProductOptions {
     function showSelectedSwatchColor(e){  
       let $el = $(e.currentTarget),
           label = self.parseOptionLabel($el.data('swatch-value'));
-
+          
       showSwatchColor({
         currentTarget: self.currentlySelectedSwatch,
         type: e.type
@@ -169,7 +169,6 @@ export default class ProductOptions {
         $el.find('input[type="radio"]').prop('checked', false);
         e.preventDefault();
 
-        // $el.closest('.form-field-swatch').find('label[data-is-selected]').removeAttr('data-is-selected').trigger('mouseout');
         delete window.TEAK.currentSelections[$optionText.data('option-title')];
         
         $swatchText.data('swatch-value', '');
@@ -183,9 +182,14 @@ export default class ProductOptions {
             });
           });
 
+        if( window.TEAK.Utils.isHandheld ){
+          hideSwatchColor({
+            currentTarget: self.currentlySelectedSwatch
+          });
+        }
+
         $el.closest('.form-field-swatch').find('label[data-is-selected]').removeAttr('data-is-selected');
 
-      
       } else {
         // $el.closest('.form-field-swatch').find('label[data-is-selected]').removeAttr('data-is-selected');
         $el.attr('data-is-selected', true);
@@ -200,11 +204,13 @@ export default class ProductOptions {
         self.$swatches
           .off('mouseout')
           .on('mouseout', 'label', showSelectedSwatchColor);
+
       }
 
       self.updateLeadTime();
     }
     
+  
 
     this.$swatches
       .on('mouseover', 'label', showSwatchColor)
@@ -214,11 +220,10 @@ export default class ProductOptions {
   }
 
 
-
-
   // Bind dropdown events
   bindDropdownEvents() {
     let self = this;
+
     this.$dropdowns.on('change', 'select', (e) => {
       let $el = $(e.currentTarget);
       let $optionText = $el.closest('[data-product-attribute="set-select"]').find('.form-field-title');
@@ -239,7 +244,6 @@ export default class ProductOptions {
 
   // Show the hover detail pane and populate all data
   showHoverDetail(option) {
-    if (('ontouchstart' in window) || navigator.msMaxTouchPoints) { return false; }
 
     let $hoverDetail = this.$hoverDetail;
     let $image = $hoverDetail.find(`.${this.hoverDetailBlockClass}__image`);
@@ -252,10 +256,7 @@ export default class ProductOptions {
       // Only display if selected option has real images
       $label.text(option.label); // Set swatch label
       $grade.text(option.grade ? `Grade ${option.grade}` : ''); // Set/reset grade
-      $leadtime.text(option.leadtime_from
-        ? this.formatLeadTime(option.leadtime_from.value, option.leadtime_from.unit, option.leadtime_to.value, option.leadtime_to.unit)
-        : ''
-      );
+      $leadtime.text(option.leadtime_from ? this.formatLeadTime(option.leadtime_from.value, option.leadtime_from.unit, option.leadtime_to.value, option.leadtime_to.unit) : '' );
       $image.css('background-image', `url("${option.swatch.thumb}")`); // Default image to thumbnail
       $image.attr('data-swatch-size', 'thumb'); // Set default swatch size
       $image.data('thumbnail-url', option.swatch.thumb); // Set thumbnail URL as quasi-unique key
@@ -273,7 +274,6 @@ export default class ProductOptions {
 
   // Hide the hover detail pane
   hideHoverDetail() {
-    if (('ontouchstart' in window) || navigator.msMaxTouchPoints) { return false; }
     this.$hoverDetail.removeClass('is-visible');
   }
 

@@ -1,7 +1,13 @@
 # Change Log
 ## [1.20.2]
 - added isVisable to global header json to control promo banner
+- added ability to have both promo banner and header inline promo
 - renamed mega menu json to header json so we can use it for the whole header
+- fixed duplicate ids for search field
+- added affirm live key and js
+- added product tool tip and json
+- fixed dup h1 on product page
+- moved ajax loader gif to fix 404
 
 ## [1.20.1]
 - removed footer year inline document.write and added it to footer.js

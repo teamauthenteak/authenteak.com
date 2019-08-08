@@ -74,6 +74,7 @@
 	{{{snippet 'footer'}}}
 
 	<script src="{{cdn '/assets/js/bundle.js'}}"></script>
+	
 	{{#if page_type '===' 'product'}}
 		{{> components/common/facebook-like}}
 	{{else if page_type '===' 'blog'}}
@@ -81,11 +82,21 @@
 	{{else if page_type '===' 'blog_post'}}
 		{{> components/common/facebook-like}}
 	{{/if}}
+
 	<script>
 		window.stencilBootstrap("{{template_file}}", {{ jsContext }}).load();
-		_affirm_config = { public_api_key: "YXSDQKAWLWQO1URY", script: "https://cdn1-sandbox.affirm.com/js/v2/affirm.js", session_id: "sID"};
+		_affirm_config = { public_api_key: "RPBIJDV9I1IHTVL3", script: "https://cdn1.affirm.com/js/v2/affirm.js", session_id: "sID"};
 		(function (l, g, m, e, a, f, b) { var d, c = l[m] || {}, h = document.createElement(f), n = document.getElementsByTagName(f)[0], k = function (a, b, c) { return function () { a[b]._.push([c, arguments]) } }; c[e] = k(c, e, "set"); d = c[e]; c[a] = {}; c[a]._ = []; d._ = []; c[a][b] = k(c, a, b); a = 0; for (b = "set add save post open empty reset on off trigger ready setProduct".split(" "); a < b.length; a++)d[b[a]] = k(c, e, b[a]); a = 0; for (b = ["get", "token", "url", "items"]; a < b.length; a++)d[b[a]] = function () { }; h.async = !0; h.src = g[f]; n.parentNode.insertBefore(h, n); delete g[f]; d(g); l[m] = c })(window, _affirm_config, "affirm", "checkout", "ui", "script", "ready");
 	</script>
+
 	{{{footer.scripts}}}
+
+	{{#if page_type '===' 'product'}}	
+	<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		window.TEAK.Modules.toolTip.init("{{product.brand.name}}");
+	});
+	</script>
+	{{/if}}
 </body>
 </html>

@@ -12,7 +12,7 @@ brand:
 
       <header class="listing-header">
         <h1 class="listing-title">{{brand.name}}</h1>
-        {{> components/products/listing-utils}}
+        {{> components/products/listing-utils sortlabel=brand.name }}
       </header>
 
       {{#unless theme_settings.collections-sidebar-hidden}}

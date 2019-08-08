@@ -1,11 +1,18 @@
 {
     "marketing_content": {
-        "global": {
+        "banner": {
             "isVisable": true,
             "header_promo": "Pay over time with financing from <span class='promoBanner__affirmLogo'></span> <strong class='promoBanner__psedoLink'><u>Learn more &rsaquo;</u></strong>",
             "header_promo_link": "",
             "header_promo_color": "grey",
             "header_custom_class": "affirm-site-modal"
+        },
+        "inline": {
+        	"isVisable": true,
+            "header_promo": "Shopping for a Client? <strong>Join our Trade Program</strong>",
+            "header_promo_link": "/to-the-trade",
+            "header_promo_color": "green",
+            "header_custom_class": ""
         }
     },
     "category_2480":{

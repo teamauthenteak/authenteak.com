@@ -9,16 +9,16 @@
   <input type="hidden" name="action" value="add">
   <input type="hidden" name="product_id" value="{{product.id}}" data-product-id/>
 
-  <div class="product-options-container" data-product-option-change>
+  <div class="product-options-container" data-product-option-change data-product-brand="{{product.brand.name}}" id="productOptions">
     {{#if product.customizations}}
       {{#each product.customizations}}
-        {{{dynamicComponent 'core/forms/customizations'}}}
+          {{{dynamicComponent 'core/forms/customizations'}}}
       {{/each}}
     {{/if}}
-
+    
     {{#if product.options}}
       {{#each product.options}}
-        {{{dynamicComponent 'core/forms/options'}}}
+        {{{dynamicComponent 'core/forms/options' }}}
         <hr>
       {{/each}}
     {{/if}}

@@ -1,3 +1,30 @@
 {
-    
+    "tool-tips": {
+        "brand": {
+            "Treasure Garden": {
+                "Select Canopy": {
+                    "tip": [
+                        "<h2 class='toolTip__heading--2'>What are the different Treasure Garden Canopy Materials?</h2>",
+                        
+                        "<p class='toolTip__text'>Treasure Garden offers both acrylic and polyester fabrics for their umbrella canopies. The Acrylic fabrics are known as Grade A and the polyester fabrics are known as Grade C. Both fabrics are made of a solution-dyed yarn which means the pigments are saturated through the entire thread and are not just a print on the surface of the fabric. Both fabrics are resistant to fading, stains, mold and mildew and are easily cleanable.</p>",
+                        "<p class='toolTip__text'>The fabrics differ as follows:</p>",
+                        
+                        "<h5 class='toolTip__heading--5'>Grade A</h5>",
+                        "<ul class='toolTip__list'>",
+                            "<li class='toolTip__listItem'>5-year warranty against fading</li>",
+                            "<li class='toolTip__listItem'>Made of 100% solution-dyed acrylic fabric</li>",
+                            "<li class='toolTip__listItem'>Grade A Canopies are made by brands such as Sunbrella, Outdura and Docril</li>",
+                        "</ul>",
+
+                        "<h5 class='toolTip__heading--5'>Grade C</h5>",
+                        "<ul class='toolTip__list'>",
+                            "<li class='toolTip__listItem'>4-year warranty against fading</li>",
+                            "<li class='toolTip__listItem'>Made of 100% solution-dyed polyester</li>",
+                            "<li class='toolTip__listItem'>Grade C Canopies are Treasure Garden’s proprietary version of their best-selling Grade A acrylic fabrics</li>",
+                        "</ul>"
+                    ]
+                }
+            }
+        }
+    }
 }

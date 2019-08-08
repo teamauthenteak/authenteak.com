@@ -50,6 +50,7 @@ export default class EditOptions {
         return;
       }
 
+
       let optionsContent = self.preloadedContent[$(e.currentTarget).attr('data-edit-id')];
 
       window.TEAK.currentSelections = {};
@@ -129,6 +130,7 @@ export default class EditOptions {
   // Handle swatch hover and click events
   bindSwatchEvents() {
     let self = this;
+
     this.$editModal.on('mouseover', `${self.swatchesSelector} label`, (e) => {
       window.clearTimeout(this.hoverTimeout); // Clear hover-off timeout to avoid flicker
       let $el = $(e.currentTarget);
@@ -178,14 +180,14 @@ export default class EditOptions {
         delete window.TEAK.currentSelections[$optionText.data('option-title')];
         $swatchText.data('swatch-value', '');
         utils.hooks.emit('product-option-change', null, $el.find('input[type="radio"]')[0]);
+
       } else {
         $el.closest('.form-field-swatch').find('label[data-is-selected]').removeAttr('data-is-selected');
         $el.attr('data-is-selected', true);
 
         window.TEAK.currentSelections[$optionText.data('option-title')] = label;
 
-        $swatchText.data('swatch-value',
-          label.text + (label.priceAdjust ? ` (${label.priceAdjust})` : ''));
+        $swatchText.data('swatch-value', label.text + (label.priceAdjust ? ` (${label.priceAdjust})` : ''));
       }
 
       // self.updateLeadTime();

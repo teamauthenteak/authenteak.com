@@ -60,7 +60,7 @@
             {{> svg/search}}
           </button>
         </div> -->
-        {{> components/common/search-form}}
+        {{> components/common/search-form label='desktop'}}
         <!-- End Search Button -->
         {{> components/header/site-branding-centered}}
       </div>
@@ -148,6 +148,7 @@
             </span>
             {{> components/header/cart-icon}}
         </button>
+        <span class="global-header-text-promo" id="globalHeaderPromo">
       </div>
 
       <span class="button-mobile-nav-tel">
@@ -195,7 +196,7 @@
       </button>
 
       <div class="mobile-search-wrapper">
-        {{> components/common/search-form}}
+        {{> components/common/search-form label='mobile'}}
       </div>
     </div>
   </section>

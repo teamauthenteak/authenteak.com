@@ -22,7 +22,7 @@ blog: true
       <div id="product-results">
         {{#if product_results.products}}
           {{!-- <header class="listing-header">
-            {{> components/products/listing-utils}}
+            {{> components/products/listing-utils sortlabel="productresults"}}
           </header> --}}
 
         {{#unless theme_settings.collections-sidebar-hidden}}
@@ -30,7 +30,7 @@ blog: true
             <div class="listing-sidebar__mobile-toggle">Filter Options</div>
             <div class="listing-sidebar__mobile-collapse">
             {{> components/search/sidebar}}
-            {{> components/products/listing-utils}}
+            {{> components/products/listing-utils sortlabel="options"}}
             </div>
           </aside>
         {{/unless}}
@@ -61,13 +61,13 @@ blog: true
         <div class="tab-content-panel" id="product-results">
           {{#if product_results.products}}
             <header class="listing-header">
-              {{> components/products/listing-utils}}
+              {{> components/products/listing-utils label="tab product results"}}
             </header>
 
           {{#unless theme_settings.collections-sidebar-hidden}}
             <aside class="listing-sidebar" data-search-sidebar>
               {{> components/search/sidebar}}
-              {{> components/products/listing-utils}}
+              {{> components/products/listing-utils label="listing sidebar"}}
             </aside>
           {{/unless}}
 

@@ -39,14 +39,14 @@ category:
             <div class="listing-sidebar__mobile-toggle">Filter Options</div>
             <div class="listing-sidebar__mobile-collapse">
             {{> components/category/sidebar}}
-            {{> components/products/listing-utils}}
+            {{> components/products/listing-utils sortlabel="filteroptions"}}
           </div>
         </aside>
       {{/unless}}
 
       <div class="Content">
         <header class="listing-header">
-          {{> components/products/listing-utils}}
+          {{> components/products/listing-utils sortlabel="header"}}
         </header>
 
         <div class="product-listing-grid" data-category {{#if category.show_compare}}data-product-compare{{/if}}>

@@ -4,12 +4,22 @@
     {{display_name}}: &nbsp;
     <span class="swatch-value" data-swatch-value>{{lang 'forms.swatches_none_selected'}}</span>
     {{#if required}}<span class="required-text">{{lang 'common.required'}}</span>{{/if}}
+    
+    <div class="toolTip">
+      <a href="" title="About the {{display_name}} option" class="toolTip__open">
+        <svg class="toolTip__icon" enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 6c2.203 0 3.984 1.781 3.984 3.984 0 2.484-3 2.766-3 5.016h-1.969c0-3.234 3-3 3-5.016 0-1.078-0.938-1.969-2.016-1.969s-2.016 0.891-2.016 1.969h-1.969c0-2.203 1.781-3.984 3.984-3.984zM12 20.016c4.406 0 8.016-3.609 8.016-8.016s-3.609-8.016-8.016-8.016-8.016 3.609-8.016 8.016 3.609 8.016 8.016 8.016zM12 2.016c5.531 0 9.984 4.453 9.984 9.984s-4.453 9.984-9.984 9.984-9.984-4.453-9.984-9.984 4.453-9.984 9.984-9.984zM11.016 18v-2.016h1.969v2.016h-1.969z"></path>
+        </svg>
+      </a>
 
-    <a href="" title="" class="tool-tip-link">
-      <svg class="tool-tip-icon" enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 6c2.203 0 3.984 1.781 3.984 3.984 0 2.484-3 2.766-3 5.016h-1.969c0-3.234 3-3 3-5.016 0-1.078-0.938-1.969-2.016-1.969s-2.016 0.891-2.016 1.969h-1.969c0-2.203 1.781-3.984 3.984-3.984zM12 20.016c4.406 0 8.016-3.609 8.016-8.016s-3.609-8.016-8.016-8.016-8.016 3.609-8.016 8.016 3.609 8.016 8.016 8.016zM12 2.016c5.531 0 9.984 4.453 9.984 9.984s-4.453 9.984-9.984 9.984-9.984-4.453-9.984-9.984 4.453-9.984 9.984-9.984zM11.016 18v-2.016h1.969v2.016h-1.969z"></path>
-      </svg>
-    </a>
+      <div class="toolTip__cntr hide">
+        <button class="toolTip__close">
+          <svg class="toolTip__closeIcon" enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.4 12l5.3-5.3c0.4-0.4 0.4-1 0-1.4s-1-0.4-1.4 0l-5.3 5.3-5.3-5.3c-0.4-0.4-1-0.4-1.4 0s-0.4 1 0 1.4l5.3 5.3-5.3 5.3c-0.4 0.4-0.4 1 0 1.4 0.2 0.2 0.4 0.3 0.7 0.3s0.5-0.1 0.7-0.3l5.3-5.3 5.3 5.3c0.2 0.2 0.5 0.3 0.7 0.3s0.5-0.1 0.7-0.3c0.4-0.4 0.4-1 0-1.4l-5.3-5.3z"></path>
+          </svg>
+        </button>
+      </div>
+    </div><!-- /tool tip -->
     
   </div>
 

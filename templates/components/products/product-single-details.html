@@ -18,15 +18,12 @@
     {{/unless}}
 
     <div class="product-details-column">
-      <h1 class="product-title mobileShow">{{this.product.title}}</h1>
+      <h2 class="product-title mobileShow">{{this.product.title}}</h2>
       <p class="item-number item-number-mobile mobileShow">ITEM #: {{product.sku}}</p>
 
       {{> components/products/customizations/swatch-hover-detail}}
 
-      {{> components/products/product-single-images
-        images=product.images
-        default_image=theme_settings.default_image
-      }}
+      {{> components/products/product-single-images images=product.images default_image=theme_settings.default_image }}
       <!--moved from add-to-cart-form.html-->
       <div class="share-block">
         <hr>

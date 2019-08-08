@@ -15,156 +15,215 @@ import AddToCartModal from './product/customizations/AddToCartModal';
 import PrintMode from './product/customizations/PrintMode';
 
 export default class Product extends PageManager {
-  constructor() {
-    super();
+	constructor() {
+		super();
 
-    this.el = '[data-product-container]';
-    this.$el = $(this.el);
-    this.productImgs = '.product-slides-wrap';
+		this.el = '[data-product-container]';
+		this.$el = $(this.el);
+		this.productImgs = '.product-slides-wrap';
 
-    this.fitVidsInitialized = false;
+		this.fitVidsInitialized = false;
 
-    new Alert($('[data-alerts]'));
+		new Alert($('[data-alerts]'));
 
-    new ScrollLink({
-      selector: '.accordion-title a',
-      offset: -117
-    });
+		new ScrollLink({
+			selector: '.accordion-title a',
+			offset: -117
+		});
 
-    new ScrollLink({
-      selector: '.reviews-jumplink'
-    });
-  }
+		new ScrollLink({
+			selector: '.reviews-jumplink'
+		});
+	}
 
-  loaded(next) {
-    // Product Utils
-    this.ProductUtils = new ProductUtils(this.el, {
-      priceWithoutTaxTemplate: productViewTemplates.priceWithoutTax,
-      priceWithTaxTemplate: productViewTemplates.priceWithTax,
-      priceSavedTemplate: productViewTemplates.priceSaved,
-      variationPreviewImageTemplate: productViewTemplates.variationPreviewImage,
-      callbacks: {
-        switchImage: variationImgPreview
-      }
-    }).init(this.context);
+	loaded(next) {
+		// Product Utils
+		this.ProductUtils = new ProductUtils(this.el, {
+			priceWithoutTaxTemplate: productViewTemplates.priceWithoutTax,
+			priceWithTaxTemplate: productViewTemplates.priceWithTax,
+			priceSavedTemplate: productViewTemplates.priceSaved,
+			variationPreviewImageTemplate: productViewTemplates.variationPreviewImage,
+			callbacks: {
+				switchImage: variationImgPreview
+			}
+		}).init(this.context);
 
-    // Product Images
-    new ProductImages(this.productImgs);
+		// Product Images
+		new ProductImages(this.productImgs);
 
-    // Product Swatches
-    this.swatches = new ColorSwatch(); // Init our color swatches
+		// Product Swatches
+		this.swatches = new ColorSwatch(); // Init our color swatches
 
-    // Reviews
-    new ProductReviews(this.context);
+		// Reviews
+		new ProductReviews(this.context);
 
-    // Custom Options
-    new ProductOptions();
-    // Custom Cart Modal
-    new AddToCartModal();
-    // Print Mode (Tear Sheet)
-    new PrintMode();
+		// Custom Options
+		new ProductOptions();
+		// Custom Cart Modal
+		new AddToCartModal();
+		// Print Mode (Tear Sheet)
+		new PrintMode();
 
-    // Product UI
-    this._bindEvents();
-    this._initTabs();
-    this._initSlick();
+		// Product UI
+		this._bindEvents();
+		this._initTabs();
+		this._initSlick();
 
-    next();
-  }
+		next();
+	}
 
-  _bindEvents() {
-    // Activate the reviews tab when we jump down to it
-    $('.product-reviews-link').on('click', () => {
-      this.tabs.displayTabContent('#product-reviews');
-      $('.accordion-title').removeClass('is-open');
-      $('[href="#product-reviews"]').parent('.accordion-title').addClass('is-open');
-    });
+	_bindEvents() {
+		// Activate the reviews tab when we jump down to it
+		$('.product-reviews-link').on('click', () => {
+			this.tabs.displayTabContent('#product-reviews');
+			$('.accordion-title').removeClass('is-open');
+			$('[href="#product-reviews"]').parent('.accordion-title').addClass('is-open');
+		});
 
-    // Show all the reviews
-    $('.reviews-show-more-link').on('click', (event) => {
-      event.preventDefault();
+		// Show all the reviews
+		$('.reviews-show-more-link').on('click', (event) => {
+			event.preventDefault();
 
-      $('.review-item.hidden').each((index, el) => {
-        setTimeout(() => {
-          $(el).revealer('show');
-        }, index * 250);
-      });
+			$('.review-item.hidden').each((index, el) => {
+				setTimeout(() => {
+					$(el).revealer('show');
+				}, index * 250);
+			});
 
-      $(event.currentTarget).hide();
-    });
+			$(event.currentTarget).hide();
+		});
 
-    $('.accordion-title').on('click', (event) => {
-      event.preventDefault();
-      this._accordionTabToggle(event);
-    });
-  }
+		$('.accordion-title').on('click', (event) => {
+			event.preventDefault();
+			this._accordionTabToggle(event);
+		});
+	}
 
-  _initTabs() {
-    this.tabs = new Tabs({
-      afterSetup: (tabId) => {
-        this._initVids(tabId);
-        $('.tab-content-panel.active').prev('.accordion-title').addClass('is-open');
-      },
-      afterChange: (tabId) => {
-        this._initVids(tabId);
-      }
-    });
-  }
+	_initTabs() {
+		this.tabs = new Tabs({
+			afterSetup: (tabId) => {
+				this._initVids(tabId);
+				$('.tab-content-panel.active').prev('.accordion-title').addClass('is-open');
+			},
+			afterChange: (tabId) => {
+				this._initVids(tabId);
+			}
+		});
+	}
 
-  // Add accordion style buttons to toggle tab panels
-  _accordionTabToggle(event) {
-    const tab = $(event.currentTarget).find('a').attr('href');
-    $(event.currentTarget).addClass('is-open').siblings('.accordion-title').removeClass('is-open');
-    this.tabs.displayTabContent(tab);
-  }
+	// Add accordion style buttons to toggle tab panels
+	_accordionTabToggle(event) {
+		const tab = $(event.currentTarget).find('a').attr('href');
+		$(event.currentTarget).addClass('is-open').siblings('.accordion-title').removeClass('is-open');
+		this.tabs.displayTabContent(tab);
+	}
 
-  // if page loads with tabs hidden, we need to wait until the proper tab is clicked before running fitVids.
-  _initVids(tabId) {
-    if (tabId == '#product-videos' && !this.fitVidsInitialized) {
-      fitVids('.product-videos-list');
-      this.fitVidsInitialized = true;
-    }
-  }
+	// if page loads with tabs hidden, we need to wait until the proper tab is clicked before running fitVids.
+	_initVids(tabId) {
+		if (tabId == '#product-videos' && !this.fitVidsInitialized) {
+			fitVids('.product-videos-list');
+			this.fitVidsInitialized = true;
+		}
+	}
 
-  _initSlick() {
+	_initSlick() {
 
-    // Related Product carousels
-    $('.product-carousel').slick({
-        infinite: true,
-        slidesToShow: 4,
-        slidesToScroll: 4,
-        autoplaySpeed: 4000,
-        appendDots: ".product-carousel",
-        dots: true,
-        speed: 800,
-        prevArrow: '<span class="carousel-navigation-item previous"><svg class="icon icon-arrow-left"><use xlink:href="#icon-arrow-left" /></svg></span>',
-        nextArrow: '<span class="carousel-navigation-item next"><svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right" /></svg></span>',
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 3,
-              autoplay: false
-            }
-          },
-          {
-            breakpoint: 768,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2,
-              autoplay: true
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1,
-              autoplay: true
-            }
-          }
-        ]
-    });
-  }
+		// Related Product carousels
+		$('.product-carousel').slick({
+			infinite: true,
+			slidesToShow: 4,
+			slidesToScroll: 4,
+			autoplaySpeed: 4000,
+			appendDots: ".product-carousel",
+			dots: true,
+			speed: 800,
+			prevArrow: '<span class="carousel-navigation-item previous"><svg class="icon icon-arrow-left"><use xlink:href="#icon-arrow-left" /></svg></span>',
+			nextArrow: '<span class="carousel-navigation-item next"><svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right" /></svg></span>',
+			responsive: [
+				{
+					breakpoint: 1024,
+					settings: {
+						slidesToShow: 3,
+						slidesToScroll: 3,
+						autoplay: false
+					}
+				},
+				{
+					breakpoint: 768,
+					settings: {
+						slidesToShow: 2,
+						slidesToScroll: 2,
+						autoplay: true
+					}
+				},
+				{
+					breakpoint: 480,
+					settings: {
+						slidesToShow: 1,
+						slidesToScroll: 1,
+						autoplay: true
+					}
+				}
+			]
+		});
+	}
 }
+
+
+
+TEAK.Modules.toolTip = {
+	optionKeys: [],
+	brandObj: {},
+
+	data: TEAK.Utils.getProductTipData(),
+	
+	init: function (brandName) {
+
+		if( !this.data["tool-tips"].brand.hasOwnProperty(brandName) ){ return; }
+
+		this.brandObj = this.data["tool-tips"].brand[brandName];
+		this.optionKeys = Object.keys(this.brandObj);
+
+		this.optionKeys.forEach((el, i) => {
+			let $optionSelector = $("#productOptions").find("[data-option-title='"+ this.optionKeys[i] +"'] .toolTip");
+
+			$optionSelector
+				.find(".toolTip__cntr")
+					.attr("id", this.optionKeys[i].replace(/\s/g, '') )
+					.append(this.brandObj[el].tip)
+					.addClass("show")
+						.end()
+				.addClass("show");
+		});
+
+		this.setListners();
+
+		return this;
+	},
+
+	// open 
+	openTipModal: function(e){
+		let $this = $(this);
+		$this.siblings(".toolTip__cntr").removeClass("hide");
+		e.preventDefault();
+		return this;
+	},
+
+	// close
+	closeTipModal: function(e){
+		let $this = $(this);
+		$this.parents(".toolTip__cntr").addClass("hide");
+		e.preventDefault();
+		return this;
+	},
+
+	// set event listners 
+	setListners: function(){
+
+		$("#productOptions")
+			.on("click", ".toolTip__open", this.openTipModal)
+			.on("click", ".toolTip__close", this.closeTipModal);
+
+		return this;
+	}
+};
