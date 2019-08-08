@@ -130,20 +130,23 @@ export default class AddToCartModal {
 
     // get product data from cart rather than calcualte from the UI
     let pendingCartTotal = window.localStorage.getItem('cartData');
+
     pendingCartTotal = JSON.parse(pendingCartTotal);
-    pendingCartTotal = pendingCartTotal[0].cartAmount;
+    pendingCartTotal = pendingCartTotal[0].hasOwnProperty("cartAmount") ? parseFloat(pendingCartTotal[0].cartAmount) : 0.00;
     
     if (pendingCartTotal > 0){
-      if (pendingCartTotal < 10) {
-        pendingCartTotal = `00${pendingCartTotal}`;
-  
-      } else if (pendingCartTotal < 100) {
-        pendingCartTotal = `0${pendingCartTotal}`;
+      if( pendingCartTotal < 1 ) {
+        pendingCartTotal = `00.${pendingCartTotal}`;
+
+      }else if( pendingCartTotal % 1 === 0 ) {
+        pendingCartTotal = `${pendingCartTotal}.00`;
       }
     }
 
     // pendingCartTotal = `$${pendingCartTotal}`.replace(/^(\$\d*)(\d\d)$/, "$1.$2").replace(/(\d)(\d\d\d)\./, "$1,$2.");
-    pendingCartTotal = `$${pendingCartTotal}.00`.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    
+    // add comma formatting
+    pendingCartTotal = `$${pendingCartTotal}`.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
 
     // let pendingCartQuantity = Number.parseInt($('.modal-cart__count-value').attr('data-quantity')) + Number.parseInt(qty);
     let pendingCartQuantity = Number.parseInt($('.modal-cart__count-value').attr('data-quantity'));
@@ -199,16 +202,19 @@ export default class AddToCartModal {
       //$('.modal-cart__summary').removeClass('is-loading');
 
       // Additional Checkout Buttons
-      if (cartJson.additional_checkout_buttons.length == 1) {
-        let $additionalCheckoutWrapper = $('.modal-cart__additional-checkout-buttons');
-        $additionalCheckoutWrapper.html('');
-
-        for (var i in cartJson.additional_checkout_buttons) {
-          $additionalCheckoutWrapper.append(
-            $('<span></span>').html(cartJson.additional_checkout_buttons[i])
-          );
+      if ( cartJson.hasOwnProperty("additional_checkout_buttons") ){
+        if (cartJson.additional_checkout_buttons.length == 1) {
+          let $additionalCheckoutWrapper = $('.modal-cart__additional-checkout-buttons');
+          $additionalCheckoutWrapper.html('');
+  
+          for (var i in cartJson.additional_checkout_buttons) {
+            $additionalCheckoutWrapper.append(
+              $('<span></span>').html(cartJson.additional_checkout_buttons[i])
+            );
+          }
         }
       }
+      
 
       if (callback) {
         callback();
