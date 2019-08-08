@@ -1,4 +1,9 @@
 # Change Log
+## [1.20.2.001]
+- fixed cdn issue for affirm logo in header
+- fixed atc issue where price was malformated
+- fixed issue for order confirmation page causing 404
+
 ## [1.20.2]
 - added isVisable to global header json to control promo banner
 - added ability to have both promo banner and header inline promo

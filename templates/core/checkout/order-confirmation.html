@@ -1,163 +1,159 @@
 <!DOCTYPE html>
-<html class="no-js" lang="{{ locale_name }}" base-html>
+<html>
+  <head>
+    <title>{{head.title}}</title>
+    {{{head.meta_tags}}}
+    {{{head.config}}}
 
-<head>
-	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>{{head.title}}</title>
-	{{{head.meta_tags}}}
-	{{{head.config}}}
+    <link href="{{head.favicon}}" rel="shortcut icon">
 
-	<link href="{{head.favicon}}" rel="shortcut icon">
+    {{{checkout.checkout_head}}}
+    {{{stylesheet '/assets/css/optimized-checkout.css'}}}
+    {{getFontsCollection}}
+    
+      <style rel="stylesheet" type="text/css">
+      .klaviyo-form-MnvYmV{
+        position: fixed;
+        width: 500px;
+        top: 50%;
+        z-index: 9999;
+        left: 50%;
+        margin-top: -100px;
+        margin-left: -250px;
+        height: 200px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 0px 1px 50px 7px rgba(0, 0, 0, 0.34);
+        border-radius: 5px;
+        display: none;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+      }
+      
+      .ResetElements__Div-sc-8e6zl9-0{
+        align-content: center !important;
+        align-items: center !important;
+      }
 
-	{{{checkout.checkout_head}}}
-	{{{stylesheet '/assets/css/optimized-checkout.css'}}}
-	{{getFontsCollection}}
+      .ResetElements__Input-sc-8e6zl9-6{
+        height: 32px !important;
+        width: 100% !important;
+      }
 
-	<style rel="stylesheet" type="text/css">
-		.klaviyo-form-MnvYmV {
-			position: fixed;
-			width: 500px;
-			top: 50%;
-			z-index: 9999;
-			left: 50%;
-			margin-top: -100px;
-			margin-left: -250px;
-			height: 200px;
-			background-color: #fff;
-			border: 1px solid #ddd;
-			box-shadow: 0px 1px 50px 7px rgba(0, 0, 0, 0.34);
-			border-radius: 5px;
-			display: none;
-			flex: 1;
-			justify-content: center;
-			align-items: center;
-			align-content: center;
-		}
-
-		.ResetElements__Div-sc-8e6zl9-0 {
-			align-content: center !important;
-			align-items: center !important;
-		}
-
-		.ResetElements__Input-sc-8e6zl9-6 {
-			height: 32px !important;
-			width: 100% !important;
-		}
-
-		.unsubscribe__closeModal {
-			order: 1;
-			color: #222;
-			font-size: 1.6rem;
-			line-height: 1;
-			display: block;
-			position: absolute;
-			top: 0;
-			right: 0;
-			padding: 10px 20px;
-		}
-	</style>
-
-	{{{head.scripts}}}
-
-	<script>window.language = {{ { langJson 'optimized_checkout' } }};</script>
-</head>
-
-<body>
-	<header class="checkoutHeader optimizedCheckout-header">
-		<div class="checkoutHeader-content">
-			<h1 class="is-srOnly">{{lang 'checkout.title'}}</h1>
-			<h2 class="checkoutHeader-heading">
-				<a class="checkoutHeader-link" href="{{urls.home}}">
-					{{#if checkout.header_image}}
-					<img alt="{{settings.store_logo.title}}" class="checkoutHeader-logo" id="logoImage"
-						src="{{ checkout.header_image }}" />
-					{{else}}
-					<span class="header-logo-text">{{settings.store_logo.title}}</span>
-					{{/if}}
-				</a>
-			</h2>
-		</div>
-	</header>
-
-	{{{checkout.order_confirmation_content}}}
-
-	<script>
-		var TEAK = {} || TEAK;
-
-		TEAK.Checkout = {
-
-			// clear cart from local storage
-			clearStorage: function (item) {
-				window.localStorage.removeItem(item);
-				return this;
-			},
-
-			/* 
-			  Injects the unsubscribe form into the pages
-			  - Note: this is a work around because Bolt doesnt support Klaviyo  email signup from it's UI
-			*/
-			buildUI: function () {
-				let confirmSection = document.getElementById("micro-app-ng-checkout").querySelector(".orderConfirmation-section");
-
-				let klaviyoForm = document.createElement('div');
-				klaviyoForm.setAttribute("class", "klaviyo-form-MnvYmV");
-
-				let text = document.createElement('p');
-				text.setAttribute("class", "unsubscribe__text");
-				text.innerHTML = "It's official, you're an AuthenTEAK Insider! You'll be the first to know about promotions, events & new arrivals. If you wish to unsubscribe, <a href='' onclick='TEAK.Checkout.unsubscribePopupOpen(event);'>let us know</a>.";
-
-				let closeBtn = document.createElement('a');
-				closeBtn.setAttribute("class", "unsubscribe__closeModal");
-				closeBtn.setAttribute("onclick", "TEAK.Checkout.unsubscribePopupClose(event)");
-				closeBtn.innerHTML = "&times;";
-				klaviyoForm.appendChild(closeBtn);
-
-				confirmSection.appendChild(text);
-				confirmSection.appendChild(klaviyoForm);
-
-				this.hidePayByCheck();
-
-				return this;
-			},
-
-			/* Open Modal */
-			unsubscribePopupOpen: function (event) {
-				event.preventDefault();
-				document.querySelector(".klaviyo-form-MnvYmV").style.display = "flex";
-				return this;
-			},
-
-			/* Close Modal */
-			unsubscribePopupClose: function (event) {
-				event.preventDefault();
-				document.querySelector(".klaviyo-form-MnvYmV").style.display = "none";
-				return this;
-			},
+      .unsubscribe__closeModal{
+        order: 1;
+        color: #222;
+        font-size: 1.6rem;
+        line-height: 1;
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 10px 20px;
+      }
+    </style>
 
 
-			hidePayByCheck: function(){
-				var tags = document.getElementsByClassName("orderConfirmation-section");
+    <script type="text/javascript">
+      window.language = {{{langJson 'optimized_checkout'}}};
+    setInterval(function() {
+        var tags = document.getElementsByClassName("orderConfirmation-section");
+        for (var i = 0; i < tags.length; i++) {
+            var elm = tags[i];
+            var txt = elm.innerText || elm.innerHTML;
+            if (txt.includes("pay by check")) {
+                elm.style.display = 'none';
+            }
+        }
+    }, 200);
 
-				for (let i = 0; i < tags.length; i++) {
-					let elm = tags[i];
-					let txt = elm.innerText || elm.innerHTML;
-					if (txt.includes("pay by check")) {
-						elm.style.display = 'none';
-					}
-				}
+    </script>
 
-				return this;
-			}
-		};
+    {{{head.scripts}}}
+  </head>
 
-		setTimeout(() => TEAK.Checkout.buildUI(), 500);
+  <body>
+    <header class="checkoutHeader optimizedCheckout-header">
+      <div class="checkoutHeader-content">
+        <h1 class="is-srOnly">{{lang 'checkout.title'}}</h1>
+        <h2 class="checkoutHeader-heading">
+          <a class="checkoutHeader-link" href="{{urls.home}}">
+            {{#if checkout.header_image}}
+              <img alt="{{settings.store_logo.title}}" class="checkoutHeader-logo" id="logoImage" src="{{ checkout.header_image }}"/>
+            {{else}}
+              <span class="header-logo-text">{{settings.store_logo.title}}</span>
+            {{/if}}
+          </a>
+        </h2>
+      </div>
+    </header>
 
-		// clear out stored cart data
-		TEAK.Checkout.clearCart('cartData');
-	</script>
+    {{{checkout.order_confirmation_content}}}
+    
+   <script>
+      var TEAK = {} || TEAK;
 
-	{{{footer.scripts}}}
-</body>
+      TEAK.Checkout = {
+
+        // clear cart from local storage
+        clearStorage: function(item){
+          window.localStorage.removeItem(item);
+          return this;
+        },
+
+        /* 
+          Injects the unsubscribe form into the pages
+          - Note: this is a work around because Bolt doesnt support Klaviyo  email signup from it's UI
+        */
+        buildUI: function(){
+          let confirmSection = document.getElementById("micro-app-ng-checkout").querySelector(".orderConfirmation-section");
+
+          let klaviyoForm = document.createElement('div');
+          klaviyoForm.setAttribute("class", "klaviyo-form-MnvYmV");
+          
+          let text = document.createElement('p');
+          text.setAttribute("class", "unsubscribe__text");
+          text.innerHTML = "It's official, you're an AuthenTEAK Insider! You'll be the first to know about promotions, events & new arrivals. If you wish to unsubscribe, <a href='' onclick='TEAK.Checkout.unsubscribePopupOpen(event);'>let us know</a>.";
+
+          let closeBtn = document.createElement('a');
+          closeBtn.setAttribute("class", "unsubscribe__closeModal");
+          closeBtn.setAttribute("onclick", "TEAK.Checkout.unsubscribePopupClose(event)");
+          closeBtn.innerHTML = "&times;";
+          klaviyoForm.appendChild(closeBtn);
+
+          confirmSection.appendChild(text);
+          confirmSection.appendChild(klaviyoForm);
+
+          return this;
+        },
+
+        /* Open Modal */
+        unsubscribePopupOpen: function(event){
+          event.preventDefault();
+          document.querySelector(".klaviyo-form-MnvYmV").style.display = "flex";
+          return this;
+        },
+
+        /* Close Modal */
+        unsubscribePopupClose: function(event){
+          event.preventDefault();
+          document.querySelector(".klaviyo-form-MnvYmV").style.display = "none";
+          return this;
+        }
+      };
+
+      setTimeout(() => TEAK.Checkout.buildUI(), 500);
+
+
+      // clear out stored cart data
+      TEAK.Checkout.clearCart('cartData');
+      
+    </script>
+
+    {{{footer.scripts}}}
+
+  </body>
+
 </html>
