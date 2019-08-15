@@ -26,7 +26,7 @@
     The setting to show/hide as low as price wording
 --}}
 
-<article class="product-grid-item product-block" data-product-title="{{name}}" data-product-id="{{id}}">
+<a href="{{url}}" title="{{name}}" class="product-grid-item product-block" data-product-title="{{name}}" data-product-id="{{id}}">
   <figure class="product-item-thumbnail">
     {{#if price.saved}}
       {{#lt price.sale_price_without_tax.value price.non_sale_price_without_tax.value}}
@@ -38,7 +38,7 @@
     {{#if out_of_stock_message}}
       <div class="product-badge sold-out"><span class="message">{{out_of_stock_message}}</span></div>
     {{/if}}
-    <a href="{{url}}">
+   
       {{> components/common/image
         img=image
         url=false
@@ -48,7 +48,7 @@
         not_lazy=not_lazy
       }}
       <div class="product-item-mask">
-        <a href="{{url}}" class="item-link"></a>
+        
         <div class="product-item-actions">
           {{#if show_rating}}
             {{#if rating}}
@@ -70,9 +70,9 @@
               {{lang 'product.quick_view'}}
             </button>
           {{else}}
-            <a href="{{url}}" class="button button-secondary button-short">
+            <span class="button button-secondary button-short">
               {{lang 'product.view_product'}}
-            </a>
+            </span>
           {{/if}}
 
           {{#if show_compare}}
@@ -86,22 +86,25 @@
           {{/if}}
         </div>
       </div>
-    </a>
   </figure>
 
   <div class="product-item-details">
+    {{!-- 
     {{#if brand.name}}
       <div class="product-item-brand">{{brand.name}}</div>
     {{/if}}
-    <h5 class="product-item-title">
-      <a href="{{url}}" alt="{{name}}">{{name}}</a>
-    </h5>
+    --}}
+    
+    <h5 class="product-item-title">{{name}}</h5>
 
+    {{!-- 
     <div class="product-item-price" data-product-price="{{> components/products/customizations/non-sale-price-fixed price=price}}">
       {{> components/products/price
         price=price
         as_low_as=as_low_as
       }}
     </div>
+    --}}
+
   </div>
-</article>
+</a>

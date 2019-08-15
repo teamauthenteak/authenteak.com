@@ -224,7 +224,7 @@ export default class Header {
 
 	_adjustHeights() {
 		const $canvas = this.$body.find('.site-canvas');
-		const defaultTopBarHeight = window.TEAK.Utils.isHandheld ? 120 : 90;
+		const defaultTopBarHeight = window.TEAK.Utils.isHandheld ? 150 : 90;
 		const topBarHeight = this.$topBar.outerHeight();
 		const defaultFullHeaderHeight = 170;
 		const currentFullHeaderHeight = this.$header.outerHeight();

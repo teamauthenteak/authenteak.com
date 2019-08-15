@@ -6368,7 +6368,7 @@ $auth-font-size: $account-font-size !default;
   cursor: pointer;
   transform: translateY(-50%);
 
-  @include media($max: $breakpoint-m - 1) {
+  @include media($min: $breakpoint-m - 1) {
     display: none !important;
   }
 

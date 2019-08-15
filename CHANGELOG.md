@@ -1,4 +1,15 @@
 # Change Log
+
+## [1.20.3]
+- added arrows to bottom product scroll
+- updated arrows for footer links
+- added affirm link in footer
+- updated to trade url
+- changed tool tip icon color and icon
+- made round swatches in request a swatch
+- fixed scroll button icon and height from bottom for mobile
+- fixed header padding height to show breadcrumbs on mobile
+
 ## [1.20.2.001]
 - fixed cdn issue for affirm logo in header
 - fixed atc issue where price was malformated

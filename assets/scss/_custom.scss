@@ -939,6 +939,10 @@ table.geotrust-ssl-seal-table {
         margin: 10px 0;
         cursor: pointer;
         user-select: none;
+
+        span{
+            margin-left: 10px;
+        }
     }
 
     table.geotrust-ssl-seal-table {
@@ -1015,12 +1019,12 @@ footer.mobile-footer .footer-col.footer-accordion nav {
 }
 
 footer.mobile-footer .footer-col.footer-accordion .footer-title span::after {
-    position: relative;
-    content: "►";
-    padding-left: 10px;
+    position: absolute;
+    content: "";
+    background: url("data:image/svg+xml; utf8, <svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 20 20' enable-background='new 0 0 20 20' xml:space='preserve'><path d='M13.25 10l-7.141-7.42c-0.268-0.27-0.268-0.707 0-0.979 0.268-0.27 0.701-0.27 0.969 0l7.83 7.908c0.268 0.271 0.268 0.709 0 0.979l-7.83 7.908c-0.268 0.271-0.701 0.27-0.969 0s-0.268-0.707 0-0.979l7.141-7.417z'></path></svg>");
     color: #999;
-    font-size: .75em;
-    float: right;
+    height: 15px;
+    width: 15px;
 }
 
 footer.mobile-footer .footer-col.footer-accordion .footer-title.accordion-open span::after {
@@ -1838,12 +1842,14 @@ ul.highlight-group {
         justify-content: center;
         align-items: center;
         flex: 0;
+        background-color: #777;
+        border-radius: 50px;
     }
 
     &__icon{
-        width: 20px;
-        height: 20px;
-        fill: #6ea438;
+        width: 23px;
+        height: 23px;
+        fill: #fff;
     }
 
     &__cntr{
@@ -1998,6 +2004,14 @@ ul.highlight-group {
         }
 
         .swatch-wrap:hover .swatch-pattern-expanded { display: none; }
+    }
+}
+
+.swatch-img{
+    img{
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
     }
 }
 
@@ -3500,8 +3514,18 @@ span.head-phone-number {
         }
     }
 
+    .icon{
+        width: 16px;
+        height: 16px;
+    }
+
     &.show{
-        bottom: 50px;
+        bottom: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        padding: 0;
     }
 }
 
