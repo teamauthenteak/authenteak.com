@@ -2,7 +2,7 @@
 	<ul enhancedNav itemscope itemtype="http://www.schema.org/SiteNavigationElement">
 		{{#if theme_settings.global-show-categories-in-nav}}
 			{{#each categories}}
-			{{#startsWith "Shop All Quick Ship" name}} {{ else }} {{#startsWith "Be" name}} {{ else }}
+			{{#startsWith "Shop All Quick Ship" name}} {{ else }} {{#startsWith "Be" name}} {{ else }} {{#startsWith "Featured Offers" name}} {{ else }}
 				{{#if children}}
 				<li class="hover-dropdown mega-nav" category_{{id}}>
 					<a class="top-level-nav-link" itemprop="url" href="{{url}}" title="{{name}}">
@@ -25,7 +25,7 @@
 					</a>
 				</li>
 				{{/if}}
-			{{/startsWith}} {{/startsWith}}
+			{{/startsWith}} {{/startsWith}} {{/startsWith}}
 			{{/each}}
 		{{/if}}
 	</ul>
