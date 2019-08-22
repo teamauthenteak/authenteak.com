@@ -302,6 +302,7 @@ export default class ProductUtils {
     }
 
     $quantity.val(newQuantity);
+    
     utils.hooks.emit('product-option-change', null, $quantity[0]);
   }
 

@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.20.4]
+- removed featured offers from mobile nav
+- added free white glove shipping text
+- Updated footer carots on click to rotate
+- increased font size of bullet points
+- changed site from Lato to Karla font type
+- Increase space above “you may also like” for mobile
+- Increase space between yotpo and email sign up on mobile
+
 ## [1.20.3]
 - added arrows to bottom product scroll
 - updated arrows for footer links
