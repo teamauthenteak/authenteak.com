@@ -191,7 +191,6 @@ TEAK.Modules.toolTip = {
 				.find(".toolTip__cntr")
 					.attr("id", this.optionKeys[i].replace(/\s/g, '') )
 					.append(this.brandObj[el].tip)
-					.addClass("show")
 						.end()
 				.addClass("show");
 		});
@@ -211,14 +210,28 @@ TEAK.Modules.toolTip = {
 
 	// close
 	closeTipModal: function(e){
-		let $this = $(this);
+		let $this = $(e.currentTarget);
 		$this.parents(".toolTip__cntr").addClass("hide");
 		e.preventDefault();
 		return this;
 	},
 
+
+	checkToCloseModal: function(e){
+		
+		console.log( !$(".toolTip__cntr").hasClass('hide') )
+
+		if ( !$(".toolTip__cntr").hasClass('hide') ) {
+			// $(".toolTip__close").click();
+		}
+
+		return this;
+	},
+
 	// set event listners 
 	setListners: function(){
+
+		$(document).on('click', this.checkToCloseModal);
 
 		$("#productOptions")
 			.on("click", ".toolTip__open", this.openTipModal)

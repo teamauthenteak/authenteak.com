@@ -8,6 +8,8 @@
 - changed site from Lato to Karla font type
 - Increase space above “you may also like” for mobile
 - Increase space between yotpo and email sign up on mobile
+- prevent keyboard from opending on click of +/- icons
+- add rel next/prev for pagination
 
 ## [1.20.3]
 - added arrows to bottom product scroll
