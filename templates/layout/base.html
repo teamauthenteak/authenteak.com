@@ -14,6 +14,15 @@
 {{{stylesheet '/assets/css/theme.css'}}}
 {{ getFontsCollection }}
 
+ <!-- SEARCHSPRING SCRIPT -->
+    {{#if category}}
+    <script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query" category="{{#each breadcrumbs}}{{#unless @first}}{{name}}{{#unless @last}}>{{/unless}}{{/unless}}{{/each}}" name="{{ category.name }}"></script>
+    {{else if brand}}
+        <script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query" brand="{{ brand.name }}"></script>
+    {{else}}
+        <script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query"{{#if page.title "!=" 'Search Results'}} defer{{/if}}></script>
+    {{/if}}
+
 <script src="{{cdn '/assets/js/modernizr.js'}}"></script>
 <script>window.History = { options: { delayInit: true } }</script>
 {{{head.scripts}}}

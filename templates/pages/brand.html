@@ -17,16 +17,20 @@ brand:
 
       {{#unless theme_settings.collections-sidebar-hidden}}
         <aside class="listing-sidebar" data-brand-sidebar>
-          {{> components/brand/sidebar}}
+         <div id="searchspring-sidebar"> 
+            {{> components/brand/sidebar}}
+          </div>
         </aside>
       {{/unless}}
 
-      <div class="product-listing-grid" data-brand {{#if brand.show_compare}}data-product-compare{{/if}}>
-        {{#if theme_settings.collections-view-mode '===' 'grid'}}
-          {{> components/brand/product-listing}}
-        {{else}}
-          {{> components/brand/product-listing-list}}
-        {{/if}}
+      <div id="searchspring-content">
+          <div class="product-listing-grid" data-brand {{#if brand.show_compare}}data-product-compare{{/if}}>
+            {{#if theme_settings.collections-view-mode '===' 'grid'}}
+              {{> components/brand/product-listing}}
+            {{else}}
+              {{> components/brand/product-listing-list}}
+            {{/if}}
+          </div>
       </div>
     </div>
   </section>

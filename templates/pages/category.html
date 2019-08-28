@@ -36,15 +36,18 @@ category:
 
       {{#unless theme_settings.collections-sidebar-hidden}}
         <aside class="listing-sidebar Left" data-category-sidebar>
-            <div class="listing-sidebar__mobile-toggle">Filter Options</div>
-            <div class="listing-sidebar__mobile-collapse">
-            {{> components/category/sidebar}}
-            {{> components/products/listing-utils sortlabel="filteroptions"}}
+             <div id="searchspring-sidebar">
+                <div class="listing-sidebar__mobile-toggle">Filter Options</div>
+                <div class="listing-sidebar__mobile-collapse">
+                {{> components/category/sidebar}}
+                {{> components/products/listing-utils sortlabel="filteroptions"}}
+                </div>
           </div>
         </aside>
       {{/unless}}
 
       <div class="Content">
+        <div id="searchspring-content">
         <header class="listing-header">
           {{> components/products/listing-utils sortlabel="header"}}
         </header>
@@ -57,7 +60,7 @@ category:
           {{/if}}
         </div>
       </div>
-
+      </div>
       {{#if category.description}}<div class="listing-description">{{{category.description}}}</div>{{/if}}
 
     </div>
