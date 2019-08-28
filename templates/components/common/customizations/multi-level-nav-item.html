@@ -3,7 +3,7 @@
   @param parent > "parent" category
 }}
 
-{{#startsWith "Shop All Quick Ship" name}} {{ else }} {{#startsWith "Be" name}} {{ else }} {{#startsWith "Shop by Collection" name}}{{ else }}
+{{#startsWith "Shop All Quick Ship" name}} {{ else }} {{#startsWith "Be" name}} {{ else }} {{#startsWith "Shop by Collection" name}}{{ else }} {{#startsWith "Featured Offers" name}} {{ else }}
 <a href="{{url}}" class="nav-mobile-link" {{#if children}}data-toggle-mobile="{{url}}" data-mobile-name="{{name}}"{{/if}}>
   <span class="nav-mobile-text" itemprop="name">
       {{#if name '===' 'Outdoor Rugs'}}
@@ -31,4 +31,4 @@
     </ul>
   {{/if}}
 
-{{/startsWith}}{{/startsWith}}{{/startsWith}}
+{{/startsWith}}{{/startsWith}}{{/startsWith}}{{/startsWith}}

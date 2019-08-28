@@ -174,25 +174,23 @@ export default class Product extends PageManager {
 TEAK.Modules.toolTip = {
 	optionKeys: [],
 	brandObj: {},
+	activeModal: "",
 
 	data: TEAK.Utils.getProductTipData(),
 	
 	init: function (brandName) {
 
-		if( !this.data["tool-tips"].brand.hasOwnProperty(brandName) ){ return; }
+		if( !this.data || !this.data["tool-tips"].brand.hasOwnProperty(brandName) ){ return; }
 
 		this.brandObj = this.data["tool-tips"].brand[brandName];
 		this.optionKeys = Object.keys(this.brandObj);
 
-		this.optionKeys.forEach((el, i) => {
+		this.optionKeys.forEach((element, i) => {
 			let $optionSelector = $("#productOptions").find("[data-option-title='"+ this.optionKeys[i] +"'] .toolTip");
 
 			$optionSelector
-				.find(".toolTip__cntr")
-					.attr("id", this.optionKeys[i].replace(/\s/g, '') )
-					.append(this.brandObj[el].tip)
-					.addClass("show")
-						.end()
+				.find(".toolTip__cntr").append(this.brandObj[element].tip)
+					.end()
 				.addClass("show");
 		});
 
@@ -203,22 +201,45 @@ TEAK.Modules.toolTip = {
 
 	// open 
 	openTipModal: function(e){
-		let $this = $(this);
-		$this.siblings(".toolTip__cntr").removeClass("hide");
 		e.preventDefault();
-		return this;
+		TEAK.Modules.toolTip.activeModal = $(this).attr("rel");
+		$("#"+ TEAK.Modules.toolTip.activeModal).removeClass("hide");
+		
 	},
 
 	// close
 	closeTipModal: function(e){
-		let $this = $(this);
-		$this.parents(".toolTip__cntr").addClass("hide");
 		e.preventDefault();
-		return this;
+		$("#"+ TEAK.Modules.toolTip.activeModal).addClass("hide");
+		TEAK.Modules.toolTip.activeModal = "";
 	},
+
+
+	// on click check to see if the event happend outside or inside the modal, close if the former
+	checkClickToCloseModal: function(e){
+		if ( TEAK.Modules.toolTip.activeModal !== "" ){
+			if ( !$(e.target).closest('#'+ TEAK.Modules.toolTip.activeModal).length && !$(e.target).closest(".toolTip__open").length ){
+				$(".toolTip__close").click();
+			}
+		}
+	},
+
+
+	// on keyup of the ESC key, close the open modal
+	checkKeyToCloseModal: function(e){
+		if ( TEAK.Modules.toolTip.activeModal !== "" ){
+			if( e.which === 27 ){
+				$(".toolTip__close").click();
+			}
+		}
+	},
+
 
 	// set event listners 
 	setListners: function(){
+		$(document)
+			.on("click", this.checkClickToCloseModal)
+			.on("keydown", this.checkKeyToCloseModal);
 
 		$("#productOptions")
 			.on("click", ".toolTip__open", this.openTipModal)
