@@ -10,6 +10,7 @@
 - Increase space between yotpo and email sign up on mobile
 - prevent keyboard from opending on click of +/- icons
 - add rel next/prev for pagination
+- added click on body to close tooltip modal
 
 ## [1.20.3]
 - added arrows to bottom product scroll
