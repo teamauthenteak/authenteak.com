@@ -1,6 +1,6 @@
 {
     "tool-tips": {
-        "brand": {
+        "brands": {
             "Treasure Garden": {
                 "Select Canopy": {
                     "tip": [
@@ -25,6 +25,16 @@
                     ]
                 }
             }
+        },
+        "elements": {
+            "white_glove_delivery": [
+                "<h2 class='toolTip__heading--2'>White Glove Delivery</h2>",
+                "<p class='toolTip__text'>Selecting White Glove Delivery may add an additional 1 - 2 weeks to our standard delivery times as we first ship to a receiving/delivery company in your local area and they in turn will add you to their schedule for the last mile White Glove Delivery. The local service provider will carefully unpack, inspect and assemble each item, place the item(s) where you want, and take all the packaging with them when they leave. This service is recommended for furniture, cantilevers, and single table purchases, or if you require the product to be brought to a specific location. This service does not include installation or connection to gas lines, installation of cantilever mount kits, or sand for cantilever bases. This service also does not include the hookup or connection of any electrical or component wires.</p>",
+                "<p class='toolTip__text'>When your order arrives at the local service center, you will be contacted by a scheduling clerk for an appointment. The appointment is typically a 4-hour window, Monday - Friday during regular business hours. Saturday or Sunday deliveries are not available.</p>",
+                "<p class='toolTip__text'>We ask that you have the area in which the product is being delivered clear of debris and obstacles, including the walkway into the space. Please make sure doorways are of sufficient height and width in relation to the items going through. If you live in a condo or apartment, you may need to arrange elevator appointment for your delivery. This may include installation of floor and wall pads. Please ask your building manager to provide you with the interior dimensions (to include doorway) of the elevator to insure product fit.  For cantilever umbrellas that use a sand filled base, you should have the sand available prior to the delivery.</p>",
+                "<p class='toolTip__text'>For all White Glove Deliveries, you MUST inspect the product and any packaging you see at the time of delivery. If there is any damage to either the product or the package, or if there is any reason for you to be at all concerned about damage, please reference it clearly on the PROOF OF DELIVERY sheet that they ask you to sign. This simply insures that if there is any damage, it will be easy to take care of the problem.</p>",
+                "<p class='toolTip__text'>Please refer to 'Receiving and Inspecting Merchandise' for more information on how to receive and inspect your delivery.</p>"
+            ]
         }
     }
 }

@@ -1845,7 +1845,7 @@ ul.highlight-group {
         }
     }
 
-    &__open{
+    &__iconCntr{
         display: flex;
         align-self: flex-end;
         justify-content: center;
@@ -1858,7 +1858,15 @@ ul.highlight-group {
     &__icon{
         width: 23px;
         height: 23px;
-        fill: #fff;
+
+        &--blue{
+            fill: #56b3e2;
+        }
+
+        &--white{
+            fill: #fff;
+        }
+        
     }
 
     &__cntr{
@@ -1875,6 +1883,7 @@ ul.highlight-group {
         box-shadow: 20px 20px 50px 20px rgba(0, 0, 0, 0.47);
         border-radius: 5px;
         overflow: auto;
+        display: block;
 
         @media only screen and (max-width: $screen-sm) {
             width: 85vw;
@@ -1889,7 +1898,7 @@ ul.highlight-group {
         fill: #555;
     }
 
-    &__close{
+    &__closeBtn{
         position: absolute;
         top: 10px;
         right: 10px;
@@ -2904,6 +2913,10 @@ ul.highlight-group {
           font-size: 1rem;
           font-weight: 600;
           margin-top: 20px;
+      }
+
+      &--link{
+        display: flex;
       }
   }
 

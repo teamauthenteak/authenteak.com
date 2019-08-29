@@ -172,32 +172,61 @@ export default class Product extends PageManager {
 
 
 TEAK.Modules.toolTip = {
+	data: TEAK.Utils.getProductTipData(),
+
 	optionKeys: [],
 	brandObj: {},
 	activeModal: "",
 
-	data: TEAK.Utils.getProductTipData(),
+	closeBtn: `<button class="toolTip__closeBtn" toolTipClose>
+					<svg class="toolTip__closeIcon" enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+						<path d="M13.4 12l5.3-5.3c0.4-0.4 0.4-1 0-1.4s-1-0.4-1.4 0l-5.3 5.3-5.3-5.3c-0.4-0.4-1-0.4-1.4 0s-0.4 1 0 1.4l5.3 5.3-5.3 5.3c-0.4 0.4-0.4 1 0 1.4 0.2 0.2 0.4 0.3 0.7 0.3s0.5-0.1 0.7-0.3l5.3-5.3 5.3 5.3c0.2 0.2 0.5 0.3 0.7 0.3s0.5-0.1 0.7-0.3c0.4-0.4 0.4-1 0-1.4l-5.3-5.3z"></path>
+					</svg>
+				</button>`,
 	
-	init: function (brandName) {
+	init: function (arg) {
 
-		if( !this.data || !this.data["tool-tips"].brand.hasOwnProperty(brandName) ){ return; }
+		if( !this.data ){ return; }
 
-		this.brandObj = this.data["tool-tips"].brand[brandName];
+		switch(arg.type){
+			case "brand": this.brandTip(arg.name);
+				break;
+			case "element": this.elementTip(arg.name);
+				break;
+		}
+		
+		this.setListners();
+
+		return this;
+	},
+
+
+	brandTip: function(brandName){
+
+		if( !this.data["tool-tips"].brands.hasOwnProperty(brandName) ){ return; }
+
+		this.brandObj = this.data["tool-tips"].brands[brandName];
 		this.optionKeys = Object.keys(this.brandObj);
 
 		this.optionKeys.forEach((element, i) => {
 			let $optionSelector = $("#productOptions").find("[data-option-title='"+ this.optionKeys[i] +"'] .toolTip");
 
 			$optionSelector
-				.find(".toolTip__cntr").append(this.brandObj[element].tip)
-					.end()
+				.find(".toolTip__cntr")
+					.append(this.closeBtn)
+					.append(this.brandObj[element].tip)
+						.end()
 				.addClass("show");
 		});
 
-		this.setListners();
-
 		return this;
 	},
+
+
+	elementTip: function(elementName){
+		if( !this.data["tool-tips"].elements.hasOwnProperty(elementName) ){ return; }
+	},
+
 
 	// open 
 	openTipModal: function(e){
@@ -219,7 +248,7 @@ TEAK.Modules.toolTip = {
 	checkClickToCloseModal: function(e){
 		if ( TEAK.Modules.toolTip.activeModal !== "" ){
 			if ( !$(e.target).closest('#'+ TEAK.Modules.toolTip.activeModal).length && !$(e.target).closest(".toolTip__open").length ){
-				$(".toolTip__close").click();
+				$("[toolTipClose]").click();
 			}
 		}
 	},
@@ -229,7 +258,7 @@ TEAK.Modules.toolTip = {
 	checkKeyToCloseModal: function(e){
 		if ( TEAK.Modules.toolTip.activeModal !== "" ){
 			if( e.which === 27 ){
-				$(".toolTip__close").click();
+				$("[toolTipClose]").click();
 			}
 		}
 	},
@@ -242,8 +271,8 @@ TEAK.Modules.toolTip = {
 			.on("keydown", this.checkKeyToCloseModal);
 
 		$("#productOptions")
-			.on("click", ".toolTip__open", this.openTipModal)
-			.on("click", ".toolTip__close", this.closeTipModal);
+			.on("click", "[toolTipOpen]", this.openTipModal)
+			.on("click", "[toolTipClose]", this.closeTipModal);
 
 		return this;
 	}

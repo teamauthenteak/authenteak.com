@@ -105,7 +105,10 @@
 	{{#if page_type '===' 'product'}}	
 	<script>
 	document.addEventListener('DOMContentLoaded', () => {
-		window.TEAK.Modules.toolTip.init("{{product.brand.name}}");
+		window.TEAK.Modules.toolTip.init({
+			type: "brand",
+			name: "{{product.brand.name}}"
+		});
 	});
 	</script>
 	{{/if}}

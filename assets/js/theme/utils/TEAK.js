@@ -33,13 +33,13 @@ window.TEAK.Utils = {
 
     getProductTipData: function(){
         let data = this.getTagData("productTipsJSON");
-        return data ? data : this.getJsonData( "/assets/js/theme/product.json");
+        return data ? data : this.getJsonData("/assets/js/theme/product.json");
     },
 
     
     getMenuData: function(){
         let data = this.getTagData("megaMenuEnhancement");
-        return data ? data : this.getJsonData( "/assets/js/theme/header.json");
+        return data ? data : this.getJsonData("/assets/js/theme/header.json");
     },
 
 
