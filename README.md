@@ -1,12 +1,38 @@
 # authenteak.com
-Core Authenteak website 
+Core Authenteak website documentation about special modules and features.
+
+
+## Calculators
+To add a calculator to a page call the `TEAK.Modules.calculator.init()` for a given caculator type with a set of paramerters.
+
+| Parameter | Value                                                |
+|-----------|------------------------------------------------------|
+| id        | id of the element container to render the calculator |
+| type      | the calculator type to rednder                       |
+
+# Fireplace
+Renders the fireplace fireglass/lava rock calculator in a given div container
+
+*Example*
+```
+<div class="calculator" id="fireplaceCalculator">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            TEAK.Modules.calculator.init({
+                id: "fireplaceCalculator",
+                type: "fireplace"
+            });
+        });
+    </script>
+</div>
+```
+
 
 ## Header JSON
-
 Used to generate additional non SEO critical pages, categories, sub-categories in the main navigation menu. Also used to control other header objects requiring dyanmic udpates from content editors
 
-### Affirm
 
+### Affirm
 Trigger Affirm modal: add the custom class: `affirm-site-modal` to the `header_promo_class` property AND leave `header_promo_link` as an empty string `""`.
 
 *Sample Affirm JSON Structure*

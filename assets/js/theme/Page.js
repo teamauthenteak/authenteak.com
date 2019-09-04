@@ -28,7 +28,7 @@ export default class Page extends PageManager {
 * TEAK.Modules.calculator.init({})
 ---------------------------------
 * id        id of the element container to render the calculator
-* type      the calculator type to rdnder
+* type      the calculator type to rednder
 *
 */
 
