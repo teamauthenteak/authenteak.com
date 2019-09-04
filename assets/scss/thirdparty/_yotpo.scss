@@ -1,0 +1,42 @@
+//Yotpo
+.Reviewstart {
+    display: flex;
+    justify-content: center;
+}
+
+.nxt-logo,
+a[target="_blank"][href="http://www.nextopia.com"] {
+    display: none !important;
+}
+
+// .yotpo {
+//     padding: 10px 0;
+// }
+
+.yotpo .text-m {
+    margin-left: 15px;
+}
+
+
+.yotpo-pdp-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    align-content: center;
+    flex: 1 0 auto;
+    margin-left: 20px;
+}
+
+.yotpo-pdp-wrapper .bottomLine,
+.yotpo-pdp-wrapper .QABottomLine {
+    display: flex;
+    // flex: 1 0 auto;
+}
+
+.yotpo-pdp-wrapper .QABottomLine {
+    padding-left: 15px;
+}
+
+.yotpo-stars + a.text-m, .slick-list .product-price-line{
+    display: none;
+}

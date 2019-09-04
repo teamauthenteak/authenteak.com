@@ -169,23 +169,47 @@ export default class Product extends PageManager {
 	}
 }
 
-
+/**
+ * Tool Tips
+ * -------------------------
+ * Data: 
+ * 	Stored in product.json or in the script manager
+ * 
+ * HTML:
+ *  <div class="toolTip__cntr hide" id="CustomTriggerFieldName"></div>
+ * 
+ * Trigers: 
+ * 	Open tip: "tool-tip-open"
+ * 	Close tip; "tool-tip-cose"
+ * 
+ * Product Swatch Tool Tips: 
+ * 	Auto runs for every product page
+ * 
+ * Custom Tool Tips:
+ * 	data-tool-tip-type = element / brand (only for swatches)
+ * 
+ * 	data-tool-tip-name = 
+ * 		- The ID of your tool tip contaner to target. 
+ * 		- Also acts as the rel of the element. 
+ * 		- Should match the JSON field for the tip data 
+ * 
+ */
 
 TEAK.Modules.toolTip = {
 	data: TEAK.Utils.getProductTipData(),
-
 	optionKeys: [],
 	brandObj: {},
+	elementObj: {},
 	activeModal: "",
 
-	closeBtn: `<button class="toolTip__closeBtn" toolTipClose>
+	closeBtn: `<button class="toolTip__closeBtn" tool-tip-close>
 					<svg class="toolTip__closeIcon" enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
 						<path d="M13.4 12l5.3-5.3c0.4-0.4 0.4-1 0-1.4s-1-0.4-1.4 0l-5.3 5.3-5.3-5.3c-0.4-0.4-1-0.4-1.4 0s-0.4 1 0 1.4l5.3 5.3-5.3 5.3c-0.4 0.4-0.4 1 0 1.4 0.2 0.2 0.4 0.3 0.7 0.3s0.5-0.1 0.7-0.3l5.3-5.3 5.3 5.3c0.2 0.2 0.5 0.3 0.7 0.3s0.5-0.1 0.7-0.3c0.4-0.4 0.4-1 0-1.4l-5.3-5.3z"></path>
 					</svg>
 				</button>`,
 	
+	
 	init: function (arg) {
-
 		if( !this.data ){ return; }
 
 		switch(arg.type){
@@ -196,13 +220,12 @@ TEAK.Modules.toolTip = {
 		}
 		
 		this.setListners();
-
+		
 		return this;
 	},
 
 
 	brandTip: function(brandName){
-
 		if( !this.data["tool-tips"].brands.hasOwnProperty(brandName) ){ return; }
 
 		this.brandObj = this.data["tool-tips"].brands[brandName];
@@ -223,32 +246,49 @@ TEAK.Modules.toolTip = {
 	},
 
 
+	// build custom element modal
 	elementTip: function(elementName){
 		if( !this.data["tool-tips"].elements.hasOwnProperty(elementName) ){ return; }
+
+		this.elementObj = this.data["tool-tips"].elements;
+		$("#" + elementName).html(this.closeBtn + this.elementObj[elementName].join("") );
+
+		return this;
 	},
 
 
 	// open 
 	openTipModal: function(e){
-		e.preventDefault();
-		TEAK.Modules.toolTip.activeModal = $(this).attr("rel");
+		let tipData = $(this).data();
+
+		if( tipData.hasOwnProperty("toolTipType") ){
+			TEAK.Modules.toolTip.init({type: tipData.toolTipType, name: tipData.toolTipName });
+		}
+
+		TEAK.Modules.toolTip.activeModal = tipData.hasOwnProperty("toolTipName")  ? tipData.toolTipName : $(this).attr("rel");
+
 		$("#"+ TEAK.Modules.toolTip.activeModal).removeClass("hide");
-		
+
+		e.preventDefault();
 	},
+
 
 	// close
 	closeTipModal: function(e){
+		if ( TEAK.Modules.toolTip.activeModal !== "" ){
+			$("#"+ TEAK.Modules.toolTip.activeModal).addClass("hide")
+			TEAK.Modules.toolTip.activeModal = "";
+		}
+
 		e.preventDefault();
-		$("#"+ TEAK.Modules.toolTip.activeModal).addClass("hide");
-		TEAK.Modules.toolTip.activeModal = "";
 	},
 
 
 	// on click check to see if the event happend outside or inside the modal, close if the former
 	checkClickToCloseModal: function(e){
 		if ( TEAK.Modules.toolTip.activeModal !== "" ){
-			if ( !$(e.target).closest('#'+ TEAK.Modules.toolTip.activeModal).length && !$(e.target).closest(".toolTip__open").length ){
-				$("[toolTipClose]").click();
+			if ( !$(e.target).closest('#'+ TEAK.Modules.toolTip.activeModal).length && !$(e.target).closest("[tool-tip-open]").length ){
+				$("[tool-tip-close]", document.body).click();
 			}
 		}
 	},
@@ -258,7 +298,7 @@ TEAK.Modules.toolTip = {
 	checkKeyToCloseModal: function(e){
 		if ( TEAK.Modules.toolTip.activeModal !== "" ){
 			if( e.which === 27 ){
-				$("[toolTipClose]").click();
+				$("[tool-tip-close]", document.body).click();
 			}
 		}
 	},
@@ -266,13 +306,11 @@ TEAK.Modules.toolTip = {
 
 	// set event listners 
 	setListners: function(){
-		$(document)
+		$(document.body)
 			.on("click", this.checkClickToCloseModal)
-			.on("keydown", this.checkKeyToCloseModal);
-
-		$("#productOptions")
-			.on("click", "[toolTipOpen]", this.openTipModal)
-			.on("click", "[toolTipClose]", this.closeTipModal);
+			.on("keydown", this.checkKeyToCloseModal)
+			.on("click", "[tool-tip-open]", this.openTipModal)
+			.on("click", "[tool-tip-close]", this.closeTipModal);
 
 		return this;
 	}

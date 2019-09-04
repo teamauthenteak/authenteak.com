@@ -1,0 +1,232 @@
+
+.mega-nav.dropdown-open {
+    > a {
+        height: auto !important;
+        min-height: 3.5rem;
+        padding-bottom: 1rem;
+    }
+}
+
+.mega-nav.dropdown-open > a, .mega-nav.hover-dropdown:hover > a{
+    height: auto;
+}
+
+.mega-nav.hover-dropdown{
+    flex: 1 0 auto;
+    display: flex;
+}
+
+.mega-nav.hover-dropdown:hover {
+    @extend .mega-nav.dropdown-open;
+}
+
+.mega-nav.hover-dropdown .dropdown-panel {
+    display: block;
+    left: -1000vw;
+    opacity: 0;
+    padding: 1.5rem 0 0;
+}
+
+.mega-nav.hover-dropdown:hover .dropdown-panel {
+    @extend .dropdown-panel.visible;
+    left: 0;
+    transition: left 0s, opacity 0.25s ease;
+    transition-delay: 0.24s, 0.25s;
+}
+
+.mega-nav-panel {
+    border-top: 1px solid #ccc;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, .20);
+
+    &, .compressed & { top: 3rem; }
+}
+
+/* Mega Nav - Common Styles (Columns or Flex) */
+.mega-nav-list {
+    text-align: left;
+    // height: calc(100vh - 240px);
+    max-height: 450px;
+    margin-bottom: 1.5rem;
+
+    &--less-content { max-height: 300px; }
+    &--even-less-content { max-height: 200px; }
+
+    @media screen and (-ms-high-contrast: none) {
+        height: 450px;
+
+        &--less-content { height: 300px; }
+        &--even-less-content { height: 200px; }
+    }
+
+    ul ul{
+        display: none;
+    }
+
+    a {
+        line-height: 1.15em;
+        margin: 0;
+        text-indent: -0.5rem;
+        color: $color-link;
+
+        &.highlight-red { color: #c0392b; }
+        &.shop-all { font-style: italic; }
+    }
+
+    & .parent--collapse{
+        margin: 0 0 10px 0 !important;
+    }
+
+    .parent {
+        margin-bottom: 20px;
+        white-space: normal;
+        width: auto !important;
+        padding: 0 20px 0 0;
+        display: flex;
+        text-align: left;
+        align-items: flex-start;
+        flex-direction: column;
+        flex-wrap: nowrap;
+
+        &--collapse {
+            margin-bottom: 20px;
+        }
+
+        > a {
+            font-size: rem-calc(16);
+            font-weight: bold;
+        }
+
+        // Necessary to space out categories with children, but collapse adjacent flat categories
+        // &.has-children {
+        //     &:before, &:after {
+        //         content: '';
+        //         display: block;
+        //         float: left;
+        //         clear: both;
+        //         height: 1.5rem;
+        //     }
+
+        //     > a { clear: both; }
+        // }
+
+        ul.children li:nth-child(10) {
+            &, & ~ li { display: none; }
+        }
+
+        &__child{
+            font-style: normal
+        }
+
+        &__childItem{
+            font-style: normal
+        }
+
+        &__childLink{
+            font-style: normal
+        }
+    }
+
+    .children a {
+        opacity: 1;
+        color: lighten($color-link, 25%);
+    }
+}
+
+
+
+// Temporary for static menu
+.mega-nav-list--shop-by-brand > li {
+    margin-bottom: 0.5rem;
+    padding: 0 1.5rem 0 0;
+    white-space: normal;
+    > a {
+        font-size: rem-calc(16);
+        font-weight: bold;
+    }
+}
+
+
+
+/* Mega Nav - CSS Columns */
+// .mega-nav-list {
+//     display: block;
+//     column-count: 4;
+//     column-fill: balance;
+// }
+
+/* Mega Nav - Flexbox */
+.mega-nav-list {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: stretch;
+    align-content: stretch;
+    padding: 0 20px;
+
+    &--short{
+        height: 50%;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .parent {
+        width: 25%;
+    }
+}
+
+.mega-nav-item-hightlight{
+    color: red !important;
+    font-weight: 800;
+}
+
+.mega-nav-landing-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 0 0 20px 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .mega-nav-landing {
+        flex: 0 1 33%;
+        order: 10000;
+        margin: 0 20px 0 0;
+
+        + .mega-nav-landing { display: none; }
+
+        &, a {
+            display: block;
+            position: relative;
+        }
+
+        a { cursor: pointer; }
+
+        .landing__image {
+            display: block;
+            width: 100%;
+        }
+
+        .landing__caption {
+            position: absolute;
+            display: block;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.75);
+            color: #000;
+            text-align: center;
+
+            &:after {
+                content: ' >';
+            }
+        }
+    }
+
+    .mega-nav-landing-list-wrapper { flex: 1 0 auto; }
+
+    .mega-nav-landing ~ .mega-nav-landing-list-wrapper .mega-nav-list {
+        align-content: stretch;
+    }
+
+}

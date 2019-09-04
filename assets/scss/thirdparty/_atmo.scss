@@ -1,0 +1,33 @@
+
+/*Atmo-Center-Search*/
+.atmo-center-search {
+    max-width: none;
+    margin: 1.4rem auto 0;
+    padding: 0 17px;
+
+    .form-input:not([type="radio"]):not([type="checkbox"]):not(.quantity-input) {
+        box-shadow: 0 0 0 1px #929396 inset;
+        height: 2rem;
+        padding: 0 1rem;
+        color: #444;
+
+        @include placeholder() { 
+            color: $color-topbar-text; 
+        }
+    }
+
+    button.button-search-submit {
+        color: #fff;
+        background-color: #6ea438;
+        padding: 7px;
+        right: 17px;
+        border-radius: 3px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    button.button-search-submit .icon-search {
+        width: 18px;
+        height: 18px;
+    }
+}

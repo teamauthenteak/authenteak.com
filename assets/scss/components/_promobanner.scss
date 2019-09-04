@@ -1,0 +1,64 @@
+.promoBanner{
+    width: 100%;
+    display: none;
+    padding: 2px;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+
+    &__affirmLogo{
+        width: 67px;
+        height: 20px;
+        display: inline-block;
+        margin: 3px 0 9px 0;
+        background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/Category_assets/affirm-black_logo-white_bg.svg);
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+    &__psedoLink{
+        color: #56b3e2;
+    }
+
+    &__link{
+        display: flex;
+        font-size: .9rem;
+        width: 100%;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+
+        @media only screen and (max-width: $screen-xs) {
+            font-size: 0.7rem;
+            font-weight: 800;
+        }
+    }
+
+    &--green{
+        background-color:rgba(110, 163, 66, 0.09);
+        border-bottom: 1px solid rgba(191, 214, 171, 0.30);
+
+        & .promoBanner__link{
+            color:rgba(110, 163, 66, 1);
+        }
+    }
+
+    &--blue{
+        background-color:rgba(15, 160, 234, 0.09);
+        border-bottom: 1px solid rgba(15, 160, 234, 0.30);
+
+        & .promoBanner__link{
+            color: #0fa0ea;
+        }
+    }
+
+    &--grey{
+        background-color: #e4e0dd;
+        border-bottom: 1px solid transparent;
+
+        & .promoBanner__link{
+            color: #403f3f;
+        }
+    }
+}

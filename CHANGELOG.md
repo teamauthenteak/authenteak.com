@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.20.5]
+- custom SASS refactor 
+- Fireplace Calculator
+- Tool tip modal
+- Tool tip color udpates
+- Tool tip free shipping text change
+
 ## [1.20.4]
 - removed featured offers from mobile nav
 - added free white glove shipping text

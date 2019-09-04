@@ -1,0 +1,30 @@
+.scroll-locked{
+    position: fixed;
+}
+
+.show{
+    display: block !important;
+}
+
+.hide{
+    display: none !important;
+}
+
+.mobileHide{
+    display: block !important;
+}
+
+.mobileShow{
+    display: none !important;
+}
+
+
+@media only screen and (max-width: $screen-md) {
+    .mobileHide{
+        display: none !important;
+    }
+    
+    .mobileShow{
+        display: block !important;
+    }
+}

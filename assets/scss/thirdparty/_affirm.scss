@@ -1,0 +1,31 @@
+.cart-affirm-btn{
+    max-height: 55px;
+    width: 100%;
+}
+
+.affirm-modal-trigger{
+    color: #222;
+    text-decoration: underline;
+    font-weight: 800;
+
+    &:hover{
+        color: #6ea438;
+    }
+}
+
+.affirm-as-low-as{
+    margin-top: 2px;
+}
+
+.afffirm-promo-box{
+    height: 30px !important;
+}
+
+.cart-afirm-link{
+    display: block;
+    width: 100%;
+    line-height: 1;
+    background-color: #0fa0ea;
+    border-radius: 3px;
+    margin-top: 20px;
+}
