@@ -10,7 +10,7 @@ To add a calculator to a page call the `TEAK.Modules.calculator.init()` for a gi
 | id        | id of the element container to render the calculator |
 | type      | the calculator type to rednder                       |
 
-# Fireplace
+### Fireplace
 Renders the fireplace fireglass/lava rock calculator in a given div container
 
 *Example*
