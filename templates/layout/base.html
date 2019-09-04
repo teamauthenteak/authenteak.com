@@ -54,19 +54,6 @@
 
 				<main class="main-content">
 					{{#block "page"}}{{/block}}
-
-					{{#if page_type '===' 'page'}}
-					<div class="calculator" id="fireplaceCalculator">
-						<script>
-							document.addEventListener('DOMContentLoaded', () => {
-								TEAK.Modules.calculator.init({
-									id: "fireplaceCalculator",
-									type: "fireplace"
-								});
-							});
-						</script>
-					</div>
-					{{/if}}
 				</main>
 
 				{{> components/common/banners banners=banners.bottom class='banners-bottom'}}
@@ -125,5 +112,17 @@
 	});
 	</script>
 	{{/if}}
+
+
+	{{#if page_type "==" 'product'}}
+	<script src="//cdn.searchspring.net/intellisuggest/is.min.js"></script>
+	<script>
+	try{
+	    var product_code = "{{ product.sku }}";
+	    IntelliSuggest.init({siteId:'sm8dxk', context:'Product/' + product_code, seed:[product_code]});
+	    IntelliSuggest.viewItem({sku:product_code});
+	} catch(err) {}
+	</script>
+{{/if}}
 </body>
 </html>

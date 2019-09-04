@@ -6,6 +6,7 @@
 - Tool tip modal
 - Tool tip color udpates
 - Tool tip free shipping text change
+- add search spring IntelliSuggest
 
 ## [1.20.4]
 - removed featured offers from mobile nav
