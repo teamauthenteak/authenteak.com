@@ -30,22 +30,14 @@
     {{> core/products/event}}
   {{/if}}
 
-
-
+  
       {{#each product.custom_fields}}
         {{#if this.name '===' "Free Shipping Icon"}}   
           {{#if this.value '===' "Yes"}}
-          
-            {{#if ../../../product.price.without_tax.value '<' "2998"}}
             <p class='free-shipping-text' data-pricing-free-shipping>{{lang 'product.shipping_free'}}</p>
-            {{else}}
-            <p class='free-shipping-text' data-pricing-free-shipping>{{lang 'product.free_white_glove'}}</p>
-            {{/if}}
-
           {{/if}}
         {{/if}}
       {{/each}}
-      
 
       {{#if product.options}}
       <p class="shipping-range shipping-range--dynamic">

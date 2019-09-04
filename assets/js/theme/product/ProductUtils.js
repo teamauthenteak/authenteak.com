@@ -37,11 +37,6 @@ export default class ProductUtils {
       //call the function that updates the price here!
     });
 
-    // only for touch devices  
-    this.$el.find(".product-quantity").on('touchend', (event) => {
-      this._updateInputElement(event);
-    });
-
     this.$el.find('.product-quantity').on('focusout', (event) => {
       this._checkQuantity(event.currentTarget);
     });
@@ -289,26 +284,17 @@ export default class ProductUtils {
     });
   }
 
-  /**
-   * on touchend removes the read-only and sets focus to reshow keyboard
-   */
-  _updateInputElement(event){
-    $(event.currentTarget).blur().removeAttr("readonly").focus();
-  };
-
   _updateQuantity(event) {
     const $target = $(event.currentTarget);
     const $quantity = $target.closest('.product-quantity-container').find('.product-quantity');
-
-    // Mobile Only: add read only to prevent keyboard when the +/- controls are clicked
-    if( window.TEAK.Utils.isHandheld ){ $quantity.attr("readonly", true); }
-   
     const min = parseInt($quantity.prop('min'), 10);
     const max = parseInt($quantity.prop('max'), 10);
     let newQuantity = parseInt($quantity.val(), 10);
 
-    newQuantity = isNaN(newQuantity) ? min : newQuantity;
-    
+    if (isNaN(newQuantity)) {
+      newQuantity = min;
+    }
+
     if ($target.hasClass('product-quantity-increment') && (!max || newQuantity < max)) {
       newQuantity++;
     } else if ($target.hasClass('product-quantity-decrement') && newQuantity - 1 > min) {
@@ -316,7 +302,6 @@ export default class ProductUtils {
     }
 
     $quantity.val(newQuantity);
-
     utils.hooks.emit('product-option-change', null, $quantity[0]);
   }
 
