@@ -44,33 +44,36 @@
         </div>
       </div>
       <div class="cell cart-item-options">
-        {{#if configurable_fields}}
-          {{#each configurable_fields}}
+        <div class="cart-options">
+          <div class="cart-product-option-cntr">
+          {{#if configurable_fields}}
+            {{#each configurable_fields}}
+              <div class="product-option">
+                <span class="cart-label">{{name}}: </span>
+                {{#if is_file}}
+                  <a href="/viewfile.php?prodfield={{../id}}&cartitem={{../../id}}">
+                    {{value}}
+                  </a>
+                {{else}}
+                  {{value}}
+                {{/if}}
+              </div>
+            {{/each}}
+          {{/if}}
+          {{#each options}}
             <div class="product-option">
-              <span class="cart-label">{{name}}: </span>
+              <span class="cart-label" data-name="{{name}}">
+                {{#replace "Select " name}}Selected {{/replace}}: </span>
               {{#if is_file}}
                 <a href="/viewfile.php?prodfield={{../id}}&cartitem={{../../id}}">
-                  {{value}}
+                  {{{value}}}
                 </a>
               {{else}}
-                {{value}}
+                {{> components/products/customizations/option-label value}}
               {{/if}}
             </div>
           {{/each}}
-        {{/if}}
-        {{#each options}}
-          <div class="product-option">
-            <span class="cart-label" data-name="{{name}}">
-              {{#replace "Select " name}}Selected {{/replace}}: </span>
-            {{#if is_file}}
-              <a href="/viewfile.php?prodfield={{../id}}&cartitem={{../../id}}">
-                {{{value}}}
-              </a>
-            {{else}}
-              {{> components/products/customizations/option-label value}}
-            {{/if}}
           </div>
-        {{/each}}
         {{#and options (if name "!==" "Request a Swatch")}}
         <button class="cart-item-edit" data-cart-item-edit data-href="{{url}}" data-edit-id="{{id}}" data-product-id="{{product_id}}">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
@@ -86,6 +89,7 @@
           <div class="data-cart-item-edit__content"></div>
         </button>
         {{/and}}
+        </div>
       </div>
       <div class="cell cart-item-quantity">
         <span class="cart-label">{{lang 'cart.quantity'}}:</span>

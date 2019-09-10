@@ -1,0 +1,283 @@
+header{
+    
+    // header logo
+    .site-branding {
+        margin: 0;
+
+        .site-branding-link {
+            img {
+                min-width: 250px;
+            }
+        }
+
+        &.has-logo .site-branding-link {
+            position: relative;
+            height: 0;
+            min-width: 250px;
+            padding-top: 20%;
+            display: block;
+
+            img, svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            min-width: none;
+            }
+        }
+    }    
+
+    .site-branding a {
+        display: block;
+        padding: 0 10px;
+    }
+
+    .site-branding .site-branding-link img {
+        min-width: unset;
+    }
+
+    .site-branding-link{
+        display: block;
+        height: 40px;
+        width: 100%;
+        text-align: center;
+
+        @media screen and (min-width: $screen-md){
+            text-align: center;
+        }
+    }
+
+
+    .site-branding-logo{
+        height: 100%;
+        object-fit: contain; 
+
+        @media screen and (max-width: $screen-xs - 80){
+            max-width: 160px;
+        }
+    }
+
+
+    &.site-header {
+        border: none;
+
+        & .container{
+            max-width: 1500px
+        }
+    }
+
+    &.site-header.compressed {
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.09);
+        position: fixed;
+    }
+
+
+
+
+
+    /*AuthenTEAK Navigation*/
+    .top-bar {
+        padding: 15px 0 0 0;
+        transition: padding 0.25s ease;
+
+        .compressed & { padding: 0; }
+    }
+
+    .top-bar .container {
+        display: flex;
+        justify-content: space-between;
+        max-height: auto;
+        min-height: auto;
+        align-items: flex-start;
+        align-content: flex-start;
+
+        @media screen and (min-width: $screen-lg){   
+            align-items: center;
+            align-content: center;
+        }
+
+        &::after { display: none; }
+    }
+
+    .top-bar .container::after,
+    .top-bar .product-tabs::after {
+        border: none;
+    }
+
+    .top-bar-left, .top-bar-center, .top-bar-right {
+        flex: 0 0 auto;
+        display: inline-block;
+        margin-right: -4px;
+        vertical-align: top;
+    }
+
+    .top-bar-left {
+        width: 30%;
+        transition: width 0.25s ease;
+
+        @media screen and (max-width: $screen-lg){ 
+            display: none;
+        }
+
+        .compressed & { width: 27%; }
+    }
+
+    .top-bar-button {
+        height: auto;
+        padding-top: 0;
+    }
+
+
+    .button-cart-toggle{
+        @media screen and (max-width: $screen-lg){ 
+            display: none;
+        }
+    }
+    
+
+    .top-bar-center {
+        display: inline-block;
+        flex: 1;
+        padding: 0px 60px;
+
+        @media screen and (max-width: $screen-lg){   
+            margin: 0 auto 10px auto !important;
+            width: 40%;
+            padding: 0;
+        }
+
+        @media screen and (max-width: $screen-md){   
+            margin: 0 auto 10px auto !important;
+            width: 200px !important;
+        }
+
+        @media screen and (max-width: $screen-sm){
+            margin: 0 auto 10px auto !important;
+            width: 190px !important;
+            height: 38px;
+        }
+
+        @media screen and (max-width: $screen-xs){
+            margin: 0 auto 10px auto !important;
+            width: 160px !important;
+        }
+    }
+
+    @media screen and (max-width: 1023px) {
+        .top-bar-center {
+            display: block;
+            width: 160px;
+            margin: 0 auto;
+            
+            h1 {
+                margin: 8px 0 0;
+            }
+        }
+    }
+
+
+
+
+    .main-nav-bar .top-level-nav-link {
+        padding: 15px !important;
+        font-size: calc(0.5vw + .40rem);
+        letter-spacing: 0.05em;
+        display: flex;
+        align-items: center;
+        line-height: 1;
+        height: inherit !important;
+        min-height: inherit !important;
+
+        @media only screen and (max-width: $screen-xl) {
+            padding: 15px 10px !important;
+        }
+
+        &:hover{
+            padding: 15px !important;
+            height: inherit !important;
+            min-height: inherit !important;
+        }
+    }
+
+    span.head-phone-number {
+        display: inline-block;
+        padding-top: 0;
+        margin-right: 20px;
+
+        @media only screen and (max-width: $screen-lg) {
+            display: none;
+        }
+    }
+
+    .customer-links {
+        font-weight: 400;
+
+        @media only screen and (max-width: $screen-lg) {
+            display: none;
+        }
+    }
+
+    .customer-links:after,
+    .customer-utils .button-wishlist:after,
+    .logo-align-center .customer-utils .button-wishlist:after {
+        width: 0;
+    }
+
+    span.global-header-text-promo {
+        display: block;
+        color: #6ea438;
+        font-size: 13px;
+        width: 100%;
+        text-align: center;
+
+        @media only screen and (max-width: $screen-lg) {
+            display: none;
+        }
+    
+        a { color: inherit; }
+    }
+}
+
+
+@media screen and (max-width: 1023px) {
+    span.head-phone-number,
+    span.shipping-message,
+    .top-bar-left,
+    .top-bar-center .atmo-center-search,
+    .top-bar-right {
+        display: none; 
+    }
+
+    .mobile-search-wrapper {
+        position: absolute;
+        width: 100%;
+        top: 100%;
+        left: 0;
+        padding: 0 0 10px 0;
+        background-color: #fff;
+        
+        .atmo-center-search {
+            margin: 0 auto;
+            
+            .form-field {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .compressed .mobile-search-wrapper{
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.09);
+    }
+
+    .logo-align-left .top-bar-left .site-branding {
+        display: none;
+    }
+}
+
+
+@media screen and (min-width: 1024px) {
+    .logo-align-left .top-bar-center .site-branding, .logo-align-left .top-bar-center .site-branding-centered, .logo-align-right .top-bar-center .site-branding, .logo-align-center .top-bar-center .site-branding, .mobile-search-wrapper {
+        display: none;
+    }
+}

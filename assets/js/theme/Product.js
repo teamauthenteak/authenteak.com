@@ -212,10 +212,12 @@ TEAK.Modules.toolTip = {
 	init: function (arg) {
 		if( !this.data ){ return; }
 
+		this.name = arg.name;
+
 		switch(arg.type){
-			case "brand": this.brandTip(arg.name);
+			case "brand": this.brandTip();
 				break;
-			case "element": this.elementTip(arg.name);
+			case "element": this.elementTip();
 				break;
 		}
 		
@@ -225,10 +227,10 @@ TEAK.Modules.toolTip = {
 	},
 
 
-	brandTip: function(brandName){
-		if( !this.data["tool-tips"].brands.hasOwnProperty(brandName) ){ return; }
+	brandTip: function(){
+		if( !this.data["tool-tips"].brands.hasOwnProperty(this.name) ){ return; }
 
-		this.brandObj = this.data["tool-tips"].brands[brandName];
+		this.brandObj = this.data["tool-tips"].brands[this.name];
 		this.optionKeys = Object.keys(this.brandObj);
 
 		this.optionKeys.forEach((element, i) => {
@@ -247,11 +249,11 @@ TEAK.Modules.toolTip = {
 
 
 	// build custom element modal
-	elementTip: function(elementName){
-		if( !this.data["tool-tips"].elements.hasOwnProperty(elementName) ){ return; }
+	elementTip: function(){
+		if( !this.data["tool-tips"].elements.hasOwnProperty(this.name) ){ return; }
 
 		this.elementObj = this.data["tool-tips"].elements;
-		$("#" + elementName).html(this.closeBtn + this.elementObj[elementName].join("") );
+		$("#" + this.name).html(this.closeBtn + this.elementObj[this.name].join("") );
 
 		return this;
 	},
@@ -262,12 +264,20 @@ TEAK.Modules.toolTip = {
 		let tipData = $(this).data();
 
 		if( tipData.hasOwnProperty("toolTipType") ){
-			TEAK.Modules.toolTip.init({type: tipData.toolTipType, name: tipData.toolTipName });
+			TEAK.Modules.toolTip.init({
+				type: tipData.toolTipType,
+				name: tipData.toolTipName
+			});
 		}
 
 		TEAK.Modules.toolTip.activeModal = tipData.hasOwnProperty("toolTipName")  ? tipData.toolTipName : $(this).attr("rel");
 
 		$("#"+ TEAK.Modules.toolTip.activeModal).removeClass("hide");
+
+		// hotjar analytics tracking
+		if( typeof window.hj !== "undefined"){
+			window.hj('vpv', '/' + TEAK.Modules.toolTip.activeModal);
+		}
 
 		e.preventDefault();
 	},

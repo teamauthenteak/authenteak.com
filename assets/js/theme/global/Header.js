@@ -349,7 +349,7 @@ TEAK.Modules.megaMenu = {
             let data = this.data[id][customCategory], parentLi,
                 sibblingItems = document.getElementById(id).querySelectorAll(".parent--collapse").limit,
 
-                tpl =   `<a href="${data.url}">${data.title}</a>
+                tpl =  `<a href="${data.url}">${data.title}</a>
                         <ul class="parent__child">
                 ${Object.keys(data.items).map(key => {
                     return `<li itemprop="name" class="parent__childItem">
@@ -378,8 +378,10 @@ TEAK.Modules.megaMenu = {
 
             this.data[id].pages.forEach((element) => {
                 let parentLi,
-                    tpl = `<a itemprop="url" href="${element.url}" title="${element.title}">
-                                <span itemprop="name">${element.title}</span>
+                    tpl =  `<a itemprop="url" href="${element.url}" title="${element.title}" class="${element.highlight ? 'mega-nav-item-hightlight' : '' }">
+								${element.emphasis ? "<em>" : ""}
+								<span itemprop="name">${element.title}</span>
+								${element.emphasis ? "</em>" : ""}
                             </a>`;
 
                 parentLi = document.createElement("li"),
@@ -484,7 +486,7 @@ TEAK.Modules.megaMenu = {
         if( this.data[id].hasOwnProperty("pages") ){
             this.data[id].pages.forEach((element) => {
                 let navItem,
-                    tpl =   `<a itemprop="url" href="${element.url}" title="${element.title}" class="nav-mobile-link">
+                    tpl =  `<a itemprop="url" href="${element.url}" title="${element.title}" class="nav-mobile-link">
                                 <span class="nav-mobile-text" itemprop="name">${element.title}</span>
                             </a>`;
 

@@ -15,13 +15,14 @@
 {{ getFontsCollection }}
 
  <!-- SEARCHSPRING SCRIPT -->
-    {{#if category}}
-    <script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query" category="{{#each breadcrumbs}}{{#unless @first}}{{name}}{{#unless @last}}>{{/unless}}{{/unless}}{{/each}}" name="{{ category.name }}"></script>
-    {{else if brand}}
-        <script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query" brand="{{ brand.name }}"></script>
-    {{else}}
-        <script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query"{{#if page.title "!=" 'Search Results'}} defer{{/if}}></script>
-    {{/if}}
+{{#if category}}
+<script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query" category="{{#each breadcrumbs}}{{#unless @first}}{{name}}{{#unless @last}}>{{/unless}}{{/unless}}{{/each}}" name="{{ category.name }}"></script>
+{{else if brand}}
+<script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query" brand="{{ brand.name }}"></script>
+{{else}}
+<script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query"{{#if page.title "!=" 'Search Results'}} defer{{/if}}></script>
+{{/if}}
+<script src="//cdn.searchspring.net/intellisuggest/is.min.js"></script>
 
 <script src="{{cdn '/assets/js/modernizr.js'}}"></script>
 <script>window.History = { options: { delayInit: true } }</script>
@@ -104,25 +105,30 @@
 
 	{{#if page_type '===' 'product'}}	
 	<script>
-	document.addEventListener('DOMContentLoaded', (e) => {
-		window.TEAK.Modules.toolTip.init({
-			type: "brand",
-			name: "{{product.brand.name}}"
+		document.addEventListener('DOMContentLoaded', () => {
+
+			// tool tip start
+			window.TEAK.Modules.toolTip.init({
+				type: "brand",
+				name: "{{product.brand.name}}"
+			});
+
+			// IntelliSuggest tracking
+			try{
+				let productCode = "{{product.sku}}";
+
+				IntelliSuggest.init({
+					siteId: TEAK.thirdParty.IntelliSuggest.siteId,
+					context: 'Product/' + productCode,
+					seed: [productCode]
+				});
+
+				IntelliSuggest.viewItem({
+					sku: productCode
+				});
+			} catch(err) {}
 		});
-	});
 	</script>
 	{{/if}}
-
-
-	{{#if page_type "==" 'product'}}
-	<script src="//cdn.searchspring.net/intellisuggest/is.min.js"></script>
-	<script>
-	try{
-	    var product_code = "{{ product.sku }}";
-	    IntelliSuggest.init({siteId:'sm8dxk', context:'Product/' + product_code, seed:[product_code]});
-	    IntelliSuggest.viewItem({sku:product_code});
-	} catch(err) {}
-	</script>
-{{/if}}
 </body>
 </html>

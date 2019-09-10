@@ -11300,7 +11300,7 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
   }
 
   @include media($min: $breakpoint-s) {
-    width: 50%;
+    width: 40%;
     margin-bottom: 0;
   }
 

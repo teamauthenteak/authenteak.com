@@ -1,0 +1,116 @@
+
+.toolTip{
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
+
+    &__heading{
+        &--2{
+            margin-top: 0;
+            text-transform: none;
+        }
+
+        &--5{
+            margin-bottom: 10px;
+            font-weight: 800;
+            text-transform: none;
+        }
+    }
+
+    &__text{
+        font-style: normal;
+        text-decoration: none;
+        font-weight: 400;
+        text-transform: none;
+        line-height: 1.5;
+        font-size: 1rem;
+
+        @media only screen and (max-width: $screen-sm) {
+            font-size: 1.3rem;
+        }
+    }
+
+    &__listItem{
+        @media only screen and (max-width: $screen-sm) {
+            font-size: 1.3em;
+        }
+    }
+
+    &__iconCntr{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 0;
+        border-radius: 50px;
+        width: 17px;
+        height: 17px;
+        padding: 3px;
+
+        &--dark{
+            background-color: #1c48bc;
+        }
+    }
+
+    &__icon{
+        width: 17px;
+        height: 17px;
+
+        &--blue{
+            fill: #1c48bc;
+        }
+
+        &--white{
+            fill: #fff;
+        }
+
+        &--dark{
+            background-color: #777;
+        }
+        
+    }
+
+    &__cntr{
+        left: 50%;
+        top: 5vw;
+        position: fixed;
+        width: 75vw;
+        max-height: 600px;
+        white-space: normal;
+        z-index: 9999;
+        margin-left: (-75vw / 2);
+        background-color: #fff;
+        padding: 40px;
+        box-shadow: 20px 20px 50px 20px rgba(0, 0, 0, 0.47);
+        border-radius: 5px;
+        overflow: auto;
+        display: block;
+
+        @media only screen and (max-width: $screen-sm) {
+            width: 85vw;
+            margin-left: (-85vw / 2);
+            padding: 50px 20px 20px 20px;
+        }
+    }
+
+    &__closeIcon{
+        width: 40px;
+        height: 40px;
+        fill: #555;
+    }
+
+    &__closeBtn{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        margin: 0;
+        background-color: transparent;
+
+        @media only screen and (max-width: $screen-sm) {
+            top: 6px;
+        }
+    }
+}

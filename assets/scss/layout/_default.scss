@@ -1,0 +1,16 @@
+.container, .top-bar .container, .top-bar .product-tabs{
+    max-width: 1500px;
+}
+
+.container, .product-tabs, .account-wrapper{
+    padding: 0 2vw;
+}
+
+/*Gen Styles*/
+.section {
+    padding: 20px 0;
+
+    @media only screen and (max-width: $screen-sm) {
+        padding: 0;
+    }
+}

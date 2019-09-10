@@ -99,8 +99,8 @@
             {
                 "title": "Showroom Clearance ",
                 "url": "/outdoor-furniture/showroom-clearance/",
-                "highlight": false,
-                "emphasis": false
+                "highlight": true,
+                "emphasis": true
             }
         ]
     },

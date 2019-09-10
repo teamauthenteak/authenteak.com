@@ -1,0 +1,252 @@
+
+body.is-printmode {
+    .top-bar-center,
+    .top-bar-right,
+    .button-mobile-nav-cart,
+    .button-mobile-nav-search,
+    .button-mobile-nav-toggle,
+    .mobile-search-wrapper,
+    .main-nav-bar,
+    .navigation-mobile,
+    .breadcrumbs-container,
+    .product-images-pagination,
+    .share-block,
+    .share-block + hr,
+    .consult-showroom-wrap,
+    .price-range,
+    .product-options-container,
+    .product-quantity-submit .product-quantity-container .form-field--quantity,
+    .product-quantity-submit button.add-to-cart,
+    .tab-wrapper,
+    .product-tabs.section,
+    .products-related.section,
+    .newsletter-signup.section,
+    .button-top.show,
+    .mini-cart,
+    .search-wrap,
+    .button-top,
+    .login-modal,
+    footer { display: none !important; }
+
+    @media print {
+        .site-header { position: absolute; }
+
+        .product-details-column {
+            width: 48%;
+            float: left;
+            margin-right: 1.69492%;
+            padding: 0 20px;
+        }
+    }
+
+    .top-bar {
+        background: hsl(0, 0%, 96%);
+        padding: 0 0 5px;
+        border-bottom: 1px solid #666;
+
+        .container {
+            @media screen {
+                max-height: none;
+            }
+        }
+
+        .top-bar-left {
+            @media print, screen and (min-width: 768px) {
+                display: table-cell;
+                flex: 0 0 auto;
+                width: 27%;
+
+                .site-branding { display: block; }
+            }
+
+            @media screen and (max-width: 1024px) {
+                .site-branding img { max-height: 40px; }
+            }
+        }
+
+        .print-mode-controls {
+            display: flex;
+            flex-direction: row-reverse;
+            align-self: flex-end;
+            flex: 0 1 auto;
+            align-items: center;
+            margin: 0 1rem;
+            font-size: 0.8rem;
+            text-align: right;
+
+            @media print { display: none; }
+
+            &__actions {
+                flex: 1 0 auto;
+                margin-bottom: 0.5rem;
+            }
+
+            &__sections {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+
+                label {
+                    margin: 0 0.25rem;
+                }
+            }
+
+            &__label {
+                &--full-name { display: none; }
+
+                @media screen and (min-width: 1023px) {
+                    &--full-name { display: inline; }
+                    &--short-name { display: none; }
+                }
+            }
+
+            button.button {
+                background-color: $color-button-background;
+                padding: 0.5rem 1rem;
+
+                &:hover { background-color: #FFF; }
+            }
+        }
+    }
+
+    .site-canvas { padding-top: 100px !important; }
+
+    .slick-list {
+        height: auto !important;
+
+        .slick-track {
+            max-width: 100%;
+            transform: none !important;
+
+            .slick-slide {
+                display: none;
+
+                &.slick-active {
+                    display: block;
+                    max-width: 100%;
+
+                    a.product-image {
+                        height: auto !important;
+
+                        &::before { display: none; }
+
+                        img {
+                            position: relative;
+                            height: auto;
+
+                            opacity: 1 !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .mobile-share-consult {
+      display: block;
+      text-align: center;
+    }
+
+    .print-mode-swatches {
+        display: block;
+        width: 1230px;
+        max-width: 100%;
+        margin: 0px auto;
+
+        .form-field-title {
+            border-bottom: none;
+            text-align: left;
+            font-size: 1.5rem;
+            line-height: 1.1em;
+            padding: 10px 20px 5px;
+            color: #000;
+
+            &::before { display: none; }
+
+            .swatch-value { display: none; }
+
+            .print-mode-option-control {
+                margin-left: 0.5rem;
+                font-size: 0.8rem;
+                font-weight: normal;
+                text-transform: none;
+                color: #000;
+            }
+        }
+
+        .form-field-swatch {
+            .form-field-control-wrapper {
+                width: 100%;
+                max-height: none;
+                max-width: none;
+                padding: 0 20px;
+                box-shadow: none;
+                pointer-events: none;
+
+                .form-field-control { max-height: none; }
+
+                .swatch-wrap {
+                    float: none;
+                    display: inline-block;
+                    vertical-align: top;
+
+                    .swatch::after {
+                        background: none;
+                        // border: 2px solid #000;
+                        // box-shadow: inset 0 0 0 1px #FFF;
+                    }
+
+                    .form-label-text {
+                        position: relative !important;
+                        width: 50px;
+                        height: auto;
+                        margin: 2px 0 0;
+                        font-size: 0.7rem;
+                        line-height: 1.2em;
+                    }
+                }
+            }
+
+            &.is-print-option-hidden {
+                .form-field-title {
+                    color: rgba(0,0,0,0.4);
+
+                    @media print { display: none; }
+                }
+                .form-field-control-wrapper { display: none; }
+            }
+        }
+
+        .form-field-swatch__request-button { display: none; }
+    }
+
+    .mobile-tab-wrapper {
+        display: block;
+        width: 1230px;
+        max-width: 100%;
+        margin: 0px auto;
+
+        a[data-tabval="descTab"], #descTab,
+        a[data-tabval="specsTab"], #specsTab,
+        a[data-tabval="careTab"], #careTab,
+        a[data-tabval="shipTab"], #shipTab,
+        a[data-tabval="pdfTab"], #pdfTab,
+        a[data-tabval="videoTab"], #videoTab,
+        a[data-tabval="warrantyTab"], #warrantyTab {
+            & {
+                display: block;
+                padding-top: 0;
+            }
+        }
+        a[data-tabval] {
+          border-bottom: none;
+          text-align: left;
+          font-size: 1.5rem;
+          line-height: 1.1em;
+          padding: 10px 20px 5px;
+          color: #000;
+        }
+    }
+
+    .is-print-hidden { display: none !important; }
+}

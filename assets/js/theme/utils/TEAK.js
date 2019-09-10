@@ -22,11 +22,69 @@ window.TEAK.Data = {};
 window.TEAK.Modules = {};
 
 
+
+/** -----------------------------------------
+ * TEAK 3rd Parties
+ * Store settigns for 3rd parties
+ * ------------------------------------------ */
+window.TEAK.thirdParty = {
+    IntelliSuggest:{
+        initArray: [],
+        haveItemArray: [],
+        siteId: "sm8dxk",
+
+        // doing this becasue search spring refuses to make product links realtive for local dev
+        fixLinks: function(){    
+            document.querySelectorAll("a[intellisuggest]").forEach( (element) => {
+                let elementHref = element.getAttribute("href");
+                elementHref = elementHref.replace("//authenteak.com", "");
+                element.setAttribute("href", elementHref);
+            });
+        },
+
+        buildData: function(){
+            let storedCart = localStorage.getItem('cartData');
+        
+            if( storedCart ){
+                storedCart = JSON.parse(storedCart);
+
+                this.cartAmount = storedCart.cartAmount;
+                this.cartId = storedCart.id;
+
+                storedCart[0].lineItems.physicalItems.forEach(element => {
+                    this.initArray.push(element.productId.toString());       
+
+                    this.haveItemArray.push({
+                        sku: element.productId.toString(),
+                        qty: element.quantity.toString(),
+                        price: element.salePrice.toString()
+                    });
+                });
+            }
+            
+
+            return this;
+        }
+    }
+};
+
+TEAK.thirdParty.IntelliSuggest.buildData();
+
+if( window.location.hostname === "localhost" ){
+    $(window).on("load", TEAK.thirdParty.IntelliSuggest.fixLinks);
+}
+
+
+
 /** -----------------------------------------
  * TEAK Utility Methods
  * Global helper mehtods for any application
  * ------------------------------------------ */
 window.TEAK.Utils = {
+
+    removeSpaces(string){
+        return string.replace(/\s/g, '');
+    },
 
     isHandheld: window.matchMedia("only screen and (max-width: 900px)").matches,
 
@@ -101,3 +159,6 @@ window.TEAK.Utils = {
     }
 
 };
+
+
+

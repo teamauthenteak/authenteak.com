@@ -1,0 +1,165 @@
+/*Product Detail Custom Tabs*/
+
+.tab-header {
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+	text-align: center;
+}
+
+.tab-header ul {
+	margin: 0;
+	padding: 0;
+}
+
+.tab-header li {
+	position: relative;
+	list-style-type: none;
+	display: inline-block;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    @media screen and (max-width: 1023px) {
+        display: block;
+    }
+}
+
+.tab-header li.active {
+    cursor: default;
+    @media screen and (max-width: 1023px) {
+        background-color: #f5f5f5;
+    }
+}
+
+.tab-header li.innactive-tab,
+.mobile-tab-heading.innactive-tab {
+    display: none;
+}
+
+.tab-header li.innactive-tab a {
+    color: #cccccc;
+    cursor: default;
+}
+
+.tab-header li:after {
+	transition: all .4s;
+}
+
+.tab-header li.active:not(.innactive-tab):after,
+.tab-header li:not(.innactive-tab):hover:after {
+	position: absolute;
+	content:'';
+	bottom: 0;
+	left: 0;
+	height: 4px;
+	width: 100%;
+    background-color: #666;
+    
+    @media screen and (max-width: 1023px) {
+        background-color: transparent;
+    }
+}
+
+.tab-header li a {
+	text-decoration: none;
+	display: block;
+	padding: 30px 20px;
+	color: #666;
+    text-transform: uppercase;
+    
+    @media screen and (max-width: 1023px) {
+        padding: 10px;
+    }
+}
+
+.tab-content {
+	max-width: 960px;
+	margin: 0 auto;
+}
+
+#descTab,
+#specsTab,
+#careTab,
+#shipTab,
+#pdfTab,
+#videoTab, 
+#warrantyTab { 
+    display: none;
+    padding: 20px;
+}
+
+#descTab.active,
+#specsTab.active,
+#careTab.active,
+#shipTab.active,
+#pdfTab.active,
+#videoTab.active,
+#warrantyTab.active  { 
+	display: block;
+}
+
+// remove space below tabs
+.section.product-tabs{
+    padding: 0;
+
+    & .tabs{
+        margin: 0;
+    }
+}
+
+.products-related .section-title{
+    margin-top: 40px;
+}
+
+/*Mobile Product Detail Custom Tabs*/
+.mobile-tab-wrapper {
+    display: none;
+}
+
+@media screen and (max-width: 1023px) {
+   .mobile-tab-wrapper {
+       display: block;
+   }
+   
+   .tab-wrapper {
+       display: none;
+   }
+}
+
+.mobile-tab-heading {
+    text-decoration: none;
+	display: block;
+	padding: 10px;
+	color: #666;
+    text-transform: uppercase;
+	border-bottom: 1px solid gray;
+	text-align: center;
+}
+
+.mobile-tab-wrapper #descTab,
+.mobile-tab-wrapper #specsTab,
+.mobile-tab-wrapper #careTab,
+.mobile-tab-wrapper #shipTab,
+.mobile-tab-wrapper #pdfTab,
+.mobile-tab-wrapper #videoTab,
+.mobile-tab-wrapper #warrantyTab  { 
+	display: none;
+}
+
+.mobile-tab-wrapper #descTab.active,
+.mobile-tab-wrapper #specsTab.active,
+.mobile-tab-wrapper #careTab.active,
+.mobile-tab-wrapper #shipTab.active,
+.mobile-tab-wrapper #pdfTab.active,
+.mobile-tab-wrapper #videoTab.active,
+.mobile-tab-wrapper #warrantyTab.active { 
+	display: block;
+}
+
+#videoTab .tab-content-panel {
+    display: block;
+
+    .video-container iframe {
+        width: 100%;
+        height: -webkit-fill-available;
+    }
+}

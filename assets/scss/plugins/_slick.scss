@@ -1,0 +1,27 @@
+.slick-dots{
+    bottom: -50px;
+    top: auto;
+    margin: 0;
+}
+
+.product-carousel{
+    & .slick-dots{
+        display: none;
+    }
+
+    @media only screen and (max-width: $screen-sm) {
+        & .slick-dots{
+            display: block;
+        }
+    }
+}
+
+@media only screen and (min-width: $screen-lg) {
+    .slick-arrow, .slick-dots{
+        display: none !important;
+    }
+}
+
+.slick-list .replaced-image{
+    height: 250px;
+}

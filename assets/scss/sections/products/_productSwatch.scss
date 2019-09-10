@@ -1,0 +1,471 @@
+/*Product Detail Swatches*/
+.form-field-swatch {
+    .form-field-control-wrapper {
+        $swatch-wrapper-base: 238px;
+        $swatch-wrapper-inc: 55px;
+        overflow-y: scroll;
+        clear: left;
+        max-height: 190px;
+        // max-width: $swatch-wrapper-base;
+        overflow: hidden;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        // box-shadow: 0 0 0 1px $color-border inset;
+
+        @media screen and (max-width: 915px){
+            max-height: none;
+        }
+
+        // @media screen and (min-width: 420px) { max-width: $swatch-wrapper-base + (1 * $swatch-wrapper-inc); }
+        // @media screen and (min-width: 530px) { max-width: $swatch-wrapper-base + (2 * $swatch-wrapper-inc); }
+        // @media screen and (min-width: 475px) { max-width: $swatch-wrapper-base + (3 * $swatch-wrapper-inc); }
+        // @media screen and (min-width: 585px) { max-width: $swatch-wrapper-base + (4 * $swatch-wrapper-inc); }
+        // @media screen and (min-width: 640px) { max-width: $swatch-wrapper-base + (5 * $swatch-wrapper-inc); }
+        // @media screen and (min-width: 695px) { max-width: $swatch-wrapper-base + (6 * $swatch-wrapper-inc); }
+        // @media screen and (min-width: 750px) { max-width: $swatch-wrapper-base + (7 * $swatch-wrapper-inc); }
+        // @media screen and (min-width: 805px) { max-width: $swatch-wrapper-base + (8 * $swatch-wrapper-inc); }
+        // @media screen and (min-width: 860px) { max-width: $swatch-wrapper-base + (9 * $swatch-wrapper-inc); }
+        // @media screen and (min-width: 915px) { max-width: $swatch-wrapper-base + (10 * $swatch-wrapper-inc); }
+        // @media screen and (min-width: 970px) { max-width: $swatch-wrapper-base + (11 * $swatch-wrapper-inc); }
+
+        // @media screen and (min-width: 1024px) { max-width: $swatch-wrapper-base + (3 * $swatch-wrapper-inc); }
+        // @media screen and (min-width: 1080px) { max-width: $swatch-wrapper-base + (4 * $swatch-wrapper-inc); }
+        // @media screen and (min-width: 1200px) { max-width: $swatch-wrapper-base + (5 * $swatch-wrapper-inc); }
+    }
+
+    .form-field-control {
+        max-height: 130px;
+        //max-width: 455px;
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        flex: 1 0 auto;
+
+        // @media screen and (max-width: 970px) {
+        //     max-height: none;
+        // }
+
+        .simplebar-content {
+            padding: 10px !important;
+            overflow-x: hidden !important;
+            display: flex;
+            flex-flow: row wrap;
+            flex: 1 0 auto;
+
+              
+        }
+
+        .simplebar-track{
+            &.horizontal {
+                display: none;
+            }
+
+            &.vertical{
+                background-color: #f9f9f9;
+                border-radius: 3px;
+
+                .simplebar-scrollbar{
+                    background-color: #777;
+                    border-radius: 3px;
+
+                    &:before{
+                        background: #777;
+                    }
+                }
+            }
+        }
+
+        .swatch-radio:checked + .swatch::after {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: 90%;
+            background-position: center center;
+            background-repeat: no-repeat;
+            transform: none;
+        }
+        .swatch-radio[data-label="No Thanks"]:checked + .swatch:after {
+            background: none;
+            border: 2px solid #666666;
+        }
+        .swatch img {
+            display: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+
+            @supports (object-fit: cover) {
+                display: inline;
+                object-fit: cover;
+            }
+        }
+
+        .swatch-wrap:hover .swatch-pattern-expanded { display: none; }
+    }
+}
+
+.swatch-img{
+    img{
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+}
+
+
+// Request a Swatch Button
+.form-field-swatch__request-button {
+    background: none;
+    border: none;
+    color: #6ea438;
+    text-decoration: underline;
+    // text-transform: uppercase;
+    font-size: 1rem;
+}
+
+// Request a Swatch Modal
+#swatchpopuplist {
+    display: none;
+    position: fixed;
+    top: 5vmin;
+    left: 50%;
+    transform: translateX(-50%);
+    max-height: calc(100vh - 10vmin);
+    width: 90vw;
+    max-width: 1000px;
+    overflow: auto;
+    padding: 1rem;
+    background: #fff;
+    z-index: 1100;
+
+    &.is-open { display: block; }
+
+    @media screen and (max-width: $screen-md) {
+        top: 1vh;
+        left: 1vw;
+        transform: none;
+        max-height: 80vh;
+        width: 98vw;
+        overflow: scroll;
+    }
+
+    > .closepopup {
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        height: 2rem;
+        width: 2rem;
+        font-size: 2rem;
+        line-height: 1em;
+        text-align: center;
+        color: rgba(0,0,0,0.2);
+        cursor: pointer;
+
+        &:hover, &:focus { color: rgba(0,0,0,0.4); }
+    }
+
+    > .modalswatchpopup {
+        h2 {
+            margin: 0;
+            text-transform: uppercase;
+            font-size: calc(1vw + .80rem);
+            font-weight: bold;
+        }
+
+        h3 {
+            margin: 1.5rem 0 0;
+            font-size: 1rem;
+        }
+
+        p {
+            font-size: 0.8rem;
+            line-height: 1.1em;
+        }
+
+        .swatchinnerpopup {
+            $raq-swatch-wrapper-base: 190px;
+            $raq-swatch-wrapper-tablet: 615px;
+            $raq-swatch-wrapper-inc: 85px;
+
+            clear: left;
+            max-height: 205px;
+            max-width: $raq-swatch-wrapper-base;
+            margin-bottom: 1.5rem;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            box-shadow: 0 0 0 1px $color-border inset;
+
+            @media screen and (max-width: $screen-md) {
+                max-width: 100% !important;
+            }
+
+            @media screen and (min-width: 320px)  { max-width: $raq-swatch-wrapper-base + (1 * $raq-swatch-wrapper-inc); }
+            @media screen and (min-width: 405px)  { max-width: $raq-swatch-wrapper-base + (2 * $raq-swatch-wrapper-inc); }
+            @media screen and (min-width: 490px)  { max-width: $raq-swatch-wrapper-base + (3 * $raq-swatch-wrapper-inc); }
+            @media screen and (min-width: 575px)  { max-width: $raq-swatch-wrapper-base + (4 * $raq-swatch-wrapper-inc); }
+            @media screen and (min-width: 660px)  { max-width: $raq-swatch-wrapper-base + (5 * $raq-swatch-wrapper-inc); }
+            @media screen and (min-width: 745px)  { max-width: $raq-swatch-wrapper-base + (6 * $raq-swatch-wrapper-inc); }
+            @media screen and (min-width: 768px)   { max-width: $raq-swatch-wrapper-tablet + (0 * $raq-swatch-wrapper-inc); }
+            @media screen and (min-width: 815px)   { max-width: $raq-swatch-wrapper-tablet + (1 * $raq-swatch-wrapper-inc); }
+            @media screen and (min-width: 910px)   { max-width: $raq-swatch-wrapper-tablet + (2 * $raq-swatch-wrapper-inc); }
+            @media screen and (min-width: 1005px)  { max-width: $raq-swatch-wrapper-tablet + (3 * $raq-swatch-wrapper-inc); }
+            @media screen and (min-width: 1100px)  { max-width: $raq-swatch-wrapper-tablet + (4 * $raq-swatch-wrapper-inc); }
+
+            .simplebar-content { padding-bottom: 5px !important; overflow-x: hidden; }
+            .simplebar-track.horizontal { display: none; }
+
+            ul {
+                //max-height: 190px;
+                //max-width: 455px;
+                padding: 10px 0 5px 10px;
+
+                > li {
+                    position: relative;
+                    display: inline-block;
+                    width: 80px;
+                    height: 80px;
+                    overflow: hidden;
+                    margin-right: 2px;
+                    border: 1px solid transparent;
+                    border-radius: 0;
+                    cursor: pointer;
+
+                    @media screen and (max-width: $screen-md) {
+                        width: 72px !important;
+                        height: 72px !important;
+                    }
+
+                    &.is-selected::after {
+                        position: absolute;
+                        content: "";
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-image: url("data:image/svg+xml,%3Csvg width='14' height='10' viewBox='0 0 14 10' xmlns='http://www.w3.org/2000/svg'%3E%3Ctitle%3E6269C699-FBB7-4109-B1F3-15F8609CEA35%3C/title%3E%3Cpath d='M5.72 9.6325l-.3995.3995L.082 4.7936l2.1064-2.1063L5.62 6.1187 11.7704-.032l2.1064 2.1064L6.0192 9.932 5.72 9.6324z' fill='%23fff' fill-rule='evenodd'/%3E%3C/svg%3E");
+                        background-size: 90%;
+                        background-position: center center;
+                        background-repeat: no-repeat;
+                        border: 2px solid rgba(0,0,0,0.6);
+                        transform: none;
+                        z-index: 1;
+                    }
+                }
+
+                &.has-max-selected > li:not(.is-selected) {
+                    opacity: 0.4;
+                    cursor: default;
+                }
+            }
+        }
+
+        .previewswatch {
+            display: block;
+
+            &:not(.has-selections)::after {
+                content: 'No Swatches Selected.';
+                display: block;
+                margin: 1.5rem auto;
+                text-align: center;
+            }
+
+            ul {
+                padding: 10px 0 5px 10px;
+
+                > li {
+                    position: relative;
+                    display: inline-block;
+                    vertical-align: top;
+                    width: 80px;
+                    margin: 2px;
+                    overflow: hidden;
+
+                    .swatch-title {
+                        font-size: 0.75rem;
+                        line-height: 1.1em;
+                    }
+
+                    .deselect {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        height: 1.5rem;
+                        width: 1.5rem;
+                        font-size: 1.5rem;
+                        line-height: 1em;
+                        text-align: center;
+                        font-weight: bold;
+                        color: #FFF;
+                        text-shadow:
+                            0 0 1px #FFF,
+                            0 0 1px #000,
+                            0 0 1px #000,
+                            0 0 1px #000;
+                        cursor: pointer;
+
+                        &:hover, &:focus {
+                            background: rgba(0,0,0,0.4);
+                        }
+                    }
+                }
+            }
+        }
+        form {
+            display: block;
+            margin: 1.5rem 0 0;
+
+            button { 
+                width: 100%; 
+                text-transform: uppercase;
+                font-weight: 500;
+                font-size: 1rem;
+            }
+        }
+    }
+}
+.swatchpopuplist__underlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 1099;
+
+    #swatchpopuplist.is-open + & { display: block; }
+}
+
+
+/*Product Swatch Hover Detail*/
+.product-swatch-hover-container {
+    position: relative;
+    z-index: 1;
+}
+.product-swatch-hover-detail {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 100vw;
+    width: 100%;
+    padding: 1rem;
+    overflow: hidden;
+    background: $color-background-secondary;
+    display: flex;
+    flex-direction: column;
+
+    &.is-visible { right: 0; }
+
+    &__image-wrapper {
+        flex: 1 0 auto;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            display: block;
+            width: 100%;
+            padding-top: 95%;
+        }
+    }
+    &__image {
+        position: absolute;
+        top:    0;
+        left:   0;
+        right:  0;
+        bottom: 0;
+        background-size: cover;
+        filter: blur(0);
+
+        &[data-swatch-size="thumb"] {
+            top:    -13px;
+            left:   -13px;
+            right:  -13px;
+            bottom: -13px;
+            filter: blur(8px);
+        }
+        &[data-loading] {
+            transition: filter 0.1s ease-in;
+        }
+    }
+
+    &__caption {
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        @media screen and (max-width: 1023px) {
+            -ms-flex-direction: column;
+             flex-direction: column;
+         }
+    }
+
+    &__label {
+        flex: 1 1 auto;
+        text-transform: uppercase;
+    }
+
+    &__attributes {
+        flex: 1 0 auto;
+        text-align: right;
+    }
+
+    &__preload {
+        position: absolute;
+        bottom: 100%;
+
+        img {
+            width: 10px;
+            height: 10px;
+        }
+    }
+
+}
+
+.form-field-swatch .swatch-wrap {
+    margin: 0 1% 1% 0;
+    display: flex;
+    // flex: 1 0 10%;
+    width: 4em;
+    float: left;
+    height: 4em;
+
+    @media only screen and (max-width: $screen-md) {
+        width: 3.5em;
+        height: 3.5em;
+    }
+
+
+    // @media only screen and (max-width: $screen-xl) {
+    //     width: 18%;
+    // }
+    // @media only screen and (max-width: $screen-lg) {
+    //     width: 10%;
+    // }
+    // @media only screen and (max-width: $screen-md) {
+    //     width: 10%;
+    // }
+    // @media only screen and (max-width: $screen-sm) {
+    //     width: 15.5%;
+    // }
+    // @media only screen and (max-width: $screen-xs) {
+    //     width: 15.5%;
+    //     height: 45px;
+    // }
+
+    // @media only screen and (max-width: 325px) {
+    //     height: 35px;
+    // }
+}
+
+.form-field-swatch .swatch {
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+}

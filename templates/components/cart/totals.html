@@ -139,49 +139,49 @@
 (function(document, window){
   let amazonBtn;
 
-  const change = {
-    chainAsync: fns => { let curr = 0;  const next = () => fns[curr++](next); next(); },
-    
-    init: () => {
-      change.chainAsync([
-        next => { setTimeout(swapButtonAmazon, 2000);  setTimeout(next, 2001); },
-        next => { setTimeout(showButtonAmazon, 2000); },
-      ]);
+  let change = {    
+    init: function(){
+      change
+        .swapButtonAmazon()
+        .showButtonAmazon();
+
+      return this;
+    },
+
+    swapButtonAmazon: function(){
+      amazonBtn = document.querySelector("img.amazonpay-button-inner-image");
+      amazonBtn.src = "//authenteak.com/content/amazon-pay-btn.png";
+      amazonBtn.style.opacity = 1;
+      amazonBtn.srcset = "//authenteak.com/content/amazon-pay-btn.png";
+
+      return this;
+    },
+
+    showButtonAmazon: function(){
+      document.getElementById("OffAmazonPaymentsWidgets0").classList.add("amazonpay-button-inner-image--show");
+
+      amazonBtn.addEventListener("click", function(){
+        let subTotal = "{{cart.sub_total.formatted}}".replace(/\$|,/g, ''),
+            qty = "{{cart.quantity}}";
+
+        subTotal = parseInt(subTotal);s
+        qty = parseInt(qty);
+
+        TEAK.Modules.fbPixel.checkoutStart(subTotal, qty);
+      });
+
+      return this;
     }
+
   }; 
 
 
-  // swap out the amazon pay button ~ kamakizi style
-  function swapButtonAmazon(){
-    if (!window.OffAmazonPayments){ throw "SCRIPT_NOT_LOADED";}
-
-    amazonBtn = document.getElementById("CheckoutButtonAmazon0").querySelector(".amazonpay-button-inner-image");
-    amazonBtn.src = "//authenteak.com/content/amazon-pay-btn.png";
-    amazonBtn.srcset = "//authenteak.com/content/amazon-pay-btn.png";
-    amazonBtn.style.opacity = 1;
-  }
-
-
-  function showButtonAmazon(){
-    document.getElementById("OffAmazonPaymentsWidgets0").classList.add("amazonpay-button-inner-image--show");
-
-    amazonBtn.addEventListener("click", function(){
-      var subTotal = "{{cart.sub_total.formatted}}".replace(/\$|,/g, ''),
-          qty = "{{cart.quantity}}";
-
-      subTotal = parseInt(subTotal);
-      qty = parseInt(qty);
-
-      TEAK.Modules.fbPixel.checkoutStart(subTotal, qty);
-    });
-
-  }
 
   // Get the cart detail from localstorage
   function getStoredCart(){
     let storedCart = localStorage.getItem('cartData');
-    
-    return JSON.parse(storedCart);
+  
+    return JSON.parse(storedCart);;
   }
 
   function getCartQnty(cart){
@@ -204,21 +204,10 @@
     $dataCart.html(cartQty);
   }
 
-  // wait until the amazon script has loaded.
-  try {
-    change.init();
-
-  } catch (error) {
-    if (error === 'SCRIPT_NOT_LOADED' && document.getElementById("OffAmazonPaymentsWidgets0")) {
-      document.addEventListener('DOMContentLoaded', change.init);
-    
-    }else{
-      throw "SCRIPT_NOT_LOADED";
-    }
-  }
-
   document.addEventListener('DOMContentLoaded', function() {
-    $(window).on("cartDataStored", updateHeaderMiniCart);
+    $(window)
+      .on("load", change.init)
+      .on("cartDataStored", updateHeaderMiniCart);
   });
 
 }(document, window));
@@ -283,3 +272,24 @@
     
   </script>
     
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      try{
+        IntelliSuggest.init({
+          siteId: TEAK.thirdParty.IntelliSuggest.siteId,
+          context:'Basket',
+          seed: TEAK.thirdParty.IntelliSuggest.initArray
+        });
+
+        // Loop through products in cart
+        TEAK.thirdParty.IntelliSuggest.haveItemArray.forEach( (element) => {
+          IntelliSuggest.haveItem(element);
+        });
+
+        IntelliSuggest.inBasket({});
+      } catch(err) {
+        console.log(err)
+      }
+    });
+  </script>

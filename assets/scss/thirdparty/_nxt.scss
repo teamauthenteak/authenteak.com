@@ -1,0 +1,60 @@
+.form-field--nxt-pagination {
+    width: 100%;
+    text-align: center;
+
+    @media screen and (min-width: 768px) {
+        width: auto;
+        text-align: right;
+    }
+}
+
+.nxt-results__info {
+    font-size: 0.8rem;
+    line-height: 1.1em;
+}
+
+a.nxt-img--no-ratio {
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    &::before {
+        content: '';
+        display: block;
+        width: 100%;
+        padding-bottom: 100%;
+    }
+
+    img {
+        display: none;
+    }
+}
+
+
+.listing-sidebar {
+    .nxt-narrow-search {
+        width: 100%;
+        padding: 0.5em;
+        background: #FFF;
+        border: 1px solid #e6e9ef;
+        text-align: center;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        outline: none;
+
+        &:hover, &:focus, &:active {
+            background: #e6e9ef;
+            border-color: #ccc;
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+        .nxt-narrow-search { display: none; }
+    }
+
+    .nxt-refinements-container {
+        display: none;
+
+        @media screen and (min-width: 1024px) { display: block !important; }
+    }
+}

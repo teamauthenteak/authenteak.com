@@ -1,8 +1,16 @@
 # Change Log
 
+## [1.20.6]
+- custom.sass SASS refactor 
+- add IntelliSuggest to cart and order confirmation
+- Tool tip modal updates
+- fixed header json so that formatting will work for pages
+- reduce affirm box height
+- added function to fix links in the plp set by search spring that are absolute to authenteak.com to work localy
+
 ## [1.20.5]
-- custom SASS refactor 
-- Fireplace Calculator
+- custom.sass SASS refactor 
+- Fireplace Calculator updates
 - Tool tip modal
 - Tool tip color udpates
 - Tool tip free shipping text change
