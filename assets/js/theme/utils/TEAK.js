@@ -31,25 +31,27 @@ window.TEAK.thirdParty = {
     IntelliSuggest:{
         initArray: [],
         haveItemArray: [],
+        cartAmount: 0,
+        cartId: null,
         siteId: "sm8dxk",
 
         // doing this becasue search spring refuses to make product links realtive for local dev
         fixLinks: function(){    
             document.querySelectorAll("a[intellisuggest]").forEach( (element) => {
-                let elementHref = element.getAttribute("href");
+                var elementHref = element.getAttribute("href");
                 elementHref = elementHref.replace("//authenteak.com", "");
                 element.setAttribute("href", elementHref);
             });
         },
 
         buildData: function(){
-            let storedCart = localStorage.getItem('cartData');
-        
-            if( storedCart ){
+            var storedCart = localStorage.getItem('cartData');
+            
+            try{           
                 storedCart = JSON.parse(storedCart);
 
-                this.cartAmount = storedCart.cartAmount;
-                this.cartId = storedCart.id;
+                this.cartAmount = storedCart[0].cartAmount;
+                this.cartId = storedCart[0].id;
 
                 storedCart[0].lineItems.physicalItems.forEach(element => {
                     this.initArray.push(element.productId.toString());       
@@ -61,7 +63,7 @@ window.TEAK.thirdParty = {
                     });
                 });
             }
-            
+            catch(e){}
 
             return this;
         }
@@ -70,7 +72,7 @@ window.TEAK.thirdParty = {
 
 TEAK.thirdParty.IntelliSuggest.buildData();
 
-if( window.location.hostname === "localhost" ){
+if( window.location.hostname === "localhost" || window.location.hostname === "192.168.0.192"){
     $(window).on("load", TEAK.thirdParty.IntelliSuggest.fixLinks);
 }
 

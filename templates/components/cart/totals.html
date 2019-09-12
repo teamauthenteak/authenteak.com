@@ -274,7 +274,7 @@
     
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', function(){
       try{
         IntelliSuggest.init({
           siteId: TEAK.thirdParty.IntelliSuggest.siteId,
@@ -283,13 +283,15 @@
         });
 
         // Loop through products in cart
-        TEAK.thirdParty.IntelliSuggest.haveItemArray.forEach( (element) => {
+        TEAK.thirdParty.IntelliSuggest.haveItemArray.forEach( function(element){
           IntelliSuggest.haveItem(element);
         });
 
         IntelliSuggest.inBasket({});
-      } catch(err) {
+      } 
+      catch(err) {
         console.log(err)
       }
     });
+      
   </script>

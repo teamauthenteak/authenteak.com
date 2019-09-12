@@ -7,6 +7,10 @@
 - fixed header json so that formatting will work for pages
 - reduce affirm box height
 - added function to fix links in the plp set by search spring that are absolute to authenteak.com to work localy
+- added work around for searchspring giving product lisitng images a fixed width.
+- made 2 colums for plp pages and fixed straggler product for non 2 image ending
+- fixed IE11 issues, namely ES6 modules in .html files causing exceptions
+- moved product tab functionality into product.js
 
 ## [1.20.5]
 - custom.sass SASS refactor 

@@ -73,6 +73,8 @@ export default class Product extends PageManager {
 	}
 
 	_bindEvents() {
+		$(document).on("ready", this._initTabs);
+
 		// Activate the reviews tab when we jump down to it
 		$('.product-reviews-link').on('click', () => {
 			this.tabs.displayTabContent('#product-reviews');
@@ -126,6 +128,8 @@ export default class Product extends PageManager {
 		}
 	}
 
+
+
 	_initSlick() {
 
 		// Related Product carousels
@@ -167,6 +171,192 @@ export default class Product extends PageManager {
 			]
 		});
 	}
+
+
+	_initTabs(){
+		var tabClone, tabValue,
+			tabButtons = document.querySelectorAll('.tab-header a'),
+			tabContentEl = document.querySelector('.tab-content'),
+			mobileTabButtons = document.querySelectorAll('.mobile-tab-heading');
+		
+		const tabs = [
+				{
+					type: document.querySelector('#specsTab'),
+					id: "specsTab",
+					tabBtnClass: ".specsBtn",
+					mobileClass: ".mobile-specsTab",
+					mobileObj: document.querySelector('.specsContent')
+				},
+				{
+					type: document.querySelector('#careTab'),
+					id: "careTab",
+					tabBtnClass: ".careBtn",
+					mobileClass: ".mobile-careTab",
+					mobileObj: document.querySelector('.careContent')
+				},
+				{
+					type: document.querySelector('#shipTab'),
+					id: "shipTab",
+					tabBtnClass: ".shipBtn",
+					mobileClass: ".mobile-shipTab",
+					mobileObj: document.querySelector('.shipContent')
+				},
+				{
+					type: document.querySelector('#pdfTab'),
+					id: "pdfTab",
+					tabBtnClass: ".pdfBtn",
+					mobileClass: ".mobile-pdfTab",
+					mobileObj: document.querySelector('.pdfContent')
+				},
+				{
+					type: document.querySelector('#videoTab'),
+					id: "videoTab",
+					tabBtnClass: ".videoBtn",
+					mobileClass: ".mobile-videoTab",
+					mobileObj: document.querySelector('.videoContent')
+				},
+				{
+					type: document.querySelector('#warrantyTab'),
+					id: "warrantyTab",
+					tabBtnClass: ".warrantyBtn",
+					mobileClass: ".mobile-warrantyTab",
+					mobileObj: document.querySelector('.warrantyContent')
+				},
+				{
+					type: document.querySelector('#returnTab'),
+					id: "returnTab",
+					tabBtnClass: ".returnBtn",
+					mobileClass: ".mobile-returnTab",
+					mobileObj: document.querySelector('.returnContent')
+				}
+				];
+		
+		
+		
+		const tabsModule = {
+		
+			// activate the first tab
+			activateFirstTab: function(args){
+				var dataDumpEl = document.querySelector(args.dataClass),
+					mobileDesc = document.querySelector(args.contentClass),
+					prodDescEl = document.createElement('div');
+		
+				prodDescEl.setAttribute('id', args.id);
+				prodDescEl.classList.add('active');
+				prodDescEl.appendChild(dataDumpEl);
+		
+				tabClone = prodDescEl.cloneNode(true);
+		
+				tabContentEl.appendChild(prodDescEl);
+				mobileDesc.appendChild(tabClone);
+		
+				return this;
+			},
+		
+		
+			//Initialize tabbed content
+			initTabContent: function() {
+		
+				// itterate over our tabs object and build out each tab skipping any tabs that have no content
+				tabs.forEach( function(element) {
+				if (element.type !== null && document.getElementById(element.id).innerHTML.trim() !== "") {
+					let cln = element.type.cloneNode(true);
+		
+					tabClone.querySelector('#' + element.id).parentNode.removeChild(tabClone.querySelector('#' + element.id))
+					tabContentEl.appendChild(element.type);
+					element.mobileObj.appendChild(cln);
+		
+				} else {
+					// hide desktop button item 
+					document.querySelector("[data-tabval='"+ element.id +"']").parentElement.classList.add('innactive-tab');
+					// hide desktop pane
+					document.querySelector("[data-tabval='"+ element.id +"']").parentElement.classList.add('innactive-tab');
+					// hide mobile tab
+					document.querySelector("[data-tabval='"+ element.id +"'].mobile-tab-heading").classList.add('innactive-tab');
+				}
+		
+				});
+		
+				return this;
+			},
+		
+		
+			//Clear active tab headers
+			clearTabHeaders: function() {
+				tabButtons.forEach( function(element, i){
+				tabButtons[i].parentElement.classList.remove('active');
+				});
+		
+				return this;
+			},
+		
+		
+			//Clear active tab content
+			clearTabContent: function() {
+				let tabContentElements = document.querySelectorAll('.tab-content div');
+				
+				tabContentElements.forEach( function(element, i){
+				tabContentElements[i].classList.remove('active');
+				});
+		
+				return this;
+			},
+		
+		
+			//Update the tab contents based on tabValue
+			updateTabContent: function() {
+				this.clearTabContent();
+				document.querySelector('#' + tabValue).classList.add('active');
+		
+				return this;
+			}
+		
+		};
+		
+		
+		// Choose which tab to show first
+		// this is also used to build its sibbling tabs
+		// therefore we run this before we Instantiate the Tab Content
+		tabsModule.activateFirstTab({
+			id: "descTab",
+			dataClass: ".tmp-prod-details",
+			contentClass: ".descContent"
+		
+		}).initTabContent();
+		
+		
+		
+		//Add Tab Button Listeners
+		tabButtons.forEach( function(element, i){  
+			if (!tabButtons[i].parentElement.classList.contains('innactive-tab')) {
+		
+			tabButtons[i].addEventListener('click', function(event) {
+		
+				if (!this.parentElement.classList.contains('active')) {
+				tabValue = this.dataset.tabval;
+		
+				tabsModule.clearTabHeaders();
+				this.parentElement.classList.toggle('active');
+				tabsModule.updateTabContent();
+		
+				event.preventDefault();
+				}
+			});
+			}
+		});
+		
+		
+		//Add Mobile Tab Button Listeners
+		mobileTabButtons.forEach( function(element, j){
+			mobileTabButtons[j].addEventListener('click', function(event) {
+			let mobileContent = document.querySelector('.mobile-tab-wrapper' + ' #' + this.getAttribute("data-tabval"));
+			
+			mobileContent.classList.toggle('active');
+			event.preventDefault();
+			});
+		});
+		  
+	}
 }
 
 /**
@@ -202,11 +392,11 @@ TEAK.Modules.toolTip = {
 	elementObj: {},
 	activeModal: "",
 
-	closeBtn: `<button class="toolTip__closeBtn" tool-tip-close>
-					<svg class="toolTip__closeIcon" enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-						<path d="M13.4 12l5.3-5.3c0.4-0.4 0.4-1 0-1.4s-1-0.4-1.4 0l-5.3 5.3-5.3-5.3c-0.4-0.4-1-0.4-1.4 0s-0.4 1 0 1.4l5.3 5.3-5.3 5.3c-0.4 0.4-0.4 1 0 1.4 0.2 0.2 0.4 0.3 0.7 0.3s0.5-0.1 0.7-0.3l5.3-5.3 5.3 5.3c0.2 0.2 0.5 0.3 0.7 0.3s0.5-0.1 0.7-0.3c0.4-0.4 0.4-1 0-1.4l-5.3-5.3z"></path>
-					</svg>
-				</button>`,
+	closeBtn: 	['<button class="toolTip__closeBtn" tool-tip-close>',
+					'<svg class="toolTip__closeIcon" enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">',
+						'<path d="M13.4 12l5.3-5.3c0.4-0.4 0.4-1 0-1.4s-1-0.4-1.4 0l-5.3 5.3-5.3-5.3c-0.4-0.4-1-0.4-1.4 0s-0.4 1 0 1.4l5.3 5.3-5.3 5.3c-0.4 0.4-0.4 1 0 1.4 0.2 0.2 0.4 0.3 0.7 0.3s0.5-0.1 0.7-0.3l5.3-5.3 5.3 5.3c0.2 0.2 0.5 0.3 0.7 0.3s0.5-0.1 0.7-0.3c0.4-0.4 0.4-1 0-1.4l-5.3-5.3z"></path>',
+					'</svg>',
+				'</button>'].join(""),
 	
 	
 	init: function (arg) {

@@ -101,54 +101,54 @@ TEAK.Modules.calculator = {
 
     templates: {
         firepit: `<form class="calculator__form" id="firePitCalculatorForm" name="firePitCalculatorForm" onsubmit="TEAK.Modules.calculator.calcFirepit(event)">
-                        <fieldset class="calculator__fieldSet">
-                            <legend class="calculator__title">
-                                <span class="calculator__titleName">Fireglass</span> Calculator
-                            </legend>
-                            
-                            <div class="calculator__controls calculator__controls--short">
-                                <div class="calculator__controlGroup">
-                                    <h3 class="calculator__controlHeading">Material</h3>
-                                </div>
-
-                                <div class="calculator__controlGroup calculator__controlGroup--radioGroup">
-                                    <label for="firepitFireGlass" class="calculator__controlLabel calculator__controlLabel--radioGroup">
-                                        <figure class="calculator__controlFigure calculator__controlFigure--active">    
-                                            <img class="calculator__controlImg" src="//cdn11.bigcommerce.com/s-r14v4z7cjw/products/351/images/44655/AFF-BRZRF12__00623.1495733246.270.270.jpg?c=2" alt="Fireglass">
-                                            <input type="radio" checked name="firepitMaterial" id="firepitFireGlass" class="calculator__controlInput" value="Fireglass" onchange="TEAK.Modules.calculator.toggleFirepitRadioControl(event)">
-                                            <figcaption class="calculator__controlFigureText">Fireglass</figcaption>
-                                        </figure>
-                                    </label>
-
-                                    <label for="firepitLavaRocks" class="calculator__controlLabel  calculator__controlLabel--radioGroup">
-                                        <figure class="calculator__controlFigure">
-                                            <img class="calculator__controlImg" src="//cdn11.bigcommerce.com/s-r14v4z7cjw/products/6514/images/56805/ATH-NL-3050__86806.1533818236.270.270.jpg?c=2" alt="Lava rocks">
-                                            <input type="radio" name="firepitMaterial" id="firepitLavaRocks" class="calculator__controlInput" value="Lava Rock" onchange="TEAK.Modules.calculator.toggleFirepitRadioControl(event)">
-                                            <figcaption class="calculator__controlFigureText">Lava Rocks</figcaption>
-                                        </figure>
-                                    </label>
-                                </div>
-
-                                <div class="calculator__controlGroup">
-                                    <label for="fireplceWidth" class="calculator__controlLabel">Fire Pit Width</label>
-                                    <input type="number" required placeholder="Inches" name="firepitWidth" id="fireplceWidth" class="calculator__controlInput">
-                                </div>
-
-                                <div class="calculator__controlGroup">
-                                    <label for="fireplceDepth" class="calculator__controlLabel">Fire Pit Depth</label>
-                                    <input type="number" required placeholder="Inches" name="firepitDepth" id="fireplceDepth" class="calculator__controlInput">
-                                </div>
-
-                                <div class="calculator__controlGroup">
-                                    <button type="submit" class="calculator__btn" id="firepitButton">Calculate</button>
-                                </div>
-
-                                <div class="calculator__controlGroup calculator__controlGroup--col">
-                                    <p class="calculator__total">Total lbs. of <span class="calculator__titleName">Fireglass</span> needed: <output class="calculator__controlOutput" name="calculatorTotal" for="firepitWidth firepitepth firepitHeight">0</output></p>
-                                    <p class="calculator__totalCta hide">Shop all <a href="/outdoor-heating/fireglass-lava-rocks/" title="shop fireglass" class="calculator__totalLink">Fireglass & Lava Rocks &rsaquo;</a></p>
-                                </div>
+                    <fieldset class="calculator__fieldSet">
+                        <legend class="calculator__title">
+                            <span class="calculator__titleName">Fireglass</span> Calculator
+                        </legend>
+                        
+                        <div class="calculator__controls calculator__controls--short">
+                            <div class="calculator__controlGroup">
+                                <h3 class="calculator__controlHeading">Material</h3>
                             </div>
-                        </fieldset>
-                    </form>`
+
+                            <div class="calculator__controlGroup calculator__controlGroup--radioGroup">
+                                <label for="firepitFireGlass" class="calculator__controlLabel calculator__controlLabel--radioGroup">
+                                    <figure class="calculator__controlFigure calculator__controlFigure--active">    
+                                        <img class="calculator__controlImg" src="//cdn11.bigcommerce.com/s-r14v4z7cjw/products/351/images/44655/AFF-BRZRF12__00623.1495733246.270.270.jpg?c=2" alt="Fireglass">
+                                        <input type="radio" checked name="firepitMaterial" id="firepitFireGlass" class="calculator__controlInput" value="Fireglass" onchange="TEAK.Modules.calculator.toggleFirepitRadioControl(event)">
+                                        <figcaption class="calculator__controlFigureText">Fireglass</figcaption>
+                                    </figure>
+                                </label>
+
+                                <label for="firepitLavaRocks" class="calculator__controlLabel  calculator__controlLabel--radioGroup">
+                                    <figure class="calculator__controlFigure">
+                                        <img class="calculator__controlImg" src="//cdn11.bigcommerce.com/s-r14v4z7cjw/products/6514/images/56805/ATH-NL-3050__86806.1533818236.270.270.jpg?c=2" alt="Lava rocks">
+                                        <input type="radio" name="firepitMaterial" id="firepitLavaRocks" class="calculator__controlInput" value="Lava Rock" onchange="TEAK.Modules.calculator.toggleFirepitRadioControl(event)">
+                                        <figcaption class="calculator__controlFigureText">Lava Rocks</figcaption>
+                                    </figure>
+                                </label>
+                            </div>
+
+                            <div class="calculator__controlGroup">
+                                <label for="fireplceWidth" class="calculator__controlLabel">Fire Pit Width</label>
+                                <input type="number" required placeholder="Inches" name="firepitWidth" id="fireplceWidth" class="calculator__controlInput">
+                            </div>
+
+                            <div class="calculator__controlGroup">
+                                <label for="fireplceDepth" class="calculator__controlLabel">Fire Pit Depth</label>
+                                <input type="number" required placeholder="Inches" name="firepitDepth" id="fireplceDepth" class="calculator__controlInput">
+                            </div>
+
+                            <div class="calculator__controlGroup">
+                                <button type="submit" class="calculator__btn" id="firepitButton">Calculate</button>
+                            </div>
+
+                            <div class="calculator__controlGroup calculator__controlGroup--col">
+                                <p class="calculator__total">Total lbs. of <span class="calculator__titleName">Fireglass</span> needed: <output class="calculator__controlOutput" name="calculatorTotal" for="firepitWidth firepitepth firepitHeight">0</output></p>
+                                <p class="calculator__totalCta hide">Shop all <a href="/outdoor-heating/fireglass-lava-rocks/" title="shop fireglass" class="calculator__totalLink">Fireglass & Lava Rocks &rsaquo;</a></p>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>`
     }
 };

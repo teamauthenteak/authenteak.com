@@ -154,7 +154,7 @@
             });
               
             // Loop through products in cart
-            TEAK.thirdParty.IntelliSuggest.haveItemArray.forEach( (element) => {
+            TEAK.thirdParty.IntelliSuggest.haveItemArray.forEach( function(element){
               IntelliSuggest.haveItem(element);
             });
         
@@ -175,7 +175,7 @@
 
       };
 
-      setTimeout(() => TEAK.Checkout.buildUI(), 500);
+      setTimeout(TEAK.Checkout.buildUI, 500);
 
       // 3rd Party IntelliSuggest tracking
       document.addEventListener('DOMContentLoaded', TEAK.Checkout.intelliSuggest);

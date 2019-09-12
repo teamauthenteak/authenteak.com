@@ -450,7 +450,7 @@ TEAK.Modules.megaMenu = {
                     </li>`}).join("")}`;
 
         navPanel = document.createElement("ul");
-        navPanel.classList = "nav-mobile-panel nav-mobile-panel-child is-right";
+        navPanel.className = "nav-mobile-panel nav-mobile-panel-child is-right";
         navPanel.setAttribute("data-mobile-menu", data.url);
         navPanel.setAttribute("data-panel-depth", "2");
         navPanel.innerHTML = tpl;
@@ -472,7 +472,7 @@ TEAK.Modules.megaMenu = {
                         </a>`;
 
             navItem = document.createElement("li")
-            navItem.classList = "nav-mobile-item nav-mobile-item--image";
+            navItem.className = "nav-mobile-item nav-mobile-item--image";
             navItem.innerHTML = tpl;
         }
 

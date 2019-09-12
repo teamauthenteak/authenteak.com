@@ -25,7 +25,9 @@
 <script src="//cdn.searchspring.net/intellisuggest/is.min.js"></script>
 
 <script src="{{cdn '/assets/js/modernizr.js'}}"></script>
-<script>window.History = { options: { delayInit: true } }</script>
+
+<!-- <script>window.History = { options: { delayInit: true } }</script> -->
+
 {{{head.scripts}}}
 {{inject 'themeImageSizes' theme_settings._images}}
 {{> components/common/global-injects}}
@@ -35,7 +37,6 @@
 </head>
 
 <body class="{{> components/common/body-classes}}">
-	
 
 	<div class="site-wrapper">
 		{{{snippet 'header'}}}
@@ -105,7 +106,7 @@
 
 	{{#if page_type '===' 'product'}}	
 	<script>
-		document.addEventListener('DOMContentLoaded', () => {
+		document.addEventListener('DOMContentLoaded', function(){
 
 			// tool tip start
 			window.TEAK.Modules.toolTip.init({
@@ -128,6 +129,17 @@
 				});
 			} catch(err) {}
 		});
+
+		// search spring filtering fix
+		(function(window){
+			let oldHistoryReplaceState = window.History.replaceState;
+
+			window.History.replaceState = function(a, b, url, c) {
+				if(!url.match(/(#|\/)(dev:|filter:|sort:|page:|perpage:|list|grid)/)) {
+					oldHistoryReplaceState(a, b, url, c);
+				}
+			}
+		}(window));
 	</script>
 	{{/if}}
 </body>
