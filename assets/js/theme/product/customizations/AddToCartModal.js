@@ -48,7 +48,7 @@ export default class AddToCartModal {
           item[formData[i].name] = formData[i].value;
           break;
         
-          case 'qty':
+        case 'qty':
         case 'action':
           break; // Do nothing
 

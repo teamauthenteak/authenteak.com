@@ -16,8 +16,6 @@ export default class EditOptions {
 
     this.preloadedContent = {};
 
-    window.TEAK = window.TEAK || {};
-    window.TEAK.currentSelections = {};
 
     // Handle events that require deliberate action (e.g. click)
     this.bindEditFunctionality();

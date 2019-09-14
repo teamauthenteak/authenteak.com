@@ -6,7 +6,7 @@
     fbq('init', '139262066429295');
     fbq('set', 'agent', 'plbigcommerce1.2', '139262066429295');
     
-    window.onload = function() {
+    window.addEventListener("load", function(){
         var m,
             productIdMap = {},
             productIdsOnPage = getUniqueProductIdsOnPage(),
@@ -103,7 +103,7 @@
             return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
         }
     
-    }
+    });
     </script>
 
     <noscript>

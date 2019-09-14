@@ -38,6 +38,7 @@ window.TEAK.thirdParty = {
         // doing this becasue search spring refuses to make product links realtive for local dev
         fixLinks: function(){    
             document.querySelectorAll("a[intellisuggest]").forEach( (element) => {
+                console.log(element)
                 var elementHref = element.getAttribute("href");
                 elementHref = elementHref.replace("//authenteak.com", "");
                 element.setAttribute("href", elementHref);
@@ -45,8 +46,8 @@ window.TEAK.thirdParty = {
         },
 
         buildData: function(){
-            var storedCart = localStorage.getItem('cartData');
-            
+            var storedCart = window.localStorage ? window.localStorage.getItem('cartData') : "";
+           
             try{           
                 storedCart = JSON.parse(storedCart);
 
@@ -72,8 +73,8 @@ window.TEAK.thirdParty = {
 
 TEAK.thirdParty.IntelliSuggest.buildData();
 
-if( window.location.hostname === "localhost" || window.location.hostname === "192.168.0.192"){
-    $(window).on("load", TEAK.thirdParty.IntelliSuggest.fixLinks);
+if( window.location.hostname === "localhost"){
+    $(document).on("ready", TEAK.thirdParty.IntelliSuggest.fixLinks);
 }
 
 
@@ -103,7 +104,7 @@ window.TEAK.Utils = {
     },
 
 
-    getTagData: (id) => {
+    getTagData: function(id){
         var data;
 
         if(document.getElementById(id) && window.location.hostname !== "localhost"){
@@ -118,7 +119,7 @@ window.TEAK.Utils = {
     },
 
 
-    getJsonData: (path) => {
+    getJsonData: function(path){
         let responseData;
 
         // run it on on our local
@@ -133,22 +134,20 @@ window.TEAK.Utils = {
     },
 
 
-
-
-
-
     /**
      * Picks out the cart resonse if its a JSON object and if it has cart.php
      * Saving this to local storage and emmiting an event with the data
      * for anybody to pick up to use in the view
      */
-    saveCartResponse: (response) => {
+    saveCartResponse: function(response){
         var event, storedData = JSON.stringify(response);
-    
-        window.localStorage.setItem('cartData', storedData);
-    
-        if( typeof(Event) === 'function' ) {
-            event = new Event('cartDataStored');
+
+        if( window.localStorage ){
+            window.localStorage.setItem('cartData', storedData);
+        }
+        
+        if( typeof window.CustomEvent === 'function' ) {
+            event = new CustomEvent('cartDataStored');
             
         }else{
             event = document.createEvent('cartDataStored');
@@ -156,7 +155,7 @@ window.TEAK.Utils = {
         }
     
         window.dispatchEvent(event);
-    
+        
         return this;
     }
 
@@ -164,3 +163,19 @@ window.TEAK.Utils = {
 
 
 
+/** -----------------------------
+ * window.CustomEvent Ployfill
+ * needs to be moved to its own file at some point
+ ------------------------------- */
+(function () {
+    if ( typeof window.CustomEvent === "function" ) return false;
+  
+    function CustomEvent ( event, params ) {
+      params = params || { bubbles: false, cancelable: false, detail: null };
+      var evt = document.createEvent( 'CustomEvent' );
+      evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+      return evt;
+     }
+  
+    window.CustomEvent = CustomEvent;
+})();

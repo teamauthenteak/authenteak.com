@@ -11,6 +11,10 @@
 - made 2 colums for plp pages and fixed straggler product for non 2 image ending
 - fixed IE11 issues, namely ES6 modules in .html files causing exceptions
 - moved product tab functionality into product.js
+- IE11 PLP column fix
+- IE11 Cart fix
+- IE11 cart modal fix
+- IE11 PIP UI fix
 
 ## [1.20.5]
 - custom.sass SASS refactor 

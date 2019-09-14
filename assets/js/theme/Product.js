@@ -34,6 +34,31 @@ export default class Product extends PageManager {
 		new ScrollLink({
 			selector: '.reviews-jumplink'
 		});
+
+		// Product Images
+		new ProductImages(this.productImgs);
+
+		// Product Swatches
+		this.swatches = new ColorSwatch(); // Init our color swatches
+
+		// Reviews
+		new ProductReviews(this.context);
+
+		// Custom Options
+		new ProductOptions();
+
+		// Custom Cart Modal
+		new AddToCartModal();
+
+		// Print Mode (Tear Sheet)
+		new PrintMode();
+
+		this._initSlick();
+		this._buildTabs();
+		this._initTabs();
+
+		// Product UI
+		this._bindEvents();
 	}
 
 	loaded(next) {
@@ -48,33 +73,10 @@ export default class Product extends PageManager {
 			}
 		}).init(this.context);
 
-		// Product Images
-		new ProductImages(this.productImgs);
-
-		// Product Swatches
-		this.swatches = new ColorSwatch(); // Init our color swatches
-
-		// Reviews
-		new ProductReviews(this.context);
-
-		// Custom Options
-		new ProductOptions();
-		// Custom Cart Modal
-		new AddToCartModal();
-		// Print Mode (Tear Sheet)
-		new PrintMode();
-
-		// Product UI
-		this._bindEvents();
-		this._initTabs();
-		this._initSlick();
-
 		next();
 	}
 
 	_bindEvents() {
-		$(document).on("ready", this._initTabs);
-
 		// Activate the reviews tab when we jump down to it
 		$('.product-reviews-link').on('click', () => {
 			this.tabs.displayTabContent('#product-reviews');
@@ -173,7 +175,7 @@ export default class Product extends PageManager {
 	}
 
 
-	_initTabs(){
+	_buildTabs(){
 		var tabClone, tabValue,
 			tabButtons = document.querySelectorAll('.tab-header a'),
 			tabContentEl = document.querySelector('.tab-content'),

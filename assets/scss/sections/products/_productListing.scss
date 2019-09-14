@@ -49,6 +49,10 @@
 
         > .Content {
             flex: 0 3 75%;
+
+            @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+                flex: 1;
+            }
         }
 
         > .listing-description {

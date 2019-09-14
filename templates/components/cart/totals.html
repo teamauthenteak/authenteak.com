@@ -187,7 +187,7 @@
   function getCartQnty(cart){
     let count = 0;
 
-    cart[0].lineItems.physicalItems.forEach(element => {
+    cart[0].lineItems.physicalItems.forEach( function(element){
       count += element.quantity;
     });
 

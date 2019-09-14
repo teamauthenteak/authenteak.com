@@ -2,7 +2,7 @@
 <html class="no-js" lang="{{ locale_name }}" base-html>
 
 <head>
-<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>{{head.title}}</title>
@@ -116,7 +116,7 @@
 
 			// IntelliSuggest tracking
 			try{
-				let productCode = "{{product.sku}}";
+				var productCode = "{{product.sku}}";
 
 				IntelliSuggest.init({
 					siteId: TEAK.thirdParty.IntelliSuggest.siteId,
@@ -132,7 +132,7 @@
 
 		// search spring filtering fix
 		(function(window){
-			let oldHistoryReplaceState = window.History.replaceState;
+			var oldHistoryReplaceState = window.History.replaceState;
 
 			window.History.replaceState = function(a, b, url, c) {
 				if(!url.match(/(#|\/)(dev:|filter:|sort:|page:|perpage:|list|grid)/)) {

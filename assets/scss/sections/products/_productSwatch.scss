@@ -6,45 +6,26 @@
         overflow-y: scroll;
         clear: left;
         max-height: 190px;
-        // max-width: $swatch-wrapper-base;
         overflow: hidden;
         border: 1px solid transparent;
         border-radius: 4px;
-        // box-shadow: 0 0 0 1px $color-border inset;
+
+        @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+            overflow: hidden;
+        }
 
         @media screen and (max-width: 915px){
             max-height: none;
         }
-
-        // @media screen and (min-width: 420px) { max-width: $swatch-wrapper-base + (1 * $swatch-wrapper-inc); }
-        // @media screen and (min-width: 530px) { max-width: $swatch-wrapper-base + (2 * $swatch-wrapper-inc); }
-        // @media screen and (min-width: 475px) { max-width: $swatch-wrapper-base + (3 * $swatch-wrapper-inc); }
-        // @media screen and (min-width: 585px) { max-width: $swatch-wrapper-base + (4 * $swatch-wrapper-inc); }
-        // @media screen and (min-width: 640px) { max-width: $swatch-wrapper-base + (5 * $swatch-wrapper-inc); }
-        // @media screen and (min-width: 695px) { max-width: $swatch-wrapper-base + (6 * $swatch-wrapper-inc); }
-        // @media screen and (min-width: 750px) { max-width: $swatch-wrapper-base + (7 * $swatch-wrapper-inc); }
-        // @media screen and (min-width: 805px) { max-width: $swatch-wrapper-base + (8 * $swatch-wrapper-inc); }
-        // @media screen and (min-width: 860px) { max-width: $swatch-wrapper-base + (9 * $swatch-wrapper-inc); }
-        // @media screen and (min-width: 915px) { max-width: $swatch-wrapper-base + (10 * $swatch-wrapper-inc); }
-        // @media screen and (min-width: 970px) { max-width: $swatch-wrapper-base + (11 * $swatch-wrapper-inc); }
-
-        // @media screen and (min-width: 1024px) { max-width: $swatch-wrapper-base + (3 * $swatch-wrapper-inc); }
-        // @media screen and (min-width: 1080px) { max-width: $swatch-wrapper-base + (4 * $swatch-wrapper-inc); }
-        // @media screen and (min-width: 1200px) { max-width: $swatch-wrapper-base + (5 * $swatch-wrapper-inc); }
     }
 
     .form-field-control {
         max-height: 130px;
-        //max-width: 455px;
         padding: 10px;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         flex: 1 0 auto;
-
-        // @media screen and (max-width: 970px) {
-        //     max-height: none;
-        // }
 
         .simplebar-content {
             padding: 10px !important;
@@ -52,8 +33,6 @@
             display: flex;
             flex-flow: row wrap;
             flex: 1 0 auto;
-
-              
         }
 
         .simplebar-track{

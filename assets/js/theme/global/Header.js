@@ -39,7 +39,7 @@ export default class Header {
 				promoLink.setAttribute("href", promo.header_promo_link);
 			}
 			
-			promoLink.classList = "promoBanner__link " + ( promo.hasOwnProperty("header_custom_class") ? promo.header_custom_class : "" );
+			promoLink.setAttribute("class", "promoBanner__link " + ( promo.hasOwnProperty("header_custom_class") ? promo.header_custom_class : "" ) );
 			promoLink.innerHTML = promo.header_promo;
 
 			promoBanner.classList.add("promoBanner--" + promo.header_promo_color);
@@ -362,7 +362,7 @@ TEAK.Modules.megaMenu = {
                         </ul>`;
 
             parentLi = document.createElement("li"),
-            parentLi.className = "parent has-children tier-dropdown";
+            parentLi.setAttribute("class", "parent has-children tier-dropdown");
             parentLi.innerHTML = tpl;
 
             document.getElementById(id).querySelectorAll(".mega-nav-list")[0].insertBefore(parentLi, sibblingItems);
@@ -385,7 +385,7 @@ TEAK.Modules.megaMenu = {
                             </a>`;
 
                 parentLi = document.createElement("li"),
-                parentLi.className = "parent parent--collapse tier-dropdown";
+                parentLi.setAttribute("class", "parent parent--collapse tier-dropdown");
                 parentLi.innerHTML = tpl;
 
                 document.getElementById(id).querySelectorAll(".mega-nav-list")[0].appendChild(parentLi);
@@ -423,7 +423,7 @@ TEAK.Modules.megaMenu = {
                         </a>`;
                         
             mobileItem = document.createElement("li");
-            mobileItem.className = "nav-mobile-item has-children";
+            mobileItem.setAttribute("class", "nav-mobile-item has-children");
             mobileItem.innerHTML = tpl;
 
             document.getElementById("mobile_" + id).appendChild(mobileItem);
@@ -450,7 +450,7 @@ TEAK.Modules.megaMenu = {
                     </li>`}).join("")}`;
 
         navPanel = document.createElement("ul");
-        navPanel.className = "nav-mobile-panel nav-mobile-panel-child is-right";
+        navPanel.setAttribute("class", "nav-mobile-panel nav-mobile-panel-child is-right");
         navPanel.setAttribute("data-mobile-menu", data.url);
         navPanel.setAttribute("data-panel-depth", "2");
         navPanel.innerHTML = tpl;
@@ -472,7 +472,7 @@ TEAK.Modules.megaMenu = {
                         </a>`;
 
             navItem = document.createElement("li")
-            navItem.className = "nav-mobile-item nav-mobile-item--image";
+            navItem.setAttribute("class", "nav-mobile-item nav-mobile-item--image");
             navItem.innerHTML = tpl;
         }
 
@@ -491,7 +491,7 @@ TEAK.Modules.megaMenu = {
                             </a>`;
 
                 navItem = document.createElement("li"),
-                navItem.className = "nav-mobile-item";
+                navItem.setAttribute("class", "nav-mobile-item");
                 navItem.innerHTML = tpl;
 
                 document.getElementById("mobile_" + id).appendChild(navItem);

@@ -42,7 +42,6 @@ export default class ProductOptions {
 
   // Build Product Custom Data Object ()
   buildCustomDataObject() {
-    window.TEAK = window.TEAK || {};
     window.TEAK.currentSelections = {};
     window.TEAK.lastHiResSwatch = '';
 
