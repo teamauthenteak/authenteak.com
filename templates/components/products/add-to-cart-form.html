@@ -157,13 +157,14 @@
         class="
           button
           button-primary
+          button-primary--dark
           button-wide
           add-to-cart
           button-progress
           spinner
         "
         data-button-purchase
-      >
+        onclick="TEAK.thirdParty.heap.track({ event:'add_to_cart', location: 'pdp' })">
         <span class="button-text">
           {{#if product.pre_order}}
             {{lang 'product.pre_order'}}

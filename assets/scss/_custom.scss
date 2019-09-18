@@ -4,8 +4,10 @@
 @import 'variables';
 
 /* Mixins */
+@import "/mixins/grid";
 @import 'mixins/respond';
 @import 'mixins/placeholder';
+
 
 /* Components */
 @import 'components/defaults';
@@ -34,6 +36,9 @@
 @import 'sections/products/productOptions';
 @import 'sections/products/productSwatch';
 @import 'sections/products/productTabs';
+
+/* Tempaltes */
+@import 'templates/brands';
 
 /* Plugins */
 @import 'plugins/simplebar/simplebar';

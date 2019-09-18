@@ -28,6 +28,27 @@ window.TEAK.Modules = {};
  * Store settigns for 3rd parties
  * ------------------------------------------ */
 window.TEAK.thirdParty = {
+    heap:{
+        /** 
+         * Custom tracking events for heap analitics
+         * {
+         *      event: "",      add_to_cart, proceed_to_cart
+         *      location: ""       pdp, slideout or modal
+         * }
+        */
+        track: function(args){
+            console.log(args);
+
+            if( typeof window.heap !== "undefined" ){
+                heap.track(args.event, {
+                    location: args.location
+                });
+            }
+
+            return this;
+        }
+    },
+
     IntelliSuggest:{
         initArray: [],
         haveItemArray: [],
@@ -36,9 +57,8 @@ window.TEAK.thirdParty = {
         siteId: "sm8dxk",
 
         // doing this becasue search spring refuses to make product links realtive for local dev
-        fixLinks: function(){    
+        fixLinks: function(){
             document.querySelectorAll("a[intellisuggest]").forEach( (element) => {
-                console.log(element)
                 var elementHref = element.getAttribute("href");
                 elementHref = elementHref.replace("//authenteak.com", "");
                 element.setAttribute("href", elementHref);
@@ -73,8 +93,8 @@ window.TEAK.thirdParty = {
 
 TEAK.thirdParty.IntelliSuggest.buildData();
 
-if( window.location.hostname === "localhost"){
-    $(document).on("ready", TEAK.thirdParty.IntelliSuggest.fixLinks);
+if( window.location.hostname === "localhost" ){
+    $(window).on("load", TEAK.thirdParty.IntelliSuggest.fixLinks);
 }
 
 

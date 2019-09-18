@@ -2,6 +2,8 @@ footer{
     &.site-footer {
         font-weight: normal;
         color: $color-footer-text;
+        float: left;
+        width: 100%;
     }
     
     &.site-footer .bottom-bar {
@@ -84,12 +86,12 @@ footer{
             padding: 0;
         }
     }
+}
 
-    .newsletter-signup{
-        margin-top: 20px;
-    }
-    
-
+.newsletter-signup{
+    margin-top: 20px;
+    float: left;
+    width: 100%;
 }
 
 

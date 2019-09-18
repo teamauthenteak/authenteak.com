@@ -1,8 +1,16 @@
+// Grid
+$grid-columns: 10 !default;
+
+$standard-width: 1500px;
+$standard-padding: 20px;
+$standard-column-width: 100%;
+
 $screen-xs: 400px; // mobile landscape
 $screen-sm: 568px; // tablet portrate
 $screen-md: 770px; // tablet landscape
 $screen-lg: 1020px; // Desktop
 $screen-xl: 1200px; // Large Desktop & HD TV
+
 $btn-color-orange: #ec9d08;
 
 $color-background-pdp: stencilColor('product-details-bg');

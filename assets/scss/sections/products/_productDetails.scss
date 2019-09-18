@@ -10,7 +10,11 @@
     padding: 0 20px;
 }
 
-
+.product-row{
+    @extend %span;
+    @extend %span-1-1;
+    text-align: center;
+}
 
 
 
@@ -283,9 +287,6 @@ ul.highlight-group {
 
 .product-quantity-submit .add-to-cart{
     width: 55%;
-    font-weight: 500;
-    font-size: 1rem;
-    text-transform: uppercase;
     margin: 15px 0 !important;
 
     @media screen and (max-width: $screen-md){

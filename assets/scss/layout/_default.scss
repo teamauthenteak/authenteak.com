@@ -1,5 +1,5 @@
 .container, .top-bar .container, .top-bar .product-tabs{
-    max-width: 1500px;
+    max-width: $standard-width;
 }
 
 .container, .product-tabs, .account-wrapper{
@@ -13,4 +13,46 @@
     @media only screen and (max-width: $screen-sm) {
         padding: 0;
     }
+}
+
+
+[class*='span-'], %span {
+    float: left;
+    padding: $standard-padding;
+    position: relative;
+}
+
+
+[class*='span-']:last-of-type {
+    // padding-right: $standard-padding - 2;
+    float: right;
+}
+
+
+// Defaults ~ Mobile Portrait
+@include make-default-grid;
+
+// Mobile Landscape
+@media only screen and (min-width: $screen-xs) {
+  @include make-grid(xs);
+}
+
+// Tablet Portrait
+@media only screen and (min-width: $screen-sm) {
+  @include make-grid(sm);
+}
+
+// Tablet Landscape
+@media only screen and (min-width: $screen-md) {
+  @include make-grid(md);
+}
+
+// Desktop
+@media only screen and (min-width: $screen-lg) {
+  @include make-grid(lg);
+}
+
+// Desktop Wide & HD TV
+@media only screen and (min-width: $screen-xl) {
+  @include make-grid(xl);
 }

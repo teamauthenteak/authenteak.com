@@ -18,6 +18,31 @@
     display: none !important;
 }
 
+// Paddings
+.pad, [class*='span-']:last-of-type.pad{
+    padding: $standard-padding;
+}
+
+.no-pad{
+    padding:0 !important;
+}
+
+.pad-top{
+    padding: $standard-padding 0 0 0 !important;
+}
+
+.pad-bottom{
+    padding: 0 0 $standard-padding 0 !important;
+}
+
+.pad-right{
+    padding: 0 $standard-padding 0 0 !important;
+}
+
+.pad-left{
+    padding: 0 0 0 $standard-padding !important;
+}
+
 
 @media only screen and (max-width: $screen-md) {
     .mobileHide{

@@ -5,7 +5,9 @@
   "accessToken": "dk2l4r767so2skfuexncnyh1ajf6xy2",
   "customLayouts": {
     "brand": {},
-    "category": {},
+    "category": {
+      "shop-all-brands.html":"/shop-all-brands/"
+    },
     "page": {},
     "product": {}
   }

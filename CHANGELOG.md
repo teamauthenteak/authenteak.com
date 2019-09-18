@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.20.7]
+- Heap Analitics tracking
+- Added infinate scroll to PLP pages as well as rel=nofollow
+
 ## [1.20.6]
 - custom.sass SASS refactor 
 - add IntelliSuggest to cart and order confirmation
