@@ -35,7 +35,14 @@
       {{#each product.custom_fields}}
         {{#if this.name '===' "Free Shipping Icon"}}   
           {{#if this.value '===' "Yes"}}
-          
+
+          {{!-- 
+          price.rrp_without_tax.value: {{../../../product.price.rrp_without_tax.value}}<br>
+          price.with_tax.value: {{../../../product.price.with_tax.value}}<br>
+          price.without_tax.value: {{../../../product.price.without_tax.value}}<br>
+          custom: {{~default ../../../product.price.sale_price_without_tax.value price.without_tax.value~}}
+          --}}
+
             {{#if ../../../product.price.without_tax.value '<' "2998"}}
             <p class='free-shipping-text' data-pricing-free-shipping>{{lang 'product.shipping_free'}}</p>
             {{else}}
