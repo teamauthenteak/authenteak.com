@@ -187,9 +187,10 @@
         align-items: center;
         justify-content: center;
         padding: 1.5rem;
-        background: #e6e9ef;
+        // background: #e6e9ef;
         color: #000;
         text-align: center;
+        border-left: 1px solid #ccc;
 
         @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
             flex: 0 0 !important;
@@ -306,10 +307,31 @@ button.cart-item-edit {
     margin: 0;
 }
 
-.form-coupon .button-tertiary{
-    background: #ccc;
-    border: 2px solid #ccc;
-}
+.form-coupon{
+    
+    .input-group{
+        border: 1px solid #bbb;
+        border-radius: $button-border-radius;
+        overflow: hidden;
+    }
+
+    .form-input{
+        height: 55px !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        border: none !important;
+    }
+
+    .button-tertiary{
+        background: #ccc;
+        border: none !important;
+        height: 55px;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        width: 100%;
+    }
+} 
 
 
 
@@ -440,6 +462,13 @@ button.cart-item-edit {
         display: block;
         margin: 1rem 0;
         width: 100%;
+    }
+}
+
+.cart-table-heading{
+    .cart-item-quantity{
+        text-align: center;
+        padding: 0;
     }
 }
 

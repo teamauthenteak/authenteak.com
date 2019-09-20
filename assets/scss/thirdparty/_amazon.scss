@@ -1,13 +1,20 @@
 .CheckoutButtonAmazon{
     width: 100%;
-    height: auto;
+    height: 55px;
+    overflow: hidden;
+    background-color: #f5d77e;
+    @extend %button-rounded;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }
 
 .amazonpay-button-inner-image{
     width: 100% !important;
     height: auto;
-    max-height: 80px !important;
-    padding: 3px;
+    object-fit: cover;
+    max-height: initial;
     position: relative;
     opacity: 0;
 

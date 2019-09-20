@@ -1,0 +1,31 @@
+.PayPalExpressCheckout{
+    height: 55px !important;
+    margin: 20px 0;
+    @extend %button-rounded;
+    overflow: hidden;
+}
+
+.paypal-smart-buttons{
+    margin: 0 !important;
+}
+
+.paypal-button{
+    height: 55px !important;
+
+    .zoid-outlet{
+        height: 55px !important;
+        background-color: #fdc254;
+        display: grid !important;
+        justify-content: center !important;
+        align-items: center !important;
+        align-content: center !important;
+    }
+
+    .zoid-component-frame{
+        padding-top: 5px !important;
+    }
+
+    .paypal-button-shape-rect{
+        @extend %button-rounded;
+    }
+}

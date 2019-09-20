@@ -226,10 +226,11 @@ header{
 
     span.global-header-text-promo {
         display: block;
-        color: #6ea438;
+        color: #222;
         font-size: 13px;
         width: 100%;
         text-align: center;
+        text-transform: uppercase;
 
         @media only screen and (max-width: $screen-lg) {
             display: none;

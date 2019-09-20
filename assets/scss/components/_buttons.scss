@@ -1,23 +1,48 @@
+
+
 .button {
     box-sizing: border-box;
-    border-radius: 99em;
     border-width: 1px;
     border-style: solid;
     font-size: 1.1rem;
     text-transform: uppercase;
     font-weight: 500;
+    @extend %button-rounded;
 }
 
+%button-rounded{
+    border-radius: $button-border-radius !important;
+}
 
 .button-primary{
+    border-color: $btn-color-orange;
     background-color: $btn-color-orange;
-    border: 1px solid $btn-color-orange;
+    color: #fff;
 
     &:hover{
+        border-color: $btn-color-orange;
         background-color: #fff;
         color: $btn-color-orange;
-        border: 1px solid $btn-color-orange;
     }
+
+    &--orange{
+        border-color: $btn-color-orange;
+        background-color: $btn-color-orange;
+
+        &:hover{
+            color: $btn-color-orange;
+        }
+    }
+
+    &--green{
+        border-color: $btn-color-green;
+        background-color: $btn-color-green;
+
+        &:hover{
+            color: $btn-color-green;
+        }
+    }
+
 
     &--dark{
         background-color: #666;
@@ -41,9 +66,7 @@
     box-shadow: none;
 
     &:hover {
-        background-color: #fff;
-        border-color: $btn-color-orange;
-        color: $btn-color-orange;
+        border-color: #878787;
     }
 
     &--darkTrans{
