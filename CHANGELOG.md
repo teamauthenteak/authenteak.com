@@ -5,6 +5,8 @@
 - Added infinate scroll to PLP pages as well as rel=nofollow
 - New Brands Page
 - CTA and ATC Buton Changes
+- checkout buttons, mini cart, modal buttons updates
+- fixed white glove shipping logic
 
 ## [1.20.6]
 - custom.sass SASS refactor 
