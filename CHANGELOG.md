@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.20.7.005]
+- merge testing for file upload issue
+
 ## [1.20.7]
 - Heap Analitics tracking
 - Added infinate scroll to PLP pages as well as rel=nofollow
