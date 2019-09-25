@@ -231,7 +231,7 @@ export default class Product extends PageManager {
 					mobileClass: ".mobile-returnTab",
 					mobileObj: document.querySelector('.returnContent')
 				}
-				];
+			];
 		
 		
 		
