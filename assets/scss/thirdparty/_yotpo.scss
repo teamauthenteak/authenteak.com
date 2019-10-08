@@ -4,19 +4,13 @@
     justify-content: center;
 }
 
-.nxt-logo,
-a[target="_blank"][href="http://www.nextopia.com"] {
-    display: none !important;
+.yotpo.yotpo-main-widget{
+   @extend .container;
 }
-
-// .yotpo {
-//     padding: 10px 0;
-// }
 
 .yotpo .text-m {
     margin-left: 15px;
 }
-
 
 .yotpo-pdp-wrapper{
     display: flex;

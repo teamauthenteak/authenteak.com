@@ -4,6 +4,10 @@
     background-color: $color-background-pdp;
     // float: left;
     padding-bottom: 0;
+
+    .breadcrumbs{
+        margin: 0 0 20px 0;
+    }
 }
 
 .product-details-column {
@@ -16,6 +20,10 @@
     text-align: center;
 }
 
+.product-trade{
+    float: left;
+    margin-top: 0;
+}
 
 
 .product-slides-wrap a.product-image {
@@ -328,4 +336,12 @@ ul.highlight-group {
 .showroom span {
     display: inline-block;
     vertical-align: top;
+}
+
+.add-to-cart-form{
+    .shipping-range{
+        @media screen and (min-width: $screen-xl){
+            display: none
+        }
+    }
 }

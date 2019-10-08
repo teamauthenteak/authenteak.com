@@ -73,7 +73,11 @@
 
 .tab-content {
 	max-width: 960px;
-	margin: 0 auto;
+    margin: 0 auto;
+    
+    ol{
+        margin-left: 15px;
+    }
 }
 
 #descTab,
@@ -82,7 +86,8 @@
 #shipTab,
 #pdfTab,
 #videoTab, 
-#warrantyTab { 
+#warrantyTab,
+#returnTab { 
     display: none;
     padding: 20px;
 }
@@ -93,7 +98,8 @@
 #shipTab.active,
 #pdfTab.active,
 #videoTab.active,
-#warrantyTab.active  { 
+#warrantyTab.active,
+#returnTab.active  { 
 	display: block;
 }
 
@@ -108,6 +114,7 @@
 
 .products-related .section-title{
     margin-top: 40px;
+    text-transform: uppercase;
 }
 
 /*Mobile Product Detail Custom Tabs*/
@@ -141,7 +148,8 @@
 .mobile-tab-wrapper #shipTab,
 .mobile-tab-wrapper #pdfTab,
 .mobile-tab-wrapper #videoTab,
-.mobile-tab-wrapper #warrantyTab  { 
+.mobile-tab-wrapper #warrantyTab,
+.mobile-tab-wrapper #returnTab  { 
 	display: none;
 }
 
@@ -151,7 +159,8 @@
 .mobile-tab-wrapper #shipTab.active,
 .mobile-tab-wrapper #pdfTab.active,
 .mobile-tab-wrapper #videoTab.active,
-.mobile-tab-wrapper #warrantyTab.active { 
+.mobile-tab-wrapper #warrantyTab.active,
+.mobile-tab-wrapper #returnTab.active { 
 	display: block;
 }
 

@@ -7,10 +7,18 @@
 			width: $standard-column-width / $columns * ($index);
 		}
 
+		// .span-#{$index}-#{$columns}-#{$class} {
+		// 	@extend %span-#{$index}-#{$columns}-#{$class};
+		// }
+
 	} @else {
 		%span-#{$index}-#{$columns} {
 			width: $standard-column-width / $columns * ($index);
 		}
+
+		// .span-#{$index}-#{$columns}{
+		// 	@extend %span-#{$index}-#{$columns};
+		// }
 	}
 }
 

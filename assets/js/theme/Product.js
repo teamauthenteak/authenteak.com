@@ -234,7 +234,6 @@ export default class Product extends PageManager {
 			];
 		
 		
-		
 		const tabsModule = {
 		
 			// activate the first tab
@@ -286,7 +285,7 @@ export default class Product extends PageManager {
 			//Clear active tab headers
 			clearTabHeaders: function() {
 				tabButtons.forEach( function(element, i){
-				tabButtons[i].parentElement.classList.remove('active');
+					tabButtons[i].parentElement.classList.remove('active');
 				});
 		
 				return this;
@@ -298,7 +297,7 @@ export default class Product extends PageManager {
 				let tabContentElements = document.querySelectorAll('.tab-content div');
 				
 				tabContentElements.forEach( function(element, i){
-				tabContentElements[i].classList.remove('active');
+					tabContentElements[i].classList.remove('active');
 				});
 		
 				return this;

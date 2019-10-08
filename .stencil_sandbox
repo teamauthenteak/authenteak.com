@@ -1,0 +1,16 @@
+{
+  "normalStoreUrl": "https://authenteaksandbox3.mybigcommerce.com",
+  "port": "3300",
+  "clientId": "rz66zoq1909z88klo4taglvo5v15mq",
+  "accessToken": "ghszbquykuw7q05fvfg2dq1ezzly5rl",
+  "customLayouts": {
+    "brand": {},
+    "category": {
+      "shop-all-brands.html" : "/shop-all-brands/"
+    },
+    "page": {
+      "template_c.html" : "/test-page/"
+    },
+    "product": {}
+  }
+}

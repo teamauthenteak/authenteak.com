@@ -1,20 +1,24 @@
 
 // Calculator
 .calculator{
-    width: 100%;
+    @extend %span-1-1;
     padding: 20px;
 
     &__form{
-        width: 100%;
+        @extend %span-1-1;
         border: 1px solid #ccc;
         padding: 20px;
         max-width: 750px;
         margin: 0 auto;
     }
 
+    &__fieldCntr{
+        display: block;
+    }
+
     &__fieldSet{
         border: none;
-        padding: 0;
+        padding: 40px 0 0 0;
         margin: 0;
         display: flex;
         flex-direction: column;
@@ -24,16 +28,22 @@
     }
 
     &__title{
-        width: 100%;
+        @extend %span-1-1;
         flex: 1 0 auto;
         text-align: center;
         text-transform: uppercase;
         padding-bottom: 20px;
-        margin-bottom: 20px;
-        border-bottom: 1px solid #ccc;
+        // border-bottom: 1px solid #ccc;
         font-size: 1.4rem;
         font-weight: 800;
         line-height: 1.2;
+    }
+
+    &__controlNote{
+        font-size: 0.9rem;
+        line-height: 1.4;
+        text-align: center;
+        margin: 10px 0 25px 0;
     }
 
     &__controls{
@@ -54,14 +64,62 @@
         }
     }
 
-    &__controlGroup{
-        margin-bottom: 20px;
+    &__controlGroupHeading{
+        @extend %span-1-1;
+        padding-bottom: 20px;
+    }
+
+    &__controlGroupCntr{
         display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        flex: 1 0 auto;
         align-items: center;
         justify-content: center;
         align-content: center;
-        width: 100%;
+
+        &--1-2{
+           width: 50%;
+
+           @media screen and (max-width: $screen-sm){
+               width: 100%;
+           }
+        }
+    }
+
+    &__controlGroup{
+        @extend %span-1-1;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        align-content: center;
         flex-direction: row;
+        flex-wrap: wrap;
+
+        &[data-control]{
+            display: none;
+            flex-wrap: nowrap;
+            align-items: center;
+        }
+
+        &--noFlex{
+            display: block;
+        }
+
+        &--right{
+            justify-content: flex-end;
+            text-align: right;
+        }
+
+        &--1-2{
+            @extend %span-1-2;
+            justify-content: flex-end;
+
+            &:nth-of-type(even){
+                justify-content: flex-start;
+            }
+        }
 
         &:last-of-type{
             margin: 0;
@@ -73,19 +131,27 @@
 
         &--radioGroup{
             flex-direction: row;
-            
-            @media screen and (max-width: $screen-sm){
-                flex-direction: column;
-            }
+        }
+    }
+
+    &__controlGroupWithFigure{
+        display: flex;
+        flex-direction: row;
+        padding-bottom: 40px;
+
+        @media screen and (max-width: $screen-sm){
+            flex-direction: column;
         }
     }
 
     &__controlLabel{
         order: 2;
-        padding: 10px 0 10px 20px;
+        padding: 0 0 0 20px;
         line-height: 1;
         text-transform: uppercase;
-        width: 40%;
+        font-size: 0.9rem;
+        line-height: 1.2;
+        @extend %span-4-10;
         cursor: pointer;
 
         @media screen and (max-width: $screen-sm){
@@ -94,6 +160,11 @@
 
         &--radioGroup{
             padding: 0 10px 0 0;
+            margin-bottom: 10px;
+            display: flex;
+            height: 100%;
+            flex: 1 0 auto;
+            @extend %span-1-2;
 
             @media screen and (max-width: $screen-sm){
                 width: 100%;
@@ -109,12 +180,15 @@
         align-items: center;
         text-align: center;
         flex-direction: column;
-        margin-bottom: 5px;
         position: relative;
         border: 1px solid #ccc;
         border-radius: 4px;
         padding: 10px 0;
         opacity: 0.35;
+
+        &:hover{
+            opacity: 0.5;
+        }
 
         @media screen and (max-width: $screen-sm){
             margin-bottom: 15px;
@@ -122,6 +196,10 @@
 
         &--active{
             opacity: 1;
+
+            &:hover{
+                opacity: 1;
+            }
         }
     }
 
@@ -131,18 +209,16 @@
         text-align: center;
     }
 
+    
+
 
     &__controlHeading{
         width: 100%;
-        margin: 0;
         text-transform: uppercase;
         line-height: 1;
-        font-size: 15px;
+        font-size: 1.2rem;
         text-align: center;
-
-        @media screen and (max-width: $screen-sm){
-            text-align: left;
-        }
+        margin: 0 0 5px 0;
     }
 
 
@@ -158,7 +234,7 @@
 
         &[type=number], &[type=text]{
             padding: 10px;
-            width: 20%;
+            width: 25%;
             min-width: 75px;
             box-shadow: 0 0 0 1px #ccc inset;
             color: #444;
@@ -178,25 +254,72 @@
             top: 0;
             left: 0;    
         }
-
     }
 
-    &__btn{
-        padding: 10px 20px;
-        text-align: center;
-        background-color: $btn-color-orange;
-        width: 100%;
-        color: #fff;
-        text-transform: uppercase;
-        border-radius: 4px;
-        border: 2px solid $btn-color-orange;
-        font-size: 1rem;
-        font-weight: 500;
 
-        &:hover{
-            color: $btn-color-orange;
-            background-color: #fff;
+
+    &__calcReferenceCntr{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-content: center;
+        text-align: center;
+        width: 50%;
+
+        @media screen and (max-width: $screen-sm){
+            width: 100%;
+            margin-bottom: 20px;
         }
+    }
+
+    &__figureName{
+        @extend %span-1-1;
+        display: block;
+        font-weight: 800;
+        font-size: 1rem;  
+    }
+
+    &__figureNote{
+        @extend %span-1-1;
+        display: block;
+        font-size: 0.8rem;
+    }
+
+    &__calcReferenceImg{
+        object-fit: contain;
+        width: 300px;
+        margin: 0 auto;
+    }
+
+
+    &__calcReferenceCaption{
+        text-align: center;
+    }
+
+
+    &__btn{
+        @extend .button;
+        @extend .button-primary;
+        @extend .button--small;
+        width: auto;
+        outline: none;
+       
+        &--trans{
+            @extend .button-secondary--darkTrans;
+
+            &.slick-arrow{
+                display: block !important;
+            }
+        }
+    }
+
+    &__btnReset{
+        width: 100%;
+        text-align: center;
+        display: none;
+        padding: 10px 0;
+        text-decoration: underline;
+
     }
 
     &__controlOutput{
@@ -210,6 +333,7 @@
         margin: 0; 
         text-align: center;
         line-height: 1.2;
+        width: 100%;
 
         @media screen and (max-width: $screen-sm){
             font-size: 1rem;

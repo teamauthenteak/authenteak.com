@@ -8,7 +8,9 @@
     "category": {
       "shop-all-brands.html":"/shop-all-brands/"
     },
-    "page": {},
+    "page": {
+      "test.html" : "/test-page/"
+    },
     "product": {}
   }
 }

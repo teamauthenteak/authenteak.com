@@ -61,18 +61,7 @@ img.lazy-image {
 }
 
 .on-canvas {
-    @media screen and (min-width: $screen-xl) {
-        padding-top: 0;
-    }
-
-    @media only screen and (max-width: $screen-md) {
-        padding-top: 52px;
-    }
-
-    @media only screen and (max-width: $screen-sm) and (orientation: portrait) {  
-        padding-top: 0;
-    }
-
+    padding-top: 0;
 }
 
 

@@ -1,36 +1,53 @@
 ---
-Shop All Brands
+category:
+  products:
+    limit: {{theme_settings.product-count}}
+  shop_by_price: true
 ---
 
 {{#partial "page"}}
 
     <div class="brands">
+        {{#if theme_settings.category-breadcrumbs}}
+        <div class="brands__breadcrumbs">
+            {{> components/common/breadcrumbs breadcrumbs}}
+        </div>
+        {{/if}}
+
         <div class="brands__headerCntr">
             <h1 class="brands__header">{{category.name}}</h1>
         </div>
         <div class="brands__hero">  
-            <img class="brands__heroImg" srcset="{{category.image}}" src="https://i.shgcdn.com/2a1d2da9-15ad-4ff0-a1f4-d484fd13bbea/-/format/auto/-/preview/3000x3000/-/quality/lighter/" alt="">
+            <img class="brands__heroImg" src="{{getImage category.image}}" alt="{{category.name}}">
         </div>
 
         <div class="brands__container">
 
-            {{#each category.subcategories}}
+        {{#each categories}}
+        {{#if name '==' ../category.name }}
+
+            {{#each children}}
             <div class="brands__row">
                 <div class="brands__column brands__column--1-3">
-                    <img class="brands__img" src="{{image}}" alt="{{name}}">
+                    <a href="{{url}}" title="Shop all {{name}}">
+                        <img class="brands__img" src="{{getImage image 'category_card_size'}}" alt="{{name}}">
+                    </a>
                 </div>
                 <div class="brands__column brands__column--2-3">
                     <h2 class="brands__columnHeading">{{name}}</h2>
                     <ul class="brands__list">
-
+                        {{#each children}}
                         <li class="brands__listItem">
-                            <a href="" title="" class="brands__listLink">Brand Name 1</a>
+                            <a href="{{url}}" title="Shop {{name}}" class="brands__listLink">{{name}}</a>
                         </li>
-                       
+                        {{/each}}
                     </ul>
                 </div>
             </div><!-- /brands__row -->
             {{/each}}
+
+        {{/if}}
+        {{/each}}
 
         </div> <!-- /brands__cntr -->
     </div>

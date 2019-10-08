@@ -17,6 +17,7 @@
 @import 'components/tooltip';
 @import 'components/promobanner';
 @import 'components/breadcrumbs';
+@import 'components/progress';
 
 /* Layout */
 @import 'layout/default';
@@ -29,6 +30,7 @@
 @import 'sections/minicart';
 @import 'sections/cart';
 @import 'sections/blog';
+@import 'sections/newsletter';
 
 @import 'sections/products/productListing';
 @import 'sections/products/productCategory';
@@ -39,6 +41,7 @@
 
 /* Tempaltes */
 @import 'templates/brands';
+@import 'templates/landing';
 
 /* Plugins */
 @import 'plugins/simplebar/simplebar';
@@ -54,6 +57,7 @@
 @import 'thirdparty/nxt';
 @import 'thirdparty/searchspring';
 @import 'thirdparty/bolt';
+@import 'thirdparty/klaviyo';
 
 /* Print */
 @import 'print';

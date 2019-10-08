@@ -1,5 +1,19 @@
 # Change Log
 
+## [1.20.8]
+- Added under lines for p text
+- added new calculator options and step progress
+- adjusted header margin to not use JS
+- New Email signup module to lazy load 3rd party
+- finalized shop all brand page tempalte
+- make "you may also like" in all caps
+- fixed breadcrumbs. see header fix above
+- added trade visability under atc button
+- makde yotpo widget the same width as the page
+- removed second shipping lead time
+- updated search text
+- added returns tab information
+
 ## [1.20.7.005]
 - merge testing for file upload issue
 

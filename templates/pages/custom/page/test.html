@@ -1,0 +1,18 @@
+
+{{#partial "page"}}
+
+<div class="calculator" id="firepitCalculator">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            TEAK.Modules.calculator.init({
+                id: "firepitCalculator",
+                type: "firepit"
+            });
+        });
+    </script>
+</div>
+
+
+{{/partial}}
+
+{{> layout/base}}

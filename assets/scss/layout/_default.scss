@@ -8,13 +8,21 @@
 
 /*Gen Styles*/
 .section {
-    padding: 20px 0;
+    padding: 0 0;
 
     @media only screen and (max-width: $screen-sm) {
         padding: 0;
     }
 }
 
+.site-canvas{
+  padding: 0 !important;
+  margin-top: 192px;
+
+  @media only screen and (max-width: $screen-md) {
+    margin-top: 150px;
+  }
+}
 
 [class*='span-'], %span {
     float: left;
