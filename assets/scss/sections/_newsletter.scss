@@ -54,7 +54,7 @@
     &__button{
         @extend .button;
         @extend .button-primary;
-        @extend .button-primary--green;
+        @extend .button-primary--dark;
         border: none;
         border-radius: 0 !important;
         margin: 0;

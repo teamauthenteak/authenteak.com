@@ -301,7 +301,7 @@ export default class Header {
 
 TEAK.Modules.megaMenu = {
 
-    data: TEAK.Utils.getMenuData(),
+    data: TEAK.Utils.getMenuJSON(),
 
     init: function(id){
         this

@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.20.9]
+- Returns Tab to product json for ease of editing
+- update the trad verbage
+- change the color for the newsletter button to grey
+- remove the background color from category description
+- aded blank templates for pages and categories
+- fixed return tab form mobile
+
 ## [1.20.8]
 - Added under lines for p text
 - added new calculator options and step progress

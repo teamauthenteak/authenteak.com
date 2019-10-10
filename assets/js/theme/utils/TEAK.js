@@ -112,15 +112,25 @@ window.TEAK.Utils = {
     isHandheld: window.matchMedia("only screen and (max-width: 900px)").matches,
 
 
-    getProductTipData: function(){
-        let data = this.getTagData("productTipsJSON");
-        return data ? data : this.getJsonData("/assets/js/theme/product.json");
+    getProductJSON: function(){
+        if( TEAK.Data.ProductData ){
+            return TEAK.Data.ProductData;
+        }
+
+        TEAK.Data.ProductData = this.getTagData("productTipsJSON");
+
+        return TEAK.Data.ProductData ? TEAK.Data.ProductData : this.getJsonData("/assets/js/theme/product.json");
     },
 
     
-    getMenuData: function(){
-        let data = this.getTagData("megaMenuEnhancement");
-        return data ? data : this.getJsonData("/assets/js/theme/header.json");
+    getMenuJSON: function(){
+        if( TEAK.Data.MenuData ){
+            return TEAK.Data.MenuData;
+        }
+
+        TEAK.Data.MenuData = this.getTagData("megaMenuEnhancement");
+        
+        return TEAK.Data.MenuData ? TEAK.Data.MenuData : this.getJsonData("/assets/js/theme/header.json");
     },
 
 

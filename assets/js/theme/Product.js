@@ -425,7 +425,7 @@ TEAK.Modules.freeShipping = {
  */
 
 TEAK.Modules.toolTip = {
-	data: TEAK.Utils.getProductTipData(),
+	data: TEAK.Utils.getProductJSON(),
 	optionKeys: [],
 	brandObj: {},
 	elementObj: {},
@@ -551,6 +551,37 @@ TEAK.Modules.toolTip = {
 			.on("click", "[tool-tip-open]", this.openTipModal)
 			.on("click", "[tool-tip-close]", this.closeTipModal);
 
+		return this;
+	}
+};
+
+
+/**
+ * Sets custom pdp tab content
+ * 
+ * 	document.addEventListener("DOMContentLoaded", function(){
+		window.TEAK.Modules.tabs.getTabContent({
+			key: "",	// json key
+			mobileCntr: "" // mobile content selector class
+		});
+	});
+ */
+TEAK.Modules.tabs = {
+	data: TEAK.Utils.getProductJSON(),
+
+	// fetch tab content
+	getTabContent: function(tabElement){
+		if( !this.data ){ return; }
+
+		let content = this.data.tabs[tabElement.key].join("");
+		
+		if( !TEAK.Utils.isHandheld ){
+			document.getElementById(tabElement.key).innerHTML = content;
+
+		}else{
+			document.querySelector(tabElement.mobileCntr).innerHTML = `<div id="${tabElement.key}">${content}</div>`; 
+		}
+		
 		return this;
 	}
 };

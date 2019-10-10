@@ -17,7 +17,7 @@ Renders the fireplace fireglass/lava rock calculator in a given div container
 ```
 <div class="calculator" id="fireplaceCalculator">
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', function(){
             TEAK.Modules.calculator.init({
                 id: "fireplaceCalculator",
                 type: "fireplace"
