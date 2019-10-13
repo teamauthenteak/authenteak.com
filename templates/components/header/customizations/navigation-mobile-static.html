@@ -6,7 +6,11 @@
 <a href="{{url}}" {{#if children}}data-toggle-mobile="{{url}}" data-mobile-name="{{name}}"{{/if}}>{{name}}{{#if children}}{{> svg/arrow-down}}{{/if}}</a>
 {{#if children}}
   <ul class="nav-mobile-panel nav-mobile-panel-child is-right" data-mobile-menu="{{url}}">
-    <li class="nav-mobile-item nav-mobile-panel-title">{{name}}</li>
+    <li class="nav-mobile-item nav-mobile-panel-title">
+      <a href="{{}url}" title="{{name}}">
+        {{name}}
+      </a>
+    </li>
     {{#each children}}
       <li class="nav-mobile-item {{#if children}}has-children{{/if}}">
         {{> components/common/customizations/multi-level-nav-item}}

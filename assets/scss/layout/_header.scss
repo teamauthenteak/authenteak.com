@@ -239,6 +239,31 @@ header{
     
         a { color: inherit; }
     }
+
+    .search-form{
+        border-radius: 99em;
+        overflow: hidden;
+        border: 1px solid #ccc;
+        margin-top: 0;
+        height: 40px;
+
+        .form-field {
+            margin: 0;
+            height: 100%;
+        }
+
+        .search-input{
+            box-shadow: none !important;
+            border: none !important;
+            padding: 0 !important;
+            height: 100% !important;
+        }
+
+        .button-search-submit{
+            right: 0 !important;
+            padding: 15px !important;
+        }
+    }
 }
 
 

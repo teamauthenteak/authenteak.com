@@ -4447,7 +4447,7 @@ $account-font-size: $font-size;
 
 %placeholder {
   padding-top: 2px;
-  letter-spacing: 0.1em;
+  // letter-spacing: 0.1em;
   color: lighten($color-input, 6%);
   text-transform: uppercase;
   font-size: rem-calc(13);

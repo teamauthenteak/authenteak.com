@@ -9,6 +9,12 @@
     font-weight: 500;
     @extend %button-rounded;
 
+    .progress{
+        &:before, &:after{
+            display: none;
+        }
+    }
+
     &--small{
         font-size: 1rem;
         padding: 8px 20px !important;
