@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.20.10]
+- added new nav component
+- rounded search bar
+- navigation fixes
+- moved -or- text on cart page
+- search input placeholder text update
+- made section headers on mobile nav cliclable
+
 ## [1.20.9]
 - Returns Tab to product json for ease of editing
 - update the trad verbage

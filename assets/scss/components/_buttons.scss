@@ -9,9 +9,9 @@
     font-weight: 500;
     @extend %button-rounded;
 
-    .progress{
+    &.progress{
         &:before, &:after{
-            display: none;
+            display: none !important;
         }
     }
 

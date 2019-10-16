@@ -27,17 +27,23 @@
 @import 'layout/mobilenav';
 
 /* Sections */
-@import 'sections/minicart';
-@import 'sections/cart';
+// products
+@import 'sections/product/productListing';
+@import 'sections/product/productCategory';
+@import 'sections/product/productDetails';
+@import 'sections/product/productOptions';
+@import 'sections/product/productSwatch';
+@import 'sections/product/productTabs';
+
+// cart
+@import 'sections/cart/modalCart';
+@import 'sections/cart/miniCart';
+@import 'sections/cart/shoppingCart';
+
+// other
 @import 'sections/blog';
 @import 'sections/newsletter';
 
-@import 'sections/products/productListing';
-@import 'sections/products/productCategory';
-@import 'sections/products/productDetails';
-@import 'sections/products/productOptions';
-@import 'sections/products/productSwatch';
-@import 'sections/products/productTabs';
 
 /* Tempaltes */
 @import 'templates/brands';

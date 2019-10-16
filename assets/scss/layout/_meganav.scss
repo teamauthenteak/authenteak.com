@@ -57,6 +57,24 @@
 .mega-nav.hover-dropdown{
     flex: 1 0 auto;
     display: flex;
+
+    &:first-of-type{
+        .top-level-nav-link{
+            padding-left: 0 !important;
+        }
+    }
+
+    &:last-of-type{
+        margin: 0 !important;
+
+        .top-level-nav-link{
+            padding-right: 0 !important;
+        }
+    }
+
+    @media screen and (min-width: $screen-lg){
+        margin: 0 !important;
+    }
 }
 
 .mega-nav.hover-dropdown:hover {

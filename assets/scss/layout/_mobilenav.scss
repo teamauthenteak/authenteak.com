@@ -4,7 +4,7 @@
         &:before{
             content: "";
             background-color: rgba(0, 0, 0, 0.85);
-            position: absolute;
+            position: fixed;
             z-index: 900;
             top: 0;
             bottom: 0;
@@ -21,7 +21,7 @@
         transform: translateY(-50%);
         z-index: 999999;
         left: 85vw;
-        top: 40px;
+        top: -90px;
         background: transparent;
         width: 40px;
         height: 40px;
@@ -127,6 +127,11 @@
     color: #333 !important;
     font-weight: 600;
     font-size: 1.1rem !important;
+}
+
+.nav-mobile-panel-title-link{
+    @extend .nav-mobile-panel-title;
+    padding: 0 !important;
 }
 
 .nav-mobile-link{

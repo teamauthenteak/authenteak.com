@@ -1,3 +1,5 @@
+$newsletter-height: 45px;
+
 .newsletter{
     @extend .section;
     margin-top: 20px;
@@ -34,7 +36,7 @@
         border: 1px solid #bbb;
         border-radius: $button-border-radius;
         overflow: hidden;
-        height: 55px;
+        height: $newsletter-height;
         width: 100%;
         max-width: 450px;
     }
@@ -47,7 +49,7 @@
         margin: 0;
         // flex: 1 0 auto;
         width: 75%;
-        height: 55px;
+        height: $newsletter-height;
         float: left;
     }
 
@@ -63,8 +65,9 @@
         box-shadow: none;
         // flex: 1 0 auto;
         width: 25%;
-        height: 55px;
+        height: $newsletter-height;
         float: left;
+        font-size: 1rem;
 
         &:hover{
             border-left: inherit;

@@ -80,13 +80,15 @@
       <div class="bolt-checkout-button large-width with-cards responsive bolt-multi-step-checkout" style="--bolt-primary-action-color:#6ea438"></div>
     </div>
 
-
     {{#if cart.show_multiple_address_shipping}}
       <a class="checkout-multiple" href="{{urls.checkout.multiple_address}}">
         {{lang 'cart.checkout_multiple'}}
       </a>
     {{/if}}
   </div>
+
+
+  <p class="cart-or-use-label">-- or --</p>
 
   <div class="cart-additional-checkout-buttons">
     <a href="{{urls.checkout.single_address}}" class="cart-afirm-link">
