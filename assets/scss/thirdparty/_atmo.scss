@@ -21,9 +21,8 @@
         background-color: #6ea438;
         padding: 7px;
         right: 17px;
-        border-radius: 3px;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
+        border-radius: 0 99em 99em 0;
+        height: 100%;
     }
 
     button.button-search-submit .icon-search {

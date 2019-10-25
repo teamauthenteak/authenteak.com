@@ -5,7 +5,9 @@ var webpackConfig = {
   bail: false,
   context: __dirname,
   devtool: 'eval-cheap-module-source-map',
-  entry: { main: path.resolve(__dirname, 'assets/js/app.js') },
+  entry: {
+    main: path.resolve(__dirname, 'assets/js/app.js')
+  },
   module: {
     rules: [
       {

@@ -224,7 +224,7 @@
       transform: translateY(0);
     }
   
-    @include media($min: $breakpoint-m) { display: none; }
+    @include media($min: $screen-lg) { display: none; }
   
     a {
       display: block;

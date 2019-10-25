@@ -20,13 +20,13 @@
 						{{#if children}}
 						<ul>
 							{{#each children}}
-							{{#startsWith "Shop All Brands" name}}{{ else }}
+							{{#startsWith "Shop All Brands" name}}{{ else }}{{#startsWith "Shop All" name}} {{else}}
 							<li>
 								<a itemprop="url" title="{{name}}" href="{{url}}" {{#if image}}data-category-image="{{getImage image "large"}}" {{/if}}>
 									<span itemprop="name">{{name}}</span>
 								</a>
 							</li>
-							{{/startsWith}}
+							{{/startsWith}}{{/startsWith}}
 							{{/each}}
 						</ul>
 						{{/if}}

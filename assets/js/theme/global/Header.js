@@ -32,6 +32,8 @@ export default class Header {
 			promoLink = document.createElement("a"),
 			promoBanner = document.getElementById('topHeaderPromo');
 
+		if(!promoBanner){ return; }
+
 		if ( extra_config.marketing_content.hasOwnProperty("banner") ) {
 			let promo = extra_config.marketing_content.banner;
 

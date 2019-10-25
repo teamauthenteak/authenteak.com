@@ -4,6 +4,8 @@
   <div class="form-field-title" data-option-title="{{display_name}}">
     {{display_name}}
     {{#if required}}<span class="required-text">{{lang 'common.required'}}</span>{{/if}}
+
+    {{> core/forms/customizations/tooltip name=display_name type="radio"}}
   </div>
 
   <div class="form-field-control">

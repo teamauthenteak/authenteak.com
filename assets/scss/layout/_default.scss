@@ -17,10 +17,14 @@
 
 .site-canvas{
   padding: 0 !important;
-  margin-top: 192px;
+  margin-top: 163px;
 
   @media only screen and (max-width: $screen-md) {
     margin-top: 150px;
+  }
+
+  @media only screen and (min-width: $screen-xl) {
+    margin-top: 13%;
   }
 }
 

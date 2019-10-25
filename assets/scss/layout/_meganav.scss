@@ -1,6 +1,6 @@
 // main nav area
 .main-nav-bar > .nav-container-wide {
-    max-width: 1600px;
+    max-width: none;
 }
 
 .main-nav-bar > .container {
@@ -22,7 +22,7 @@
 .navigation > ul[enhancednav]{
     display: flex;
     width: 100%;
-    max-width: 1500px;
+    max-width: none;
     flex-direction: row;
     align-content: center;
     align-items: center;
@@ -82,7 +82,8 @@
 }
 
 .mega-nav.hover-dropdown .dropdown-panel {
-    display: block;
+    visibility: visible;
+    transition-delay: 0s;
     left: -1000vw;
     opacity: 0;
     padding: 1.5rem 0 0;
@@ -92,14 +93,16 @@
     @extend .dropdown-panel.visible;
     left: 0;
     transition: left 0s, opacity 0.25s ease;
-    transition-delay: 0.24s, 0.25s;
+    transition-delay: 0.25s, 0.25s;
 }
 
 .mega-nav-panel {
     border-top: 1px solid #ccc;
     box-shadow: 0 3px 3px rgba(0, 0, 0, .20);
 
-    &, .compressed & { top: 3rem; }
+    &, .compressed & { 
+        top: 44px;
+    }
 }
 
 /* Mega Nav - Common Styles (Columns or Flex) */
@@ -249,9 +252,10 @@
     flex-wrap: wrap;
 
     .mega-nav-landing {
-        flex: 0 1 33%;
+        flex: 1 0 auto;
+        width: 30%;
         order: 10000;
-        margin: 0 20px 0 0;
+        margin: 0;
 
         + .mega-nav-landing { display: none; }
 
@@ -284,7 +288,10 @@
         }
     }
 
-    .mega-nav-landing-list-wrapper { flex: 1 0 auto; }
+    .mega-nav-landing-list-wrapper { 
+        flex: 1 0 auto; 
+        width: 70%;
+    }
 
     .mega-nav-landing ~ .mega-nav-landing-list-wrapper .mega-nav-list {
         align-content: stretch;

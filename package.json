@@ -1,7 +1,7 @@
 {
   "name": "peak",
   "description": "Authenteak - (Peak theme)",
-  "version": "1.20.10",
+  "version": "1.20.11",
   "private": true,
   "dependencies": {
     "@bigcommerce/stencil-utils": "^1.0.9",
@@ -46,7 +46,7 @@
     "type": "git",
     "url": "https://github.com/teamauthenteak/authenteak.com.git"
   },
-  "author": "",
+  "author": "AuthenTEAK",
   "license": "ISC",
   "homepage": "https://github.com/teamauthenteak/authenteak.com"
 }

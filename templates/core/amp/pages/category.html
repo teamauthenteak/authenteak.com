@@ -24,7 +24,10 @@
 {{/partial}}
 
 {{#partial "page"}}
+
   {{> core/amp/common/header}}
+
+
   <section class="amp-product-catalog">
     {{#if category.image}}
       <div class="amp-product-catalog-image">
@@ -39,26 +42,57 @@
       </div>
     {{/if}}
 
-    <div class="amp-product-catalog-header">
-      <h1 class="amp-product-catalog-image-title">
-        {{category.name}}
-      </h1>
-      {{{sanitize category.description}}}
-      {{{snippet 'categories'}}}
-    </div>
+  {{!-- 
+    {{#if theme_settings.category-breadcrumbs}}
+        <div class="product-listing-mobile-breadcrumbs">
+          {{> components/common/breadcrumbs breadcrumbs}}
+        </div>
+    {{/if}}
+  --}}
 
-    <div class="amp-product-catalog-content">
-      {{#if category.products.length}}
-        {{#block "amp-product-listing"}} {{/block}}
-      {{else}}
-        <h4 class="amp-product-catalog-empty">
-          {{lang 'core.amp.no_products'}}
-        </h4>
-      {{/if}}
+    <header class="listing-header">
+      <h1 class="listing-title">{{chop category.name}}</h1>
+    </header>
+
+
+    {{#unless theme_settings.collections-sidebar-hidden}}
+      <aside class="listing-sidebar Left" data-category-sidebar>
+            <div id="searchspring-sidebar">
+              <div class="listing-sidebar__mobile-toggle">Filter Options</div>
+              <div class="listing-sidebar__mobile-collapse">
+              {{> components/category/sidebar}}
+              {{> components/products/listing-utils sortlabel="filteroptions"}}
+              </div>
+        </div>
+      </aside>
+    {{/unless}}
+    
+  
+
+
+    <div class="Content">
+        <div id="searchspring-content">
+        <header class="listing-header">
+          {{> components/products/listing-utils sortlabel="header"}}
+        </header>
+
+        <div class="product-listing-grid" data-category {{#if category.show_compare}}data-product-compare{{/if}}>
+          {{#if theme_settings.collections-view-mode '===' 'grid'}}
+            {{> components/category/product-listing}}
+          {{else}}
+            {{> components/category/product-listing-list}}
+          {{/if}}
+        </div>
+      </div>
+      </div>
+      {{#if category.description}}<div class="listing-description">{{{category.description}}}</div>{{/if}}
+
+
     </div>
   </section>
 
-  {{> core/amp/category/subcategories}}
+
+
   {{#block "amp-footer"}} {{/block}}
 
   {{#if settings.amp_analytics_id}}

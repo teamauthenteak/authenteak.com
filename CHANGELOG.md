@@ -1,5 +1,15 @@
 # Change Log
 
+## [1.20.11]
+- AMP Product Pages (not 100% complete)
+- Added updated tool tips types for product options
+- improved transiion area from nav elemnt to dropdown
+- improved mega menu colum widths
+- added sku exclusioni for free wg and free shipping
+- added featured offers for mobile nav
+- fixed search button
+- removed shop all children
+
 ## [1.20.10]
 - added new nav component
 - rounded search bar

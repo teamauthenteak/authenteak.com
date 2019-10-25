@@ -1,9 +1,17 @@
 
 .toolTip{
-    position: absolute;
-    right: 0;
-    top: 0;
+    margin-left: 10px;
     display: none;
+
+    &.show{
+        display: inline-block !important;
+    }
+
+    &--optionSwatch {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
 
     &__heading{
         &--2{

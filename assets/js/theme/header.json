@@ -16,7 +16,16 @@
         }
     },
     "category_2480":{
-		"makeShort": false,
+        "makeShort": false,
+        "landing_image":{
+            "title": "Outdoor Furniture",
+            "url": "/patio-umbrellas-accessories/accessories-parts-frames/replacement-canopies/",
+            "caption": "Update Your Shade<br/><strong>Shop Replacement Canopies</strong>",
+            "img":{
+                "src": "https://cdn3.bigcommerce.com/s-r14v4z7cjw/product_images/uploaded_images/shade-nav-b.jpg?t=1500658940&_ga=2.61949289.478344005.1500649081-170994603.1491244766",
+                "alt": "Patio Umbrellas & Accessories"
+            }
+      },
         "shop_by_brand": {
             "title": "Shop by Brand",
             "url": "/outdoor-furniture-shop-by-brand/",

@@ -6,17 +6,18 @@
                     "tip": [
                         "<h2 class='toolTip__heading--2'>What are the different Treasure Garden Canopy Materials?</h2>",
                         
-                        "<p class='toolTip__text'>Treasure Garden offers both acrylic and polyester fabrics for their umbrella canopies. The Acrylic fabrics are known as Grade A and the polyester fabrics are known as Grade C. Both fabrics are made of a solution-dyed yarn which means the pigments are saturated through the entire thread and are not just a print on the surface of the fabric. Both fabrics are resistant to fading, stains, mold and mildew and are easily cleanable.</p>",
+                        "<p class='toolTip__text'>Treasure Garden offers both acrylic and polyester fabrics for their umbrella canopies. The acrylic fabrics are known as Grade A and the polyester fabrics are known as Grade C. Both fabrics are made of a solution-dyed yarn, which means the pigments are saturated through the entire thread and are not a print on the surface of the fabric. Both fabrics are resistant to fading, stains, mold and mildew and are easily cleanable.</p>",
+                        
                         "<p class='toolTip__text'>The fabrics differ as follows:</p>",
                         
-                        "<h5 class='toolTip__heading--5'>Grade A</h5>",
+                        "<h3 class='toolTip__heading--3'>Grade A</h3>",
                         "<ul class='toolTip__list'>",
                             "<li class='toolTip__listItem'>5-year warranty against fading</li>",
                             "<li class='toolTip__listItem'>Made of 100% solution-dyed acrylic fabric</li>",
-                            "<li class='toolTip__listItem'>Grade A Canopies are made by brands such as Sunbrella, Outdura and Docril</li>",
+                            "<li class='toolTip__listItem'>Grade A canopies are made by brands such as Sunbrella, Outdura and Docril</li>",
                         "</ul>",
-
-                        "<h5 class='toolTip__heading--5'>Grade C</h5>",
+                        
+                        "<h3 class='toolTip__heading--3'>Grade C</h3>",
                         "<ul class='toolTip__list'>",
                             "<li class='toolTip__listItem'>4-year warranty against fading</li>",
                             "<li class='toolTip__listItem'>Made of 100% solution-dyed polyester</li>",
@@ -24,16 +25,31 @@
                         "</ul>"
                     ]
                 }
+            },	
+            "Travis Industries": {
+                "Select Ignition Type": {
+                    "tip": [
+                        "<h2 class='toolTip__heading--2'>What are the differences in the Tempest Torch ignition types?</h2>",
+                        
+                        "<h3 class='toolTip__heading--3'>Manual Ignition:</h3>",
+                        "<p class='toolTip__text'>The manual light Tempest Torch has a built-in Piezo igniter and works much like a gas grill spark ignition. To start the torch, turn the gas control knob and push the ignition button for easy lighting. This manual light model has an easy access control panel and allows for low to high flame control. No electrical is needed for this model making it an affordable and easy installation.</p>",
+                        
+                        "<h3 class='toolTip__heading--3'>Eletronic Ignition:</h3>",
+                        "<p class='toolTip__text'>The new 24V electronic ignition Tempest Torch can be used with a standard light switch, a remote control, a programmable timer, or even connected to a Smart Home system. With its miniaturized gas valve and control module built into the torch base, the electronic ignition model can be wired up to 445 feet from its transformer. <a href='/travis-industries-tempest-torch-transformer-for-electronic-ignition-torch-head/' target='_blank'>Transformers sold separately</a>. For additional info and details, read the <a href='/content/PDF/TempestTorchPDFs/Tempest%2024V%20Manual_New.pdf' target='_blank'>owner’s manual</a>. Adding multiple torches with electronic ignition has never been easier. Connect up to four torch heads per transformer.</p>",
+                        
+                        "<p class='toolTip__text'>Manual and Electronic Ignition models are available for both Natural Gas and Liquid Propane.</p>"
+                    ]
+                }
             }
         },
         "elements": {
             "free_white_glove_delivery": [
-                "<h2 class='toolTip__heading--2'>White Glove Delivery</h2>",
+                "<h2 class='toolTip__heading--2'>White Glove Delivery | Free with Purchase of $2,999+</h2>",
+                "<p class='toolTip__text'>White Glove Delivery by AuthenTEAK is an elevated level of delivery service that includes the delivery by scheduled appointment, product assembly, product set-up/placement and carton/packaging removal.</p>",
                 "<p class='toolTip__text'>Selecting White Glove Delivery may add an additional 1 - 2 weeks to our standard delivery times as we first ship to a receiving/delivery company in your local area and they in turn will add you to their schedule for the last mile White Glove Delivery. The local service provider will carefully unpack, inspect and assemble each item, place the item(s) where you want, and take all the packaging with them when they leave. This service is recommended for furniture, cantilevers, and single table purchases, or if you require the product to be brought to a specific location. This service does not include installation or connection to gas lines, installation of cantilever mount kits, or sand for cantilever bases. This service also does not include the hookup or connection of any electrical or component wires.</p>",
-                "<p class='toolTip__text'>When your order arrives at the local service center, you will be contacted by a scheduling clerk for an appointment. The appointment is typically a 4-hour window, Monday - Friday during regular business hours. Saturday or Sunday deliveries are not available.</p>",
-                "<p class='toolTip__text'>We ask that you have the area in which the product is being delivered clear of debris and obstacles, including the walkway into the space. Please make sure doorways are of sufficient height and width in relation to the items going through. If you live in a condo or apartment, you may need to arrange elevator appointment for your delivery. This may include installation of floor and wall pads. Please ask your building manager to provide you with the interior dimensions (to include doorway) of the elevator to insure product fit.  For cantilever umbrellas that use a sand filled base, you should have the sand available prior to the delivery.</p>",
+                "<p class='toolTip__text'>We ask that you have the area in which the product is being delivered clear of debris and obstacles, including the walkway into the space. Please make sure doorways are of sufficient height and width in relation to the items going through. If you live in a condo or apartment, you may need to arrange elevator appointment for your delivery. This may include installation of floor and wall pads. Please ask your building manager to provide you with the interior dimensions (to include doorway) of the elevator to insure product fit. For cantilever umbrellas that use a sand filled base, you should have the sand available prior to the delivery.</p>",
                 "<p class='toolTip__text'>For all White Glove Deliveries, you MUST inspect the product and any packaging you see at the time of delivery. If there is any damage to either the product or the package, or if there is any reason for you to be at all concerned about damage, please reference it clearly on the PROOF OF DELIVERY sheet that they ask you to sign. This simply insures that if there is any damage, it will be easy to take care of the problem.</p>",
-                "<p class='toolTip__text'>Please refer to 'Receiving and Inspecting Merchandise' for more information on how to receive and inspect your delivery.</p>"
+                "<p class='toolTip__text'>Please refer to <strong><a href='/shipping#rec' target='_blank'>Receiving and Inspecting Merchandise</a></strong> for more information on how to receive and inspect your delivery.</p>"
             ]
         }
     },
@@ -48,7 +64,7 @@
             "<p>All refunds must include a Return Authorization (RA) number. To obtain an RA number and process your refund, please contact customer support during business hours, or complete our <a href='/policies#s-5fc0a361-5456-4c5e-b7c0-57ac50dd0702'>Returns Authorization Form</a>. Refunds are processed within one week of receipt and inspection of merchandise.</p>",
             "<h4>FINAL SALE AND CLEARANCE ITEMS</h4>",
             "<p>Any items marked as Clearance or Final Sale online or in our showroom are considered final-sale items and cannot be returned.</p>",
-            
+
             "<h4>CUSTOM ORDERS</h4>",
             "<p>Made-to-Order and Custom Order merchandise are non-returnable, non-cancellable and non-refundable with the exception of manufacturer defects or damage. Customers have one business day from placement of these orders to cancel their order by phoning or emailing the showroom and speaking with a customer care representative to obtain a cancellation confirmation.</p>",
             "<p><strong>The following items are considered Made-to-Order or Custom Order:</strong></p>",
@@ -62,7 +78,7 @@
                 "<li>Kitchen Cabinetry by Danver, Urban Bonfire or NatureKast.</li>",
             "</ol>",
             "<p>If you are unclear on our return policy, please contact us for assistance prior to placing your order.</p>",
-            
+
             "<h4>PRICING</h4>",
             "<p>All prices on our website are in US dollars (USD) and are subject to any applicable taxes according to state and local laws. Availability, prices, and delivery lead times are subject to change.</p>",
             "<p><strong>* Attention:</strong> There may be errors in the prices, descriptions or images of certain merchandise, and we must reserve the right to restrict orders of those items.</p>"

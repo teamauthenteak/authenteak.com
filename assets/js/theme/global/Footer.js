@@ -50,7 +50,7 @@ export default class Footer {
 
     _initKlavio(){
         // fetch 3rd party klavio ONLY when the newsletter input recieves focus
-        if( !window.KlaviyoSubscribe ){
+        if( !window.KlaviyoSubscribe && document.emailSignup){
             document.emailSignup.email.addEventListener('focusin', getKlavioScript, true);
 
             function getKlavioScript(){

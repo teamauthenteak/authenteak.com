@@ -1,0 +1,2987 @@
+
+/* scss-combine:../../node_modules/susy/sass/susy */
+// Susy
+// ====
+
+/* scss-combine:susy/language/susy */
+// Susy Next Syntax
+// ================
+
+$susy-version: 2.1;
+
+/* scss-combine:../su */
+// Su
+// ==
+
+/* scss-combine:su/utilities */
+// Map Functions
+// =============
+
+
+// Truncate List
+// -------------
+// - Return a list, truncated to a given length
+@function _susy-truncate-list(
+  $list,
+  $length
+) {
+  $_return: ();
+
+  @for $i from 1 through length($list) {
+    $_return: if($i <= $length, append($_return, nth($list, $i)), $_return);
+  }
+
+  @return $_return;
+}
+
+
+// Deep Get
+// --------
+// - Return a value deep in nested maps
+@function _susy-deep-get(
+  $map,
+  $keys...
+) {
+  $_return: $map;
+
+  @each $key in $keys {
+    @if type-of($_return) == map {
+      $_return: map-get($_return, $key);
+    }
+  }
+
+  @return $_return;
+}
+
+
+// Deep Set
+// --------
+// - Set a value deep in nested maps
+@function _susy-deep-set(
+  $map,
+  $keys-value...
+) {
+  $_value: nth($keys-value, -1);
+  $_keys: _susy-truncate-list($keys-value, length($keys-value) - 1);
+  $_length: length($_keys);
+  $_return: ();
+
+  @for $i from 1 through $_length {
+    $_n: 0 - $i;
+    $_level: _susy-truncate-list($_keys, $_length + $_n);
+    $_level: _susy-deep-get($map, $_level...);
+    $_merge: nth($_keys, $_n);
+    $_merge: ($_merge: $_value);
+    $_return: if($_level, map-merge($_level, $_merge), $_merge);
+    $_value: $_return;
+  }
+
+  @return $_return;
+}
+
+
+// Deep Merge
+// ----------
+// Return 2 objects of any depth, merged
+@function _susy-deep-merge(
+  $map1,
+  $map2
+) {
+
+  @if type-of($map1) != map or type-of($map2) != map {
+    $map1: $map2;
+  } @else {
+    @each $key, $value in $map2 {
+      $_new: ($key: _susy_deep-merge(map-get($map1, $key), $value));
+      $map1: map-merge($map1, $_new);
+    }
+  }
+
+  @return $map1;
+}
+
+
+// Deep Has-Key
+// ------------
+// - Return true if a deep key exists
+@function _susy-deep-has-key(
+  $map,
+  $keys...
+) {
+  $_return: null;
+  $_stop: false;
+
+  @each $key in $keys {
+    @if not($_stop) {
+      $_return: map-has-key($map, $key);
+    }
+
+    @if $_return {
+      $map: map-get($map, $key);
+    } @else {
+      $_stop: true;
+    }
+  }
+
+  @return $_return;
+}
+
+/* scss-combine:su/settings */
+// Settings
+// ========
+
+// Version
+// -------
+$su-version: 1.1;
+
+
+// Default Settings
+// ----------------
+// PRIVATE: The basic settings
+$susy-defaults: (
+  columns: 4,
+  gutters: .25,
+);
+
+
+// User Settings
+// -------------
+// - Define the $susy variable with a map of your own settings.
+// - Set EITHER $column-width OR $container
+// - Use $column-width for static layouts
+$susy: () !default;
+
+
+// Susy Defaults
+// -------------
+// PRIVATE: Add defaults to Susy
+@mixin susy-defaults(
+  $defaults
+) {
+  $susy-defaults: map-merge($susy-defaults, $defaults) !global;
+}
+
+
+// Susy Set
+// --------
+// Change one setting
+// - $key   : setting name
+// - $value : setting value
+@mixin susy-set(
+  $key-value...
+) {
+  $susy: _susy-deep-set($susy, $key-value...) !global;
+}
+
+
+// Susy Get
+// --------
+// Return one setting from a grid
+// - $key     : <keyword>
+// - $layout  : <settings>
+@function susy-get(
+  $key,
+  $layout: map-merge($susy-defaults, $susy)
+) {
+  $layout: parse-grid($layout);
+  $_options: $layout $susy $susy-defaults;
+  $_break: false;
+  $_return: null;
+
+  @each $opt in $_options {
+    @if type-of($opt) == map and not($_break) {
+      $_keyset: _susy-deep-has-key($opt, $key...);
+      @if $_keyset {
+        $_return: _susy-deep-get($opt, $key...);
+        $_break: true;
+      }
+    }
+  }
+
+  @return $_return;
+}
+
+
+/* scss-combine:su/validation */
+// Math Validation
+// ===============
+
+
+// Valid Columns
+// -------------
+// Check that a column setting is valid.
+@function valid-columns(
+  $columns,
+  $silent: false
+) {
+  $type: type-of($columns);
+  $return: null;
+
+  @if $type == number and unitless($columns) {
+    $return: $columns;
+  } @else if $type == list {
+    $fail: null;
+    @each $col in $columns {
+      @if type-of($col) == number {
+        $fail: $fail or if(unitless($col), null, true);
+      } @else {
+        $fail: true;
+      }
+    }
+    $return: if($fail, $return, $columns);
+  }
+
+  @if $return != $columns and not($silent) {
+    $return: null;
+    $warn: '$columns must be a unitless number or list of unitless numbers.';
+    @warn $warn + ' Current value [#{$type}]: #{$columns}';
+  }
+
+  @return $return;
+}
+
+
+// Valid Gutters
+// -------------
+// Check that a gutter setting is valid.
+@function valid-gutters(
+  $gutters,
+  $silent: false
+) {
+  $type: type-of($gutters);
+  $return: null;
+
+  @if $type == number and unitless($gutters) {
+    $return: $gutters;
+  } @else if not($silent) {
+    $warn: '$gutters must be a unitless number.';
+    @warn $warn + ' Current value [#{$type}]: #{$gutters}';
+  }
+
+  @return $return;
+}
+
+/* scss-combine:su/grid */
+// Column math
+// ===========
+
+
+// Is Symmetrical
+// --------------
+// Returns true if a grid is symmetrical.
+// - [$columns]   : <number> | <list>
+@function is-symmetrical(
+  $columns: susy-get(columns)
+) {
+  $columns: valid-columns($columns);
+  @return if(type-of($columns) == number, $columns, null);
+}
+
+
+// Susy Count
+// ----------
+// Find the number of columns in a given layout
+// - [$columns]   : <number> | <list>
+@function susy-count(
+  $columns: susy-get(columns)
+) {
+  $columns: valid-columns($columns);
+  @return is-symmetrical($columns) or length($columns);
+}
+
+
+// Susy Sum
+// --------
+// Find the total sum of column-units in a layout
+// - [$columns]   : <number> | <list>
+// - [$gutters]   : <ratio>
+// - [$spread]    : false/narrow | wide | wider
+@function susy-sum(
+  $columns  : susy-get(columns),
+  $gutters  : susy-get(gutters),
+  $spread   : false
+) {
+  $columns: valid-columns($columns);
+  $gutters: valid-gutters($gutters);
+
+  $spread: if($spread == wide, 0, if($spread == wider, 1, -1));
+  $gutter-sum: (susy-count($columns) + $spread) * $gutters;
+  $column-sum: is-symmetrical($columns);
+
+  @if not($column-sum) {
+    @each $column in $columns {
+      $column-sum: ($column-sum or 0) + $column;
+    }
+  }
+
+  @return $column-sum + $gutter-sum;
+}
+
+
+// Susy Slice
+// ----------
+// Return a subset of columns at a given location.
+// - $span        : <number>
+// - $location    : <number>
+// - [$columns]   : <number> | <list>
+@function susy-slice(
+  $span,
+  $location,
+  $columns: susy-get(columns)
+) {
+  $columns: valid-columns($columns);
+  $sub-columns: $span;
+
+  @if not(is-symmetrical($columns)) {
+    $location: $location or 1;
+    $sub-columns: ();
+    @for $i from $location to ($location + $span) {
+      $sub-columns: append($sub-columns, nth($columns, $i));
+    }
+  }
+
+  @return $sub-columns;
+}
+
+
+// Susy
+// ----
+// Find the sum of a column-span.
+// - $span        : <number>
+// - $location    : <number>
+// - [$columns]   : <number> | <list>
+// - [$gutters]   : <ratio>
+// - [$spread]    : false/narrow | wide | wider
+@function susy(
+  $span,
+  $location     : false,
+  $columns      : susy-get(columns),
+  $gutters      : susy-get(gutters),
+  $spread       : false
+) {
+  $columns: valid-columns($columns);
+  $gutters: valid-gutters($gutters);
+  $span: susy-slice($span, $location, $columns);
+
+  @return susy-sum($span, $gutters, $spread);
+}
+
+
+/* scss-combine:../output/float */
+// Float API
+// =========
+
+/* scss-combine:shared */
+// Shared API
+// ==========
+
+/* scss-combine:support */
+// Susy Browser Support
+// ====================
+
+/* scss-combine:support/support */
+// Browser Support
+// ===============
+
+// Susy Support Defaults
+// ---------------------
+@include susy-defaults((
+  use-custom: (
+    clearfix: false,
+    background-image: true,
+    background-options: false,
+    breakpoint: true,
+    box-sizing: true,
+    rem: true,
+  ),
+));
+
+
+// Susy Support [mixin]
+// --------------------
+// Send property-value pairs to the proper support modules.
+// - $prop  : <css property>
+// - $val   : <css value>
+@mixin susy-support(
+  $prop,
+  $val
+) {
+  // Background Support
+  @if $prop == background-image {
+    @include susy-background-image($val);
+  } @else if $prop == background-size {
+    @include susy-background-size($val);
+  } @else if $prop == background-origin {
+    @include susy-background-origin($val);
+  } @else if $prop == background-clip {
+    @include susy-background-clip($val);
+  }
+
+  // Box-Sizing Support
+  @else if $prop == box-sizing {
+    @include susy-box-sizing($val);
+  }
+
+  // Rem Support
+  @else {
+    @include susy-rem($prop, $val);
+  }
+}
+
+
+// Susy Support [function]
+// -----------------------
+// Check for support of a feature.
+// - $feature       : <string>
+//                    - e.g "rem" or "box-sizing"
+// - $requirements  : <map>
+//                    - e.g (variable: rem-with-px-fallback, mixin: rem)
+// - $warn          : <bool>
+@function susy-support(
+  $feature,
+  $requirements: (),
+  $warn: true
+) {
+  $_support: susy-get(use-custom $feature);
+
+  @if $_support {
+    $_fail: false;
+
+    @each $_type, $_req in $requirements {
+      @each $_i in $_req {
+        $_pass: call(unquote("#{$_type}-exists"), $_i);
+
+        @if not($_pass) {
+          $_fail: true;
+          @if $warn {
+            @warn "You requested custom support of #{$feature}, but the #{$_i} #{$_type} is not available.";
+          }
+        }
+      }
+    }
+
+    $_support: if($_fail, false, $_support);
+  }
+
+  @return $_support;
+}
+
+/* scss-combine:support/prefix */
+// Susy Prefix
+// ===========
+
+// Prefix
+// ------
+// Output simple prefixed properties.
+// - $prop      : <css property>
+// - $val       : <css value>
+// - [$prefix]  : <browser prefix list>
+@mixin susy-prefix(
+  $prop,
+  $val,
+  $prefix: official
+) {
+  @each $fix in $prefix {
+    $fix: if($fix == official or not($fix), $prop, '-#{$fix}-#{$prop}');
+    @include susy-rem($fix, $val);
+  }
+}
+
+/* scss-combine:support/background */
+// Background Properties
+// =====================
+
+// Susy Background Image
+// ---------------------
+// Check for an existing support mixin, or provide a simple fallback.
+// - $image: <background-image>
+@mixin susy-background-image(
+  $image
+) {
+  @if susy-support(background-image, (mixin: background-image), $warn: false) {
+    @include background-image($image...);
+  } @else {
+    background-image: $image;
+  }
+}
+
+// Susy Background Size
+// ---------------------
+// Check for an existing support mixin, or provide a simple fallback.
+// - $image: <background-size>
+@mixin susy-background-size(
+  $size
+) {
+  @if susy-support(background-options, (mixin: background-size)) {
+    @include background-size($size);
+  } @else {
+    background-size: $size;
+  }
+}
+
+// Susy Background Origin
+// ----------------------
+// Check for an existing support mixin, or provide a simple fallback.
+// - $image: <background-origin>
+@mixin susy-background-origin(
+  $origin
+) {
+  @if susy-support(background-options, (mixin: background-origin)) {
+    @include background-origin($origin);
+  } @else {
+    background-origin: $origin;
+  }
+}
+
+// Susy Background Clip
+// --------------------
+// Check for an existing support mixin, or provide a simple fallback.
+// - $image: <background-clip>
+@mixin susy-background-clip(
+  $clip
+) {
+  @if susy-support(background-options, (mixin: background-clip)) {
+    @include background-clip($clip);
+  } @else {
+    background-clip: $clip;
+  }
+}
+
+/* scss-combine:support/box-sizing */
+// Box Sizing
+// ==========
+
+// Box Sizing
+// ----------
+// Check for an existing support mixin, or provide a simple fallback.
+// - $model: <box-sizing>
+@mixin susy-box-sizing(
+  $model: content-box
+) {
+  @if $model {
+    @if susy-support(box-sizing, (mixin: box-sizing), $warn: false) {
+      @include box-sizing($model);
+    } @else {
+      $prefix: (moz, webkit, official);
+      @include susy-prefix(box-sizing, $model, $prefix);
+    }
+  }
+}
+
+/* scss-combine:support/rem */
+// rem Support
+// ===========
+
+// rem
+// ---
+// Check for an existing support mixin, or output directly.
+// - $prop  : <css property>
+// - $val   : <css value>
+@mixin susy-rem(
+  $prop,
+  $val
+) {
+  $_reqs: (
+    variable: rhythm-unit rem-with-px-fallback,
+    mixin: rem,
+  );
+  @if susy-support(rem, $_reqs, $warn: false) and $rhythm-unit == rem {
+    @include rem($prop, $val);
+  } @else {
+    #{$prop}: $val;
+  }
+}
+
+/* scss-combine:support/clearfix */
+// Susy Fallback Clearfix
+// ======================
+
+
+// Clearfix
+// --------
+// Check for an existing support mixin, or provide a simple fallback.
+@mixin susy-clearfix {
+  @if susy-support(clearfix, (mixin: clearfix)) {
+    @include clearfix;
+  } @else {
+    &:after {
+      content: " ";
+      display: block;
+      clear: both;
+    }
+  }
+}
+
+
+
+/* scss-combine:shared/inspect */
+// Debugging
+// =========
+
+// Susy Inspect
+// ------------
+// Output arguments passed to a inspect.
+// - $mixin  : <susy mixin>
+// - $inspec   : <mixin arguments>
+
+@mixin susy-inspect(
+  $mixin,
+  $inspect
+) {
+  $show: false;
+
+  @each $item in $inspect {
+    @if index($item, inspect) {
+      $show: true;
+    }
+  }
+
+  @if $show or susy-get(debug inspect) {
+    -susy-#{$mixin}: inspect($inspect);
+  }
+}
+
+/* scss-combine:shared/output */
+// Output
+// ======
+
+// Output
+// ------
+// Output CSS with proper browser support.
+// - $styles  : <map of css property-value pairs>
+@mixin output(
+  $styles
+) {
+  @each $prop, $val in $styles {
+    @include susy-support($prop, $val);
+  }
+}
+
+/* scss-combine:shared/direction */
+// Direction Helpers
+// =================
+
+// Susy Flow Defaults
+// ------------------
+// - PRIVATE
+@include susy-defaults((
+  flow: ltr,
+));
+
+// Get Direction
+// -------------
+// Return the 'from' or 'to' direction of a ltr or rtl flow.
+// - [$flow]  : ltr | rtl
+// - [$key]   : from | to
+@function get-direction(
+  $flow: map-get($susy-defaults, flow),
+  $key: from
+) {
+  $return: if($flow == rtl, (from: right, to: left), (from: left, to: right));
+  @return map-get($return, $key);
+}
+
+// To
+// --
+// Return the 'to' direction of a flow
+// - [$flow]  : ltr | rtl
+@function to(
+  $flow: map-get($susy-defaults, flow)
+) {
+  @return get-direction($flow, to);
+}
+
+// From
+// ----
+// Return the 'from' direction of a flow
+// - [$flow]  : ltr | rtl
+@function from(
+  $flow: map-get($susy-defaults, flow)
+) {
+  @return get-direction($flow, from);
+}
+
+/* scss-combine:shared/background */
+// Grid Background API
+// ===================
+// - Sub-pixel rounding can lead to several pixels variation between browsers.
+
+// Grid Background Output
+// ----------------------
+// - $image: background-image
+// - $size: background-size
+// - $clip: background-clip
+// - [$flow]: ltr | rtl
+@mixin background-grid-output (
+  $image,
+  $size: null,
+  $clip: null,
+  $flow: map-get($susy-defaults, flow)
+) {
+  $output: (
+    background-image: $image,
+    background-size: $size,
+    background-origin: $clip,
+    background-clip: $clip,
+    background-position: from($flow) top,
+  );
+
+  @include output($output);
+}
+
+/* scss-combine:shared/container */
+// Shared Container API
+// ====================
+
+// Container Output
+// ----------------
+// - [$width]         : <length>
+// - [$justify]       : left | center | right
+// - [$math]          : fluid | static
+@mixin container-output(
+  $width,
+  $justify: auto auto,
+  $property: max-width
+) {
+  $output: (
+    #{$property}: $width or 100%,
+    margin-left: nth($justify, 1),
+    margin-right: nth($justify, 2),
+  );
+
+  @include output($output);
+}
+
+/* scss-combine:shared/margins */
+// Margins API
+// ===========
+
+// Margin Output
+// -------------
+// - $before  : <length>
+// - $after   : <length>
+// - [$flow]  : ltr | rtl
+@mixin margin-output(
+  $before,
+  $after,
+  $flow: map-get($susy-defaults, flow)
+) {
+  $to: to($flow);
+  $from: from($flow);
+
+  $output: (
+    margin-#{$from}: $before,
+    margin-#{$to}: $after,
+  );
+
+  @include output($output);
+}
+
+/* scss-combine:shared/padding */
+// Padding API
+// ===========
+
+// Padding Output
+// --------------
+// - $before  : <length>
+// - $after   : <length>
+// - [$flow]  : ltr | rtl
+@mixin padding-output(
+  $before,
+  $after,
+  $flow: map-get($susy-defaults, flow)
+) {
+  $to: to($flow);
+  $from: from($flow);
+
+  $output: (
+    padding-#{$from}: $before,
+    padding-#{$to}: $after,
+  );
+
+  @include output($output);
+}
+
+
+
+
+
+
+/* scss-combine:float/container */
+// Float Container API
+// ===================
+
+// Float Container
+// ---------------
+// - [$width]         : <length>
+// - [$justify]       : left | center | right
+// - [$math]   : fluid | static
+@mixin float-container(
+  $width,
+  $justify: auto auto,
+  $property: max-width
+) {
+  @include susy-clearfix;
+  @include container-output($width, $justify, $property);
+}
+
+/* scss-combine:float/span */
+// Float Span API
+// ==============
+
+// Float Span Output
+// -----------------
+// - $width             : <length>
+// - [$float]           : from | to
+// - [$margin-before]   : <length>
+// - [$margin-after]    : <length>
+// - [$padding-before]  : <length>
+// - [$padding-after]   : <length>
+// - [$flow]            : ltr | rtl
+@mixin float-span-output(
+  $width,
+  $float            : from,
+  $margin-before    : null,
+  $margin-after     : null,
+  $padding-before   : null,
+  $padding-after    : null,
+  $flow             : map-get($susy-defaults, flow)
+) {
+  $to     : to($flow);
+  $from   : from($flow);
+
+  $output: (
+    width: $width,
+    float: if($float == to, $to, null) or if($float == from, $from, null),
+    margin-#{$from}: $margin-before,
+    margin-#{$to}: $margin-after,
+    padding-#{$from}: $padding-before,
+    padding-#{$to}: $padding-after,
+  );
+
+  @include output($output);
+}
+
+/* scss-combine:float/end */
+// Float Ends API
+// ==============
+
+// Susy End Defaults
+// -----------------
+// - PRIVATE
+@include susy-defaults((
+  last-flow: to,
+));
+
+// Float Last
+// ----------
+// - [$flow]  : ltr | rtl
+@mixin float-last(
+  $flow: map-get($susy-defaults, flow),
+  $last-flow: map-get($susy-defaults, last-flow),
+  $margin: 0
+) {
+  $to: to($flow);
+
+  $output: (
+    float: if($last-flow == to, $to, null),
+    margin-#{$to}: $margin,
+  );
+
+  @include output($output);
+}
+
+// Float First
+// -----------
+// - [$flow]  : ltr | rtl
+@mixin float-first(
+  $flow: map-get($susy-defaults, flow)
+) {
+  $output: (
+    margin-#{from($flow)}: 0,
+  );
+
+  @include output($output);
+}
+
+/* scss-combine:float/isolate */
+// Float Isolation API
+// ===================
+
+// Isolate Output
+// --------------
+// - $push    : <length>
+// - [$flow]  : ltr | rtl
+@mixin isolate-output(
+  $push,
+  $flow: map-get($susy-defaults, flow)
+) {
+  $to: to($flow);
+  $from: from($flow);
+
+  $output: (
+    float: $from,
+    margin-#{$from}: $push,
+    margin-#{$to}: -100%,
+  );
+
+  @include output($output);
+}
+
+
+
+/* scss-combine:susy/settings */
+// Susy Settings
+// =============
+
+// Susy Language Defaults
+// ----------------------
+// - PRIVATE
+@include susy-defaults((
+  container: auto,
+  math: fluid,
+  output: float,
+  container-position: center,
+  gutter-position: after,
+  global-box-sizing: content-box,
+  debug: (
+    image: hide,
+    color: rgba(#66f, .25),
+    output: background,
+    toggle: top right,
+  ),
+));
+
+
+// Valid Keyword Values
+// --------------------
+// - PRIVATE: DONT'T TOUCH
+$susy-keywords: (
+  container: auto,
+  math: static fluid,
+  output: isolate float,
+  container-position: left center right,
+  flow: ltr rtl,
+  gutter-position: before after split inside inside-static,
+  box-sizing: border-box content-box,
+  span: full,
+  edge: first alpha last omega full,
+  spread: narrow wide wider,
+  gutter-override: no-gutters no-gutter,
+  role: nest,
+  clear: break nobreak,
+  debug image: show hide show-columns show-baseline,
+  debug output: background overlay,
+);
+
+
+// Parse Susy Keywords and Maps
+// ----------------------------
+@function parse-settings(
+  $short: $susy
+) {
+  $_return: ();
+
+  @if type-of($short) == map {
+    $_return: $short;
+  } @else {
+    @each $item in $short {
+      // strings
+      @if type-of($item) == string {
+        @each $key, $value in $susy-keywords {
+          @if index($value, $item) {
+            $_key-value: append($key, $item);
+            $_return: _susy-deep-set($_return, $_key-value...);
+          }
+        }
+      // maps
+      } @else if type-of($item) == map {
+        $_return: map-merge($_return, $item);
+      }
+    }
+  }
+
+  @return $_return;
+}
+
+
+// Parse Columns & Gutters
+// -----------------------
+@function parse-layout(
+  $short
+) {
+  $_return: ();
+  $_columns: ();
+  $_gutters: null;
+
+  @if not(unitless(nth(nth($short, 1), 1))) {
+    $_gutters: nth($short, 1);
+  } @else {
+    $_columns: (columns: nth($short, 1));
+    $_gutters: if(length($short) > 1, nth($short, 2), $_gutters);
+  }
+
+  @if type-of($_gutters) == list and length($_gutters) > 0 {
+    $_gutters: (
+      gutters: nth($_gutters, 2) / nth($_gutters, 1),
+      column-width: nth($_gutters, 1),
+    );
+  } @else {
+    $_gutters: if($_gutters, (gutters: $_gutters), ());
+  }
+
+  $_return: map-merge($_return, $_columns);
+  $_return: map-merge($_return, $_gutters);
+
+  @return $_return;
+}
+
+
+// Parse Grid/Context
+// ------------------
+@function parse-grid(
+  $short: $susy
+) {
+  $_return: parse-settings($short);
+  $_layout: ();
+
+  @if type-of($short) == map {
+    $_return: $short;
+  } @else {
+    @each $item in $short {
+      // number or list
+      @if type-of($item) == number or type-of($item) == list {
+        @if type-of($item) == list or unitless($item) {
+          $_layout: append($_layout, $item);
+        } @else {
+          $_return: map-merge($_return, (container: $item));
+        }
+      }
+    }
+
+    $_layout: if(length($_layout) > 0, parse-layout($_layout), $_layout);
+  }
+
+  @return map-merge($_return, $_layout);
+}
+
+
+// Parse Span
+// ----------
+@function parse-span(
+  $short,
+  $key: span
+) {
+  $_return: ();
+
+  @if type-of($short) == map {
+    $_return: $short;
+  } @else {
+    $_at: index($short, at);
+
+    @if $_at {
+      $_loci: $_at + 1;
+      $_location: nth($short, $_loci);
+      $_return: map-merge($_return, (location: $_location));
+      $short: set-nth($short, $_at, null);
+      $short: set-nth($short, $_loci, null);
+    }
+
+    $_i: 1;
+    $_span: ();
+
+    @while $_i <= length($short) {
+      $_this: nth($short, $_i);
+
+      @if type-of($_this) == number {
+        $_span: append($_span, $_this);
+        $short: set-nth($short, $_i, null);
+      } @else if $_this == of {
+        $short: set-nth($short, $_i, null);
+        $_i: length($short) + 1;
+      }
+
+      $_i: $_i + 1;
+    }
+
+    @if length($_span) > 0 {
+      $_span: if(length($_span) == 1, nth($_span, 1), $_span);
+      $_return: map-merge($_return, ($key: $_span));
+    }
+
+    $_return: map-merge($_return, parse-grid($short));
+  }
+
+  @return $_return;
+}
+
+
+// Parse Gutters
+// -------------
+@function parse-gutters(
+  $short: $susy
+) {
+  $_gutters: parse-span($short, gutter-override);
+  $_span: susy-get(gutter-override, $_gutters);
+
+  @if $_span and not(map-get($_gutters, columns)) {
+    $_context: ();
+    $_new: ();
+
+    @each $item in $_span {
+      @if type-of($item) == number and unitless($item) {
+        $_context: append($_context, $item);
+      } @else {
+        $_new: append($_new, $item);
+      }
+    }
+
+    $_context: parse-grid($_context);
+    $_new: if(length($_new) == 0, null, $_new);
+    $_new: if(length($_new) == 1, nth($_new, 1), $_new);
+    $_new: (gutter-override: if($_new != $_span, $_new, $_span));
+
+    $_gutters: map-merge($_gutters, $_new);
+    $_gutters: map-merge($_gutters, $_context);
+  }
+
+  @return $_gutters;
+}
+
+/* scss-combine:susy/validation */
+// Validation
+// ==========
+
+
+// Validate Column Math
+// --------------------
+@function valid-column-math(
+  $math,
+  $column-width
+) {
+  @if $math == static and not($column-width) {
+    @error 'Static math requires a valid column-width setting.';
+  }
+
+  @return $column-width;
+}
+
+/* scss-combine:susy/grids */
+// Grid Syntax
+// ===========
+
+
+// Layout
+// ------
+// Set a new layout using a shorthand
+// - $layout: <settings>
+// - $clean: boolean
+@mixin layout(
+  $layout,
+  $clean: false
+) {
+  $inspect  : $layout;
+  $susy     : _get-layout($layout, $clean) !global;
+
+  @include susy-inspect(layout, $inspect);
+}
+
+
+// Use Grid
+// --------
+// Use an arbitrary layout for a section of code
+// - $layout: <settings>
+// - $clean: boolean
+@mixin with-layout(
+  $layout,
+  $clean: false
+) {
+  $inspect  : $layout;
+  $old      : $susy;
+  $susy     : _get-layout($layout, $clean) !global;
+
+  @include susy-inspect(with-layout, $inspect);
+
+  @content;
+
+  $susy: $old !global;
+}
+
+
+// Layout
+// ------
+// Return a parsed layout map based on shorthand syntax
+// - $layout: <settings>
+@function layout(
+  $layout: $susy
+) {
+  @return parse-grid($layout);
+}
+
+
+// Get Layout
+// ----------
+// Return a new layout based on current and given settings
+// - $layout: <settings>
+// - $clean: boolean
+@function _get-layout(
+  $layout,
+  $clean: false
+) {
+  $layout: layout($layout);
+  @return if($clean, $layout, _susy-deep-merge($susy, $layout));
+}
+
+/* scss-combine:susy/box-sizing */
+// Susy Box Sizing
+// =================
+
+// Global Box Sizing
+// -----------------
+// Set a box model globally on all elements.
+// - [$box]: border-box | content-box
+// - [$inherit]: true | false
+@mixin global-box-sizing(
+  $box: susy-get(global-box-sizing),
+  $inherit: false
+) {
+  $inspect: $box;
+
+  @if $inherit {
+    @at-root {
+       html { @include output((box-sizing: $box)); }
+       *, *:before, *:after { box-sizing: inherit; }
+     }
+  } @else {
+    *, *:before, *:after { @include output((box-sizing: $box)); }
+  }
+
+  @include susy-inspect(global-box-sizing, $inspect);
+  @include update-box-model($box);
+}
+
+// Border Box Sizing
+// -----------------
+// A legacy shortcut...
+// - [$inherit]: true | false
+@mixin border-box-sizing(
+  $inherit: false
+) {
+  @include global-box-sizing(border-box, $inherit);
+}
+
+// Update Box Model
+// ----------------
+// PRIVATE: Updates global box model setting
+@mixin update-box-model(
+  $box
+) {
+  @if $box != susy-get(global-box-sizing) {
+  @include susy-set(global-box-sizing, $box);
+  }
+}
+
+/* scss-combine:susy/context */
+// Context Syntax
+// ==============
+
+// Nested [function]
+// -----------------
+// Return a subset grid for nested context.
+// - $context   : <span>
+@function nested(
+  $context
+) {
+  $context    : parse-span($context);
+  $span       : susy-get(span, $context);
+  $location   : get-location($context);
+  $columns    : susy-get(columns, $context);
+
+  @return susy-slice($span, $location, $columns);
+}
+
+// Nested [mixin]
+// --------------
+// Use a subset grid for a nested context
+// - $context   : <span>
+// - @content   : <content>
+@mixin nested(
+  $context
+) {
+  $inspect  : $context;
+  $context  : parse-span($context);
+  $old      : susy-get(columns);
+  $susy     : map-merge($susy, (columns: nested($context))) !global;
+
+  @include susy-inspect(nested, $inspect);
+  @content;
+
+  $susy     : map-merge($susy, (columns: $old)) !global;
+}
+
+/* scss-combine:susy/background */
+// Background Grid Syntax
+// ======================
+
+$susy-overlay-grid-head-exists: false;
+
+
+// Show Grid/s
+// -----------
+// Show grid on any element using either background or overlay.
+// - [$grid]  : <settings>
+@mixin show-grid(
+  $grid: $susy
+) {
+  $inspect: $grid;
+  $_output: debug-get(output, $grid);
+
+  @include susy-inspect(show-grid, $inspect);
+  @if $_output == overlay and susy-get(debug image, $grid) != hide {
+    @include overlay-grid($grid);
+  } @else {
+    @include background-grid($grid);
+  }
+}
+
+@mixin show-grids(
+  $grid: $susy
+) {
+  @include show-grid($grid);
+}
+
+// Background Grid
+// ---------------
+// Show a grid background on any element.
+// - [$grid]  : <settings>
+@mixin background-grid(
+  $grid: $susy
+) {
+  $inspect  : $grid;
+  $_output  : get-background($grid);
+
+  @if length($_output) > 0 {
+    $_flow: susy-get(flow, $grid);
+
+    $_image: ();
+    @each $name, $layer in map-get($_output, image) {
+      $_direction: if($name == baseline, to bottom, to to($_flow));
+      $_image: append($_image, linear-gradient($_direction, $layer), comma);
+    }
+    $_output: map-merge($_output, (image: $_image));
+
+    @include background-grid-output($_output...);
+    @include susy-inspect(background-grid, $inspect);
+  }
+}
+
+
+// Overlay Grid
+// ------------
+// Generate an icon to trigger grid-overlays on any given elements.
+// $grids...  : <selector> [<settings>] [, <selector>]*
+@mixin overlay-grid (
+  $grid: $susy
+) {
+  @if not($susy-overlay-grid-head-exists) {
+    @at-root head { @include overlay-head($grid); }
+    @at-root head:before { @include overlay-trigger; }
+    @at-root head:hover { @include overlay-trigger-hover; }
+    $susy-overlay-grid-head-exists: true !global;
+  }
+
+  head:hover ~ &,
+  head:hover ~ body & {
+    position: relative;
+    &:before {
+      @include grid-overlay-base;
+      @include background-grid($grid);
+    }
+  }
+}
+
+
+// [Private] Overlay Trigger
+// -------------------------
+@mixin overlay-trigger {
+  content: "|||";
+  display: block;
+  padding: 5px 10px;
+  font: {
+    family: sans-serif;
+    size: 16px;
+    weight: bold;
+  }
+}
+
+
+// [Private] Overlay Trigger Hover
+// -------------------------------
+@mixin overlay-trigger-hover {
+  background: rgba(white, .5);
+  color: red;
+}
+
+
+// [Private] Overlay Head
+// ----------------------
+// <head> styles to create grid overlay toggle
+@mixin overlay-head (
+  $grid: $susy
+) {
+  $_toggle: debug-get(toggle, $grid);
+  $_horz: null;
+  $_vert: null;
+
+  @each $side in $_toggle {
+    $_horz: if($side == left or $side == right, $side, $_horz);
+    $_vert: if($side == top or $side == bottom, $side, $_vert);
+  }
+
+  display: block;
+  position: fixed;
+  #{$_horz}: 10px;
+  #{$_vert}: 10px;
+  z-index: 999;
+  color: #333;
+  background: rgba(white, .25);
+}
+
+
+// [Private] Grid Overlay Base
+// ---------------------------
+// Base styles for generating a grid overlay
+@mixin grid-overlay-base() {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  content: " ";
+  z-index: 998;
+}
+
+
+// Get Symmetrical Background
+// --------------------------
+// - $grid: <map>
+@function get-background-sym(
+  $grid
+) {
+  $grid           : parse-grid($grid);
+  $_gutters       : susy-get(gutters, $grid);
+  $_column-width  : susy-get(column-width, $grid);
+  $_math          : susy-get(math, $grid);
+
+  $_color         : debug-get(color);
+  $_trans         : transparent;
+  $_light         : lighten($_color, 15%);
+
+  $_end           : 1 + $_gutters;
+  $_after         : percentage(1/$_end);
+  $_stops         : ();
+  $_size          : span(1 $grid wide);
+
+  @if is-inside($grid) {
+    $_stops: $_color, $_light;
+  } @else if is-split($grid) {
+    $_split: $_gutters/2;
+    $_before: percentage($_split/$_end);
+    $_after: percentage((1 + $_split)/$_end);
+    $_stops: $_trans $_before, $_color $_before, $_light $_after, $_trans $_after;
+  } @else {
+    $_stops: $_color, $_light $_after, $_trans $_after;
+  }
+
+  @if $_math == static {
+    $_size: valid-column-math($_math, $_column-width) * $_end;
+  }
+
+  $_output: (
+    image: (columns: $_stops),
+    size: $_size,
+  );
+
+  @return $_output;
+}
+
+
+// Get Asymmetrical Inside
+// -----------------------
+// - $grid: <settings>
+@function get-asym-inside(
+  $grid
+) {
+  $grid     : parse-grid($grid);
+  $_columns : susy-get(columns, $grid);
+
+  $_color   : debug-get(color);
+  $_light   : lighten($_color, 15%);
+  $_stops   : ();
+
+  @for $location from 1 through susy-count($_columns) {
+    $this-stop: ();
+
+    @if $location == 1 {
+      $this-stop: append($this-stop, $_color, comma);
+    } @else {
+      $start: parse-span(1 at $location $grid);
+      $start: get-isolation($start);
+      $this-stop: append($this-stop, $_color $start, comma);
+    }
+
+    @if $location == susy-count($_columns) {
+      $this-stop: append($this-stop, $_light, comma);
+    } @else {
+      $_end: parse-span(1 at ($location + 1) $grid);
+      $_end: get-isolation($_end);
+      $this-stop: append($this-stop, $_light $_end, comma);
+    }
+
+    $_stops: join($_stops, $this-stop, comma);
+  }
+
+  @return $_stops;
+}
+
+
+// Get Asymmetrical Split
+// ----------------------
+// - $grid: <settings>
+@function get-asym-split(
+  $grid
+) {
+  $grid     : parse-grid($grid);
+  $_columns : susy-get(columns, $grid);
+
+  $_color   : debug-get(color);
+  $_light   : lighten($_color, 15%);
+  $_stops   : ();
+
+  @for $location from 1 through susy-count($_columns) {
+    $this-stop: ();
+
+    $start: parse-span(1 at $location $grid);
+    $start: get-isolation($start);
+    $this-stop: append($this-stop, transparent $start, comma);
+    $this-stop: append($this-stop, $_color $start, comma);
+
+    $_end: $start + span(1 at $location $grid);
+    $this-stop: append($this-stop, $_light $_end, comma);
+    $this-stop: append($this-stop, transparent $_end, comma);
+
+    $_stops: join($_stops, $this-stop, comma);
+  }
+
+  @return $_stops;
+}
+
+
+// Get Asymmetrical Outside
+// ------------------------
+// - $grid: <settings>
+@function get-asym-outside(
+  $grid
+) {
+  $grid     : parse-grid($grid);
+  $_columns : susy-get(columns, $grid);
+
+  $_color   : debug-get(color);
+  $_light   : lighten($_color, 15%);
+  $_trans   : transparent;
+  $_stops   : ();
+
+  @for $location from 1 through susy-count($_columns) {
+    $this-stop: ();
+
+    @if $location == 1 {
+      $this-stop: append($this-stop, $_color, comma);
+    } @else {
+      $start: parse-span(1 at $location $grid);
+      $start: get-isolation($start);
+      $this-stop: append($this-stop, $_color $start, comma);
+    }
+
+    @if $location == susy-count($_columns) {
+      $this-stop: append($this-stop, $_light, comma);
+    } @else {
+      $gutter: get-span-width(first $location $grid);
+
+      $_end: parse-span(1 at ($location + 1) $grid);
+      $_end: get-isolation($_end);
+
+      $gutter: $_light $gutter, $_trans $gutter, $_trans $_end;
+      $this-stop: join($this-stop, $gutter, comma);
+    }
+
+    $_stops: join($_stops, $this-stop, comma);
+  }
+
+  @return $_stops;
+}
+
+
+// Get Asymmetrical Background
+// ---------------------------
+// - $grid: <settings>
+@function get-background-asym(
+  $grid
+) {
+  $_stops: ();
+
+  @if is-inside($grid) {
+    $_stops: get-asym-inside($grid);
+  } @else if is-split($grid) {
+    $_stops: get-asym-split($grid);
+  } @else {
+    $_stops: get-asym-outside($grid);
+  }
+
+  @return (image: (columns: $_stops));
+}
+
+
+// Get Background
+// --------------
+// - $grid: <settings>
+@function get-background(
+  $grid
+) {
+  $grid     : parse-grid($grid);
+  $_show    : susy-get(debug image, $grid);
+  $_return  : ();
+
+  @if $_show and $_show != 'hide' {
+    $_columns: susy-get(columns, $grid);
+
+    @if $_show != 'show-baseline' {
+      $_sym: is-symmetrical($_columns);
+      $_return: if($_sym, get-background-sym($grid), get-background-asym($grid));
+      $_return: map-merge($_return, (clip: content-box));
+    }
+
+    @if $_show != 'show-columns'
+      and global-variable-exists(base-line-height)
+      and type-of($base-line-height) == 'number'
+      and not unitless($base-line-height) {
+      $_color: variable-exists('grid-background-baseline-color');
+      $_color: if($_color, $grid-background-baseline-color, #000);
+
+      $_image: map-get($_return, image);
+      $_size: map-get($_return, size);
+      $_baseline: (baseline: ($_color 1px, transparent 1px));
+      $_baseline-size: 100% $base-line-height;
+
+      $_return: map-merge($_return, (
+        image: if($_image, map-merge($_image, $_baseline), $_baseline),
+        size: if($_size, ($_size, $_baseline-size), $_baseline-size),
+      ));
+
+      @if $_show == 'show' {
+        $_clip: map-get($_return, clip);
+        $_return: map-merge($_return, (clip: join($_clip, border-box, comma)));
+      }
+    } @else if $_show == 'show-baseline' {
+      @warn 'Please provide a $base-line-height with the desired height and units';
+    }
+  }
+
+  @if map-get($_return, image) {
+    $_return: map-merge($_return, (flow: susy-get(flow, $grid)));
+  }
+
+  @return $_return;
+}
+
+
+// Get Debug
+// ---------
+// Return the value of a debug setting
+// - $key: <setting>
+@function debug-get(
+  $key,
+  $grid: $susy
+) {
+  $key: join(debug, $key, space);
+  @return susy-get($key, $grid);
+}
+
+/* scss-combine:susy/container */
+// Container Syntax
+// ================
+
+// Container [mixin]
+// -----------------
+// Set a container element
+// - [$layout]  : <settings>
+@mixin container(
+  $layout: $susy
+) {
+  $inspect    : $layout;
+  $layout     : parse-grid($layout);
+
+  $_width     : get-container-width($layout);
+  $_justify   : parse-container-position(susy-get(container-position, $layout));
+  $_property  : if(susy-get(math, $layout) == static, width, max-width);
+
+  $_box       : susy-get(box-sizing, $layout);
+
+  @if $_box {
+    @include output((box-sizing: $_box));
+  }
+
+  @include susy-inspect(container, $inspect);
+  @include float-container($_width, $_justify, $_property);
+  @include show-grid($layout);
+}
+
+// Container [function]
+// --------------------
+// Return container width
+// - [$layout]  : <settings>
+@function container(
+  $layout: $susy
+) {
+  $layout: parse-grid($layout);
+  @return get-container-width($layout);
+}
+
+// Get Container Width
+// -------------------
+// Calculate the container width
+// - [$layout]: <settings>
+@function get-container-width(
+  $layout: $susy
+) {
+  $layout         : parse-grid($layout);
+  $_width         : susy-get(container, $layout);
+  $_column-width  : susy-get(column-width, $layout);
+  $_math          : susy-get(math, $layout);
+
+  @if not($_width) or $_width == auto {
+    @if valid-column-math($_math, $_column-width) {
+      $_columns   : susy-get(columns, $layout);
+      $_gutters   : susy-get(gutters, $layout);
+      $_spread    : if(is-split($layout), wide, narrow);
+      $_width     : susy-sum($_columns, $_gutters, $_spread) * $_column-width;
+    } @else {
+      $_width: 100%;
+    }
+  }
+
+  @return $_width;
+}
+
+// Parse Container Position
+// ------------------------
+// Parse the $container-position into margin values.
+// - [$justify]   : left | center | right | <length> [<length>]
+@function parse-container-position(
+  $justify: map-get($susy-defaults, container-position)
+) {
+  $_return: if($justify == left, 0, auto) if($justify == right, 0, auto);
+
+  @if not(index(left right center, $justify)) {
+    $_return: nth($justify, 1);
+    $_return: $_return if(length($justify) > 1, nth($justify, 2), $_return);
+  }
+
+  @return $_return;
+}
+
+/* scss-combine:susy/span */
+// Span Syntax
+// ===========
+
+// Span [mixin]
+// ------------
+// Set a spanning element using shorthand syntax.
+// - $span  : <span>
+@mixin span(
+  $span
+) {
+  $inspect: $span;
+  $span: parse-span($span);
+  $output: span-math($span);
+  $nesting: susy-get(span, $span);
+  $clear: susy-get(clear, $span);
+
+  $box: susy-get(box-sizing, $span);
+  $content-box: if(susy-get(global-box-sizing) != 'border-box', true, false);
+  $box: $box or if(is-inside($span) and $content-box, border-box, null);
+
+  @if $clear == break {
+    @include break;
+  } @else if $clear == nobreak {
+    @include nobreak;
+  }
+
+  @include susy-inspect(span, $inspect);
+  @include output((box-sizing: $box));
+  @include float-span-output($output...);
+
+  @if valid-columns($nesting, silent) {
+    @include nested($span) { @content; }
+  } @else {
+    @content;
+  }
+}
+
+// Span [function]
+// ---------------
+// Return the width of a span.
+// - $span  : <span>
+@function span(
+  $span
+) {
+  @return get-span-width($span);
+}
+
+// Span Math
+// ---------
+// Get all the span results.
+// - $span: <map>
+@function span-math(
+  $span
+) {
+  $nest             : if(susy-get(role, $span) == nest, true, false);
+  $split-nest       : if(is-split($span) and $nest, true, false);
+  $edge             : get-edge($span);
+  $location         : get-location($span);
+
+  $float            : from;
+  $padding-before   : null;
+  $padding-after    : null;
+  $margin-before    : null;
+  $margin-after     : null;
+
+  // calculate widths
+  $spread: index(map-values($span), spread);
+  $span: if($split-nest and not($spread), map-merge($span, (spread: wide)), $span);
+  $width: get-span-width($span);
+  $gutters: get-gutters($span);
+
+  // apply gutters
+  @if is-inside($span) {
+    @if not(susy-get(role, $span)) {
+      $padding-before: map-get($gutters, before);
+      $padding-after: map-get($gutters, after);
+    }
+  } @else {
+    @if not($split-nest) {
+      $margin-before: map-get($gutters, before);
+      $margin-after: map-get($gutters, after);
+    }
+  }
+
+  // special margin handling
+  @if susy-get(output, $span) == isolate and $location {
+    $margin-before: get-isolation($span);
+    $margin-after: -100%;
+  } @else if $edge {
+    $is-split: is-split($span);
+    $pos: susy-get(gutter-position, $span);
+
+    @if $edge == last {
+      $float: susy-get(last-flow, $span);
+    }
+
+    @if not($is-split) {
+      @if $edge == full or ($edge == first and $pos == before) {
+        $margin-before: 0;
+      }
+      @if $edge == full or ($edge == last and $pos == after) {
+        $margin-after: 0;
+      }
+    }
+
+  }
+
+  @return (
+    width           : $width,
+    float           : $float,
+    margin-before   : $margin-before,
+    margin-after    : $margin-after,
+    padding-before  : $padding-before,
+    padding-after   : $padding-after,
+    flow            : susy-get(flow, $span),
+  );
+}
+
+// Get Span Width
+// --------------
+// Return span width.
+// - $span: <map>
+@function get-span-width(
+  $span
+) {
+  $span     : parse-span($span);
+
+  $n        : susy-get(span, $span);
+  $location : get-location($span);
+  $columns  : susy-get(columns, $span);
+  $gutters  : susy-get(gutters, $span);
+  $spread   : susy-get(spread, $span);
+
+  $context  : null;
+  $span-sum : null;
+  $width    : null;
+
+  @if $n == 'full' {
+    $pos: susy-get(gutter-position, $span);
+    $role: susy-get(role, $span);
+    $n: if($pos == split and $role != nest, susy-count($columns), 100%);
+  }
+
+  @if type-of($n) != number {
+    @warn "(#{type-of($n)}) #{$n} is not a valid span.";
+  } @else if unitless($n) {
+    $context: susy-sum($columns, $gutters, if(is-split($span), wide, narrow));
+    $spread: if(is-inside($span), $spread or wide, $spread);
+    $span-sum: susy($n, $location, $columns, $gutters, $spread);
+
+    $_math: susy-get(math, $span);
+    $_column-width: susy-get(column-width, $span);
+    @if $_math == static {
+      $width: $span-sum * valid-column-math($_math, $_column-width);
+    } @else {
+      $width: percentage($span-sum / $context);
+    }
+  } @else {
+    $width: $n;
+  }
+
+  @return $width;
+}
+
+/* scss-combine:susy/gutters */
+// Gutter Syntax
+// =============
+
+
+// Gutters
+// -------
+// Set gutters on an element.
+// - [$span]   : <settings>
+@mixin gutters(
+  $span: $susy
+) {
+  $inspect  : $span;
+  $span     : parse-gutters($span);
+  $_gutters : get-gutters($span);
+
+  $_output: (
+    before: map-get($_gutters, before),
+    after: map-get($_gutters, after),
+    flow: susy-get(flow, $span),
+  );
+
+  @include susy-inspect(gutters, $inspect);
+
+  @if is-inside($span) {
+    @include padding-output($_output...);
+  } @else {
+    @include margin-output($_output...);
+  }
+}
+
+@mixin gutter(
+  $span: $susy
+) {
+  @include gutters($span);
+}
+
+
+// Gutter
+// ------
+// Return the width of a gutter.
+// - [$span]   : <settings>
+@function gutter(
+  $span: $susy
+) {
+  $span: parse-gutters($span);
+
+  $_gutters: get-gutters($span);
+  $_gutters: map-get($_gutters, before) or map-get($_gutters, after);
+
+  @return $_gutters;
+}
+
+@function gutters(
+  $span: $susy
+) {
+  @return gutter($span);
+}
+
+
+// Get Gutter Width
+// ----------------
+// Return gutter width.
+// - [$context]: <context>
+@function get-gutter-width(
+  $context: $susy
+) {
+  $context  : parse-gutters($context);
+
+  $_gutters : susy-get(gutters, $context);
+  $_gutter  : susy-get(gutter-override, $context);
+
+  @if $_gutters and ($_gutters > 0) and not($_gutter) {
+    $_column-width: susy-get(column-width, $context);
+    $_math: gutter-math($context);
+    @if $_math == static {
+      $_gutter: $_gutters * valid-column-math($_math, $_column-width);
+    } @else {
+      $_columns : susy-get(columns, $context);
+      $_spread  : if(is-split($context), wide, susy-get(spread, $context));
+      $_gutter  : percentage($_gutters / susy-sum($_columns, $_gutters, $_spread));
+    }
+  }
+
+  $_gutter: if($_gutter == 'no-gutters' or $_gutter == 'no-gutter', null, $_gutter);
+
+  @return $_gutter;
+}
+
+
+// Get Gutters
+// -----------
+// Return before and after gutter values.
+// - [$context]: <context>
+@function get-gutters(
+  $context: $susy
+) {
+  $context            : parse-gutters($context);
+
+  $_gutter-position   : susy-get(gutter-position, $context);
+  $_gutter            : get-gutter-width($context);
+
+  $_return            : (before: null, after: null);
+
+  @if is-split($context) and $_gutter {
+    $_gutter: $_gutter / 2;
+    $_return: map-merge($_return, (before: $_gutter, after: $_gutter));
+  } @else {
+    $_return: map-merge($_return, ($_gutter-position: $_gutter));
+  }
+
+  @return $_return;
+}
+
+
+// Is Inside
+// ---------
+// Returns true if gutters are inside.
+// $context: <context>
+@function is-inside(
+  $context
+) {
+  $_inside: inside inside-static;
+  $_gutter-position: susy-get(gutter-position, $context);
+
+  @return if(index($_inside, $_gutter-position), true, false);
+}
+
+
+// Is Split
+// --------
+// Returns true if gutters are split.
+// $context: <context>
+@function is-split(
+  $context
+) {
+  $_split: split inside inside-static;
+  $_gutter-position: susy-get(gutter-position, $context);
+
+  @return if(index($_split, $_gutter-position), true, false);
+}
+
+
+// Gutter Math
+// -----------
+// Return the math to use for gutter calculations
+// $context: <context>
+@function gutter-math(
+  $context: $susy
+) {
+  $_return  : susy-get(math, $context);
+  $_return  : if(susy-get(gutter-position, $context) == inside-static, static, $_return);
+
+  @return $_return;
+}
+
+/* scss-combine:susy/isolate */
+// Isolation Syntax
+// ================
+
+
+// Isolate [Mixin]
+// ---------------
+// Set isolation as an override.
+// - $location: <span>
+@mixin isolate(
+  $isolate: 1
+) {
+  $inspect: $isolate;
+
+  $output: (
+    push: isolate($isolate),
+    flow: susy-get(flow, $isolate),
+  );
+
+  @include susy-inspect(isolate, $inspect);
+  @include isolate-output($output...);
+}
+
+
+// Isolate [function]
+// ------------------
+// Return an isolation offset width.
+// - $location: <span>
+@function isolate(
+  $isolate: 1
+) {
+  $isolate: parse-span($isolate);
+  $isolation: susy-get(span, $isolate);
+
+  @if $isolation and not(get-location($isolate)) {
+    $new: (
+      span: null,
+      location: $isolation,
+    );
+    $isolate: map-merge($isolate, $new);
+  }
+
+  @return get-isolation($isolate);
+}
+
+
+// Get Isolation
+// -------------
+// Return the isolation offset width
+// - $input: <map>
+@function get-isolation(
+  $input
+) {
+  $location   : get-location($input);
+  $columns    : susy-get(columns, $input);
+  $width      : null;
+
+  @if type-of($location) == number and not(unitless($location)) {
+    $width: $location;
+  } @else if $location {
+    $push: $location - 1;
+    @if $push > 0 {
+      $push: map-merge($input, (
+        span: $push,
+        location: 1,
+        spread: wide,
+      ));
+      $width: get-span-width($push);
+    }
+  }
+
+  @if susy-get(gutter-position, $input) == split
+      and susy-get(gutters, $input) > 0 {
+    $width: if($width == null, gutters($input), $width + gutters($input));
+  }
+
+  @return $width or 0;
+}
+
+/* scss-combine:susy/gallery */
+// Gallery Syntax
+// ==============
+
+// Gallery
+// -------
+// Create an isolated gallery
+// - $span        : <span>
+// - [$selector]  : child | of-type
+@mixin gallery(
+  $span,
+  $selector: child
+) {
+  $inspect    : $span;
+  $span       : parse-span($span);
+  $span       : map-merge($span, (location: 1));
+
+  $n            : susy-get(span, $span);
+  $columns      : susy-get(columns, $span);
+  $context      : susy-count($columns);
+  $flow         : susy-get(flow, $span);
+
+  $inside       : is-inside($span);
+  $from         : from($flow);
+  $line         : floor($context / $n);
+  $symmetrical  : is-symmetrical($columns);
+
+  $output: (
+    width             : null,
+    float             : from,
+    margin-before     : null,
+    margin-after      : null,
+    padding-before    : null,
+    padding-after     : null,
+    flow              : $flow,
+  );
+
+  @if $inside {
+    $gutters: get-gutters($span);
+    $output: map-merge($output, (
+      padding-before: map-get($gutters, before),
+      padding-after: map-get($gutters, after),
+    ));
+  }
+
+  @if $symmetrical {
+    $output: map-merge($output, (width: get-span-width($span)));
+  }
+
+  $box          : susy-get(box-sizing, $span);
+  $global-box   : if(susy-get(global-box-sizing) == 'border-box', true, false);
+
+  @include susy-inspect(gallery, $inspect);
+
+  // Collective Output
+  @if $box == border-box or ($inside and not($box) and not($global-box)) {
+    @include output((box-sizing: border-box));
+  } @else if $box == content-box {
+    @include output((box-sizing: content-box));
+  }
+
+  @include float-span-output($output...);
+
+  // Individual Loop
+  @for $item from 1 through $line {
+    $nth: '#{$line}n + #{$item}';
+    &:nth-#{$selector}(#{$nth}) {
+      // Individual Prep
+      $output: (
+        width             : if($symmetrical, null, get-span-width($span)),
+        float             : null,
+        margin-before     : get-isolation($span),
+        margin-after      : -100%,
+        padding-before    : null,
+        padding-after     : null,
+        flow              : $flow,
+      );
+
+      // Individual Output
+      @include float-span-output($output...);
+
+      @if get-edge($span) == first {
+        @include break;
+        @include first($span);
+      } @else {
+        @include nobreak;
+      }
+
+      // Individual Location Increment
+      $location: get-location($span) + $n;
+      $location: if($location > $context, 1, $location);
+      $span: map-merge($span, (location: $location));
+    }
+  }
+}
+
+/* scss-combine:susy/rows */
+// Row Start & End
+// ===============
+
+// Break
+// -----
+// Apply to any element that should force a line break.
+@mixin break {
+  @include output((clear: both));
+}
+
+
+// NoBreak
+// -------
+// Cancel the break() effect, e.g. when using media queries.
+@mixin nobreak {
+  @include output((clear: none));
+}
+
+
+// Full
+// ----
+// - [$context]: <layout shorthand>
+@mixin full(
+  $context: $susy
+) {
+  $inspect : $context;
+  @include susy-inspect(full, $inspect);
+  @include span(full of parse-grid($context) break);
+}
+
+
+// First
+// -----
+// - [$context]: <settings>
+@mixin first(
+  $context: $susy
+) {
+  $inspect  : $context;
+  $context  : parse-grid($context);
+  $flow     : susy-get(flow, $context);
+
+  @include susy-inspect(first, $inspect);
+  @if not(is-split($context)) {
+    @include float-first($flow);
+  }
+}
+
+@mixin alpha(
+  $context: $susy
+) {
+  @include first($context);
+}
+
+
+// Last
+// ----
+// - [$context]: <settings>
+@mixin last(
+  $context: $susy
+) {
+  $inspect  : $context;
+  $context  : parse-grid($context);
+
+  @include susy-inspect(last, $inspect);
+
+  $output: (
+    flow: susy-get(flow, $context),
+    last-flow: susy-get(last-flow, $context),
+    margin: if(is-split($context), null, 0),
+  );
+
+  @include float-last($output...);
+}
+
+@mixin omega(
+  $context: $susy
+) {
+  @include last($context);
+}
+
+
+// Get Edge
+// --------
+// Calculate edge value based on location, if possible
+@function get-edge(
+  $span
+) {
+  $span       : parse-span($span);
+  $edge       : susy-get(edge, $span);
+
+  @if not($edge) {
+    $count: susy-count(susy-get(columns, $span));
+    $location: susy-get(location, $span);
+    $n: susy-get(span, $span);
+
+    $number: if(type-of($location) == number, true, false);
+    $index: if($number and unitless($location), true, false);
+
+    @if $n == $count {
+      $edge: full;
+    } @else if $location and $n and $index {
+      @if $location == 1 {
+        $edge: if($n == $count, full, first);
+      } @else if $location + $n - 1 == $count {
+        $edge: last;
+      }
+    }
+  }
+
+  @if $edge == alpha or $edge == omega {
+    $edge: if($edge == alpha, first, last);
+  }
+
+  @return $edge;
+}
+
+
+// Get Location
+// ------------
+// Calculate location value based on edge, if possible
+@function get-location(
+  $span
+) {
+  $span       : parse-span($span);
+  $location   : susy-get(location, $span);
+  $edge       : get-edge($span);
+  $n          : susy-get(span, $span);
+
+  @if $edge and not($location) and type-of($n) == number and unitless($n) {
+    @if $edge == first {
+      $location: 1;
+    } @else if $edge == last {
+      $location: susy-count(susy-get(columns, $span)) - $n + 1;
+    }
+  }
+
+  @return $location
+}
+
+/* scss-combine:susy/margins */
+// Margin Syntax
+// =============
+
+// Pre
+// ---
+// Add spanning-margins before an element.
+// - $span  : <span>
+@mixin pre(
+  $span
+) {
+  $inspect: $span;
+  $span   : map-merge((spread: wide), parse-span($span));
+  $flow   : susy-get(flow, $span);
+  $split  : if(susy-get(gutter-position, $span) == split, true, false);
+  $gutter : gutter($span);
+  $span   : span($span);
+  $width  : if($split and $gutter, $span + $gutter, $span);
+
+  @include susy-inspect(pre, $inspect);
+  @include margin-output($width, null, $flow);
+}
+
+// Post
+// ----
+// Add spanning-margins after an element.
+// - $span  : <span>
+@mixin post(
+  $span
+) {
+  $inspect  : $span;
+  $span     : map-merge((spread: wide), parse-span($span));
+  $flow     : susy-get(flow, $span);
+  $split    : if(susy-get(gutter-position, $span) == split, true, false);
+  $width    : if($split, span($span) + gutter($span), span($span));
+
+  @include susy-inspect(post, $inspect);
+  @include margin-output(null, $width, $flow);
+}
+
+// Push
+// ----
+// Simple synonymn for pre.
+// - $span  : <span>
+@mixin push(
+  $span
+) {
+  @include pre($span);
+}
+
+// Pull
+// ----
+// Add negative spanning-margins before an element.
+// - $span  : <span>
+@mixin pull(
+  $span
+) {
+  $inspect  : $span;
+  $span     : map-merge((spread: wide), parse-span($span));
+  $flow     : susy-get(flow, $span);
+  $split    : if(susy-get(gutter-position, $span) == split, true, false);
+  $width    : if($split, 0 - span($span) + gutter($span), 0 - span($span));
+
+  @include susy-inspect(pull, $inspect);
+  @include margin-output($width, null, $flow);
+}
+
+// Squish
+// ------
+// Add spanning-margins before and after an element.
+// - $pre     : <span>
+// - [$post]  : <span>
+@mixin squish(
+  $pre,
+  $post: false
+) {
+  $inspect      : ($pre, $post);
+  $pre          : map-merge((spread: wide), parse-span($pre));
+
+  @if $post {
+    $post: map-merge((spread: wide), parse-span($post));
+  } @else {
+    $span: susy-get(span, $pre);
+    @if length($span) > 1 {
+      $pre: map-merge($pre, (span: nth($span, 1)));
+      $post: map-merge($pre, (span: nth($span, 2)));
+    } @else {
+      $post: $pre;
+    }
+  }
+
+  @include susy-inspect(squish, $inspect);
+  @include pre($pre);
+  @include post($post);
+}
+
+/* scss-combine:susy/padding */
+// Padding Syntax
+// ==============
+
+// Prefix
+// ------
+// Add spanning-padding before an element.
+// - $span  : <span>
+@mixin prefix(
+  $span
+) {
+  $inspect  : $span;
+  $span     : map-merge((spread: wide), parse-span($span));
+  $flow     : susy-get(flow, $span);
+  $width    : span($span);
+
+  @if is-inside($span) {
+    $gutter: gutter($span);
+    $width: if($gutter and comparable($width, $gutter), $width + $gutter, $width);
+  }
+
+  @include susy-inspect(prefix, $inspect);
+  @include padding-output($width, null, $flow);
+}
+
+// Suffix
+// ------
+// Add spanning-padding after an element.
+// - $span  : <span>
+@mixin suffix(
+  $span
+) {
+  $inspect  : $span;
+  $span     : map-merge((spread: wide), parse-span($span));
+  $flow     : susy-get(flow, $span);
+  $width    : span($span);
+
+  @if is-inside($span) {
+    $gutter: gutter($span);
+    $width: if($gutter and comparable($width, $gutter), $width + $gutter, $width);
+  }
+
+  @include susy-inspect(suffix, $inspect);
+  @include padding-output(null, $width, $flow);
+}
+
+// Pad
+// ---
+// Add spanning-padding before and after an element.
+// - $pre     : <span>
+// - [$post]  : <span>
+@mixin pad(
+  $pre,
+  $post: false
+) {
+  $inspect  : ($pre, $post);
+  $pre      : map-merge((spread: wide), parse-span($pre));
+
+  @if $post {
+    $post: map-merge((spread: wide), parse-span($post));
+  } @else {
+    $span: susy-get(span, $pre);
+    @if length($span) > 1 {
+      $pre: map-merge($pre, (span: nth($span, 1)));
+      $post: map-merge($pre, (span: nth($span, 2)));
+    } @else {
+      $post: $pre;
+    }
+  }
+
+  @include susy-inspect(pad, $inspect);
+  @include prefix($pre);
+  @include suffix($post);
+
+}
+
+/* scss-combine:susy/bleed */
+// Bleed Syntax
+// ============
+
+// Bleed
+// -----
+// Add negative margins, and equal positive padding to create bleed.
+// - $bleed  : <span>
+@mixin bleed(
+  $bleed: 0 gutter()
+) {
+  $inspect  : $bleed;
+  $output   : get-bleed($bleed);
+
+  @if susy-get(global-box-sizing) != content-box {
+    $output: map-merge((box-sizing: content-box), $output);
+  }
+
+  @include susy-inspect(bleed, $inspect);
+  @include output($output);
+}
+
+
+// Bleed-x
+// -------
+// Shortcut for horizontal bleed.
+// - $bleed  : <span>
+@mixin bleed-x(
+  $bleed: gutter()
+) {
+  $bleed  : parse-span($bleed);
+  $trbl   : susy-get(span, $bleed);
+
+  @if length($trbl) == 1 {
+    $bleed: map-merge($bleed, (span: 0 nth($trbl, 1)));
+  } @else if length($trbl) == 2 {
+    $bleed: map-merge($bleed, (span: 0 nth($trbl, 2) 0 nth($trbl, 1)));
+  } @else {
+    @warn 'bleed-x only takes 2 lengths, but #{length($trbl)} were passed.';
+  }
+
+  @include bleed($bleed);
+}
+
+
+// Bleed-y
+// -------
+// Shortcut for vertical bleed.
+// - $bleed  : <span>
+@mixin bleed-y(
+  $bleed: if(function-exists(rhythm), rhythm(1), 1em)
+) {
+  $bleed  : parse-span($bleed);
+  $trbl   : susy-get(span, $bleed);
+
+  @if length($trbl) == 1 {
+    $bleed: map-merge($bleed, (span: nth($trbl, 1) 0));
+  } @else if length($trbl) == 2 {
+    $bleed: map-merge($bleed, (span: nth($trbl, 1) 0 nth($trbl, 2) 0));
+  } @else {
+    @warn 'bleed-y only takes 2 lengths, but #{length($trbl)} were passed.';
+  }
+
+  @include bleed($bleed);
+}
+
+
+// Get Bleed
+// ---------
+// Return bleed output values
+// - $bleed: <span>
+@function get-bleed(
+  $bleed
+) {
+  $bleed    : map-merge((spread: wide), parse-span($bleed));
+  $trbl     : susy-get(span, $bleed);
+  $short    : null;
+  $output   : ();
+
+  @for $i from 1 through length($trbl) {
+    $this: nth($trbl, $i);
+    $new: ();
+    $margin: null;
+    $padding: null;
+    $padding-x: null;
+
+    @if $this > 0 {
+      $this: map-merge($bleed, (span: $this));
+      $margin: span($this);
+      $padding: $margin;
+      $padding-x: $padding;
+    }
+
+    @if $margin and $margin > 0 {
+      $margin: - $margin;
+
+      @if is-inside($this) {
+        $gutter: gutter($this);
+        $join: if($gutter and comparable($padding, $gutter), true, false);
+        $padding-x: if($join and $padding > 0, $padding + $gutter, $padding);
+      }
+    }
+
+    @if $i == 1 {
+      $new: (
+        margin-top: $margin,
+        padding-top: $padding,
+        margin-right: $margin,
+        padding-right: $padding-x,
+        margin-bottom: $margin,
+        padding-bottom: $padding,
+        margin-left: $margin,
+        padding-left: $padding-x,
+      );
+    } @else if $i == 2 {
+      $new: (
+        margin-right: $margin,
+        padding-right: $padding-x,
+        margin-left: $margin,
+        padding-left: $padding-x,
+      );
+    } @else if $i == 3 {
+      $new: (
+        margin-bottom: $margin,
+        padding-bottom: $padding,
+      );
+    } @else if $i == 4 {
+      $new: (
+        margin-left: $margin,
+        padding-left: $padding-x,
+      );
+    }
+
+    $output: map-merge($output, $new);
+  }
+
+  @each $prop, $value in $output {
+    $output: if($value == 0, map-merge($output, ($prop: null)), $output);
+  }
+
+  @return bleed-shorthand($output);
+}
+
+// Bleed Shorthand
+// ---------------
+// Convert bleed output into shorthand when possible.
+// - $bleed: <output map>
+@function bleed-shorthand(
+  $bleed
+) {
+  $margin: ();
+  $padding: ();
+  $return: ();
+
+  @each $key, $value in $bleed {
+    @if str-index($key, margin) {
+      $margin: map-merge($margin, ($key: $value));
+    } @else if str-index($key, padding) > 0 {
+      $padding: map-merge($padding, ($key: $value));
+    }
+  }
+
+  $props: (
+    margin: $margin,
+    padding: $padding,
+  );
+
+  @each $name, $map in $props {
+    $four: if(length(map-keys($map)) == 4, true, false);
+    $null: if(index(map-values($map), null), true, false);
+
+    @if $four and not($null) {
+      $top: map-get($map, '#{$name}-top');
+      $right: map-get($map, '#{$name}-right');
+      $bottom: map-get($map, '#{$name}-bottom');
+      $left: map-get($map, '#{$name}-left');
+
+      $tb: if($top == $bottom, $top, null);
+      $rl: if($right == $left, $right, null);
+      $all: if($tb == $rl, $tb, null);
+
+      $new: if($all, $all, null);
+
+      @if not($new) {
+        @if $tb and $rl {
+          $new: $tb $rl;
+        } @else if $rl {
+          $new: $top $rl $bottom;
+        } @else {
+          $new: $top $right $bottom $left;
+        }
+      }
+
+      $return: map-merge($return, ($name: $new));
+    } @else {
+      $return: map-merge($return, $map);
+    }
+  }
+
+  @return $return;
+}
+
+/* scss-combine:susy/breakpoint-plugin */
+// Breakpoint Integration
+// ======================
+
+$susy-media: () !default;
+$susy-media-fallback: false !default;
+
+$_susy-media-context: ();
+
+
+// Susy Breakpoint
+// ---------------
+// Change grids at different media query breakpoints.
+// - $query     : <min-width> [<max-width>] | <property> <value> | <map>
+// - $layout    : <settings>
+// - $no-query  : <boolean> | <selector>
+@mixin susy-breakpoint(
+  $query,
+  $layout: false,
+  $no-query: $susy-media-fallback
+) {
+  @include susy-media-router($query, $no-query) {
+    @if $layout {
+      @include with-layout($layout) {
+        @content;
+      }
+    } @else {
+      @content;
+    }
+  }
+}
+
+
+// Susy Media
+// ----------
+// - $query: <min-width> [<max-width>] | <property> <value>
+// - $no-query: <boolean> | <selector>
+@mixin susy-media(
+  $query,
+  $no-query: $susy-media-fallback
+) {
+  $old-context: $_susy-media-context;
+  $name: if(map-has-key($susy-media, $query), $query, null);
+  $query: susy-get-media($query);
+  $query: susy-parse-media($query);
+
+  @include susy-media-context($query, $name);
+
+  @if $no-query and type-of($no-query) != string {
+    @content;
+  } @else {
+    @media #{susy-render-media($query)} {
+      @content;
+    }
+
+    @if type-of($no-query) == string {
+      #{$no-query} & {
+        @content;
+      }
+    }
+  }
+
+  @include susy-media-context($old-context, $clean: true);
+}
+
+
+// Media Router
+// ------------
+// Rout media arguments to the correct mixin.
+@mixin susy-media-router(
+  $query,
+  $no-query: $susy-media-fallback
+) {
+  @if susy-support(breakpoint, (mixin: breakpoint), $warn: false) {
+    @include breakpoint($query, $no-query) {
+      @content;
+    }
+  } @else {
+    @include susy-media($query, $no-query) {
+      @content;
+    }
+  }
+}
+
+
+// Update Context
+// -------------
+// Set the new media context
+@mixin susy-media-context(
+  $query,
+  $name: null,
+  $clean: false
+) {
+  $query: map-merge((name: $name), $query);
+
+  @if $clean {
+    $_susy-media-context: $query !global;
+  } @else {
+    $_susy-media-context: map-merge($_susy-media-context, $query) !global;
+  }
+}
+
+
+// Media Context
+// -------------
+// Return the full media context, or a single media property (e.g. min-width)
+@function susy-media-context(
+  $property: false
+) {
+  @if $property {
+    @return map-get($_susy-media-context, $property);
+  } @else {
+    @return $_susy-media-context;
+  }
+}
+
+
+// Get Media
+// ---------
+// Return a named media-query from $susy-media.
+// - $name: <key>
+@function susy-get-media(
+  $name
+) {
+  @if map-has-key($susy-media, $name) {
+    $map-value: map-get($susy-media, $name);
+    @if ($name == $map-value) {
+      $name: $map-value;
+    } @else {
+      $name: susy-get-media($map-value);
+    }
+  }
+
+  @return $name;
+}
+
+
+// Render Media
+// ------------
+// Build a media-query string from various media settings
+@function susy-render-media(
+  $query
+) {
+  $output: null;
+  @each $property, $value in $query {
+    $string: null;
+
+    @if $property == media {
+      $string: $value;
+    } @else {
+      $string: '(#{$property}: #{$value})';
+    }
+
+    $output: if($output, '#{$output} and #{$string}', $string);
+  }
+
+  @return $output;
+}
+
+
+// Parse Media
+// -----------
+// Return parsed media-query settings based on shorthand
+@function susy-parse-media(
+  $query
+) {
+  $mq: null;
+  @if type-of($query) == map {
+    $mq: $query;
+  } @else if type-of($query) == number {
+    $mq: (min-width: $query);
+  } @else if type-of($query) == list and length($query) == 2 {
+    @if type-of(nth($query, 1)) == number {
+      $mq: (
+        min-width: min($query...),
+        max-width: max($query...),
+      );
+    } @else {
+      $mq: (nth($query, 1): nth($query, 2));
+    }
+  } @else {
+    $mq: (media: '#{$query}');
+  }
+
+  @return $mq;
+}

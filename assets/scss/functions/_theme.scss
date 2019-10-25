@@ -1,0 +1,100 @@
+
+// Functions
+/* scss-combine:general/functions */
+// rem calculator from Zurb Foundation: https://github.com/zurb/foundation/blob/master/scss/foundation/_functions.scss
+$rem-base: 16px !default;
+
+@function strip-unit($num) {
+  @return $num / ($num * 0 + 1);
+}
+
+@function convert-to-rem($value, $base-value: $rem-base)  {
+  $value: strip-unit($value) / strip-unit($base-value) * 1rem;
+  @if ($value == 0rem) { $value: 0; } // Turn 0rem into 0
+  @return $value;
+}
+
+@function rem-calc($values, $base-value: $rem-base) {
+  $max: length($values);
+  @if $max == 1 { @return convert-to-rem(nth($values, 1), $base-value); }
+  $remValues: ();
+  @for $i from 1 through $max {
+    $remValues: append($remValues, convert-to-rem(nth($values, $i), $base-value));
+  }
+  @return $remValues;
+}
+
+// ================================================================ */
+//  Function to create an optimized svg url
+// from: http://codepen.io/jakob-e/pen/doMoML
+
+@function svg-url($svg){
+  //
+  //  Chunk up string in order to avoid
+  //  "stack level too deep" error
+  //
+  $encoded:'';
+  $slice: 2000;
+  $index: 0;
+  $loops: ceil(str-length($svg)/$slice);
+  @for $i from 1 through $loops {
+    $chunk: str-slice($svg, $index, $index + $slice - 1);
+    //
+    //   Encode (may need a few extra replacements)
+    //
+    $chunk: str-replace($chunk,'"','\'');
+    $chunk: str-replace($chunk,'<','%3C');
+    $chunk: str-replace($chunk,'>','%3E');
+    $chunk: str-replace($chunk,'&','%26');
+    $chunk: str-replace($chunk,'#','%23');
+    $encoded: #{$encoded}#{$chunk};
+    $index: $index + $slice;
+  }
+  @return url("data:image/svg+xml;charset=utf8,#{$encoded}");
+}
+
+//  Helper function to replace characters in a string
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(str-slice($string, $index +
+      str-length($search)), $search, $replace);
+  }
+  @return $string;
+}
+
+// Colour helpers
+@function shade($color, $percent) {
+  @return mix(#000, $color, $percent);
+}
+
+@function contrast($color, $percent: 6%, $threshold: 50) {
+  @if (lightness($color) > $threshold) {
+    @return shade($color, $percent);
+  } @else {
+    @return lighten($color, $percent);
+  }
+}
+
+@function inverse-bool($bool) {
+  @if ($bool == true) {
+    @return false;
+  } @else {
+    @return true;
+  }
+}
+
+@function is-dark($color) {
+  @if (lightness($color) < 50) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+@function make-white($background) {
+  @if lightness($background) < 33 {
+    @return contrast($background, 100%);
+  }
+}

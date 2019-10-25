@@ -2,6 +2,27 @@
 Core Authenteak website documentation about special modules and features.
 
 
+## Product JSON
+Product Pages (PDP) extra elements.
+* Tool Tips
+  * Product option tips
+  * Specific Element tips
+* Custom Tab Content
+
+### Structure
+```
+├── tool-tips           	# 
+│   ├── brands				# 
+│   	├── Specific Brand  		# Brand field must match what is in the BC Backend
+│   ├── elements				# 
+│   	├── Elements by ID 		# The ID of the elemnet you want to add a tool tip too
+├── tabs           	# 
+│   ├── Tab ID				# The ID of the tab you want to add content too
+
+```
+
+---
+
 ## Calculators
 To add a calculator to a page call the `TEAK.Modules.calculator.init()` for a given caculator type with a set of paramerters.
 
@@ -10,23 +31,24 @@ To add a calculator to a page call the `TEAK.Modules.calculator.init()` for a gi
 | id        | id of the element container to render the calculator |
 | type      | the calculator type to rednder                       |
 
-### Fireplace
-Renders the fireplace fireglass/lava rock calculator in a given div container
+### Firepit
+Renders the firepit fireglass/lava rock calculator in a given div container
 
 *Example*
 ```
-<div class="calculator" id="fireplaceCalculator">
+<div class="calculator" id="firepitCalculator">
     <script>
         document.addEventListener('DOMContentLoaded', function(){
             TEAK.Modules.calculator.init({
-                id: "fireplaceCalculator",
-                type: "fireplace"
+                id: "firepitCalculator",
+                type: "firepit"
             });
         });
     </script>
 </div>
 ```
 
+---
 
 ## Header JSON
 Used to generate additional non SEO critical pages, categories, sub-categories in the main navigation menu. Also used to control other header objects requiring dyanmic udpates from content editors

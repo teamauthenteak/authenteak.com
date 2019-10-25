@@ -50,12 +50,15 @@ export default class Category extends PageManager {
   // infinate scroll for BC powered HTML underlay, only for SEO purposes
   _infiniteScroll() {
     const elem = document.querySelector('.listing-wrapper');
-    const infScroll = new InfiniteScroll(elem, {
-        path: '.pagination-link--next',
-        append: '.product-grid-item',
-        history: false,
-    });
-    return infScroll;
+
+    if(elem){
+      const infScroll = new InfiniteScroll(elem, {
+          path: '.pagination-link--next',
+          append: '.product-grid-item',
+          history: false,
+      });
+      return infScroll;
+    }
   }
 
 

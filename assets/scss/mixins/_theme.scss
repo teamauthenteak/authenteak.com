@@ -1,0 +1,194 @@
+
+/* scss-combine:lib/mixins */
+@mixin media($max: false, $min: false) {
+    @if $max {
+      @if $min {
+        @media screen and (max-width: $max - 1) and (min-width: $min) { @content; }
+      } @else {
+        @media screen and (max-width: $max - 1) { @content; }
+      }
+    } @else {
+      @media screen and (min-width: $min) { @content; }
+    }
+  }
+  
+  @mixin hover($color, $property: color) {
+    @if lightness($color) > 10% {
+      #{$property}: darken($color,8%);
+    } @else {
+      #{$property}: lighten($color,10%);
+    }
+  }
+  
+  @mixin button-hover($color, $property: color) {
+    @if lightness($color) > 20% {
+      #{$property}: darken($color,5%);
+    } @else {
+      #{$property}: lighten($color,6%);
+    }
+  }
+  
+  @mixin retina {
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+      @content;
+    }
+  }
+  
+  /* scss-combine:lib/text-inputs */
+  // https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/addons/_text-inputs.scss
+  
+  @function assign-inputs($inputs, $pseudo: null) {
+    $list: ();
+  
+    @each $input in $inputs {
+      $input: unquote($input);
+      $input: if($pseudo, $input + ":" + $pseudo, $input);
+      $list: append($list, $input, comma);
+    }
+  
+    @return $list;
+  }
+  
+  
+  $text-inputs-list: 'input[type="color"]',
+                    'input[type="date"]',
+                    'input[type="datetime"]',
+                    'input[type="datetime-local"]',
+                    'input[type="email"]',
+                    'input[type="month"]',
+                    'input[type="number"]',
+                    'input[type="password"]',
+                    'input[type="search"]',
+                    'input[type="tel"]',
+                    'input[type="text"]',
+                    'input[type="time"]',
+                    'input[type="url"]',
+                    'input[type="week"]',
+                    'input:not([type])',
+                    'textarea';
+  
+  $all-text-inputs:        assign-inputs($text-inputs-list);
+  $all-text-inputs-active: assign-inputs($text-inputs-list, active);
+  $all-text-inputs-focus:  assign-inputs($text-inputs-list, focus);
+  $all-text-inputs-hover:  assign-inputs($text-inputs-list, hover);
+
+  
+
+// Helpers
+/* scss-combine:general/mixins */
+/*----------  Layout  ----------*/
+
+
+// Media Queries
+@mixin media($max: false, $min: false) {
+    @if $max {
+      @if $min {
+        @media screen and (max-width: $max - 1) and (min-width: $min) { @content; }
+      } @else {
+        @media screen and (max-width: $max - 1) { @content; }
+      }
+    } @else {
+      @media screen and (min-width: $min) { @content; }
+    }
+  }
+  
+  // Maintain Aspect Ratio
+  // @include maintain-ratio(16 9);
+  @mixin maintain-ratio($ratio: 1 1) {
+    @if length($ratio) < 2 or length($ratio) > 2 {
+      @warn "$ratio must be a list with two values.";
+    }
+  
+    $width: 100%;
+    $height: percentage(nth($ratio, 2) / nth($ratio, 1));
+  
+    width: $width;
+    height: 0;
+    padding-bottom: $height;
+  }
+  
+  @mixin layout-group($gutter: 0, $gutter-vertical: null) {
+    @if $gutter-vertical == null {
+      $gutter-vertical: $gutter;
+    }
+  
+    display: table;
+  
+    @if $gutter == 0 {
+      width: 100%;
+    } @else {
+      width: calc(100% + #{$gutter * 2});
+      margin-left: $gutter * -1;
+      border-spacing: $gutter $gutter-vertical;
+    }
+  }
+  
+  @mixin layout-group-item {
+    display: table-cell;
+  }
+  
+  // Centerer
+  @mixin centerer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  
+  /*----------  Icons  ----------*/
+  
+  // Circle
+  @mixin icon-circle($size: 18px, $color: $color-meta) {
+    display: inline-block;
+    width: $size;
+    height: $size;
+    overflow: hidden;
+    padding: 0;
+    line-height: $size - 4px;
+    text-align: center;
+    border-radius: 50%;
+    border: 2px solid $color;
+    color: $color;
+  }
+  
+  @mixin icon-arrow-down($fill-color) {
+    @extend %background-position-svg;
+    background-image: svg-url('<svg fill="#{$fill-color}" version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M6.514 6.232l9.487 9.597 9.487-9.597c1.491-1.491 3.904-1.491 5.395 0 1.483 1.507 1.491 3.944 0 5.451l-12.19 12.306c-1.483 1.491-3.904 1.491-5.395 0l-12.182-12.306c-1.489-1.507-1.489-3.944 0.002-5.451 1.491-1.491 3.904-1.491 5.395 0z"></path></svg>');
+  }
+  
+  @mixin icon-check-mark($fill-color) {
+    @extend %background-position-svg;
+    background-image: svg-url('<svg fill="#{$fill-color}" version="1.1" xmlns="http://www.w3.org/2000/svg" width="44" height="32" viewBox="0 0 44 32"><path d="M41.186 1.67c-1.936-1.937-5.075-1.937-7.011 0l-17.239 17.237-8.472-8.472c-1.935-1.937-5.076-1.937-7.011 0s-1.936 5.075 0 7.011l11.978 11.979c0.968 0.969 2.237 1.452 3.506 1.452s2.538-0.483 3.506-1.452l20.744-20.744c1.937-1.936 1.937-5.075 0.001-7.011z"></path></svg>');
+  }
+  
+  @mixin icon-email($fill-color) {
+    @extend %background-position-svg;
+    background-image: svg-url('<svg fill="#{$fill-color}" version="1.1" xmlns="http://www.w3.org/2000/svg" width="43" height="32" viewBox="0 0 43 32"><path d="M40 0h-37.333c-1.475 0-2.667 1.192-2.667 2.667v26.667c0 1.475 1.192 2.667 2.667 2.667h37.333c1.475 0 2.667-1.192 2.667-2.667v-26.667c0-1.475-1.192-2.667-2.667-2.667v0zM37.333 5.333v0.176l-16 12.445-16-12.445v-0.176h32zM5.333 26.667v-14.4l14.363 11.171c0.48 0.376 1.059 0.563 1.637 0.563s1.157-0.187 1.637-0.563l14.363-11.171v14.4h-32z"></path></svg>');
+  }
+  
+  @mixin icon-password($fill-color) {
+    @extend %background-position-svg;
+    background-image: svg-url('<svg fill="#{$fill-color}" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="32" viewBox="0 0 24 32"><path d="M22 12h-2v-4c0-4.418-3.582-8-8-8s-8 3.582-8 8v4h-2c-1.106 0-2 0.894-2 2v16c0 1.106 0.894 2 2 2h20c1.106 0 2-0.894 2-2v-16c0-1.106-0.894-2-2-2v0zM8 8c0-2.208 1.792-4 4-4s4 1.792 4 4v4h-8v-4zM4 16h16v12h-16v-12z"></path><path d="M12 24c1.106 0 2-0.894 2-2s-0.894-2-2-2c-1.106 0-2 0.894-2 2s0.894 2 2 2z"></path></svg>');
+  }
+  
+  @mixin icon-close($fill-color) {
+    @extend %background-position-svg;
+    background-image: svg-url('<svg fill="#{$fill-color}" width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg"><title>close</title><path d="M15 1.73L13.52.25 7.89 5.88 2.26.25.778 1.73l5.63 5.63-5.63 5.63 1.482 1.482 5.63-5.63 5.63 5.63 1.48-1.48-5.63-5.63L15 1.73"/></svg>');
+  }
+  
+  /*----------  Theme Editor Settings  ----------*/
+  
+  @mixin font-switcher($use-primary-font) {
+    @if ($use-primary-font) {
+      font-family: $font-primary;
+    } @else {
+      font-family: $font-secondary;
+    }
+  }
+  
+  @mixin white-text($background) {
+    @if lightness($background) < 33 {
+      color: contrast($background, 100%);
+    }
+  }
