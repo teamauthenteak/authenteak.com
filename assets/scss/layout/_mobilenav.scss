@@ -64,7 +64,11 @@
     }
 }
 
-
+@media screen and (max-width: $screen-lg + 5){
+    .nav-mobile-open .navigation-mobile {
+        display: block !important;
+    }
+}
 
 .button-mobile-nav-toggle--active{
     display: none;

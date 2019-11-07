@@ -371,7 +371,7 @@ export default class Product extends PageManager {
     custom: parseInt('{{~default ../../../product.price.sale_price_without_tax.value price.without_tax.value~}}')
 */
 TEAK.Modules.freeShipping = {
-	init: function(args){
+	set: function(args, element){
 		let excludedSkus = [
 				"LPG-L5000",
 				"EL-OFS006",
@@ -381,7 +381,6 @@ TEAK.Modules.freeShipping = {
 				"EL-OFS303",
 				"EL-OFS304"
 			],
-
 			isExcluded = excludedSkus.includes(args.sku),
 			
 			freeShipping = '<p class="free-shipping-text" data-pricing-free-shipping>Free Shipping</p></p>',
@@ -398,11 +397,11 @@ TEAK.Modules.freeShipping = {
 					'</span>',
 				'</a>',
 				'<span class="toolTip__cntr hide" id="free_white_glove_delivery"></span>',
-			'</p>'].join("");
+			'</p>'].join(""),
 
-		let tpl = ( (args.price.without_tax > 2998 || args.price.custom > 2998) && !isExcluded ) ? freeWhiteGlove : freeShipping;
+			tpl = ( (args.price.without_tax > 2998 || args.price.custom > 2998) && !isExcluded ) ? freeWhiteGlove : freeShipping;
 	
-		document.getElementById("freeShipping").innerHTML = tpl;
+		document.getElementById(element).innerHTML = tpl;
 
 		return this;
 	}

@@ -32,30 +32,30 @@
 
 
 
-      {{#each product.custom_fields}}
-        {{#if this.name '===' "Free Shipping Icon"}}   
-          {{#if this.value '===' "Yes"}}
+    {{#each product.custom_fields}}
+      {{#if this.name '===' "Free Shipping Icon"}}   
+        {{#if this.value '===' "Yes"}}
 
-            <div id="freeShipping">
-              <script>
-                /* Displays the free shipping text based on price */
-                document.addEventListener('DOMContentLoaded', function(){
-                    TEAK.Modules.freeShipping.init({
-                      price: {
-                        rrp_without_tax: '{{../../../product.price.rrp_without_tax.value}}' === '' ? 0 : parseInt('{{../../../product.price.rrp_without_tax.value}}'),
-                        with_tax: '{{../../../product.price.with_tax.value}}' === '' ? 0 : parseInt('{{../../../product.price.with_tax.value}}'),
-                        without_tax: '{{../../../product.price.without_tax.value}}' === '' ? 0 : parseInt('{{../../../product.price.without_tax.value}}'),
-                        custom: '{{~default ../../../product.price.sale_price_without_tax.value price.without_tax.value~}}' === '' ? 0 : parseInt('{{~default ../../../product.price.sale_price_without_tax.value price.without_tax.value~}}')
-                      },
-                      sku: "{{../../../product.sku}}"
-                    });
-                });
-              </script>
-            </div>
-              
-          {{/if}}
+          <div id="freeShipping">
+            <script>
+              /* Displays the free shipping text based on price */
+              document.addEventListener('DOMContentLoaded', function(){
+                  TEAK.Modules.freeShipping.set({
+                    price: {
+                      rrp_without_tax: '{{../../../product.price.rrp_without_tax.value}}' === '' ? 0 : parseInt('{{../../../product.price.rrp_without_tax.value}}'),
+                      with_tax: '{{../../../product.price.with_tax.value}}' === '' ? 0 : parseInt('{{../../../product.price.with_tax.value}}'),
+                      without_tax: '{{../../../product.price.without_tax.value}}' === '' ? 0 : parseInt('{{../../../product.price.without_tax.value}}'),
+                      custom: '{{~default ../../../product.price.sale_price_without_tax.value price.without_tax.value~}}' === '' ? 0 : parseInt('{{~default ../../../product.price.sale_price_without_tax.value price.without_tax.value~}}')
+                    },
+                    sku: "{{../../../product.sku}}"
+                  }, "freeShipping");
+              });
+            </script>
+          </div>
+            
         {{/if}}
-      {{/each}}
+      {{/if}}
+    {{/each}}
       
 
       {{#if product.options}}

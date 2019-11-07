@@ -1,7 +1,8 @@
 // Grid
 $grid-columns: 10 !default;
 
-$standard-width: 1500px;
+// $standard-width: 1500px;
+$standard-width: 100% !important;
 $standard-padding: 20px;
 $standard-column-width: 100%;
 

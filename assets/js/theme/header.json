@@ -2,30 +2,31 @@
     "marketing_content": {
         "banner": {
             "isVisable": true,
-            "header_promo": "Pay over time with financing from <span class='promoBanner__affirmLogo'></span> <strong class='promoBanner__psedoLink'><u>Learn more &rsaquo;</u></strong>",
+            "header_promo": "<a href='/featured-offers/'>Shop the Savings&nbsp;&nbsp;|&nbsp;&nbsp;<strong>Explore Featured Offers ></strong></a>",
             "header_promo_link": "",
             "header_promo_color": "grey",
-            "header_custom_class": "affirm-site-modal"
+            "header_custom_class": ""
         },
         "inline": {
-        	"isVisable": true,
-            "header_promo": "Shopping for a Client? <strong>Join our Trade Program</strong>",
-            "header_promo_link": "/to-the-trade",
+            "isVisable": true,
+            "header_promo": "<strong><a href='/shipping'>Free Shipping on All Orders!</a></strong>",
+            "header_promo_link": "/shipping",
             "header_promo_color": "green",
             "header_custom_class": ""
         }
     },
-    "category_2480":{
+    "category_2480": {
+        "minWidth": 950,
         "makeShort": false,
-        "landing_image":{
+        "landing_image": {
             "title": "Outdoor Furniture",
-            "url": "/patio-umbrellas-accessories/accessories-parts-frames/replacement-canopies/",
-            "caption": "Update Your Shade<br/><strong>Shop Replacement Canopies</strong>",
-            "img":{
-                "src": "https://cdn3.bigcommerce.com/s-r14v4z7cjw/product_images/uploaded_images/shade-nav-b.jpg?t=1500658940&_ga=2.61949289.478344005.1500649081-170994603.1491244766",
-                "alt": "Patio Umbrellas & Accessories"
+            "url": "/outdoor-furniture/lounging/shop-all-lounging/",
+            "caption": "Sit Back & Relax <br/><strong>Shop Lounge Furniture </strong>",
+            "img": {
+                "src": "https://authenteak.s3.us-east-2.amazonaws.com/mega-menu-assets/MegaNav_Lounge+(1).jpg",
+                "alt": "Outdoor Lounge Furniture"
             }
-      },
+        },
         "shop_by_brand": {
             "title": "Shop by Brand",
             "url": "/outdoor-furniture-shop-by-brand/",
@@ -43,126 +44,140 @@
                     "emphasis": false
                 },
                 {
-                  "title": "Barlow Tyrie",
-                  "url": "/shop-all-brands/barlow-tyrie/",
-                  "highlight": false,
-                  "emphasis": false
+                    "title": "Barlow Tyrie",
+                    "url": "/shop-all-brands/barlow-tyrie/",
+                    "highlight": false,
+                    "emphasis": false
                 },
                 {
-                  "title": "Polywood",
-                  "url": "/shop-all-brands/polywood/",
-                  "highlight": false,
-                  "emphasis": false
+                    "title": "Polywood",
+                    "url": "/shop-all-brands/polywood/",
+                    "highlight": false,
+                    "emphasis": false
                 },
                 {
-                  "title": "POVL Outdoor",
-                  "url": "/shop-all-brands/povl-outdoor/",
-                  "highlight": false,
-                  "emphasis": false
+                    "title": "POVL Outdoor",
+                    "url": "/shop-all-brands/povl-outdoor/",
+                    "highlight": false,
+                    "emphasis": false
                 },
                 {
-                  "title": "Shop All Brands",
-                  "url": "/outdoor-furniture-shop-by-brand/",
-                  "highlight": false,
-                  "emphasis": true
+                    "title": "Shop All Brands",
+                    "url": "/outdoor-furniture-shop-by-brand/",
+                    "highlight": false,
+                    "emphasis": true
                 }
             ]
-        },
-        "shop_by_collection":{
-        	"title": "Shop by Collection",
-        	"url": "/outdoor-furniture/shop-by-collection/",
-        	"items": [
-				{
-					"title": "Kingsley Bate Sag Harbor",
-					"url": "/outdoor-furniture/shop-by-collection/kingsley-bate-sag-harbor-collection/",
-					"highlight": false,
-					"emphasis": false
-				},
-				{
-					"title": "Kingsley Bate Chelsea",
-					"url": "/outdoor-furniture/shop-by-collection/kingsley-bate-chelsea-collection/",
-					"highlight": false,
-					"emphasis": false
-				},
-				{
-					"title": "Gloster Ventura",
-					"url": "/outdoor-furniture/shop-by-collection/gloster-ventura-collection/",
-					"highlight": false,
-					"emphasis": false
-				},
-				{
-					"title": "POVL Outdoor Menlo",
-					"url": "/outdoor-furniture/shop-by-collection/povl-outdoor-menlo-collection/",
-					"highlight": false,
-					"emphasis": false
-				},
-				{
-					"title": "Shop More Collections",
-					"url": "/outdoor-furniture/shop-by-collection/",
-					"highlight": false,
-					"emphasis": true
-				}
-        	]
         },
         "pages": [
             {
                 "title": "Showroom Clearance ",
-                "url": "/outdoor-furniture/showroom-clearance/",
+                "url": "/authenteak-atlanta-showroom-specials",
+                "highlight": false,
+                "emphasis": false
+            },
+            {
+                "title": "Replacement Cushions & Slings ",
+                "url": "/maintenance-care/replacement-cushions-slings/",
+                "highlight": false,
+                "emphasis": false
+            },
+            {
+                "title": "Featured Offers ",
+                "url": "/featured-offers/",
                 "highlight": true,
-                "emphasis": true
+                "emphasis": false
             }
-        ]
-    },
-    "category_798":{
-		"makeShort": false,
-        "landing_image":{
-              "title": "Patio Umbrealls",
-              "url": "/patio-umbrellas-accessories/accessories-parts-frames/replacement-canopies/",
-              "caption": "Update Your Shade<br/><strong>Shop Replacement Canopies</strong>",
-              "img":{
-                  "src": "https://cdn3.bigcommerce.com/s-r14v4z7cjw/product_images/uploaded_images/shade-nav-b.jpg?t=1500658940&_ga=2.61949289.478344005.1500649081-170994603.1491244766",
-                  "alt": "Patio Umbrellas & Accessories"
-              }
-        },
-        "shop_by_brand": {
-          "title": "Shop by Brand",
-          "url": "/shade-shop-by-brand/",
-          "items": [
-				{
-					"title": "Treasure Garden",
-					"url": "/shop-all-brands/treasure-garden/",
-					"highlight": false,
-					"emphasis": false
-				},
-				{
-					"title": "Bambrella",
-					"url": "/shop-all-brands/bambrella/",
-					"highlight": false,
-					"emphasis": false
-				},
-				{
-					"title": "Galtech",
-					"url": "/shop-all-brands/galtech/",
-					"highlight": false,
-					"emphasis": false
-				},
-				{
-					"title": "Shop All Brands",
-					"url": "/shade-shop-by-brand/",
-					"highlight": false,
-					"emphasis": true
-				}
-        	]
+        ],
+        "shop_by_collection": {
+            "title": "Shop by Collection",
+            "url": "/outdoor-furniture/shop-by-collection/",
+            "items": [
+                {
+                    "title": "Kingsley Bate Sag Harbor",
+                    "url": "/outdoor-furniture/shop-by-collection/kingsley-bate-sag-harbor-collection/",
+                    "highlight": false,
+                    "emphasis": false
+                },
+                {
+                    "title": "Kingsley Bate Chelsea",
+                    "url": "/outdoor-furniture/shop-by-collection/kingsley-bate-chelsea-collection/",
+                    "highlight": false,
+                    "emphasis": false
+                },
+                {
+                    "title": "Gloster Ventura",
+                    "url": "/outdoor-furniture/shop-by-collection/gloster-ventura-collection/",
+                    "highlight": false,
+                    "emphasis": false
+                },
+                {
+                    "title": "POVL Outdoor Menlo",
+                    "url": "/outdoor-furniture/shop-by-collection/povl-outdoor-menlo-collection/",
+                    "highlight": false,
+                    "emphasis": false
+                },
+                {
+                    "title": "Shop More Collections",
+                    "url": "/outdoor-furniture/shop-by-collection/",
+                    "highlight": false,
+                    "emphasis": true
+                }
+            ]
         }
     },
-    "category_787":{
-		"makeShort": false,
-		"landing_image":{
+    "category_798": {
+        "minWidth": 600,
+        "makeShort": false,
+        "landing_image": {
+            "title": "Patio Umbrealls",
+            "url": "/blog/how-do-i-select-a-patio-umbrella-a-patio-umbrella-buyers-guide/",
+            "caption": "Patio Umbrella Buying Guide<br/><strong>Explore Now </strong>",
+            "img": {
+                "src": "https://authenteak.s3.us-east-2.amazonaws.com/mega-menu-assets/Umbrella.jpg",
+                "alt": "Patio Umbrellas & Accessories"
+            }
+        },
+        "shop_by_brand": {
+            "title": "Shop by Brand",
+            "url": "/shade-shop-by-brand/",
+            "items": [
+                {
+                    "title": "Treasure Garden",
+                    "url": "/shop-all-brands/treasure-garden/",
+                    "highlight": false,
+                    "emphasis": false
+                },
+                {
+                    "title": "Bambrella",
+                    "url": "/shop-all-brands/bambrella/",
+                    "highlight": false,
+                    "emphasis": false
+                },
+                {
+                    "title": "Galtech",
+                    "url": "/shop-all-brands/galtech/",
+                    "highlight": false,
+                    "emphasis": false
+                },
+                {
+                    "title": "Shop All Brands",
+                    "url": "/shade-shop-by-brand/",
+                    "highlight": false,
+                    "emphasis": true
+                }
+            ]
+        }
+    },
+    "category_787": {
+        "minWidth": 850,
+        "makeShort": false,
+        "landing_image": {
             "title": "Grills & Outdoor Kitchens",
             "url": "/grills-outdoor-kitchens/grills-outdoor-cooking/gas-grills/",
-            "caption": "Free Shipping on Lynx <br><strong>Shop Gas Grills</strong>",
-            "img":{
-                "src": "https://cdn3.bigcommerce.com/s-r14v4z7cjw/product_images/uploaded_images/grills-app-nav.jpg?t=1510085334&_ga=2.199047919.1796845687.1509978227-1644720667.1505913641",
+            "caption": "Free Shipping on All Orders <br><strong>Shop Gas Grills</strong>",
+            "img": {
+                "src": "https://authenteak.s3.us-east-2.amazonaws.com/mega-menu-assets/MegaNav_Grills_Kitchens.jpg",
                 "alt": "Top Rated Grills &amp; Outdoor Kitchens"
             }
         },
@@ -175,38 +190,38 @@
                     "url": "/shop-all-brands/lynx-grills/",
                     "highlight": false,
                     "emphasis": false
-				},
-				{
+                },
+                {
                     "title": "Hestan",
                     "url": "/shop-all-brands/hestan/",
                     "highlight": false,
                     "emphasis": false
-				},
-				{
+                },
+                {
                     "title": "Weber Grills",
                     "url": "/shop-all-brands/weber-grills/",
                     "highlight": false,
                     "emphasis": false
-				},
-				{
+                },
+                {
                     "title": "Kamado Joe",
                     "url": "/shop-all-brands/kamado-joe/",
                     "highlight": false,
                     "emphasis": false
-				},
-				{
+                },
+                {
                     "title": "Primo Ceramic Grills",
                     "url": "/shop-all-brands/primo-ceramic-grills/",
                     "highlight": false,
                     "emphasis": false
-				},
-				{
+                },
+                {
                     "title": "Saber Grills",
                     "url": "/shop-all-brands/saber-grills/",
                     "highlight": false,
                     "emphasis": false
-				},
-				{
+                },
+                {
                     "title": "Shop All Brands",
                     "url": "/grills-appliances-shop-by-brand/",
                     "highlight": false,
@@ -214,83 +229,85 @@
                 }
             ]
         }
-	},
-    "category_906":{
-		"makeShort": true,
-    	"landing_image":{
+    },
+    "category_906": {
+        "minWidth": 500,
+        "makeShort": false,
+        "landing_image": {
             "title": "Outdoor Heating",
             "url": "/outdoor-heating/fire-pits-fire-tables/",
-            "caption": "Gather Round <br><strong>Shop Fire Pits</strong>",
-            "img":{
-                "src": "https://cdn3.bigcommerce.com/s-r14v4z7cjw/product_images/uploaded_images/fire-heat-nav.jpg?t=1497017695&_ga=2.6438386.1391367146.1496936389-170994603.1491244766",
+            "caption": "Chill Out Fireside <br><strong>Shop Fire Pits</strong>",
+            "img": {
+                "src": "https://authenteak.s3.us-east-2.amazonaws.com/mega-menu-assets/MegaNav_Outdoor_Heating.jpg",
                 "alt": "Fire Pits &amp; Fire Tables"
             }
         },
         "shop_by_brand": {
             "title": "Shop by Brand",
-            "url": "/outdoor-heating/shop-by-brand/",
+            "url": "/outdoor-heating-shop-by-brand",
             "items": [
                 {
                     "title": "Elementi",
                     "url": "/shop-all-brands/elementi/",
                     "highlight": false,
                     "emphasis": false
-				},
-				{
+                },
+                {
                     "title": "Bentintoshape",
                     "url": "/shop-all-brands/bentintoshape/",
                     "highlight": false,
                     "emphasis": false
-				},
-				{
-                    "title": "Fire Pit Art",
-                    "url": "/shop-all-brands/fire-pit-art/",
-                    "highlight": false,
-                    "emphasis": false
-				},
-				{
+                },
+                {
                     "title": "Infratech",
                     "url": "/shop-all-brands/infratech/",
                     "highlight": false,
                     "emphasis": false
-				},
-				{
+                },
+                {
                     "title": "Bromic Heating",
                     "url": "/shop-all-brands/bromic-heating/",
+                    "highlight": false,
+                    "emphasis": false
+                },
+                {
+                    "title": "Travis Industries",
+                    "url": "/shop-all-brands/travis-industries/",
                     "highlight": false,
                     "emphasis": false
                 }
             ]
         }
-	},
-    "category_911":{
-		"makeShort": true,
-    	"landing_image":{
+    },
+    "category_911": {
+        "minWidth": 310,
+        "makeShort": false,
+        "landing_image": {
             "title": "Planters",
             "url": "/planters/fiberglass-planters/#?Category0=Planters&Category1=Fiberglass+Planters&search_return=all&sort_by_field=Price+High+to+Low",
             "caption": "Branch Out <br><strong>Shop Large Planters</strong>",
-            "img":{
+            "img": {
                 "src": "https://cdn3.bigcommerce.com/s-r14v4z7cjw/product_images/uploaded_images/planters-nav.jpg?t=1497018011&_ga=2.147601655.1391367146.1496936389-170994603.1491244766",
                 "alt": "Planters &amp; Outdoor Decor"
             }
         },
         "shop_by_brand": {
             "title": "Shop by Brand",
-            "url": "/planters/shop-by-brand/",
+            "url": "/shop-all-brands/",
             "items": [
                 {
                     "title": "Pottery Pots",
                     "url": "/shop-all-brands/pottery-pots/",
                     "highlight": false,
                     "emphasis": false
-				},
-				{
+                },
+                {
                     "title": "Capital Garden",
                     "url": "/shop-all-brands/capital-garden/",
                     "highlight": false,
                     "emphasis": false
-				},
-				{
+                },
+                {
                     "title": "Shop All Planters",
                     "url": "/planters/shop-all-planters/",
                     "highlight": false,
@@ -299,162 +316,147 @@
             ]
         }
     },
-    "category_916":{
-		"makeShort": true,
-    	"landing_image":{
-            "title": "Fabrics",
-            "url": "/shop-all-brands/sunbrella/",
-            "caption": "Performance by the Yard <br><strong>Shop Sunbrella</strong>",
-            "img":{
-                "src": "https://cdn3.bigcommerce.com/s-r14v4z7cjw/product_images/uploaded_images/fabrics-nav-b.jpg?t=1500658936&_ga=2.61949289.478344005.1500649081-170994603.1491244766",
-                "alt": "Outdoor Fabrics by the Yard"
+    "category_2530": {
+        "makeShort": false,
+        "minWidth": 450,
+        "landing_image": {
+            "title": "Outdoor Decor",
+            "url": "/outdoor-decor/throw-pillows/",
+            "caption": "Add the Finishing Touch <br><strong>Shop Outdoor Throw Pilllows</strong>",
+            "img": {
+                "src": "https://authenteak.s3.us-east-2.amazonaws.com/mega-menu-assets/MegaNav_Accessories.jpg",
+                "alt": "Outdoor Decor"
             }
         },
         "shop_by_brand": {
             "title": "Shop by Brand",
-            "url": "/fabrics/shop-by-brand/",
-            "items": [
-                {
-                    "title": "Sunbrella",
-                    "url": "/shop-all-brands/sunbrella/",
-                    "highlight": false,
-                    "emphasis": false
-				},
-				{
-                    "title": "Silver State",
-                    "url": "/shop-all-brands/silver-state/",
-                    "highlight": false,
-                    "emphasis": false
-				},
-				{
-                    "title": "Outdura",
-                    "url": "/shop-all-brands/outdura/",
-                    "highlight": false,
-                    "emphasis": false
-				},
-				{
-                    "title": "Shop All Brands",
-                    "url": "/fabrics-shop-by-brand/",
-                    "highlight": false,
-                    "emphasis": false
-                }
-            ]
-        },
-        "shop_by_collection":{
-            "title": "Shop by Collection",
-            "url": "/fabrics/shop-by-collection/",
-            "items": [
-                {
-                    "title": "Sunbrella Canvas Collection",
-                    "url": "/fabrics/shop-by-collection/sunbrella-canvas-collection/",
-                    "highlight": false,
-                    "emphasis": false
-				},
-				{
-                    "title": "Sunbrella Spectrum Collection",
-                    "url": "/fabrics/shop-by-collection/sunbrella-spectrum-collection/",
-                    "highlight": false,
-                    "emphasis": false
-				},
-				{
-                    "title": "Shop More Collections",
-                    "url": "/fabrics/shop-by-collection/",
-                    "highlight": false,
-                    "emphasis": true
-                }
-            ]
-        }
-	},
-    "category_1134":{
-		"makeShort": true,
-    	"landing_image":{
-            "title": "Rugs",
-            "url": "/outdoor-rugs/new-in-rugs/",
-            "caption": "Comfort Underfoot <br><strong>Shop Rugs</span><strong>",
-            "img":{
-                "src": "https://cdn3.bigcommerce.com/s-r14v4z7cjw/product_images/uploaded_images/rugs-nav.jpg?t=1497021339&_ga=2.178385764.1391367146.1496936389-170994603.1491244766",
-                "alt": "Outdoor Patio Rugs"
-            }
-        },
-        "shop_by_brand": {
-            "title": "Shop by Brand",
-            "url": "/outdoor-rugs/shop-by-brand/",
-            "items": [
-                {
-                    "title": "Tommy Bahama",
-                    "url": "/shop-all-brands/tommy-bahama/",
-                    "highlight": false,
-                    "emphasis": false
-				},
-				{
-                    "title": "Oriental Weavers Rugs",
-                    "url": "/shop-all-brands/oriental-weavers-rugs/",
-                    "highlight": false,
-                    "emphasis": false
-				},
-				{
-                    "title": "Couristan",
-                    "url": "/shop-all-brands/couristan/",
-                    "highlight": false,
-                    "emphasis": false
-				},
-				{
-                    "title": "Trans-Ocean Rugs",
-                    "url": "/shop-all-brands/trans-ocean-rugs/",
-                    "highlight": false,
-                    "emphasis": false
-				}
-            ]
-        }
-    },
-    "category_930":{
-		"makeShort": true,
-    	"landing_image":{
-            "title": "Accessories",
-            "url": "/shop-all-brands/gacoli-lighting/",
-            "caption": "Light the Night <br><strong>Shop Gacoli</strong>",
-            "img":{
-                "src": "https://cdn3.bigcommerce.com/s-r14v4z7cjw/product_images/uploaded_images/accessories-nav.jpg?t=1497021457&_ga=2.148041847.1391367146.1496936389-170994603.1491244766",
-                "alt": "Outdoor Lighting and Accessories"
-            }
-        },
-        "shop_by_brand": {
-            "title": "Shop by Brand",
-            "url": "/accessories/shop-by-brand/",
+            "url": "/shop-all-brands/",
             "items": [
                 {
                     "title": "Elaine Smith Pillows",
-                    "url": "/shop-all-brands/elaine-smith-pillows/",
+                    "url": "/outdoor-decor/shop-all-outdoor-decor/#/filter:brand:Elaine$2520Smith$2520Pillows",
                     "highlight": false,
                     "emphasis": false
-				},
-				{
-                    "title": "Sovaro",
-                    "url": "/shop-all-brands/sovaro/",
+                },
+                {
+                    "title": "Sunbrella",
+                    "url": "/outdoor-decor/shop-all-outdoor-decor/#/filter:brand:Sunbrella$2520Fabrics",
                     "highlight": false,
                     "emphasis": false
-				},
-				{
-                    "title": "Travis Industries",
-                    "url": "/shop-all-brands/travis-industries/",
+                },
+                {
+                    "title": "Gloster",
+                    "url": "/shop-all-outdoor-decor/#/filter:brand:Gloster",
                     "highlight": false,
                     "emphasis": false
-				},
-				{
-                    "title": "Gacoli Lighting",
-                    "url": "/shop-all-brands/gacoli-lighting/",
+                },
+                {
+                    "title": "Couristan Rugs",
+                    "url": "/shop-all-brands/couristan-rugs/",
+                    "highlight": false,
+                    "emphasis": false
+                },
+                {
+                    "title": "Capel Rugs",
+                    "url": "/shop-all-brands/capel-rugs/",
                     "highlight": false,
                     "emphasis": false
                 }
             ]
         }
-	},
-    "category_1196":{
-		"makeShort": false,
+    },
+    "category_930": {
+        "makeShort": false,
+        "minWidth": 300,
+        "landing_image": {
+            "title": "Outdoor Entertainment",
+            "url": "/accessories/outdoor-tvs-accessories/",
+            "caption": "Catch the Game in Your Own Backyard <br><strong>Shop Outdoor TVs</strong>",
+            "img": {
+                "src": "https://authenteak.s3.us-east-2.amazonaws.com/mega-menu-assets/Outdoor_Entertaining.jpg",
+                "alt": "Outdoor Tvs"
+            }
+        },
         "shop_by_brand": {
-            "title": "Shop Luxury Brands",
-            "url": "/accessories/shop-by-luxury-brands/",
-            "items": []
+            "title": "Shop by Brand",
+            "url": "/shop-all-brands/",
+            "items": [
+                {
+                    "title": "Sunbrite Outdoor TVs",
+                    "url": "/outdoor-entertainment/shop-all-outdoor-entertainment/#/filter:brand:SunBriteTV",
+                    "highlight": false,
+                    "emphasis": false
+                },
+                {
+                    "title": "Sovaro",
+                    "url": "/outdoor-entertainment/shop-all-outdoor-entertainment/#/filter:brand:Sovaro",
+                    "highlight": false,
+                    "emphasis": false
+                },
+                {
+                    "title": "Kingsley Bate",
+                    "url": "/outdoor-entertainment/shop-all-outdoor-entertainment/#/filter:brand:Kingsley$2520Bate",
+                    "highlight": false,
+                    "emphasis": false
+                }
+            ]
         }
+    },
+    "category_1099": {
+        "makeShort": false,
+        "minWidth": 200,
+        "landing_image": {
+            "title": "Maintenance & Care",
+            "url": "/maintenance-care/replacement-cushions-slings/",
+            "caption": "Spruce Up Your Outdoor Furniture <br><strong>Shop Replacement Cushions</strong>",
+            "img": {
+                "src": "https://authenteak.s3.us-east-2.amazonaws.com/mega-menu-assets/Maintenance_Care.jpg",
+                "alt": "Replacement Cushions"
+            }
+        },
+        "shop_by_brand": {
+            "title": "Shop By Brand",
+            "url": "/shop-all-brands/",
+            "items": [
+                {
+                    "title": "Golden Care",
+                    "url": "/maintenance-care/shop-all-maintenance-care/#/filter:brand:Golden$2520Care",
+                    "highlight": false,
+                    "emphasis": false
+                },
+                {
+                    "title": "Classic Cushions",
+                    "url": "/maintenance-care/shop-all-maintenance-care/#/filter:brand:Classic$2520Cushions",
+                    "highlight": false,
+                    "emphasis": false
+                },
+                {
+                    "title": "Kingsley Bate",
+                    "url": "/maintenance-care/shop-all-maintenance-care/#/filter:brand:Kingsley$2520Bate",
+                    "highlight": false,
+                    "emphasis": false
+                },
+                {
+                    "title": "Treasure Garden",
+                    "url": "/maintenance-care/shop-all-maintenance-care/#/filter:brand:Treasure$2520Garden",
+                    "highlight": false,
+                    "emphasis": false
+                },
+                {
+                    "title": "Gloster",
+                    "url": "/maintenance-care/shop-all-maintenance-care/#/filter:brand:Gloster",
+                    "highlight": false,
+                    "emphasis": false
+                }
+            ]
+        }
+    },
+    "category_1196": {
+        "makeShort": false,
+        "minWidth": 1200
+    },
+    "category_2508": {
+        "makeShort": false,
+        "minWidth": 800
     }
 }

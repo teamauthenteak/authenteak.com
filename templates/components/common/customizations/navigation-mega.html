@@ -2,46 +2,52 @@
   @param nav_items > either "pages" or "categories", passed from parent template
   @param parent > "parent" category
 }}
+<div class="dropdown-panel-wrapper">
+	<div class="dropdown-panel mega-nav-panel">
+		<div class="container">
+			<div class="mega-nav-landing-wrapper" id="category_{{parentId}}">
 
-<div class="dropdown-panel mega-nav-panel">
-	<div class="container">
-		<div class="mega-nav-landing-wrapper" id="category_{{parentId}}">
+				<div class="mega-nav-landing"></div><!-- desktop nav image -->
 
-			<div class="mega-nav-landing"></div><!-- desktop nav image -->
-
-			<div class="mega-nav-landing-list-wrapper">
-				<ul class="mega-nav-list {{#if theme_settings.wrap-meganav}}wrap-cols{{/if}}">
+				<div class="mega-nav-landing-list-wrapper">
+					<ul class="mega-nav-list {{#if theme_settings.wrap-meganav}}wrap-cols{{/if}}">
 					{{#each nav_items}}
-					{{#startsWith "Shop by Collection" name}}{{ else }}
-					<li class="parent {{#if children}}has-children{{else}}parent--collapse{{/if}} tier-dropdown">
-						<a itemprop="url" href="{{url}}" title="{{name}}" {{#if image}}data-category-image="{{getImage image "large"}}"
-							{{/if}}><span itemprop="name">{{name}}</span></a>
+						{{#startsWith "Shop by Collection" name}}{{ else }}
 
-						{{#if children}}
-						<ul>
-							{{#each children}}
-							{{#startsWith "Shop All Brands" name}}{{ else }}{{#startsWith "Shop All" name}} {{else}}
-							<li>
-								<a itemprop="url" title="{{name}}" href="{{url}}" {{#if image}}data-category-image="{{getImage image "large"}}" {{/if}}>
-									<span itemprop="name">{{name}}</span>
-								</a>
-							</li>
-							{{/startsWith}}{{/startsWith}}
-							{{/each}}
-						</ul>
+						{{#if ../../parentId '==' '1196'}} {{!-- if Shop All Brands ---}}
+						<li class="parent parent--collapse tier-dropdown">
+						{{else}}
+						<li class="parent {{#if children}}has-children{{else}}parent--collapse{{/if}} tier-dropdown">
 						{{/if}}
 
-					</li>
-					{{/startsWith}}
+							<a itemprop="url" href="{{url}}" title="{{name}}" {{#if image}}data-category-image="{{getImage image "large"}}"{{/if}}>
+								<span itemprop="name">{{name}}</span>
+							</a>
+
+							{{#if children}}
+							<ul>
+							{{#each children}}
+								{{#startsWith "Shop All Brands" name}}{{else}}
+								{{#if id '==' '2523'}}{{else}}{{#if id '==' '2524'}}{{else}}{{#if id '==' '2525'}}{{else}}
+								<li>
+									<a itemprop="url" title="{{name}}" href="{{url}}" {{#if image}}data-category-image="{{getImage image "large"}}" {{/if}}>
+										<span itemprop="name">{{name}}</span>
+									</a>
+								</li>
+								{{/if}}{{/if}}{{/if}}
+								{{/startsWith}}
+							{{/each}}
+							</ul>
+							{{/if}}
+
+						</li>
+						{{/startsWith}}
 					{{/each}}
-				</ul>
+					</ul>
+				</div>
 			</div>
-		</div>
-	</div><!-- end nav container -->
+		</div><!-- end nav container -->
+	</div>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-	window.TEAK.Modules.megaMenu.init("category_{{parentId}}");
-});
-</script>
+<script>document.addEventListener('DOMContentLoaded', function(){ window.TEAK.Modules.megaMenu.init("category_{{parentId}}"); });</script>

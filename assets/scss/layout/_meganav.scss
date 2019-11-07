@@ -1,6 +1,15 @@
 // main nav area
+
+
+.main-nav-bar {
+    @media screen and (max-width: $screen-lg + 5){
+        display: none;
+    }
+}
+
+
 .main-nav-bar > .nav-container-wide {
-    max-width: none;
+    max-width: $standard-width;
 }
 
 .main-nav-bar > .container {
@@ -22,7 +31,7 @@
 .navigation > ul[enhancednav]{
     display: flex;
     width: 100%;
-    max-width: none;
+    max-width: $standard-width;
     flex-direction: row;
     align-content: center;
     align-items: center;
@@ -31,6 +40,7 @@
 
 .main-nav-bar > .nav-container-wide .navigation ul li {
     margin-right: 0;
+    position: relative;
 }
 
 @media screen and (max-width: 1023px) {
@@ -86,31 +96,70 @@
     transition-delay: 0s;
     left: -1000vw;
     opacity: 0;
-    padding: 1.5rem 0 0;
+    padding: 0;
+    min-width: 800px;
+    width: auto;
+    overflow: visible;
+    background: transparent;
+}
+
+.dropdown-panel-wrapper{
+    position: absolute;
+    top: 0;
+    height: auto;
+    left: 0;
 }
 
 .mega-nav.hover-dropdown:hover .dropdown-panel {
     @extend .dropdown-panel.visible;
+    // left: 50%;
     left: 0;
     transition: left 0s, opacity 0.25s ease;
     transition-delay: 0.25s, 0.25s;
 }
 
+
+
 .mega-nav-panel {
-    border-top: 1px solid #ccc;
-    box-shadow: 0 3px 3px rgba(0, 0, 0, .20);
+
+    & .container{
+        padding: 0;
+    }
 
     &, .compressed & { 
         top: 44px;
     }
 }
 
+.mega-nav-landing{
+    position: absolute !important;
+    right: -384px;
+    height: 100%;
+    background-color: #fff;
+    width: auto !important;
+    display: flex !important;
+    border-top-left-radius: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 0;
+
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    overflow: hidden;
+}
+
+.mega-nav-landing-wrapper{
+    padding: 0 !important;
+}
+
 /* Mega Nav - Common Styles (Columns or Flex) */
 .mega-nav-list {
     text-align: left;
     // height: calc(100vh - 240px);
-    max-height: 450px;
-    margin-bottom: 1.5rem;
+    max-height: 500px;
+    // margin-bottom: 1.5rem;
+    padding: 20px 20px 10px 20px !important;
 
     &--less-content { max-height: 300px; }
     &--even-less-content { max-height: 200px; }
@@ -229,7 +278,7 @@
     padding: 0 20px;
 
     &--short{
-        height: 50%;
+        height: 80%;
         margin-bottom: 0;
         padding-bottom: 0;
     }
@@ -268,7 +317,9 @@
 
         .landing__image {
             display: block;
-            width: 100%;
+            width: 384px;
+            height: 100%;
+            object-fit: cover;
         }
 
         .landing__caption {
@@ -291,6 +342,17 @@
     .mega-nav-landing-list-wrapper { 
         flex: 1 0 auto; 
         width: 70%;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        // box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+        border-top-left-radius: 5px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 5px;
+        overflow: hidden;
+        background: #fff;
     }
 
     .mega-nav-landing ~ .mega-nav-landing-list-wrapper .mega-nav-list {

@@ -1,6 +1,13 @@
 # Change Log
 
 ## [1.20.11]
+- New mega menu that is not full width
+- remvoed arrows
+- amp page changes
+- made tablet header same for both portrate and landscape
+
+
+## [1.20.11]
 - AMP Product Pages (not 100% complete)
 - Added updated tool tips types for product options
 - improved transiion area from nav elemnt to dropdown

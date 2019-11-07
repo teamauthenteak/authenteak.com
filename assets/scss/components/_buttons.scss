@@ -155,6 +155,10 @@
     right: 17px;
     transform: translateY(-50%);
 
+    @media only screen and (max-width: $screen-lg + 5 ) {
+        display: block;
+    }
+
     a{
         display: flex;
         align-self: center;
@@ -186,7 +190,7 @@
     right: 55px;
     transform: translateY(-50%);
 
-    @media only screen and (max-width: $screen-lg) {
+    @media only screen and (max-width: $screen-lg + 5 ) {
         display: flex;
     }
 
@@ -195,6 +199,12 @@
     }
 
     a{
+        display: block;
+    }
+}
+
+.button-mobile-nav-toggle{
+    @media only screen and (max-width: $screen-lg + 5 ) {
         display: block;
     }
 }
@@ -224,7 +234,7 @@
       transform: translateY(0);
     }
   
-    @include media($min: $screen-lg) { display: none; }
+    @include media($max: $screen-lg + 5) { display: none; }
   
     a {
       display: block;

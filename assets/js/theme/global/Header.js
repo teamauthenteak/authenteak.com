@@ -310,16 +310,15 @@ TEAK.Modules.megaMenu = {
             .setCustomMobilePages(id)
             .setCustomMobileCategory(id, "shop_by_collection")
             .setCustomMobileCategory(id, "shop_by_brand")
-            .setCustomMobileImg(id);
+			.setCustomMobileImg(id);
             
-
         if( !TEAK.Utils.isHandheld ){
             this
                 .setCustomPages(id)
                 .setLandingImage(id)
                 .setCustomCategory(id, "shop_by_collection")
                 .setCustomCategory(id, "shop_by_brand")
-                .setDisplayHeight(id);
+                .setDisplayDimention(id);
         }
         
         return this;
@@ -338,7 +337,7 @@ TEAK.Modules.megaMenu = {
             document.getElementById(id).querySelector(".mega-nav-landing").innerHTML = tpl;
     
         }else{
-            document.getElementById(id).querySelector(".mega-nav-landing").style.display = "none";
+            document.getElementById(id).querySelector(".mega-nav-landing").style.visibility = "hidden";
         }
         
         return this;
@@ -400,12 +399,71 @@ TEAK.Modules.megaMenu = {
 
 
     // Desktop: sets the display height for the container
-    setDisplayHeight: function(id){
+    setDisplayDimention: function(id){
         if( this.data[id] !== undefined ){
+			var categoryId = document.getElementById(id);
+			
             if( this.data[id].makeShort ){
-                document.getElementById(id).querySelectorAll(".mega-nav-list")[0].classList.add("mega-nav-list--short");
-            }
-        }
+                categoryId.querySelectorAll(".mega-nav-list")[0].classList.add("mega-nav-list--short");
+			}
+			
+			if( this.data[id].minWidth ){
+				$(categoryId)
+					.parents(".dropdown-panel").css({
+						"minWidth": this.data[id].minWidth
+					})
+						.end()
+					.parents(".dropdown-panel-wrapper").css("width", this.data[id].minWidth + (this.data[id].hasOwnProperty("landing_image") ? 384 : 0) );
+			}
+		}
+		
+
+		/*
+		* Inspired by: 
+		* (c) 2018 Chris Ferdinandi, MIT License, https://gomakethings.com
+		*/
+		function isInViewport(elem) {
+			let bounding = elem.getBoundingClientRect();
+
+			return {
+				top: bounding.top < 0,
+				left: bounding.left < 0,
+				bottom: bounding.bottom > window.innerHeight,
+				right: bounding.right > window.innerWidth
+			};
+		};
+
+
+
+		function getNewPosition(pos, elementPosition){
+			let update = {}, margin = 20;
+
+			switch(pos){
+				case "right": 
+					update = {pos: -((elementPosition - window.innerWidth) + margin), direction: "left" }; 
+					break;
+			}
+
+			return update;
+		}
+
+
+		document.getElementById("mainNavBar").querySelector("li["+id+"]").addEventListener("mouseenter", function() { 
+			let dropDown = this.querySelectorAll(".dropdown-panel-wrapper")[0];
+			
+			setTimeout(function(){
+				let dropdownCheck = isInViewport(dropDown);
+
+				for(let key in dropdownCheck){
+					if(dropdownCheck[key]){
+						let newPosition = getNewPosition(key, dropDown.getBoundingClientRect()[key]);
+						$(dropDown).css(newPosition.direction, newPosition.pos);
+					}
+				}
+
+			}, 300);
+			
+		});
        
         return this;
     },

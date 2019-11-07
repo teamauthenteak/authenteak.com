@@ -1,4 +1,21 @@
 header{
+
+    .site-branding-centered{
+        display: none;
+
+        @media screen and (max-width: $screen-lg + 5){
+            display: block;
+        }
+    }
+
+    
+    .mobile-search-wrapper{
+        display: none;
+
+        @media screen and (max-width: $screen-lg + 5){
+            display: block;
+        }
+    }
     
     // header logo
     .site-branding {
@@ -65,7 +82,7 @@ header{
         // position: static;
 
         & .container{
-            max-width: none;
+            max-width: $standard-width;
         }
     }
 
@@ -94,7 +111,7 @@ header{
         align-items: flex-start;
         align-content: flex-start;
 
-        @media screen and (min-width: $screen-lg){   
+        @media screen and (min-width: $screen-lg + 5){   
             align-items: center;
             align-content: center;
         }
@@ -118,7 +135,7 @@ header{
         width: 30%;
         transition: width 0.25s ease;
 
-        @media screen and (max-width: $screen-lg){ 
+        @media screen and (max-width: $screen-lg + 5){ 
             display: none;
         }
 
@@ -134,7 +151,7 @@ header{
     .button-cart-toggle{
         padding: 0;
         
-        @media screen and (max-width: $screen-lg){ 
+        @media screen and (max-width: $screen-lg + 5){ 
             display: none;
         }
     }
@@ -146,7 +163,7 @@ header{
         padding: 0px 40px;
         max-width: 750px;
 
-        @media screen and (max-width: $screen-lg){   
+        @media screen and (max-width: $screen-lg + 5){   
             margin: 0 auto 10px auto !important;
             width: 40%;
             padding: 0;
@@ -194,6 +211,7 @@ header{
         height: inherit !important;
         min-height: inherit !important;
         text-align: center;
+        text-transform: capitalize;
 
         span{
             display: block;
@@ -228,7 +246,7 @@ header{
         padding-top: 0;
         margin-right: 20px;
 
-        @media only screen and (max-width: $screen-lg) {
+        @media only screen and (max-width: $screen-lg + 5) {
             display: none;
         }
     }
@@ -236,7 +254,7 @@ header{
     .customer-links {
         font-weight: 400;
 
-        @media only screen and (max-width: $screen-lg) {
+        @media only screen and (max-width: $screen-lg + 5) {
             display: none;
         }
     }
@@ -255,7 +273,7 @@ header{
         text-align: center;
         text-transform: uppercase;
 
-        @media only screen and (max-width: $screen-lg) {
+        @media only screen and (max-width: $screen-lg + 5) {
             display: none;
         }
     
@@ -288,7 +306,7 @@ header{
 }
 
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1025px) {
     span.head-phone-number,
     span.shipping-message,
     .top-bar-left,
@@ -304,6 +322,7 @@ header{
         left: 0;
         padding: 0 10px 10px 10px;
         background-color: #fff;
+        display: block !important;
         
         .atmo-center-search {
             margin: 0 auto;
@@ -325,7 +344,7 @@ header{
 
 
 @media screen and (min-width: 1024px) {
-    .logo-align-left .top-bar-center .site-branding, .logo-align-left .top-bar-center .site-branding-centered, .logo-align-right .top-bar-center .site-branding, .logo-align-center .top-bar-center .site-branding, .mobile-search-wrapper {
+    .logo-align-left .top-bar-center .site-branding, .logo-align-right .top-bar-center .site-branding, .logo-align-center .top-bar-center .site-branding {
         display: none;
     }
 }
