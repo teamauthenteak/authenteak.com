@@ -27,25 +27,17 @@
 {{/if}}
 {{#block 'amp-scripts'}}{{/block}}
 
- <!-- SEARCHSPRING SCRIPT -->
- {{#if category}}
- <script async custom-element="amp-script" src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query" category="{{#each breadcrumbs}}{{#unless @first}}{{name}}{{#unless @last}}>{{/unless}}{{/unless}}{{/each}}" name="{{ category.name }}"></script>
- {{else if brand}}
- <script async custom-element="amp-script" src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query" brand="{{ brand.name }}"></script>
- {{else}}
- <script async custom-element="amp-script" src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query"{{#if page.title "!=" 'Search Results'}} defer{{/if}}></script>
- {{/if}}
- <script async custom-element="amp-script" src="//cdn.searchspring.net/intellisuggest/is.min.js"></script>
-   
  {{{head.scripts}}}
- {{inject 'themeImageSizes' theme_settings._images}}
- {{> components/common/global-injects}}
  {{{snippet 'html_head'}}}
- {{> core/structured-data/website}}
+ <!-- <script async custom-element="amp-script" src="{{cdn '/assets/js/bundle.js'}}"></script> -->
+ <script async custom-element="amp-script" src="https://cdn11.bigcommerce.com/s-r14v4z7cjw/stencil/864476d0-e542-0137-f1ab-0242ac11000d/e/c1f0e130-e20e-0137-c404-0242ac11000e/js/bundle.js"></script>
+
 </head>
 
 <body class="{{> components/common/body-classes}}">
-    <div class="site-wrapper">
+
+
+	<div class="site-wrapper">
 
       <div class="site-canvas">
           <div class="on-canvas">
@@ -61,52 +53,17 @@
     
 <div class="icons-svg-sprite">{{> components/common/icons/icon-defs}}</div>
 
-<script async custom-element="amp-script" src="{{cdn '/assets/js/bundle.js'}}"></script>
-	
-	<script async custom-element="amp-script">
-		window.stencilBootstrap("{{template_file}}", {{ jsContext }}).load();
-  </script>
-  
-  {{{footer.scripts}}}
+<script type=text/plain target=amp-script id="">	
+	window.stencilBootstrap("{{template_file}}", {{ jsContext }}).load();
 
-	{{#if page_type '===' 'product'}}	
-	<script async custom-element="amp-script">
-		document.addEventListener('DOMContentLoaded', function(){
-
-			// tool tip start
-			window.TEAK.Modules.toolTip.init({
-				type: "brand",
-				name: "{{product.brand.name}}"
-			});
-
-			// IntelliSuggest tracking
-			try{
-				var productCode = "{{product.sku}}";
-
-				IntelliSuggest.init({
-					siteId: TEAK.thirdParty.IntelliSuggest.siteId,
-					context: 'Product/' + productCode,
-					seed: [productCode]
-				});
-
-				IntelliSuggest.viewItem({
-					sku: productCode
-				});
-			} catch(err) {}
+	document.addEventListener('DOMContentLoaded', function(){
+		// tool tip start
+		window.TEAK.Modules.toolTip.init({
+			type: "brand",
+			name: "{{product.brand.name}}"
 		});
-
-		// search spring filtering fix
-		(function(window){
-			var oldHistoryReplaceState = window.History.replaceState;
-
-			window.History.replaceState = function(a, b, url, c) {
-				if(!url.match(/(#|\/)(dev:|filter:|sort:|page:|perpage:|list|grid)/)) {
-					oldHistoryReplaceState(a, b, url, c);
-				}
-			}
-		}(window));
-	</script>
-	{{/if}}
+	});
+</script>
 
 </body>
 </html>

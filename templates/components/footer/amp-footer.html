@@ -1,0 +1,103 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-nav-wrap">
+      <div class="footer-col footer-nav footer-accordion-1 footer-accordion">
+        <h4 class="footer-title">{{lang 'footer.customer_service_nav'}}<span></span></h4>
+        {{> components/footer/customer-service-navigation}}
+      </div>
+      <div class="footer-col footer-nav footer-accordion-2 footer-accordion">
+        <h4 class="footer-title">{{lang 'footer.company_info_nav'}}<span></span></h4>
+        {{> components/footer/company-info-navigation}}
+      </div>
+      <div class="footer-col footer-nav footer-accordion-3 footer-accordion">
+        <h4 class="footer-title">{{lang 'footer.resources_nav'}}<span></span></h4>
+        {{> components/footer/resources-navigation}}
+      </div>
+      {{#if theme_settings.footer-show-address}}
+        <div class="footer-col footer-info">
+          <h4 class="footer-title">{{lang 'footer.address'}}</h4>
+          <p>{{nl2br settings.address}}</p>
+          
+          <p>{{lang 'footer.store_hours_mon_sat'}}<br>{{lang 'footer.store_hours_sun'}}<br><a href="tel:1-866-360-8325">1-866-360-8325</a></p>
+        </div>
+        <div class="mobile-share-consult">
+          <div class="share-block">
+            <div class="share-buttons-wrap">
+                <span class="share-title">
+                    {{ lang 'product.share'}}
+                  </span>
+              {{> components/common/share-buttons
+                share_buttons=settings.add_this
+                url=product.url
+                image=(getImage product.main_image 'thumb')
+                title=product.title
+              }}
+            </div>
+          </div>
+          <hr>
+          <div class="consult-showroom-wrap-mobile">
+            <div class="showroom-block">
+                <span class="gallery-icon gallery-phone">{{> components/products/gallery-phone-icon}}</span>
+                <p>For a Free Design Consultation or to Order by Phone <br>Call: <a href="tel:1-866-360-8325" title="calls us">1-866-360-8325</a></p>
+            </div>
+          </div>
+        </div>
+      {{/if}}
+      {{#any social_media.length theme_settings.geotrust-ssl-common-name}}
+        <div class="footer-col footer-social">
+          {{#if social_media.length}}
+            <h4 class="footer-title">{{lang 'footer.social_title'}}</h4>
+            {{> components/common/social-media-links links=social_media}}
+          {{/if}}
+          <div class='blog-link'>
+            <p>Get inspired with our blog</p>
+            <a href="/blog">
+              <amp-img src="https://cdn3.bigcommerce.com/s-r14v4z7cjw/product_images/uploaded_images/blog-footer-promo.png?t=1497549146&_ga=2.139326138.847722574.1497277559-170994603.1491244766" alt="blog" width="254" height="42" layout="responsive"></amp-img>
+            </a>
+          </div>
+        </div>
+      {{/any}}
+    </div>
+
+
+    <div class="bottom-bar {{#if theme_settings.theme-credits}}show-credits{{/if}}">
+      <div class="footer-payment-icons">
+        <ul class="footer-payment-icons-list">
+          {{#if theme_settings.payment_visa}}
+            <li>{{> svg/visa}}</li>
+          {{/if}}
+
+          {{#if theme_settings.payment_mastercard}}
+            <li>{{> svg/mastercard}}</li>
+          {{/if}}
+
+          {{#if theme_settings.payment_american_express}}
+            <li>{{> svg/amex}}</li>
+          {{/if}}
+
+          {{#if theme_settings.payment_discover}}
+            <li>{{> svg/discover}}</li>
+          {{/if}}
+
+          {{#if theme_settings.payment_paypal}}
+            <li>{{> svg/paypal}}</li>
+          {{/if}}
+
+          {{#if theme_settings.payment_apple_pay}}
+            <li>{{> svg/applepay}}</li>
+          {{/if}}
+        </ul>
+      </div>
+      {{#if theme_settings.geotrust-ssl-common-name}}
+       {{!-- {{> core/amp-geotrust-ssl-seal}} --}}  
+      {{/if}}
+      {{#if theme_settings.store-copyright}}
+         <span class="footer-site-copyright">&copy; <span id="footerCurrentYear"></span> {{settings.store_name}}</span>
+      {{/if}}
+
+      {{#if theme_settings.sitemap}}
+        <p><a href="{{urls.home}}" title="home">{{lang 'sitemap.title'}}</a></p>
+      {{/if}}
+    </div>
+  </div>
+</footer>

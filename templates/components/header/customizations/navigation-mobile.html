@@ -14,7 +14,7 @@
           {{#if theme_settings.global-show-categories-in-nav}}
             
           {{#each categories}}           
-            <li class="nav-mobile-item nav-mobile-item-parent {{#if children}}has-children{{/if}}" mobile_category_{{id}}>
+            <li class="nav-mobile-item nav-mobile-item-parent {{#if children}}has-children{{/if}}" data-mobile_category_{{id}}>
                 {{> components/common/customizations/multi-level-nav-item all_item=false parentId=id}}
             </li>
           {{/each}}

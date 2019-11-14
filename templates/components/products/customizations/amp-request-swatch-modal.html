@@ -1,0 +1,43 @@
+<div id="swatchpopuplist">
+    <div class="closepopup">{{> svg/close}}</div>
+    <div class="modalswatchpopup">
+        <div class="maintitle-swatch"></div>
+
+        <h2>Fabric Swatch Request</h2>
+        <p>Click to select the desired swatches. Once you have made your selection, click the green button below and
+            proceed through check-out. You will not be charged. Five swatches per order. To request more, please call
+            our showroom at 1-866-350-8325.</p>
+        <div class="swatchinnerpopup" data-simplebar="init">
+            <ul>
+                {{#each this.options}}
+                    {{#inArray (split "Select Head Cushion Fabric||Select Canopy||Select Optional Cushions||Select Optional Cushion||Select Fabric||Select Cushion||Select Throw Pillows Fabric" "||") display_name }}
+                        {{#each values}}{{#unless (occurrences label "No Thanks") }}{{#unless (occurrences label "No Cushion") }}
+                            <li data-request-swatch data-swatch-title="{{> components/products/customizations/option-label label}}">
+                                <div class="swatch-img">
+                                    <amp-img src="{{getImage image 'core-swatch'}}" alt="" width="100" height="100" layout="responsive"></amp-img>
+                                </div>
+                                <div class="swatch-title">
+                                    {{> components/products/customizations/option-label label}}
+                                </div>
+                            </li>
+                            {{/unless}}{{/unless}}{{/each}}
+                    {{/inArray}}
+                {{/each}}
+            </ul>
+        </div>
+        <div class="previewswatch">
+            <h3>Your Selected Swatches:</h3>
+            <ul></ul>
+        </div>
+        <div class="finalswatchy"></div>
+        <form method="post" action-xhr="/cart.php" enctype="multipart/form-data" id="productDetailsAddToCartForm1" target="_top">
+            <input name="action" value="add" type="hidden">
+            <input name="product_id" value="5656" type="hidden">
+            <input data-request-swatch-values-input name="ProductFields[3]" data-product-name="{{ this.title }}" data-product-sku="{{ this.sku }}" type="hidden">
+            <button type="submit" class="button button-primary button-primary--green button-wide add-to-cart button-progress btn--add-to-cart btn--keep-shopping spinner" value="Add to Cart" type="submit" disabled>
+                <span class="button-text">Add to Cart</span>
+            </button>
+        </form>
+    </div>
+</div>
+<div class="swatchpopuplist__underlay"></div>

@@ -804,17 +804,6 @@
 		"outputStyle": 0,
 		"syntaxCheckerStyle": 0
 		},
-	"\/js\/theme\/min\/Product-min.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/theme\/min\/Product-min.js",
-		"outputAbbreviatedPath": "\/js\/theme\/min\/min\/Product-min-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 0,
-		"syntaxCheckerStyle": 0
-		},
 	"\/js\/theme\/OrderComplete.js": {
 		"fileType": 64,
 		"ignore": 1,

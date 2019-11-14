@@ -387,7 +387,7 @@ TEAK.Modules.freeShipping = {
 			
 			freeWhiteGlove = [
 			'<p class="free-shipping-text" data-pricing-free-shipping>',
-				'<a href="" class="free-shipping-text--link" tool-tip-open data-tool-tip-type="element" data-tool-tip-name="free_white_glove_delivery">',
+				'<a href="" class="free-shipping-text--link" data-tool-tip-open data-tool-tip-type="element" data-tool-tip-name="free_white_glove_delivery">',
 				'Free White Glove Delivery Available &nbsp;',
 					'<span class="toolTip__iconCntr toolTip__iconCntr--dark">',
 					'<svg class="toolTip__icon toolTip__icon--white" enable-background="new 0 0 20 20" version="1.1" viewBox="0 0 20 20" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">',
@@ -559,8 +559,8 @@ TEAK.Modules.toolTip = {
 		$(document.body)
 			.on("click", this.checkClickToCloseModal)
 			.on("keydown", this.checkKeyToCloseModal)
-			.on("click", "[tool-tip-open]", this.openTipModal)
-			.on("click", "[tool-tip-close]", this.closeTipModal);
+			.on("click", "[data-tool-tip-open]", this.openTipModal)
+			.on("click", "[data-tool-tip-close]", this.closeTipModal);
 
 		return this;
 	}

@@ -1,0 +1,45 @@
+{{!-- Product: include in product.html page template --}}
+
+<script id="schema-product" type="application/ld+json">
+  var schema = document.createElement('script');
+  var schemaPrice = "{{#if product.price.without_tax}}{{> components/products/customizations/non-sale-price-fixed price=product.price}}{{/if}}{{#if product.price.with_tax}}{{#unless product.price.without_tax}}{{chop product.price.with_tax.value}}{{/unless}}{{/if}}".replace(/\$|,/g, '');
+
+  schema.type = 'application/ld+json';
+  schema.text = JSON.stringify({
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": "{{product.title}}",
+    "image": "{{getImage product.main_image}}",
+    "description": "{{json product.description}}",
+    "sku": "{{product.sku}}",
+    "brand": {
+      "@type": "Thing",
+      "name": "{{product.brand.name}}"
+    },
+    {{#if product.reviews.list}}
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "{{product.rating}}",
+        "reviewCount": "{{product.num_reviews}}"
+      },
+    {{/if}}
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "{{currency_selector.active_currency_code}}",
+      "price": schemaPrice,
+      "priceValidUntil": "",
+      "url": window.location.href,
+      "itemCondition": "{{#if product.condition '===' 'New'}}http://schema.org/NewCondition{{/if}}{{#if product.condition '===' 'Used'}}http://schema.org/UsedCondition{{/if}}{{#if product.condition '===' 'Refurbished'}}http://schema.org/RefurbishedCondition{{/if}}",
+      "availability": "{{#unless product.out_of_stock_message}}http://schema.org/InStock{{else}}http://schema.org/OutOfStock{{/unless}}",
+      "seller": {
+        "@type": "Organization",
+        "name": "{{settings.store_name}}"
+      }
+    }
+  });
+
+  document.querySelector('body').appendChild(schema);
+
+  var script = document.getElementById('schema-product');
+  script.parentElement.removeChild(script);
+</script>

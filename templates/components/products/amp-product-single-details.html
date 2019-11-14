@@ -1,0 +1,245 @@
+<section
+  class="
+    product-details
+    product-block
+    section
+    {{#unless quick_view}}
+      product-single
+    {{/unless}}
+    {{cart_icon}}-icon
+    {{theme_settings.product-single-display-order}}
+  "
+  data-product-container
+  data-product-title="{{product.title}}"
+  data-product-id="{{product.id}}">
+  <div class="container">
+    {{#unless quick_view}}
+      {{> components/common/breadcrumbs breadcrumbs}}
+    {{/unless}}
+
+    <div class="product-details-column">
+      <h2 class="product-title mobileShow">{{this.product.title}}</h2>
+      <p class="item-number item-number-mobile mobileShow">ITEM #: {{product.sku}}</p>
+
+      {{> components/products/customizations/swatch-hover-detail}}
+
+      {{> components/products/amp-product-single-images images=product.images default_image=theme_settings.default_image }}
+      <!--moved from add-to-cart-form.html-->
+      <div class="share-block">
+        <hr>
+        <div class="share-buttons-wrap">
+            <span class="share-title">
+                {{ lang 'product.share'}}
+              </span>
+          {{> components/common/share-buttons
+            share_buttons=settings.add_this
+            url=product.url
+            image=(getImage product.main_image 'thumb')
+            title=product.title
+          }}
+        </div>
+      </div>
+      <hr>
+      <div class="consult-showroom-wrap">
+        <div class="showroom-block">
+            <span class="gallery-icon gallery-phone">{{> components/products/gallery-phone-icon}}</span>
+            <p>For a Free Design Consultation or to Order by Phone <br>Call: <a href="tel:1-866-360-8325">1-866-360-8325</a></p>
+        </div>
+      </div>
+      <!--End Share-->
+    </div>
+
+    <div class="product-details-column">
+      <!-- {{#if product.brand}}
+        <a class="product-brand" href="{{product.brand.url}}">{{product.brand.name}}</a>
+      {{/if}} -->
+
+      {{#if quick_view}}
+        <h1 class="product-title"><a href="{{product.url}}">{{this.product.title}}</a></h1>
+      {{else}}
+        <h1 class="product-title mobileHide">{{this.product.title}}</h1>
+      {{/if}}
+      
+        <div class="item-number">
+          <span class="mobileHide">ITEM #: {{product.sku}}</span>
+          <span class="yotpo-pdp-wrapper">
+              <span class="yotpo bottomLine" data-product-id="{{ product.id }}"></span>  
+              <span class='yotpo QABottomLine' data-appkey='aS8rMIONwGgNbx1ATQmUtKY173Xk5HHc75qGrnuq' data-product-id='{{ product.id }}'></span>
+          </span>
+        </div>
+      
+
+      <div class="price-range">
+          {{#if product.options}}
+            {{#if product.price}}
+              {{> components/products/amp-price price=product.price show_savings=false save_block=false}}
+            {{/if}}
+          {{else}}
+            <!-- show no price -->
+          {{/if}}
+      </div>
+
+      
+      <div class="affirm-pdp"></div>      
+
+      <!-- moved to add-to-cart.html -->
+      <!-- <div class="product-price">
+        {{#if product.price}}
+          {{> components/products/price price=product.price show_savings=true save_block=true}}
+        {{/if}}
+
+        {{#if product.call_for_price}}
+          <p>{{product.call_for_price}}</p>
+        {{/if}}
+      </div> -->
+
+      <div class="product-rating-block">
+        {{#if settings.show_product_rating}}
+          <div class="product-item-rating">
+            {{> components/products/ratings rating=this.product.rating}}
+            <span class="reviews-jumplink total-reviews" data-scroll="#product-reviews">
+              ( <a class="product-reviews-link link" href="{{#if quick_view}}{{product.url}}#product-reviews{{else}}#product-reviews{{/if}}">{{lang 'product.reviews.title' numReviews=product.num_reviews}}</a> )
+            </span>
+          </div>
+
+          {{{snippet 'product_rating'}}}
+        {{/if}}
+      </div>
+
+      {{#if product.release_date }}
+        <p class="message neutral">{{product.release_date}}</p>
+      {{/if}}
+      
+
+      
+        {{#each product.custom_fields}}
+          {{#if this.name '==' "Lead-Time"}}   
+              <p class="shipping-range shipping-range--static mobileHide">{{this.value}}</p>
+          {{/if}}
+        {{/each}}
+      
+
+      
+      {{#each product.custom_fields}}
+        {{#if this.name '==' "Promo Text"}}
+            <p class="pdp-promo-text">{{{this.value}}}</p>
+        {{/if}}
+      {{/each}}
+
+
+      {{#if theme_settings.product-single-display-order '===' 'product-description-first'}}
+        <ul class="highlight-group">
+          {{#each product.custom_fields}}
+            {{#if this.name '===' "Highlight 1"}}
+              <li>{{value}}</li>
+            {{else if this.name '===' "Highlight 2"}}
+              <li>{{value}}</li>
+            {{else if this.name '===' "Highlight 3"}}
+              <li>{{value}}</li>
+            {{/if}}
+          {{/each}}
+        </ul>
+        <hr>
+        {{> components/products/amp-add-to-cart-form cart_icon=cart_icon}}
+
+      {{else}}
+        {{> components/products/amp-add-to-cart-form cart_icon=cart_icon}}
+        <hr>
+        {{> components/products/product-description}}
+      {{/if}}
+
+      <div class="product-message-area" data-product-alerts></div>
+
+      {{#if quick_view}}
+        <a class="quick-shop-details-lower link" href="{{this.product.url}}">{{lang 'product.view_full_details'}}</a>
+      {{/if}}
+    </div>
+
+    {{{snippet 'product_details'}}}
+
+  </div>
+  <div class="pdp-shadow">
+    <div class="tmp-prod-details">
+      {{{product.description}}}
+      <div id="warrantyTab">
+          {{{product.warranty}}}
+      </div>
+
+      <div id="returnTab" class="returnTabContent">          
+          <script type=text/plain target=amp-script id="">
+          document.addEventListener("DOMContentLoaded", function(){
+            window.TEAK.Modules.tabs.getTabContent({
+              key: "returnTab",
+              mobileCntr: ".returnContent"
+            });
+          });
+        </script>
+      </div>
+    
+
+      <div id="videoTab">
+        {{#if product.videos.list.length}}
+        <div class="tab-content-panel" id="product-videos">
+          <div class="product-videos-list">
+            {{#each product.videos.list}}
+              {{> components/products/video-block-atmo video=this}}
+            {{/each}}
+          </div>
+        </div>
+      {{/if}}
+    </div>
+    </div>
+  </div>
+
+  <div class="tab-wrapper">
+      <div class="tab-header">
+        <ul>
+          <li class="active"><a data-tabval="descTab" class="descBtn">Description</a></li>
+          <li><a data-tabval="specsTab" class="specsBtn">Specifications</a></li>
+          <li><a data-tabval="careTab" class="careBtn">Care Info</a></li>
+          <li><a data-tabval="shipTab" class="shipBtn">Shipping</a></li>
+          <li><a data-tabval="pdfTab" class="pdfBtn">Resources</a></li>
+          <li><a data-tabval="videoTab" class="videoBtn">{{lang 'product.videos'}}</a></li>
+          <li><a data-tabval="warrantyTab" class="warrantyTab">Warranty</a></li>
+          <li><a data-tabval="returnTab" class="returnTab">Return Policy</a></li>
+        </ul>
+      </div>
+      <div class="tab-content"></div>
+  </div>
+
+  <div class="mobile-tab-wrapper">
+    <a class="mobile-tab-heading" data-tabVal="descTab">Description</a>
+    <div class="descContent active"></div>
+    
+    <a class="mobile-tab-heading mobile-specsTab" data-tabVal="specsTab">Specifications</a>
+    <div class="specsContent"></div> 
+    
+    <a class="mobile-tab-heading mobile-careTab" data-tabVal="careTab">Care Info</a>
+    <div class="careContent"></div>
+    
+    <a class="mobile-tab-heading mobile-shipTab" data-tabVal="shipTab">Shipping</a>
+    <div class="shipContent"></div>
+    
+    <a class="mobile-tab-heading mobile-pdfTab" data-tabVal="pdfTab">Resources</a>
+    <div class="pdfContent"></div>
+
+    <a class="mobile-tab-heading mobie-videoTab" data-tabVal="videoTab">{{lang 'product.videos'}}</a>
+    <div class="videoContent"></div>
+    
+    <a class="mobile-tab-heading mobile-warratyTab" data-tabVal="warrantyTab">Warranty</a>
+    <div class="warrantyContent"></div>
+
+    <a class="mobile-tab-heading mobile-returnTab" data-tabVal="returnTab">Return Policy</a>
+    <div class="returnContent"></div>
+  </div>
+
+  <div class="product-row">
+    <a href="{{product.brand.url}}" title="More {{product.brand.name}} products" class="button button-secondary--darkTrans">
+      Shop all {{product.brand.name}}
+    </a>
+  </div>
+</section>
+
+<!-- moved yotpo to tempaltes/pages/product.html -->
+
+{{> components/products/customizations/amp-request-swatch-modal product}}

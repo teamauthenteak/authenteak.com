@@ -79,6 +79,7 @@
           {{/if}}
       </div>
 
+      
       <div class="affirm-pdp"></div>      
 
       <!-- moved to add-to-cart.html -->
@@ -164,6 +165,7 @@
           {{{product.warranty}}}
       </div>
 
+      {{#if page_type '===' 'product'}}
       <div id="returnTab" class="returnTabContent">          
         <script>
           document.addEventListener("DOMContentLoaded", function(){
@@ -174,6 +176,7 @@
           });
         </script>
       </div>
+      {{/if}}
 
       <div id="videoTab">
         {{#if product.videos.list.length}}
