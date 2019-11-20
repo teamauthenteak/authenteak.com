@@ -23,6 +23,7 @@
 .product-trade{
     float: left;
     margin-top: 0;
+    width: 100%;
 }
 
 
@@ -154,6 +155,12 @@ h1.product-title {
     & .lazy-image{
         height: 250px;
     }
+
+    .product-item-thumbnail{
+        width: auto;
+        height: auto;
+        max-width: inherit;
+    }
 }
 
 .price-rrp{
@@ -251,6 +258,8 @@ ul.highlight-group {
       align-items: center;
       align-content: center;
       line-height: 1.5;
+      text-decoration: none;
+
 
       &:hover{
           color: inherit;

@@ -108,6 +108,12 @@ export default class MiniCart {
       if (response.data.status === 'succeed') {
         $cartQtyEl.attr('data-cart-quantity', $cartQty - itemQty);
         this._update(this._updateCartCountIcon("remove"));
+
+        // update our cart model data for other apps and UI
+        utils.api.cart.getCart({includeOptions: true}, (err, response) => {
+          window.TEAK.Utils.saveCartResponse(response);
+        });
+        
       } else {
         alert(response.data.errors.join('\n'));
         $el

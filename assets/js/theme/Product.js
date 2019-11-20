@@ -18,6 +18,8 @@ export default class Product extends PageManager {
 	constructor() {
 		super();
 
+		this.yotpoKey = "aS8rMIONwGgNbx1ATQmUtKY173Xk5HHc75qGrnuq";
+
 		this.el = '[data-product-container]';
 		this.$el = $(this.el);
 		this.productImgs = '.product-slides-wrap';
@@ -56,6 +58,7 @@ export default class Product extends PageManager {
 		this._initSlick();
 		this._buildTabs();
 		this._initTabs();
+		this._getReviews();
 
 		// Product UI
 		this._bindEvents();
@@ -102,6 +105,45 @@ export default class Product extends PageManager {
 			this._accordionTabToggle(event);
 		});
 	}
+
+
+	// get and display bespoke yotpo product reviews
+	_getReviews(){
+		let productId = $("#productDetails").data("productId"),
+			$ratingCntr = $("#yotpoRating");
+
+		$.when( 
+			$.ajax(`https://api.yotpo.com/v1/widget/${this.yotpoKey}/products/${productId}/reviews.json`),
+			$.ajax(`https://api.yotpo.com/products/${this.yotpoKey}/${productId}//questions`) 
+		).then(processResponses, responseFail);
+			
+
+		function processResponses(reviews, questions){
+			let totalScore = reviews[0].response.bottomline.average_score,
+				totalQuestions = questions[0].response.total_questions;
+
+			totalScore = totalScore === 0 ? 0 : totalScore.toFixed(1);
+			
+			$ratingCntr
+				.find(".yotpo-stars-rating")
+					.css({"--rating": totalScore})
+					.attr("aria-label", `Rating of ${totalScore} out of 5.`)
+						.end()
+				.find(".yotpo-reviews-num").text(totalScore)
+					.end()
+				.find(".yotpo-questions-num").text(totalQuestions)
+
+			// console.log(reviews[0].response.bottomline.average_score)
+			// console.log(reviews[0].response.bottomline.total_review)
+			// console.log(questions[0].response.total_questions)
+		}
+
+
+		function responseFail(err){
+			console.log(err)
+		}
+	}
+
 
 	_initTabs() {
 		this.tabs = new Tabs({

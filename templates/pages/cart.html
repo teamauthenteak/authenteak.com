@@ -9,16 +9,13 @@
     </h1>
   </header>
 
+  {{> components/header/shipping-messages}}
+
   <section class="product-listing section">
     <div class="container">
       {{#if cart.items}}
         <div data-cart-content>
-          {{> components/cart/content
-            cart_icon=theme_settings.cart_icon
-          }}
-          
-          {{> components/header/shipping-messages}}
-    
+          {{> components/cart/content cart_icon=theme_settings.cart_icon }}
         </div>
 
         <div class="cart-totals" data-cart-totals>

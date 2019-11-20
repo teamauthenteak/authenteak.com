@@ -2,9 +2,9 @@
     "marketing_content": {
         "banner": {
             "isVisable": true,
-            "header_promo": "<a href='/featured-offers/'>Shop the Savings&nbsp;&nbsp;|&nbsp;&nbsp;<strong>Explore Featured Offers ></strong></a>",
-            "header_promo_link": "",
-            "header_promo_color": "grey",
+            "header_promo": "<strong>Shop the Savings &nbsp;&nbsp; | &nbsp;&nbsp; Explore Featured Offers > blah blah  blah blah blah blah blah blah blah blah v blah blah v blah v v v vblahblahblah blah </strong>",
+            "header_promo_link": "/featured-offers/",
+            "header_promo_color": "maroon",
             "header_custom_class": ""
         },
         "inline": {

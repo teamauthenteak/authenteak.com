@@ -13,7 +13,7 @@
 <div class="cart-totals-column cart-totals-column--last">
   <div class="cart-sub-total cart-totals-item">
     <span class="cart-total-label">{{lang 'cart.sub_total'}}</span>
-    <span class="cart-total-item">{{cart.sub_total.formatted}}</span>
+    <span class="cart-total-item" id="cartSubTotal">{{cart.sub_total.formatted}}</span>
   </div>
 
   {{#each cart.taxes}}
@@ -23,12 +23,10 @@
     </div>
   {{/each}}
 
-  {{#if cart.discount.formatted}}
-    <div class="cart-totals-item">
-      <span class="cart-total-label">{{lang 'cart.discount'}}</span>
-      <span class="cart-total-item">{{cart.discount.formatted}}</span>
+    <div class="cart-totals-item hide" id="cartTotalItemDiscount">
+      <span class="cart-total-label">{{lang 'cart.discount'}}:</span>
+      <span class="cart-total-item cart-total-item--discount"></span>
     </div>
-  {{/if}}
 
   {{#if cart.coupons}}
     <div class="cart-totals-item">
@@ -203,9 +201,35 @@
 
     $dataCart.data("cartQuantity", cartQty);
     $dataCart.html(cartQty);
+
+    checkForDiscount(cart);
+  }
+
+
+  function checkForDiscount(){
+    let cart = getStoredCart(),
+        amount = 0;
+
+    cart[0].discounts.forEach(function(element){
+        amount = amount + element.discountedAmount;
+    });
+
+    if( amount > 0 ){
+      let discountCntr = document.getElementById("cartTotalItemDiscount"),
+          subTotal = document.getElementById("cartSubTotal"),
+          currencSymbol =  cart[0].currency.symbol;
+
+      subTotal.innerHTML = currencSymbol + (cart[0].baseAmount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
+      discountCntr.classList.remove("hide");
+      discountCntr.querySelector(".cart-total-item--discount").innerHTML = "-" + currencSymbol + (amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    }
+
   }
 
   document.addEventListener('DOMContentLoaded', function() {
+    checkForDiscount();
+
     $(window)
       .on("load", change.init)
       .on("cartDataStored", updateHeaderMiniCart);

@@ -54,6 +54,22 @@ Renders the firepit fireglass/lava rock calculator in a given div container
 Used to generate additional non SEO critical pages, categories, sub-categories in the main navigation menu. Also used to control other header objects requiring dyanmic udpates from content editors
 
 
+### Promo Banner
+`header_promo_color` avlaible:
+- green
+- blue
+- grey
+- black
+- red
+- maroon
+
+| Parameter               | Description                                          |
+|-------------------------|------------------------------------------------------|
+| header_promo_link       | Add the URL to link the banner too                   |
+| header_promo_color      | Add the custom color name listed above               |
+| header_custom_class     | For affirm or any js trigger                         |
+
+
 ### Affirm
 Trigger Affirm modal: add the custom class: `affirm-site-modal` to the `header_promo_class` property AND leave `header_promo_link` as an empty string `""`.
 

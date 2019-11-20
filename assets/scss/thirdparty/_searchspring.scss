@@ -1,7 +1,33 @@
-.ss-badge-sale{
-    background-color: #ad3c1940;
-    color: #b62626;
+.ss-badge-container{
+    top: -18px !important;
+    // right: -13px !important;
 }
+
+.ss-badge-sale{
+    width: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 100px !important;
+    border-radius: 0 !important;
+    text-orientation: upright;
+    writing-mode: vertical-lr;
+    background-color: transparent !important;
+    letter-spacing: -2px !important;
+    right: -15px;
+}
+
+.ss-badge-new{
+    @extend .ss-badge-sale;
+    right: 1px;
+    top: -5px;
+}
+
+.ss-badge-main-text{
+    background-color: rgba(97, 96, 96, 0.7411764705882353);
+    color: #fff;
+    padding: 2px 3px;
+}
+
 .ss-facets .ss-facet-container .ss-title:before{
     display: none !important;
 }

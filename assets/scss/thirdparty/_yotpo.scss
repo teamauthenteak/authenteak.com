@@ -1,3 +1,58 @@
+:root {
+    --star-size: 15px;
+    --star-color: #fff;
+    --star-background: #fc0;
+  }
+  
+  .yotpo-stars-rating {
+    --percent: calc(var(--rating) / 5 * 100%);
+    position: relative;
+    display: inline-block;
+    font-size: var(--star-size);
+    font-family: Times;
+    line-height: 1;
+    height: 15px;
+    width: 90px;
+   
+    &::before {
+      content: '★★★★★';
+      letter-spacing: 3px;
+      background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 10;
+    }
+  
+    &::after{
+      content: '★★★★★';
+      letter-spacing: 3px;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0px 0px 1px #000;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+  }
+
+  .yotpo-reviews-num{
+      padding: 0 5px;
+      text-decoration: underline;
+  }
+
+  .yotpo-questions{
+      padding-left: 10px;
+      margin-left: 5px;
+      border-left: 1px solid #ccc;
+      text-decoration: underline;
+  }
+
 //Yotpo
 .Reviewstart {
     display: flex;
@@ -19,6 +74,7 @@
     align-content: center;
     flex: 1 0 auto;
     margin-left: 20px;
+    height: 20px;
 }
 
 .yotpo-pdp-wrapper .bottomLine,
@@ -34,3 +90,4 @@
 .yotpo-stars + a.text-m, .slick-list .product-price-line{
     display: none;
 }
+

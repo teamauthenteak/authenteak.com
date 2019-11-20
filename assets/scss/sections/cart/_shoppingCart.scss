@@ -1,3 +1,4 @@
+
 // Cart Page Edit UI
 button.cart-item-edit {
     background: transparent;
@@ -7,7 +8,9 @@ button.cart-item-edit {
 }
 
 .cart-header{
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    background-color: transparent;
+    border-bottom: 1px solid #e6e9ef;
 }
 
 .form-coupon{
@@ -202,6 +205,7 @@ button.cart-item-edit {
 .promo-message {
     white-space: unset;
     padding: 0 100px;
+    font-size: 1rem;;
 }
 
 .customer-utils .button-wishlist {

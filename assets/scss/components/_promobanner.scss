@@ -61,4 +61,35 @@
             color: #403f3f;
         }
     }
+
+    &--red{
+        background-color: #7D0404;
+        border-bottom: 1px solid #f38c8c;
+        color: #fff;
+
+        & .promoBanner__link{
+            color: #fbefef;
+        }
+    }
+
+
+    &--black{
+        background-color: #121212;
+        border-bottom: 1px solid #555;
+        color: #ccc;
+
+        & .promoBanner__link{
+            color: #fff !important;
+        }
+    }
+
+    &--maroon{
+        background-color: #822828;
+        border-bottom: 1px solid #f38c8c;
+        color: #fff;
+
+        & .promoBanner__link{
+            color: #fff !important;
+        }
+    }
 }

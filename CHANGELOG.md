@@ -1,6 +1,23 @@
 # Change Log
 
-## [1.20.11]
+## [1.20.13.002]
+- moved new/sale flags back
+- changed subtotal when discount is in cart
+
+## [1.20.13]
+- Relocate all banners (cart level eligability, cart level congratulations, etc.) from below the product information to above
+- Change the font size to 1rem
+- Remove background of 'shopping cart' area
+- Add border-bottom 1px below shopping cart to match the other horizontal divider
+- Pencil banner colors
+- recomended products width fix
+- custom yotpo reviews stars
+- remove underline from pdp text
+- Updated readme notes
+- redesign sale and new flags
+- display cart discount messaging
+
+## [1.20.12.01]
 - New mega menu that is not full width
 - remvoed arrows
 - amp page changes

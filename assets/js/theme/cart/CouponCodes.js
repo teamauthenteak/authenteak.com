@@ -43,6 +43,12 @@ export default class CouponCodes {
     utils.api.cart.applyCode(code, (err, response) => {
       if (response.data.status === 'success') {
         refreshContent(this.callbacks.didUpdate);
+
+        // update our cart model data for other apps and UI
+        utils.api.cart.getCart({includeOptions: true}, (err, response) => {
+          window.TEAK.Utils.saveCartResponse(response);
+        });
+        
       } else {
         this.couponAlerts.error(response.data.errors.join('\n'), true);
         this.callbacks.didUpdate();
