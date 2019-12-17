@@ -1,5 +1,19 @@
 # Change Log
 
+## [1.20.14]
+- Blog index and article page Redesign
+- Print on PDP Fix
+- Added Product recomendations on ATC Modal
+- Added shipping 0.00 text to cart
+- Fixed ATC modal UI
+- fixed Google Search structured dta
+- PDP Product Tabs
+- YOTPO widget color updates
+- background color from footer removed
+- custom PDP heap event setup
+- Tablet footer adjustment
+- removed "shop all" categories from shop by brand flyout
+
 ## [1.20.13.002]
 - moved new/sale flags back
 - changed subtotal when discount is in cart

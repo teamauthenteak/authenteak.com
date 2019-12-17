@@ -1,48 +1,89 @@
+---
+blog:
+  recent_posts:
+    limit: 25
+---
+
 {{#partial "page"}}
 
-<article class="blog-post-single post">
+<article class="blog">
 
-  <header class="page-header post-header">
+  <header class="blog__header blog__header--post">
     {{> components/common/breadcrumbs breadcrumbs}}
-    <h1 class="page-title">
+
+    <h1 class="blog__headerTitle">
       {{blog.post.title}}
     </h1>
+
     {{> components/blog/blog-post-meta
       author=blog.post.author
       date_published=blog.post.date_published
     }}
   </header>
 
-  <div class="post-main">
-    {{#if blog.post.thumbnail}}
-      <figure class="featured-image-container">
-        <img src="{{getImage blog.post.thumbnail 'core-blog-thumbnail'}}" alt="{{blog.post.thumbnail.alt}}">
-      </figure>
-    {{/if}}
+  <div class="container">
+      <div class="blog__hero blog__hero--post">
+          <figure class="blog__heroImgCntr">
+            {{#if blog.post.thumbnail}}
+            <img src="{{getImage blog.post.thumbnail 'core-blog-thumbnail'}}" class="blog__heroImg" alt="{{blog.post.thumbnail.alt}}">
+            {{/if}}
+            <img src="https://dummyimage.com/1280x400/ccc/ccc" alt="{{blog.post.thumbnail.alt}}" class="blog__heroImg">
+          </figure>
+      </div>
 
-    <div class="blog-content">
-      {{{blog.post.body}}}
-    </div>
+      <div class="blog__content">
+        {{{blog.post.body}}}
+      </div>
   </div>
+  
 
-  <footer class="post-footer">
-    {{#if blog.post.tags.length}}
-      <nav class="post-tags">
-        {{#each blog.post.tags}}
-          <a class="post-tag" href="{{url}}">{{name}}</a>
-        {{/each}}
-      </nav>
-    {{/if}}
+  <footer class="blog__footer">
 
-    {{> components/common/share-buttons
-      share_buttons=settings.add_this
-      url=blog.post.url
-      image=(getImage blog.post.thumbnail 'thumb')
-      title=blog.post.title
-    }}
+    <ul class="blog__pagination" id="blogPagination">
+      <li class="blog__paginationItem blog__paginationItem--prev hide">
+        <a href="" class="blog__paginationLink blog__paginationLink--pre">
+          <svg class="blog__paginationArrow blog__paginationArrow--left"><use xlink:href="#icon-arrow-left" /></svg>
+          <strong class="blog__paginationDirection">Read The Previous Post</strong>
+          <span class="blog__paginationTitle"></span>
+        </a>
+      </li>
+
+      <li class="blog__paginationItem blog__paginationItem--next hide">
+        <a href="" class="blog__paginationLink blog__paginationLink--next">
+            <svg class="blog__paginationArrow blog__paginationArrow--right"><use xlink:href="#icon-arrow-right" /></svg>
+            <strong class="blog__paginationDirection">Read The Next Post</strong>
+            <span class="blog__paginationTitle"></span>
+          </a>
+      </li>
+    </ul>
+
+    <div class="blog__related">
+      <h2 class="blog__relatedHeading">Related Blog Posts</h2>
+      <div class="blog__relatedItems" id="relatedPosts"></div>
+    </div>
   </footer>
 
 </article>
+
+<script type="application/json" id="blogPostData">
+  {
+    "current":{
+      "title": "{{json blog.post.title}}",
+      "date": "{{blog.post.date_published}}",
+      "tags": [{{#forEach blog.post.tags}}"{{name}}"{{#unless isLast}},{{/unless}}{{/forEach}}]
+    },
+    "posts": [{{#forEach blog.recent_posts}}
+      {
+        "title": "{{json title}}",
+        "date": "{{date_published}}",
+        "thumbnail": "{{thumbnail.data}}",
+        "summary": "{{json summary}}{{#if show_read_more}}&hellip;{{/if}}",
+        "tags": [{{#forEach tags}}"{{name}}"{{#unless isLast}},{{/unless}}{{/forEach}}],
+        "url": "{{url}}"
+      }{{#unless isLast}},{{/unless}}{{/forEach}}
+    ]
+  }
+</script>
 
 {{> core/structured-data/blog-post}}
 

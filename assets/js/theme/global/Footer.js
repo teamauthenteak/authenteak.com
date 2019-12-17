@@ -51,11 +51,11 @@ export default class Footer {
     _initKlavio(){
         // fetch 3rd party klavio ONLY when the newsletter input recieves focus
         if( !window.KlaviyoSubscribe && document.emailSignup){
-            document.emailSignup.email.addEventListener('focusin', getKlavioScript, true);
+            document.querySelector(".newsletter__input").addEventListener('focusin', getKlavioScript, true);
 
             function getKlavioScript(){
                 $.getScript("//www.klaviyo.com/media/js/public/klaviyo_subscribe.js", init);
-                document.emailSignup.email.removeEventListener('focusin', getKlavioScript, true);
+                document.querySelector(".newsletter__input").removeEventListener('focusin', getKlavioScript, true);
             }
         }
 

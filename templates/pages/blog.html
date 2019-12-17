@@ -2,35 +2,170 @@
 brands: true
 blog:
   posts:
-    limit: 5
-    pages: 3
+    limit: 100
+    pages: 10
     summary: 200
 ---
 
 {{#partial "page"}}
+<style>
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display&display=swap');
+</style>
 
-  <header class="page-header">
+<div class="blog">
+
+  <header class="blog__header">
     {{> components/common/breadcrumbs breadcrumbs}}
-    <h1 class="page-title">
-      {{blog.name}}
-    </h1>
+    <p class="blog__headerLogo">
+      <span class="blog__headerLogoName">Outdoor Living</span>
+      <sub class="blog__headerLogoSub">
+        <span class="blog__headerLogoBy">By</span> 
+        authenteak
+      </sub>
+    </p>
   </header>
 
   <div class="container">
-    <div class="blog-post-index">
-      <section class="blog-items-list" itemscope itemtype="http://schema.org/Blog">
-        {{#each blog.posts}}
-          {{> components/blog/blog-post-summary share_buttons=../settings.add_this url=url title=title}}
-        {{/each}}
-      </section>
-    </div>
+      {{#each (limit blog.posts 1) }}
+      <div class="blog__hero">
+          <!-- {{> components/common/image
+            img=thumbnail
+            url=url
+            size=""
+            default-image=default-image
+            image_ratio="ratio-16-9"
+          }} -->
+          <a href="{{url}}" class="blog__heroLink">
+            <figure class="blog__heroImgCntr">
+              {{#if blog.post.thumbnail}}
+              <img src="{{getImage blog.post.thumbnail 'core-blog-thumbnail'}}" class="blog__heroImg" alt="{{blog.post.thumbnail.alt}}">
+              {{/if}}
+              <img src="https://dummyimage.com/1280x400/ccc/ccc" alt="{{blog.post.thumbnail.alt}}" class="blog__heroImg">
+            </figure>
+          </a>
+            
+         
+          <div class="blog__heroHeading">
+            <a href="{{url}}" class="blog__heroHeadingLink">
+                <span class="blog__heroHeadingTag">Featured Post</span>
+                <h1 class="blog__heroHeadingTitle">{{title}}</h1>
+                <p class="blog__heroHeadingSummary">{{{summary}}}</p>
+                <strong class="blog__heroHeadingReadMore">{{ lang 'blog.read_more_text' }} &rsaquo;</strong>
+            </a>
+          </div>
+      </div>
+      {{/each}}
 
-    {{#if pagination.blog.links.length}}
-      <footer class="pagination-wrapper">
-        {{> components/common/pagination pagination.blog}}
-      </footer>
-    {{/if}}
+      <div class="blog__newsletter">
+          {{> components/common/newsletter-signup}}
+      </div>
+     
+
+      <section class="blog__postSection blog__postSection--topSpace">
+        <h2 class="blog__postCntrHeading">
+			Explore the Blog<span id="postTopicMeta" class="blog__postTopicMeta hide"></span>
+		</h2>
+
+          <form class="blog__filter" id="blogFilter">
+            <fieldset class="filter">
+              <div class="filter__controlCntr">
+                <legend class="filter__heading">
+                  <button class="filter__headingControl">Sort by Topic</button> 
+                </legend>
+
+                <div class="filter__controlGroup">
+                  <label class="filter__controlLabel" for="topicFurnature">
+                    <span class="filter__controlLabelText">Furniture</span>
+                    <input type="radio" name="topic" class="filter__controlInput" value="furniture" id="topicFurnature">
+                  </label>
+
+                  <label class="filter__controlLabel" for="topicGrills">
+                    <span class="filter__controlLabelText">Grills</span>
+                    <input type="radio" name="topic" class="filter__controlInput" value="grills" id="topicGrills">
+                  </label>
+
+                  <label class="filter__controlLabel" for="topicUmbrellas">
+                    <span class="filter__controlLabelText">Umbrellas</span>
+                    <input type="radio" name="topic" class="filter__controlInput" value="umbrellas" id="topicUmbrellas">
+                  </label>
+
+                  <label class="filter__controlLabel" for="topicHeating">
+                    <span class="filter__controlLabelText">Heating</span>
+                    <input type="radio" name="topic" class="filter__controlInput" value="heating" id="topicHeating">
+                  </label>
+
+                  <label class="filter__controlLabel" for="topicEntertainment">
+                    <span class="filter__controlLabelText">Entertainment</span>
+                    <input type="radio" name="topic" class="filter__controlInput" value="entertainment" id="topicEntertainment">
+                  </label>
+
+                  <label class="filter__controlLabel" for="topicDecor">
+                    <span class="filter__controlLabelText">Decor</span>
+                    <input type="radio" name="topic" class="filter__controlInput" value="decor" id="topicDecor">
+                  </label>
+
+                  <label class="filter__controlLabel" for="topicMaintenance">
+                    <span class="filter__controlLabelText">Maintenance & Care</span>
+                    <input type="radio" name="topic" class="filter__controlInput" value="maintenance" id="topicMaintenance">
+                  </label>
+
+                  <label class="filter__controlLabel" for="topicGuides">
+                    <span class="filter__controlLabelText">Buying Guides</span>
+                    <input type="radio" name="topic" class="filter__controlInput" value="guides" id="topicGuides">
+                  </label>
+
+                  <label class="filter__controlLabel" for="topicRecipes">
+                    <span class="filter__controlLabelText">Recipes</span>
+                    <input type="radio" name="topic" class="filter__controlInput" value="recipes" id="topicRecipes">
+                  </label>
+
+                  <label class="filter__controlLabel" for="topicInspiration">
+                    <span class="filter__controlLabelText">Inspiration</span>
+                    <input type="radio" name="topic" class="filter__controlInput" value="inspiration" id="topicInspiration">
+                  </label>
+
+                  <label class="filter__controlLabel" for="topicGift">
+                    <span class="filter__controlLabelText">Gift Guides</span>
+                    <input type="radio" name="topic" class="filter__controlInput" value="gifts" id="topicGift">
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+
+          <div class="blog__postCntr" id="blogPostCntr" itemscope itemtype="http://schema.org/Blog">
+			{{#each (limit blog.posts 6)}}
+			<div class="blog__postPod">
+				{{> components/blog/blog-post-summary share_buttons=../settings.add_this url=url title=title thumbnail=thumbnail}}
+			</div>
+			{{/each}}
+		  </div>
+		  
+		  <div class="blog__noPosts hide" id="noPosts">
+			  <h3 class="blog__noPostsHeading">Sorry. No posts under with topic found.</h3>
+		  </div>
+
+          <p class="blog__loadMoreCntr">
+            <button class="button button-primary button-primary--dark" id="morePostsBtn">Load More Blog Posts</button>
+          </p>
+      </section>
+      
   </div>
+</div>
+
+<script type="application/json" id="blogPostData">
+{
+  "posts": [{{#forEach blog.posts}}
+    {
+      "title": "{{json title}}",
+      "thumbnail": "{{thumbnail.data}}",
+      "summary": "{{json summary}}{{#if show_read_more}}&hellip;{{/if}}",
+	  "tags": [{{#forEach tags}}"{{name}}"{{#unless isLast}},{{/unless}}{{/forEach}}],
+	  "url": "{{url}}"
+    }{{#unless isLast}},{{/unless}}{{/forEach}}
+  ]
+}
+</script>
 
 {{/partial}}
 

@@ -7,12 +7,12 @@
          > blog.post.author
 }}
 
-<p class="post-meta">
-  <svg class="icon icon-calendar"><use xlink:href="#icon-calendar" /></svg>
-  <time class="post-date">{{date_published}}</time>
+<p class="blog__postMeta">
+  <!-- <svg class="icon icon-calendar"><use xlink:href="#icon-calendar" /></svg> -->
+  <time class="blog__postMeta--date">{{date_published}}</time>
 
   {{#if author.length}}
-    <svg class="icon icon-avatar"><use xlink:href="#icon-avatar" /></svg>
-    <span class="post-author">{{author}}</span>
+    <!-- <svg class="icon icon-avatar"><use xlink:href="#icon-avatar" /></svg> -->
+    <span class="blog__postMeta--author">{{author}}</span>
   {{/if}}
 </p>

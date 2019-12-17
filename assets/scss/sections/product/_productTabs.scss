@@ -135,11 +135,34 @@
 .mobile-tab-heading {
     text-decoration: none;
 	display: block;
-	padding: 10px;
+	padding: 13px;
 	color: #666;
     text-transform: uppercase;
-	border-bottom: 1px solid gray;
-	text-align: center;
+	border-bottom: 1px solid rgba(128, 128, 128, 0.22);
+    text-align: left;
+    position: relative;
+    
+    @media screen and (max-width: $screen-md){
+        &::after {
+            position: absolute;
+            content: "";
+            background: url("data:image/svg+xml; utf8, <svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 20 20' enable-background='new 0 0 20 20' xml:space='preserve'><path d='M13.25 10l-7.141-7.42c-0.268-0.27-0.268-0.707 0-0.979 0.268-0.27 0.701-0.27 0.969 0l7.83 7.908c0.268 0.271 0.268 0.709 0 0.979l-7.83 7.908c-0.268 0.271-0.701 0.27-0.969 0s-0.268-0.707 0-0.979l7.141-7.417z'></path></svg>");
+            color: #999;
+            height: 15px;
+            width: 15px;
+            right: 15px;
+            bottom: 17px;
+        }
+
+        &--active{
+            &::after {
+                content: "";
+                transform: rotate(90deg);
+            }
+        }
+    }
+
+    
 }
 
 .mobile-tab-wrapper #descTab,

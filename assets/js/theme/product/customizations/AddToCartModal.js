@@ -156,6 +156,10 @@ export default class AddToCartModal {
     $('.modal-cart__count-unit').text(pendingCartQuantity === 1 ? ' item' : ' items');
 
 
+    // bild out the recomendations 
+    this.buildRecomendations();
+
+
     let config = this.getGlobalScriptConfig();
 
     if (config && config.marketing_content && config.marketing_content.add_to_cart_modal) {
@@ -170,6 +174,34 @@ export default class AddToCartModal {
     if (callback) {
       callback();
     }
+  }
+
+
+  // builds out the recomendations in the atc modal footer
+  buildRecomendations(){
+    let recomendedProducts = document.querySelectorAll(".product-grid-item");
+    let modalFooter = document.getElementById("modalCartFooter");
+
+    $(modalFooter).html("");
+
+    recomendedProducts.forEach( (element, i) => {
+      let limit = TEAK.Utils.isHandheld ? 2 : 4;
+
+      if( i < limit ){
+        let img = element.querySelector("img.lazy-image");
+        let div = element.querySelector("div.lazy-image");
+
+        div.style.backgroundImage = "url("+ div.dataset.src +")";
+        div.classList.add("lazy-loaded");
+
+        img.setAttribute("src", img.dataset.src);
+        img.classList.add("lazy-loaded");
+
+        element.querySelector("spinner");
+
+        $(element).appendTo(modalFooter);
+      }
+    });
   }
 
 
@@ -250,8 +282,8 @@ export default class AddToCartModal {
       config = {
         "marketing_content": {
           "add_to_cart_modal": {
-            "summary": "This is <b>custom</b> marketing content.",
-            "footer": "This is space for more marketing content <i>with HTML</i>."
+            "summary": "",
+            "footer": ""
           }
         }
       };

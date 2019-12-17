@@ -1,0 +1,186 @@
+%filter-row{
+    font-size: 1rem;
+    float: left;
+    color: #999;
+    margin: 5px;
+    padding: 5px 15px;
+    flex: 1 0 auto;
+    display: flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    @media only screen and (min-width: $screen-xl) {
+        font-size: 1.3rem;
+    }
+
+    @media only screen and (max-width: $screen-md + 10) and (min-width: $screen-md - 10){
+        font-size: 1.1rem;
+    }
+
+    @media only screen and (max-width: $screen-sm) {
+        display: flex;
+        width: 100%;
+        padding: 10px;
+        font-size: 1.2;
+        border-bottom: 1px solid #ddd;
+        margin: 0;
+    }
+}
+
+.filter{
+    border: none;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 10px;
+
+    &__controlCntr{
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        width: 100%;
+
+        @media only screen and (max-width: $screen-sm) {
+            flex-direction: column;
+        }
+    }
+
+    &__heading{
+        border: none;
+        @extend %filter-row;
+        padding: 0;
+        line-height: 1.1;
+        position: relative;
+        color: #000;
+        margin-left: 0;
+        width: 15%;
+        flex: 0 0 auto;
+
+        @media only screen and (max-width: $screen-sm) {
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            line-height: 1.4;
+            width: 100%;
+            font-size: 1.2rem;
+
+            & ~ .filter__controlGroup{
+                display: none;
+            }
+
+            &--open{
+                & .filter__headingControl:after{
+                    content: "";
+                    transform: rotate(90deg);
+                }
+
+                & ~ .filter__controlGroup{
+                    display: flex;
+                }
+            }
+        }
+    }
+
+    &__controlGroup{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        width: 85%;
+        flex: 1 0 auto;
+
+        @media only screen and (max-width: $screen-sm) {
+            width: 100%;
+        }
+    }
+
+    &__headingControl{
+        position: relative;
+        padding: 5px 0;
+        width: 100%;
+        border: 0;
+        background-color: transparent;
+
+        @media only screen and (max-width: $screen-sm) {
+            &:after{
+                position: absolute;
+                content: "";
+                background: url("data:image/svg+xml; utf8, <svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 20 20' enable-background='new 0 0 20 20' xml:space='preserve'><path d='M13.25 10l-7.141-7.42c-0.268-0.27-0.268-0.707 0-0.979 0.268-0.27 0.701-0.27 0.969 0l7.83 7.908c0.268 0.271 0.268 0.709 0 0.979l-7.83 7.908c-0.268 0.271-0.701 0.27-0.969 0s-0.268-0.707 0-0.979l7.141-7.417z'></path></svg>");
+                color: #000;
+                height: 20px;
+                width: 20px;
+                right: 6px;
+                bottom: 9px;
+            }
+        }
+
+        @media only screen and (min-width: $screen-md) {
+            cursor: none;
+        }
+    }
+
+    &__controlLabel{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        text-align: center;
+        @extend %filter-row;
+        cursor: pointer;
+        border: 1px solid #eee;
+        border-radius: 99rem;
+
+        &:last-of-type{
+            margin-right: 0;
+        }
+
+        &--active{
+            color: #000;
+            border-color: #777;
+            background-color: #f9f9f9;
+        }
+
+        @media only screen and (max-width: $screen-md + 10) and (min-width: $screen-md - 10){
+           font-size: 0.9rem;
+           padding: 5px;
+        }
+
+        @media only screen and (max-width: $screen-sm) {
+            border-radius: 0;
+            border-left: none;
+            border-right: none;
+            font-size: 1.2rem;
+        }
+    }
+
+    &__controlInput{
+        flex: 0 0 auto;
+
+        @media only screen and (max-width: $screen-md + 10) and (min-width: $screen-md - 10){
+            display: none;
+        }
+
+        @media only screen and (min-width: $screen-sm) and (max-width: $screen-md){
+            display: none;
+        }
+    }
+
+    &__controlLabelText{
+        margin-right: 10px;
+
+        @media only screen and (max-width: $screen-sm) {
+            flex: 1 0 auto;
+            text-align: left;
+            line-height: 1.1;
+        }
+
+        @media only screen and (max-width: $screen-md + 10) and (min-width: $screen-md - 10){
+            margin: 0;
+        }
+
+        @media only screen and (min-width: $screen-sm) and (max-width: $screen-md){
+             margin: 0;
+             font-size: 0.9rem;
+        }
+    }
+}

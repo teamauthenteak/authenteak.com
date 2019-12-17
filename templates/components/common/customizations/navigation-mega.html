@@ -25,21 +25,21 @@
 							</a>
 
 							{{#if children}}
-							<ul>
-							{{#each children}}
-								{{#startsWith "Shop All Brands" name}}{{else}}
-								{{#if id '==' '2523'}}{{else}}{{#if id '==' '2524'}}{{else}}{{#if id '==' '2525'}}{{else}}
+
+							{{#if ../../../parentId '==' '1196'}} {{!-- if Shop All Brands ---}}
+							{{else}}
+							<ul parentid='{{../../../parentId}}'>
+								{{#each children}}
 								<li>
 									<a itemprop="url" title="{{name}}" href="{{url}}" {{#if image}}data-category-image="{{getImage image "large"}}" {{/if}}>
 										<span itemprop="name">{{name}}</span>
 									</a>
 								</li>
-								{{/if}}{{/if}}{{/if}}
-								{{/startsWith}}
-							{{/each}}
+								{{/each}}
 							</ul>
 							{{/if}}
 
+							{{/if}}
 						</li>
 						{{/startsWith}}
 					{{/each}}

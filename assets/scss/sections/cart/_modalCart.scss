@@ -55,7 +55,12 @@
             float: left;
             display: block;
         }
+
+        @media only screen and (max-width: $screen-sm) {
+            flex-direction: column-reverse;
+        }
     }
+
    
 
     h2 {
@@ -129,6 +134,8 @@
         }
 
         .mini-cart-item {
+            width: 100%;
+
             &, &:hover {
                 background: transparent;
                 color: #000;
@@ -149,6 +156,10 @@
                 .mini-cart-item-description {
                     flex: 1 0 200px;
                     padding-left: 0;
+                    display: flex;
+                    align-items: center;
+                    align-content: center;
+                    justify-content: center;
 
                     .mini-cart-item-title {
                         line-height: 1.1em;
@@ -177,6 +188,11 @@
                 padding: 25px;
             }
         }
+
+        .mini-cart-item-thumb {
+            width: 100px;
+            padding-bottom: 100px;
+        }
     }
 
     &__summary {
@@ -197,10 +213,21 @@
             float: left;
             display: block;
         }
+
+        @media only screen and (max-width: $screen-sm) {
+            border-left: none;
+            border-bottom: 1px solid #ccc;
+        }
+    }
+
+    &__item{
+        width: 100%;
     }
 
     &__item-list{
         width: 100%;
+        display: flex;
+        align-items: center;
     }
 
     &__subtotal { margin: 0 0 1.5rem; }
@@ -224,7 +251,44 @@
 
         &--footer { 
             width: 100%;
-            display: none;
+
+            & .modal-cart-footerHeader{
+                font-size: 1.4rem;
+                border-top: 1px solid #ccc;
+                padding: 20px 0 10px 0;
+                margin: 0;
+                text-transform: uppercase;
+            }
+           
+            & .modal-cart-footerCntr{
+                display: flex;
+                flex-direction: row;
+            }
+
+            & .product-grid-item{
+                width: 25% !important;
+                float: left;
+                // flex: 1 0 auto;
+                margin-right: 10px;
+
+                @media only screen and (max-width: $screen-md) {
+                    width: 50% !important;
+                }
+
+                &:last-of-type{
+                    margin-right: 0;
+                }
+
+                & .lazy-loaded{
+                    & .spinner{
+                        display: none;
+                    }
+                }
+
+                & .lazy-image{
+                    height: 100px !important;
+                }
+            }
         }
 
         &--summary{

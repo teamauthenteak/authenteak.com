@@ -14,6 +14,7 @@ import async from 'async';
 import account from './theme/core/Account';
 import auth from './theme/Auth';
 import blog from './theme/Blog';
+import blogPost from './theme/BlogPost';
 import brand from './theme/Brand';
 import brands from './theme/Brands';
 import cart from './theme/Cart';
@@ -54,7 +55,7 @@ let PageClasses = {
     'pages/auth/new-password': auth,
     'pages/auth/forgot-password': auth,
     'pages/blog': blog,
-    'pages/blog-post': blog,
+    'pages/blog-post': blogPost,
     'pages/brand': brand,
     'pages/brands': brand,
     'pages/cart': cart,

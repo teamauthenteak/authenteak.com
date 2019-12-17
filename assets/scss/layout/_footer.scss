@@ -4,6 +4,7 @@ footer{
         color: #333;
         float: left;
         width: 100%;
+        background-color: transparent;
     }
     
     &.site-footer .bottom-bar {
@@ -25,7 +26,7 @@ footer{
     }
     
 
-    @media screen and (max-width: 1023px) {
+    @media screen and (max-width: $screen-lg) {
         &.site-footer .footer-nav {
             width: 33.333%;
             margin-right: 0;
@@ -40,7 +41,7 @@ footer{
     }
 
 
-    @media screen and (max-width: 1024px) {
+    @media screen and (max-width: $screen-lg) {
         &.site-footer .footer-nav,
         &.site-footer .footer-info,
         &.site-footer .footer-social {
