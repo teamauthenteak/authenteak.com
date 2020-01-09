@@ -15,16 +15,22 @@
   data-product-id="{{product.id}}">
   <div class="container">
     {{#unless quick_view}}
+    <div class="mobileHide">
       {{> components/common/breadcrumbs breadcrumbs}}
+    </div>
     {{/unless}}
 
     <div class="product-details-column">
       <h2 class="product-title mobileShow">{{this.product.title}}</h2>
+      <div class="mobileShow">
+        {{> components/common/breadcrumbs breadcrumbs}}
+      </div>
       <p class="item-number item-number-mobile mobileShow">ITEM #: {{product.sku}}</p>
 
       {{> components/products/customizations/swatch-hover-detail}}
 
-      {{> components/products/product-single-images images=product.images default_image=theme_settings.default_image }}
+      {{> components/products/product-single-images videos=product.videos images=product.images default_image=theme_settings.default_image }}
+      
       <!--moved from add-to-cart-form.html-->
       <div class="share-block">
         <hr>
@@ -246,3 +252,60 @@
 <!-- moved yotpo to tempaltes/pages/product.html -->
 
 {{> components/products/customizations/request-swatch-modal product}}
+
+
+<!-- Pintrest Structured Data -->
+
+{{#partial "jsonPrice"}}
+{{#if product.price.without_tax}}
+{{> components/products/customizations/non-sale-price-value-fixed price=product.price}}
+{{/if}}
+{{#if product.price.with_tax}}
+{{#unless product.price.without_tax}}{{chop product.price.with_tax.value}}{{/unless}}
+{{/if}}
+{{/partial}}
+
+
+<script type="application/ld+json">
+{
+    "provider_name": "AuthenTEAK",
+    "url": "//authenteak.com{{product.url}}",
+    "title": "{{this.product.title}}",
+    "description": "{{json product.description}}",
+    "product_id": "{{product.id}}",
+    "brand": "{{product.brand.name}}",
+    "price": "{{#block "jsonPrice"}}{{/block}}",
+    "currency_code": "{{product.price.without_tax.currency}}",
+    "availability": "in stock",
+    "images": [{{#forEach product.images}}
+      "{{getImage this 'product'}}"{{#unless isLast}},{{/unless}}{{/forEach}}
+    ],
+    "related_items": [{{#forEach product.related_products}}
+      "//authenteak.com{{url}}"{{#unless isLast}},{{/unless}}{{/forEach}}
+    ],
+    "color": [{{#forEach product.options}}{{#inArray (split "Select Head Cushion Fabric||Select Canopy||Select Optional Cushions||Select Optional Cushion||Select Fabric||Select Cushion||Select Throw Pillows Fabric" "||") display_name }}{{#forEach values}}{{#unless (occurrences label "No Thanks") }}{{#unless (occurrences label "No Cushion") }}
+        {
+          "name": "{{ trim (first (split label ' (+' )) }}",
+          "{{getImage image 'core-swatch'}}",
+          "map": ""
+        }{{#unless isLast}},{{/unless}}{{/unless}}{{/unless}}{{/forEach}}{{/inArray}}{{/forEach}}
+    ],
+    "geographic_availability": "US"
+}
+</script>
+
+<!-- end Pintrest Strucutred Data -->
+
+
+
+<script type="application/ld+json" id="productInfo">
+  {
+      "url": "//authenteak.com{{product.url}}",
+      "title": "{{this.product.title}}",
+      "product_id": "{{product.id}}",
+      "brand": "{{product.brand.name}}",
+      "price": "{{#block "jsonPrice"}}{{/block}}",
+      "availability": "in stock",
+      "image": "{{getImage product.main_image 'product'}}"
+  }
+  </script>

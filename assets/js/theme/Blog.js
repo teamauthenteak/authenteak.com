@@ -28,11 +28,10 @@ export default class Blog extends PageManager {
     blogPod(post){
         return `<div class="blog__postPod">
                     <figure>
-                        <a class="post-more" href="${post.url}">
+                        <a class="post-more" href="${post.url}" title="${this.removeQuotEncoding(post.title)}">
                             <img src="${post.thumb ? post.thumb : 'https://dummyimage.com/640x400/ccc/ccc' }" alt="${this.removeQuotEncoding(post.title)}" class="post-thumb">
                         </a>
                     </figure>
-
                     <h2 class="post-title">
                         <a href="${post.url}">${this.removeQuotEncoding(post.title)}</a>
                     </h2>
@@ -45,11 +44,13 @@ export default class Blog extends PageManager {
 
 
     // whent the "load more posts" button is clicked get the next set of posts to show
-    initMoreButton(){
+    initMoreButton(e){
         let nextPosts = this.blogData.posts.slice(this.postsTracker, this.postsTracker + 6);
         this.postsTracker = this.postsTracker + 6;
 
         this.addMorePosts(nextPosts);
+
+        e.preventDefault();
     }
 
 
@@ -60,8 +61,11 @@ export default class Blog extends PageManager {
             $(tpl).appendTo(this.blogPostCntr);
         });
 
-        if(this.blogData.posts.length <= this.postsTracker){
+        if( this.blogData.posts.length <= this.postsTracker ){
             $(morePostsBtn).addClass("hide");
+
+        }else{
+            return;
         }
     }
 
@@ -125,8 +129,8 @@ export default class Blog extends PageManager {
 
     // event listners
     initListners(){
-        $(this.morePostsBtn).on("click", () => {
-            this.initMoreButton();
+        $(this.morePostsBtn).on("click", (e) => {
+            this.initMoreButton(e);
         });
 
         $(this.blogFilter)

@@ -130,6 +130,11 @@
         line-height: 1;
     }
 
+    &__columnHeadingLink{
+        color: inherit;
+        display: block;
+    }
+
     &__list{
         columns: 3;
         -webkit-columns: 3;

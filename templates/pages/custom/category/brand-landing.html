@@ -26,13 +26,15 @@ category:
 
       <header class="listing-header">
         <h1 class="listing-title">{{category.name}}</h1>
+
+        {{#if theme_settings.category-breadcrumbs}}
+          <div class="product-listing-mobile-breadcrumbs">
+            {{> components/common/breadcrumbs breadcrumbs}}
+          </div>
+        {{/if}}
       </header>
 
-      {{#if theme_settings.category-breadcrumbs}}
-        <div class="product-listing-mobile-breadcrumbs">
-          {{> components/common/breadcrumbs breadcrumbs}}
-        </div>
-      {{/if}}
+      
 
       {{#if category.subcategories}}
         <ul class="category-landing-grid">

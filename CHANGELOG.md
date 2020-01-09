@@ -1,5 +1,18 @@
 # Change Log
 
+## [1.20.15]
+- Google Strucutred data fix
+- Pintrest Strucutred data
+- Yotpo UI color changes
+- Custom Pintrest analytics events ATC, Checkout, Page View
+- Footer tablet UI update
+- Blog release
+- Tool tip functional fix
+- ATC adding product recomendations
+- Move mobile breadcrumbs
+- Custom Brand warantee page UI
+- Create Recently viewed Module and RV UI for PDP
+
 ## [1.20.14]
 - Blog index and article page Redesign
 - Print on PDP Fix

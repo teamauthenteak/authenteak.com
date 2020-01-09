@@ -34,7 +34,7 @@
 
 @media only screen and (max-width: $screen-md) {
     .product-details .breadcrumbs{
-        margin-bottom: 0 !important;
+        // margin-bottom: 0 !important;
     }
 
     .breadcrumb:nth-last-of-type(2){
@@ -42,7 +42,7 @@
 
         a{
             display: block;
-            text-align: left;
+            text-align: center;
             // color:#6ea438;
         }
     }

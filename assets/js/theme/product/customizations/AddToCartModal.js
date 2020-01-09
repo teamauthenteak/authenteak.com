@@ -200,6 +200,7 @@ export default class AddToCartModal {
         element.querySelector("spinner");
 
         $(element).appendTo(modalFooter);
+        
       }
     });
   }

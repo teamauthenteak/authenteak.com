@@ -1,0 +1,189 @@
+---
+category:
+  products:
+    limit: {{theme_settings.product-count}}
+  shop_by_price: true
+---
+
+{{#partial "page"}}
+
+    <div class="product">
+        {{#if theme_settings.category-breadcrumbs}}
+        <div class="product__breadcrumbs mobileHide">
+            {{> components/common/breadcrumbs breadcrumbs}}
+        </div>
+        {{/if}}
+
+        {{#each (limit category.products 1) }}
+        <div class="product__col-1-1">
+            <div class="product__col-1-2 product-images-container">
+                <div class="product-images-loader">
+                    <svg class="icon icon-spinner"><use xlink:href="#icon-spinner" /></svg>
+                </div>
+
+                <div class="product-slides-container">
+                    <div class="product-slides-wrap">
+                        {{#if images}}
+                            {{#each images}}
+                            <figure class="product__figImg product-image" style="background-image:url({{getImage this ''}});"  data-product-image>
+                                <img src="{{getImage this 'product'}}" alt="{{alt}}">
+                            </figure>
+                            {{/each}}
+                        {{else}}
+                            <figure class="product__figImg product-image" style="background-image:url({{getImage this ''}});" data-product-image>
+                                <img src="{{getImage this 'product' (cdn default_image)}}" alt="{{alt}}">
+                            </figure>
+                        {{/if}}
+    
+                        {{#if videos}}
+                            {{#each videos}}
+                                {{#if id}}<iframe width="560" height="315" src="//www.youtube.com/embed/{{id}}" id="{{id}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" title="{{title_short}}" allowfullscreen></iframe>{{/if}}  
+                            {{/each}}
+                        {{/if}}
+                    </div>
+                </div>
+    
+                <div class="product__imgPagination product-images-pagination">
+                    {{#each images}}
+                    <div class="product__imgPaginationItem pagination-item">
+                        <img src="{{getImage this 'small-thumb'}}" alt="{{this.alt}}">
+                    </div>
+                    {{/each}}
+            
+                    {{#if videos}}
+                    {{#each videos}}
+                        {{#if id}}
+                        <div class="product__imgPaginationItem product__imgPaginationItem--svg" style="background-image: url(https://img.youtube.com/vi/{{id}}/0.jpg);">
+                            <svg width="50" height="50" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 32 32" version="1.1">
+                                <path d="M31.327 8.273c-0.386-1.353-1.431-2.398-2.756-2.777l-0.028-0.007c-2.493-0.668-12.528-0.668-12.528-0.668s-10.009-0.013-12.528 0.668c-1.353 0.386-2.398 1.431-2.777 2.756l-0.007 0.028c-0.443 2.281-0.696 4.903-0.696 7.585 0 0.054 0 0.109 0 0.163l-0-0.008c-0 0.037-0 0.082-0 0.126 0 2.682 0.253 5.304 0.737 7.845l-0.041-0.26c0.386 1.353 1.431 2.398 2.756 2.777l0.028 0.007c2.491 0.669 12.528 0.669 12.528 0.669s10.008 0 12.528-0.669c1.353-0.386 2.398-1.431 2.777-2.756l0.007-0.028c0.425-2.233 0.668-4.803 0.668-7.429 0-0.099-0-0.198-0.001-0.297l0 0.015c0.001-0.092 0.001-0.201 0.001-0.31 0-2.626-0.243-5.196-0.708-7.687l0.040 0.258zM12.812 20.801v-9.591l8.352 4.803z"></path>
+                            </svg>
+                        </div>
+                        {{/if}}
+                    {{/each}}
+                    {{/if}}    
+                </div>
+            </div><!-- /product img cntr -->
+
+            <div class="product__col-1-2">
+                <h1 class="product__name">{{name}}</h1>
+                
+                <p class="product__itemNum">Item #{{sku}}
+                    <a class="product__ratingWrapper yotpo-pdp-wrapper" href="{{url}}#yotpoReviews" id="yotpoRating" title="Reviews of {{name}}">
+                        <span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of 0 out of 5."></span>
+                        (<span class="yotpo-reviews-num">0</span>)
+                        <span class="yotpo-questions">
+                            <span class="yotpo-questions-num">0</span> Questions
+                        </span>
+                    </a>
+                </p>
+
+                <p class="product__price">
+                    {{#if price}}
+                        {{> components/products/price price=price show_savings=true save_block=true}}
+                    {{/if}}
+                
+                    {{#if call_for_price}}
+                        <p>{{call_for_price}}</p>
+                    {{/if}}
+                </p>
+
+                {{#each custom_fields}}
+                    {{#if this.name '==' "Lead-Time"}}   
+                        <p class="product__shipping">{{this.value}}</p>
+                    {{/if}}
+                {{/each}}
+
+
+                {{#each custom_fields}}
+                    {{#if this.name '==' "Promo Text"}}
+                        <p class="product__promoText">{{{this.value}}}</p>
+                    {{/if}}
+                {{/each}}
+
+
+                <ul class="product__highlights">
+                {{#each custom_fields}}
+                    {{#if this.name '===' "Highlight 1"}}
+                    <li>{{value}}</li>
+                    {{else if this.name '===' "Highlight 2"}}
+                    <li>{{value}}</li>
+                    {{else if this.name '===' "Highlight 3"}}
+                    <li>{{value}}</li>
+                    {{/if}}
+                {{/each}}
+                </ul>
+
+                {{> components/products/add-to-cart-form-collection cart_icon=cart_icon}}
+                
+            </div>
+        </div> 
+        {{/each}}
+
+
+        {{#each category.products}}
+        <div class="product__row product__row--border">
+            <ddiv class="product__col-1-1 no-pad">
+                <div class="product__col-1-4">
+                    <img class="product__img product__img--thumb" src="{{getImage image 'category_card_size'}}" alt="{{name}}">
+                </div>
+
+                <div class="product__col-3-4 no-pad">
+                    <div class="product__col-1-1">
+                        <h2 class="product__name product__name--sm">
+                            <a href="{{url}}" title="See all details about {{name}}">{{name}}</a>
+                        </h2>
+    
+                        <p class="product__itemNum">Item #{{sku}}
+                            <a class="product__ratingWrapper yotpo-pdp-wrapper" href="{{url}}#yotpoReviews" id="yotpoRating" title="Reviews of {{name}}">
+                                <span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of 0 out of 5."></span>
+                                (<span class="yotpo-reviews-num">0</span>)
+                                <span class="yotpo-questions">
+                                    <span class="yotpo-questions-num">0</span> Questions
+                                </span>
+                            </a>
+                        </p>
+
+                        {{#if quick_view}}
+                            <a class="quick-shop-details-lower link" href="{{url}}">{{lang 'product.view_full_details'}}</a>
+                        {{/if}}
+    
+                        <p class="product__price">
+                            {{> components/products/price price=this.price show_savings=false save_block=false}}
+                        </p>
+                    </div>
+
+                    <div class="product__col-1-1">
+                        <select>
+                            <option>Option 1</option>
+                        </select>
+                    </div>
+
+                    <div class="product__col-1-1">
+                    {{#each custom_fields}}
+                        {{#if this.name '==' "Lead-Time"}}
+                        <div class="product__col-1-2 no-pad"> 
+                            <p class="product__shipping">{{this.value}}</p>
+                        </ddiv>
+                        {{/if}}
+
+                        {{#if this.name '==' "Promo Text"}}
+                        <div class="product__col-1-2">
+                            <p class="product__promoText">{{{this.value}}}</p>
+                        </div>
+                        {{/if}}
+                    {{/each}}
+                    </div>
+                    
+                </div>
+            </ddiv>
+        </div>
+        {{/each}}
+        
+
+
+    </div>
+
+
+{{/partial}}
+
+{{> layout/base}}

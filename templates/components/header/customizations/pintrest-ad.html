@@ -1,0 +1,87 @@
+<!-- Pinterest Tag -->
+<script>
+!function(e){if(!window.pintrk){window.pintrk = function () {
+window.pintrk.queue.push(Array.prototype.slice.call(arguments))};var
+    n=window.pintrk;n.queue=[],n.version="3.0";var
+    t=document.createElement("script");t.async=!0,t.src=e;var
+    r=document.getElementsByTagName("script")[0];
+    r.parentNode.insertBefore(t,r)}}("https://s.pinimg.com/ct/core.js");
+
+pintrk('load', '2614001056018');
+pintrk('page');
+
+pintrk('track', 'pagevisit');
+
+window.addEventListener("load", function(){
+    TEAK.Modules = TEAK.hasOwnProperty("Modules") ? TEAK.Modules : {};
+
+    TEAK.Modules.pintrest = {
+        cart: null,
+
+        addToCart: function(args){
+            let pinObj = {
+                    value: parseInt(args.price),
+                    order_quantity: args.qty,
+                    order_id: "",
+                    currency: 'USD',
+                    line_items: [
+                        {
+                            product_name: args.name,
+                            product_id: args.id,
+                            product_category: args.categories,
+                            product_brand: args.brand
+                        }
+                    ]
+                };
+
+            
+            $(window).on("cartDataStored", function(){
+                TEAK.Modules.pintrest.getCart();
+                pinObj.order_id = TEAK.Modules.pintrest.cart.id;
+                window.pintrk('track', 'addtocart', pinObj);
+            });
+           
+        },
+
+        checkOut: function(qty){
+            if( this.cart !== null ){
+                let pinObj = {
+                    value: this.cart.cartAmount,
+                    order_quantity: qty,
+                    currency: 'USD',
+                    order_id: this.cart.id,
+                    line_items: []
+                };
+
+                this.cart.lineItems.physicalItems.forEach(function(element){
+                    pinObj.line_items.push({
+                        product_name: element.name,
+                        product_id: element.productId,
+                        product_brand: element.brand,
+                        product_price: element.extendedSalePrice,
+                        product_quantity: element.quantity
+                    });
+                });
+
+                window.pintrk('track', 'checkout', pinObj);
+            }
+        },
+
+
+        getCart: function(){
+            if( window.localStorage ){
+                this.cart = window.localStorage.getItem('cartData');
+                this.cart = JSON.parse(this.cart);
+                this.cart = this.cart[0];
+            }
+
+            return this;
+        },
+        
+    };
+
+    TEAK.Modules.pintrest.getCart();
+});
+</script>
+<noscript><img height="1" width="1" style="display:none;" alt="" src="https://ct.pinterest.com/v3/?event=init&tid=2614001056018&noscript=1" /></noscript>
+<!-- end Pinterest Tag -->

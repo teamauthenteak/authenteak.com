@@ -29,6 +29,7 @@ import home from './theme/Home';
 import orderComplete from './theme/OrderComplete';
 import page from './theme/Page';
 import product from './theme/Product';
+import personalization from './theme/Personalization';
 import AmpProduct from './theme/AmpProduct';
 import search from './theme/Search';
 import sitemap from './theme/Sitemap';

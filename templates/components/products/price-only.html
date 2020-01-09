@@ -1,0 +1,6 @@
+{{#if product.price.without_tax}}
+{{> components/products/customizations/non-sale-price-fixed price=product.price}}
+{{/if}}
+{{#if product.price.with_tax}}
+{{#unless product.price.without_tax}}{{chop product.price.with_tax.value}}{{/unless}}
+{{/if}}

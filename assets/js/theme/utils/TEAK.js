@@ -37,7 +37,7 @@ window.TEAK.thirdParty = {
          * }
         */
         track: function(args){
-            console.log(args);
+            // console.log(args);
 
             if( typeof window.heap !== "undefined" ){
                 heap.track(args.event, {

@@ -1,0 +1,119 @@
+<form class="form add-to-cart-form" method="post" action="{{cart_url}}" enctype="multipart/form-data" data-cart-item-add data-product-options-count="{{options.length}}">
+  <input type="hidden" name="action" value="add">
+  <input type="hidden" name="product_id" value="{{id}}" data-product-id/>
+
+  <div class="product-options-container" data-product-option-change data-product-brand="{{brand.name}}" id="productOptions">
+    {{#if customizations}}
+      {{#each customizations}}
+          {{{dynamicComponent 'core/forms/customizations'}}}
+      {{/each}}
+    {{/if}}
+    
+    {{#if options}}
+      {{#each options}}
+        {{{dynamicComponent 'core/forms/options' }}}
+        <hr>
+      {{/each}}
+    {{/if}}
+  </div>
+  <script data-json="raw-options" type="application/json">{{{json options}}}</script>
+  <script data-json="raw-warranty" type="application/json">{{{json warranty}}}</script>
+
+  {{#if event_date}}
+    {{> core/products/event}}
+  {{/if}}
+
+    {{#each custom_fields}}
+      {{#if this.name '===' "Free Shipping Icon"}}   
+        {{#if this.value '===' "Yes"}}
+          <div id="freeShipping">
+            <script>
+              /* Displays the free shipping text based on price */
+              document.addEventListener('DOMContentLoaded', function(){
+                  TEAK.Modules.freeShipping.set({
+                    price: {
+                      rrp_without_tax: '{{../../../price.rrp_without_tax.value}}' === '' ? 0 : parseInt('{{../../../price.rrp_without_tax.value}}'),
+                      with_tax: '{{../../../price.with_tax.value}}' === '' ? 0 : parseInt('{{../../../price.with_tax.value}}'),
+                      without_tax: '{{../../../price.without_tax.value}}' === '' ? 0 : parseInt('{{../../../price.without_tax.value}}'),
+                      custom: '{{~default ../../../price.sale_price_without_tax.value price.without_tax.value~}}' === '' ? 0 : parseInt('{{~default ../../../price.sale_price_without_tax.value price.without_tax.value~}}')
+                    },
+                    sku: "{{../../../sku}}"
+                  }, "freeShipping");
+              });
+            </script>
+          </div>
+        {{/if}}
+      {{/if}}
+    {{/each}}
+      
+
+{{#if price.without_tax.value ">" 0.01}}
+  <div class="product-quantity-submit">
+    <div class="product-quantity-container">
+        <div class="form-field form-inline form-field--quantity">
+          <label class="form-label">
+            <strong class="form-label-text">
+              {{ lang 'product.quantity'}}
+            </strong>
+            <input type="number" pattern="[0-9]+" class="product-quantity form-input" name="qty[]" value="{{#if quantity}}{{quantity}}{{else}}{{#if min_purchase_quantity}}{{min_purchase_quantity}}{{else}}1{{/if}}{{/if}}" min="{{#if min_purchase_quantity}}{{min_purchase_quantity}}{{else}}0{{/if}}" {{#if product.max_purchase_quantity}} max="{{max_purchase_quantity}}"{{/if}}>
+            <div class="product-quantity-toggle-wrapper">
+              <span class="product-quantity-toggle product-quantity-decrement">
+                <svg class="icon icon-minus"><use xlink:href="#icon-minus" /></svg>
+              </span>
+              
+              <span class="product-quantity-toggle product-quantity-increment">
+                <svg class="icon icon-plus"><use xlink:href="#icon-plus" /></svg>
+              </span>
+             
+            </div>
+          </label>
+        </div>
+    </div>
+    
+    {{!-- {{#if show_cart_action}} --}}
+      <button type="submit" class="button button-primary button-primary--green button-wide add-to-cart button-progress spinner" data-button-purchase onclick="TEAK.thirdParty.heap.track({ event:'add_to_cart', location: 'pdp' })">
+        <span class="button-text">
+          {{#if pre_order}}
+            {{lang 'product.pre_order'}}
+          {{else}}
+            {{#if cart_icon '==' 'bag'}}
+              {{lang 'product.add_to_bag'}}
+            {{else}}
+              {{lang 'product.add_to_cart'}}
+            {{/if}}
+          {{/if}}
+        </span>
+      </button>
+    {{else}}
+      {{#if out_of_stock}}
+        <div class="button button-primary button-wide add-to-cart button-disabled">
+          {{lang 'product.sold_out'}}
+        </div>
+      {{/if}}
+
+    {{!-- {{/if}} --}}
+  </div>
+{{/if}}
+</form>
+
+<script>
+(function(){
+  document.querySelector("[data-button-purchase]").addEventListener("click", function(){
+    let qty = document.querySelector(".product-quantity").value,
+        price = document.querySelector(".price-value").innerText.trim().replace(/\$|,/g, '');
+
+    TEAK.Modules.fbPixel.addToCart("{{name}}", price, "{{id}}");
+
+    TEAK.Modules.pintrest.addToCart({
+      price: price, 
+      qty: qty,
+      id: "{{id}}",
+      name: "{{name}}",
+      brand: "{{brand.name}}",
+      categories: ["{{category}}"]
+    });
+  });
+
+}());
+</script>
+

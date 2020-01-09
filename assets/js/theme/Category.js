@@ -7,6 +7,7 @@ import svgIcon from './global/svgIcon';
 import fillFacetRatingStars from './global/fillFacetRatingStars';
 import toggleFacet from './global/toggleFacet';
 import InfiniteScroll from 'infinite-scroll';
+import ProductImages from './product/ProductImages';
 
 export default class Category extends PageManager {
   constructor() {
@@ -17,6 +18,9 @@ export default class Category extends PageManager {
     if ($('[data-product-compare]').length) {
       initCompare();
     }
+
+    // Product Images
+		new ProductImages(".product-slides-wrap");
 
     this._bindEvents();
 

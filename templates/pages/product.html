@@ -32,6 +32,14 @@ brands: true
     </section>
   {{/if}}
 
+
+  <section class="products-related products-recently-viewed section" id="recentlyViewedProducts">
+    <div class="container">
+      <h3 class="section-title">{{lang 'product.recently_viewed_products_heading'}}</h3>
+      <div class="product-grid product-rv-carousel"></div>
+    </div>
+  </section>
+
 <div class="yotpo yotpo-main-widget" 
 data-product-id="{{ product.id }}"
 data-price="{{> components/products/customizations/non-sale-price-value-fixed price=product.price}}"

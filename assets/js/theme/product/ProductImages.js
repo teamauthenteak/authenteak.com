@@ -16,7 +16,7 @@ export default class ProductImages {
       loader: '.product-images-loader',
       slidesCntr: ".product-slides-container"
     };
-    
+
     this.$pagination = this.$el
       .closest(this.classes.container)
       .find(this.classes.pagination);

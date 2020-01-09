@@ -9,6 +9,7 @@ import variationImgPreview from './product/variationImgPreview';
 import Tabs from 'bc-tabs';
 import fitVids from 'fitvids';
 import ScrollLink from 'bc-scroll-link';
+import Personalization from './Personalization';
 
 import ProductOptions from './product/customizations/ProductOptions';
 import AddToCartModal from './product/customizations/AddToCartModal';
@@ -19,12 +20,50 @@ export default class Product extends PageManager {
 		super();
 
 		this.yotpoKey = "aS8rMIONwGgNbx1ATQmUtKY173Xk5HHc75qGrnuq";
+		this.productId = $("#productDetails").data("productId");
 
 		this.el = '[data-product-container]';
 		this.$el = $(this.el);
 		this.productImgs = '.product-slides-wrap';
 
 		this.fitVidsInitialized = false;
+
+		this.carouselSettings = {
+			infinite: true,
+			slidesToShow: 4,
+			slidesToScroll: 4,
+			autoplaySpeed: 4000,
+			dots: true,
+			speed: 800,
+			prevArrow: '<span class="carousel-navigation-item previous"><svg class="icon icon-arrow-left"><use xlink:href="#icon-arrow-left" /></svg></span>',
+			nextArrow: '<span class="carousel-navigation-item next"><svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right" /></svg></span>',
+			responsive: [
+				{
+					breakpoint: 1024,
+					settings: {
+						slidesToShow: 3,
+						slidesToScroll: 3,
+						autoplay: false
+					}
+				},
+				{
+					breakpoint: 768,
+					settings: {
+						slidesToShow: 2,
+						slidesToScroll: 2,
+						autoplay: true
+					}
+				},
+				{
+					breakpoint: 480,
+					settings: {
+						slidesToShow: 1,
+						slidesToScroll: 1,
+						autoplay: true
+					}
+				}
+			]
+		};
 
 		new Alert($('[data-alerts]'));
 
@@ -52,6 +91,15 @@ export default class Product extends PageManager {
 		// Custom Cart Modal
 		new AddToCartModal();
 
+
+		// add Personalization engine
+		this.recentlyViewed = new Personalization({
+			type: "recentlyViewed"
+		});
+
+		this._initRecentlyViewed();
+
+
 		// Print Mode (Tear Sheet)
 		new PrintMode();
 
@@ -64,6 +112,7 @@ export default class Product extends PageManager {
 		this._bindEvents();
 
 		this.initAnalytics();
+
 	}
 
 	loaded(next) {
@@ -110,46 +159,115 @@ export default class Product extends PageManager {
 
 
 	initAnalytics(){
-		TEAK.thirdParty.heap.track({ event:'pdp_view', location: 'pdp' });
+		TEAK.thirdParty.heap.track({ event: 'pdp_view', location: 'pdp' });
 	}
+
+
+
+	_initRecentlyViewed(){
+		let $rv = $("#recentlyViewedProducts"),
+			recentProducts = this.recentlyViewed.getViewed();
+
+		if(recentProducts){ 
+			recentProducts.forEach((element) => {
+				let tpl = buildViewedSlider(element);
+				$(tpl).appendTo(".product-grid", $rv);
+			});
+
+			$rv.addClass("show");	
+		}
+		
+		function buildViewedSlider(product){
+			return `<a href="${product.url}" title="${product.title}" class="product-grid-item product-block" data-product-title="${product.title}" data-product-id="${product.product_id}">
+						<figure class="product-item-thumbnail">
+							<div class="replaced-image lazy-loaded" style="background-image:url(${product.image})">
+								<img class="lazy-image lazy-loaded" src="${product.image}" alt="You viewed ${product.title}">
+							</div>
+						</figure>
+					
+						<div class="product-item-details product-item-details--review">
+							<h5 class="product-item-title">${product.title}</h5>
+						</div>
+
+						<div class="yotpo-rv-wrapper">
+							<span class="yotpo-stars-rating" style="--rating: ${product.rating};" aria-label="Rating of ${product.rating} out of 5."></span>
+							(<span class="yotpo-reviews-num">${product.rating}</span>)
+					  	</div>
+					</a>`;
+		}
+
+		this.saveViewedProduct();
+		this.initRVSlider();
+	}
+
+
+	// saved this viwerd poduct - include the yotpo rating
+	saveViewedProduct(){
+		let productInfo = document.getElementById("productInfo").innerHTML;
+		
+		productInfo = JSON.parse(productInfo);
+		
+		$.ajax(`https://api.yotpo.com/v1/widget/${this.yotpoKey}/products/${this.productId}/reviews.json`)
+			.then((dataObj) => {
+				let totalScore = dataObj.response.bottomline.average_score;
+
+				totalScore = (totalScore === 0) ? 0 : totalScore.toFixed(1);
+				productInfo.rating = totalScore;
+
+				this.recentlyViewed.saveViewed(productInfo);
+			});	
+	}
+
+
+
+	// Recently Viewed Product carousels
+	initRVSlider(){
+		let carouselObj = Object.assign({appendDots: '.product-rv-carousel'}, this.carouselSettings);
+		$('.product-rv-carousel').slick(carouselObj);
+	}
+
+
 
 
 	// get and display bespoke yotpo product reviews
 	_getReviews(){
-		let productId = $("#productDetails").data("productId"),
-			$ratingCntr = $("#yotpoRating");
+		let $ratingCntr = $("#yotpoRating");
 
 		$.when( 
-			$.ajax(`https://api.yotpo.com/v1/widget/${this.yotpoKey}/products/${productId}/reviews.json`),
-			$.ajax(`https://api.yotpo.com/products/${this.yotpoKey}/${productId}//questions`) 
+			$.ajax(`https://api.yotpo.com/v1/widget/${this.yotpoKey}/products/${this.productId}/reviews.json`),
+			$.ajax(`https://api.yotpo.com/products/${this.yotpoKey}/${this.productId}/questions`) 
 		).then(processResponses, responseFail);
 			
-
-		function processResponses(reviews, questions){
-			let totalScore = reviews[0].response.bottomline.average_score,
-				totalQuestions = questions[0].response.total_questions;
+		function processResponses(reviewObj, questionObj){
+			let totalScore = reviewObj.response.bottomline.average_score,
+				totalQuestions = questionObj.response.total_questions;
 
 			totalScore = totalScore === 0 ? 0 : totalScore.toFixed(1);
 			
-			$ratingCntr
-				.find(".yotpo-stars-rating")
-					.css({"--rating": totalScore})
-					.attr("aria-label", `Rating of ${totalScore} out of 5.`)
-						.end()
-				.find(".yotpo-reviews-num").text(totalScore)
-					.end()
-				.find(".yotpo-questions-num").text(totalQuestions)
+			this.showRaiting($ratingCntr, totalScore, totalQuestions);
 
-			// console.log(reviews[0].response.bottomline.average_score)
+			// console.log(reviewObj.response.bottomline.average_score)
 			// console.log(reviews[0].response.bottomline.total_review)
 			// console.log(questions[0].response.total_questions)
 		}
-
 
 		function responseFail(err){
 			console.log(err)
 		}
 	}
+
+
+	showRaiting($ratingCntr, totalScore, totalQuestions){
+		$ratingCntr
+			.find(".yotpo-stars-rating")
+				.css({"--rating": totalScore})
+				.attr("aria-label", `Rating of ${totalScore} out of 5.`)
+					.end()
+			.find(".yotpo-reviews-num").text(totalScore)
+				.end()
+			.find(".yotpo-questions-num").text(totalQuestions)
+	}
+
 
 
 	_initTabs() {
@@ -164,12 +282,16 @@ export default class Product extends PageManager {
 		});
 	}
 
+
+
 	// Add accordion style buttons to toggle tab panels
 	_accordionTabToggle(event) {
 		const tab = $(event.currentTarget).find('a').attr('href');
 		$(event.currentTarget).addClass('is-open').siblings('.accordion-title').removeClass('is-open');
 		this.tabs.displayTabContent(tab);
 	}
+
+
 
 	// if page loads with tabs hidden, we need to wait until the proper tab is clicked before running fitVids.
 	_initVids(tabId) {
@@ -180,47 +302,10 @@ export default class Product extends PageManager {
 	}
 
 
-
+	// Related Products
 	_initSlick() {
-
-		// Related Product carousels
-		$('.product-carousel').slick({
-			infinite: true,
-			slidesToShow: 4,
-			slidesToScroll: 4,
-			autoplaySpeed: 4000,
-			appendDots: ".product-carousel",
-			dots: true,
-			speed: 800,
-			prevArrow: '<span class="carousel-navigation-item previous"><svg class="icon icon-arrow-left"><use xlink:href="#icon-arrow-left" /></svg></span>',
-			nextArrow: '<span class="carousel-navigation-item next"><svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right" /></svg></span>',
-			responsive: [
-				{
-					breakpoint: 1024,
-					settings: {
-						slidesToShow: 3,
-						slidesToScroll: 3,
-						autoplay: false
-					}
-				},
-				{
-					breakpoint: 768,
-					settings: {
-						slidesToShow: 2,
-						slidesToScroll: 2,
-						autoplay: true
-					}
-				},
-				{
-					breakpoint: 480,
-					settings: {
-						slidesToShow: 1,
-						slidesToScroll: 1,
-						autoplay: true
-					}
-				}
-			]
-		});
+		let carouselObj = Object.assign({appendDots: '.product-carousel'}, this.carouselSettings);
+		$('.product-carousel').slick(carouselObj);
 	}
 
 
@@ -592,8 +677,8 @@ TEAK.Modules.toolTip = {
 	// on click check to see if the event happend outside or inside the modal, close if the former
 	checkClickToCloseModal: function(e){
 		if ( TEAK.Modules.toolTip.activeModal !== "" ){
-			if ( !$(e.target).closest('#'+ TEAK.Modules.toolTip.activeModal).length && !$(e.target).closest("[tool-tip-open]").length ){
-				$("[tool-tip-close]", document.body).click();
+			if ( !$(e.target).closest('#'+ TEAK.Modules.toolTip.activeModal).length && !$(e.target).closest("[data-tool-tip-open]").length ){
+				$("[data-tool-tip-close]", document.body).click();
 			}
 		}
 	},
@@ -603,7 +688,7 @@ TEAK.Modules.toolTip = {
 	checkKeyToCloseModal: function(e){
 		if ( TEAK.Modules.toolTip.activeModal !== "" ){
 			if( e.which === 27 ){
-				$("[tool-tip-close]", document.body).click();
+				$("[data-tool-tip-close]", document.body).click();
 			}
 		}
 	},

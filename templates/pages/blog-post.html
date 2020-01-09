@@ -24,10 +24,10 @@ blog:
   <div class="container">
       <div class="blog__hero blog__hero--post">
           <figure class="blog__heroImgCntr">
-            {{#if blog.post.thumbnail}}
-            <img src="{{getImage blog.post.thumbnail 'core-blog-thumbnail'}}" class="blog__heroImg" alt="{{blog.post.thumbnail.alt}}">
+            {{#if thumbnail}}
+            <img src="{{getImage thumbnail 'core-blog-thumbnail'}}" class="blog__heroImg" alt="{{blog.post.thumbnail.alt}}">
             {{/if}}
-            <img src="https://dummyimage.com/1280x400/ccc/ccc" alt="{{blog.post.thumbnail.alt}}" class="blog__heroImg">
+            <!-- <img src="https://dummyimage.com/1280x400/ccc/ccc" alt="{{blog.post.thumbnail.alt}}" class="blog__heroImg"> -->
           </figure>
       </div>
 
@@ -76,7 +76,7 @@ blog:
       {
         "title": "{{json title}}",
         "date": "{{date_published}}",
-        "thumbnail": "{{thumbnail.data}}",
+        "thumb": "{{getImage thumbnail 'core-blog-thumbnail'}}",
         "summary": "{{json summary}}{{#if show_read_more}}&hellip;{{/if}}",
         "tags": [{{#forEach tags}}"{{name}}"{{#unless isLast}},{{/unless}}{{/forEach}}],
         "url": "{{url}}"

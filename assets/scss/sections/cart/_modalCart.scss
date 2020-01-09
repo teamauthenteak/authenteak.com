@@ -155,11 +155,12 @@
 
                 .mini-cart-item-description {
                     flex: 1 0 200px;
-                    padding-left: 0;
+                    padding-left: 10px;
                     display: flex;
                     align-items: center;
                     align-content: center;
                     justify-content: center;
+                    flex-direction: column;
 
                     .mini-cart-item-title {
                         line-height: 1.1em;
@@ -170,6 +171,10 @@
 
                         &:after { display: none; }
                     }
+                }
+
+                .mini-cart-item-options{
+                    width: 100%;
                 }
 
                 .mini-cart-item-price {

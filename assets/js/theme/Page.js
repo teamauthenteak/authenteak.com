@@ -1,11 +1,72 @@
 import PageManager from '../PageManager';
-import slick from 'slick-carousel';
+import Modal from 'bc-modal';
 
 export default class Page extends PageManager {
     constructor() {
         super();
+
+        this.warrantyModal = new Modal({
+            el: $("#warantieModal"),
+            modalClass: "landing__modal landing__modal--open",
+            afterShow: this.initWufooWarrantyForm()
+        });
+
+        this.bindEvents();
     }
+
+
+
+    initWufooWarrantyForm(){
+        let s11hxi4x1j1ouoy,
+            s = document.createElement("script"),
+            options = {
+                'userName': 'authenteak',
+                'formHash': 's11hxi4x1j1ouoy',
+                'autoResize': true,
+                'height': '1305',
+                'async': true,
+                'host': 'wufoo.com',
+                'header': 'show',
+                'ssl': true
+            };
+
+        s.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'secure.wufoo.com/scripts/embed/form.js';
+        
+        s.onload = s.onreadystatechange = function() {
+            let rs = this.readyState;
+
+            if (rs)
+                if (rs != 'complete')
+                    if (rs != 'loaded') return;
+            try {
+                s11hxi4x1j1ouoy = new WufooForm();
+                s11hxi4x1j1ouoy.initialize(options);
+                s11hxi4x1j1ouoy.display();
+            } catch (e) {}
+        };
+        
+        let scr = document.getElementsByTagName("script")[0],
+            par = scr.parentNode;
+        
+        par.insertBefore(s, scr);
+    }
+
+
+
+    bindEvents(){
+        $(document)
+            .on("click", "[rel=fileAClaim]", (e) => {
+                this.warrantyModal.open();
+                e.preventDefault();
+            });
+    }
+
+
 }
+
+
+
+
 
 
 

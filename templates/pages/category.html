@@ -24,15 +24,15 @@ category:
 
       {{{snippet 'categories'}}}
 
-      {{#if theme_settings.category-breadcrumbs}}
-        <div class="product-listing-mobile-breadcrumbs">
-          {{> components/common/breadcrumbs breadcrumbs}}
-        </div>
-      {{/if}}
-
-      
+    
         <header class="listing-header">
           <h1 class="listing-title">{{chop category.name}}</h1>
+
+          {{#if theme_settings.category-breadcrumbs}}
+            <div class="product-listing-mobile-breadcrumbs">
+              {{> components/common/breadcrumbs breadcrumbs}}
+            </div>
+          {{/if}}
         </header>
 
       {{#unless theme_settings.collections-sidebar-hidden}}

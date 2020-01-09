@@ -81,6 +81,17 @@
     height: 20px;
 }
 
+.yotpo-rv-wrapper{
+    @extend .yotpo-pdp-wrapper;
+    margin: 0;
+    justify-content: center;
+
+    & .yotpo-reviews-num{
+        padding: 0 1px;
+        text-decoration: none;
+    }
+}
+
 .yotpo-pdp-wrapper .bottomLine,
 .yotpo-pdp-wrapper .QABottomLine {
     display: flex;
@@ -119,4 +130,9 @@
     .yotpo-nav-tab.yotpo-active span{
         color: #a2a2a2 !important;
     }
+}
+
+
+.yotpo.yotpo-main-widget .yotpo-icon-btn .yotpo-icon, .yotpo-icon-button-text{
+    color: #666 !important;
 }

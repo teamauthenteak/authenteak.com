@@ -5,6 +5,7 @@
 
   <div class="product-slides-container">
     <div class="product-slides-wrap">
+  
       {{#if images}}
         {{#each images}}
           <a class="product-image" style="background-image:url({{getImage this 'zoom'}});" href="{{getImage this 'zoom'}}" data-product-image>
@@ -14,14 +15,40 @@
       {{else}}
         <img src="{{getImage this 'product' (cdn default_image)}}" alt="{{alt}}">
       {{/if}}
+
+      {{#if videos}}
+        {{#each videos}}
+          {{#if id}}
+          <iframe width="560" height="315" src="//www.youtube.com/embed/{{id}}" id="{{id}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" title="{{title_short}}" allowfullscreen></iframe>
+          {{/if}}  
+        {{/each}}
+      {{/if}}
+      
     </div>
   </div>
 
   <div class="product-images-pagination">
+    
+
     {{#each images}}
       <div class="pagination-item">
         <img src="{{getImage this 'small-thumb'}}" alt="{{this.alt}}">
       </div>
     {{/each}}
+
+
+    {{#if videos}}
+      {{#each videos}}
+        {{#if id}}
+        <div class="pagination-item pagination-item--svg" style="background-image: url(https://img.youtube.com/vi/{{id}}/0.jpg);">
+          <svg width="50" height="50" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 32 32" version="1.1">
+            <path d="M31.327 8.273c-0.386-1.353-1.431-2.398-2.756-2.777l-0.028-0.007c-2.493-0.668-12.528-0.668-12.528-0.668s-10.009-0.013-12.528 0.668c-1.353 0.386-2.398 1.431-2.777 2.756l-0.007 0.028c-0.443 2.281-0.696 4.903-0.696 7.585 0 0.054 0 0.109 0 0.163l-0-0.008c-0 0.037-0 0.082-0 0.126 0 2.682 0.253 5.304 0.737 7.845l-0.041-0.26c0.386 1.353 1.431 2.398 2.756 2.777l0.028 0.007c2.491 0.669 12.528 0.669 12.528 0.669s10.008 0 12.528-0.669c1.353-0.386 2.398-1.431 2.777-2.756l0.007-0.028c0.425-2.233 0.668-4.803 0.668-7.429 0-0.099-0-0.198-0.001-0.297l0 0.015c0.001-0.092 0.001-0.201 0.001-0.31 0-2.626-0.243-5.196-0.708-7.687l0.040 0.258zM12.812 20.801v-9.591l8.352 4.803z"></path>
+          </svg>
+        </div>
+        {{/if}}
+      {{/each}}
+    {{/if}}
+
+    
   </div>
 </div>

@@ -9,14 +9,23 @@ category:
 
     <div class="brands">
         {{#if theme_settings.category-breadcrumbs}}
-        <div class="brands__breadcrumbs">
+        <div class="brands__breadcrumbs mobileHide">
             {{> components/common/breadcrumbs breadcrumbs}}
         </div>
         {{/if}}
 
         <div class="brands__headerCntr">
-            <h1 class="brands__header">{{category.name}}</h1>
+            <h1 class="brands__header">
+                {{category.name}}
+            </h1>
+
+            {{#if theme_settings.category-breadcrumbs}}
+            <div class="brands__breadcrumbs mobileShow">
+                {{> components/common/breadcrumbs breadcrumbs}}
+            </div>
+            {{/if}}
         </div>
+
         <div class="brands__hero">  
             <img class="brands__heroImg" src="{{getImage category.image}}" alt="{{category.name}}">
         </div>
@@ -34,7 +43,11 @@ category:
                     </a>
                 </div>
                 <div class="brands__column brands__column--2-3">
-                    <h2 class="brands__columnHeading">{{name}}</h2>
+                    <div class="brands__columnHeading">
+                        <a href="{{url}}" title="Shop all {{name}}" class="brands__columnHeadingLink">
+                            {{name}}
+                        </a>
+                    </h2>
                     <ul class="brands__list">
                         {{#each children}}
                         <li class="brands__listItem">
