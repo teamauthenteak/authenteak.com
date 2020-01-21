@@ -8,144 +8,6 @@
 window.TEAK = window.TEAK || {};
 
 
-/** -----------------------------------------
- * TEAK Data
- * Store Model View data for interactions
- * ------------------------------------------ */
-window.TEAK.Data = {};
-
-
-/** -----------------------------------------
- * TEAK Modules
- * Module Controllers for external scripts
- * ------------------------------------------ */
-window.TEAK.Modules = {};
-
-
-
-/** -----------------------------------------
- * TEAK 3rd Parties
- * Store settigns for 3rd parties
- * ------------------------------------------ */
-window.TEAK.thirdParty = {
-    heap:{
-
-        /** 
-         * Custom tracking events for heap analitics
-         * {
-         *      method: ""
-         *      event: "",      add_to_cart, proceed_to_cart
-         *      ... other properties
-         * }
-        */
-
-        init(args){
-            if( typeof window.heap === "undefined" ){ return; }
-
-            switch(args.method){
-
-                // custom tracking events
-                case 'track':
-                    if(args.event === 'orderCompleted'){
-                        args = this.buildOrderData();
-                    }
-
-                    window.heap.track(args.event, args);
-                    break;
-
-
-                // user identification
-                case 'identify':
-                    window.heap.identify(args.email);
-                    break;
-
-
-                // adding info to a user profile
-                case 'addUser':
-                    let storedCart = window.TEAK.Utils.getStoredCart();
-
-                    args.createdAt = storedCart.createdTime;
-                    args.purchaseCount = window.TEAK.Utils.getCartQnty(storedCart).toString();
-                    args.purchaseTotalValue = storedCart.cartAmount;
-
-                    window.heap.addUserProperties(args);
-                    break;
-                    
-            }
-
-            return this;
-        },
-
-
-        buildOrderData: function(){
-            let storedCart = window.TEAK.Utils.getStoredCart(),
-                order = {
-                    email: storedCart.email,
-                    total: storedCart.cartAmount,
-                    order_id: storedCart.id,
-                    items: []
-                };
-
-            storedCart.lineItems.physicalItems.forEach((element) => {
-                order.items.push({
-                    name: element.name.toString(),
-                    sku: element.productId.toString(),
-                    qty: element.quantity.toString(),
-                    price: element.salePrice.toString()
-                });
-            });
-
-            return order;
-        }
-    },
-
-
-
-    IntelliSuggest:{
-        initArray: [],
-        haveItemArray: [],
-        cartAmount: 0,
-        cartId: null,
-        siteId: "sm8dxk",
-
-        // doing this becasue search spring refuses to make product links realtive for local dev
-        fixLinks: function(){
-            document.querySelectorAll("a[intellisuggest]").forEach( (element) => {
-                var elementHref = element.getAttribute("href");
-                elementHref = elementHref.replace("//authenteak.com", "");
-                element.setAttribute("href", elementHref);
-            });
-        },
-
-        buildData: function(){  
-            let storedCart = window.TEAK.Utils.getStoredCart();
-
-            this.cartAmount = storedCart.cartAmount;
-            this.cartId = storedCart.id;
-
-            storedCart.lineItems.physicalItems.forEach(element => {
-                this.initArray.push(element.productId.toString());       
-
-                this.haveItemArray.push({
-                    sku: element.productId.toString(),
-                    qty: element.quantity.toString(),
-                    price: element.salePrice.toString()
-                });
-            });
-           
-
-            return this;
-        }
-    }
-};
-
-TEAK.thirdParty.IntelliSuggest.buildData();
-
-if( window.location.hostname === "localhost" ){
-    $(window).on("load", TEAK.thirdParty.IntelliSuggest.fixLinks);
-}
-
-
 
 /** -----------------------------------------
  * TEAK Utility Methods
@@ -281,3 +143,144 @@ window.TEAK.Utils = {
   
     window.CustomEvent = CustomEvent;
 })();
+
+
+/** -----------------------------------------
+ * TEAK Data
+ * Store Model View data for interactions
+ * ------------------------------------------ */
+window.TEAK.Data = {};
+
+
+/** -----------------------------------------
+ * TEAK Modules
+ * Module Controllers for external scripts
+ * ------------------------------------------ */
+window.TEAK.Modules = {};
+
+
+
+/** -----------------------------------------
+ * TEAK 3rd Parties
+ * Store settigns for 3rd parties
+ * ------------------------------------------ */
+window.TEAK.thirdParty = {
+    heap:{
+
+        /** 
+         * Custom tracking events for heap analitics
+         * {
+         *      method: ""
+         *      event: "",      add_to_cart, proceed_to_cart
+         *      ... other properties
+         * }
+        */
+
+        init(args){
+            if( typeof window.heap === "undefined" ){ return; }
+
+            switch(args.method){
+
+                // custom tracking events
+                case 'track':
+                    if(args.event === 'orderCompleted'){
+                        args = this.buildOrderData();
+                    }
+
+                    window.heap.track(args.event, args);
+                    break;
+
+
+                // user identification
+                case 'identify':
+                    window.heap.identify(args.email);
+                    break;
+
+
+                // adding info to a user profile
+                case 'addUser':
+                    let storedCart = TEAK.Utils.getStoredCart();
+
+                    args.createdAt = storedCart.createdTime;
+                    args.purchaseCount = window.TEAK.Utils.getCartQnty(storedCart).toString();
+                    args.purchaseTotalValue = storedCart.cartAmount;
+
+                    window.heap.addUserProperties(args);
+                    break;
+                    
+            }
+
+            return this;
+        },
+
+
+        buildOrderData: function(){
+            let storedCart = TEAK.Utils.getStoredCart(),
+                order = {
+                    email: storedCart.email,
+                    total: storedCart.cartAmount,
+                    order_id: storedCart.id,
+                    items: []
+                };
+
+            storedCart.lineItems.physicalItems.forEach((element) => {
+                order.items.push({
+                    name: element.name.toString(),
+                    sku: element.productId.toString(),
+                    qty: element.quantity.toString(),
+                    price: element.salePrice.toString()
+                });
+            });
+
+            return order;
+        }
+    },
+
+
+
+    IntelliSuggest:{
+        initArray: [],
+        haveItemArray: [],
+        cartAmount: 0,
+        cartId: null,
+        siteId: "sm8dxk",
+
+        // doing this becasue search spring refuses to make product links realtive for local dev
+        fixLinks: function(){
+            document.querySelectorAll("a[intellisuggest]").forEach( (element) => {
+                var elementHref = element.getAttribute("href");
+                elementHref = elementHref.replace("//authenteak.com", "");
+                element.setAttribute("href", elementHref);
+            });
+        },
+
+        buildData: function(){  
+            let storedCart = TEAK.Utils.getStoredCart();
+
+            this.cartAmount = storedCart.cartAmount;
+            this.cartId = storedCart.id;
+
+            storedCart.lineItems.physicalItems.forEach(element => {
+                this.initArray.push(element.productId.toString());       
+
+                this.haveItemArray.push({
+                    sku: element.productId.toString(),
+                    qty: element.quantity.toString(),
+                    price: element.salePrice.toString()
+                });
+            });
+           
+
+            return this;
+        }
+    }
+};
+
+TEAK.thirdParty.IntelliSuggest.buildData();
+
+if( window.location.hostname === "localhost" ){
+    $(window).on("load", TEAK.thirdParty.IntelliSuggest.fixLinks);
+}
+
+
+

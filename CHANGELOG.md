@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.20.16.001]
+- fixed issue where utility functions in TEAK were undefined
+- fixed tabs issue where they were not initalizing on doc ready
+
 ## [1.20.16]
 - added heap analytics code
 - fixed an ATC issue that was a race issue

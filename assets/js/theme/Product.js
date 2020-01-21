@@ -104,17 +104,19 @@ export default class Product extends PageManager {
 		new PrintMode();
 
 		this._initSlick();
-		this._buildTabs();
-		this._initTabs();
 		this._getReviews();
 
 		// Product UI
 		this._bindEvents();
+		
+		this._buildTabs();
+		this._initTabs();
 
 		this.initAnalytics();
-
 	}
 
+
+	
 	loaded(next) {
 		// Product Utils
 		this.ProductUtils = new ProductUtils(this.el, {
@@ -155,6 +157,7 @@ export default class Product extends PageManager {
 			event.preventDefault();
 			this._accordionTabToggle(event);
 		});
+
 	}
 
 
@@ -455,48 +458,50 @@ export default class Product extends PageManager {
 		// Choose which tab to show first
 		// this is also used to build its sibbling tabs
 		// therefore we run this before we Instantiate the Tab Content
-		document.addEventListener('DOMContentLoaded', function(){
+		
 			tabsModule.activateFirstTab({
 				id: "descTab",
 				dataClass: ".tmp-prod-details",
 				contentClass: ".descContent"
 			}).initTabContent();
-		});
+
 		
-		
-		
-		//Add Tab Button Listeners
-		tabButtons.forEach( function(element, i){  
-			if (!tabButtons[i].parentElement.classList.contains('innactive-tab')) {
-		
-			tabButtons[i].addEventListener('click', function(event) {
-		
-				if (!this.parentElement.classList.contains('active')) {
-				tabValue = this.dataset.tabval;
-		
-				tabsModule.clearTabHeaders();
-				this.parentElement.classList.toggle('active');
-				tabsModule.updateTabContent();
-		
-				event.preventDefault();
+			//Add Tab Button Listeners
+			tabButtons.forEach( function(element, i){  
+				if (!tabButtons[i].parentElement.classList.contains('innactive-tab')) {
+			
+					tabButtons[i].addEventListener('click', function(event) {
+						if (!this.parentElement.classList.contains('active')) {
+							tabValue = this.dataset.tabval;
+					
+							tabsModule.clearTabHeaders();
+							this.parentElement.classList.toggle('active');
+							tabsModule.updateTabContent();
+					
+							event.preventDefault();
+						}
+					});
 				}
 			});
-			}
-		});
 		
 		
-		//Add Mobile Tab Button Listeners
-		mobileTabButtons.forEach( function(element, j){
-			mobileTabButtons[j].addEventListener('click', function(event) {
-				let mobileContent = document.querySelector('.mobile-tab-wrapper' + ' #' + this.getAttribute("data-tabval"));
-				
-				mobileContent.classList.toggle('active');
-				
-				$(event.target).toggleClass("mobile-tab-heading--active");
+			//Add Mobile Tab Button Listeners
+			mobileTabButtons.forEach( function(element, j){
+				mobileTabButtons[j].addEventListener('click', function(event) {
+					let mobileContent = document.querySelector('.mobile-tab-wrapper' + ' #' + this.getAttribute("data-tabval"));
+					
+					mobileContent.classList.toggle('active');
+					
+					$(event.target).toggleClass("mobile-tab-heading--active");
 
-				event.preventDefault();
+					event.preventDefault();
+				});
 			});
-		});
+
+		
+
+
+
 		  
 	}
 }
