@@ -26,7 +26,7 @@
     The setting to show/hide as low as price wording
 --}}
 
-<a href="{{url}}" title="{{name}}" class="product-grid-item product-block" data-product-title="{{name}}" data-product-id="{{id}}">
+<a href="{{url}}" title="{{name}}" class="product-grid-item product-grid-item--recomm product-block" data-product-title="{{name}}" data-product-id="{{id}}">
   <figure class="product-item-thumbnail">
     {{#if price.saved}}
       {{#lt price.sale_price_without_tax.value price.non_sale_price_without_tax.value}}

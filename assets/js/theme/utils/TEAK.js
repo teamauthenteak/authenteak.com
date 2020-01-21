@@ -115,6 +115,10 @@ window.TEAK.Utils = {
 
     getCartQnty: function(cart){
         let count = 0;
+
+        if(!cart.hasOwnProperty('lineItems')){
+            return 0;
+        }
     
         cart.lineItems.physicalItems.forEach( function(element){
           count += element.quantity;
@@ -257,20 +261,21 @@ window.TEAK.thirdParty = {
         buildData: function(){  
             let storedCart = TEAK.Utils.getStoredCart();
 
-            this.cartAmount = storedCart.cartAmount;
-            this.cartId = storedCart.id;
+            if(storedCart.hasOwnProperty("lineItems")){
+                this.cartAmount = storedCart.cartAmount;
+                this.cartId = storedCart.id;
 
-            storedCart.lineItems.physicalItems.forEach(element => {
-                this.initArray.push(element.productId.toString());       
+                storedCart.lineItems.physicalItems.forEach(element => {
+                    this.initArray.push(element.productId.toString());       
 
-                this.haveItemArray.push({
-                    sku: element.productId.toString(),
-                    qty: element.quantity.toString(),
-                    price: element.salePrice.toString()
+                    this.haveItemArray.push({
+                        sku: element.productId.toString(),
+                        qty: element.quantity.toString(),
+                        price: element.salePrice.toString()
+                    });
                 });
-            });
-           
-
+            }
+            
             return this;
         }
     }

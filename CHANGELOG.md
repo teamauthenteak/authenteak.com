@@ -1,8 +1,17 @@
 # Change Log
 
+## [1.20.16.003]
+- Fixed issue with product rec where the wrong products where pulling out of order
+
+## [1.20.16.002]
+- fixed an issue where only a few rec. products in the atc modal show due to an ui exception
+
 ## [1.20.16.001]
 - fixed issue where utility functions in TEAK were undefined
 - fixed tabs issue where they were not initalizing on doc ready
+- fixed issue where the stored cart may be empty can cause an exception when trying to count cart items
+- fixed an exeption in pintrest when trying to read the cart when none is saved.
+- fixed an issue where only a few rec. products in the atc modal show due to an ui exception
 
 ## [1.20.16]
 - added heap analytics code

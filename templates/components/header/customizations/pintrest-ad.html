@@ -70,9 +70,14 @@ window.addEventListener("load", function(){
 
         getCart: function(){
             if( window.localStorage ){
-                this.cart = window.localStorage.getItem('cartData');
-                this.cart = JSON.parse(this.cart);
-                this.cart = this.cart[0];
+                this.cart = TEAK.Utils.getStoredCart();
+
+                try{
+                    this.cart = JSON.parse(this.cart);
+                    this.cart = this.cart[0];
+
+                }catch(e){}
+                
             }
 
             return this;

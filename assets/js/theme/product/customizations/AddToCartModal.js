@@ -184,29 +184,38 @@ export default class AddToCartModal {
 
   // builds out the recomendations in the atc modal footer
   buildRecomendations(){
-    let recomendedProducts = document.querySelectorAll(".product-grid-item");
+    let recomendedProducts = document.querySelectorAll('.product-grid-item--recomm');
     let modalFooter = document.getElementById("modalCartFooter");
 
     $(modalFooter).html("");
 
+    console.log(recomendedProducts)
+
     recomendedProducts.forEach( (element, i) => {
       let limit = TEAK.Utils.isHandheld ? 2 : 4;
+
+      element = element.cloneNode(true);
 
       if( i < limit ){
         let img = element.querySelector("img.lazy-image");
         let div = element.querySelector("div.lazy-image");
 
-        div.style.backgroundImage = "url("+ div.dataset.src +")";
-        div.classList.add("lazy-loaded");
+        let background = $(div).data('src') !== "undefined" ? $(div).data('src') : $(div).attr('src');
 
-        img.setAttribute("src", img.dataset.src);
-        img.classList.add("lazy-loaded");
+        $(div)
+          .addClass('lazy-loaded')
+          .css("backgroundImage", "url("+ background +")");
+
+        $(img)
+          .addClass("lazy-loaded")
+          .attr("src", background);
 
         element.querySelector("spinner");
 
-        $(element).appendTo(modalFooter);
-        
+        $(element).clone().appendTo(modalFooter);  
       }
+
+
     });
   }
 
