@@ -1,7 +1,11 @@
 /* Product Detail Options */
 .form-field-options {
 
-    .form-field-title {
+    .form-field-title{
+        margin: 0;
+    }
+
+    .form-field-title-cntr {
         position: relative;
         float: none;
         margin-bottom: 0;
@@ -45,10 +49,6 @@
     &.form-required .form-field-title:before {
         content: '* ';
         color: #C00;
-        // display: block;
-        // position: absolute;
-        // top: 0;
-        // right: calc(100% + 5px);
     }
 }
 

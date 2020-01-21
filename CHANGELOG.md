@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.20.16]
+- added heap analytics code
+- fixed an ATC issue that was a race issue
+
 ## [1.20.15]
 - Google Strucutred data fix
 - Pintrest Strucutred data

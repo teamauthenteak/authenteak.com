@@ -1,11 +1,12 @@
 
 <div class="form-field form-field-options form-field-swatch{{#if required}} form-required{{/if}}" data-swatch-selector data-product-attribute="swatch">
   <div class="form-field-title" data-option-title="{{display_name}}">
+    {{> core/forms/customizations/tooltip name=display_name type="swatch"}}
+
     {{display_name}}: &nbsp;
     <span class="swatch-value" data-swatch-value>{{lang 'forms.swatches_none_selected'}}</span>
     {{#if required}}<span class="required-text">{{lang 'common.required'}}</span>{{/if}}
     
-    {{> core/forms/customizations/tooltip name=display_name type="swatch"}}
   </div>
 
   <div class="form-field-control-wrapper"><div class="form-field-control" data-simplebar>

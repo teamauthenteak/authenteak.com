@@ -5,6 +5,13 @@
 
   {{#if forms.login.success}}
     {{> core/alerts/alert-success forms.login.success}}
+
+    <script>
+      window.TEAK.thirdParty.heap.init({
+        method: 'identify',
+        email: '{{customer.email}}'
+      });
+    </script>
   {{/if}}
 
   <div class="account-login-wrapper">

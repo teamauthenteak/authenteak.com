@@ -156,8 +156,13 @@ export default class AddToCartModal {
     $('.modal-cart__count-unit').text(pendingCartQuantity === 1 ? ' item' : ' items');
 
 
-    // bild out the recomendations 
-    this.buildRecomendations();
+    try {
+      // bild out the recomendations 
+      this.buildRecomendations();
+      
+    } catch (error) {
+        console.log(error)
+    }
 
 
     let config = this.getGlobalScriptConfig();

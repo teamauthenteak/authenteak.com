@@ -57,13 +57,13 @@
             </strong>
             <input type="number" pattern="[0-9]+" class="product-quantity form-input" name="qty[]" value="{{#if quantity}}{{quantity}}{{else}}{{#if min_purchase_quantity}}{{min_purchase_quantity}}{{else}}1{{/if}}{{/if}}" min="{{#if min_purchase_quantity}}{{min_purchase_quantity}}{{else}}0{{/if}}" {{#if product.max_purchase_quantity}} max="{{max_purchase_quantity}}"{{/if}}>
             <div class="product-quantity-toggle-wrapper">
-              <span class="product-quantity-toggle product-quantity-decrement">
+              <button type="button" product-quantity-toggle product-quantity-decrement">
                 <svg class="icon icon-minus"><use xlink:href="#icon-minus" /></svg>
-              </span>
+              </button>
               
-              <span class="product-quantity-toggle product-quantity-increment">
+              <button type="button" class="product-quantity-toggle product-quantity-increment">
                 <svg class="icon icon-plus"><use xlink:href="#icon-plus" /></svg>
-              </span>
+              </button>
              
             </div>
           </label>
@@ -71,7 +71,7 @@
     </div>
     
     {{!-- {{#if show_cart_action}} --}}
-      <button type="submit" class="button button-primary button-primary--green button-wide add-to-cart button-progress spinner" data-button-purchase onclick="TEAK.thirdParty.heap.track({ event:'add_to_cart', location: 'pdp' })">
+      <button type="submit" class="button button-primary button-primary--green button-wide add-to-cart button-progress spinner" data-button-purchase onclick="TEAK.thirdParty.heap.init({method: 'track', event:'add_to_cart', location: 'pdp' })">
         <span class="button-text">
           {{#if pre_order}}
             {{lang 'product.pre_order'}}

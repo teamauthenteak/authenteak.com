@@ -41,6 +41,8 @@
     }
   }
 
+
+
   .yotpo .yotpo-first-review .yotpo-first-review-stars .yotpo-icon-star{
       color: var(--star-background) !important;
   }
@@ -110,14 +112,35 @@
     @extend %button-rounded;
     background-color: transparent !important;
     background: transparent !important;
-    color: #a2a2a2 !important;
+    @extend %yotpo-grey-color;
     border: 1px solid #ccc !important;
 }
 
+
+%yotpo-grey-color{
+   color: #a2a2a2 !important;
+}
+
+.yotpo .font-color-primary,
+.yotpo a,
+.yotpo .yotpo-nav ul .yotpo-nav-tab.yotpo-active span,
+.yotpo .yotpo-review .yotpo-header .yotpo-header-element .y-label.yotpo-user-name,
+.yotpo .yotpo-review .yotpo-header .yotpo-review-stars .yotpo-icon,
+.yotpo.yotpo-main-widget .yotpo-bottomline.yotpo-bottomline-3-boxes .yotpo-bottomline-box-2 .yotpo-star-distribution .yotpo-star-distribution-content .yotpo-distributions-graphs .yotpo-star-distribution-graph .yotpo-star-distribution-score-wrapper .yotpo-star-distribution-graph-score,
+.yotpo.yotpo-main-widget .yotpo-bottomline.yotpo-bottomline-3-boxes .yotpo-bottomline-box-2 .yotpo-star-distribution .yotpo-star-distribution-content .yotpo-distibutions-stars .review-stars .yotpo-icon-star{
+   @extend %yotpo-grey-color;
+}
+
+
 .yotpo-logo-title{
     a{
-        color: #a2a2a2 !important;
+        @extend %yotpo-grey-color;
     }
+}
+
+
+.yotpo .yotpo-comments-box{
+    border-left-color: #a2a2a2 !important;
 }
 
 .yotpo-nav .yotpo-nav-wrapper {
@@ -128,10 +151,9 @@
     }
 
     .yotpo-nav-tab.yotpo-active span{
-        color: #a2a2a2 !important;
+        @extend %yotpo-grey-color;
     }
 }
-
 
 .yotpo.yotpo-main-widget .yotpo-icon-btn .yotpo-icon, .yotpo-icon-button-text{
     color: #666 !important;

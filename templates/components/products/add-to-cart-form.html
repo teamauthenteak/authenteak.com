@@ -102,13 +102,13 @@
               pattern="[0-9]+"
             >
             <div class="product-quantity-toggle-wrapper">
-              <span class="product-quantity-toggle product-quantity-decrement">
+              <button type="button" class="product-quantity-toggle product-quantity-decrement">
                 <svg class="icon icon-minus"><use xlink:href="#icon-minus" /></svg>
-              </span>
+              </button>
               
-              <span class="product-quantity-toggle product-quantity-increment">
+              <button type="button" class="product-quantity-toggle product-quantity-increment">
                 <svg class="icon icon-plus"><use xlink:href="#icon-plus" /></svg>
-              </span>
+              </button>
              
             </div>
           </label>
@@ -166,7 +166,7 @@
           spinner
         "
         data-button-purchase
-        onclick="TEAK.thirdParty.heap.track({ event:'add_to_cart', location: 'pdp' })">
+        onclick="TEAK.thirdParty.heap.init({method: 'track', event:'add_to_cart', location: 'pdp' })">
         <span class="button-text">
           {{#if product.pre_order}}
             {{lang 'product.pre_order'}}

@@ -16,7 +16,7 @@ category:
 
         <div class="brands__headerCntr">
             <h1 class="brands__header">
-                {{category.name}}
+                <a href="{{category.url}}" title="Visit {{category.name}}">{{category.name}}</a>
             </h1>
 
             {{#if theme_settings.category-breadcrumbs}}
@@ -43,7 +43,7 @@ category:
                     </a>
                 </div>
                 <div class="brands__column brands__column--2-3">
-                    <div class="brands__columnHeading">
+                    <h2 class="brands__columnHeading">
                         <a href="{{url}}" title="Shop all {{name}}" class="brands__columnHeadingLink">
                             {{name}}
                         </a>

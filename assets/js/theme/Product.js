@@ -159,7 +159,7 @@ export default class Product extends PageManager {
 
 
 	initAnalytics(){
-		TEAK.thirdParty.heap.track({ event: 'pdp_view', location: 'pdp' });
+		TEAK.thirdParty.heap.init({method: 'track', event: 'pdp_view', location: 'pdp' });
 	}
 
 
@@ -455,12 +455,13 @@ export default class Product extends PageManager {
 		// Choose which tab to show first
 		// this is also used to build its sibbling tabs
 		// therefore we run this before we Instantiate the Tab Content
-		tabsModule.activateFirstTab({
-			id: "descTab",
-			dataClass: ".tmp-prod-details",
-			contentClass: ".descContent"
-		
-		}).initTabContent();
+		document.addEventListener('DOMContentLoaded', function(){
+			tabsModule.activateFirstTab({
+				id: "descTab",
+				dataClass: ".tmp-prod-details",
+				contentClass: ".descContent"
+			}).initTabContent();
+		});
 		
 		
 		
@@ -653,11 +654,6 @@ TEAK.Modules.toolTip = {
 		TEAK.Modules.toolTip.activeModal = tipData.hasOwnProperty("toolTipName")  ? tipData.toolTipName : $(this).attr("rel");
 
 		$("#"+ TEAK.Modules.toolTip.activeModal).removeClass("hide");
-
-		// hotjar analytics tracking
-		if( typeof window.hj !== "undefined"){
-			window.hj('vpv', '/' + TEAK.Modules.toolTip.activeModal);
-		}
 
 		e.preventDefault();
 	},

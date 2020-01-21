@@ -936,6 +936,17 @@
 		"outputStyle": 0,
 		"syntaxCheckerStyle": 0
 		},
+	"\/js\/theme\/product\/min\/ProductUtils-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/product\/min\/ProductUtils-min.js",
+		"outputAbbreviatedPath": "\/js\/theme\/product\/min\/min\/ProductUtils-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
 	"\/js\/theme\/product\/ProductImages.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -1074,6 +1085,17 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/theme\/utils\/lazyLoad.js",
 		"outputAbbreviatedPath": "\/js\/theme\/utils\/min\/lazyLoad-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/js\/theme\/utils\/min\/TEAK-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/utils\/min\/TEAK-min.js",
+		"outputAbbreviatedPath": "\/js\/theme\/utils\/min\/min\/TEAK-min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,

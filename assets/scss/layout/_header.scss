@@ -11,10 +11,6 @@ header{
     
     .mobile-search-wrapper{
         display: none;
-
-        @media screen and (max-width: $screen-lg + 5){
-            display: block;
-        }
     }
     
     // header logo
@@ -97,7 +93,7 @@ header{
 
     /*AuthenTEAK Navigation*/
     .top-bar {
-        padding: 15px 0 0 0;
+        padding: 5px 0 0 0;
         transition: padding 0.25s ease;
 
         .compressed & { padding: 0; }
@@ -322,7 +318,6 @@ header{
         left: 0;
         padding: 0 10px 10px 10px;
         background-color: #fff;
-        display: block !important;
         
         .atmo-center-search {
             margin: 0 auto;

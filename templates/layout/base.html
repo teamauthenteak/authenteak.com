@@ -108,6 +108,17 @@
 
 	{{{footer.scripts}}}
 
+
+	{{#if customer}}
+	<script>
+		window.TEAK.thirdParty.heap.init({
+		  method: 'identify',
+		  email: '{{customer.email}}'
+		});
+	</script>
+	{{/if}}
+
+	
 	{{#if page_type '===' 'product'}}	
 	<script>
 		document.addEventListener('DOMContentLoaded', function(){

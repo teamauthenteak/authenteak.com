@@ -82,10 +82,39 @@
     </header>
 
     {{{checkout.order_confirmation_content}}}
-    
-   <script>
-      var TEAK = {} || TEAK;
 
+   
+    <script>
+      let TEAK = {} || window.TEAK;
+
+
+      try{
+          TEAK.thirdParty.heap.init({
+            method: 'identify',
+            email: '{{customer.email}}'
+            
+          }).init({
+            method: 'track',
+            event: 'orderCompleted'
+
+          }).init({
+            method: 'addUser',
+            email: '{{customer.email}}',
+            name: '{{customer.name}}',
+            city: '{{customer.shipping_address.city}}',
+            state: '{{customer.shipping_address.state}}',
+            firstPurchaseDate: '',
+            createdAt: '',
+            purchaseCount: '',
+            purchaseTotalValue: ''
+          });
+
+      }catch(e){
+        console.log(e);
+      }
+      
+
+      
       TEAK.Checkout = {
 
         // clear cart from local storage

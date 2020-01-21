@@ -1,11 +1,12 @@
 
 <div class="form-field form-field-options form-field-rectangle{{#if required}} form-required{{/if}}"
   data-product-attribute="set-rectangle">
-  <div class="form-field-title" data-option-title="{{display_name}}">
-    {{display_name}}
+  <div class="form-field-title-cntr" data-option-title="{{display_name}}">
+    {{> core/forms/customizations/tooltip name=display_name type="rectangle"}}
+
+    <span class="form-field-title">{{display_name}}:</span> &nbsp;
     {{#if required}}<span class="required-text">{{lang 'common.required'}}</span>{{/if}}
 
-    {{> core/forms/customizations/tooltip name=display_name type="rectangle"}}
   </div>
   <div class="form-field-control">
     {{#each values}}

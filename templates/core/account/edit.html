@@ -9,7 +9,14 @@
 
   {{#if forms.edit_account.success}}
     {{> core/alerts/alert-success forms.edit_account.success}}
-  {{/if}}
+
+  <script>
+    window.TEAK.thirdParty.heap.init({
+      method: 'identify',
+      email: '{{customer.email}}'
+    });
+  </script>
+{{/if}}
 
   <form action="{{urls.account.update_action}}" class="account-settings-form" method="post" data-validated-form>
     {{> core/forms/common/text name='account_firstname' required=true label=(lang 'core.account.settings.first_name') value=forms.edit_account.first_name}}
@@ -25,6 +32,8 @@
       <button class="button account-button-primary">{{lang 'core.account.settings.submit'}}</button>
     </div>
   </form>
+
+
 {{/partial}}
 
 {{> core/account/_private/layout nav_page='settings' class='settings'}}

@@ -6,6 +6,19 @@
   <p>{{{lang 'core.auth.created.message' store_name=settings.store_name email=customer.email}}}</p>
 
   <a class="button account-button-primary" href="{{urls.home}}">{{lang 'core.auth.created.continue'}}</a>
+
+  <script>
+    window.TEAK.thirdParty.heap.init({
+      method: 'identify',
+      email: '{{customer.email}}'
+      
+    }).init({
+      method: 'track',
+      event: 'createdAccount',
+      email: '{{customer.email}}'
+    });
+
+  </script>
 {{/partial}}
 
 {{> core/account/_private/layout class='created' nav='hidden'}}
