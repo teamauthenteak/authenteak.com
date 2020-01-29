@@ -23,8 +23,6 @@
 <script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query"{{#if page.title "!=" 'Search Results'}} defer{{/if}}></script>
 {{/if}}
 <script src="//cdn.searchspring.net/intellisuggest/is.min.js"></script>
-
-
 <script src="{{cdn '/assets/js/modernizr.js'}}"></script>
 
 <!-- <script>window.History = { options: { delayInit: true } }</script> -->
@@ -109,12 +107,16 @@
 	{{{footer.scripts}}}
 
 
-	{{#if customer}}
+	{{#if customer}} {{!-- used for analitics unique tracking ---}}
 	<script>
 		window.TEAK.thirdParty.heap.init({
 		  method: 'identify',
-		  email: '{{customer.email}}'
+		  id: '{{customer.id}}'
 		});
+
+		if(window.localStorage){ 
+			window.localStorage.setItem("TEAK_customerUID", '{{customer.id}}.authenteak.com');
+		}
 	</script>
 	{{/if}}
 

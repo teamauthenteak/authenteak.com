@@ -211,7 +211,7 @@ export default class Product extends PageManager {
 		productInfo = JSON.parse(productInfo);
 		
 		$.ajax(`https://api.yotpo.com/v1/widget/${this.yotpoKey}/products/${this.productId}/reviews.json`)
-			.then((dataObj) => {
+			.done((dataObj) => {
 				let totalScore = dataObj.response.bottomline.average_score;
 
 				totalScore = (totalScore === 0) ? 0 : totalScore.toFixed(1);
@@ -239,24 +239,21 @@ export default class Product extends PageManager {
 		$.when( 
 			$.ajax(`https://api.yotpo.com/v1/widget/${this.yotpoKey}/products/${this.productId}/reviews.json`),
 			$.ajax(`https://api.yotpo.com/products/${this.yotpoKey}/${this.productId}/questions`) 
-		).then(processResponses, responseFail);
 			
-		function processResponses(reviewObj, questionObj){
-			let totalScore = reviewObj.response.bottomline.average_score,
-				totalQuestions = questionObj.response.total_questions;
+		).then((reviewData, questionData) => {
+			let totalScore = reviewData[0].response.bottomline.average_score,
+				totalQuestions = questionData[0].response.total_questions;
 
 			totalScore = totalScore === 0 ? 0 : totalScore.toFixed(1);
 			
 			this.showRaiting($ratingCntr, totalScore, totalQuestions);
 
-			// console.log(reviewObj.response.bottomline.average_score)
-			// console.log(reviews[0].response.bottomline.total_review)
-			// console.log(questions[0].response.total_questions)
-		}
+			// console.log(reviewData[0].response.bottomline.average_score)
+			// console.log(reviewData[0].response.bottomline.total_review)
+			// console.log(questionData[0].response.total_questions)
+		});
 
-		function responseFail(err){
-			console.log(err)
-		}
+		
 	}
 
 

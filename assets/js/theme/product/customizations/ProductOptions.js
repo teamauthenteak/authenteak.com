@@ -96,7 +96,7 @@ export default class ProductOptions {
       window.clearTimeout(self.hoverTimeout);
 
       let $el = $(e.currentTarget),
-          $optionText = $el.closest('[data-swatch-selector]').find('.form-field-title'),
+          $optionText = $el.closest('[data-swatch-selector]').find('.form-field-title-cntr'),
           $swatchText = $el.closest('[data-swatch-selector]').find('.swatch-value'),
           currentSelection = window.TEAK.currentSelections[$optionText.data('option-title')] || false,
           label = self.parseOptionLabel($el.data('swatch-value')),
@@ -144,7 +144,7 @@ export default class ProductOptions {
     // on click - choose the swatch color selected
     function selectSwatchColor(e){
       let $el = $(e.currentTarget),
-          $optionText = $el.closest('[data-swatch-selector]').find('.form-field-title'),
+          $optionText = $el.closest('[data-swatch-selector]').find('.form-field-title-cntr'),
           $swatchText = $el.closest('[data-swatch-selector]').find('.swatch-value'),
           label = self.parseOptionLabel($el.data('swatch-value')),
           customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
@@ -635,9 +635,11 @@ export default class ProductOptions {
     var labelText = option.grade ? `Grade ${option.grade}: ${option.text}` : option.text;
 
     var priceDiff = option.priceAdjustNumeric || 0;
+
     if (currentOption && typeof currentOption.priceAdjustNumeric !== 'undefined') {
       priceDiff = priceDiff - currentOption.priceAdjustNumeric;
     }
+
     if (priceDiff !== 0) {
       labelText += ' (' + this.formatPriceDiff(priceDiff) + ')';
     }

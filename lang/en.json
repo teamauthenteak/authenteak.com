@@ -223,7 +223,7 @@
     "view_product": "View Product",
     "including_tax": "(inc tax)",
     "excluding_tax": "(exc tax)",
-    "sale": "On Sale",
+    "sale": "",
     "sku": "SKU",
     "success": "*product* has been added to your cart. *cart_link* or *checkout_link*.",
     "warranty": "Warranty",

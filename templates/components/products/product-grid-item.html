@@ -31,7 +31,7 @@
     {{#if price.saved}}
       {{#lt price.sale_price_without_tax.value price.non_sale_price_without_tax.value}}
       {{#unless out_of_stock_message}}
-        <div class="product-badge">{{lang 'product.sale'}}</div>
+      {{!-- <!-- <div class="product-badge">{{lang 'product.sale'}}</div> --> --}}
       {{/unless}}
       {{/lt}}
     {{/if}}
@@ -60,6 +60,8 @@
 
             {{{snippet 'product_rating'}}}
           {{/if}}
+
+          <div class="yotpo bottomLine" data-product-id="{{id}}"></div>
 
           {{#if quick_shop}}
             <button

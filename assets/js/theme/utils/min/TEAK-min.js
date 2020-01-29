@@ -125,7 +125,26 @@ window.TEAK.Utils = {
         });
     
         return count;
-    }
+    },
+
+
+    guid: function() {
+		let nav = window.navigator,
+			screen = window.screen,
+			guid = nav.mimeTypes.length;
+
+		guid += nav.userAgent.replace(/\D+/g, '');
+		guid += nav.plugins.length;
+
+		if( !TEAK.Utils.isHandheld ){
+			guid += screen.height || '';
+			guid += screen.width || '';
+		}
+		
+		guid += screen.pixelDepth || '';
+
+		return guid;
+	}
 
 };
 
@@ -169,12 +188,28 @@ window.TEAK.Modules = {};
  * Store settigns for 3rd parties
  * ------------------------------------------ */
 window.TEAK.thirdParty = {
+    google:{
+        getUID: function(){
+            if(window.localStorage){
+                let storedUID = window.localStorage.getItem('TEAK_customerUID'),
+                    googleUID = storedUID ? storedUID : TEAK.Utils.guid() + '.authenteak.com';
+
+                window.localStorage.setItem("TEAK_customerUID", googleUID);
+
+                return googleUID;
+            }
+        }
+    },
+
+
+
     heap:{
 
         /** 
          * Custom tracking events for heap analitics
          * {
-         *      method: ""
+         *      method: "",
+         *      id: "",
          *      event: "",      add_to_cart, proceed_to_cart
          *      ... other properties
          * }
@@ -197,7 +232,9 @@ window.TEAK.thirdParty = {
 
                 // user identification
                 case 'identify':
-                    window.heap.identify(args.email);
+                    let id = args.id ? args.id : TEAK.Utils.guid();
+
+                    window.heap.identify(`${id}.authenteak.com`);
                     break;
 
 
@@ -211,7 +248,6 @@ window.TEAK.thirdParty = {
 
                     window.heap.addUserProperties(args);
                     break;
-                    
             }
 
             return this;

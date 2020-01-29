@@ -6,8 +6,10 @@
     <a class="site-branding-link" href="{{urls.home}}">
     {{# if settings.store_logo.image }}
     <span class="site-branding-title sr-only" hidden>{{settings.store_logo.title}}</span>
+      <img class="site-branding-logo" src="https://authenteak.s3.us-east-2.amazonaws.com/logo/Authenteak-logo.svg" alt="{{settings.store_logo.title}}">
+
     <!-- <img src="{{cdn 'assets/img/authenteak-logo.svg?imbypass=on'}}" alt="{{settings.store_logo.title}}"> -->
-    <img class="site-branding-logo" src="{{getImage settings.store_logo.image 'logo'}}" alt="{{settings.store_logo.title}}">
+    <!-- <img class="site-branding-logo" src="{{getImage settings.store_logo.image 'logo'}}" alt="{{settings.store_logo.title}}"> -->
     {{else}}
       <span class="site-branding-title">{{settings.store_logo.title}}</span>
     {{/if}}

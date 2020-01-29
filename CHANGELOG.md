@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.20.17.001]
+- added unique UID for google analitcs as well as updated the uid in heap to use unified code
+
+## [1.20.17]
+- Fixed issue where swatch was showing incorrect dicount amount due to class change from form-field-title to form-field-title-cntr
+- Updated the main logo
+- Change warantes page layout
+
 ## [1.20.16.003]
 - Fixed issue with product rec where the wrong products where pulling out of order
 

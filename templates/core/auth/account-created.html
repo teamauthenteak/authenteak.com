@@ -10,12 +10,12 @@
   <script>
     window.TEAK.thirdParty.heap.init({
       method: 'identify',
-      email: '{{customer.email}}'
+      id: '{{customer.id}}'
       
     }).init({
       method: 'track',
       event: 'createdAccount',
-      email: '{{customer.email}}'
+      id: '{{customer.id}}'
     });
 
   </script>
