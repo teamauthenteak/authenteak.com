@@ -124,3 +124,14 @@ Trigger Affirm modal: add the custom class: `affirm-site-modal` to the `header_p
 ├		...
 ```
 
+### Heap Analytics
+
+Here are the custom Heap Analitcs Events
+
+| Event                   | Location                                             |
+|-------------------------|------------------------------------------------------|
+| pdp_view                | PDP                                                  |
+| proceed_to_cart         | ATC Confirmation Modals                              |
+| add_to_cart             | ATC Modals                                           |
+| order_completed         | Order Confirmaiton Pages                             |
+| created_account         | My Account Order Registration Page                   |
