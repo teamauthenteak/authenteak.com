@@ -109,6 +109,7 @@
 
 	{{#if customer}} {{!-- used for analitics unique tracking ---}}
 	<script>
+	document.addEventListener('DOMContentLoaded', function(){
 		window.TEAK.thirdParty.heap.init({
 		  method: 'identify',
 		  id: '{{customer.id}}'
@@ -117,6 +118,7 @@
 		if(window.localStorage){ 
 			window.localStorage.setItem("TEAK_customerUID", '{{customer.id}}.authenteak.com');
 		}
+	});
 	</script>
 	{{/if}}
 

@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.20.18]
+- Heap Analytics tracking defect fixes
+- QA js exception fixes
+- added RV to cart page
+- fixed an issue with the selectbox option values still showing dollar amounts
+- made the logo smaller on mobile
+- fixed issue where one has to click an option value twice before it can be selected
+- fixed issue were at window sizes larger than table 1080 but smaller than 1300px larger main nav menus were being cutoff
+
 ## [1.20.17.001]
 - added unique UID for google analitcs as well as updated the uid in heap to use unified code
 

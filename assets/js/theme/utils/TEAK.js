@@ -116,7 +116,7 @@ window.TEAK.Utils = {
     getCartQnty: function(cart){
         let count = 0;
 
-        if(!cart.hasOwnProperty('lineItems')){
+        if( typeof cart.lineItems === "undefined" ){
             return 0;
         }
     
@@ -227,11 +227,14 @@ window.TEAK.thirdParty = {
                 case 'addUser':
                     let storedCart = TEAK.Utils.getStoredCart();
 
-                    args.createdAt = storedCart.createdTime;
-                    args.purchaseCount = window.TEAK.Utils.getCartQnty(storedCart).toString();
-                    args.purchaseTotalValue = storedCart.cartAmount;
-
-                    window.heap.addUserProperties(args);
+                    if( typeof storedCart.cartAmount !== "undefined" ){
+                        args.createdAt = new Date(Date.now());
+                        args.purchaseCount = window.TEAK.Utils.getCartQnty(storedCart).toString();
+                        args.purchaseTotalValue = storedCart.cartAmount;
+    
+                        window.heap.addUserProperties(args);
+                    }
+                   
                     break;
             }
 
@@ -240,24 +243,28 @@ window.TEAK.thirdParty = {
 
 
         buildOrderData: function(){
-            let storedCart = TEAK.Utils.getStoredCart(),
-                order = {
+            var storedCart = TEAK.Utils.getStoredCart();
+
+            if(typeof storedCart.lineItems !== "undefined"){
+                let order = {
                     email: storedCart.email,
                     total: storedCart.cartAmount,
                     order_id: storedCart.id,
                     items: []
                 };
 
-            storedCart.lineItems.physicalItems.forEach((element) => {
-                order.items.push({
-                    name: element.name.toString(),
-                    sku: element.productId.toString(),
-                    qty: element.quantity.toString(),
-                    price: element.salePrice.toString()
+                storedCart.lineItems.physicalItems.forEach((element) => {
+                    order.items.push({
+                        name: element.name.toString(),
+                        sku: element.productId.toString(),
+                        qty: element.quantity.toString(),
+                        price: element.salePrice.toString()
+                    });
                 });
-            });
 
-            return order;
+                return order;
+            }
+            
         }
     },
 
@@ -282,7 +289,7 @@ window.TEAK.thirdParty = {
         buildData: function(){  
             let storedCart = TEAK.Utils.getStoredCart();
 
-            if(storedCart.hasOwnProperty("lineItems")){
+            if(typeof storedCart.lineItems !== "undefined"){
                 this.cartAmount = storedCart.cartAmount;
                 this.cartId = storedCart.id;
 

@@ -24,6 +24,8 @@ export default class Category extends PageManager {
 
     this._bindEvents();
 
+    this.initAnalytics();
+
     fillFacetRatingStars();
   }
 
@@ -49,6 +51,15 @@ export default class Category extends PageManager {
       $(event.currentTarget).toggleClass('is-open').next().toggleClass('visible');
     });
   }
+
+
+  initAnalytics(){
+		TEAK.thirdParty.heap.init({
+      method: 'track',
+      event: 'plp_view',
+      location: 'plp'
+    });
+	}
 
 
   // infinate scroll for BC powered HTML underlay, only for SEO purposes

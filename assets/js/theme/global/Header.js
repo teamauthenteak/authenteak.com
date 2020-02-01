@@ -408,19 +408,47 @@ TEAK.Modules.megaMenu = {
 			}
 			
 			if( this.data[id].minWidth ){
+				let wrapperWidth = checkWrapperWidth(this.data[id]);
+
+				// console.log(this.data[id].minWidth)
+				// console.log(minWidth)
+
 				$(categoryId)
 					.parents(".dropdown-panel").css({
 						"minWidth": this.data[id].minWidth
 					})
 						.end()
-					.parents(".dropdown-panel-wrapper").css("width", this.data[id].minWidth + (this.data[id].hasOwnProperty("landing_image") ? 384 : 0) );
+					.parents(".dropdown-panel-wrapper").css("width", wrapperWidth.width);
 			}
 		}
-		
+
+
+
+
+		/**
+		 * if the width you are asking me to set is just 40 pixels less than the 
+		 * actual window width, just set my width to 100% 
+		 * 
+		 * Later, if this is the case make sure that you postion my left to be flush
+		 * to the left side of screen realitive to where I currenty live
+		 */
+
+		function checkWrapperWidth(element){
+			let hasImageWidth =  (typeof element.landing_image !== "undefined" ? 384 : 0),
+				newSetWidth = element.minWidth + hasImageWidth,
+				fitsWindow = (window.innerWidth - newSetWidth < 40);
+
+			return { 
+				fits: fitsWindow,
+				width: fitsWindow ? window.innerWidth - hasImageWidth : newSetWidth
+			};
+		}
+
+
 
 		/*
-		* Inspired by: 
-		* (c) 2018 Chris Ferdinandi, MIT License, https://gomakethings.com
+		* Modified, but inspired by: 
+		* Chris Ferdinandi, MIT License, https://gomakethings.com
 		*/
 		function isInViewport(elem) {
 			let bounding = elem.getBoundingClientRect();
@@ -436,7 +464,7 @@ TEAK.Modules.megaMenu = {
 
 
 		function getNewPosition(pos, elementPosition){
-			let update = {}, margin = 20;
+			let update = {}, margin = 5;
 
 			switch(pos){
 				case "right": 
@@ -453,7 +481,7 @@ TEAK.Modules.megaMenu = {
 			
 			setTimeout(function(){
 				let dropdownCheck = isInViewport(dropDown);
-
+				
 				for(let key in dropdownCheck){
 					if(dropdownCheck[key]){
 						let newPosition = getNewPosition(key, dropDown.getBoundingClientRect()[key]);

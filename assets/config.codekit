@@ -13,6 +13,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/img\/97B89156884CC136.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 85386,
+		"inputAbbreviatedPath": "\/img\/97B89156884CC136.png",
+		"outputAbbreviatedPath": "\/img\/97B89156884CC136.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/img\/amazon-pay-btn.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -359,17 +370,6 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/theme\/cart\/customizations\/EditOptions.js",
 		"outputAbbreviatedPath": "\/js\/theme\/cart\/customizations\/min\/EditOptions-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 0,
-		"syntaxCheckerStyle": 0
-		},
-	"\/js\/theme\/cart\/customizations\/min\/EditOptions-min.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/theme\/cart\/customizations\/min\/EditOptions-min.js",
-		"outputAbbreviatedPath": "\/js\/theme\/cart\/customizations\/min\/min\/EditOptions-min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
@@ -892,17 +892,6 @@
 		"outputStyle": 0,
 		"syntaxCheckerStyle": 0
 		},
-	"\/js\/theme\/product\/customizations\/min\/AddToCartModal-min.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/theme\/product\/customizations\/min\/AddToCartModal-min.js",
-		"outputAbbreviatedPath": "\/js\/theme\/product\/customizations\/min\/min\/AddToCartModal-min-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 0,
-		"syntaxCheckerStyle": 0
-		},
 	"\/js\/theme\/product\/customizations\/min\/ProductOptions-min.js": {
 		"fileType": 64,
 		"ignore": 1,
@@ -942,28 +931,6 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/theme\/product\/ImageZoom.js",
 		"outputAbbreviatedPath": "\/js\/theme\/product\/min\/ImageZoom-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 0,
-		"syntaxCheckerStyle": 0
-		},
-	"\/js\/theme\/product\/min\/ProductImages-min.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/theme\/product\/min\/ProductImages-min.js",
-		"outputAbbreviatedPath": "\/js\/theme\/product\/min\/min\/ProductImages-min-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 0,
-		"syntaxCheckerStyle": 0
-		},
-	"\/js\/theme\/product\/min\/ProductUtils-min.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/theme\/product\/min\/ProductUtils-min.js",
-		"outputAbbreviatedPath": "\/js\/theme\/product\/min\/min\/ProductUtils-min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
@@ -1107,17 +1074,6 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/theme\/utils\/lazyLoad.js",
 		"outputAbbreviatedPath": "\/js\/theme\/utils\/min\/lazyLoad-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 0,
-		"syntaxCheckerStyle": 0
-		},
-	"\/js\/theme\/utils\/min\/TEAK-min.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/theme\/utils\/min\/TEAK-min.js",
-		"outputAbbreviatedPath": "\/js\/theme\/utils\/min\/min\/TEAK-min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,

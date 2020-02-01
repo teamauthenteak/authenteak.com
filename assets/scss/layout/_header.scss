@@ -67,6 +67,10 @@ header{
         object-fit: contain; 
         max-width: 500px;
 
+        @media screen and (max-width: $screen-sm){
+            max-width: 200px;
+        }
+
         @media screen and (max-width: $screen-xs - 80){
             max-width: 160px;
         }

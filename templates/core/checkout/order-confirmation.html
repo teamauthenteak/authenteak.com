@@ -11,8 +11,7 @@
     {{{stylesheet '/assets/css/optimized-checkout.css'}}}
     {{getFontsCollection}}
 
-    <script async src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id=JL4kkS"></script>
-    
+   
       <style rel="stylesheet" type="text/css">
       .checkoutHeader-logo{
         max-width: 350px;
@@ -61,6 +60,10 @@
       }
     </style>
 
+    <script async src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id=JL4kkS"></script>
+    <script src="//cdn.searchspring.net/intellisuggest/is.min.js"></script>
+    <script src="{{cdn '/assets/js/modernizr.js'}}"></script>
+    <script src="{{cdn '/assets/js/bundle.js'}}"></script>
 
     <script type="text/javascript">
       window.language = {{{langJson 'optimized_checkout'}}};
@@ -90,35 +93,42 @@
 
     {{{checkout.order_confirmation_content}}}
 
-   
+
+    {{{footer.scripts}}}
+
     <script>
-      let TEAK = {} || window.TEAK;
+      document.addEventListener('DOMContentLoaded', function(){
 
-
-      try{
+        try{
           TEAK.thirdParty.heap.init({
             method: 'identify',
             id: '{{customer.id}}'
-            
-          }).init({
+          });
+          
+          TEAK.thirdParty.heap.init({
             method: 'track',
-            event: 'order_completed'
-
-          }).init({
+            event: 'order_completed',
+            location: 'OrderConfirmation'
+          });
+          
+          TEAK.thirdParty.heap.init({
             method: 'addUser',
             email: '{{customer.email}}',
+            id: '{{customer.id}}',
             name: '{{customer.name}}',
             city: '{{customer.shipping_address.city}}',
             state: '{{customer.shipping_address.state}}',
-            firstPurchaseDate: '',
-            createdAt: '',
+            firstPurchaseDate: new Date(Date.now()),
+            createdAt: new Date(Date.now()),
             purchaseCount: '',
             purchaseTotalValue: ''
           });
 
-      }catch(e){
-        console.log(e);
-      }
+        }catch(e){
+          console.log(e);
+        }
+
+    });
       
 
       
@@ -135,25 +145,35 @@
           - Note: this is a work around because Bolt doesnt support Klaviyo  email signup from it's UI
         */
         buildUI: function(){
-          let confirmSection = document.getElementById("micro-app-ng-checkout").querySelector(".orderConfirmation-section");
+          try{
+            let confirmSection = document.getElementById("micro-app-ng-checkout");
+            
+            if(confirmSection){
+              confirmSection.querySelector(".orderConfirmation-section");
 
-          let klaviyoForm = document.createElement('div');
-          klaviyoForm.setAttribute("class", "klaviyo-form-MnvYmV");
-          
-          let text = document.createElement('p');
-          text.setAttribute("class", "unsubscribe__text");
-          text.innerHTML = "It's official, you're an AuthenTEAK Insider! You'll be the first to know about promotions, events & new arrivals. If you wish to unsubscribe, <a href='' onclick='TEAK.Checkout.unsubscribePopupOpen(event);'>let us know</a>.";
+              let klaviyoForm = document.createElement('div');
+              klaviyoForm.setAttribute("class", "klaviyo-form-MnvYmV");
 
-          let closeBtn = document.createElement('a');
-          closeBtn.setAttribute("class", "unsubscribe__closeModal");
-          closeBtn.setAttribute("onclick", "TEAK.Checkout.unsubscribePopupClose(event)");
-          closeBtn.innerHTML = "&times;";
-          klaviyoForm.appendChild(closeBtn);
+              let text = document.createElement('p');
+              text.setAttribute("class", "unsubscribe__text");
+              text.innerHTML = "It's official, you're an AuthenTEAK Insider! You'll be the first to know about promotions, events & new arrivals. If you wish to unsubscribe, <a href='' onclick='TEAK.Checkout.unsubscribePopupOpen(event);'>let us know</a>.";
 
-          confirmSection.appendChild(text);
-          confirmSection.appendChild(klaviyoForm);
+              let closeBtn = document.createElement('a');
+              closeBtn.setAttribute("class", "unsubscribe__closeModal");
+              closeBtn.setAttribute("onclick", "TEAK.Checkout.unsubscribePopupClose(event)");
+              closeBtn.innerHTML = "&times;";
+              klaviyoForm.appendChild(closeBtn);
 
-          this.hidePayByCheck();
+              confirmSection.appendChild(text);
+              confirmSection.appendChild(klaviyoForm);
+
+              this.hidePayByCheck();
+            }
+            
+
+          }catch(err){
+            console.log(err)
+          }
 
           return this;
         },
@@ -198,15 +218,17 @@
         
             IntelliSuggest.inSale({
                 orderId: TEAK.thirdParty.IntelliSuggest.cartId,
+                transactionId: TEAK.thirdParty.IntelliSuggest.cartId,
                 total: TEAK.thirdParty.IntelliSuggest.cartAmount,
                 city: "{{order.shipping_address.city}}",
                 state: "{{order.shipping_address.state}}",
                 country: "US"
             });
-
-          } catch(err) {
+            
+          }catch(err){
             console.log(err)
           }
+         
 
           return this;
         }
@@ -219,11 +241,8 @@
       document.addEventListener('DOMContentLoaded', TEAK.Checkout.intelliSuggest);
 
       // clear out stored cart data
-      TEAK.Checkout.clearCart('cartData');
+      TEAK.Checkout.clearStorage('cartData');
     </script>
-
-    {{{footer.scripts}}}
-
 
 </body>
 </html>

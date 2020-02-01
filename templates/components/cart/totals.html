@@ -6,9 +6,11 @@
   data-shopping-cart-id="BigCommerce">
 </script>
 
-<div class="cart-totals-column">
+
+<div class="cart-totals-column cart-totals-column--coupon">
   {{> components/cart/coupon-codes}}
 </div>
+
 
 <div class="cart-totals-column cart-totals-column--last">
   <div class="cart-sub-total cart-totals-item">
@@ -134,6 +136,15 @@
   </div>
 </div>
 
+
+<div class="cart-totals-column cart-totals-column--rv">
+  <section class="products-related products-recently-viewed section" id="recentlyViewedProducts">
+    <div class="container">
+      <h3 class="section-title">{{lang 'product.recently_viewed_products_heading'}}</h3>
+      <div class="product-grid product-rv-carousel"></div>
+    </div>
+  </section>
+</div>
 <script>
 /**
  * NOTE: this is a hack.
