@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.20.18.004]
+- note: prevous versions were for merging
+- heap analyitcs fixes per call today
+- added promo banner dismission
+- added free design link in footer
+- fixed warantees page brand order
+
 ## [1.20.18]
 - Heap Analytics tracking defect fixes
 - QA js exception fixes
