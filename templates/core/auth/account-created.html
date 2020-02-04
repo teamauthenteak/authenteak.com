@@ -7,18 +7,34 @@
 
   <a class="button account-button-primary" href="{{urls.home}}">{{lang 'core.auth.created.continue'}}</a>
 
-  <script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
     window.TEAK.thirdParty.heap.init({
       method: 'identify',
-      id: '{{customer.id}}'
-      
-    }).init({
+      id: '{{customer.id}}',
+      createdAt: new Date(Date.now()),
+      loggedIn: true
+    });
+    
+    TEAK.thirdParty.heap.init({
       method: 'track',
-      event: 'createdAccount',
-      id: '{{customer.id}}'
+      event: 'created_account',
+      id: '{{customer.id}}',
+      createdAt: new Date(Date.now())
     });
 
-  </script>
+    TEAK.thirdParty.heap.init({
+      method: 'addUser',
+      email: '{{customer.email}}',
+      id: '{{customer.id}}',
+      name: '{{customer.name}}',
+      city: '{{customer.shipping_address.city}}',
+      state: '{{customer.shipping_address.state}}',
+      createdAt: new Date(Date.now()),
+      loggedIn: true
+    });
+});
+</script>
 {{/partial}}
 
 {{> core/account/_private/layout class='created' nav='hidden'}}

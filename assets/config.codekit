@@ -13,6 +13,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/img\/97B89156884CC136.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 85386,
+		"inputAbbreviatedPath": "\/img\/97B89156884CC136.png",
+		"outputAbbreviatedPath": "\/img\/97B89156884CC136.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/img\/amazon-pay-btn.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -903,6 +914,17 @@
 		"outputStyle": 0,
 		"syntaxCheckerStyle": 0
 		},
+	"\/js\/theme\/product\/customizations\/min\/PrintMode-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/product\/customizations\/min\/PrintMode-min.js",
+		"outputAbbreviatedPath": "\/js\/theme\/product\/customizations\/min\/min\/PrintMode-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
 	"\/js\/theme\/product\/customizations\/min\/ProductOptions-min.js": {
 		"fileType": 64,
 		"ignore": 1,
@@ -947,6 +969,28 @@
 		"outputStyle": 0,
 		"syntaxCheckerStyle": 0
 		},
+	"\/js\/theme\/product\/min\/ColorSwatch-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/product\/min\/ColorSwatch-min.js",
+		"outputAbbreviatedPath": "\/js\/theme\/product\/min\/min\/ColorSwatch-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/js\/theme\/product\/min\/ImageZoom-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/product\/min\/ImageZoom-min.js",
+		"outputAbbreviatedPath": "\/js\/theme\/product\/min\/min\/ImageZoom-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
 	"\/js\/theme\/product\/min\/ProductImages-min.js": {
 		"fileType": 64,
 		"ignore": 1,
@@ -958,12 +1002,67 @@
 		"outputStyle": 0,
 		"syntaxCheckerStyle": 0
 		},
+	"\/js\/theme\/product\/min\/ProductReviews-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/product\/min\/ProductReviews-min.js",
+		"outputAbbreviatedPath": "\/js\/theme\/product\/min\/min\/ProductReviews-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
 	"\/js\/theme\/product\/min\/ProductUtils-min.js": {
 		"fileType": 64,
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/theme\/product\/min\/ProductUtils-min.js",
 		"outputAbbreviatedPath": "\/js\/theme\/product\/min\/min\/ProductUtils-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/js\/theme\/product\/min\/productViewTemplates-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/product\/min\/productViewTemplates-min.js",
+		"outputAbbreviatedPath": "\/js\/theme\/product\/min\/min\/productViewTemplates-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/js\/theme\/product\/min\/QuickShop-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/product\/min\/QuickShop-min.js",
+		"outputAbbreviatedPath": "\/js\/theme\/product\/min\/min\/QuickShop-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/js\/theme\/product\/min\/variationImgPreview-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/product\/min\/variationImgPreview-min.js",
+		"outputAbbreviatedPath": "\/js\/theme\/product\/min\/min\/variationImgPreview-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/js\/theme\/product\/min\/wishlistDropdown-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/product\/min\/wishlistDropdown-min.js",
+		"outputAbbreviatedPath": "\/js\/theme\/product\/min\/min\/wishlistDropdown-min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
@@ -1112,12 +1211,56 @@
 		"outputStyle": 0,
 		"syntaxCheckerStyle": 0
 		},
+	"\/js\/theme\/utils\/min\/FormValidator-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/utils\/min\/FormValidator-min.js",
+		"outputAbbreviatedPath": "\/js\/theme\/utils\/min\/min\/FormValidator-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/js\/theme\/utils\/min\/lazyLoad-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/utils\/min\/lazyLoad-min.js",
+		"outputAbbreviatedPath": "\/js\/theme\/utils\/min\/min\/lazyLoad-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/js\/theme\/utils\/min\/ProgressButton-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/utils\/min\/ProgressButton-min.js",
+		"outputAbbreviatedPath": "\/js\/theme\/utils\/min\/min\/ProgressButton-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
 	"\/js\/theme\/utils\/min\/TEAK-min.js": {
 		"fileType": 64,
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/theme\/utils\/min\/TEAK-min.js",
 		"outputAbbreviatedPath": "\/js\/theme\/utils\/min\/min\/TEAK-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/js\/theme\/utils\/min\/truncate-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/utils\/min\/truncate-min.js",
+		"outputAbbreviatedPath": "\/js\/theme\/utils\/min\/min\/truncate-min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,

@@ -197,12 +197,8 @@
 
         &--col{
             width: 100%;
-            flex: 1 0 auto;
-            padding: 20px;
-
-            @media only screen and (max-width: $screen-md) {
-                width: 50%;
-            }
+            flex: 0 0 auto;
+            padding: 10px;
 
             @media only screen and (max-width: $screen-sm) {
                 width: 100%;
@@ -218,15 +214,22 @@
 
     &__listItem{
         flex: 0 0 auto;
-        width: 25%;
+        width: 20%;
         line-height: 1.2;
         padding-right: 20px;
-        text-align: center;
+        text-align: left;
+
+        &:nth-child(5n){
+            padding-right: 0;
+        }
 
         @media only screen and (max-width: $screen-sm) {
             width: 50%;
-        }
 
+            &:nth-child(2n){
+                padding-right: 0;
+            }
+        }
 
         &--heading{
             width: 100%;

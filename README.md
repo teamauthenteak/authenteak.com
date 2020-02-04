@@ -124,3 +124,59 @@ Trigger Affirm modal: add the custom class: `affirm-site-modal` to the `header_p
 ├		...
 ```
 
+
+## Heap Analytics
+Developer Documenation for Heap Analityics.
+
+### Heap Analitcs Events
+
+| Event                   | Location                                             |
+|-------------------------|------------------------------------------------------|
+| pdp_view                | User view on PDP                                     |
+| plp_view                | User view on PLP                                     |
+| proceed_to_cart         | ATC Confirmation Modals                              |
+| add_to_cart             | ATC Modals                                           |
+| order_completed         | Order Confirmaiton Pages                             |
+| created_account         | My Account Order Registration Page                   |
+
+
+### Custom tracking events for heap analitics
+
+```
+        {
+            method: "",     track, identify, addUser
+            id: "",         Typically the current website users id
+            event: "",      add_to_cart, proceed_to_cart, etc.
+            ... other properties or a custom object
+        }
+```
+
+### Example
+
+```
+        // used to identify a website user
+          TEAK.thirdParty.heap.init({
+            method: 'identify',
+            id: '{{customer.id}}'
+          });
+          
+        // use to track an event
+          TEAK.thirdParty.heap.init({
+            method: 'track',
+            event: 'order_completed',
+            location: 'OrderConfirmation'
+          });
+          
+        // creates a new users in heap
+          TEAK.thirdParty.heap.init({
+            method: 'addUser',
+            email: '{{customer.email}}',
+            name: '{{customer.name}}',
+            city: '{{customer.shipping_address.city}}',
+            state: '{{customer.shipping_address.state}}',
+            firstPurchaseDate: '',
+            createdAt: '',
+            purchaseCount: '',
+            purchaseTotalValue: ''
+          });
+```

@@ -162,7 +162,11 @@ export default class Product extends PageManager {
 
 
 	initAnalytics(){
-		TEAK.thirdParty.heap.init({method: 'track', event: 'pdp_view', location: 'pdp' });
+		TEAK.thirdParty.heap.init({
+			method: 'track',
+			event: 'pdp_view',
+			location: 'pdp'
+		});
 	}
 
 

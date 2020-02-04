@@ -186,6 +186,17 @@ button.cart-item-edit {
     }
 }
 
+.cart-totals-column--rv {
+    width: 100%;
+    clear: both;
+}
+
+.cart-totals-column--coupon{
+    clear: both;
+    float: left;
+}
+
+
 .cart-totals-column--last {
     float: right;
     margin-right: 0;

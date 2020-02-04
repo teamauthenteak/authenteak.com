@@ -11,7 +11,7 @@
 
   <div class="form-field-control-wrapper"><div class="form-field-control" data-simplebar>
     {{#each values}}
-      <label class="swatch-wrap" data-swatch-value="{{label}}" data-product-attribute-value="{{id}}">
+      <label class="swatch-wrap" for="attribute-{{id}}" data-swatch-value="{{label}}" data-product-attribute-value="{{id}}">
         <input
           class="form-input swatch-radio"
           id="attribute-{{id}}"
@@ -59,7 +59,7 @@
       </label>
     {{/each}}
     {{#unless required}}
-      <label class="swatch-wrap swatch-none"  data-swatch-value="{{lang 'core.product.none'}}" data-product-attribute-value="{{id}}">
+      <label class="swatch-wrap swatch-none" for="attribute-{{id}}" data-swatch-value="{{lang 'core.product.none'}}" data-product-attribute-value="{{id}}">
         <span class="form-label-text">{{lang 'core.product.none'}}</span>
         <input
           class="form-input swatch-radio"
@@ -68,6 +68,7 @@
           value="0"
           {{#if prefill '==' 0}}checked{{/if}}
           aria-required="{{required}}"
+          id="attribute-{{id}}"
         >
         <span class="swatch">
           <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">

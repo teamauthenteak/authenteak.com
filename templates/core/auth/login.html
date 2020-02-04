@@ -6,12 +6,15 @@
   {{#if forms.login.success}}
     {{> core/alerts/alert-success forms.login.success}}
 
-    <script>
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
       window.TEAK.thirdParty.heap.init({
         method: 'identify',
-        id: '{{customer.id}}'
+        id: '{{customer.id}}',
+        loggedIn: true
       });
-    </script>
+  });
+</script>
   {{/if}}
 
   <div class="account-login-wrapper">

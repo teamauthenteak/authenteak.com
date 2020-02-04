@@ -8,6 +8,7 @@ import GiftWrapping from './cart/GiftWrapping';
 import Loading from 'bc-loading';
 import QuantityWidget from './components/QuantityWidget';
 import svgIcon from './global/svgIcon';
+import Personalization from './Personalization';
 
 import EditOptions from './cart/customizations/EditOptions';
 
@@ -16,6 +17,50 @@ export default class Cart extends PageManager {
     super();
 
     this.$cartContent = $('[data-cart-content]');
+
+    // add Personalization engine
+    this.recentlyViewed = new Personalization({
+      type: "recentlyViewed"
+	});
+	
+	this.carouselSettings = {
+		infinite: true,
+		slidesToShow: 4,
+		slidesToScroll: 4,
+		autoplaySpeed: 4000,
+		dots: true,
+		speed: 800,
+		prevArrow: '<span class="carousel-navigation-item previous"><svg class="icon icon-arrow-left"><use xlink:href="#icon-arrow-left" /></svg></span>',
+		nextArrow: '<span class="carousel-navigation-item next"><svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right" /></svg></span>',
+		responsive: [
+			{
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: 3,
+					slidesToScroll: 3,
+					autoplay: false
+				}
+			},
+			{
+				breakpoint: 768,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 2,
+					autoplay: true
+				}
+			},
+			{
+				breakpoint: 480,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					autoplay: true
+				}
+			}
+		]
+	};
+
+	this._initRecentlyViewed();
 
     // brute-force apple-pay bodyclass in local environment
     if (window.ApplePaySession && $('.dev-environment').length) {
@@ -26,7 +71,7 @@ export default class Cart extends PageManager {
   loaded(next) {
     const context = this.context;
 
-    new QuantityWidget({scope: '[data-cart-content]'});
+    new QuantityWidget({ scope: '[data-cart-content]' });
 
     // Custom Options
     new EditOptions();
@@ -35,7 +80,7 @@ export default class Cart extends PageManager {
       loadingMarkup: `<div class="loading-overlay">${svgIcon('spinner')}</div>`,
     };
 
-    new GiftWrapping({scope: '[data-cart-content]', context});
+    new GiftWrapping({ scope: '[data-cart-content]', context });
     const cartContentOverlay = new Loading(loadingOptions, true, '.product-listing');
     const cartTotalsOverlay = new Loading(loadingOptions, true, '[data-cart-totals]');
 
@@ -84,7 +129,7 @@ export default class Cart extends PageManager {
     var propWrapEl = document.querySelector('.prop-wrapper');
     var propActive = false;
 
-    propBtnEl.addEventListener('click',  togglePropEl);
+    propBtnEl.addEventListener('click', togglePropEl);
 
     function togglePropEl() {
       propActive = !propActive;
@@ -101,4 +146,48 @@ export default class Cart extends PageManager {
       }
     }
   }
+
+
+	_initRecentlyViewed(){
+		let $rv = $("#recentlyViewedProducts"),
+			recentProducts = this.recentlyViewed.getViewed();
+
+		if (recentProducts) {
+			recentProducts.forEach((element) => {
+				let tpl = buildViewedSlider(element);
+				$(tpl).appendTo(".product-grid", $rv);
+			});
+
+			$rv.addClass("show");
+		}
+
+		function buildViewedSlider(product) {
+			return `<a href="${product.url}" title="${product.title}" class="product-grid-item product-block" data-product-title="${product.title}" data-product-id="${product.product_id}">
+						<figure class="product-item-thumbnail">
+							<div class="replaced-image lazy-loaded" style="background-image:url(${product.image})">
+							<img class="lazy-image lazy-loaded" src="${product.image}" alt="You viewed ${product.title}">
+							</div>
+						</figure>
+						
+						<div class="product-item-details product-item-details--review">
+							<h5 class="product-item-title">${product.title}</h5>
+						</div>
+			
+						<div class="yotpo-rv-wrapper">
+							<span class="yotpo-stars-rating" style="--rating: ${product.rating};" aria-label="Rating of ${product.rating} out of 5."></span>
+							(<span class="yotpo-reviews-num">${product.rating}</span>)
+						</div>
+					</a>`;
+		}
+
+  		this.initRVSlider();
+	}
+
+
+	// Recently Viewed Product carousels
+	initRVSlider(){
+		let carouselObj = Object.assign({appendDots: '.product-rv-carousel'}, this.carouselSettings);
+		$('.product-rv-carousel').slick(carouselObj);
+	}
+
 }
