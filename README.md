@@ -157,7 +157,7 @@ Developer Documenation for Heap Analityics.
         // used to identify a website user
           TEAK.thirdParty.heap.init({
             method: 'identify',
-            id: '{{customer.id}}'
+            id: '{{customer.id}}.authenteak.com'
           });
           
         // use to track an event

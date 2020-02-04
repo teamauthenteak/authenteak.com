@@ -18,6 +18,8 @@ export default class Header {
 		this.$loginRegister = $('.login-register-block');
 		this.$forgotPassword = $('.forgot-password-block');
 
+		this.promoBanner = document.getElementById('topHeaderPromo');
+
 		this._bindEvents();
 		this._adjustHeights();
 		this._headerScroll();
@@ -29,10 +31,19 @@ export default class Header {
 	// sets the header promo banner on the page when marketing_content JSON has a value
 	_headerPromoBanner() {
 		var extra_config = getConfigData(),
-			promoLink = document.createElement("a"),
-			promoBanner = document.getElementById('topHeaderPromo');
+			promoLink = document.createElement("a");
+			
+		if(!this.promoBanner){ return; }
 
-		if(!promoBanner){ return; }
+
+		if(window.sessionStorage.getItem("TEAK__dismissPromoBanner")){
+			let isDissmissed = window.sessionStorage.getItem("TEAK__dismissPromoBanner");
+			this.promoBanner.style.display = isDissmissed ? "none" : "flex";
+
+			return;
+		}
+
+
 
 		if ( extra_config.marketing_content.hasOwnProperty("banner") ) {
 			let promo = extra_config.marketing_content.banner;
@@ -44,9 +55,9 @@ export default class Header {
 			promoLink.setAttribute("class", "promoBanner__link " + ( promo.hasOwnProperty("header_custom_class") ? promo.header_custom_class : "" ) );
 			promoLink.innerHTML = promo.header_promo;
 
-			promoBanner.classList.add("promoBanner--" + promo.header_promo_color);
-			promoBanner.appendChild(promoLink);
-			promoBanner.style.display = promo.isVisable ? "flex" : "none";
+			this.promoBanner.classList.add("promoBanner--" + promo.header_promo_color);
+			this.promoBanner.appendChild(promoLink);
+			this.promoBanner.style.display = promo.isVisable ? "flex" : "none";
 		}
 		
 		if( extra_config.marketing_content.hasOwnProperty("inline") ){
@@ -56,6 +67,8 @@ export default class Header {
 			promoNode.innerHTML = promoText;
 			document.getElementById('globalHeaderPromo').appendChild(promoNode);
 		}
+
+
 
 		function getConfigData() {
 			var data;
@@ -87,6 +100,16 @@ export default class Header {
 	}
 
 
+	_dismissHeaderPromoBanner(e){
+		window.sessionStorage.setItem("TEAK__dismissPromoBanner", true);
+		this.promoBanner.style.display = "none";
+
+		e.preventDefault();
+	}
+
+
+
+
 	_bindEvents() {
 		// Toggle mini cart panel
 		this.$el.find('.button-cart-toggle').on('click', (event) => {
@@ -107,17 +130,23 @@ export default class Header {
 
 
 		// Close UI elemets with esc key
-		$(document).on('keyup', (e) => {
-			// Mini cart
-			if (e.keyCode === 27 && this.$body.hasClass(this.cartOpenClass)) {
-				this._toggleMiniCart(false);
-			}
+		$(document)
+			.on('keyup', (e) => {
+				// Mini cart
+				if (e.keyCode === 27 && this.$body.hasClass(this.cartOpenClass)) {
+					this._toggleMiniCart(false);
+				}
 
-			// Search
-			if (e.keyCode === 27 && this.$searchWrap.hasClass(this.searchOpenClass)) {
-				this._toggleSearch(false);
-			}
-		});
+				// Search
+				if (e.keyCode === 27 && this.$searchWrap.hasClass(this.searchOpenClass)) {
+					this._toggleSearch(false);
+				}
+			})
+			.on("click", ".promoBanner__closeBtn", (e) => {
+				this._dismissHeaderPromoBanner(e);
+			});
+
+
 
 		// Toggle search
 		$('.button-search-toggle').on('click', () => {

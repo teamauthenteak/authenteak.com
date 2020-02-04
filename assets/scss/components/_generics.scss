@@ -18,6 +18,23 @@
     display: none !important;
 }
 
+
+// Justiied Text
+.l{text-align: left}
+.r{text-align: right;}
+.c{text-align: center}
+.j{text-align: justify;}
+
+// Text Transform
+.upper{text-transform: uppercase;}
+.lower{text-transform: lowercase;}
+
+// Text Weight
+.lighter{font-weight: lighter;}
+.bold{font-weight: bold;}
+
+
+
 // Paddings
 .pad, [class*='span-']:last-of-type.pad{
     padding: $standard-padding;

@@ -190,6 +190,11 @@ window.TEAK.thirdParty = {
 
     heap:{
 
+        load(){
+            let HEAP_ENV_ID = window.location.hostname === "localhost" ? '702616063' : '753981833';  
+            window.heap.load(HEAP_ENV_ID);
+        },
+
         /** 
          * Custom tracking events for heap analitics
          * {
@@ -217,9 +222,9 @@ window.TEAK.thirdParty = {
 
                 // user identification
                 case 'identify':
-                    let id = args.id ? args.id : TEAK.Utils.guid();
+                    let id = args.id ? args.id + '.authenteak.com' : "";
 
-                    window.heap.identify(`${id}.authenteak.com`);
+                    window.heap.identify(id);
                     break;
 
 
@@ -309,12 +314,14 @@ window.TEAK.thirdParty = {
     }
 };
 
+// heap
+TEAK.thirdParty.heap.load();
+// intellisuggest
 TEAK.thirdParty.IntelliSuggest.buildData();
 
 if( window.location.hostname === "localhost" ){
     $(window).on("load", TEAK.thirdParty.IntelliSuggest.fixLinks);
 }
-
 
 
 

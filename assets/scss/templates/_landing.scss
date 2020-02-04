@@ -190,10 +190,14 @@
     }
 
     &__list{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-content: flex-start;
+        // display: flex;
+        // flex-direction: row;
+        // flex-wrap: wrap;
+        // align-content: flex-start;
+
+        column-count: 5;
+        column-width: 20%;
+
 
         &--col{
             width: 100%;
@@ -201,7 +205,9 @@
             padding: 10px;
 
             @media only screen and (max-width: $screen-sm) {
-                width: 100%;
+                // width: 100%;
+                column-count: 2;
+                column-width: 50%;
             }
 
             &:last-of-type{
@@ -213,8 +219,8 @@
     }
 
     &__listItem{
-        flex: 0 0 auto;
-        width: 20%;
+        // flex: 0 0 auto;
+        // width: 20%;
         line-height: 1.2;
         padding-right: 20px;
         text-align: left;
@@ -224,7 +230,7 @@
         }
 
         @media only screen and (max-width: $screen-sm) {
-            width: 50%;
+            // width: 50%;
 
             &:nth-child(2n){
                 padding-right: 0;

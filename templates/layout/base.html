@@ -23,7 +23,15 @@
 <script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query"{{#if page.title "!=" 'Search Results'}} defer{{/if}}></script>
 {{/if}}
 <script src="//cdn.searchspring.net/intellisuggest/is.min.js"></script>
+
+ <!-- Heap Analytics -->
+ <script>
+window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+</script>
+<!-- End Heap Analytics -->
+
 <script src="{{cdn '/assets/js/modernizr.js'}}"></script>
+
 
 <!-- <script>window.History = { options: { delayInit: true } }</script> -->
 
@@ -112,7 +120,7 @@
 	document.addEventListener('DOMContentLoaded', function(){
 		window.TEAK.thirdParty.heap.init({
 		  method: 'identify',
-		  id: '{{customer.id}}'
+		  id: '{{customer.id}}.authenteak.com'
 		});
 
 		if(window.localStorage){ 

@@ -11,7 +11,7 @@
 document.addEventListener('DOMContentLoaded', function(){
     window.TEAK.thirdParty.heap.init({
       method: 'identify',
-      id: '{{customer.id}}',
+      id: '{{customer.id}}.authenteak.com',
       createdAt: new Date(Date.now()),
       loggedIn: true
     });
@@ -19,19 +19,21 @@ document.addEventListener('DOMContentLoaded', function(){
     TEAK.thirdParty.heap.init({
       method: 'track',
       event: 'created_account',
-      id: '{{customer.id}}',
+      id: '{{customer.id}}.authenteak.com',
       createdAt: new Date(Date.now())
     });
 
     TEAK.thirdParty.heap.init({
       method: 'addUser',
-      email: '{{customer.email}}',
-      id: '{{customer.id}}',
-      name: '{{customer.name}}',
+      id: '{{customer.id}}.authenteak.com',
       city: '{{customer.shipping_address.city}}',
       state: '{{customer.shipping_address.state}}',
       createdAt: new Date(Date.now()),
-      loggedIn: true
+      loggedIn: true,
+      firstPurchaseDate: '',
+      purchaseCount: '',
+      purchaseTotalValue: '',
+      lastPurchaseDate: ''
     });
 });
 </script>

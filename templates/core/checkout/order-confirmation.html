@@ -101,27 +101,14 @@
 
         try{
           TEAK.thirdParty.heap.init({
-            method: 'identify',
-            id: '{{customer.id}}'
+            method: 'identify'{{#if customer}},
+            id: '{{customer.id}}.authenteak.com'{{/if}}
           });
           
           TEAK.thirdParty.heap.init({
             method: 'track',
             event: 'order_completed',
             location: 'OrderConfirmation'
-          });
-          
-          TEAK.thirdParty.heap.init({
-            method: 'addUser',
-            email: '{{customer.email}}',
-            id: '{{customer.id}}',
-            name: '{{customer.name}}',
-            city: '{{customer.shipping_address.city}}',
-            state: '{{customer.shipping_address.state}}',
-            firstPurchaseDate: new Date(Date.now()),
-            createdAt: new Date(Date.now()),
-            purchaseCount: '',
-            purchaseTotalValue: ''
           });
 
         }catch(e){
