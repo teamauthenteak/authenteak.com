@@ -1,7 +1,7 @@
 {
   "name": "authenteak.com",
   "description": "Site files and templates for Authenteak.com",
-  "version": "1.20.18.004",
+  "version": "1.20.18.005",
   "private": true,
   "dependencies": {
     "@bigcommerce/stencil-utils": "^1.0.9",

@@ -314,8 +314,6 @@ window.TEAK.thirdParty = {
     }
 };
 
-// heap
-TEAK.thirdParty.heap.load();
 // intellisuggest
 TEAK.thirdParty.IntelliSuggest.buildData();
 
