@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.20.18.005]
+- fixed an issue where heap load is conflicting with the load event in teak.js
+- removed manual heap load event
+- updated footer alt tag for free deisng services
+- wrapped heap call
+
 ## [1.20.18.004]
 - note: prevous versions were for merging
 - heap analyitcs fixes per call today
