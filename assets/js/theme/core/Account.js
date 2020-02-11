@@ -3,31 +3,78 @@ import initDownloadGallery from './downloadGallery';
 import updateState from './updateState';
 
 export default class Account {
-  constructor() {
-    this._bindEvents();
-  }
+	constructor() {
+		this._bindEvents();
+		this.heapAnalytics();
+	}
 
-  _bindEvents() {
-    initAlertDismissable();
-    initDownloadGallery();
 
-    updateState(false, this.selectWrapCallback);
+	heapAnalytics() {
+		var heapObj = {
+				method: "identify",
+				id: "",
+				city: "",
+				state: "",
+				firstPurchaseDate: "",
+				lastPurchaseDate: "",
+				purchaseCount: 0,
+				purchaseTotalValue: 0,
+				createdAt: "",
+				loggedIn: true
+			};
 
-    // Toggle - a simple way to toggle elements
-    $(document.body).on('click', '[data-account-toggle]', (event) => {
-      const $el = $(event.currentTarget);
-      const $target = $($el.data('account-toggle'));
-      $target.toggle();
-    });
-  }
+		if(document.getElementById("customerOrderJSON")){
+			let data = document.getElementById("customerOrderJSON").innerHTML;
+			data = JSON.parse(data);
 
-  /**
-   * Optional callback fired when a fresh state <select> element is added to the DOM
-   */
-  selectWrapCallback($selectEl) {} //eslint-disable-line no-unused-vars
+			heapObj.id = data.customer.id;
+			heapObj.city = data.customer.city;
+			heapObj.state = data.customer.state;
 
-  // backwards compatibility for Page Manager
-  loaded() {}
-  before() {}
-  after() {}
+			let orderLength = data.orders.length;
+
+			if(orderLength){
+				heapObj.firstPurchaseDate = data.orders[0].purchaseDate;
+				heapObj.lastPurchaseDate = data.orders[orderLength - 1].purchaseDate;
+
+				data.orders.forEach((element) => {
+					heapObj.purchaseCount += parseInt(element.totalItems);
+					heapObj.purchaseTotalValue += parseInt(element.total);
+				});
+
+				heapObj.purchaseTotalValue = heapObj.purchaseTotalValue.toFixed(2);
+			}
+
+			// console.log(heapObj);
+			
+			window.TEAK.thirdParty.heap.init(heapObj);
+		}
+		
+		return this;
+	}
+
+
+	_bindEvents() {
+		initAlertDismissable();
+		initDownloadGallery();
+
+		updateState(false, this.selectWrapCallback);
+
+		// Toggle - a simple way to toggle elements
+		$(document.body).on('click', '[data-account-toggle]', (event) => {
+			const $el = $(event.currentTarget);
+			const $target = $($el.data('account-toggle'));
+			$target.toggle();
+		});
+	}
+
+	/**
+	 * Optional callback fired when a fresh state <select> element is added to the DOM
+	 */
+	selectWrapCallback($selectEl) {} //eslint-disable-line no-unused-vars
+
+	// backwards compatibility for Page Manager
+	loaded() {}
+	before() {}
+	after() {}
 }

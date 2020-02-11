@@ -232,7 +232,7 @@ window.TEAK.thirdParty = {
                 case 'addUser':
                     let storedCart = TEAK.Utils.getStoredCart();
 
-                    if( typeof storedCart.cartAmount !== "undefined" ){
+                    if( typeof storedCart !== "undefined" ){
                         args.createdAt = new Date(Date.now());
                         args.purchaseCount = window.TEAK.Utils.getCartQnty(storedCart).toString();
                         args.purchaseTotalValue = storedCart.cartAmount;
@@ -250,7 +250,7 @@ window.TEAK.thirdParty = {
         buildOrderData: function(){
             var storedCart = TEAK.Utils.getStoredCart();
 
-            if(typeof storedCart.lineItems !== "undefined"){
+            if(typeof storedCart !== "undefined"){
                 let order = {
                     email: storedCart.email,
                     total: storedCart.cartAmount,
@@ -274,6 +274,8 @@ window.TEAK.thirdParty = {
     },
 
 
+    Searchspring: {},
+
 
     IntelliSuggest:{
         initArray: [],
@@ -294,7 +296,7 @@ window.TEAK.thirdParty = {
         buildData: function(){  
             let storedCart = TEAK.Utils.getStoredCart();
 
-            if(typeof storedCart.lineItems !== "undefined"){
+            if(typeof storedCart !== "undefined"){
                 this.cartAmount = storedCart.cartAmount;
                 this.cartId = storedCart.id;
 

@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.20.19]
+- added survey monkey to order confirmaiton page
+- Added a check to see if the old form data is different thant he new form data, if not then dont submit an unchanged edit options form to the server
+- added padding to search bar to keep it from being cut off
+- added cutom heap fields for myaccount to determine customer order history
+
 ## [1.20.18.005]
 - fixed an issue where heap load is conflicting with the load event in teak.js
 - removed manual heap load event

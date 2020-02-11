@@ -1,4 +1,23 @@
 {{#if orders}}
+
+<script type="application/json" id="customerOrderJSON">
+{
+  "customer":{ {{#customer}}
+    "id": "{{id}}",
+    "city": "{{shipping_address.city}}",
+		"state": "{{shipping_address.state}}"
+  }, {{/customer}}
+  "orders": [{{#each orders}}
+    {
+      "id": "{{id}}",
+      "purchaseDate": "{{date}}",
+      "totalItems": "{{items.length}}",
+      "total": "{{total.value}}"
+    }{{#unless @last}},{{/unless}}{{/each}}
+  ]
+}
+</script>
+
   <div class="account-items">
     {{#each orders}}
       <article class="account-item">

@@ -20,6 +20,8 @@
     </div>
     {{/unless}}
 
+    
+
     <div class="product-details-column">
       <h2 class="product-title mobileShow">{{this.product.title}}</h2>
       <div class="mobileShow">
@@ -277,8 +279,8 @@
     "price": "{{#block "jsonPrice"}}{{/block}}",
     "currency_code": "{{product.price.without_tax.currency}}",
     "availability": "in stock",
-    "images": [{{#each product.images}}
-      "{{getImage this 'product'}}"{{#unless @last}},{{/unless}}{{/each}}
+    "images": [{{#forEach product.images}}
+      "{{getImage this 'product'}}"{{#unless isLast}},{{/unless}}{{/forEach}}
     ],
     "related_items": [{{#each product.related_products}}
       "//authenteak.com{{url}}"{{#unless @last}},{{/unless}}{{/each}}
