@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.20.20]
+
+## [1.20.19.001]
+- fixed further exceptions for missing cart in teak.js
+
 ## [1.20.19]
 - added survey monkey to order confirmaiton page
 - Added a check to see if the old form data is different thant he new form data, if not then dont submit an unchanged edit options form to the server

@@ -30,6 +30,10 @@ brands: true
         </div>
       </div>
     </section>
+
+    <script type="application/json" id="relatedProductIDs">
+      [{{#each product.related_products}}{{id}}{{#unless @last}}, {{/unless}}{{/each}}]
+    </script>
   {{/if}}
 
 

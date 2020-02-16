@@ -358,7 +358,7 @@ export default class ProductOptions {
     });
 
     // Request-a-Swatch form close
-    this.$raqModal.on('click', '.closepopup', (e) => {
+    this.$raqModal.on('click', '[close-popup]', (e) => {
       self.$raqModal.removeClass('is-open');
       $('body').off('click.closeRASModal');
     });
@@ -372,20 +372,22 @@ export default class ProductOptions {
 
 
     // Request-a-Swatch form Submit
-    this.$raqModal.on('submit', 'form', (e) => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
+    // this.$raqModal.on('submit', 'form', (e) => {
+    //   e.preventDefault();
+    //   const formData = new FormData(e.target);
 
-      utils.hooks.emit('cart-item-add', e, e.target);
+    //   utils.hooks.emit('cart-item-add', e, e.target);
 
-      // once we get a success add to cart then update our module data
-      utils.api.cart.itemAdd(formData, (err, response) => {
-        if(response){
-          window.TEAK.Modules.requestASwatch = { itemAdded: true, ...window.TEAK.Modules.requestASwatch};
-        }
-      });
+    //   // once we get a success add to cart then update our module data
+    //   utils.api.cart.itemAdd(formData, (err, response) => {
+    //     if(response){
+    //       window.TEAK.Modules.requestASwatch = { itemAdded: true, ...window.TEAK.Modules.requestASwatch};
+    //     }
+    //   });
 
-    });
+    // });
+
+
   }
 
   // Update Request-a-Swatch form and related DOM based on current selections

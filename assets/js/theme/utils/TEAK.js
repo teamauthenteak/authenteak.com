@@ -101,15 +101,29 @@ window.TEAK.Utils = {
 
 
     getStoredCart: function(){
-        var storedCart = window.localStorage ? window.localStorage.getItem('cartData') : "";
+        var storedCart = window.localStorage ? window.localStorage.getItem('cartData') : {};
            
         try{           
             storedCart = JSON.parse(storedCart);
-            return storedCart[0];           
+
+            if(typeof storedCart !== "undefined" && typeof storedCart.lineItems !== "undefined"){
+                storedCart[0].cartQty = this.getCartQnty(storedCart[0]);
+            }
+
+            return storedCart[0];
         }
         catch(e){}
 
         return this;
+    },
+
+
+
+    formatPrice: function(price){
+        return price.toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        });
     },
 
 
@@ -232,7 +246,7 @@ window.TEAK.thirdParty = {
                 case 'addUser':
                     let storedCart = TEAK.Utils.getStoredCart();
 
-                    if( typeof storedCart !== "undefined" ){
+                    if(typeof storedCart !== "undefined" && typeof storedCart.cartAmount !== "undefined"){
                         args.createdAt = new Date(Date.now());
                         args.purchaseCount = window.TEAK.Utils.getCartQnty(storedCart).toString();
                         args.purchaseTotalValue = storedCart.cartAmount;
@@ -250,9 +264,8 @@ window.TEAK.thirdParty = {
         buildOrderData: function(){
             var storedCart = TEAK.Utils.getStoredCart();
 
-            if(typeof storedCart !== "undefined"){
+            if(typeof storedCart !== "undefined" && typeof storedCart.lineItems !== "undefined"){
                 let order = {
-                    email: storedCart.email,
                     total: storedCart.cartAmount,
                     order_id: storedCart.id,
                     items: []
@@ -296,7 +309,7 @@ window.TEAK.thirdParty = {
         buildData: function(){  
             let storedCart = TEAK.Utils.getStoredCart();
 
-            if(typeof storedCart !== "undefined"){
+            if(typeof storedCart !== "undefined" && typeof storedCart.lineItems !== "undefined"){
                 this.cartAmount = storedCart.cartAmount;
                 this.cartId = storedCart.id;
 
@@ -319,7 +332,7 @@ window.TEAK.thirdParty = {
 // intellisuggest
 TEAK.thirdParty.IntelliSuggest.buildData();
 
-if( window.location.hostname === "localhost" ){
+if( window.location.hostname !== "authenteak.com" ){
     $(window).on("load", TEAK.thirdParty.IntelliSuggest.fixLinks);
 }
 

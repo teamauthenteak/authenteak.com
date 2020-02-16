@@ -96,8 +96,12 @@ export default class Product extends PageManager {
 		this.recentlyViewed = new Personalization({
 			type: "recentlyViewed"
 		});
-
 		this._initRecentlyViewed();
+
+		this.recommended = new Personalization({
+			type: "recommended"
+		});
+		this.updateRecomendedProductRaiting();
 
 
 		// Print Mode (Tear Sheet)
@@ -171,12 +175,53 @@ export default class Product extends PageManager {
 
 
 
+
+	updateRecomendedProductRaiting(){
+		let yotpoObj = {
+			app_key: this.yotpoKey,
+			methods: []
+		},
+		productIds = $("#relatedProductIDs").html();
+
+		try{
+			// our recommended product id array built in pages > product.html
+			productIds = JSON.parse(productIds);
+
+			productIds.forEach( (element) => {
+				let batchObj = {
+						method: "bottomline",
+						params: {
+							pid: element,
+							format: "JSON",
+							skip_average_score: false
+						}
+					};
+
+				yotpoObj.methods.push(batchObj);
+			});
+
+			// get our bulk yotpo rating for recomm products on page
+			this.recommended.fetchBulk("http://staticw2.yotpo.com/batch?", yotpoObj)
+				.then(this.appendRecommRating);
+
+		}catch(err){}
+	}
+
+
+	appendRecommRating(data){
+		console.log(data)
+	}
+
+
+
 	_initRecentlyViewed(){
 		let $rv = $("#recentlyViewedProducts"),
 			recentProducts = this.recentlyViewed.getViewed();
 
 		if(recentProducts){ 
 			recentProducts.forEach((element) => {
+				element.price = TEAK.Utils.formatPrice( parseInt(element.price) );
+
 				let tpl = buildViewedSlider(element);
 				$(tpl).appendTo(".product-grid", $rv);
 			});
@@ -195,6 +240,8 @@ export default class Product extends PageManager {
 						<div class="product-item-details product-item-details--review">
 							<h5 class="product-item-title">${product.title}</h5>
 						</div>
+
+						<div class="product-price">${product.price}</div>
 
 						<div class="yotpo-rv-wrapper">
 							<span class="yotpo-stars-rating" style="--rating: ${product.rating};" aria-label="Rating of ${product.rating} out of 5."></span>
@@ -660,9 +707,16 @@ TEAK.Modules.toolTip = {
 		TEAK.Modules.toolTip.activeModal = tipData.hasOwnProperty("toolTipName")  ? tipData.toolTipName : $(this).attr("rel");
 
 		$("#"+ TEAK.Modules.toolTip.activeModal).removeClass("hide");
-
 		e.preventDefault();
 	},
+
+
+	// openGenericModal: function(e){
+	// 	TEAK.Modules.toolTip.activeModal = $(this).attr("rel");
+
+	// 	$("#"+ TEAK.Modules.toolTip.activeModal).removeClass("hide");
+	// 	e.preventDefault();
+	// },
 
 
 	// close
@@ -701,6 +755,7 @@ TEAK.Modules.toolTip = {
 		$(document.body)
 			.on("click", this.checkClickToCloseModal)
 			.on("keydown", this.checkKeyToCloseModal)
+			// .on("click", "[data-generic-tt-modal]", this.openGenericModal)
 			.on("click", "[data-tool-tip-open]", this.openTipModal)
 			.on("click", "[data-tool-tip-close]", this.closeTipModal);
 

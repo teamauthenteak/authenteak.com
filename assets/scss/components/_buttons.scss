@@ -1,4 +1,6 @@
-
+%button-rounded{
+    border-radius: $button-border-radius !important;
+}
 
 .button {
     box-sizing: border-box;
@@ -19,11 +21,12 @@
         font-size: 1rem;
         padding: 8px 20px !important;
     }
+
+    &--fullWidth{
+        width: 100%;
+    }
 }
 
-%button-rounded{
-    border-radius: $button-border-radius !important;
-}
 
 .button-primary{
     border-color: $btn-color-orange;

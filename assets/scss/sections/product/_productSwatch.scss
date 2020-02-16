@@ -108,7 +108,7 @@
 }
 
 // Request a Swatch Modal
-#swatchpopuplist {
+.swatchModal{
     display: none;
     position: fixed;
     top: 5vmin;
@@ -118,22 +118,38 @@
     width: 90vw;
     max-width: 1000px;
     overflow: auto;
-    padding: 1rem;
+    padding: 20px;
     background: #fff;
     z-index: 1100;
+    border-radius: $border-radius;
 
     &.is-open { display: block; }
 
     @media screen and (max-width: $screen-md) {
         top: 1vh;
-        left: 1vw;
+        left: 50%;
+        margin-left: -(95vw/2);
         transform: none;
-        max-height: 80vh;
-        width: 98vw;
+        height: 80vh;
+        width: 95vw;
         overflow: scroll;
     }
 
-    > .closepopup {
+    &__underlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0,0,0,0.75);
+        z-index: 1099;
+    
+        .swatchModal.is-open + & { display: block; }
+    }
+
+
+    &__close {
         position: absolute;
         top: 1px;
         right: 1px;
@@ -142,183 +158,262 @@
         font-size: 2rem;
         line-height: 1em;
         text-align: center;
-        color: rgba(0,0,0,0.2);
+        color: rgba(0,0,0,0.75);
         cursor: pointer;
+        background-color: transparent;
 
-        &:hover, &:focus { color: rgba(0,0,0,0.4); }
+        &:hover, &:focus {
+            color: rgba(0,0,0,1);
+        }
     }
 
-    > .modalswatchpopup {
-        h2 {
-            margin: 0;
-            text-transform: uppercase;
-            font-size: calc(1vw + .80rem);
-            font-weight: bold;
+
+    &__title{
+        margin: 0;
+        font-size: 1.8rem;
+        font-weight: 800;
+
+        @media screen and (max-width: $screen-sm) {
+            font-size: 1.4rem;
+        }
+    }
+
+    &__text{
+        font-size: 1em;
+        line-height: 1.2;
+        margin: 20px 0;
+
+        &--highlight{
+            padding: 10px;
+            background-color: #f2f2f2;
+            text-align: center;
         }
 
-        h3 {
-            margin: 1.5rem 0 0;
+        @media screen and (max-width: $screen-xs) {
+            font-size: 0.9rem;
+            margin: 10px 0;
+        }
+    }
+
+    &__textPhone{
+        display: inline-block;
+    }
+
+    &__cntr {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        transition: transform 0.5s ease;
+
+        &--isActive{
+            position: relative;
+        }
+
+        &--isLeft{
+            transform: translateX(-110%);
+            position: absolute;
+            top: 0;
+        }
+
+        &--isRight{
+            transform: translateX(100%);
+            position: absolute;
+            top: 0;
+        }
+
+        @media screen and (max-width: $screen-md) {
+            flex-direction: row;
+        }
+
+        @media screen and (max-width: $screen-sm) {
+            flex-direction: column;
+            align-content: flex-start;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+    }
+
+    &__descCntr{
+        width: 50%;
+        padding: 20px;
+        order: 2;
+
+        @media screen and (max-width: $screen-sm) {
+            width: 100%;
+            order: 1;
+            padding: 0;
+        }
+    }
+
+    &__inner {
+        // $raq-swatch-wrapper-base: 190px;
+        // $raq-swatch-wrapper-tablet: 615px;
+        // $raq-swatch-wrapper-inc: 85px;
+
+        order: 1;
+        clear: left;
+        height: 70vh;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        margin: 0;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        box-shadow: 0 0 0 1px $color-border inset;
+        width: 50%;
+
+        @media screen and (max-width: $screen-sm) {
+            order: 2;
+            width: 100%;
+            height: 75vw;
+        }
+
+        @media screen and (max-width: $screen-xs) {
+            height: 85vw;
+        }
+
+        // @media screen and (min-width: 320px)  { max-width: $raq-swatch-wrapper-base + (1 * $raq-swatch-wrapper-inc); }
+        // @media screen and (min-width: 405px)  { max-width: $raq-swatch-wrapper-base + (2 * $raq-swatch-wrapper-inc); }
+        // @media screen and (min-width: 490px)  { max-width: $raq-swatch-wrapper-base + (3 * $raq-swatch-wrapper-inc); }
+        // @media screen and (min-width: 575px)  { max-width: $raq-swatch-wrapper-base + (4 * $raq-swatch-wrapper-inc); }
+        // @media screen and (min-width: 660px)  { max-width: $raq-swatch-wrapper-base + (5 * $raq-swatch-wrapper-inc); }
+        // @media screen and (min-width: 745px)  { max-width: $raq-swatch-wrapper-base + (6 * $raq-swatch-wrapper-inc); }
+        // @media screen and (min-width: 768px)   { max-width: $raq-swatch-wrapper-tablet + (0 * $raq-swatch-wrapper-inc); }
+        // @media screen and (min-width: 815px)   { max-width: $raq-swatch-wrapper-tablet + (1 * $raq-swatch-wrapper-inc); }
+        // @media screen and (min-width: 910px)   { max-width: $raq-swatch-wrapper-tablet + (2 * $raq-swatch-wrapper-inc); }
+        // @media screen and (min-width: 1005px)  { max-width: $raq-swatch-wrapper-tablet + (3 * $raq-swatch-wrapper-inc); }
+        // @media screen and (min-width: 1100px)  { max-width: $raq-swatch-wrapper-tablet + (4 * $raq-swatch-wrapper-inc); }
+
+        // .simplebar-content { padding-bottom: 5px !important; overflow-x: hidden; }
+        // .simplebar-track.horizontal { display: none; }
+    }
+
+
+    &__list {
+        padding: 0 10px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        height: 100%;
+
+        &.has-max-selected > li:not(.is-selected) {
+            opacity: 0.4;
+            cursor: default;
+        }
+
+        @media screen and (max-width: $screen-xs) {
+            padding: 5px;
+        }
+    }
+
+    &__listItem {
+        position: relative;
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+        overflow: hidden;
+        margin: 5px;
+        border: 1px solid transparent;
+        border-radius: 0;
+        cursor: pointer;
+        flex: 0 0 auto;
+
+        @media screen and (max-width: $screen-md) {
+            width: 72px !important;
+            height: 72px !important;
+        }
+
+        @media screen and (max-width: $screen-xs) {
+            width: 60px !important;
+            height: 60px !important;
+            margin: 2px;
+        }
+
+        &.is-selected::after {
+            position: absolute;
+            content: "";
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='14' height='10' viewBox='0 0 14 10' xmlns='http://www.w3.org/2000/svg'%3E%3Ctitle%3E6269C699-FBB7-4109-B1F3-15F8609CEA35%3C/title%3E%3Cpath d='M5.72 9.6325l-.3995.3995L.082 4.7936l2.1064-2.1063L5.62 6.1187 11.7704-.032l2.1064 2.1064L6.0192 9.932 5.72 9.6324z' fill='%23fff' fill-rule='evenodd'/%3E%3C/svg%3E");
+            background-size: 90%;
+            background-position: center center;
+            background-repeat: no-repeat;
+            border: 2px solid rgba(0,0,0,0.6);
+            transform: none;
+            z-index: 1;
+        }
+    }
+
+    &__swatchImgCntr{
+        display: block;
+    }
+
+    &__swatchImg{
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+
+    &__swatchTitle{
+        display: block;
+    }
+
+
+    &__form {
+        display: block;
+        margin: 1.5rem 0 0;
+
+        button { 
+            width: 100%; 
+            text-transform: uppercase;
+            font-weight: 500;
             font-size: 1rem;
         }
-
-        p {
-            font-size: 0.8rem;
-            line-height: 1.1em;
-        }
-
-        .swatchinnerpopup {
-            $raq-swatch-wrapper-base: 190px;
-            $raq-swatch-wrapper-tablet: 615px;
-            $raq-swatch-wrapper-inc: 85px;
-
-            clear: left;
-            max-height: 205px;
-            max-width: $raq-swatch-wrapper-base;
-            margin-bottom: 1.5rem;
-            border: 1px solid transparent;
-            border-radius: 4px;
-            box-shadow: 0 0 0 1px $color-border inset;
-
-            @media screen and (max-width: $screen-md) {
-                max-width: 100% !important;
-            }
-
-            @media screen and (min-width: 320px)  { max-width: $raq-swatch-wrapper-base + (1 * $raq-swatch-wrapper-inc); }
-            @media screen and (min-width: 405px)  { max-width: $raq-swatch-wrapper-base + (2 * $raq-swatch-wrapper-inc); }
-            @media screen and (min-width: 490px)  { max-width: $raq-swatch-wrapper-base + (3 * $raq-swatch-wrapper-inc); }
-            @media screen and (min-width: 575px)  { max-width: $raq-swatch-wrapper-base + (4 * $raq-swatch-wrapper-inc); }
-            @media screen and (min-width: 660px)  { max-width: $raq-swatch-wrapper-base + (5 * $raq-swatch-wrapper-inc); }
-            @media screen and (min-width: 745px)  { max-width: $raq-swatch-wrapper-base + (6 * $raq-swatch-wrapper-inc); }
-            @media screen and (min-width: 768px)   { max-width: $raq-swatch-wrapper-tablet + (0 * $raq-swatch-wrapper-inc); }
-            @media screen and (min-width: 815px)   { max-width: $raq-swatch-wrapper-tablet + (1 * $raq-swatch-wrapper-inc); }
-            @media screen and (min-width: 910px)   { max-width: $raq-swatch-wrapper-tablet + (2 * $raq-swatch-wrapper-inc); }
-            @media screen and (min-width: 1005px)  { max-width: $raq-swatch-wrapper-tablet + (3 * $raq-swatch-wrapper-inc); }
-            @media screen and (min-width: 1100px)  { max-width: $raq-swatch-wrapper-tablet + (4 * $raq-swatch-wrapper-inc); }
-
-            .simplebar-content { padding-bottom: 5px !important; overflow-x: hidden; }
-            .simplebar-track.horizontal { display: none; }
-
-            ul {
-                //max-height: 190px;
-                //max-width: 455px;
-                padding: 10px 0 5px 10px;
-
-                > li {
-                    position: relative;
-                    display: inline-block;
-                    width: 80px;
-                    height: 80px;
-                    overflow: hidden;
-                    margin-right: 2px;
-                    border: 1px solid transparent;
-                    border-radius: 0;
-                    cursor: pointer;
-
-                    @media screen and (max-width: $screen-md) {
-                        width: 72px !important;
-                        height: 72px !important;
-                    }
-
-                    &.is-selected::after {
-                        position: absolute;
-                        content: "";
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        background-image: url("data:image/svg+xml,%3Csvg width='14' height='10' viewBox='0 0 14 10' xmlns='http://www.w3.org/2000/svg'%3E%3Ctitle%3E6269C699-FBB7-4109-B1F3-15F8609CEA35%3C/title%3E%3Cpath d='M5.72 9.6325l-.3995.3995L.082 4.7936l2.1064-2.1063L5.62 6.1187 11.7704-.032l2.1064 2.1064L6.0192 9.932 5.72 9.6324z' fill='%23fff' fill-rule='evenodd'/%3E%3C/svg%3E");
-                        background-size: 90%;
-                        background-position: center center;
-                        background-repeat: no-repeat;
-                        border: 2px solid rgba(0,0,0,0.6);
-                        transform: none;
-                        z-index: 1;
-                    }
-                }
-
-                &.has-max-selected > li:not(.is-selected) {
-                    opacity: 0.4;
-                    cursor: default;
-                }
-            }
-        }
-
-        .previewswatch {
-            display: block;
-
-            &:not(.has-selections)::after {
-                content: 'No Swatches Selected.';
-                display: block;
-                margin: 1.5rem auto;
-                text-align: center;
-            }
-
-            ul {
-                padding: 10px 0 5px 10px;
-
-                > li {
-                    position: relative;
-                    display: inline-block;
-                    vertical-align: top;
-                    width: 80px;
-                    margin: 2px;
-                    overflow: hidden;
-
-                    .swatch-title {
-                        font-size: 0.75rem;
-                        line-height: 1.1em;
-                    }
-
-                    .deselect {
-                        position: absolute;
-                        top: 0;
-                        right: 0;
-                        height: 1.5rem;
-                        width: 1.5rem;
-                        font-size: 1.5rem;
-                        line-height: 1em;
-                        text-align: center;
-                        font-weight: bold;
-                        color: #FFF;
-                        text-shadow:
-                            0 0 1px #FFF,
-                            0 0 1px #000,
-                            0 0 1px #000,
-                            0 0 1px #000;
-                        cursor: pointer;
-
-                        &:hover, &:focus {
-                            background: rgba(0,0,0,0.4);
-                        }
-                    }
-                }
-            }
-        }
-        form {
-            display: block;
-            margin: 1.5rem 0 0;
-
-            button { 
-                width: 100%; 
-                text-transform: uppercase;
-                font-weight: 500;
-                font-size: 1rem;
-            }
-        }
     }
-}
-.swatchpopuplist__underlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0,0,0,0.4);
-    z-index: 1099;
 
-    #swatchpopuplist.is-open + & { display: block; }
+    &__reqBtn{
+        @extend %button-rounded;
+        @extend .button-secondary;
+        @extend .button-secondary--darkTrans;
+        @extend .button--fullWidth;
+
+        box-sizing: border-box;
+        border-width: 1px;
+        border-style: solid;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        font-weight: 500;
+        padding: 10px;
+        display: block;
+
+        @media screen and (max-width: $screen-sm) {
+            display: none;
+        }
+
+        &--mobile{
+            order: 3;
+            display: none !important;
+            margin-top: 20px;
+
+            @media screen and (max-width: $screen-sm) {
+                display: block !important;
+            }
+        }
+       
+    }
+    
 }
+
+
+
+
+
+
+
+
 
 
 /*Product Swatch Hover Detail*/

@@ -9,6 +9,7 @@
 
     {{{checkout.checkout_head}}}
     {{{stylesheet '/assets/css/optimized-checkout.css'}}}
+    {{{stylesheet '/assets/css/theme.css'}}}
     {{getFontsCollection}}
 
    
@@ -93,32 +94,54 @@
 
     {{{checkout.order_confirmation_content}}}
 
+    <div class="layout optimizedCheckout-contentPrimary">
+      <a href="#feedBackModal" rel="#feedBackModal" data-open-modal class="button button-primary button-primary--green">Provide Website Feedback &rsaquo;</a>
+    </div>
+
+    <div class="toolTip__cntr toolTip__cntr--small hide" id="feedBackModal">
+      <button class="toolTip__closeBtn toolTip__closeBtn--whiteBack" data-close-modal rel="#feedBackModal">
+        <svg class="toolTip__closeIcon" enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13.4 12l5.3-5.3c0.4-0.4 0.4-1 0-1.4s-1-0.4-1.4 0l-5.3 5.3-5.3-5.3c-0.4-0.4-1-0.4-1.4 0s-0.4 1 0 1.4l5.3 5.3-5.3 5.3c-0.4 0.4-0.4 1 0 1.4 0.2 0.2 0.4 0.3 0.7 0.3s0.5-0.1 0.7-0.3l5.3-5.3 5.3 5.3c0.2 0.2 0.5 0.3 0.7 0.3s0.5-0.1 0.7-0.3c0.4-0.4 0.4-1 0-1.4l-5.3-5.3z"></path>
+        </svg>
+      </button>
+
+      <iframe src="https://www.surveymonkey.com/r/ZB9WGC8" style="width: 100%; height: 500px;"></iframe>
+    </div>
+
 
     {{{footer.scripts}}}
 
     <script>
-      document.addEventListener('DOMContentLoaded', function(){
+      (function(){
+        const modal = {
+          openGeneric: function(e){
+            let $this = $(this);
+            $($this.attr("rel")).toggleClass("hide");
+            e.preventDefault();
+          },
 
-        try{
-          TEAK.thirdParty.heap.init({
-            method: 'identify'{{#if customer}},
-            id: '{{customer.id}}.authenteak.com'{{/if}}
-          });
-          
-          TEAK.thirdParty.heap.init({
-            method: 'track',
-            event: 'order_completed',
-            location: 'OrderConfirmation'
-          });
+          checkClickToCloseModal: function(e){
+              if ( !$(e.target).closest('#feedBackModal').length && !$(e.target).closest("[data-open-modal]").length ){
+                $("[data-close-modal]", document.body).click();
+              }
+            
+          },
 
-        }catch(e){
-          console.log(e);
-        }
+          checkKeyToCloseModal: function(e){
+              if( e.which === 27 ){
+                $("[data-close-modal]", document.body).click();
+              }
+          }
 
-    });
-      
+        };
 
-      
+        $(document.body)
+          .on("click", modal.checkClickToCloseModal)
+          .on("keydown", modal.checkKeyToCloseModal)
+          .on("click", "[data-open-modal]", modal.openGeneric)
+          .on("click", "[data-close-modal]", modal.openGeneric)
+      }())
+
       TEAK.Checkout = {
 
         // clear cart from local storage
@@ -191,6 +214,32 @@
           }
         },
 
+        heap: function(){
+          var storedCart = TEAK.Utils.getStoredCart();
+
+          if(typeof storedCart !== "undefined" && typeof storedCart.lineItems !== "undefined"){
+              TEAK.thirdParty.heap.init({
+                method: 'identify'{{#if customer}},
+                id: '{{customer.id}}.authenteak.com'{{/if}}
+              });
+              
+              TEAK.thirdParty.heap.init({
+                method: 'track',
+                event: 'order_completed',
+                location: 'OrderConfirmation',
+                order_id: storedCart.id,
+                subtotal: storedCart.baseAmount,
+                total: storedCart.cartAmount,
+                shipping: "",
+                discount: storedCart.discountAmount,
+                discount_code: storedCart.discounts.length ? storedCart.discounts[0].id : ""
+              });
+
+            }
+            
+        },
+        
+
         // third party intelliSuggest tracking
         intelliSuggest: function(){
           try{
@@ -211,6 +260,8 @@
                 state: "{{order.shipping_address.state}}",
                 country: "US"
             });
+
+            TEAK.Checkout.heap();
             
           }catch(err){
             console.log(err)
@@ -231,9 +282,7 @@
       TEAK.Checkout.clearStorage('cartData');
 
 
-      // survey monkey
-      (function(t,e,s,o){var n,a,c;t.SMCX=t.SMCX||[],e.getElementById(o)||(n=e.getElementsByTagName(s),a=n[n.length-1],c=e.createElement(s),c.type="text/javascript",c.async=!0,c.id=o,c.src=["https:"===location.protocol?"https://":"http://","widget.surveymonkey.com/collect/website/js/tRaiETqnLgj758hTBazgdxseIyXmhu0HUNWO2TBPRwdzrTCk_2FCp3kJZ7yT_2FsIwe1.js"].join(""),a.parentNode.insertBefore(c,a))})(window,document,"script","smcx-sdk");
-    </script>
+      </script>
 
 
 </body>

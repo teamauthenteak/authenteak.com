@@ -11,7 +11,8 @@
     },
     "page": {
       "test.html" : "/test-page/",
-      "warranties.html": "/warranties"
+      "warranties.html": "/warranties",
+      "_swatchcheckout.html": "/swatch-checkout/"
     },
     "product": {}
   }

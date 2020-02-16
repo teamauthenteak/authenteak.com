@@ -58,4 +58,21 @@ export default class Personalization extends PageManager {
             return saved;
         }
     }
+
+
+
+    async fetchBulk(url, body){
+        const response = await fetch(url, {
+			method: "POST",
+			cache: 'default',
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(body)
+        });
+        
+        return response.json();
+    }
+
 }

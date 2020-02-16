@@ -330,28 +330,34 @@ export default class ProductOptions {
 			self.$raqModal.addClass('is-open');
 
 			window.setTimeout(() => {
-				$('body').on('mousedown.closeRASModal', (e) => {
-					if ($(e.target).closest(self.raqModalSelector).length == 0) {
-						self.$raqModal.removeClass('is-open');
-						$('body').off('mousedown.closeRASModal');
-					}
-				});
+				$(document.body)
+					.on('mousedown.closeRASModal', (e) => {
+						if ($(e.target).closest(self.raqModalSelector).length == 0) {
+							closeModal();
+						}
+					})
+					.css({"position": "fixed"});
 			}, 100);
+				
+
 		});
 
 		this.$raqSwatches.on('click', 'li[data-request-swatch]', (e) => {
 			let $el = $(e.currentTarget);
+
 			if (!$el.hasClass('is-selected') && self.$raqSwatches.find('li.is-selected').length >= 5) {
 				return false; // Don't add swatches if five are already selected
 			}
+			
 			$el.toggleClass('is-selected');
+
 			if ($el.hasClass('is-selected')) {
-				self.$raqSelections.append(
-					$el.clone().append($('<span class="deselect"></span>').html('&times;'))
-				);
+				self.$raqSelections.append($el.clone().append($('<span class="deselect"></span>').html('&times;')));
+			
 			} else {
 				self.$raqSelections.find(`li[data-swatch-title="${$el.data('swatch-title')}"]`).remove();
 			}
+
 			self.updateRequestASwatchForm();
 		});
 
@@ -362,38 +368,40 @@ export default class ProductOptions {
 			self.updateRequestASwatchForm();
 		});
 
-		// Request-a-Swatch form close
-		this.$raqModal.on('click', '.closepopup', (e) => {
-			self.$raqModal.removeClass('is-open');
-			$('body').off('click.closeRASModal');
-		});
 
+		// Request-a-Swatch form close
+		this.$raqModal.on('click', '[close-popup]', closeModal);
 
 		// Request-a-Swatch form close to show modal
-		$(document).on('modal-cart-display', (e) => {
+		$(document).on('modal-cart-display', closeModal);
+
+
+		function closeModal(){
 			self.$raqModal.removeClass('is-open');
-			$('body').off('click.closeRASModal');
-		});
+			$(document.body)
+				.css({"position": "static"})
+				.off('click.closeRASModal');
+		}
 
 
 		// Request-a-Swatch form Submit
-		this.$raqModal.on('submit', 'form', (e) => {
-			e.preventDefault();
-			const formData = new FormData(e.target);
+		// this.$raqModal.on('submit', 'form', (e) => {
+		// 	e.preventDefault();
+		// 	const formData = new FormData(e.target);
 
-			utils.hooks.emit('cart-item-add', e, e.target);
+		// 	utils.hooks.emit('cart-item-add', e, e.target);
 
-			// once we get a success add to cart then update our module data
-			utils.api.cart.itemAdd(formData, (err, response) => {
-				if (response) {
-					window.TEAK.Modules.requestASwatch = {
-						itemAdded: true,
-						...window.TEAK.Modules.requestASwatch
-					};
-				}
-			});
+		// 	// once we get a success add to cart then update our module data
+		// 	utils.api.cart.itemAdd(formData, (err, response) => {
+		// 		if (response) {
+		// 			window.TEAK.Modules.requestASwatch = {
+		// 				itemAdded: true,
+		// 				...window.TEAK.Modules.requestASwatch
+		// 			};
+		// 		}
+		// 	});
 
-		});
+		// });
 	}
 
 	// Update Request-a-Swatch form and related DOM based on current selections
@@ -412,16 +420,21 @@ export default class ProductOptions {
 
 		if (swatches.length >= 5) {
 			this.$raqSwatches.addClass('has-max-selected');
+
 		} else {
 			this.$raqSwatches.removeClass('has-max-selected');
 		}
+		
 		if (swatches.length > 0) {
-			this.$raqModal.find('.previewswatch, form').addClass('has-selections');
-			this.$raqModal.find('button').prop('disabled', false);
+			// this.$raqModal.find('.previewswatch, form').addClass('has-selections');
+			this.$raqModal.find('.swatchModal__reqBtn').prop('disabled', false);
+
 		} else {
-			this.$raqModal.find('.previewswatch, form').removeClass('has-selections');
-			this.$raqModal.find('button').prop('disabled', true);
+			// this.$raqModal.find('.previewswatch, form').removeClass('has-selections');
+			this.$raqModal.find('.swatchModal__reqBtn').prop('disabled', true);
 		}
+
+		$("#totalSelectedSwatches").text(swatches.length);
 
 		// save this object data to use in other places on the site
 		window.TEAK.Modules.requestASwatch = {
