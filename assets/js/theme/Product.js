@@ -19,7 +19,6 @@ export default class Product extends PageManager {
 	constructor() {
 		super();
 
-		this.yotpoKey = "aS8rMIONwGgNbx1ATQmUtKY173Xk5HHc75qGrnuq";
 		this.productId = $("#productDetails").data("productId");
 
 		this.el = '[data-product-container]';
@@ -92,20 +91,21 @@ export default class Product extends PageManager {
 		new AddToCartModal();
 
 
-		// add Personalization engine
+		// Recently Viewed Module
 		this.recentlyViewed = new Personalization({
 			type: "recentlyViewed"
 		});
 		this._initRecentlyViewed();
 
+
+		// Recommened Products Yotpo Update
 		this.recommended = new Personalization({
 			type: "recommended"
 		});
-		this.updateRecomendedProductRaiting();
-
-
-		// Print Mode (Tear Sheet)
-		new PrintMode();
+		this.updateProductRaiting({
+			// our recommended product id array built in pages > product.html
+			productIdArray: JSON.parse( document.getElementById("relatedProductIDs").innerHTML )
+		});
 
 		this._initSlick();
 		this._getReviews();
@@ -117,6 +117,9 @@ export default class Product extends PageManager {
 		this._initTabs();
 
 		this.initAnalytics();
+
+		// Print Mode (Tear Sheet)
+		new PrintMode();
 	}
 
 
@@ -135,6 +138,8 @@ export default class Product extends PageManager {
 
 		next();
 	}
+
+
 
 	_bindEvents() {
 		// Activate the reviews tab when we jump down to it
@@ -175,53 +180,39 @@ export default class Product extends PageManager {
 
 
 
+	/**
+	 * Yotpo: Fetch Bulk Ratings
+	 * @param {*} args.productIdArray arry of product ids 
+	 */
 
-	updateRecomendedProductRaiting(){
-		let yotpoObj = {
-			app_key: this.yotpoKey,
-			methods: []
-		},
-		productIds = $("#relatedProductIDs").html();
-
+	updateProductRaiting(args){
 		try{
-			// our recommended product id array built in pages > product.html
-			productIds = JSON.parse(productIds);
-
-			productIds.forEach( (element) => {
-				let batchObj = {
-						method: "bottomline",
-						params: {
-							pid: element,
-							format: "JSON",
-							skip_average_score: false
-						}
-					};
-
-				yotpoObj.methods.push(batchObj);
-			});
+			let yotpoObj = this.recommended.buildYotpoBulkObject(args.productIdArray);
 
 			// get our bulk yotpo rating for recomm products on page
-			this.recommended.fetchBulk("http://staticw2.yotpo.com/batch?", yotpoObj)
-				.then(this.appendRecommRating);
+			this.recommended.fetchYotpoBulk(yotpoObj)
+				.then((data) => {
+					this.appendRating(data, args);
+				});
 
 		}catch(err){}
 	}
 
 
-	appendRecommRating(data){
-		console.log(data)
+	appendRating(data, args){
+		args.productIdArray.forEach((element, i) => {
+			this.showRaiting( $(`.yotpoRating__${element}`), data[i].result.average_score, 0 );
+		});
 	}
 
 
 
 	_initRecentlyViewed(){
 		let $rv = $("#recentlyViewedProducts"),
-			recentProducts = this.recentlyViewed.getViewed();
+			recentProducts = this.recentlyViewed.savedProducts;
 
 		if(recentProducts){ 
 			recentProducts.forEach((element) => {
-				element.price = TEAK.Utils.formatPrice( parseInt(element.price) );
-
 				let tpl = buildViewedSlider(element);
 				$(tpl).appendTo(".product-grid", $rv);
 			});
@@ -241,7 +232,7 @@ export default class Product extends PageManager {
 							<h5 class="product-item-title">${product.title}</h5>
 						</div>
 
-						<div class="product-price">${product.price}</div>
+						<div class="product-price">${TEAK.Utils.formatPrice( parseInt(product.price) )}</div>
 
 						<div class="yotpo-rv-wrapper">
 							<span class="yotpo-stars-rating" style="--rating: ${product.rating};" aria-label="Rating of ${product.rating} out of 5."></span>
@@ -255,21 +246,28 @@ export default class Product extends PageManager {
 	}
 
 
+
 	// saved this viwerd poduct - include the yotpo rating
 	saveViewedProduct(){
-		let productInfo = document.getElementById("productInfo").innerHTML;
-		
-		productInfo = JSON.parse(productInfo);
-		
-		$.ajax(`https://api.yotpo.com/v1/widget/${this.yotpoKey}/products/${this.productId}/reviews.json`)
-			.done((dataObj) => {
-				let totalScore = dataObj.response.bottomline.average_score;
+		try{
+			let productInfo = document.getElementById("productInfo").innerHTML;
+			productInfo = JSON.parse(productInfo);
+			
+			$.ajax(`${this.recentlyViewed.yotpoReviewsUrl}/${this.recentlyViewed.yotpoKey}/products/${this.productId}/reviews.json`)
+				.done((dataObj) => {
+					let totalScore = dataObj.response.bottomline.average_score;
 
-				totalScore = (totalScore === 0) ? 0 : totalScore.toFixed(1);
-				productInfo.rating = totalScore;
+					totalScore = (totalScore === 0) ? 0 : totalScore.toFixed(1);
+					productInfo.rating = totalScore;
 
-				this.recentlyViewed.saveViewed(productInfo);
-			});	
+					this.recentlyViewed.saveViewed(productInfo);
+				});	
+
+		}catch(err){
+			console.log(err)
+		}
+
+		
 	}
 
 
@@ -288,8 +286,8 @@ export default class Product extends PageManager {
 		let $ratingCntr = $("#yotpoRating");
 
 		$.when( 
-			$.ajax(`https://api.yotpo.com/v1/widget/${this.yotpoKey}/products/${this.productId}/reviews.json`),
-			$.ajax(`https://api.yotpo.com/products/${this.yotpoKey}/${this.productId}/questions`) 
+			$.ajax(`${this.recentlyViewed.yotpoReviewsUrl}/${this.recentlyViewed.yotpoKey}/products/${this.productId}/reviews.json`),
+			$.ajax(`${this.recentlyViewed.yotpoQuestionsUrl}/${this.recentlyViewed.yotpoKey}/${this.productId}/questions`) 
 			
 		).then((reviewData, questionData) => {
 			let totalScore = reviewData[0].response.bottomline.average_score,
