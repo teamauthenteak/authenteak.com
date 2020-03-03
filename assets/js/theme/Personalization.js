@@ -50,6 +50,7 @@ export default class Personalization extends PageManager {
                     // update the saved array with the new rating from yotpo
                     this.savedProducts.forEach((element, i) => {
                         element.rating = data[i].result.average_score;
+                        element.total_review = data[i].result.total;
                     });
 
                     this.finishSaving(product);
@@ -118,9 +119,6 @@ export default class Personalization extends PageManager {
 
 
 
-
-
-
     // fetch recently viewed from local storage
     getViewed(){
         if( window.localStorage ){
@@ -129,8 +127,6 @@ export default class Personalization extends PageManager {
             return saved;
         }
     }
-
-
 
 
 
@@ -178,6 +174,33 @@ export default class Personalization extends PageManager {
         }catch(err){}
         
         return yotpoObj;
+    }
+
+
+
+    /**
+     * Recently Viewed Template
+     * @param {*} product product object from parsed storage
+     */
+    buildViewedSlider(product){
+        return `<a href="${product.url}" title="${product.title}" class="product-grid-item product-recomendation-pod product-block" data-product-title="${product.title}" data-product-id="${product.product_id}">
+                    <figure class="product-item-thumbnail">
+                        <div class="replaced-image lazy-loaded" style="background-image:url(${product.image})">
+                            <img class="lazy-image lazy-loaded" src="${product.image}" alt="You viewed ${product.title}">
+                        </div>
+                    </figure>
+                    
+                    <div class="product-item-details product-item-details--review">
+                        <h5 class="product-item-title">${product.title}</h5>
+                    </div>
+
+                    <div class="product-price">${TEAK.Utils.formatPrice( parseInt(product.price) )}</div>
+
+                    <div class="yotpo-rv-wrapper ${product.total_review === 0 ? 'hide' : 'show'}">
+                        <span class="yotpo-stars-rating" style="--rating: ${product.rating};" aria-label="Rating of ${product.rating} out of 5."></span>
+                        (<span class="yotpo-reviews-num">${product.total_review}</span>)
+                    </div>
+                </a>`;
     }
 
 }

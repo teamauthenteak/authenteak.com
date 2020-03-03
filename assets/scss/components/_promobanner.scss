@@ -5,6 +5,7 @@
     align-items: center;
     justify-content: center;
     align-content: center;
+    color: #fff;
 
     &__affirmLogo{
         width: 67px;
@@ -60,15 +61,16 @@
 
         & .promoBanner__link{
             color:rgba(110, 163, 66, 1);
+            color: #fff;
         }
     }
 
     &--blue{
         background-color:rgba(15, 160, 234, 0.09);
         border-bottom: 1px solid rgba(15, 160, 234, 0.30);
-
+        
         & .promoBanner__link{
-            color: #0fa0ea;
+            color: #fff;
         }
     }
 
@@ -77,17 +79,16 @@
         border-bottom: 1px solid transparent;
 
         & .promoBanner__link{
-            color: #403f3f;
+            color: #fff;
         }
     }
 
     &--red{
         background-color: #7D0404;
         border-bottom: 1px solid #f38c8c;
-        color: #fff;
 
         & .promoBanner__link{
-            color: #fbefef;
+            color: #fff;
         }
     }
 
@@ -95,7 +96,7 @@
     &--black{
         background-color: #121212;
         border-bottom: 1px solid #555;
-        color: #ccc;
+        color: #fff;
 
         & .promoBanner__link{
             color: #fff !important;
@@ -105,7 +106,6 @@
     &--maroon{
         background-color: #822828;
         border-bottom: 1px solid #f38c8c;
-        color: #fff;
 
         & .promoBanner__link{
             color: #fff !important;

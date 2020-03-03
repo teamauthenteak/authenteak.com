@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui">
+<title>Order Status Email</title>
+<style type="text/css" rel="stylesheet">
+.email{
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.4rem;
+    color: #333;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 800px;
+    margin: 0 auto;
+}
+a{
+    color: #222;
+}
+p{
+    font-size: 1.2rem;
+    line-height: 1.4;
+    margin: 0;
+}
+.email__header, .email__list, .email__main, .email__shipTable{
+    width: 100%;
+}
+h1{
+    margin-top: 0;
+    font-size: 2.1rem;
+}
+.email__header{
+    text-align: center;
+    height: 100px;
+}
+.email__logo{
+    width: 800px;
+    margin: 0 auto;
+}
+.email__list{
+   list-style-type: none;
+   margin: 0;
+   padding: 20px 0;
+   text-align: center;
+   border-top: 1px solid #ccc;
+   border-bottom: 1px solid #ccc;
+}
+.email__list td{
+    display: inline;
+    margin: 0 20px;
+}
+.email__listLink{
+    font-size: 1.3rem;
+    text-decoration: none;
+}
+.email__list--vertical{
+    border: none;
+    border-top: 1px solid #ccc;
+    padding: 0;
+}
+.email__list--vertical td{
+    display: block;
+    border-bottom: 1px solid #ccc;
+    margin: 0;
+}
+.email__list--vertical a{
+    display: block;
+    padding: 20px;
+    font-size: 1rem;
+}
+.email__main{
+    text-align: center;
+    height: 400px;
+}
+.email__shipTable{
+    background-color: #f2f2f2;
+}
+.email__shipLabel{
+    font-size: 1.1rem;
+}
+.email__shipTable td{
+    vertical-align: top;
+    text-align: left;
+}
+.email__shippedItems{
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+}
+.email__footer{
+    text-align: center;
+}
+.email__promoImg{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+.email__itemRow{
+    border-top: 1px solid #ccc;
+    padding: 10px 0;
+    display: block;
+}
+.email__itemDesc, .email__itemQty, .email__itemPrice{
+    text-align: center;
+    width: 100%;
+    font-size: 1rem;
+}
+.email__itemImg{
+    height: 150px;
+    width: auto;
+    object-fit: contain;
+}
+</style>
+</head>
+<body>
+    <table class="email" cellpadding="0" cellspacing="0" style="font-family:Helvetica, Arial, sans-serif;font-size:1.4rem;color:#333;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;width:800px;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;" >
+        <tbody>
+            <tr>
+                <td class="email__header" height="100" style="width:100%;text-align:center;height:100px;" >
+                    <a href="https://authenteak.com" target="_blank" style="color:#222;" >
+                        <img class="email__logo" src="https://authenteak.s3.us-east-2.amazonaws.com/transactional-emails/Header_AT_Logo.png" alt="" style="width:800px;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;" >
+                    </a>
+                </td> <!-- /header -->
+            </tr>
+            <tr>
+                <td>
+                    <table class="email__list" style="width:100%;list-style-type:none;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:20px;padding-bottom:20px;padding-right:0;padding-left:0;text-align:center;border-top-width:1px;border-top-style:solid;border-top-color:#ccc;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#ccc;" >
+                        <tbody>
+                            <tr>
+                                <td style="display:inline;margin-top:0;margin-bottom:0;margin-right:20px;margin-left:20px;" ><a class="email__listLink" href="https://authenteak.com/outdoor-furniture/" target="_blank" style="color:#222;font-size:1.3rem;text-decoration:none;" >FURNITURE</a></td>
+                                <td style="display:inline;margin-top:0;margin-bottom:0;margin-right:20px;margin-left:20px;" ><a class="email__listLink" href="https://authenteak.com/patio-umbrellas-accessories/" target="_blank" style="color:#222;font-size:1.3rem;text-decoration:none;" >UMBRELLAS</a></td>
+                                <td style="display:inline;margin-top:0;margin-bottom:0;margin-right:20px;margin-left:20px;" ><a class="email__listLink" href="https://authenteak.com/grills-outdoor-kitchens/" target="_blank" style="color:#222;font-size:1.3rem;text-decoration:none;" >GRILLS</a></td>
+                                <td style="display:inline;margin-top:0;margin-bottom:0;margin-right:20px;margin-left:20px;" ><a class="email__listLink" href="https://authenteak.com/outdoor-decor/" target="_blank" style="color:#222;font-size:1.3rem;text-decoration:none;" >DECOR</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table cellpadding="0" cellspacing="0" style="font-family:Helvetica, Arial, sans-serif;font-size:1.4rem;color:#333;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;width:100%;" >
+                        <tbody>
+                            <tr>
+                                <td>%%Snippet_ShipmentTrackingDetails%%</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br>
+                                    <br>
+                                    <p style="font-size:1.2rem;line-height:1.4;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                                        <a href="" target="_blank" style="color:#222;" >
+                                            <img src="https://authenteak.s3.us-east-2.amazonaws.com/transactional-emails/Foot-AT-Banner.png" class="email__promoImg" style="width:100%;height:auto;object-fit:contain;" >
+                                        </a>
+                                    </p>
+                                    <br>
+                                    <br>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    <br>
+                    <p style="font-size:1.2rem;line-height:1.4;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                        <a href="" target="_blank" style="color:#222;" >
+                            <img src="https://authenteak.s3.us-east-2.amazonaws.com/transactional-emails/Foot-AT-Banner.png" class="email__promoImg" style="width:100%;height:auto;object-fit:contain;" >
+                        </a>
+                    </p>
+                    <br>
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="email__list email__list--vertical" cellpadding="0" cellspacing="0" style="width:100%;list-style-type:none;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;text-align:center;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#ccc;border-style:none;border-top-width:1px;border-top-style:solid;border-top-color:#ccc;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;" >
+                        <tbody>
+                            <tr>
+                                <td style="display:block;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#ccc;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" ><a class="email__listLink" href="https://authenteak.com/account.php" target="_blank" style="color:#222;text-decoration:none;display:block;padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;font-size:1rem;" >MY ACCOUNT</a></td>
+                            </tr>
+                            <tr>
+                                <td style="display:block;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#ccc;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" ><a class="email__listLink" href="https://authenteak.com/contact-us" target="_blank" style="color:#222;text-decoration:none;display:block;padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;font-size:1rem;" >CONTACT US</a></td>
+                            </tr>
+                            <tr>
+                                <td style="display:block;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#ccc;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" ><a class="email__listLink" href="https://authenteak.zendesk.com/hc/en-us" target="_blank" style="color:#222;text-decoration:none;display:block;padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;font-size:1rem;" >FAQ</a></td>
+                            </tr>
+                            <tr>
+                                <td style="display:block;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#ccc;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" ><a class="email__listLink" href="https://authenteak.com/policies" target="_blank" style="color:#222;text-decoration:none;display:block;padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;font-size:1rem;" >RETURN POLICY</a></td>
+                            </tr>
+                            <tr>
+                                <td style="display:block;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#ccc;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" ><a class="email__listLink" href="https://authenteak.com/shipping" target="_blank" style="color:#222;text-decoration:none;display:block;padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;font-size:1rem;" >SHIPPING</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            <tr>
+                <td class="email__footer"  cellpadding="20" style="text-align:center;margin-top:0px;margin-bottom:0px;margin-right:0px;margin-left:0px;" >
+                    <br>
+                    <p style="font-size:1.2rem;line-height:1.4;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >
+                       <br>
+                        <p style="font-size:1.2rem;line-height:1.4;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" >authenTEAK Showroom: 1094 Huff Rd NW. Atlanta, GA 30318 <br> <a href="mailto:customercare@authenteak.com" style="color:#222;" >customercare@authenteak.com</a> &nbsp; | &nbsp; <a href="tel:1-866-350-8325" style="color:#222;" >1-866-350-8325</a></p>    
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

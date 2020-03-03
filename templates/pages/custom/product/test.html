@@ -73,7 +73,7 @@
           <span class="mobileHide">ITEM #: {{product.sku}}</span>
           <a class="yotpo-pdp-wrapper" href="#yotpoReviews" id="yotpoRating" title="Reviews of {{product.title}}">
             <span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of 0 out of 5."></span>
-            <span class="yotpo-reviews-num">0</span>
+            (<span class="yotpo-reviews-num">0</span>)
             <span class="yotpo-questions">
               <span class="yotpo-questions-num">0</span> Questions
             </span>
@@ -126,8 +126,14 @@
       
         {{#each product.custom_fields}}
           {{#if this.name '==' "Lead-Time"}}   
-              <p class="shipping-range shipping-range--static mobileHide">{{this.value}}</p>
+              <p class="shipping-range shipping-range--static mobileHide">
+                {{this.value}}    
           {{/if}}
+
+          {{#if this.name '==' "Lead-Time 2"}}   
+            {{this.value}}
+          {{/if}}
+              </p>
         {{/each}}
       
 

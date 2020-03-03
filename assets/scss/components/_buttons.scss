@@ -10,6 +10,7 @@
     text-transform: uppercase;
     font-weight: 500;
     @extend %button-rounded;
+    text-decoration: none !important;
 
     &.progress{
         &:before, &:after{

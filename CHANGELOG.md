@@ -1,6 +1,19 @@
 # Change Log
 
 ## [1.20.20]
+- New product swatch order checkout flow
+- order total snapshot
+- survey monkey modal at order confirmation
+- review stars
+- mega menu carrots
+- rich article snipets for blogs
+- lead time 2 on PDP
+- spaceing fix on blog
+- updateing pencil banner css
+- remove home from blog breadcrumbs
+- update the zend desk logo
+- product reviews condition when 0 reviews are present
+- added blog filter and post(s) logic
 
 ## [1.20.19.001]
 - fixed further exceptions for missing cart in teak.js

@@ -68,7 +68,7 @@ category:
                 <h1 class="product__name">{{name}}</h1>
                 
                 <p class="product__itemNum">Item #{{sku}}
-                    <a class="product__ratingWrapper yotpo-pdp-wrapper" href="{{url}}#yotpoReviews" id="yotpoRating" title="Reviews of {{name}}">
+                    <a class="product__ratingWrapper yotpo-pdp-wrapper hide" href="{{url}}#yotpoReviews" id="yotpoRating" title="Reviews of {{name}}">
                         <span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of 0 out of 5."></span>
                         (<span class="yotpo-reviews-num">0</span>)
                         <span class="yotpo-questions">
@@ -87,13 +87,20 @@ category:
                     {{/if}}
                 </p>
 
+                <p class="product__shipping">
                 {{#each custom_fields}}
                     {{#if this.name '==' "Lead-Time"}}   
-                        <p class="product__shipping">{{this.value}}</p>
+                       
+                            {{this.value}}
                     {{/if}}
+                    {{#if this.name '==' "Lead-Time 2"}}   
+                        {{this.value}}
+                    {{/if}}
+                        
                 {{/each}}
+                </p>
 
-
+                
                 {{#each custom_fields}}
                     {{#if this.name '==' "Promo Text"}}
                         <p class="product__promoText">{{{this.value}}}</p>
@@ -134,7 +141,7 @@ category:
                         </h2>
     
                         <p class="product__itemNum">Item #{{sku}}
-                            <a class="product__ratingWrapper yotpo-pdp-wrapper" href="{{url}}#yotpoReviews" id="yotpoRating" title="Reviews of {{name}}">
+                            <a class="product__ratingWrapper yotpo-pdp-wrapper hide" href="{{url}}#yotpoReviews" id="yotpoRating" title="Reviews of {{name}}">
                                 <span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of 0 out of 5."></span>
                                 (<span class="yotpo-reviews-num">0</span>)
                                 <span class="yotpo-questions">

@@ -18,6 +18,12 @@
         max-width: 350px;
       }
 
+      .feedback__link{
+        display: block;
+        padding: 20px 0;
+        text-decoration: underline;
+      }
+
       .klaviyo-form-MnvYmV{
         position: fixed;
         width: 500px;
@@ -94,9 +100,7 @@
 
     {{{checkout.order_confirmation_content}}}
 
-    <div class="layout optimizedCheckout-contentPrimary">
-      <a href="#feedBackModal" rel="#feedBackModal" data-open-modal class="button button-primary button-primary--green">Provide Website Feedback &rsaquo;</a>
-    </div>
+    
 
     <div class="toolTip__cntr toolTip__cntr--small hide" id="feedBackModal">
       <button class="toolTip__closeBtn toolTip__closeBtn--whiteBack" data-close-modal rel="#feedBackModal">
@@ -177,7 +181,7 @@
               confirmSection.appendChild(text);
               confirmSection.appendChild(klaviyoForm);
 
-              this.hidePayByCheck();
+              TEAK.Checkout.hidePayByCheck();
             }
             
 
@@ -212,6 +216,11 @@
               tags[i].style.display = 'none';
             }
           }
+        },
+
+        insertSurveyLink: function(){
+          let survey = '<a href="#feedBackModal" class="feedback__link" rel="#feedBackModal" data-open-modal>Provide Website Feedback &rsaquo;</a>';
+          $(survey).appendTo(".continueButtonContainer");
         },
 
         heap: function(){
@@ -267,6 +276,7 @@
             console.log(err)
           }
          
+          $(window).on("load", TEAK.Checkout.insertSurveyLink);
 
           return this;
         }

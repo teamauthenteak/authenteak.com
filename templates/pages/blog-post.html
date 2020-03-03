@@ -22,14 +22,13 @@ blog:
   </header>
 
   <div class="container">
+      {{#if thumbnail}}
       <div class="blog__hero blog__hero--post">
           <figure class="blog__heroImgCntr">
-            {{#if thumbnail}}
             <img src="{{getImage thumbnail 'core-blog-thumbnail'}}" class="blog__heroImg" alt="{{blog.post.thumbnail.alt}}">
-            {{/if}}
-            <!-- <img src="https://dummyimage.com/1280x400/ccc/ccc" alt="{{blog.post.thumbnail.alt}}" class="blog__heroImg"> -->
           </figure>
       </div>
+      {{/if}}
 
       <div class="blog__content">
         {{{blog.post.body}}}
@@ -83,6 +82,36 @@ blog:
       }{{#unless isLast}},{{/unless}}{{/forEach}}
     ]
   }
+</script>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://google.com/article"
+  },
+  "headline": "{{blog.post.title}}",
+  "image": [
+    "{{getImage blog.post.thumbnail 'core-blog-thumbnail'}}"
+   ],
+  "datePublished": "{{blog.post.date_published}}",
+  "author": {
+    "@type": "Author",
+    "name": "{{blog.post.author}}"
+  },
+   "publisher": {
+    "@type": "Organization",
+    "name": "AuthenTEAK",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://authenteak.s3.us-east-2.amazonaws.com/transactional-emails/Header_AT_Logo.png"
+    }
+  },
+  "description": "{{{sanitize  (ellipsis blog.post.body 400) }}}"
+}
 </script>
 
 {{> core/structured-data/blog-post}}

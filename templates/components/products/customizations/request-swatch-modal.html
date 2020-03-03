@@ -46,9 +46,12 @@
 
             <form method="post" class="swatchModal__form" action="" enctype="multipart/form-data" id="productDetailsAddToCartForm1">
                 <input name="action" value="add" type="hidden">
-                <input name="product_id" value="5656" type="hidden">
-                <input data-request-swatch-values-input name="ProductFields[3]" data-product-name="{{ this.title }}" data-product-sku="{{ this.sku }}" type="hidden">
-            
+                <input name="product_swatch_id" value="5656" type="hidden">
+                <input name="product_title" value="{{ this.title }}" type="hidden">
+                <input name="product_sku" value="{{ this.sku }}" type="hidden">
+                <input name="product_url" value="{{ this.url }}" type="hidden">
+                <input name="swatch_images" value="" type="hidden">
+                <input data-request-swatch-values-input name="swatch_colors" type="hidden">
             </form>
 
             <button type="button" class="swatchModal__reqBtn swatchModal__reqBtn--mobile" value="" disabled>

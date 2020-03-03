@@ -201,7 +201,7 @@ export default class Product extends PageManager {
 
 	appendRating(data, args){
 		args.productIdArray.forEach((element, i) => {
-			this.showRaiting( $(`.yotpoRating__${element}`), data[i].result.average_score, 0 );
+			this.showRaiting( $(`.yotpoRating__${element}`), data[i].result.average_score, 0, data[i].result.total );
 		});
 	}
 
@@ -213,32 +213,11 @@ export default class Product extends PageManager {
 
 		if(recentProducts){ 
 			recentProducts.forEach((element) => {
-				let tpl = buildViewedSlider(element);
+				let tpl = this.recentlyViewed.buildViewedSlider(element);
 				$(tpl).appendTo(".product-grid", $rv);
 			});
 
 			$rv.addClass("show");	
-		}
-		
-		function buildViewedSlider(product){
-			return `<a href="${product.url}" title="${product.title}" class="product-grid-item product-block" data-product-title="${product.title}" data-product-id="${product.product_id}">
-						<figure class="product-item-thumbnail">
-							<div class="replaced-image lazy-loaded" style="background-image:url(${product.image})">
-								<img class="lazy-image lazy-loaded" src="${product.image}" alt="You viewed ${product.title}">
-							</div>
-						</figure>
-					
-						<div class="product-item-details product-item-details--review">
-							<h5 class="product-item-title">${product.title}</h5>
-						</div>
-
-						<div class="product-price">${TEAK.Utils.formatPrice( parseInt(product.price) )}</div>
-
-						<div class="yotpo-rv-wrapper">
-							<span class="yotpo-stars-rating" style="--rating: ${product.rating};" aria-label="Rating of ${product.rating} out of 5."></span>
-							(<span class="yotpo-reviews-num">${product.rating}</span>)
-					  	</div>
-					</a>`;
 		}
 
 		this.saveViewedProduct();
@@ -261,13 +240,15 @@ export default class Product extends PageManager {
 					productInfo.rating = totalScore;
 
 					this.recentlyViewed.saveViewed(productInfo);
-				});	
+				
+				});
+				/* .then((data) => {
+					this.buildProductSchema(data);
+				});	*/
 
 		}catch(err){
 			console.log(err)
 		}
-
-		
 	}
 
 
@@ -276,6 +257,22 @@ export default class Product extends PageManager {
 	initRVSlider(){
 		let carouselObj = Object.assign({appendDots: '.product-rv-carousel'}, this.carouselSettings);
 		$('.product-rv-carousel').slick(carouselObj);
+	}
+
+
+
+
+	// build our dynamic schema data
+	buildProductSchema(data){
+		let script = document.createElement('script');
+		let schemaJSON =document.getElementById('schema-product');
+		let schema = schemaJSON.innerHTML;
+	  
+		script.type = 'application/ld+json';
+		script.text = JSON.stringify(schema);
+		  
+		document.querySelector('body').appendChild(script);
+		script.parentElement.removeChild(schemaJSON);
 	}
 
 
@@ -291,11 +288,12 @@ export default class Product extends PageManager {
 			
 		).then((reviewData, questionData) => {
 			let totalScore = reviewData[0].response.bottomline.average_score,
+				totalReviews = reviewData[0].response.bottomline.total_review,
 				totalQuestions = questionData[0].response.total_questions;
 
 			totalScore = totalScore === 0 ? 0 : totalScore.toFixed(1);
 			
-			this.showRaiting($ratingCntr, totalScore, totalQuestions);
+			this.showRaiting($ratingCntr, totalScore, totalQuestions, totalReviews);
 
 			// console.log(reviewData[0].response.bottomline.average_score)
 			// console.log(reviewData[0].response.bottomline.total_review)
@@ -306,13 +304,20 @@ export default class Product extends PageManager {
 	}
 
 
-	showRaiting($ratingCntr, totalScore, totalQuestions){
+	showRaiting($ratingCntr, totalScore, totalQuestions, totalReviews){
+		if(totalScore !== 0){
+			$ratingCntr.removeClass("hide");
+
+		}else{
+			return;
+		}
+
 		$ratingCntr
 			.find(".yotpo-stars-rating")
 				.css({"--rating": totalScore})
 				.attr("aria-label", `Rating of ${totalScore} out of 5.`)
 					.end()
-			.find(".yotpo-reviews-num").text(totalScore)
+			.find(".yotpo-reviews-num").text(totalReviews)
 				.end()
 			.find(".yotpo-questions-num").text(totalQuestions)
 	}
@@ -580,7 +585,7 @@ TEAK.Modules.freeShipping = {
 			freeWhiteGlove = [
 			'<p class="free-shipping-text" data-pricing-free-shipping>',
 				'<a href="" class="free-shipping-text--link" data-tool-tip-open data-tool-tip-type="element" data-tool-tip-name="free_white_glove_delivery">',
-				'Free White Glove Delivery Available &nbsp;',
+				'This item qualifies for free upgraded delivery &nbsp;',
 					'<span class="toolTip__iconCntr toolTip__iconCntr--dark">',
 					'<svg class="toolTip__icon toolTip__icon--white" enable-background="new 0 0 20 20" version="1.1" viewBox="0 0 20 20" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">',
 						'<title>tool tip</title>',

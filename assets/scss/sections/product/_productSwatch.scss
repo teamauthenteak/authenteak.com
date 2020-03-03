@@ -255,6 +255,7 @@
         height: 70vh;
         overflow-x: hidden;
         overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
         margin: 0;
         border: 1px solid transparent;
         border-radius: 4px;
@@ -439,7 +440,246 @@
 
 
 
+.swatchCheckout{
+    display: flex;
+    max-width: $standard-width;
+    padding: 0 2vw;
+    flex-direction: column;
+    position: relative;
 
+    @media screen and (max-width: $screen-md) {
+        padding: 0;
+    }
+
+    &--rv{
+        float: left;
+    }
+
+    &--confirmation{
+        margin-bottom: 60px;
+    }
+
+
+    &__header{
+        width: 100%;
+        margin-bottom: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__title{
+        margin: 0;
+        line-height: 1;
+        text-align: center;
+
+        &--lg{
+            font-size: 5rem;
+        }
+
+        &--2{
+            margin-top: 15px;
+        }
+    }
+
+    &__sub{
+        @extend .swatchModal__text--highlight;
+        line-height: 1.4;
+        font-size: 1.1rem;
+        text-align: center;
+        padding: 20px;
+
+        &--noHighlight{
+            background-color: transparent;
+        }
+    }
+
+    &__cntr{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+
+        &--narrow{
+            width: 850px;
+            margin: 0 auto;
+            justify-content: center;
+
+            @media screen and (max-width: $screen-md) {
+                width: 100%;
+            }
+        }
+
+        @media screen and (max-width: $screen-md) {
+            flex-direction: column;
+        }
+    }
+
+    &__col{
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+
+        &--5-10{
+            width: 50%;
+            align-items: center;
+            align-content: center;
+            flex: 1;
+        }
+
+        &--7-10{
+            padding-left: 0;
+            width: 70%;
+            border-right: 1px solid #ccc;
+
+            @media screen and (max-width: $screen-md) {
+                width: 100%;
+                padding: 20px;
+                border: none;
+            }
+        }
+
+        &--3-10{
+            padding-right: 0;
+            width: 30%;
+
+            @media screen and (max-width: $screen-md) {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+    }
+
+    &__colImg{
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+
+    &__colTxt{
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    &__itemEmpty{
+        @extend .swatchModal__text--highlight;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__itemEmptyLink{
+        text-decoration: underline;
+    }
+
+
+    &__itemHeader{
+        width: 100%;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 8px;
+        font-size: 1.2rem;
+        line-height: 1;
+    }
+
+    &__itemList{
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__item{
+        border-bottom: 1px solid #ddd;
+        padding: 20px 0;
+        width: 100%;
+    }
+
+    &__itemImgCntr{
+        display: flex;        
+    }
+
+    &__itemImg{
+        width: 125px;
+        height: 125px;
+        border-radius: 50%;
+    }
+
+    &__itemTitle{
+        padding-left: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    &__removeItem{
+        display: block;
+        text-align: right;
+        width: 100%;
+        font-size: 0.9rem;
+        align-self: end;
+        background-color: transparent;
+        outline: none;
+
+        svg{
+            fill: #ccc;
+        }
+    }
+
+    &__productName{
+        width: 100%;
+        display: block;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 5px;
+    }
+
+    &__swatchColor{
+        width: 100%;
+        display: block;
+        line-height: 1.2;
+    }
+
+    &__form{
+        width: 100%;
+
+        input[type="text"], input[type="email"], input[type="tel"], select {
+            width: 100%;
+        }
+
+        & .form-field-short{
+            width: 50%;
+            float: left;
+            padding-right: 10px;
+
+            &:nth-last-of-type(odd){
+                padding: 0;
+            }
+        }
+    }
+
+    &__submit{
+        @extend .button;
+        @extend .button--fullWidth;
+        @extend .button-primary;
+        @extend .button-primary--green;
+        justify-content: center;
+        height: 62px;
+
+        &--progress{
+            @extend .progress;
+        }
+    }
+
+    &__submitText{
+        display: block;
+    }
+}
 
 
 

@@ -338,8 +338,6 @@ export default class ProductOptions {
 					})
 					.css({"position": "fixed"});
 			}, 100);
-				
-
 		});
 
 		this.$raqSwatches.on('click', 'li[data-request-swatch]', (e) => {
@@ -376,6 +374,11 @@ export default class ProductOptions {
 		$(document).on('modal-cart-display', closeModal);
 
 
+		$(document).on("click", ".swatchModal__reqBtn", (e) => {
+			this.submitSwatchRequest(e)
+		});
+
+
 		function closeModal(){
 			self.$raqModal.removeClass('is-open');
 			$(document.body)
@@ -404,19 +407,43 @@ export default class ProductOptions {
 		// });
 	}
 
+
+
+	submitSwatchRequest(e){
+		if(window.sessionStorage){
+			let reqeustSwatchData = $("form#productDetailsAddToCartForm1").serializeArray();
+			let requestIndex = {};
+
+			$.map(reqeustSwatchData, function(n, i){
+				requestIndex[n['name']] = n['value'].indexOf(",") > 0 ? n['value'].split(",") : n['value'];
+			});
+
+			requestIndex = JSON.stringify(requestIndex);
+
+			window.sessionStorage.setItem("TEAK_requestSWatch", requestIndex);
+
+			window.location = "/swatch-checkout";
+		}
+
+		e.preventDefault();
+	}
+
+
+
 	// Update Request-a-Swatch form and related DOM based on current selections
 	updateRequestASwatchForm() {
 		let swatches = [];
+		let swatchImage = [];
 		let productName = this.$raqModal.find('[data-product-name]').first().data('product-name');
 		let productSKU = this.$raqModal.find('[data-product-sku]').first().data('product-sku');
 
 		this.$raqSwatches.find('li.is-selected').each(function() {
-			swatches.push($(this).data('swatch-title'));
+			swatches.push( $(this).data('swatch-title') );
+			swatchImage.push( $(this).find("img").attr("src") );
 		});
 
-		this.$raqModal.find('form input[data-request-swatch-values-input]').val(
-			`${productName} SKU: ${productSKU}, ${swatches.join(',')}`
-		);
+		this.$raqModal.find('form input[data-request-swatch-values-input]').val(`${swatches.join(',')}`);
+		this.$raqModal.find('form input[name=swatch_images]').val(`${swatchImage.join(',')}`);
 
 		if (swatches.length >= 5) {
 			this.$raqSwatches.addClass('has-max-selected');
@@ -441,7 +468,6 @@ export default class ProductOptions {
 			qty: swatches.length,
 			unitPrice: "$0.00"
 		}
-
 	}
 
 	// Bind parsed label data to swatch labels

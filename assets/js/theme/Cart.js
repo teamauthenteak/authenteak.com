@@ -9,7 +9,6 @@ import Loading from 'bc-loading';
 import QuantityWidget from './components/QuantityWidget';
 import svgIcon from './global/svgIcon';
 import Personalization from './Personalization';
-
 import EditOptions from './cart/customizations/EditOptions';
 
 export default class Cart extends PageManager {
@@ -154,33 +153,14 @@ export default class Cart extends PageManager {
 
 		if (recentProducts) {
 			recentProducts.forEach((element) => {
-				let tpl = buildViewedSlider(element);
+				let tpl = this.recentlyViewed.buildViewedSlider(element);
 				$(tpl).appendTo(".product-grid", $rv);
 			});
 
 			$rv.addClass("show");
 		}
 
-		function buildViewedSlider(product) {
-			return `<a href="${product.url}" title="${product.title}" class="product-grid-item product-block" data-product-title="${product.title}" data-product-id="${product.product_id}">
-						<figure class="product-item-thumbnail">
-							<div class="replaced-image lazy-loaded" style="background-image:url(${product.image})">
-							<img class="lazy-image lazy-loaded" src="${product.image}" alt="You viewed ${product.title}">
-							</div>
-						</figure>
-						
-						<div class="product-item-details product-item-details--review">
-							<h5 class="product-item-title">${product.title}</h5>
-						</div>
-			
-						<div class="yotpo-rv-wrapper">
-							<span class="yotpo-stars-rating" style="--rating: ${product.rating};" aria-label="Rating of ${product.rating} out of 5."></span>
-							(<span class="yotpo-reviews-num">${product.rating}</span>)
-						</div>
-					</a>`;
-		}
-
-  		this.initRVSlider();
+  	this.initRVSlider();
 	}
 
 

@@ -110,11 +110,11 @@ export default class Blog extends PageManager {
         }
 
         $(this.postTopicMeta)
-            .html(` &mdash; Topic: ${filterTag}, ${filteredPosts.length} Posts`)
-            .toggleClass("hide", !hasPosts);
+            .html(`Topic: ${filterTag}, ${filteredPosts.length} ${filteredPosts.length === 1 ? 'Post' : 'Posts'}`)
+            .parent(".blog__postTopicMeta").toggleClass("hide", !hasPosts);
         
         $(this.noPostsCntr).toggleClass("hide", hasPosts);
-        $(this.morePostsBtn).addClass("hide");
+        $(this.morePostsBtn).parent(".blog__loadMoreCntr").toggleClass("hide", hasPosts);
     }
 
 
@@ -122,6 +122,35 @@ export default class Blog extends PageManager {
     toggleFilterMenu(e){
         let $this = $(e.currentTarget);
         $this.parent(".filter__heading").toggleClass("filter__heading--open");
+    }
+
+
+
+
+    clearFilter(e){
+        let $this = $(e.currentTarget);
+
+        this.blogPostCntr.innerHTML = "";
+
+        this.blogData.posts.forEach( (element) => {
+            let tpl = this.blogPod(element);
+            $(tpl).appendTo(this.blogPostCntr);
+        });
+
+        $this.parent(".blog__postTopicMeta").addClass("hide");
+
+        $(this.morePostsBtn).parent(".blog__loadMoreCntr").removeClass("hide");
+        this.initMoreButton(e);
+
+        if( window.TEAK.Utils.isHandheld ){
+            $(".filter__headingControl").click();
+        }
+
+        $(this.blogFilter)
+            .find(".filter__controlLabel--active").removeClass("filter__controlLabel--active")
+            .find("input:checked").prop("checked", false);
+
+        e.preventDefault();
     }
 
 
@@ -142,6 +171,11 @@ export default class Blog extends PageManager {
                 e.preventDefault();
             });
 
+
+        $(document)
+            .on("click", ".blog__clearFilter", (e) => {
+                this.clearFilter(e);
+            });
 
     }
 }
