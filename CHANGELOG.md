@@ -1,5 +1,7 @@
 # Change Log
 
+## [1.20.21]
+
 ## [1.20.20]
 - New product swatch order checkout flow
 - order total snapshot
