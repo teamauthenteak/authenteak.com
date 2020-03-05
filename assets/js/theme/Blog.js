@@ -8,7 +8,6 @@ export default class Blog extends PageManager {
         this.blogData = JSON.parse(document.getElementById("blogPostData").innerHTML);
 
         this.blogFilter = document.getElementById("blogFilter");
-        
         this.blogPostCntr = document.getElementById("blogPostCntr");
         this.morePostsBtn = document.getElementById("morePostsBtn");
         this.noPostsCntr = document.getElementById("noPosts");
@@ -71,8 +70,6 @@ export default class Blog extends PageManager {
 
 
 
-
-
     // on click of top radio filters create our filter model
     initPostFilters(e){
         let filterTag = e.currentTarget.value,
@@ -90,17 +87,37 @@ export default class Blog extends PageManager {
     }
 
 
+
+    // handles the UI for label clicked based toggle
+    toggleFilter(e){
+        let $this = $(e.currentTarget),
+            $thisParent = $($this).parents("label.filter__controlLabel"),
+            isActive = $thisParent.hasClass("filter__controlLabel--active");
+
+        $(this.blogFilter).find(".filter__controlLabel--active").removeClass("filter__controlLabel--active");
+        $thisParent.toggleClass("filter__controlLabel--active", !isActive);
+
+        // label + input race
+        setTimeout(()=>{
+            $this.prop("checked", !isActive);
+        }, 1);
+        
+
+        if(isActive){
+            this.clearFilter(e);
+
+        }else{
+            this.initPostFilters(e);
+        }
+    }
+
+
+
     // build out the filtered pods UI
     buildFilteredPods(filteredPosts, filterTag){
         let hasPosts = filteredPosts.length > 0;
 
         this.blogPostCntr.innerHTML = "";
-
-        $(this.blogFilter)
-            .find(".filter__controlLabel--active").removeClass("filter__controlLabel--active")
-                .end()
-            .find("input[value="+ filterTag +"]").parent(".filter__controlLabel").addClass("filter__controlLabel--active");
-
 
         if( hasPosts ){
             filteredPosts.forEach( (element) => {
@@ -128,8 +145,6 @@ export default class Blog extends PageManager {
 
 
     clearFilter(e){
-        let $this = $(e.currentTarget);
-
         this.blogPostCntr.innerHTML = "";
 
         this.blogData.posts.forEach( (element) => {
@@ -137,7 +152,7 @@ export default class Blog extends PageManager {
             $(tpl).appendTo(this.blogPostCntr);
         });
 
-        $this.parent(".blog__postTopicMeta").addClass("hide");
+       $(".blog__postTopicMeta").addClass("hide");
 
         $(this.morePostsBtn).parent(".blog__loadMoreCntr").removeClass("hide");
         this.initMoreButton(e);
@@ -163,8 +178,9 @@ export default class Blog extends PageManager {
         });
 
         $(this.blogFilter)
-            .on("change", ".filter__controlInput", (e) => {
-                this.initPostFilters(e);
+            .on("click", ".filter__controlInput", (e) => {
+                e.preventDefault();
+                this.toggleFilter(e);
             })
             .on("click", ".filter__headingControl", (e) => {
                 if( window.TEAK.Utils.isHandheld ){ this.toggleFilterMenu(e); }

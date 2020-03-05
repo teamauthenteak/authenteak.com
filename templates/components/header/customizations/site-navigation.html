@@ -30,3 +30,9 @@
 		{{/if}}
 	</ul>
 </nav>
+
+<script type="application/ld+json" id="megaNavJSON">
+[{{#forEach categories}}
+{"id": "category_{{id}}", "categoryName": "{{name}}"}{{#unless isLast}}, {{/unless}} {{/forEach}}
+]
+</script>

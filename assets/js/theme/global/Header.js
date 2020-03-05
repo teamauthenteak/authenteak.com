@@ -332,7 +332,7 @@ export default class Header {
 
 TEAK.Modules.megaMenu = {
 
-    data: TEAK.Utils.getMenuJSON(),
+	data: TEAK.Utils.getMenuJSON(),
 
     init: function(id){
         this
@@ -620,3 +620,18 @@ TEAK.Modules.megaMenu = {
 
 
 };
+
+
+document.addEventListener('DOMContentLoaded', function(){
+	try{
+		let megaJSON = document.getElementById("megaNavJSON").innerHTML;
+		megaJSON = JSON.parse(megaJSON);
+
+		megaJSON.forEach(function(element){
+			if(element.id !== "category_2425" && element.id !== "category_2299"){
+				TEAK.Modules.megaMenu.init(element.id);
+			}
+		});
+
+	}catch(e){}
+});

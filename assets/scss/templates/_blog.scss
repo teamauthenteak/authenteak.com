@@ -8,10 +8,6 @@
     @extend %span;
     @extend .no-pad;
 
-    a{
-        display: block;
-    }
-
     p a{
         display: unset !important;
     }

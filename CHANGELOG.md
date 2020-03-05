@@ -1,6 +1,9 @@
 # Change Log
 
 ## [1.20.21]
+- refactored header mega nav to JSON from inline JS for performance
+- added ability to clear blog on click/toggle-off of the active filter
+- Added tool tip for next bussiness day lead time field
 
 ## [1.20.20]
 - New product swatch order checkout flow
