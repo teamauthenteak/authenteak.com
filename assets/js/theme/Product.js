@@ -237,7 +237,9 @@ export default class Product extends PageManager {
 					let totalScore = dataObj.response.bottomline.average_score;
 
 					totalScore = (totalScore === 0) ? 0 : totalScore.toFixed(1);
-					productInfo.rating = totalScore;
+
+					productInfo["rating"] = totalScore;
+					productInfo["total_review"] = dataObj.response.bottomline.total_review;
 
 					this.recentlyViewed.saveViewed(productInfo);
 				

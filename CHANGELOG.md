@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.20.20.002]
+- fixed yotpo https error
+- fixed width issue on swatch checkout
+- removed legacy localstorage RV for TEAK namesspaced object
+- initalize slider in page.js only if the rv is avalaible
+- added the total_review field durring udpate/save and when the product object is fetched in product.js
+
 ## [1.20.20]
 - New product swatch order checkout flow
 - order total snapshot
