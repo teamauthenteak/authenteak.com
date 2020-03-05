@@ -18,7 +18,7 @@ export default class Personalization extends PageManager {
 
         this.yotpoKey = "aS8rMIONwGgNbx1ATQmUtKY173Xk5HHc75qGrnuq";
 
-        this.yotpoBatchUrl = "http://staticw2.yotpo.com/batch?";
+        this.yotpoBatchUrl = "https://staticw2.yotpo.com/batch?";
         this.yotpoReviewsUrl = "https://api.yotpo.com/v1/widget";
         this.yotpoQuestionsUrl = "https://api.yotpo.com/products";
 
@@ -49,8 +49,8 @@ export default class Personalization extends PageManager {
                     
                     // update the saved array with the new rating from yotpo
                     this.savedProducts.forEach((element, i) => {
-                        element.rating = data[i].result.average_score;
-                        element.total_review = data[i].result.total;
+                        element["rating"] = data[i].result.average_score;
+                        element["total_review"] = data[i].result.total;
                     });
 
                     this.finishSaving(product);
@@ -74,14 +74,13 @@ export default class Personalization extends PageManager {
                 this.savedProducts.unshift(product);
             }
 
-
             // if its more than the limit we take off the last one saved
             if( this.savedProducts.length > this.savedLimit ){
                 this.savedProducts.pop();
             }
 
             this.savedProducts = JSON.stringify(this.savedProducts);
-            window.localStorage.setItem(this.type, this.savedProducts);
+            window.localStorage.setItem("TEAK_"+this.type, this.savedProducts);
 
         }catch(err){
             console.log(err)
@@ -122,8 +121,18 @@ export default class Personalization extends PageManager {
     // fetch recently viewed from local storage
     getViewed(){
         if( window.localStorage ){
-            let saved = window.localStorage.getItem(this.type);
-            saved = JSON.parse(saved);
+            let saved = window.localStorage.getItem("TEAK_"+this.type);
+
+            // legacy ~ remove eveuntually
+            if(!saved){
+                saved = window.localStorage.getItem(this.type);
+                window.localStorage.removeItem(this.type);
+            }
+            
+            try{
+                saved = JSON.parse(saved);
+            }catch(e){}
+           
             return saved;
         }
     }
@@ -183,7 +192,7 @@ export default class Personalization extends PageManager {
      * @param {*} product product object from parsed storage
      */
     buildViewedSlider(product){
-        product.total_review = typeof product.total_review === "undefined" ? 0 : product.total_review;
+        product["total_review"] = (typeof product.total_review === "number") ? product["total_review"] : 0;
 
         return `<a href="${product.url}" title="${product.title}" class="product-grid-item product-recomendation-pod product-block" data-product-title="${product.title}" data-product-id="${product.product_id}">
                     <figure class="product-item-thumbnail">

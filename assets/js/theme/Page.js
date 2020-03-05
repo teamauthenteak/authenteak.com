@@ -70,10 +70,10 @@ export default class Page extends PageManager {
 				$(tpl).appendTo(".product-grid", $rv);
 			});
 
-			$rv.addClass("show");
+            $rv.addClass("show");
+            
+            this.initRVSlider();
 		}
-
-  		this.initRVSlider();
 	}
 
 

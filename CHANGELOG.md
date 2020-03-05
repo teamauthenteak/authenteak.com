@@ -1,9 +1,17 @@
 # Change Log
 
+
 ## [1.20.21]
 - refactored header mega nav to JSON from inline JS for performance
 - added ability to clear blog on click/toggle-off of the active filter
 - Added tool tip for next bussiness day lead time field
+
+## [1.20.20.002]
+- fixed yotpo https error
+- fixed width issue on swatch checkout
+- removed legacy localstorage RV for TEAK namesspaced object
+- initalize slider in page.js only if the rv is avalaible
+- added the total_review field durring udpate/save and when the product object is fetched in product.js
 
 ## [1.20.20]
 - New product swatch order checkout flow
