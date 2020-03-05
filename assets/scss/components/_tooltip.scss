@@ -80,7 +80,7 @@
 
     &__cntr{
         left: 50%;
-        top: 5vw;
+        top: 50%;
         position: fixed;
         width: 75vw;
         max-height: 600px;
@@ -133,4 +133,18 @@
             top: 6px;
         }
     }
+
+    // Tool Tip Tabs
+
+    &__tab{
+        position: relative;
+        clear: both;
+        height: 100%;
+    }
+
+    &__tabControl{
+        display: none;
+    }
+
+
 }

@@ -558,7 +558,7 @@ export default class Product extends PageManager {
 TEAK.Modules.leadTime = {
 	setTip: function(element){
 		let tpl = [
-			'<a href="" class="shpping-range--tipLink" data-tool-tip-open data-tool-tip-type="element" data-tool-tip-name="next_bussiness_day">',
+			'<a href="" class="shpping-range--tipLink" data-tool-tip-open data-tool-tip-type="element" data-tool-tip-name="next_bussiness_day" data-tool-tip-id="next_bussiness_day">',
 				'<span class="toolTip__iconCntr toolTip__iconCntr--dark">',
 					'<svg class="toolTip__icon toolTip__icon--white" enable-background="new 0 0 20 20" version="1.1" viewBox="0 0 20 20" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">',
 						'<title>tool tip</title>',
@@ -603,7 +603,7 @@ TEAK.Modules.freeShipping = {
 			
 			freeWhiteGlove = [
 			'<p class="free-shipping-text" data-pricing-free-shipping>',
-				'<a href="" class="free-shipping-text--link" data-tool-tip-open data-tool-tip-type="element" data-tool-tip-name="free_white_glove_delivery">',
+				'<a href="" class="free-shipping-text--link" data-tool-tip-open data-tool-tip-type="element" data-tool-tip-name="free_white_glove_delivery, threshold_delivery" data-tool-tip-id="free_delivery">',
 				'This item qualifies for free upgraded delivery &nbsp;',
 					'<span class="toolTip__iconCntr toolTip__iconCntr--dark">',
 					'<svg class="toolTip__icon toolTip__icon--white" enable-background="new 0 0 20 20" version="1.1" viewBox="0 0 20 20" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">',
@@ -612,7 +612,18 @@ TEAK.Modules.freeShipping = {
 					'</svg>',
 					'</span>',
 				'</a>',
-				'<span class="toolTip__cntr hide" id="free_white_glove_delivery"></span>',
+				'<div class="toolTip__cntr toolTip__tabsCntr hide" id="free_delivery">',
+					'<div class="toolTip__tab">',
+						'<input type="radio" class="toolTip__tabControl" id="toolTipTab_1" name="toolTipTabs" checked>',
+						'<label for="toolTipTab_1" class="toolTip__tabLabel">White Glove Delivery</label>',
+						'<div class="toolTip__tabContent" id="free_white_glove_delivery"></div>',
+					'</div>',
+					'<div class="toolTip__tab">',
+						'<input type="radio" id="toolTipTab_2" class="toolTip__tabControl" name="toolTipTabs">',
+						'<label for="toolTipTab_2" class="toolTip__tabLabel">Threshold Delivery</label>',
+						'<div class="toolTip__tabContent" id="threshold_delivery"></div>',
+					'</div>',
+				'</div>',
 			'</p>'].join(""),
 
 			tpl = ( (args.price.without_tax > 2998 || args.price.custom > 2998) && !isExcluded ) ? freeWhiteGlove : freeShipping;
@@ -627,27 +638,45 @@ TEAK.Modules.freeShipping = {
 
 /**
  * Tool Tips
- * -------------------------
+ * Auto runs for every product page
+ * ---------------------------------------
+ * 
  * Data: 
  * 	Stored in product.json or in the script manager
  * 
- * HTML:
- *  <div class="toolTip__cntr hide" id="CustomTriggerFieldName"></div>
+ * Basic HTML:
+ *  <div class="toolTip__cntr hide" id="<TRIGGER ID>"></div>
+ * 
+ * Basic Tip
+ * Link rel=""	genericly associated key and ID to open a tip
  * 
  * Trigers: 
- * 	Open tip: "tool-tip-open"
- * 	Close tip; "tool-tip-cose"
+ * 	Open tip: 	data-tool-tip-open
+ * 	Close tip: 	data-tool-tip-cose
  * 
- * Product Swatch Tool Tips: 
- * 	Auto runs for every product page
+ * Custom Tip Settings: Use these to fine tune a tip
+ * Type:		data-tool-tip-type="" 	// element or brand
+ * Name:		data-tool-tip-name=""	// Key in the Product JSON object to pull from. can be comma sepearted to pull multipule
+ * Id:			data-tool-tip-id=""		// Targets the element ID to open and close
  * 
- * Custom Tool Tips:
- * 	data-tool-tip-type = element / brand (only for swatches)
+ * 	
+ * Adding Tabs to Tool Tips
+ * -----------------------------------
+ * HTML Markup:
  * 
- * 	data-tool-tip-name = 
- * 		- The ID of your tool tip contaner to target. 
- * 		- Also acts as the rel of the element. 
- * 		- Should match the JSON field for the tip data 
+	<div class="toolTip__cntr toolTip__tabsCntr hide" id="<TRIGGER ID>">
+		<div class="toolTip__tab">
+			<input type="radio" id="toolTipTab_1" name="toolTipTabs" checked>
+			<label for="toolTipTab_1"></label>
+			<div class="toolTip__tabContent" id="<JSON CONTENT KEY: DATA-TT-NAME>"></div>
+		</div>
+		<div class="toolTip__tab">
+			<input type="radio" id="toolTipTab_2" name="toolTipTabs">
+			<label for="toolTipTab_2"></label>
+			<div class="toolTip__tabContent" id="<JSON CONTENT KEY: DATA-TT-NAME>"></div>
+		</div>
+	</div>
+ * 
  * 
  */
 
@@ -668,7 +697,8 @@ TEAK.Modules.toolTip = {
 	init: function (arg) {
 		if( !this.data ){ return; }
 
-		this.name = arg.name;
+		this.key = arg.key;
+		this.id = arg.id;
 
 		switch(arg.type){
 			case "brand": this.brandTip();
@@ -683,10 +713,11 @@ TEAK.Modules.toolTip = {
 	},
 
 
-	brandTip: function(){
-		if( !this.data["tool-tips"].brands.hasOwnProperty(this.name) ){ return; }
 
-		this.brandObj = this.data["tool-tips"].brands[this.name];
+	brandTip: function(){
+		if( !this.data["tool-tips"].brands.hasOwnProperty(this.key) ){ return; }
+
+		this.brandObj = this.data["tool-tips"].brands[this.key];
 		this.optionKeys = Object.keys(this.brandObj);
 
 		this.optionKeys.forEach((element, i) => {
@@ -694,11 +725,12 @@ TEAK.Modules.toolTip = {
 
 			$optionSelector
 				.find(".toolTip__cntr")
-					.append(this.closeBtn)
 					.append(this.brandObj[element].tip)
 						.end()
 				.addClass("show");
 		});
+console.log(this.id)
+		$("#"+this.id).append(this.closeBtn);
 
 		return this;
 	},
@@ -706,45 +738,59 @@ TEAK.Modules.toolTip = {
 
 	// build custom element modal
 	elementTip: function(){
-		if( !this.data["tool-tips"].elements.hasOwnProperty(this.name) ){ return; }
+		let keys = this.key.replace(/ /g,'').split(",");
 
-		this.elementObj = this.data["tool-tips"].elements;
-		$("#" + this.name).html(this.closeBtn + this.elementObj[this.name].join("") );
+		keys.forEach((ele) => {
+			if( this.data["tool-tips"].elements.hasOwnProperty(ele) ){ 
+				this.elementObj = this.data["tool-tips"].elements;
+				$("#" + ele).html(this.closeBtn + this.elementObj[ele].join("") );
+			}
+		});
+
+		// if( !this.data["tool-tips"].elements.hasOwnProperty(this.key) ){ return; }
+
+		// this.elementObj = this.data["tool-tips"].elements;
+		// $("#" + this.id).html(this.closeBtn + this.elementObj[this.key].join("") );
 
 		return this;
 	},
+
 
 
 	// open 
 	openTipModal: function(e){
 		let tipData = $(this).data();
 
+		e.preventDefault();
+
 		if( tipData.hasOwnProperty("toolTipType") ){
 			TEAK.Modules.toolTip.init({
 				type: tipData.toolTipType,
-				name: tipData.toolTipName
+				key: tipData.toolTipName,
+				id: tipData.toolTipId
 			});
 		}
 
-		TEAK.Modules.toolTip.activeModal = tipData.hasOwnProperty("toolTipName")  ? tipData.toolTipName : $(this).attr("rel");
+		TEAK.Modules.toolTip.activeModal = tipData.hasOwnProperty("toolTipId")  ? tipData.toolTipId : $(this).attr("rel");
 
-		$("#"+ TEAK.Modules.toolTip.activeModal).removeClass("hide");
-		e.preventDefault();
+		let $activeModal = $("#"+ TEAK.Modules.toolTip.activeModal);
+
+		$activeModal.removeClass("hide");
+
+		let modalHeight = $activeModal.outerHeight();
+
+		$activeModal.css({
+			height: modalHeight,
+			marginTop: -(modalHeight/2)
+		});
 	},
 
-
-	// openGenericModal: function(e){
-	// 	TEAK.Modules.toolTip.activeModal = $(this).attr("rel");
-
-	// 	$("#"+ TEAK.Modules.toolTip.activeModal).removeClass("hide");
-	// 	e.preventDefault();
-	// },
 
 
 	// close
 	closeTipModal: function(e){
 		if ( TEAK.Modules.toolTip.activeModal !== "" ){
-			$("#"+ TEAK.Modules.toolTip.activeModal).addClass("hide")
+			$("#"+ TEAK.Modules.toolTip.activeModal).addClass("hide");
 			TEAK.Modules.toolTip.activeModal = "";
 		}
 
@@ -777,7 +823,6 @@ TEAK.Modules.toolTip = {
 		$(document.body)
 			.on("click", this.checkClickToCloseModal)
 			.on("keydown", this.checkKeyToCloseModal)
-			// .on("click", "[data-generic-tt-modal]", this.openGenericModal)
 			.on("click", "[data-tool-tip-open]", this.openTipModal)
 			.on("click", "[data-tool-tip-close]", this.closeTipModal);
 

@@ -51,6 +51,10 @@
                 "<p class='toolTip__text'>For all White Glove Deliveries, you MUST inspect the product and any packaging you see at the time of delivery. If there is any damage to either the product or the package, or if there is any reason for you to be at all concerned about damage, please reference it clearly on the PROOF OF DELIVERY sheet that they ask you to sign. This simply insures that if there is any damage, it will be easy to take care of the problem.</p>",
                 "<p class='toolTip__text'>Please refer to <strong><a href='/shipping#rec' target='_blank'>Receiving and Inspecting Merchandise</a></strong> for more information on how to receive and inspect your delivery.</p>"
             ],
+            "threshold_delivery": [
+                "<h2 class='toolTip__heading--2'>Next Bussiness Day Delivery</h2>",
+                "<p class='toolTip__text'>White Glove Delivery by AuthenTEAK is an elevated level of delivery service that includes the delivery by scheduled appointment, product assembly, product set-up/placement and carton/packaging removal.</p>"
+            ],
             "next_bussiness_day": [
                 "<h2 class='toolTip__heading--2'>Next Bussiness Day Delivery</h2>",
                 "<p class='toolTip__text'>Transit time is determined by shipping method and destination. Orders placed by 12pm ET may be shipped same day. Orders placed after 2pm ET will be processed the next business day.</p>"
