@@ -183,6 +183,8 @@ export default class Personalization extends PageManager {
      * @param {*} product product object from parsed storage
      */
     buildViewedSlider(product){
+        product.total_review = typeof product.total_review === "undefined" ? 0 : product.total_review;
+
         return `<a href="${product.url}" title="${product.title}" class="product-grid-item product-recomendation-pod product-block" data-product-title="${product.title}" data-product-id="${product.product_id}">
                     <figure class="product-item-thumbnail">
                         <div class="replaced-image lazy-loaded" style="background-image:url(${product.image})">
