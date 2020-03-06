@@ -454,8 +454,9 @@ export default class Product extends PageManager {
 				tabs.forEach( function(element) {
 					if (element.type !== null && document.getElementById(element.id).innerHTML.trim() !== "") {
 						let cln = element.type.cloneNode(true);
-			
+
 						tabClone.querySelector('#' + element.id).parentNode.removeChild(tabClone.querySelector('#' + element.id))
+						
 						tabContentEl.appendChild(element.type);
 						element.mobileObj.appendChild(cln);
 			
