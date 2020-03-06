@@ -614,16 +614,18 @@ TEAK.Modules.freeShipping = {
 					'</svg>',
 					'</span>',
 				'</a>',
-				'<div class="toolTip__cntr toolTip__tabsCntr hide" id="free_delivery">',
-					'<div class="toolTip__tab">',
-						'<input type="radio" class="toolTip__tabControl" id="toolTipTab_1" name="toolTipTabs" checked>',
-						'<label for="toolTipTab_1" class="toolTip__tabLabel">White Glove Delivery</label>',
-						'<div class="toolTip__tabContent" id="free_white_glove_delivery"></div>',
-					'</div>',
-					'<div class="toolTip__tab">',
-						'<input type="radio" id="toolTipTab_2" class="toolTip__tabControl" name="toolTipTabs">',
-						'<label for="toolTipTab_2" class="toolTip__tabLabel">Threshold Delivery</label>',
-						'<div class="toolTip__tabContent" id="threshold_delivery"></div>',
+				'<div class="toolTip__cntr toolTip__cntr--withTabs hide" id="free_delivery">',
+					'<div class="toolTip__tabsCntr">',
+						'<div class="toolTip__tab">',
+							'<input type="radio" class="toolTip__tabControl" id="toolTipTab_1" name="toolTipTabs" checked>',
+							'<label for="toolTipTab_1" class="toolTip__tabLabel">White Glove Delivery</label>',
+							'<div class="toolTip__tabContent" id="free_white_glove_delivery"></div>',
+						'</div>',
+						'<div class="toolTip__tab">',
+							'<input type="radio" id="toolTipTab_2" class="toolTip__tabControl" name="toolTipTabs">',
+							'<label for="toolTipTab_2" class="toolTip__tabLabel">Threshold Delivery</label>',
+							'<div class="toolTip__tabContent" id="threshold_delivery"></div>',
+						'</div>',
 					'</div>',
 				'</div>',
 			'</p>'].join(""),
@@ -666,16 +668,18 @@ TEAK.Modules.freeShipping = {
  * -----------------------------------
  * HTML Markup:
  * 
-	<div class="toolTip__cntr toolTip__tabsCntr hide" id="<TRIGGER ID>">
-		<div class="toolTip__tab">
-			<input type="radio" id="toolTipTab_1" name="toolTipTabs" checked>
-			<label for="toolTipTab_1"></label>
-			<div class="toolTip__tabContent" id="<JSON CONTENT KEY: DATA-TT-NAME>"></div>
-		</div>
-		<div class="toolTip__tab">
-			<input type="radio" id="toolTipTab_2" name="toolTipTabs">
-			<label for="toolTipTab_2"></label>
-			<div class="toolTip__tabContent" id="<JSON CONTENT KEY: DATA-TT-NAME>"></div>
+	<div class="toolTip__cntr toolTip__cntr--withTabs hide" id="<TRIGGER ID>">
+		<div class="toolTip__tabsCntr">
+			<div class="toolTip__tab">
+				<input type="radio" id="toolTipTab_1" class="toolTip__tabControl" name="toolTipTabs" checked>
+				<label for="toolTipTab_1" class="toolTip__tabLabel"></label>
+				<div class="toolTip__tabContent" id="<JSON CONTENT KEY: DATA-TT-NAME>"></div>
+			</div>
+			<div class="toolTip__tab">
+				<input type="radio" id="toolTipTab_2" class="toolTip__tabControl" name="toolTipTabs">
+				<label for="toolTipTab_2" class="toolTip__tabLabel"></label>
+				<div class="toolTip__tabContent" id="<JSON CONTENT KEY: DATA-TT-NAME>"></div>
+			</div>
 		</div>
 	</div>
  * 
@@ -731,7 +735,7 @@ TEAK.Modules.toolTip = {
 						.end()
 				.addClass("show");
 		});
-console.log(this.id)
+
 		$("#"+this.id).append(this.closeBtn);
 
 		return this;
@@ -745,14 +749,11 @@ console.log(this.id)
 		keys.forEach((ele) => {
 			if( this.data["tool-tips"].elements.hasOwnProperty(ele) ){ 
 				this.elementObj = this.data["tool-tips"].elements;
-				$("#" + ele).html(this.closeBtn + this.elementObj[ele].join("") );
+				$("#" + ele).html(this.elementObj[ele].join("") );
 			}
 		});
 
-		// if( !this.data["tool-tips"].elements.hasOwnProperty(this.key) ){ return; }
-
-		// this.elementObj = this.data["tool-tips"].elements;
-		// $("#" + this.id).html(this.closeBtn + this.elementObj[this.key].join("") );
+		$("#"+this.id).append(this.closeBtn);
 
 		return this;
 	},

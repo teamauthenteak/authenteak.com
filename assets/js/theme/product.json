@@ -52,7 +52,7 @@
                 "<p class='toolTip__text'>Please refer to <strong><a href='/shipping#rec' target='_blank'>Receiving and Inspecting Merchandise</a></strong> for more information on how to receive and inspect your delivery.</p>"
             ],
             "threshold_delivery": [
-                "<h2 class='toolTip__heading--2'>Next Bussiness Day Delivery</h2>",
+                "<h2 class='toolTip__heading--2'>Threshold Delivery</h2>",
                 "<p class='toolTip__text'>White Glove Delivery by AuthenTEAK is an elevated level of delivery service that includes the delivery by scheduled appointment, product assembly, product set-up/placement and carton/packaging removal.</p>"
             ],
             "next_bussiness_day": [
