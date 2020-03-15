@@ -6,10 +6,11 @@
   data-shopping-cart-id="BigCommerce">
 </script>
 
-
+{{#if customer.customer_group_id '!=' '1' }}
 <div class="cart-totals-column cart-totals-column--coupon">
   {{> components/cart/coupon-codes}}
 </div>
+{{/if}}
 
 
 <div class="cart-totals-column cart-totals-column--last">
@@ -21,7 +22,7 @@
   {{#each cart.taxes}}
     <div class="cart-totals-item">
       <span class="cart-total-label">{{name}}:</span>
-      <span class="cart-total-item">{{cost.formatted}}</span>
+      <span class="cart-total-item" data-tax="{{cost.value}}" id="cartTax">{{cost.formatted}}</span>
     </div>
   {{/each}}
 
@@ -30,6 +31,7 @@
       <span class="cart-total-item cart-total-item--discount"></span>
     </div>
 
+  {{#if customer.customer_group_id '!=' '1' }}
   {{#if cart.coupons}}
     <div class="cart-totals-item">
       <span class="cart-total-label">
@@ -48,6 +50,7 @@
       </ul>
     </div>
   {{/if}}
+  {{/if}}
 
   {{!-- > components/cart/shipping-calculator cart.shipping_handling --}}
   {{#if settings.gift_certificates_enabled}}
@@ -61,11 +64,13 @@
     </div>
   {{/if}}
 
+
+
+
+{{#if customer.customer_group_id '!=' '1' }}
   <div class="cart-totals-item">
     <span class="cart-total-label">{{lang 'cart.shipping'}}</span>
-    <span class="cart-total-item">
-      $0.00
-    </span>
+    <span class="cart-total-item">$0.00</span>
   </div>
 
   <div class="cart-grand-total cart-totals-item">
@@ -74,6 +79,60 @@
       {{cart.grand_total.formatted}}
     </span>
   </div>
+{{/if}}
+
+
+
+{{#if customer.customer_group_id '==' '1' }}
+
+  {{#partial "tradeShippingPrice"}}
+    {{#if cart.sub_total.value '<' '3000' }}
+        {{ trim (toFixed (multiply cart.sub_total.value '0.10') 2) }}
+    {{/if}}
+
+    {{#if cart.sub_total.value '>' '3000' }}
+      {{#if cart.sub_total.value '<' '6000' }}
+          {{ trim (toFixed (multiply cart.sub_total.value '0.08') 2) }}
+      {{/if}}
+    {{/if}}
+
+    {{#if cart.sub_total.value '>' '6001' }}
+        {{ trim (toFixed (multiply cart.sub_total.value '0.05') 2) }}
+    {{/if}}
+  {{/partial}}
+
+  <div class="cart-totals-item">
+    <span class="cart-total-label">{{lang 'cart.shipping'}}</span>
+    <span class="cart-total-item">
+      ${{> 'tradeShippingPrice' }}
+    </span>
+  </div>
+
+  <div class="cart-grand-total cart-totals-item">
+    <span class="cart-total-label">{{lang 'cart.grand_total'}}</span>
+    <span class="cart-total-item grand-total" id="grandTotal" data-total="{{> 'tradeShippingPrice' }}">
+      <script>
+        (function(document){
+          let grandTotal =  document.getElementById("grandTotal"),
+              shippingTotal = grandTotal ? parseFloat(grandTotal.dataset.total.trim()) : 0,
+              subTotal = parseFloat("{{cart.sub_total.value}}"),
+              tax = document.getElementById("cartTax") ? parseFloat(document.getElementById("cartTax").dataset.tax.trim()) : 0,
+              total = shippingTotal + subTotal + tax;
+              
+          grandTotal.innerHTML = total.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            });
+        }(document));
+      </script>
+    </span>
+
+
+  </div>
+
+{{/if}}
+
+  
   <div class="cart-actions">
     <!-- <a class="button button-secondary button-wide" href="{{urls.home}}">
       {{lang 'cart.keep_shopping'}}

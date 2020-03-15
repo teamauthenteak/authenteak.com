@@ -1,10 +1,27 @@
 # Change Log
 
+## [1.20.21.002]
+- fix to allow the tab tool tip to close when the user clicks off tool top or hit esc key
+- fixed Question(s) logic for PDP yotpo product qeustions
+- Update check-out to checkout on first step of swatch request funnel
+
+## [1.20.21.001]
+- adding heap script to order confirmation and checkout pages
+- added tax to cart page for trade users
+- update swatch checkout verbage
 
 ## [1.20.21]
 - refactored header mega nav to JSON from inline JS for performance
 - added ability to clear blog on click/toggle-off of the active filter
 - Added tool tip for next bussiness day lead time field
+- Created new PDP Tabs Module and moved the code out of Product.js
+- added custom content feature for when a field no assumebly is present it adds content to shipping or any tab
+- added Tab JSON to product-single-details page from product.js to get template logic
+- added Tool Tip Tab ability
+- Trade Conditions to show/hide features
+- Trade condition in cart for % shipping
+- fixed issue where only one video shows in the top PDP page while there are multiple videos
+- Added top PDP arrows back to product thumbnails
 
 ## [1.20.20.002]
 - fixed yotpo https error

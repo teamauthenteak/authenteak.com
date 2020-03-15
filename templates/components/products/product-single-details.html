@@ -20,6 +20,7 @@
     </div>
     {{/unless}}
 
+  <div class="product-details-wrapper">
     <div class="product-details-column">
       <h2 class="product-title mobileShow">{{this.product.title}}</h2>
       <div class="mobileShow">
@@ -73,7 +74,7 @@
             <span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of 0 out of 5."></span>
             (<span class="yotpo-reviews-num">0</span>)
             <span class="yotpo-questions">
-              <span class="yotpo-questions-num">0</span> Questions
+              <span class="yotpo-questions-num">0</span><span class="yotpo-questions-text"></span></span>
             </span>
           </a>
         </div>
@@ -154,6 +155,9 @@
       {{/each}}
 
 
+
+
+
       {{#if theme_settings.product-single-display-order '===' 'product-description-first'}}
         <ul class="highlight-group">
           {{#each product.custom_fields}}
@@ -181,13 +185,15 @@
         <a class="quick-shop-details-lower link" href="{{this.product.url}}">{{lang 'product.view_full_details'}}</a>
       {{/if}}
     </div>
-
+  </div><!-- / product-details wrapper -->
     {{{snippet 'product_details'}}}
 
   </div>
   <div class="pdp-shadow">
     <div class="tmp-prod-details">
       {{{product.description}}}
+
+
       <div id="warrantyTab">
           {{{product.warranty}}}
       </div>
@@ -217,8 +223,10 @@
     </div>
   </div>
 
+
+
   <div class="tab-wrapper">
-      <div class="tab-header">
+      <div class="tab-header" id="tabHeader">
         <ul>
           <li class="active"><a data-tabval="descTab" class="descBtn">Description</a></li>
           <li><a data-tabval="specsTab" class="specsBtn">Specifications</a></li>
@@ -230,10 +238,10 @@
           <li><a data-tabval="returnTab" class="returnTab">Return Policy</a></li>
         </ul>
       </div>
-      <div class="tab-content"></div>
+      <div class="tab-content" id="tabContent"></div>
   </div>
 
-  <div class="mobile-tab-wrapper">
+  <div class="mobile-tab-wrapper" id="mobileTabWrapper">
     <a class="mobile-tab-heading" data-tabVal="descTab">Description</a>
     <div class="descContent active"></div>
     
@@ -285,44 +293,90 @@
 
 <script type="application/ld+json">
 {
-    "provider_name": "AuthenTEAK",
-    "url": "{{product.url}}",
-    "title": "{{this.product.title}}",
-    "description": "{{json product.description}}",
-    "product_id": "{{product.id}}",
-    "brand": "{{product.brand.name}}",
-    "price": "{{#block "jsonPrice"}}{{/block}}",
-    "currency_code": "{{product.price.without_tax.currency}}",
-    "availability": "in stock",
-    "images": [{{#each product.images}}
-      "{{getImage this 'product'}}"{{#unless @last}},{{/unless}}{{/each}}
-    ],
-    "related_items": [{{#each product.related_products}}
-      "//authenteak.com{{url}}"{{#unless @last}},{{/unless}}{{/each}}
-    ],
-    "color": [{{#forEach product.options}}{{#inArray (split "Select Head Cushion Fabric||Select Canopy||Select Optional Cushions||Select Optional Cushion||Select Fabric||Select Cushion||Select Throw Pillows Fabric" "||") display_name }}{{#forEach values}}{{#unless (occurrences label "No Thanks") }}{{#unless (occurrences label "No Cushion") }}
-        {
-          "name": "{{ trim (first (split label ' (+' )) }}",
-          "{{getImage image 'core-swatch'}}",
-          "map": ""
-        }{{#unless isLast}},{{/unless}}{{/unless}}{{/unless}}{{/forEach}}{{/inArray}}{{/forEach}}
-    ],
-    "geographic_availability": "US"
+  "provider_name": "AuthenTEAK",
+  "url": "{{product.url}}",
+  "title": "{{this.product.title}}",
+  "description": "{{json product.description}}",
+  "product_id": "{{product.id}}",
+  "brand": "{{product.brand.name}}",
+  "price": "{{#block "jsonPrice"}}{{/block}}",
+  "currency_code": "{{product.price.without_tax.currency}}",
+  "availability": "in stock",
+  "images": [{{#each product.images}}
+    "{{getImage this 'product'}}"{{#unless @last}},{{/unless}}{{/each}}
+  ],
+  "related_items": [{{#each product.related_products}}
+    "//authenteak.com{{url}}"{{#unless @last}},{{/unless}}{{/each}}
+  ],
+  "color": [{{#forEach product.options}}{{#inArray (split "Select Head Cushion Fabric||Select Canopy||Select Optional Cushions||Select Optional Cushion||Select Fabric||Select Cushion||Select Throw Pillows Fabric" "||") display_name }}{{#forEach values}}{{#unless (occurrences label "No Thanks") }}{{#unless (occurrences label "No Cushion") }}
+      {
+        "name": "{{ trim (first (split label ' (+' )) }}",
+        "{{getImage image 'core-swatch'}}",
+        "map": ""
+      }{{#unless isLast}},{{/unless}}{{/unless}}{{/unless}}{{/forEach}}{{/inArray}}{{/forEach}}
+  ],
+  "geographic_availability": "US"
+}
+</script><!-- end Pintrest Strucutred Data -->
+
+
+<script type="application/json" id="productInfo">
+{
+  "url": "{{product.url}}",
+  "title": "{{this.product.title}}",
+  "product_id": "{{product.id}}",
+  "brand": "{{product.brand.name}}",
+  "price": "{{#block "jsonPrice"}}{{/block}}",
+  "availability": "in stock",
+  "image": "{{getImage product.main_image 'product'}}"
 }
 </script>
 
-<!-- end Pintrest Strucutred Data -->
 
-
-
-<script type="application/ld+json" id="productInfo">
+<script type="application/json" id="tabJSON">
+[
   {
-      "url": "{{product.url}}",
-      "title": "{{this.product.title}}",
-      "product_id": "{{product.id}}",
-      "brand": "{{product.brand.name}}",
-      "price": "{{#block "jsonPrice"}}{{/block}}",
-      "availability": "in stock",
-      "image": "{{getImage product.main_image 'product'}}"
+    "id": "specsTab",
+    "tabBtnClass": ".specsBtn",
+    "mobileClass": ".mobile-specsTab",
+    "contentCntr": ".specsContent"
+  },
+  {
+    "id": "careTab",
+    "tabBtnClass": ".careBtn",
+    "mobileClass": ".mobile-careTab",
+    "contentCntr": ".careContent"
+  },
+  {
+    "id": "shipTab",
+    "tabBtnClass": ".shipBtn",
+    "mobileClass": ".mobile-shipTab",{{#each product.custom_fields}}{{#if this.name '==' "Assembly Required"}}
+    "customContent": "No assembly required.",{{/if}}{{/each}}
+    "contentCntr": ".shipContent"
+  },
+  {
+    "id": "pdfTab",
+    "tabBtnClass": ".pdfBtn",
+    "mobileClass": ".mobile-pdfTab",
+    "contentCntr": ".pdfContent"
+  },
+  {
+    "id": "videoTab",
+    "tabBtnClass": ".videoBtn",
+    "mobileClass": ".mobile-videoTab",
+    "contentCntr": ".videoContent"
+  },
+  {
+    "id": "warrantyTab",
+    "tabBtnClass": ".warrantyBtn",
+    "mobileClass": ".mobile-warrantyTab",
+    "contentCntr": ".warrantyContent"
+  },
+  {
+    "id": "returnTab",
+    "tabBtnClass": ".returnBtn",
+    "mobileClass": ".mobile-returnTab",
+    "contentCntr": ".returnContent"
   }
-  </script>
+]
+</script>

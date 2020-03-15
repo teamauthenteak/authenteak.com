@@ -1,6 +1,7 @@
 {{!-- Blog Post: include in blog-post.html page template --}}
 
 <script id="schema-blog">
+document.addEventListener('DOMContentLoaded', function(){
   var postDate = '{{blog.post.date_published}}';
   postDate = postDate.split(' ');
   postDate = postDate[0].replace(/\D/g, '');
@@ -50,4 +51,5 @@
 
   var script = document.getElementById('schema-blog')
   script.parentElement.removeChild(script);
+});
 </script>

@@ -31,7 +31,8 @@
   {{/if}}
 
 
-
+  {{#if customer.customer_group_id '!=' '1' }}
+  
     {{#each product.custom_fields}}
       {{#if this.name '===' "Free Shipping Icon"}}   
         {{#if this.value '===' "Yes"}}
@@ -58,6 +59,8 @@
         {{/if}}
       {{/if}}
     {{/each}}
+
+    {{/if}}
       
     
       {{#if product.options}}
@@ -203,8 +206,12 @@
       {{/if}}
     {{/if}}
 
-    <p class="product-trade"><a href="/to-the-trade" title="Learn more about trade benifits">Shopping for a Client? Apply for Trade benefits.</a></p>
 
+    {{#if customer.customer_group_id '!=' '1' }}
+    <p class="product-trade"><a href="/to-the-trade" title="Learn more about trade benifits">Shopping for a Client? Apply for Trade benefits.</a></p>
+    {{/if}}
+
+    
     {{#if settings.show_wishlist}}
       <div class="wishlist-form" data-wishlist-dropdown>
         {{#if customer.wishlists.length}}

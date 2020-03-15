@@ -36,7 +36,7 @@ category:
                         {{/if}}
     
                         {{#if videos}}
-                            {{#each videos}}
+                            {{#each videos.list}}
                                 {{#if id}}<iframe width="560" height="315" src="//www.youtube.com/embed/{{id}}" id="{{id}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" title="{{title_short}}" allowfullscreen></iframe>{{/if}}  
                             {{/each}}
                         {{/if}}
@@ -50,8 +50,8 @@ category:
                     </div>
                     {{/each}}
             
-                    {{#if videos}}
-                    {{#each videos}}
+                {{#if videos}}
+                    {{#each videos.list}}
                         {{#if id}}
                         <div class="product__imgPaginationItem product__imgPaginationItem--svg" style="background-image: url(https://img.youtube.com/vi/{{id}}/0.jpg);">
                             <svg width="50" height="50" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 32 32" version="1.1">
@@ -60,7 +60,7 @@ category:
                         </div>
                         {{/if}}
                     {{/each}}
-                    {{/if}}    
+                {{/if}}    
                 </div>
             </div><!-- /product img cntr -->
 
@@ -124,6 +124,7 @@ category:
             </div>
         </div> 
         {{/each}}
+
 
 
         {{#each category.products}}

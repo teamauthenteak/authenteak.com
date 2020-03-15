@@ -32,12 +32,47 @@
                         "<h2 class='toolTip__heading--2'>What are the differences in the Tempest Torch ignition types?</h2>",
                         
                         "<h3 class='toolTip__heading--3'>Manual Ignition:</h3>",
-                        "<p class='toolTip__text'>The manual light Tempest Torch has a built-in Piezo igniter and works much like a gas grill spark ignition. To start the torch, turn the gas control knob and push the ignition button for easy lighting. This manual light model has an easy access control panel and allows for low to high flame control. No electrical is needed for this model making it an affordable and easy installation.</p>",
+                        "<p class='toolTip__text'>The manual ignition Tempest Torch has a built-in Piezo igniter and works much like a gas grill spark ignition. To start the torch, turn the gas control knob and push the ignition button for easy lighting. This manual ignition model has an easy access control panel and allows for low to high flame control. No electrical is needed for this model making it an affordable and easy installation.</p>",
                         
                         "<h3 class='toolTip__heading--3'>Eletronic Ignition:</h3>",
                         "<p class='toolTip__text'>The new 24V electronic ignition Tempest Torch can be used with a standard light switch, a remote control, a programmable timer, or even connected to a Smart Home system. With its miniaturized gas valve and control module built into the torch base, the electronic ignition model can be wired up to 445 feet from its transformer. <a href='/travis-industries-tempest-torch-transformer-for-electronic-ignition-torch-head/' target='_blank'>Transformers sold separately</a>. For additional info and details, read the <a href='/content/PDF/TempestTorchPDFs/Tempest%2024V%20Manual_New.pdf' target='_blank'>owner’s manual</a>. Adding multiple torches with electronic ignition has never been easier. Connect up to four torch heads per transformer.</p>",
                         
                         "<p class='toolTip__text'>Manual and Electronic Ignition models are available for both Natural Gas and Liquid Propane.</p>"
+                    ]
+                }
+            },
+            "Shademaker": {
+                "Select Canopy": {
+                    "tip": [
+                        "<h2 class='toolTip__heading--2'>What are the different Shademaker Canopy Materials?</h2>",
+                        
+                        "<p class='toolTip__text'>Shademaker offers both acrylic and polyester fabrics for their umbrella canopies. The acrylic fabrics (Grade A) are available in two weights: furniture grade and awning grade. Furniture grade fabrics are better suited for low-wind, non-coastal areas and residential use. Awning grade fabrics are ideal for demanding commercial and high-wind residential locations. The polyester fabrics (Grade C) are available in awning grade only. All fabrics are made of a solution-dyed yarn, which means the pigments are saturated through the entire thread and are not a print on the surface of the fabric. All fabrics are fade, stain, mold and mildew resistant and are easily cleanable.</p>",
+                        
+                        "<p class='toolTip__text'>The fabrics differ as follows:</p>",
+                        
+                        "<h3 class='toolTip__heading--3'>Grade A Awning</h3>",
+                        "<ul class='toolTip__list'>",
+                            "<li class='toolTip__listItem'>10-year limited warranty</li>",
+                            "<li class='toolTip__listItem'>100% solution-dyed acrylic fabric</li>",
+                            "<li class='toolTip__listItem'>Made by the brand Sunbrella</li>",
+                            "<li class='toolTip__listItem'>Awning grade fabric has a heavier weight, ideal for commercial or high-wind areas</li>",
+                        "</ul>",
+                        
+                        "<h3 class='toolTip__heading--3'>Grade A Furniture</h3>",
+                        "<ul class='toolTip__list'>",
+                            "<li class='toolTip__listItem'>5-year limited warranty</li>",
+                            "<li class='toolTip__listItem'>100% solution-dyed acrylic fabric</li>",
+                            "<li class='toolTip__listItem'>Made by brands such as Sunbrella, Outdura and Docril</li>",
+                            "<li class='toolTip__listItem'>Furniture grade fabric has a lighter weight than Awning grade fabric and is better suited for non-coastal areas and residential use</li>",
+                        "</ul>",
+                        
+                        "<h3 class='toolTip__heading--3'>Grade C Awning</h3>",
+                        "<ul class='toolTip__list'>",
+                            "<li class='toolTip__listItem'>5-year limited warranty</li>",
+                            "<li class='toolTip__listItem'>100% solution-dyed polyester</li>",
+                            "<li class='toolTip__listItem'>Made by the brand O’bravia</li>",
+                            "<li class='toolTip__listItem'>Awning grade fabric has a heavier weight, ideal for commercial or high-wind areas</li>",
+                        "</ul>"
                     ]
                 }
             }
@@ -52,8 +87,10 @@
                 "<p class='toolTip__text'>Please refer to <strong><a href='/shipping#rec' target='_blank'>Receiving and Inspecting Merchandise</a></strong> for more information on how to receive and inspect your delivery.</p>"
             ],
             "threshold_delivery": [
-                "<h2 class='toolTip__heading--2'>Threshold Delivery</h2>",
-                "<p class='toolTip__text'>White Glove Delivery by AuthenTEAK is an elevated level of delivery service that includes the delivery by scheduled appointment, product assembly, product set-up/placement and carton/packaging removal.</p>"
+                "<h2 class='toolTip__heading--2'>First Threshold Delivery</h2>",
+                "<p class='toolTip__text'>First Threshold Delivery is an enhanced delivery option that ensures your order is delivered to the outermost door of the delivery address, in most cases being the front door, garage, or service entrance of a multi-family property.</p>", 
+                "<p class='toolTip__text'>The difference between Standard Delivery and First Threshold Delivery is that the standard option is a delivery to the beginning of your driveway (i.e. curbside). First Threshold Delivery helps provide assurance and peace of mind with your order, bringing your delivery safely to your doorstep and away from the street.</p>",
+                "<p class='toolTip__text'>Due to occasional carrier restrictions and/or potential distance limitations, First Threshold Delivery may not be available and in those cases, we reserve the right to cancel this service with sufficient notice and refund any applicable fees.</p>"
             ],
             "next_bussiness_day": [
                 "<h2 class='toolTip__heading--2'>Next Bussiness Day Delivery</h2>",

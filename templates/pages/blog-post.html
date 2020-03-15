@@ -84,10 +84,24 @@ blog:
 </script>
 
 
-<script type="application/ld+json">
-{
+<script id="schemaBlog">
+(function(){
+postDate = '{{blog.post.date_published}}';
+  postDate = postDate.split(' ');
+  postDate = postDate[0].replace(/\D/g, '');
+  postDate = new Date(postDate);
+  try {
+    postDate = postDate.toISOString();
+  }
+  catch(error) {
+    postDate = '{{blog.post.date_published}}';
+  }
+
+  let schema = document.createElement('script');
+  schema.type = 'application/ld+json';
+  schema.text = JSON.stringify({
   "@context": "https://schema.org",
-  "@type": "NewsArticle",
+  "@type": "BlogPosting",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://google.com/article"
@@ -96,9 +110,9 @@ blog:
   "image": [
     "{{getImage blog.post.thumbnail 'core-blog-thumbnail'}}"
    ],
-  "datePublished": "{{blog.post.date_published}}",
+  "datePublished": postDate,
   "author": {
-    "@type": "Author",
+    "@type": "Person",
     "name": "{{blog.post.author}}"
   },
    "publisher": {
@@ -110,7 +124,14 @@ blog:
     }
   },
   "description": "{{{sanitize  (ellipsis blog.post.body 400) }}}"
-}
+});
+
+document.querySelector('body').appendChild(schema);
+
+let script = document.getElementById('schemaBlog')
+script.parentElement.removeChild(script);
+
+}());
 </script>
 
 {{> core/structured-data/blog-post}}

@@ -30,11 +30,17 @@
         justify-content: center;
         align-content: center;
         order: 1;
+        line-height: 1;
+        padding: 5px 0;
 
         @media only screen and (max-width: $screen-xs) {
             font-size: 0.7rem;
             font-weight: 800;
         }
+    }
+
+    &__text{
+        @extend .promoBanner__link;
     }
     
     &__closeBtn{
@@ -59,9 +65,8 @@
         background-color:rgba(110, 163, 66, 0.09);
         border-bottom: 1px solid rgba(191, 214, 171, 0.30);
 
-        & .promoBanner__link{
+        & .promoBanner__link, .promoBanner__text{
             color:rgba(110, 163, 66, 1);
-            color: #fff;
         }
     }
 
@@ -69,16 +74,16 @@
         background-color:rgba(15, 160, 234, 0.09);
         border-bottom: 1px solid rgba(15, 160, 234, 0.30);
         
-        & .promoBanner__link{
+        & .promoBanner__link, .promoBanner__text{
             color: #fff;
         }
     }
 
     &--grey{
-        background-color: #e4e0dd;
+        background-color: #2E3036;
         border-bottom: 1px solid transparent;
 
-        & .promoBanner__link{
+        & .promoBanner__link, .promoBanner__text{
             color: #fff;
         }
     }
@@ -87,7 +92,7 @@
         background-color: #7D0404;
         border-bottom: 1px solid #f38c8c;
 
-        & .promoBanner__link{
+        & .promoBanner__link, .promoBanner__text{
             color: #fff;
         }
     }
@@ -98,7 +103,7 @@
         border-bottom: 1px solid #555;
         color: #fff;
 
-        & .promoBanner__link{
+        & .promoBanner__link, .promoBanner__text{
             color: #fff !important;
         }
     }
