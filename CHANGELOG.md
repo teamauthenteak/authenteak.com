@@ -1,5 +1,7 @@
 # Change Log
 
+## [1.20.22]
+
 ## [1.20.21.002]
 - fix to allow the tab tool tip to close when the user clicks off tool top or hit esc key
 - fixed Question(s) logic for PDP yotpo product qeustions

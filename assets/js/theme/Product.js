@@ -393,7 +393,7 @@ TEAK.Modules.leadTime = {
 					'</svg>',
 				'</span>',
 			'</a>',
-			'<span class="toolTip__cntr hide" id="next_bussiness_day"></span>'].join("");
+			'<span class="toolTip__cntr toolTip__cntr--hide" id="next_bussiness_day"></span>'].join("");
 
 		document.getElementById(element).innerHTML = tpl;
 	}
@@ -418,7 +418,7 @@ TEAK.Modules.leadTime = {
  * 	Stored in product.json or in the script manager
  * 
  * Basic HTML:
- *  <div class="toolTip__cntr hide" id="<TRIGGER ID>"></div>
+ *  <div class="toolTip__cntr toolTip__cntr--hide" id="<TRIGGER ID>"></div>
  * 
  * Basic Tip
  * Link rel=""	genericly associated key and ID to open a tip
@@ -437,7 +437,7 @@ TEAK.Modules.leadTime = {
  * -----------------------------------
  * HTML Markup:
  * 
-	<div class="toolTip__cntr toolTip__cntr--withTabs hide" id="<TRIGGER ID>">
+	<div class="toolTip__cntr toolTip__cntr--withTabs toolTip__cntr--hide" id="<TRIGGER ID>">
 		<div class="toolTip__tabsCntr">
 			// Call to to get the tabs.  Pass in in tab array TEAK.Modules.toolTip.getTabs(ARRAY)
 		</div>
@@ -515,7 +515,7 @@ TEAK.Modules.toolTip = {
 				.find(".toolTip__cntr")
 					.append(this.brandObj[element].tip)
 						.end()
-				.addClass("show");
+				.addClass("toolTip--show");
 		});
 
 		$(".toolTip__cntr").append(this.closeBtn);
@@ -558,7 +558,7 @@ TEAK.Modules.toolTip = {
 
 		let $activeModal = $("#"+ TEAK.Modules.toolTip.activeModal);
 
-		$activeModal.removeClass("hide");
+		$activeModal.toggleClass("toolTip__cntr--hide toolTip__cntr--show");
 
 		let modalHeight = $activeModal.outerHeight();
 
@@ -573,7 +573,7 @@ TEAK.Modules.toolTip = {
 	// close
 	closeTipModal: function(e){
 		if ( TEAK.Modules.toolTip.activeModal !== "" ){
-			$("#"+ TEAK.Modules.toolTip.activeModal).addClass("hide");
+			$("#"+ TEAK.Modules.toolTip.activeModal).toggleClass("toolTip__cntr--hide toolTip__cntr--show");
 			TEAK.Modules.toolTip.activeModal = "";
 		}
 
@@ -667,7 +667,7 @@ TEAK.Modules.freeShipping = {
 							</svg>
 						</span>
 					</a>
-					<div class="toolTip__cntr toolTip__cntr--withTabs hide" id="free_delivery">
+					<div class="toolTip__cntr toolTip__cntr--withTabs toolTip__cntr--hide" id="free_delivery">
 						${TEAK.Modules.toolTip.getTabs(shippingTabs)}
 					</div>
 				</p>`,
