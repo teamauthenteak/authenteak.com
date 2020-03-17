@@ -16,9 +16,9 @@
 
  <!-- SEARCHSPRING SCRIPT -->
 {{#if category}}
-<script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query" category="{{#each breadcrumbs}}{{#unless @first}}{{name}}{{#unless @last}}>{{/unless}}{{/unless}}{{/each}}" name="{{ category.name }}"></script>
+<script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query" category="{{#each breadcrumbs}}{{#unless @first}}{{name}}{{#unless @last}}>{{/unless}}{{/unless}}{{/each}}" name="{{ category.name }}" isLoggedIn="{{#if customer}}true{{else}}false{{/if}}" isTradeCustomer="{{#if customer.customer_group_id '==' '1' }}true{{else}}false{{/if}}"></script>
 {{else if brand}}
-<script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query" brand="{{ brand.name }}"></script>
+<script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query" brand="{{ brand.name }}" isLoggedIn="{{#if customer}}true{{else}}false{{/if}}" isTradeCustomer="{{#if customer.customer_group_id '==' '1' }}true{{else}}false{{/if}}"></script>
 {{else}}
 <script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query"{{#if page.title "!=" 'Search Results'}} defer{{/if}}></script>
 {{/if}}
@@ -92,6 +92,8 @@
 	<div class="icons-svg-sprite">{{> components/common/icons/icon-defs}}</div>
 
 	<script src="{{cdn '/assets/js/bundle.js'}}"></script>
+
+	{{> components/common/TEAK-User-js}}
 	
 	{{#if page_type '===' 'product'}}
 		{{> components/common/facebook-like}}

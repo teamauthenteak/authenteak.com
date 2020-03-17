@@ -179,6 +179,10 @@
         {{> components/products/product-description}}
       {{/if}}
 
+      <div id="productCustomizations">
+        {{> components/products/add-to-cart-form-collection cart_icon=cart_icon}}
+      </div>
+
       <div class="product-message-area" data-product-alerts></div>
 
       {{#if quick_view}}

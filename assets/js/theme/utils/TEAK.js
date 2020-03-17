@@ -9,6 +9,15 @@ window.TEAK = window.TEAK || {};
 
 
 
+
+/** -----------------------------------------
+ * TEAK User Config
+ * User Configuration object to hold global user settings
+ * ------------------------------------------ */
+window.TEAK.User = {};
+
+
+
 /** -----------------------------------------
  * TEAK Utility Methods
  * Global helper mehtods for any application

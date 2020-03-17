@@ -20,16 +20,18 @@
         font-size: 1.6rem;
 
         &--sm{
-            font-size: 1.1rem;
+            font-size: 1.4rem;
             margin: 0;
         }
     }
 
     &__itemNum{
-        margin: 2px 0 0 0;
+        margin: 10px 0 20px 0;
+        padding-bottom: 10px;
         display: flex;
         align-items: center;
         align-content: center;
+        border-bottom: 1px solid #eee;
     }
 
     &__ratingWrapper{
@@ -42,12 +44,31 @@
         @extend .shipping-range--static;
     }
 
+    &__price{
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+
+        & .product-price-line{
+            margin: 0;
+            align-items: baseline;
+        }
+
+        & .price-rrp{
+            opacity: 0.5;
+            font-size: 1.1rem;
+        }
+    }
+
     &__promoText{
         @extend .pdp-promo-text;
     }
 
     &__highlights{
         @extend .highlight-group;
+        margin-bottom: 20px;
     }
 
     &__headerCntr{
@@ -89,10 +110,10 @@
     &__row{
         @extend .landing__row;
         text-align: left;
+        padding: 0;
         
         &--border{
             border-top: 1px solid #eee;
-            margin-top: 20px;
         }
 
         @media only screen and (max-width: $screen-sm) {
@@ -105,9 +126,10 @@
         }
     }
 
-    &__figure{
-        @extend %span;
-        @extend .no-pad;
+    
+
+    &__col--marginBottom{
+        margin-bottom: 40px;
     }
 
     &__col-1-1{
@@ -185,6 +207,12 @@
 
     &__video{
         @extend .brands__video;
+    }
+
+
+    &__figure{
+        @extend %span;
+        @extend .no-pad;
     }
 
     &__figImg{

@@ -1,0 +1,8 @@
+<script>
+try{
+    Object.assign(TEAK.User, {
+        isLoggedIn: {{#if customer}}true{{else}}false{{/if}},
+        isTradeCustomer: {{#if customer.customer_group_id '==' '1' }}true{{else}}false{{/if}}
+    });
+}catch(err){}
+</script>
