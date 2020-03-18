@@ -46,10 +46,23 @@
 .product-images-pagination{
     justify-content: center;
     align-content: center;
-    height: auto;
+    align-items: center;
+    height: 100px;
     flex: 0 0 auto;
     width: 100%;
-    float: left;
+    flex-direction: column;
+
+    & .pagination-item{
+        height: 100px;
+        width: 20%;
+        float: left;
+
+        & img{
+            height: 97px;
+            width: 97px;
+            object-fit: contain;
+        }
+    }
 
     & .slick-slide img{
         height: 97px;
@@ -208,8 +221,13 @@ h1.product-title {
     margin-top: 0;
     align-items: center;
 
+    &--static{
+        margin: 20px 0;
+        line-height: 1.2;
+    }
+
     &--tip{
-        margin-left: 10px;
+        margin-right: 10px;
     }
 }
 

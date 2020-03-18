@@ -8,6 +8,12 @@
 window.TEAK = window.TEAK || {};
 
 
+/** -----------------------------------------
+ * TEAK Globals Config
+ * Global Configuration object to hold general settigns
+ * ------------------------------------------ */
+window.TEAK.Globals = {};
+
 
 
 /** -----------------------------------------

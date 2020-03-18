@@ -14,80 +14,21 @@ category:
         </div>
         {{/if}}
 
-        {{#each (limit category.products 1) }}
+       
         <div class="product__col-1-1">
             <div class="product__col-1-2 product__col--marginBottom">
-            {{#if images}}
-                {{#each (limit images 1) }}
-                <figure class="product__figure product-image" style="background-image:url({{getImage this ''}});"  data-product-image>
-                    <img src="{{getImage this 'product'}}" alt="{{alt}}" class="product__figImg">
+           
+                <figure class="product__figure product-image" style="background-image:url({{getImage category.image ''}});"  data-product-image>
+                    <img src="{{getImage category.image 'thumbnail'}}" alt="{{alt}}" class="product__figImg">
                 </figure>
-                {{/each}}
-            {{else}}
-                <figure class="product__figure product-image" style="background-image:url({{getImage this ''}});" data-product-image>
-                    <img src="{{getImage this 'product' (cdn default_image)}}" alt="{{alt}}" class="product__figImg">
-                </figure>
-            {{/if}}
+                
             </div>
 
 
             <div class="product__col-1-2">
-                <h1 class="product__name">{{name}}</h1>
+                <h1 class="product__name">{{category.name}}</h1>
                 
-                <p class="product__itemNum">Item #{{sku}}
-                    <a class="product__ratingWrapper yotpo-pdp-wrapper hide" href="{{url}}#yotpoReviews" id="yotpoRating" title="Reviews of {{name}}">
-                        <span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of 0 out of 5."></span>
-                        (<span class="yotpo-reviews-num">0</span>)
-                        <span class="yotpo-questions">
-                            <span class="yotpo-questions-num">0</span> Questions
-                        </span>
-                    </a>
-                </p>
-
-                <p class="product__shipping">
-                {{#each custom_fields}}
-                    {{#if this.name '==' "Lead-Time"}}   
-                        {{this.value}}
-                    {{/if}}
-                    {{#if this.name '==' "Lead-Time 2"}}   
-                        {{this.value}}
-                    {{/if}}
-                        
-                {{/each}}
-                </p>
-
-                
-                {{#each custom_fields}}
-                    {{#if this.name '==' "Promo Text"}}
-                        <p class="product__promoText">{{{this.value}}}</p>
-                    {{/if}}
-                {{/each}}
-
-
-                <ul class="product__highlights">
-                {{#each custom_fields}}
-                    {{#if this.name '===' "Highlight 1"}}
-                    <li>{{value}}</li>
-                    {{else if this.name '===' "Highlight 2"}}
-                    <li>{{value}}</li>
-                    {{else if this.name '===' "Highlight 3"}}
-                    <li>{{value}}</li>
-                    {{/if}}
-                {{/each}}
-                </ul>
-
-                <div class="product__col-1-1 no-pad">
-                    <div class="product__price">
-                    {{#if price}}
-                        {{> components/products/price price=this.price show_savings=false save_block=false}}
-                    {{/if}}
-                
-                    {{#if call_for_price}}
-                        {{call_for_price}}
-                    {{/if}}               
-                    </div>
-                    <button type="button" class="button button-primary button--fullWidth button-primary--green">Add to Cart</button>
-                </div>
+                {{category.description}}
 
                 <div class="product__customizations">
                     {{> components/products/add-to-cart-form-collection cart_icon=cart_icon}}
@@ -95,16 +36,11 @@ category:
                 
             </div>
         </div> 
-        {{/each}}
+    
        
 
 
-        {{#each (after category.products 1) }}
-
-        <script type="application/json">
-            {{json this}}
-        </script>
-
+        {{#each category.products }}
         <section class="product__row product__row--border">
             <div class="product__col-1-1">
                 <figure class="product__figure product__col-1-4">
@@ -211,10 +147,6 @@ category:
                     </div>
                 </div>
 
-            </div>
-
-            <div class="product__customizations">
-                {{> components/products/add-to-cart-form-collection cart_icon=cart_icon}}
             </div>
         </section>
         {{/each}}

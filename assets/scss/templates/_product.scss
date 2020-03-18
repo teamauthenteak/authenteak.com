@@ -44,12 +44,23 @@
         @extend .shipping-range--static;
     }
 
+    &__priceCntr{
+        float: left;
+        width: 50%;
+        padding: 20px 0;
+    }
+
     &__price{
-        font-size: 1.4rem;
+        font-size: 1.6rem;
         margin-bottom: 20px;
         text-align: center;
         display: flex;
         justify-content: center;
+
+        &--left{
+            justify-content: start;
+            text-align: left;
+        }
 
         & .product-price-line{
             margin: 0;

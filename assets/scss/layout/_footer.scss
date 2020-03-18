@@ -1,3 +1,24 @@
+.footer{
+    &__seal{
+        position: absolute;
+        bottom: 20px;
+        border: none;
+
+        & *{
+            border: none;
+            padding: 0;
+        }
+    }
+
+    &__sealLink{
+        font-size: 0.2rem;
+        line-height: 1;
+        display: block;
+    }
+}
+
+
+
 footer{
     &.site-footer {
         font-weight: normal;
@@ -9,6 +30,7 @@ footer{
     
     &.site-footer .bottom-bar {
         padding: 25px 0;
+        position: relative;
     }
 
     &.site-footer .footer-social a svg {

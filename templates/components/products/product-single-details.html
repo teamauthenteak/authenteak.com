@@ -13,6 +13,7 @@
   data-product-container
   data-product-title="{{product.title}}"
   data-product-id="{{product.id}}">
+
   <div class="container">
     {{#unless quick_view}}
     <div class="mobileHide">
@@ -126,9 +127,7 @@
         {{#each product.custom_fields}}
         
           {{#if this.name '==' "Lead-Time"}}   
-                {{this.value}}
-
-                {{#if this.value '===' "Ships next business day"}}
+              {{#if this.value '===' "Ships next business day"}}
                 <span id="nextBussinessDay" class="shipping-range--tip">
                   <script>
                     document.addEventListener('DOMContentLoaded', function(){
@@ -137,6 +136,19 @@
                   </script>
                 </span>
               {{/if}}
+
+              {{#contains this.value "ships next business day"}}
+                <span id="nextBussinessDay" class="shipping-range--tip">
+                  <script>
+                    document.addEventListener('DOMContentLoaded', function(){
+                        TEAK.Modules.leadTime.setTip("nextBussinessDay");
+                    });
+                  </script>
+                </span>
+              {{/contains}}
+
+              {{this.value}}
+
           {{/if}}
           
           {{#if this.name '==' "Lead-Time 2"}}   
@@ -179,9 +191,6 @@
         {{> components/products/product-description}}
       {{/if}}
 
-      <div id="productCustomizations">
-        {{> components/products/add-to-cart-form-collection cart_icon=cart_icon}}
-      </div>
 
       <div class="product-message-area" data-product-alerts></div>
 
