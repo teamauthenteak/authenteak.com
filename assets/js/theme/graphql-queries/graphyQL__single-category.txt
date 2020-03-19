@@ -1,0 +1,85 @@
+query getCategoryByUrl{
+    site{
+        route(path: "/outdoor-furniture/shop-by-collection/kingsley-bate-sag-harbor-collection/"){
+            node{
+                ... on Category{
+                    name
+                    products (first: 8){
+                        edges{
+                            node{
+                                ... productFields
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+fragment productFields on Product{
+    entityId
+    name
+    path
+    sku
+
+    customFields (names: ["Highlight 1", "Highlight 2", "Highlight 3", "Lead-Time", "Lead-Time 2", "Promo Text"]){
+        edges{
+            node{
+                name
+                value
+                entityId
+            }
+        }
+    }
+
+    defaultImage {
+        url(width: 500, height: 500)
+    }
+
+    prices {
+        price {
+            ...PriceFields
+        }
+        retailPrice {
+            ...PriceFields
+        }
+    }
+}
+
+fragment PriceFields on Money {
+	value
+}
+
+
+
+... Then make second query to get the product options
+which is a bit more complex
+
+query getProductOptionInfo{
+	site{
+		products(entityIds:[6310]){
+			edges{
+				node{
+					entityId
+					options{
+						edges{
+							node{
+								displayName
+								isRequired
+								values{
+									edges{
+										node{
+											label
+											entityId
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

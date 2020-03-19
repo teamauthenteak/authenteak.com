@@ -1,0 +1,67 @@
+// gets specif product id or we can use this to limt a product
+query getProductInfo{
+	site{
+		products(entityIds:[6310]){
+			edges{
+				node{
+					entityId
+					name
+					path
+					sku
+
+					brand{
+						name
+					}
+
+					customFields{
+						edges{
+							node{
+								name
+								value
+								entityId
+							}
+						}
+					}
+
+					defaultImage {
+						url(width: 500, height: 500)
+					}
+
+					options{
+						edges{
+							node{
+								displayName
+								isRequired
+								values{
+									edges{
+										node{
+											label
+											entityId
+										}
+									}
+								}
+							}
+						}
+					}
+					
+					prices {
+						price {
+							...PriceFields
+						}
+						salePrice {
+							...PriceFields
+						}
+						retailPrice {
+							...PriceFields
+						}
+					}
+					
+				}
+			}
+		}
+	}
+}
+
+fragment PriceFields on Money {
+	value
+}
