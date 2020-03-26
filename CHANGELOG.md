@@ -7,6 +7,8 @@
 - added logic to search for "ships next day" on lead time to show tool tip
 - added TEAK tempalte object for js globals
 - Added Recently Viewed to Home page and all pages
+- changed swatch order from 5 to 3
+- graphql for recommended products on pdp
 
 ## [1.20.21.002]
 - fix to allow the tab tool tip to close when the user clicks off tool top or hit esc key
