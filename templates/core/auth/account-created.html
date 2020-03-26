@@ -9,21 +9,21 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-    window.TEAK.thirdParty.heap.init({
+    window.TEAK.ThirdParty.heap.init({
       method: 'identify',
       id: '{{customer.id}}.authenteak.com',
       createdAt: new Date(Date.now()),
       loggedIn: true
     });
     
-    TEAK.thirdParty.heap.init({
+    TEAK.ThirdParty.heap.init({
       method: 'track',
       event: 'created_account',
       id: '{{customer.id}}.authenteak.com',
       createdAt: new Date(Date.now())
     });
 
-    TEAK.thirdParty.heap.init({
+    TEAK.ThirdParty.heap.init({
       method: 'addUser',
       id: '{{customer.id}}.authenteak.com',
       city: '{{customer.shipping_address.city}}',

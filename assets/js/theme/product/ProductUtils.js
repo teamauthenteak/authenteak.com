@@ -401,6 +401,7 @@ export default class ProductUtils {
     if (window.FormData === undefined) {
       return;
     }
+    
 
     const $button = $(event.currentTarget).find('.add-to-cart');
     const quantity = this.$el.find('input.product-quantity').val();

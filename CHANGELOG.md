@@ -6,6 +6,7 @@
 - fixed pdp thunbial pre loading alingment issue
 - added logic to search for "ships next day" on lead time to show tool tip
 - added TEAK tempalte object for js globals
+- Added Recently Viewed to Home page and all pages
 
 ## [1.20.21.002]
 - fix to allow the tab tool tip to close when the user clicks off tool top or hit esc key

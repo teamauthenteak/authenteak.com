@@ -1,272 +1,71 @@
-<form
-  class="form add-to-cart-form"
-  method="post"
-  action="{{product.cart_url}}"
-  enctype="multipart/form-data"
-  data-cart-item-add
-  data-product-options-count="{{product.options.length}}">
-  
-  <input type="hidden" name="action" value="add">
-  <input type="hidden" name="product_id" value="{{product.id}}" data-product-id/>
+<form class="form add-to-cart-form" method="post" action="/cart.php" enctype="multipart/form-data" data-cart-item-add data-product-options-count="{{product.options.length}}">
+	<input type="hidden" name="action" value="add">
+	<input type="hidden" name="product_id" value="{entityId}" data-product-id />
 
-  <div class="product-options-container" data-product-option-change data-product-brand="{{product.brand.name}}" id="productOptions">
-    {{#if product.customizations}}
-      {{#each product.customizations}}
-          {{{dynamicComponent 'core/forms/customizations'}}}
-      {{/each}}
-    {{/if}}
-    
-    {{#if product.options}}
-      {{#each product.options}}
-        {{{dynamicComponent 'core/forms/options' }}}
-        <hr>
-      {{/each}}
-    {{/if}}
-  </div>
-  <script data-json="raw-options" id="optionModuleJSON" type="application/json">{{{json product.options}}}</script>
-  <script data-json="raw-warranty" type="application/json">{{{json product.warranty}}}</script>
-
-  {{#if product.event_date}}
-    {{> core/products/event}}
-  {{/if}}
+	<div class="product-options-container" data-product-option-change data-product-brand="{{product.brand.name}}" id="productOptions">
+		<!-- product options and swatches -->
+	</div>
 
 
-  {{#if customer.customer_group_id '!=' '1' }}
-  
-    {{#each product.custom_fields}}
-      {{#if this.name '===' "Free Shipping Icon"}}   
-        {{#if this.value '===' "Yes"}}
+	<div class="product-price">
+		{{#if product.price}}
+		{{> components/products/price price=product.price show_savings=true save_block=true}}
+		{{/if}}
 
-        
-          <div id="freeShipping">
-            <script>
-              /* Displays the free shipping text based on price */
-              document.addEventListener('DOMContentLoaded', function(){
-                  TEAK.Modules.freeShipping.set({
-                    price: {
-                      rrp_without_tax: '{{../../../product.price.rrp_without_tax.value}}' === '' ? 0 : parseInt('{{../../../product.price.rrp_without_tax.value}}'),
-                      with_tax: '{{../../../product.price.with_tax.value}}' === '' ? 0 : parseInt('{{../../../product.price.with_tax.value}}'),
-                      without_tax: '{{../../../product.price.without_tax.value}}' === '' ? 0 : parseInt('{{../../../product.price.without_tax.value}}'),
-                      custom: '{{~default ../../../product.price.sale_price_without_tax.value price.without_tax.value~}}' === '' ? 0 : parseInt('{{~default ../../../product.price.sale_price_without_tax.value price.without_tax.value~}}')
-                    },
-                    sku: "{{../../../product.sku}}"
-                  }, "freeShipping");
-              });
-            </script>
-          </div>
-
-            
-        {{/if}}
-      {{/if}}
-    {{/each}}
-
-    {{/if}}
-      
-    
-      {{#if product.options}}
-      <p class="shipping-range shipping-range--dynamic">
-        {{#each product.custom_fields}}
-          {{#if this.name '==' "Lead-Time"}}
-              {{this.value}}
-
-              {{#if this.value '===' "Ships next business day"}}
-                <span id="nextBussinessDay" class="shipping-range--tip">
-                  <script>
-                    document.addEventListener('DOMContentLoaded', function(){
-                        TEAK.Modules.leadTime.setTip("nextBussinessDay");
-                    });
-                  </script>
-                </span>
-              {{/if}}
-          {{/if}}
-
-          {{#if this.name '==' "Lead-Time 2"}}   
-            {{this.value}}
-          {{/if}}
-        {{/each}}
-      </p>
-      {{/if}}
-    
-  <div class="product-price">
-      {{#if product.price}}
-        {{> components/products/price price=product.price show_savings=true save_block=true}}
-      {{/if}}
-  
-      {{#if product.call_for_price}}
-        <p>{{product.call_for_price}}</p>
-      {{/if}}
-  </div>
+		{{#if product.call_for_price}}
+		<p>{{product.call_for_price}}</p>
+		{{/if}}
+	</div>
 
 
-{{#if product.price.without_tax.value ">" 0.01}}
-  <div class="product-quantity-submit">
-    <div class="product-quantity-container">
-      {{#if product.show_quantity_input}}
-        <div class="form-field form-inline form-field--quantity">
-          <label class="form-label">
-            <strong class="form-label-text">
-              {{ lang 'product.quantity'}}
-            </strong>
-            <input
-              type="number"
-              class="product-quantity form-input"
-              name="qty[]"
-              value="{{#if product.quantity}}{{product.quantity}}{{else}}{{#if product.min_purchase_quantity}}{{product.min_purchase_quantity}}{{else}}1{{/if}}{{/if}}"
-              min="{{#if product.min_purchase_quantity}}{{product.min_purchase_quantity}}{{else}}0{{/if}}"
-              {{#if product.max_purchase_quantity}}
-                max="{{product.max_purchase_quantity}}"
-              {{/if}}
-              pattern="[0-9]+"
-            >
-            <div class="product-quantity-toggle-wrapper">
-              <button type="button" class="product-quantity-toggle product-quantity-decrement">
-                <svg class="icon icon-minus"><use xlink:href="#icon-minus" /></svg>
-              </button>
-              
-              <button type="button" class="product-quantity-toggle product-quantity-increment">
-                <svg class="icon icon-plus"><use xlink:href="#icon-plus" /></svg>
-              </button>
-             
-            </div>
-          </label>
-        </div>
-      {{/if}}
+	<div class="product-quantity-submit">
+		<div class="product-quantity-container">
+			<div class="form-field form-inline form-field--quantity">
+				<label class="form-label">
+					<strong class="form-label-text">{{ lang 'product.quantity'}}</strong>
+					<input type="number" class="product-quantity form-input" name="qty[]" value="" min="" max="" pattern="[0-9]+">
+					<div class="product-quantity-toggle-wrapper">
+						<button type="button" class="product-quantity-toggle product-quantity-decrement">
+							<svg class="icon icon-minus"><use xlink:href="#icon-minus" /></svg>
+						</button>
+						<button type="button" class="product-quantity-toggle product-quantity-increment">
+							<svg class="icon icon-plus"><use xlink:href="#icon-plus" /></svg>
+						</button>
+					</div>
+				</label>
+			</div>
+		</div>
 
-      <div class="product-price">
+		
+		<button type="submit" class="button button-primary button-primary--green button-wide add-to-cart button-progress spinner" data-button-purchase onclick="TEAK.ThirdParty.heap.init({method: 'track', event:'add_to_cart', location: 'pdp' })">
+			<span class="button-text">Add To Cart</span>
+		</button>
 
-        <div style="display: none;">
-          {{#if product.price}}
-            {{> components/products/price price=product.price show_savings=true save_block=true}}
-          {{/if}}
-  
-          {{#if product.call_for_price}}
-            <p>{{product.call_for_price}}</p>
-          {{/if}}
-          
-          <!-- 
-          {{#each product.custom_fields}}
-            {{#if this.name '===' "Free Shipping Icon"}}   
-              {{#if this.value '===' "Yes"}}
-                <p class='free-shipping-text' data-pricing-free-shipping>{{lang 'product.shipping_free'}}</p>
-              {{/if}}
-            {{/if}}
-          {{/each}}
+		{{#if customer.customer_group_id '!=' '1' }}
+		<p class="product-trade">
+			<a href="/to-the-trade" title="Learn more about trade benifits">Shopping for a Client? Apply for Trade benefits.</a>
+		</p>
+		{{/if}}
 
-          <p class="shipping-range shipping-range--dynamic">
-            {{#each product.custom_fields}}
-              {{#if this.name '==' "Lead-Time"}}
-                  {{this.value}}
-              {{/if}}
-            {{/each}}
-          </p>-->
-
-        </div>
-
-      </div>
-
-      <!--Share block was removed, placed below product images, can be found in product-single-details.html-->
-    </div>
-    
-    <!-- <div class="affirm-pdp"></div> -->
-    <!-- <p class="affirm-as-low-as" data-page-type="product" data-amount="your_price_variable"></p> -->
-
-    {{#if product.can_purchase}}
-      <button
-        type="submit"
-        class="
-          button
-          button-primary
-          button-primary--green
-          button-wide
-          add-to-cart
-          button-progress
-          spinner
-        "
-        data-button-purchase
-        onclick="TEAK.thirdParty.heap.init({method: 'track', event:'add_to_cart', location: 'pdp' })">
-        <span class="button-text">
-          {{#if product.pre_order}}
-            {{lang 'product.pre_order'}}
-          {{else}}
-            {{#if cart_icon '==' 'bag'}}
-              {{lang 'product.add_to_bag'}}
-            {{else}}
-              {{lang 'product.add_to_cart'}}
-            {{/if}}
-          {{/if}}
-        </span>
-      </button>
-    {{else}}
-      {{#if product.out_of_stock}}
-        <div
-          class="button button-primary button-wide add-to-cart button-disabled"
-        >
-          {{lang 'product.sold_out'}}
-        </div>
-      {{/if}}
-    {{/if}}
-
-
-    {{#if customer.customer_group_id '!=' '1' }}
-    <p class="product-trade"><a href="/to-the-trade" title="Learn more about trade benifits">Shopping for a Client? Apply for Trade benefits.</a></p>
-    {{/if}}
-
-    
-    {{#if settings.show_wishlist}}
-      <div class="wishlist-form" data-wishlist-dropdown>
-        {{#if customer.wishlists.length}}
-          <a
-            class="button button-secondary button-wide add-to-wishlist"
-            href="#"
-            data-wishlist-toggle
-          >
-            {{lang 'product.add_to_wishlist'}}
-          </a>
-          <ul class="add-to-wishlists" data-wishlist-panel>
-            {{#each customer.wishlists}}
-              <li>
-                <a
-                  href="{{../product.add_to_wishlist_url}}&wishlistid={{id}}"
-                  data-wishlist="{{view_url}}"
-                >
-                  {{name}} ({{num_items}})
-                </a>
-              </li>
-            {{/each}}
-          </ul>
-        {{else}}
-          <a
-            class="button button-secondary button-wide add-to-wishlist"
-            href="{{product.add_to_wishlist_url}}"
-          >
-            {{lang 'product.add_to_wishlist'}}
-          </a>
-        {{/if}}
-      </div>
-    {{/if}}
-  </div>
-{{/if}}
+	</div>
 </form>
 
 <script>
-(function(){
-      
-  document.querySelector("[data-button-purchase]").addEventListener("click", function(){
-    let qty = document.querySelector(".product-quantity").value,
-        price = document.querySelector(".price-value").innerText.trim().replace(/\$|,/g, '');
+	(function () {
+		document.querySelector("[data-button-purchase]").addEventListener("click", function () {
+			let qty = document.querySelector(".product-quantity").value,
+				price = document.querySelector(".price-value").innerText.trim().replace(/\$|,/g, '');
 
-    TEAK.Modules.fbPixel.addToCart("{{product.title}}", price, "{{product.id}}");
+			TEAK.Modules.fbPixel.addToCart("{{product.title}}", price, "{{product.id}}");
 
-    TEAK.Modules.pintrest.addToCart({
-      price: price, 
-      qty: qty,
-      id: "{{product.id}}",
-      name: "{{product.title}}",
-      brand: "{{product.brand.name}}",
-      categories: ["{{product.category}}"]
-    });
-  });
-
-}());
+			TEAK.Modules.pintrest.addToCart({
+				price: price,
+				qty: qty,
+				id: "{{product.id}}",
+				name: "{{product.title}}",
+				brand: "{{product.brand.name}}",
+				categories: ["{{product.category}}"]
+			});
+		});
+	}());
 </script>
-

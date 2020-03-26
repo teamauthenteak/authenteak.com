@@ -445,7 +445,7 @@ export default class ProductOptions {
 		this.$raqModal.find('form input[data-request-swatch-values-input]').val(`${swatches.join(',')}`);
 		this.$raqModal.find('form input[name=swatch_images]').val(`${swatchImage.join(',')}`);
 
-		if (swatches.length >= 5) {
+		if (swatches.length >= 3) {
 			this.$raqSwatches.addClass('has-max-selected');
 
 		} else {

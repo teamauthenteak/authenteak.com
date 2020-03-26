@@ -16,23 +16,15 @@ brands: true
   {{> components/products/product-single-tabs-atmo}}
 
   {{#if product.related_products.length}}
-    <section class="products-related section">
+    <section class="products-related section" id="recommendedProducts">
       <div class="container">
         <h3 class="section-title">{{lang 'product.related_products_heading'}}</h3>
-        <div class="product-grid product-carousel">
-          {{#each product.related_products}}
-            {{> components/products/product-grid-item
-              this
-              show_rating=../settings.show_product_rating
-              default_image=../theme_settings.default_image
-            }}
-          {{/each}}
-        </div>
+        <div class="product-grid product-carousel"></div>
       </div>
     </section>
 
     <script type="application/json" id="relatedProductIDs">
-      [{{#each product.related_products}}{{id}}{{#unless @last}}, {{/unless}}{{/each}}]
+    [{{#each product.related_products}}{{id}}{{#unless @last}}, {{/unless}}{{/each}}]
     </script>
   {{/if}}
 

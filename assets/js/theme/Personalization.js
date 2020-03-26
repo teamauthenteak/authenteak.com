@@ -1,15 +1,14 @@
 import PageManager from '../PageManager';
 
 /**
- * Personlaiation Module
+ * Personlaiation Module:
  *  Cutom personalization dispay and data interaction
  * 
  * Personalization Types:
  *  recentlyViewed: saves product data to local storage for later display
  * 
- * @param {} settings passed in settings for multi recommended types
- * settings.type:       string      "recentlyViewed" or "recommended"
  * 
+ * @param {String} settings.type - "recentlyViewed" or "recommended" | passed in settings for multi recommended types
  */
 
 export default class Personalization extends PageManager {
@@ -31,10 +30,9 @@ export default class Personalization extends PageManager {
         this.savedProducts = this.getViewed();
     }
 
-
     /**
      * Saves the viewed product object to localstorage
-     * @param {} product as parsed json 
+     * @param {Object} product as parsed json 
      */
     saveViewed(product){
         if( window.localStorage ){
@@ -65,6 +63,10 @@ export default class Personalization extends PageManager {
     }
 
 
+    /**
+     * Saves the procut to local storage
+     * @param {Object} product - viewes product object
+     */
 
     finishSaving(product){
         try{
@@ -90,6 +92,12 @@ export default class Personalization extends PageManager {
 
 
 
+    /**
+     * Checkes to see if thie product we are attempting to save is already there
+     * if so then we wont save it
+     * @param {Object} product - passed in product object 
+     */
+
     hasBeenSaved(product){
         // make sure we are not saving this again
         for (let i = 0; i < this.savedProducts.length; i++) {
@@ -102,7 +110,28 @@ export default class Personalization extends PageManager {
 
 
 
-    // takes all saved ratings and updates their raiting
+
+    /**
+     * Recently Viewed Product carousels
+     * @param {object} args.dotObj - {appendDots: '.product-rv-carousel'}
+     * @param {string} args.selctor - selctor class '.product-rv-carousel'
+     * @param {string} args.context - jquery ID context of the selector
+     * 
+     */ 
+    
+	initProductSlider(args){
+		let carouselObj = Object.assign(args.dotObj, TEAK.Globals.carouselSettings);
+		$(args.selector, args.context).slick(carouselObj);
+    }
+    
+
+
+
+    /**
+     * takes all saved ratings and updates their raiting with the latest from yotpo
+     * @param {Array} arr 
+     */
+
     updateStoredRatings(arr){
         let savedProductIds = [];
 
@@ -118,7 +147,10 @@ export default class Personalization extends PageManager {
 
 
 
-    // fetch recently viewed from local storage
+    /**
+     * Fetch recently viewed from local storage
+     */ 
+
     getViewed(){
         if( window.localStorage ){
             let saved = window.localStorage.getItem("TEAK_"+this.type);
@@ -141,7 +173,7 @@ export default class Personalization extends PageManager {
 
     /**
      * GET bulk resopnse from Yotpo
-     * @param {*} body JSON object for yotpo
+     * @param {Object} body JSON object for yotpo
      */
 
     async fetchYotpoBulk(body){
@@ -160,6 +192,11 @@ export default class Personalization extends PageManager {
 
 
 
+    /**
+     * Builds the yotpo object to send to yotpo for 
+     * the updated ratings
+     * @param {Array} arr - Array of product ids
+     */
 
     buildYotpoBulkObject(arr){
         let yotpoObj = {
@@ -188,10 +225,12 @@ export default class Personalization extends PageManager {
 
 
     /**
-     * Recently Viewed Template
-     * @param {*} product product object from parsed storage
+     * Personalized Product Template
+     * @param {Object} product - product object from parsed storage
      */
-    buildViewedSlider(product){
+
+    buildPersonalizationSlider(product){
+        // give total reviews a number if present
         product["total_review"] = (typeof product.total_review === "number") ? product["total_review"] : 0;
 
         return `<a href="${product.url}" title="${product.title}" class="product-grid-item product-recomendation-pod product-block" data-product-title="${product.title}" data-product-id="${product.product_id}">
@@ -213,5 +252,66 @@ export default class Personalization extends PageManager {
                     </div>
                 </a>`;
     }
+
+
+
+    makeRecommProductQuery(productIDArray){
+        let productQueryTpl = TEAK.QueryGraphTPL.getProductInfo(productIDArray);
+
+        return fetch('https://authenteak.com/graphql', {
+                    method: 'POST',
+                    credentials: 'include',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${TEAK.Globals.graphQl_dev}`
+                    },
+                    body: JSON.stringify({
+                        query: productQueryTpl
+                    })
+                })
+                .then(res => res.json())
+                .then(res => res.data);
+    }
+
+
+
+    /* need to normalize this graphql object to fit the product schema */
+    normalizeQLResponse(productData){
+        let noramlized = [];
+
+        productData.site.products.edges.forEach((element) => {
+            noramlized.push({
+                url: element.node.path,
+                image: element.node.defaultImage.url,
+                title: element.node.name,
+                product_id: element.node.entityId,
+                price: determinePrice(element.node.prices) 
+            });
+        });
+
+        // get product price
+        function determinePrice(prices){
+            if(prices.salePrice !== null){
+                if(prices.salePrice.value !== 0){
+                    return prices.salePrice.value;
+
+                }else{
+                    return  prices.price.value;
+                }
+
+            }else{
+                return  prices.price.value;
+            }
+        }
+
+
+        return noramlized;
+    }
+
+
+
+
+
 
 }

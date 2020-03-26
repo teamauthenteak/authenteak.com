@@ -16,26 +16,24 @@
 
  <!-- SEARCHSPRING SCRIPT -->
 {{#if category}}
-<script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query" category="{{#each breadcrumbs}}{{#unless @first}}{{name}}{{#unless @last}}>{{/unless}}{{/unless}}{{/each}}" name="{{ category.name }}" isLoggedIn="{{#if customer}}true{{else}}false{{/if}}" isTradeCustomer="{{#if customer.customer_group_id '==' '1' }}true{{else}}false{{/if}}"></script>
+<script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" async search="search_query" category="{{#each breadcrumbs}}{{#unless @first}}{{name}}{{#unless @last}}>{{/unless}}{{/unless}}{{/each}}" name="{{ category.name }}"></script>
 {{else if brand}}
-<script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query" brand="{{ brand.name }}" isLoggedIn="{{#if customer}}true{{else}}false{{/if}}" isTradeCustomer="{{#if customer.customer_group_id '==' '1' }}true{{else}}false{{/if}}"></script>
+<script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" async search="search_query" brand="{{ brand.name }}"></script>
 {{else}}
 <script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query"{{#if page.title "!=" 'Search Results'}} defer{{/if}}></script>
 {{/if}}
-<script src="//cdn.searchspring.net/intellisuggest/is.min.js"></script>
+<script src="//cdn.searchspring.net/intellisuggest/is.min.js" async></script>
 
 {{> components/header/customizations/heap}}
 
+<!--[if gte IE 8]>
 <script src="{{cdn '/assets/js/modernizr.js'}}"></script>
-<!-- <script>window.History = { options: { delayInit: true } }</script> -->
+<![endif]-->
 
 {{{head.scripts}}}
 {{inject 'themeImageSizes' theme_settings._images}}
 {{> components/common/global-injects}}
 {{{snippet 'html_head'}}}
-
-{{> core/structured-data/website}}
-{{> core/structured-data/breadcrumbs}}
 
 {{> components/header/customizations/facebook-pixel}}
 {{> components/header/customizations/pintrest-ad}}
@@ -91,8 +89,8 @@
 
 	<div class="icons-svg-sprite">{{> components/common/icons/icon-defs}}</div>
 
+	
 	<script src="{{cdn '/assets/js/bundle.js'}}"></script>
-
 	{{> components/common/TEAK-js}}
 	
 	{{#if page_type '===' 'product'}}
@@ -111,11 +109,10 @@
 
 	{{{footer.scripts}}}
 
-
 	{{#if customer}} {{!-- used for analitics unique tracking ---}}
 	<script>
 	document.addEventListener('DOMContentLoaded', function(){
-		window.TEAK.thirdParty.heap.init({
+		window.TEAK.ThirdParty.heap.init({
 		  method: 'identify',
 		  id: '{{customer.id}}.authenteak.com'
 		});
@@ -144,7 +141,7 @@
 				var productCode = "{{product.sku}}";
 
 				IntelliSuggest.init({
-					siteId: TEAK.thirdParty.IntelliSuggest.siteId,
+					siteId: TEAK.ThirdParty.IntelliSuggest.siteId,
 					context: 'Product/' + productCode,
 					seed: [productCode]
 				});
@@ -167,5 +164,9 @@
 		}(window));
 	</script>
 	{{/if}}
+
+	{{> core/structured-data/website}}
+	{{> core/structured-data/breadcrumbs}}
+
 </body>
 </html>

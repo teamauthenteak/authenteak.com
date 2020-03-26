@@ -37,7 +37,11 @@ window.addEventListener("load", function(){
             
             $(window).on("cartDataStored", function(){
                 TEAK.Modules.pintrest.getCart();
-                pinObj.order_id = TEAK.Modules.pintrest.cart.id;
+                
+                try{
+                    pinObj.order_id = TEAK.Modules.pintrest.cart.id;
+                }catch(e){}
+                
                 window.pintrk('track', 'addtocart', pinObj);
             });
            

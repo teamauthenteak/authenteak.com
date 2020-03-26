@@ -19,7 +19,7 @@
 
     <div class="product-details-column">
       <h2 class="product-title mobileShow">{{this.product.title}}</h2>
-      <p class="item-number item-number-mobile mobileShow">ITEM #: {{product.sku}}</p>
+      <p class="item-number item-number-mobile mobileShow">Item #: {{product.sku}} &nbsp;&nbsp;&nbsp; Internet #: {{product.id}}</p>
 
       {{> components/products/customizations/swatch-hover-detail}}
 
@@ -61,7 +61,7 @@
       {{/if}}
       
         <div class="item-number">
-          <span class="mobileHide">ITEM #: {{product.sku}}</span>
+          <span class="mobileHide">Item #: {{product.sku}} &nbsp;&nbsp;&nbsp; Internet #: {{product.id}}</span>
           <span class="yotpo-pdp-wrapper">
               <span class="yotpo bottomLine" data-product-id="{{ product.id }}"></span>  
               <span class='yotpo QABottomLine' data-appkey='aS8rMIONwGgNbx1ATQmUtKY173Xk5HHc75qGrnuq' data-product-id='{{ product.id }}'></span>

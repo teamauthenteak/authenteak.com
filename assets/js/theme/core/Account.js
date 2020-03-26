@@ -47,7 +47,7 @@ export default class Account {
 
 			// console.log(heapObj);
 			
-			window.TEAK.thirdParty.heap.init(heapObj);
+			window.TEAK.ThirdParty.heap.init(heapObj);
 		}
 		
 		return this;

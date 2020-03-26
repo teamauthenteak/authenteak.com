@@ -101,9 +101,13 @@
     
     <h5 class="product-item-title">{{name}}</h5>
 
-    <div class="product-price">
+    <div class="product-price hide">
       {{#if price}}
         {{~default product.price.sale_price_without_tax.value price.without_tax.formatted~}}
+      {{/if}}
+
+      {{#if price}}
+          {{> components/products/price price=product.price show_savings=true save_block=true}}
       {{/if}}
   
       {{#if call_for_price}}

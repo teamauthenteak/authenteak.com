@@ -21,43 +21,7 @@ export default class Cart extends PageManager {
     this.recentlyViewed = new Personalization({
       type: "recentlyViewed"
 	});
-	
-	this.carouselSettings = {
-		infinite: true,
-		slidesToShow: 4,
-		slidesToScroll: 4,
-		autoplaySpeed: 4000,
-		dots: true,
-		speed: 800,
-		prevArrow: '<span class="carousel-navigation-item previous"><svg class="icon icon-arrow-left"><use xlink:href="#icon-arrow-left" /></svg></span>',
-		nextArrow: '<span class="carousel-navigation-item next"><svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right" /></svg></span>',
-		responsive: [
-			{
-				breakpoint: 1024,
-				settings: {
-					slidesToShow: 3,
-					slidesToScroll: 3,
-					autoplay: false
-				}
-			},
-			{
-				breakpoint: 768,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 2,
-					autoplay: true
-				}
-			},
-			{
-				breakpoint: 480,
-				settings: {
-					slidesToShow: 1,
-					slidesToScroll: 1,
-					autoplay: true
-				}
-			}
-		]
-	};
+
 
 	this._initRecentlyViewed();
 
@@ -153,21 +117,18 @@ export default class Cart extends PageManager {
 
 		if (recentProducts) {
 			recentProducts.forEach((element) => {
-				let tpl = this.recentlyViewed.buildViewedSlider(element);
-				$(tpl).appendTo(".product-grid", $rv);
+				let tpl = this.recentlyViewed.buildPersonalizationSlider(element);
+				$(tpl).appendTo(".product-rv-carousel", $rv);
 			});
 
 			$rv.addClass("show");
 		}
 
-  	this.initRVSlider();
-	}
-
-
-	// Recently Viewed Product carousels
-	initRVSlider(){
-		let carouselObj = Object.assign({appendDots: '.product-rv-carousel'}, this.carouselSettings);
-		$('.product-rv-carousel').slick(carouselObj);
+  	this.recentlyViewed.initProductSlider({
+      dotObj: {appendDots: '.product-rv-carousel'},
+      selector: '.product-rv-carousel',
+      context: '#recentlyViewedProducts'
+    });
 	}
 
 }

@@ -30,42 +30,6 @@ export default class Product extends PageManager {
 
 		this.fitVidsInitialized = false;
 
-		this.carouselSettings = {
-			infinite: true,
-			slidesToShow: 4,
-			slidesToScroll: 4,
-			autoplaySpeed: 4000,
-			dots: true,
-			speed: 800,
-			prevArrow: '<span class="carousel-navigation-item previous"><svg class="icon icon-arrow-left"><use xlink:href="#icon-arrow-left" /></svg></span>',
-			nextArrow: '<span class="carousel-navigation-item next"><svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right" /></svg></span>',
-			responsive: [
-				{
-					breakpoint: 1024,
-					settings: {
-						slidesToShow: 3,
-						slidesToScroll: 3,
-						autoplay: false
-					}
-				},
-				{
-					breakpoint: 768,
-					settings: {
-						slidesToShow: 2,
-						slidesToScroll: 2,
-						autoplay: true
-					}
-				},
-				{
-					breakpoint: 480,
-					settings: {
-						slidesToShow: 1,
-						slidesToScroll: 1,
-						autoplay: true
-					}
-				}
-			]
-		};
 
 		new Alert($('[data-alerts]'));
 
@@ -94,6 +58,18 @@ export default class Product extends PageManager {
 		new AddToCartModal();
 
 
+		// Recommened Products Yotpo Update
+		this.recommended = new Personalization({
+			type: "recommended"
+		});
+		this.initRecommendedProducts({
+			// our recommended product id array built in pages > product.html
+			productIdArray: JSON.parse( document.getElementById("relatedProductIDs").innerHTML )
+		});
+		this.recommendedProducts = [];
+
+
+
 		// Recently Viewed Module
 		this.recentlyViewed = new Personalization({
 			type: "recentlyViewed"
@@ -101,17 +77,10 @@ export default class Product extends PageManager {
 		this._initRecentlyViewed();
 
 
-		// Recommened Products Yotpo Update
-		this.recommended = new Personalization({
-			type: "recommended"
-		});
-		this.updateProductRaiting({
-			// our recommended product id array built in pages > product.html
-			productIdArray: JSON.parse( document.getElementById("relatedProductIDs").innerHTML )
-		});
 
-		this._initSlick();
+		// get this product's updtaed reviews from yotpo
 		this._getReviews();
+
 
 		// Product UI
 		this._bindEvents();
@@ -181,7 +150,7 @@ export default class Product extends PageManager {
 
 
 	initAnalytics(){
-		TEAK.thirdParty.heap.init({
+		TEAK.ThirdParty.heap.init({
 			method: 'track',
 			event: 'pdp_view',
 			location: 'pdp'
@@ -191,29 +160,84 @@ export default class Product extends PageManager {
 
 
 	/**
-	 * Yotpo: Fetch Bulk Ratings
-	 * @param {*} args.productIdArray arry of product ids 
+	 * Build Recomended Products
+	 * @param {Array} args.productIdArray arry of recomened product ids 
 	 */
 
-	updateProductRaiting(args){
+	initRecommendedProducts(args){
+		this.recommended.makeRecommProductQuery(args.productIdArray)
+			.then(data => {
+				this.recommendedProducts = this.recommended.normalizeQLResponse(data);
+			})
+			.then(() => {
+				this.getProductRaiting(args.productIdArray);
+			})
+			.then(() => {
+				this.buildRecommendationSlider();
+
+				this.recommended.initProductSlider({
+					dotObj: {appendDots: '.product-carousel', infinite: false},
+					selector: '.product-carousel',
+					context: "#recommendedProducts"
+				});
+			});
+	}
+
+
+
+
+
+	/**
+	 * Yotpo: Fetch Bulk Ratings
+	 * @param {Array} productIdArray arry of product ids 
+	 */
+
+	getProductRaiting(productIdArray){
 		try{
-			let yotpoObj = this.recommended.buildYotpoBulkObject(args.productIdArray);
+			let yotpoObj = this.recommended.buildYotpoBulkObject(productIdArray);
 
 			// get our bulk yotpo rating for recomm products on page
 			this.recommended.fetchYotpoBulk(yotpoObj)
 				.then((data) => {
-					this.appendRating(data, args);
+					this.appendRating(data, productIdArray);
 				});
 
 		}catch(err){}
 	}
 
 
-	appendRating(data, args){
-		args.productIdArray.forEach((element, i) => {
-			this.showRaiting( $(`.yotpoRating__${element}`), data[i].result.average_score, 0, data[i].result.total );
-		});
+
+	/**
+	 * Bind the fetched yotpo rating field to the coresponding product
+	 * @param {Array} dataArray - Data Array of Objects fetched from yotpo
+	 * @param {Array} productIdArray - array of product ids
+	 */
+
+	appendRating(dataArray, productIdArray){
+		for (let i = 0; i < productIdArray.length; i++) {
+			Object.assign(this.recommendedProducts[i], {
+				total_review: dataArray[i].result.total,
+				rating: dataArray[i].result.average_score
+			});
+		}	
 	}
+
+
+
+
+	buildRecommendationSlider(){
+		let $recomm = $("#recommendedProducts");
+
+		this.recommendedProducts.forEach((element) => {
+			let tpl = this.recommended.buildPersonalizationSlider(element);
+			$(tpl).appendTo(".product-carousel", $recomm);
+		});
+
+		$recomm.addClass("show");
+	}
+
+
+
 
 
 
@@ -223,16 +247,24 @@ export default class Product extends PageManager {
 
 		if(recentProducts){ 
 			recentProducts.forEach((element) => {
-				let tpl = this.recentlyViewed.buildViewedSlider(element);
-				$(tpl).appendTo(".product-grid", $rv);
+				let tpl = this.recentlyViewed.buildPersonalizationSlider(element);
+				$(tpl).appendTo(".product-rv-carousel", $rv);
 			});
 
 			$rv.addClass("show");	
 		}
 
 		this.saveViewedProduct();
-		this.initRVSlider();
+
+		this.recentlyViewed.initProductSlider({
+			dotObj: {appendDots: '.product-rv-carousel'},
+			selector: '.product-rv-carousel',
+			context: '#recentlyViewedProducts'
+		});
+		
 	}
+
+	
 
 
 
@@ -240,6 +272,7 @@ export default class Product extends PageManager {
 	saveViewedProduct(){
 		try{
 			let productInfo = document.getElementById("productInfo").innerHTML;
+
 			productInfo = JSON.parse(productInfo);
 			
 			$.ajax(`${this.recentlyViewed.yotpoReviewsUrl}/${this.recentlyViewed.yotpoKey}/products/${this.productId}/reviews.json`)
@@ -252,7 +285,6 @@ export default class Product extends PageManager {
 					productInfo["total_review"] = dataObj.response.bottomline.total_review;
 
 					this.recentlyViewed.saveViewed(productInfo);
-				
 				});
 				/* .then((data) => {
 					this.buildProductSchema(data);
@@ -261,14 +293,6 @@ export default class Product extends PageManager {
 		}catch(err){
 			console.log(err)
 		}
-	}
-
-
-
-	// Recently Viewed Product carousels
-	initRVSlider(){
-		let carouselObj = Object.assign({appendDots: '.product-rv-carousel'}, this.carouselSettings);
-		$('.product-rv-carousel').slick(carouselObj);
 	}
 
 
@@ -369,11 +393,7 @@ export default class Product extends PageManager {
 	}
 
 
-	// Related Products
-	_initSlick() {
-		let carouselObj = Object.assign({appendDots: '.product-carousel'}, this.carouselSettings);
-		$('.product-carousel').slick(carouselObj);
-	}
+	
 
 
 }
@@ -656,21 +676,21 @@ TEAK.Modules.freeShipping = {
 					}
 				],
 
-			freeWhiteGlove = 
-				`<p class="free-shipping-text" data-pricing-free-shipping>
-					<a href="" class="free-shipping-text--link" data-tool-tip-open data-tool-tip-type="element" data-tool-tip-name="free_white_glove_delivery, threshold_delivery" data-tool-tip-id="free_delivery">
-						<span>This item qualifies for free upgraded delivery</span> &nbsp;
-						<span class="toolTip__iconCntr toolTip__iconCntr--dark">
-							<svg class="toolTip__icon toolTip__icon--white" enable-background="new 0 0 20 20" version="1.1" viewBox="0 0 20 20" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-								<title>tool tip</title>
-								<path d="M12.432 0c1.34 0 2.010 0.912 2.010 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-0.75-1.974-1.99 0-1.043 0.881-2.479 2.643-2.479zM8.309 20c-1.058 0-1.833-0.652-1.093-3.524l1.214-5.092c0.211-0.814 0.246-1.141 0-1.141-0.317 0-1.689 0.562-2.502 1.117l-0.528-0.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273 0.705 3.23l-1.391 5.352c-0.246 0.945-0.141 1.271 0.106 1.271 0.317 0 1.357-0.392 2.379-1.207l0.6 0.814c-2.502 2.547-5.235 3.527-6.291 3.527z"></path>
-							</svg>
-						</span>
-					</a>
-					<div class="toolTip__cntr toolTip__cntr--withTabs toolTip__cntr--hide" id="free_delivery">
-						${TEAK.Modules.toolTip.getTabs(shippingTabs)}
-					</div>
-				</p>`,
+			freeWhiteGlove = '<p class="free-shipping-text" data-pricing-free-shipping>Free Shipping</p></p>',
+				// `<p class="free-shipping-text" data-pricing-free-shipping>
+				// 	<a href="" class="free-shipping-text--link" data-tool-tip-open data-tool-tip-type="element" data-tool-tip-name="free_white_glove_delivery, threshold_delivery" data-tool-tip-id="free_delivery">
+				// 		<span>This item qualifies for free upgraded delivery</span> &nbsp;
+				// 		<span class="toolTip__iconCntr toolTip__iconCntr--dark">
+				// 			<svg class="toolTip__icon toolTip__icon--white" enable-background="new 0 0 20 20" version="1.1" viewBox="0 0 20 20" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+				// 				<title>tool tip</title>
+				// 				<path d="M12.432 0c1.34 0 2.010 0.912 2.010 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-0.75-1.974-1.99 0-1.043 0.881-2.479 2.643-2.479zM8.309 20c-1.058 0-1.833-0.652-1.093-3.524l1.214-5.092c0.211-0.814 0.246-1.141 0-1.141-0.317 0-1.689 0.562-2.502 1.117l-0.528-0.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273 0.705 3.23l-1.391 5.352c-0.246 0.945-0.141 1.271 0.106 1.271 0.317 0 1.357-0.392 2.379-1.207l0.6 0.814c-2.502 2.547-5.235 3.527-6.291 3.527z"></path>
+				// 			</svg>
+				// 		</span>
+				// 	</a>
+				// 	<div class="toolTip__cntr toolTip__cntr--withTabs toolTip__cntr--hide" id="free_delivery">
+				// 		${TEAK.Modules.toolTip.getTabs(shippingTabs)}
+				// 	</div>
+				// </p>`,
 
 				tpl = ( (args.price.without_tax > 2998 || args.price.custom > 2998) && !isExcluded ) ? freeWhiteGlove : freeShipping;
 	

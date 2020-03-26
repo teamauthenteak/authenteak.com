@@ -4,16 +4,64 @@
  *      - Primarly used to share data between the View & Model
  *      and other third party modules outside of the application 
  *      scope of app.js and its compilation
+ * 
+ *  - Globals
+ *  - User
+ *  - Data
+ *  - Utils
+ *  - Modules
+ *  - ThirdParty
+ * 
  */
+
 window.TEAK = window.TEAK || {};
 
 
 /** -----------------------------------------
  * TEAK Globals Config
  * Global Configuration object to hold general settigns
+ * and globally used STATIC variables
  * ------------------------------------------ */
-window.TEAK.Globals = {};
-
+window.TEAK.Globals = {
+    graphQl_dev: "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJlYXQiOjE2MDIyODgwMDAsInN1Yl90eXBlIjoyLCJ0b2tlbl90eXBlIjoxLCJjb3JzIjpbImh0dHA6Ly9sb2NhbC5hdXRoZW50ZWFrLmNvbTozMzAwIl0sImNpZCI6MSwiaWF0IjoxNTg1MjQxNTQ0LCJzdWIiOiJhOTRjM2MzMDk0bzVpdThsdTduYWVpbms2eTUxMTQwIiwic2lkIjo5OTkyMzI0MzIsImlzcyI6IkJDIn0.Lq9Re5VLVYh56F6PXEumWHaWkT_z8UK2bB5dwlXilkGAmQYO0e8gmaW4K2NH23g3GEWszp6FwLi_Cs4vypqnAA",
+    carouselSettings: {
+        infinite: true,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        autoplaySpeed: 4000,
+        dots: true,
+        speed: 800,
+        lazyLoad: "progressive",
+        prevArrow: '<span class="carousel-navigation-item previous"><svg class="icon icon-arrow-left"><use xlink:href="#icon-arrow-left" /></svg></span>',
+        nextArrow: '<span class="carousel-navigation-item next"><svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right" /></svg></span>',
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    autoplay: false
+                }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    autoplay: true
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    autoplay: true
+                }
+            }
+        ]
+    }
+};
 
 
 /** -----------------------------------------
@@ -44,7 +92,7 @@ window.TEAK.Utils = {
 
         TEAK.Data.ProductData = this.getTagData("productTipsJSON");
 
-        return TEAK.Data.ProductData ? TEAK.Data.ProductData : this.getJsonData("/assets/js/theme/product.json");
+        return TEAK.Data.ProductData ? TEAK.Data.ProductData : this.getLocalJsonData("/assets/js/theme/product.json");
     },
 
     
@@ -55,14 +103,14 @@ window.TEAK.Utils = {
 
         TEAK.Data.MenuData = this.getTagData("megaMenuEnhancement");
         
-        return TEAK.Data.MenuData ? TEAK.Data.MenuData : this.getJsonData("/assets/js/theme/header.json");
+        return TEAK.Data.MenuData ? TEAK.Data.MenuData : this.getLocalJsonData("/assets/js/theme/header.json");
     },
 
 
     getTagData: function(id){
         var data;
 
-        if(document.getElementById(id) && window.location.hostname !== "localhost"){
+        if(document.getElementById(id) && (window.location.hostname !== "localhost" || window.location.hostname === "local.authenteak.com") ){
             data = document.getElementById(id).innerHTML;
             data = data ? JSON.parse(data) : {};
 
@@ -74,7 +122,7 @@ window.TEAK.Utils = {
     },
 
 
-    getJsonData: function(path){
+    getLocalJsonData: function(path){
         let responseData;
 
         // run it on on our local
@@ -180,13 +228,60 @@ window.TEAK.Utils = {
 
 
 
+/** -----------------------------------------
+ * TEAK Data
+ * Store Model View data for interactions
+ * ------------------------------------------ */
+window.TEAK.Data = {};
+
+
+
 
 
 /** -----------------------------------------
  * TEAK Data
  * Store Model View data for interactions
  * ------------------------------------------ */
-window.TEAK.Data = {};
+window.TEAK.QueryGraphTPL = {
+    getProductInfo: function(arr){
+        return `query getProductInfo{
+                    site{
+                        products(entityIds:[${arr}]){
+                            edges{
+                                node{
+                                    entityId
+                                    name
+                                    path
+                
+                                    defaultImage {
+                                        url(width: 500, height: 500)
+                                    }
+                                    
+                                    prices {
+                                        price {
+                                            ...PriceFields
+                                        }
+                                        salePrice {
+                                            ...PriceFields
+                                        }
+                                        retailPrice {
+                                            ...PriceFields
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                fragment PriceFields on Money {
+                    value
+                }`;
+    }
+    
+};
+
+
 
 
 /** -----------------------------------------
@@ -201,7 +296,7 @@ window.TEAK.Modules = {};
  * TEAK 3rd Parties
  * Store settigns for 3rd parties
  * ------------------------------------------ */
-window.TEAK.thirdParty = {
+window.TEAK.ThirdParty = {
     google:{
         getUID: function(){
             if(window.localStorage){
@@ -220,7 +315,7 @@ window.TEAK.thirdParty = {
     heap:{
 
         load(){
-            let HEAP_ENV_ID = window.location.hostname === "localhost" ? '702616063' : '753981833';  
+            let HEAP_ENV_ID =(window.location.hostname !== "localhost" || window.location.hostname === "local.authenteak.com") ? '702616063' : '753981833';  
             window.heap.load(HEAP_ENV_ID);
         },
 
@@ -345,10 +440,10 @@ window.TEAK.thirdParty = {
 };
 
 // intellisuggest
-TEAK.thirdParty.IntelliSuggest.buildData();
+TEAK.ThirdParty.IntelliSuggest.buildData();
 
 if( window.location.hostname !== "authenteak.com" ){
-    $(window).on("load", TEAK.thirdParty.IntelliSuggest.fixLinks);
+    $(window).on("load", TEAK.ThirdParty.IntelliSuggest.fixLinks);
 }
 
 

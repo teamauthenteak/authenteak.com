@@ -78,7 +78,7 @@ export default class Header {
 
 			} else {
 
-				if (document.getElementById("megaMenuEnhancement") && window.location.hostname !== "localhost") {
+				if (document.getElementById("megaMenuEnhancement") && (window.location.hostname !== "localhost" || window.location.hostname === "local.authenteak.com")) {
 					data = document.getElementById("megaMenuEnhancement").innerHTML;
 					data = JSON.parse(data);
 

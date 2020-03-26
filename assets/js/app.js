@@ -19,13 +19,14 @@ import brand from './theme/Brand';
 import brands from './theme/Brands';
 import cart from './theme/Cart';
 import Category from './theme/Category';
+import Collection from './theme/Collection';
 import compare from './theme/Compare';
 import contactUs from './theme/ContactUs';
 import errors from './theme/Errors';
 import errors404 from './theme/404-error';
 import giftCertificate from './theme/core/GiftCertificate';
 import global from './theme/Global';
-import home from './theme/Home';
+import Home from './theme/Home';
 import orderComplete from './theme/OrderComplete';
 import page from './theme/Page';
 import product from './theme/Product';
@@ -62,6 +63,7 @@ let PageClasses = {
     'pages/cart': cart,
     'pages/category': Category,
     'pages/amp/category': Category,
+    'pages/custom/category/collection': Collection,
     'pages/compare': compare,
     'pages/contact-us': contactUs,
     'pages/errors': errors,
@@ -70,7 +72,7 @@ let PageClasses = {
     'pages/gift-certificate/balance': giftCertificate,
     'pages/gift-certificate/redeem': giftCertificate,
     'global': global,
-    'pages/home': home,
+    'pages/home': Home,
     'pages/order-complete': orderComplete,
     'pages/page': page,
     'pages/product': product,

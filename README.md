@@ -155,20 +155,20 @@ Developer Documenation for Heap Analityics.
 
 ```
         // used to identify a website user
-          TEAK.thirdParty.heap.init({
+          TEAK.ThirdParty.heap.init({
             method: 'identify',
             id: '{{customer.id}}.authenteak.com'
           });
           
         // use to track an event
-          TEAK.thirdParty.heap.init({
+          TEAK.ThirdParty.heap.init({
             method: 'track',
             event: 'order_completed',
             location: 'OrderConfirmation'
           });
           
         // creates a new users in heap
-          TEAK.thirdParty.heap.init({
+          TEAK.ThirdParty.heap.init({
             method: 'addUser',
             email: '{{customer.email}}',
             name: '{{customer.name}}',

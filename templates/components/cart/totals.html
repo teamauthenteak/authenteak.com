@@ -381,13 +381,13 @@
     document.addEventListener('DOMContentLoaded', function(){
       try{
         IntelliSuggest.init({
-          siteId: TEAK.thirdParty.IntelliSuggest.siteId,
+          siteId: TEAK.ThirdParty.IntelliSuggest.siteId,
           context:'Basket',
-          seed: TEAK.thirdParty.IntelliSuggest.initArray
+          seed: TEAK.ThirdParty.IntelliSuggest.initArray
         });
 
         // Loop through products in cart
-        TEAK.thirdParty.IntelliSuggest.haveItemArray.forEach( function(element){
+        TEAK.ThirdParty.IntelliSuggest.haveItemArray.forEach( function(element){
           IntelliSuggest.haveItem(element);
         });
 

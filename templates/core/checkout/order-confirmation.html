@@ -229,12 +229,12 @@
           var storedCart = TEAK.Utils.getStoredCart();
 
           if(typeof storedCart !== "undefined" && typeof storedCart.lineItems !== "undefined"){
-              TEAK.thirdParty.heap.init({
+              TEAK.ThirdParty.heap.init({
                 method: 'identify'{{#if customer}},
                 id: '{{customer.id}}.authenteak.com'{{/if}}
               });
               
-              TEAK.thirdParty.heap.init({
+              TEAK.ThirdParty.heap.init({
                 method: 'track',
                 event: 'order_completed',
                 location: 'OrderConfirmation',
@@ -255,18 +255,18 @@
         intelliSuggest: function(){
           try{
             IntelliSuggest.init({
-              siteId: TEAK.thirdParty.IntelliSuggest.siteId,
+              siteId: TEAK.ThirdParty.IntelliSuggest.siteId,
             });
               
             // Loop through products in cart
-            TEAK.thirdParty.IntelliSuggest.haveItemArray.forEach( function(element){
+            TEAK.ThirdParty.IntelliSuggest.haveItemArray.forEach( function(element){
               IntelliSuggest.haveItem(element);
             });
         
             IntelliSuggest.inSale({
-                orderId: TEAK.thirdParty.IntelliSuggest.cartId,
-                transactionId: TEAK.thirdParty.IntelliSuggest.cartId,
-                total: TEAK.thirdParty.IntelliSuggest.cartAmount,
+                orderId: TEAK.ThirdParty.IntelliSuggest.cartId,
+                transactionId: TEAK.ThirdParty.IntelliSuggest.cartId,
+                total: TEAK.ThirdParty.IntelliSuggest.cartAmount,
                 city: "{{order.shipping_address.city}}",
                 state: "{{order.shipping_address.state}}",
                 country: "US"

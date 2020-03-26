@@ -7,7 +7,7 @@ category:
 
 {{#partial "page"}}
 
-    <div class="product">
+    <div class="product" id="CategoryCollection">
         {{#if theme_settings.category-breadcrumbs}}
         <div class="product__breadcrumbs mobileHide">
             {{> components/common/breadcrumbs breadcrumbs}}
@@ -17,23 +17,18 @@ category:
        
         <div class="product__col-1-1">
             <div class="product__col-1-2 product__col--marginBottom">
-           
                 <figure class="product__figure product-image" style="background-image:url({{getImage category.image ''}});"  data-product-image>
                     <img src="{{getImage category.image 'thumbnail'}}" alt="{{alt}}" class="product__figImg">
                 </figure>
-                
             </div>
 
 
             <div class="product__col-1-2">
                 <h1 class="product__name">{{category.name}}</h1>
-                
                 {{category.description}}
-
                 <div class="product__customizations">
                     {{> components/products/add-to-cart-form-collection cart_icon=cart_icon}}
                 </div>
-                
             </div>
         </div> 
     
@@ -58,7 +53,7 @@ category:
                         </header>
                        
     
-                        <p class="product__itemNum">Item #{{sku}}
+                        <p class="product__itemNum">Item #: {{sku}} &nbsp;&nbsp;&nbsp; Internet #: {{id}}
                             <a class="product__ratingWrapper yotpo-pdp-wrapper hide" href="{{url}}#yotpoReviews" id="yotpoRating" title="Reviews of {{name}}">
                                 <span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of 0 out of 5."></span>
                                 (<span class="yotpo-reviews-num">0</span>)
@@ -152,6 +147,12 @@ category:
         {{/each}}
         
 
+        <section class="products-related products-recently-viewed section" id="recentlyViewedProducts">
+            <div class="container">
+                <h3 class="section-title">{{lang 'product.recently_viewed_products_heading'}}</h3>
+                <div class="product-grid product-rv-carousel"></div>
+            </div>
+        </section>
 
     </div>
 

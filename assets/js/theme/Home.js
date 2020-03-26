@@ -5,6 +5,7 @@ import Tabs from 'bc-tabs';
 import slick from 'slick-carousel';
 import imagesLoaded from 'imagesloaded';
 
+
 export default class Home extends PageManager {
   constructor() {
     super();
@@ -21,6 +22,8 @@ export default class Home extends PageManager {
   }
 
   _initTabs() {
+    console.log('home')
+
     this.tabs = new Tabs({
       afterSetup: () => {
         $('.product-carousel').slick('setPosition');

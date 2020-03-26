@@ -8,6 +8,7 @@ import fillFacetRatingStars from './global/fillFacetRatingStars';
 import toggleFacet from './global/toggleFacet';
 import InfiniteScroll from 'infinite-scroll';
 import ProductImages from './product/ProductImages';
+import Collection from './Collection';
 
 export default class Category extends PageManager {
   constructor() {
@@ -20,8 +21,12 @@ export default class Category extends PageManager {
     }
 
     // Product Images
-		new ProductImages(".product-slides-wrap");
-
+    new ProductImages(".product-slides-wrap");
+    
+    if(document.getElementById("CategoryCollection")){
+      new Collection();
+    }
+    
     this._bindEvents();
 
     this.initAnalytics();
@@ -54,7 +59,7 @@ export default class Category extends PageManager {
 
 
   initAnalytics(){
-		TEAK.thirdParty.heap.init({
+		TEAK.ThirdParty.heap.init({
       method: 'track',
       event: 'plp_view',
       location: 'plp'

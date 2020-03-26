@@ -12,43 +12,6 @@ export default class Page extends PageManager {
             afterShow: this.initWufooWarrantyForm()
         });
 
-        this.carouselSettings = {
-            infinite: true,
-            slidesToShow: 4,
-            slidesToScroll: 4,
-            autoplaySpeed: 4000,
-            dots: true,
-            speed: 800,
-            prevArrow: '<span class="carousel-navigation-item previous"><svg class="icon icon-arrow-left"><use xlink:href="#icon-arrow-left" /></svg></span>',
-            nextArrow: '<span class="carousel-navigation-item next"><svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right" /></svg></span>',
-            responsive: [
-                {
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 3,
-                        autoplay: false
-                    }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 2,
-                        autoplay: true
-                    }
-                },
-                {
-                    breakpoint: 480,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1,
-                        autoplay: true
-                    }
-                }
-            ]
-        };
-
         
         // add Personalization engine
         this.recentlyViewed = new Personalization({
@@ -65,22 +28,37 @@ export default class Page extends PageManager {
 			recentProducts = this.recentlyViewed.getViewed();
 
 		if (recentProducts) {
+
+            // only doing this because of shogun ~ delete once shogun is removed
+            if(window.location.pathname === "/"){
+                $(`<section class="products-related products-recently-viewed section show" id="recentlyViewedProducts">
+                        <div class="container">
+                            <h3 class="section-title">RECENTLY VIEWED ITEMS</h3>
+                            <div class="product-grid product-rv-carousel"></div>
+                        </div>
+                    </section>`).insertAfter(".page-content"); 
+            }
+
+
 			recentProducts.forEach((element) => {
-				let tpl = this.recentlyViewed.buildViewedSlider(element);
-				$(tpl).appendTo(".product-grid", $rv);
+                let tpl = this.recentlyViewed.buildPersonalizationSlider(element);
+                
+                if(document.querySelector(".product-grid")){
+                    $(tpl).appendTo(".product-rv-carousel", $rv);
+                }
 			});
 
             $rv.addClass("show");
+
+            // let carouselObj = Object.assign({appendDots: '.product-rv-carousel'}, TEAK.Globals.carouselSettings);
+		    // $('.product-rv-carousel').slick(carouselObj);
             
-            this.initRVSlider();
+            this.recentlyViewed.initProductSlider({
+                dotObj: {appendDots: '.product-rv-carousel'},
+                selector: '.product-rv-carousel',
+                context: '#recentlyViewedProducts'
+            });
 		}
-	}
-
-
-	// Recently Viewed Product carousels
-	initRVSlider(){
-		let carouselObj = Object.assign({appendDots: '.product-rv-carousel'}, this.carouselSettings);
-		$('.product-rv-carousel').slick(carouselObj);
 	}
 
 
