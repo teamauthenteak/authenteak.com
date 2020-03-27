@@ -7,6 +7,7 @@
 
 .paypal-smart-buttons{
     margin: 0 !important;
+    width: 100% !important;
 }
 
 .paypal-button{
@@ -28,4 +29,12 @@
     .paypal-button-shape-rect{
         @extend %button-rounded;
     }
+}
+
+.apple-pay-checkout-button {
+    @extend %button-rounded;
+    height: 55px !important;
+    overflow: hidden;
+    width: 100% !important;
+    max-width: 350px;
 }

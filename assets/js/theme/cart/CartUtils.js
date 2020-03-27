@@ -80,7 +80,10 @@ export default class CartUtils {
           // update our cart model data for other apps and UI
           utils.api.cart.getCart({includeOptions: true}, (err, response) => {
             window.TEAK.Utils.saveCartResponse(response);
+
+            window.location.reload();
           });
+          
 
         } else {
           $quantityInput.val(this.productData[itemId].oldQuantity);
@@ -88,7 +91,6 @@ export default class CartUtils {
 
           this.callbacks.didUpdate();
         }
-
         // this.cartPromos.empty();
       });
 

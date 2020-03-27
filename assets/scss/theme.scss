@@ -8328,6 +8328,7 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
 }
 
 .apple-pay-checkout-button {
+  @extend %button-rounded;
   display: none;
   box-sizing: border-box;
   min-width: rem-calc(176);

@@ -44,11 +44,6 @@ export default class QuantityWidget {
         console.error(`Quantity value "${value}" cannot be less than minimum (${min})`);
         $target.val($target.attr('value'));
       }
-
-      if(value < max && value > min){
-        window.location.reload();
-      }
-
     });
   }
 }
