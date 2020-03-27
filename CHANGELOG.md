@@ -6,12 +6,14 @@
 - fixed pdp thunbial pre loading alingment issue
 - added logic to search for "ships next day" on lead time to show tool tip
 - added TEAK tempalte object for js globals
-- Added Recently Viewed to Home page and all pages
+- Added Recently Viewed to Home page
 - changed swatch order from 5 to 3
 - graphql for recommended products on pdp
 - added check to make sure recommended products are on the page
 - changed cart header button to link to cart for graceful dedegration
 - added promo text to cart for upgraded delivery for orders > or < 2998
+- added reload if on cart to refresh the page messages and values
+- updated atc modal selector for new graphql recommended products
 
 ## [1.20.21.003]
 - removed all free white glove delivery wording and options due to covid-19

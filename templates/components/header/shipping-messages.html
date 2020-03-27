@@ -27,7 +27,7 @@
 
 
 {{#if shipping_messages}}
-	<div class="promo"></div>
+	<div class="promo promo--notify"></div>
 	{{#each shipping_messages}}
 		<div class="promo__message">{{{message}}}</div>
 	{{/each}}
@@ -36,7 +36,7 @@
 
 
 {{#if cart.status_messages}}
-	<div class="promo">
+	<div class="promo promo--notify">
 	{{#each cart.status_messages}}
 	{{#if type '==' 2}}
 		<div class="promo__message">{{{message}}}</div>
@@ -47,7 +47,7 @@
 
 
 {{#if product.shipping_messages}}
-	<div class="promo">
+	<div class="promo promo--notify">
 	{{#each product.shipping_messages}}
 		<div class="promo__message">{{{message}}}</div>
 	{{/each}}

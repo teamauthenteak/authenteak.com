@@ -184,12 +184,10 @@ export default class AddToCartModal {
 
   // builds out the recomendations in the atc modal footer
   buildRecomendations(){
-    let recomendedProducts = document.querySelectorAll('.product-grid-item--recomm');
+    let recomendedProducts = document.getElementById("recommendedProducts").querySelectorAll('.product-grid-item');
     let modalFooter = document.getElementById("modalCartFooter");
 
     $(modalFooter).html("");
-
-    console.log(recomendedProducts)
 
     recomendedProducts.forEach( (element, i) => {
       let limit = TEAK.Utils.isHandheld ? 2 : 4;
