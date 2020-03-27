@@ -13,6 +13,9 @@
 - changed cart header button to link to cart for graceful dedegration
 - added promo text to cart for upgraded delivery for orders > or < 2998
 
+## [1.20.21.003]
+- removed all free white glove delivery wording and options due to covid-19
+
 ## [1.20.21.002]
 - fix to allow the tab tool tip to close when the user clicks off tool top or hit esc key
 - fixed Question(s) logic for PDP yotpo product qeustions
