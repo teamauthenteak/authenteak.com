@@ -58,16 +58,17 @@ export default class Product extends PageManager {
 		new AddToCartModal();
 
 
-		// Recommened Products Yotpo Update
-		this.recommended = new Personalization({
-			type: "recommended"
-		});
-		this.initRecommendedProducts({
-			// our recommended product id array built in pages > product.html
-			productIdArray: JSON.parse( document.getElementById("relatedProductIDs").innerHTML )
-		});
-		this.recommendedProducts = [];
-
+		if(document.getElementById("relatedProductIDs")){
+			// Recommened Products Yotpo Update
+			this.recommended = new Personalization({
+				type: "recommended"
+			});
+			this.initRecommendedProducts({
+				// our recommended product id array built in pages > product.html
+				productIdArray: JSON.parse( document.getElementById("relatedProductIDs").innerHTML )
+			});
+			this.recommendedProducts = [];
+		}
 
 
 		// Recently Viewed Module
@@ -160,7 +161,7 @@ export default class Product extends PageManager {
 
 
 	/**
-	 * Build Recomended Products
+	 * Build Recommended Products
 	 * @param {Array} args.productIdArray arry of recomened product ids 
 	 */
 
@@ -233,7 +234,7 @@ export default class Product extends PageManager {
 			$(tpl).appendTo(".product-carousel", $recomm);
 		});
 
-		$recomm.addClass("show");
+		$recomm.toggleClass("hide");
 	}
 
 

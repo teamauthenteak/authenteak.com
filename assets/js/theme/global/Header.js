@@ -78,7 +78,7 @@ export default class Header {
 
 			} else {
 
-				if (document.getElementById("megaMenuEnhancement") && (window.location.hostname !== "localhost" || window.location.hostname === "local.authenteak.com")) {
+				if (document.getElementById("megaMenuEnhancement") && !TEAK.Utils.isLocal() ) {
 					data = document.getElementById("megaMenuEnhancement").innerHTML;
 					data = JSON.parse(data);
 
@@ -114,7 +114,7 @@ export default class Header {
 		// Toggle mini cart panel
 		this.$el.find('.button-cart-toggle').on('click', (event) => {
 			this._toggleMiniCart();
-			event.stopPropagation();
+			event.preventDefault();
 		});
 
 		// Close mini cart panel

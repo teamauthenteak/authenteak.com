@@ -151,7 +151,7 @@
           </a>
         {{/if}}
 
-        <button class="top-bar-button button-cart-toggle">
+        <a href="/cart.php" class="top-bar-button button-cart-toggle">
             <span
               class="mini-cart-subtotal button-text"
               data-cart-quantity="{{cart.quantity}}"
@@ -159,7 +159,7 @@
                 {{cart.quantity}}
             </span>
             {{> components/header/cart-icon}}
-        </button>
+        </a>
 
         {{#if customer.customer_group_id '!=' '1' }}
         <span class="global-header-text-promo" id="globalHeaderPromo"></span>

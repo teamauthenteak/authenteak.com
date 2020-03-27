@@ -111,7 +111,6 @@ export default class MiniCart {
 
         // update our cart model data for other apps and UI
         utils.api.cart.getCart({includeOptions: true}, (err, response) => {
-          console.log(response)
           window.TEAK.Utils.saveCartResponse(response);
         });
         

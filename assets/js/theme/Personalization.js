@@ -256,22 +256,8 @@ export default class Personalization extends PageManager {
 
 
     makeRecommProductQuery(productIDArray){
-        let productQueryTpl = TEAK.QueryGraphTPL.getProductInfo(productIDArray);
-
-        return fetch('https://authenteak.com/graphql', {
-                    method: 'POST',
-                    credentials: 'include',
-                    mode: 'cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${TEAK.Globals.graphQl_dev}`
-                    },
-                    body: JSON.stringify({
-                        query: productQueryTpl
-                    })
-                })
-                .then(res => res.json())
-                .then(res => res.data);
+        let productQuery = TEAK.GraphQL.tpl.productInfo(productIDArray);
+        return TEAK.GraphQL.get(productQuery);
     }
 
 
@@ -290,6 +276,7 @@ export default class Personalization extends PageManager {
             });
         });
 
+        
         // get product price
         function determinePrice(prices){
             if(prices.salePrice !== null){

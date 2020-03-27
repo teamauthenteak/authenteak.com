@@ -9,6 +9,8 @@
 - Added Recently Viewed to Home page and all pages
 - changed swatch order from 5 to 3
 - graphql for recommended products on pdp
+- added check to make sure recommended products are on the page
+- changed cart header button to link to cart for graceful dedegration
 
 ## [1.20.21.002]
 - fix to allow the tab tool tip to close when the user clicks off tool top or hit esc key

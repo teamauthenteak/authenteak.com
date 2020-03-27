@@ -49,9 +49,6 @@ export default class Page extends PageManager {
 			});
 
             $rv.addClass("show");
-
-            // let carouselObj = Object.assign({appendDots: '.product-rv-carousel'}, TEAK.Globals.carouselSettings);
-		    // $('.product-rv-carousel').slick(carouselObj);
             
             this.recentlyViewed.initProductSlider({
                 dotObj: {appendDots: '.product-rv-carousel'},
@@ -61,6 +58,8 @@ export default class Page extends PageManager {
 		}
 	}
 
+
+    
 
     initWufooWarrantyForm(){
         let s11hxi4x1j1ouoy,

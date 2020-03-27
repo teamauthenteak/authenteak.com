@@ -8,20 +8,21 @@
  *  - Globals
  *  - User
  *  - Data
+ *  - GraphQL
  *  - Utils
  *  - Modules
  *  - ThirdParty
- * 
  */
 
 window.TEAK = window.TEAK || {};
 
 
-/** -----------------------------------------
- * TEAK Globals Config
- * Global Configuration object to hold general settigns
- * and globally used STATIC variables
- * ------------------------------------------ */
+/** -----------------------------------------------------------------------------------------
+ * TEAK Globals Config Model
+ * Global Configuration object to hold general settigns and globally used STATIC variables
+ * Template rendred dynamic globals are in templates > components > common > TEAK-js.html
+ * ------------------------------------------------------------------------------------------ */
+
 window.TEAK.Globals = {
     graphQl_dev: "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJlYXQiOjE2MDIyODgwMDAsInN1Yl90eXBlIjoyLCJ0b2tlbl90eXBlIjoxLCJjb3JzIjpbImh0dHA6Ly9sb2NhbC5hdXRoZW50ZWFrLmNvbTozMzAwIl0sImNpZCI6MSwiaWF0IjoxNTg1MjQxNTQ0LCJzdWIiOiJhOTRjM2MzMDk0bzVpdThsdTduYWVpbms2eTUxMTQwIiwic2lkIjo5OTkyMzI0MzIsImlzcyI6IkJDIn0.Lq9Re5VLVYh56F6PXEumWHaWkT_z8UK2bB5dwlXilkGAmQYO0e8gmaW4K2NH23g3GEWszp6FwLi_Cs4vypqnAA",
     carouselSettings: {
@@ -64,19 +65,23 @@ window.TEAK.Globals = {
 };
 
 
-/** -----------------------------------------
- * TEAK User Config
+/** -------------------------------------------------------
+ * TEAK User Config Model
  * User Configuration object to hold global user settings
- * ------------------------------------------ */
+ * -------------------------------------------------------- */
 window.TEAK.User = {};
 
 
 
 /** -----------------------------------------
- * TEAK Utility Methods
+ * TEAK Utility Services
  * Global helper mehtods for any application
  * ------------------------------------------ */
 window.TEAK.Utils = {
+
+    isLocal(){
+        return (window.location.hostname === "localhost" || window.location.hostname === "local.authenteak.com");
+    },
 
     removeSpaces(string){
         return string.replace(/\s/g, '');
@@ -110,7 +115,7 @@ window.TEAK.Utils = {
     getTagData: function(id){
         var data;
 
-        if(document.getElementById(id) && (window.location.hostname !== "localhost" || window.location.hostname === "local.authenteak.com") ){
+        if(document.getElementById(id) && !TEAK.Utils.isLocal() ){
             data = document.getElementById(id).innerHTML;
             data = data ? JSON.parse(data) : {};
 
@@ -229,7 +234,7 @@ window.TEAK.Utils = {
 
 
 /** -----------------------------------------
- * TEAK Data
+ * TEAK Data Model
  * Store Model View data for interactions
  * ------------------------------------------ */
 window.TEAK.Data = {};
@@ -239,53 +244,72 @@ window.TEAK.Data = {};
 
 
 /** -----------------------------------------
- * TEAK Data
- * Store Model View data for interactions
+ * TEAK GraphQL Service
+ * Fetches the BC GraphOL API Endpoint
+ * - may move this into app.js - not sure if this is needed externally
  * ------------------------------------------ */
-window.TEAK.QueryGraphTPL = {
-    getProductInfo: function(arr){
-        return `query getProductInfo{
-                    site{
-                        products(entityIds:[${arr}]){
-                            edges{
-                                node{
-                                    entityId
-                                    name
-                                    path
-                
-                                    defaultImage {
-                                        url(width: 500, height: 500)
-                                    }
-                                    
-                                    prices {
-                                        price {
-                                            ...PriceFields
+window.TEAK.GraphQL = {
+    tpl: {
+        productInfo: function(arr){
+            return `query getProductInfo{
+                        site{
+                            products(entityIds:[${arr}]){
+                                edges{
+                                    node{
+                                        entityId
+                                        name
+                                        path
+                    
+                                        defaultImage {
+                                            url(width: 500, height: 500)
                                         }
-                                        salePrice {
-                                            ...PriceFields
-                                        }
-                                        retailPrice {
-                                            ...PriceFields
+                                        
+                                        prices {
+                                            price {
+                                                ...PriceFields
+                                            }
+                                            salePrice {
+                                                ...PriceFields
+                                            }
+                                            retailPrice {
+                                                ...PriceFields
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                }
-                
-                fragment PriceFields on Money {
-                    value
-                }`;
-    }
-    
+                    
+                    fragment PriceFields on Money {
+                        value
+                    }`;
+        }
+    },
+
+    get: function(queryObj){
+        return fetch('https://authenteak.com/graphql', {
+                    method: 'POST',
+                    credentials: 'include',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${ TEAK.Utils.isLocal() ? TEAK.Globals.graphQl_dev : TEAK.Globals.graphQl }`
+                    },
+                    body: JSON.stringify({
+                        query: queryObj
+                    })
+                })
+                .then(res => res.json())
+                .then(res => res.data);
+    }    
 };
 
 
 
 
 /** -----------------------------------------
- * TEAK Modules
+ * TEAK Module Services
  * Module Controllers for external scripts
  * ------------------------------------------ */
 window.TEAK.Modules = {};
@@ -293,7 +317,7 @@ window.TEAK.Modules = {};
 
 
 /** -----------------------------------------
- * TEAK 3rd Parties
+ * TEAK 3rd Parties Services
  * Store settigns for 3rd parties
  * ------------------------------------------ */
 window.TEAK.ThirdParty = {
@@ -315,7 +339,7 @@ window.TEAK.ThirdParty = {
     heap:{
 
         load(){
-            let HEAP_ENV_ID =(window.location.hostname !== "localhost" || window.location.hostname === "local.authenteak.com") ? '702616063' : '753981833';  
+            let HEAP_ENV_ID = !TEAK.Utils.isLocal() ? '702616063' : '753981833';  
             window.heap.load(HEAP_ENV_ID);
         },
 

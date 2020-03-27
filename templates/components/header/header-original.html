@@ -183,7 +183,7 @@
             <span>tel</span>
         </a>
 
-        <button class="top-bar-button button-cart-toggle">
+        <a href="/cart.php" class="top-bar-button button-cart-toggle">
             <span
               class="mini-cart-subtotal button-text"
               data-cart-subtotal="{{cart.sub_total.value}}"
@@ -191,7 +191,7 @@
                 {{cart.sub_total.formatted}}
             </span>
             {{> components/header/cart-icon}}
-        </button>
+          </a>
       </div>
 
       <span
