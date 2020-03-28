@@ -247,7 +247,7 @@ window.TEAK.Data = {};
  * TEAK GraphQL Service
  * Fetches the BC GraphOL API Endpoint
  * - may move this into app.js - not sure if this is needed externally
- * ------------------------------------------ */
+
 window.TEAK.GraphQL = {
     tpl: {
         productInfo: function(arr){
@@ -304,7 +304,10 @@ window.TEAK.GraphQL = {
                 .then(res => res.data);
     }    
 };
+ * ------------------------------------------ */
 
+
+ 
 
 
 

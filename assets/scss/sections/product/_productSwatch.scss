@@ -1,12 +1,36 @@
+// glboal scrol car
+%scrolling-inner{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #777 #f9f9f9;
+
+    &::-webkit-scrollbar {
+        width: 7px;
+        border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f9f9f9;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #777 ;
+        border-radius: 5px;
+    }
+}
+
+
 /*Product Detail Swatches*/
 .form-field-swatch {
     .form-field-control-wrapper {
         $swatch-wrapper-base: 238px;
         $swatch-wrapper-inc: 55px;
-        overflow-y: scroll;
+        
+        @extend %scrolling-inner;
+
         clear: left;
         max-height: 190px;
-        overflow: hidden;
         border: 1px solid transparent;
         border-radius: 4px;
 
@@ -27,33 +51,33 @@
         flex-wrap: wrap;
         flex: 1 0 auto;
 
-        .simplebar-content {
-            padding: 10px !important;
-            overflow-x: hidden !important;
-            display: flex;
-            flex-flow: row wrap;
-            flex: 1 0 auto;
-        }
+        // .simplebar-content {
+        //     padding: 10px !important;
+        //     overflow-x: hidden !important;
+        //     display: flex;
+        //     flex-flow: row wrap;
+        //     flex: 1 0 auto;
+        // }
 
-        .simplebar-track{
-            &.horizontal {
-                display: none;
-            }
+        // .simplebar-track{
+        //     &.horizontal {
+        //         display: none;
+        //     }
 
-            &.vertical{
-                background-color: #f9f9f9;
-                border-radius: 3px;
+        //     &.vertical{
+        //         background-color: #f9f9f9;
+        //         border-radius: 3px;
 
-                .simplebar-scrollbar{
-                    background-color: #777;
-                    border-radius: 3px;
+        //         .simplebar-scrollbar{
+        //             background-color: #777;
+        //             border-radius: 3px;
 
-                    &:before{
-                        background: #777;
-                    }
-                }
-            }
-        }
+        //             &:before{
+        //                 background: #777;
+        //             }
+        //         }
+        //     }
+        // }
 
         .swatch-radio:checked + .swatch::after {
             top: 0;
@@ -246,20 +270,16 @@
     }
 
     &__inner {
-        // $raq-swatch-wrapper-base: 190px;
-        // $raq-swatch-wrapper-tablet: 615px;
-        // $raq-swatch-wrapper-inc: 85px;
+        @extend %scrolling-inner;
 
+        margin: 0;
+        border: 1px solid transparent;
+        box-shadow: 0 0 0 1px $color-border inset;
         order: 1;
         clear: left;
         height: 70vh;
-        overflow-x: hidden;
-        overflow-y: scroll;
-        -webkit-overflow-scrolling: touch;
         margin: 0;
-        border: 1px solid transparent;
         border-radius: 4px;
-        box-shadow: 0 0 0 1px $color-border inset;
         width: 50%;
 
         @media screen and (max-width: $screen-sm) {
@@ -272,20 +292,6 @@
             height: 85vw;
         }
 
-        // @media screen and (min-width: 320px)  { max-width: $raq-swatch-wrapper-base + (1 * $raq-swatch-wrapper-inc); }
-        // @media screen and (min-width: 405px)  { max-width: $raq-swatch-wrapper-base + (2 * $raq-swatch-wrapper-inc); }
-        // @media screen and (min-width: 490px)  { max-width: $raq-swatch-wrapper-base + (3 * $raq-swatch-wrapper-inc); }
-        // @media screen and (min-width: 575px)  { max-width: $raq-swatch-wrapper-base + (4 * $raq-swatch-wrapper-inc); }
-        // @media screen and (min-width: 660px)  { max-width: $raq-swatch-wrapper-base + (5 * $raq-swatch-wrapper-inc); }
-        // @media screen and (min-width: 745px)  { max-width: $raq-swatch-wrapper-base + (6 * $raq-swatch-wrapper-inc); }
-        // @media screen and (min-width: 768px)   { max-width: $raq-swatch-wrapper-tablet + (0 * $raq-swatch-wrapper-inc); }
-        // @media screen and (min-width: 815px)   { max-width: $raq-swatch-wrapper-tablet + (1 * $raq-swatch-wrapper-inc); }
-        // @media screen and (min-width: 910px)   { max-width: $raq-swatch-wrapper-tablet + (2 * $raq-swatch-wrapper-inc); }
-        // @media screen and (min-width: 1005px)  { max-width: $raq-swatch-wrapper-tablet + (3 * $raq-swatch-wrapper-inc); }
-        // @media screen and (min-width: 1100px)  { max-width: $raq-swatch-wrapper-tablet + (4 * $raq-swatch-wrapper-inc); }
-
-        // .simplebar-content { padding-bottom: 5px !important; overflow-x: hidden; }
-        // .simplebar-track.horizontal { display: none; }
     }
 
 

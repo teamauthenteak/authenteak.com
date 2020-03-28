@@ -1,10 +1,13 @@
 import PageManager from '../PageManager';
 import ProductImages from './product/ProductImages';
 import Personalization from './Personalization';
+import GraphQL from './utils/GraphQL';
 
 export default class Collection extends PageManager {
     constructor() {
         super();
+
+        this.graphQL = new GraphQL();
 
         this.initAnalytics();
 
@@ -12,7 +15,7 @@ export default class Collection extends PageManager {
         this.recentlyViewed = new Personalization({
             type: "recentlyViewed"
         });
-        this._initRecentlyViewed();
+        this.initRecentlyViewed();
     }
 
 
@@ -25,7 +28,7 @@ export default class Collection extends PageManager {
     }
     
 
-    _initRecentlyViewed(){
+    initRecentlyViewed(){
 		let $rv = $("#recentlyViewedProducts"),
 			recentProducts = this.recentlyViewed.getViewed();
 

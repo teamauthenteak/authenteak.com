@@ -59,9 +59,7 @@ fragment PriceFields on Money {
 }
 
 
-
-... Then make second query to get the product options
-which is a bit more complex
+// ... Then make second query to get the product options which is a bit more complex
 
 query getProductOptionInfo{
     pageInfo {

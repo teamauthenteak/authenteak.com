@@ -1,5 +1,5 @@
 import PageManager from '../PageManager';
-
+import GraphQL from './utils/GraphQL';
 /**
  * Personlaiation Module:
  *  Cutom personalization dispay and data interaction
@@ -14,6 +14,8 @@ import PageManager from '../PageManager';
 export default class Personalization extends PageManager {
     constructor(settings) {
         super();
+
+        this.graphQL = new GraphQL();
 
         this.yotpoKey = "aS8rMIONwGgNbx1ATQmUtKY173Xk5HHc75qGrnuq";
 
@@ -256,8 +258,8 @@ export default class Personalization extends PageManager {
 
 
     makeRecommProductQuery(productIDArray){
-        let productQuery = TEAK.GraphQL.tpl.productInfo(productIDArray);
-        return TEAK.GraphQL.get(productQuery);
+        let productQuery = this.graphQL.getProductInfo(productIDArray);
+        return this.graphQL.get(productQuery);
     }
 
 
