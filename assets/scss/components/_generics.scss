@@ -45,19 +45,19 @@
 }
 
 .pad-top{
-    padding: $standard-padding 0 0 0;
+    padding: $standard-padding 0 0 0 !important;
 }
 
 .pad-bottom{
-    padding: 0 0 $standard-padding 0;
+    padding: 0 0 $standard-padding 0 !important;
 }
 
 .pad-right{
-    padding: 0 $standard-padding 0 0;
+    padding: 0 $standard-padding 0 0 !important;
 }
 
 .pad-left{
-    padding: 0 0 0 $standard-padding;
+    padding: 0 0 0 $standard-padding !important;
 }
 
 
@@ -83,6 +83,11 @@ img.lazy-image {
 
 
 .form-input:not([type="radio"]):not([type="checkbox"]):not(.quantity-input), .navigation-mobile .search-input:not([type="radio"]):not([type="checkbox"]):not(.quantity-input), .review-form .product-item-rating:not([type="radio"]):not([type="checkbox"]):not(.quantity-input){
-    box-shadow: 0 0 0 1px #929396 inset;
+    box-shadow: 0 0 0 1px #ccc inset;
     color: #444;
+    cursor: pointer;
+
+    &:hover{
+        box-shadow: 0 0 0 1px #929396 inset;
+    }
 }

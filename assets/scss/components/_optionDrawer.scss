@@ -1,0 +1,460 @@
+.drawer{
+    right: -41vw;
+    @extend .animated;
+
+    &--options{
+        position: fixed;
+        width: 40vw;
+        background-color: #fff;
+        height: 100%;
+        z-index: 99999;
+        top: 0;
+        box-shadow: -8px 0px 17px rgba(0, 0, 0, 0.50);
+        padding: 0 20px 0 20px;
+        overflow: auto;
+
+        @media only screen and (max-width: $screen-md) {
+            width: 100vw;
+        }
+    }
+
+    &--open{
+        @extend .slideInRight;
+        right: 0;
+    }
+
+    &--close{
+        @extend .slideOutRight;
+        right: 0vw;
+    }
+
+    &__overlay{
+        @extend .animated;
+        position: fixed;
+        z-index: 9999;
+        background-color: rgba(0,0,0, 0.70);
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        // box-shadow: inset -8px 0px 170px rgba(0, 0, 0, 1);
+
+        &--hide{
+            visibility: hidden;
+            @extend .fadeOut;
+        }
+    }
+
+    &__close{
+        @extend .toolTip__closeBtn;
+        left: 10px;
+        top: 17px;
+        right: inherit;
+        z-index: 9999;
+        outline: none;
+    }
+
+    &__closeIcon{
+        @extend .toolTip__closeIcon;
+    }
+
+    &__main{
+        width: 100%;
+        float: left;
+    }
+
+    &__contentHeading{
+        text-align: center;
+        line-height: 1;;
+    }
+
+    &__imgCntr{
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    &__img{
+        width: 100%;
+        height: 150px;
+        object-fit: contain;
+    }
+
+    &__topCntr{
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__contentCntr{
+        display: flex;
+    }
+
+    &__control{
+
+        &::placeholder {
+           font-size: 1rem;
+           text-transform: capitalize;
+        }
+
+        &--input{
+            @extend .form-input;
+            width: 100%;
+        }
+    }
+
+    &__swatchControls{
+        padding: 5px 0;
+        border-top: 1px solid #eee;
+        width: 100%;
+        @extend .form-field-options;
+        @extend .form-field-swatch;
+
+        & .swatch-wrap{
+            width: (100%/6) !important;
+            height: auto !important;
+            padding: 3px !important;
+            margin: 0 !important;
+        }
+
+        & .swatch{
+            width: 100% !important;
+            padding-bottom: 100% !important;
+        }
+
+        & .form-field-control{
+            overflow: auto;
+            flex: 1 0 auto;
+            max-height: 275px !important;
+            @extend %scrolling-inner;
+            justify-content: flex-start;
+        }      
+        
+        .swatch-color{
+            background-repeat: round;
+        }
+    }
+
+
+    &__controlSet{
+        border: none;
+        padding: 0;
+        margin: 0;
+        position: relative;
+    }
+
+
+    &__controls{
+
+        &--list{
+            padding: 10px 10px 10px 0 !important;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+
+            & .swatch-wrap{
+                width: 50% !important;
+                height: auto !important;
+                margin: 0 !important;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-content: center;
+                align-items: center;
+                padding-bottom: 10px;
+
+                @media only screen and (max-width: $screen-md) {
+                    width: 100% !important;
+                }
+            }
+
+            & .swatch{
+                width: 30% !important;
+                padding-bottom: 30% !important;
+            }
+
+            & .form-label-cntr{
+                width: 70% !important;
+                display: flex;
+                flex-direction: column;
+                padding: 0 10px !important;
+            }
+
+            & .form-label-text{
+                position: static !important;
+                line-height: 1.2;
+                height: auto !important;
+                font-size: 0.75rem !important;
+                padding: 0 !important;
+                margin: 0;
+                width: 100%;
+
+                @media only screen and (max-width: $screen-md) {
+                    font-size: 0.85rem !important;
+                }
+            }
+
+            & .form-label-meta{
+                width: 100%;
+                line-height: 1.1;
+                font-size: 0.75rem !important;
+                display: flex;
+
+                @media only screen and (max-width: $screen-md) {
+                    font-size: 0.85rem !important;
+                }
+            }
+
+            .form-label-grade{
+               margin-right: 5px;
+            }
+
+            .form-label-price{
+
+            }
+
+            
+        }
+
+        &--grid{
+            justify-content: space-evenly;
+            align-content: baseline;
+
+            & .swatch-wrap{
+                width: (100%/5) !important;
+                height: auto !important;
+                padding-bottom: 50px !important;
+                flex-direction: column;
+                position: relative;
+
+                @media only screen and (max-width: $screen-md) {
+                    width: (100%/3) !important;
+                }
+            }
+
+            & .form-label-grade{
+                display: none;
+            }
+
+            & .form-label-price{
+                display: none;
+            }
+
+            & .swatch{
+                width: 100% !important;
+                padding-bottom: 100% !important;
+            }
+
+            & .form-label-text{
+                line-height: 1.2;
+                height: 40px !important;
+                width: 100% !important;
+                font-size: 0.65rem !important;
+                padding: 0 4px !important;
+                margin: 0;
+                text-align: center;
+                bottom: 5px;
+                clip: unset;
+            }
+        }
+
+        
+    }
+
+    &__clearControl{
+        position: absolute;
+        outline: none;
+        right: 15px;
+        top: 50%;
+        margin-top: -15px;
+        padding: 5px;
+        background-color: #eee;
+        border-radius: 99rem;
+        line-height: 1;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+
+        & .icon{
+            width: 15px;
+            height: 15px;
+            fill: #777;
+        }
+    }
+
+
+    &__saveBtn{
+        @extend .button;
+        @extend .button--fullWidth;
+        @extend .button-secondary;
+        @extend .button-secondary--darkTrans;
+        margin: 10px 0;
+    }
+
+    
+    &__selectedText{
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        align-content: center;
+        font-size: 1rem;
+        padding: 10px 0 0 0;
+        flex-direction: column;
+    }
+
+    &__selectedSwatchText{
+        padding-left: 5px;
+    }
+
+
+    &__displayList{
+        margin: 0;
+        padding: 15px 0 15px 0;
+        list-style-type: none;
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+    }
+
+    &__displayItem{
+        margin: 0 10px 0 0;
+
+        &--filters{
+            align-self: flex-start;
+            flex: 1 0 auto;
+        }
+    }
+
+    &__displayFilters{
+        padding: 0;
+        line-height: 1;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        font-size: 1.1rem;
+        padding: 3px 15px;
+        border: 1px solid #929396;
+        border-radius: $border-radius;
+        outline: none;
+        height: 40px;
+        transition: all .3s cubic-bezier(0.23, 1, 0.320, 1);
+        color: #999;
+        background-color: #fff;
+
+        & .icon{
+            height: 15px;
+            width: 15px;
+            margin: 0 0 0 10px;
+            transform: rotate(0deg);
+            fill: #999;
+        }
+
+        &:hover{
+            border-color: $btn-color-green;
+            color: $btn-color-green;
+
+            & .icon{
+                fill: $btn-color-green;
+            }
+        }
+
+        &--open{
+            // box-shadow: inset -1px 1px 3px rgba(0, 0, 0, 0.2);
+            border-color: $btn-color-green;
+            background-color: #f9f9f9;
+            color: $btn-color-green;
+
+            &:hover{
+                opacity: .5;
+            }
+
+            & .icon{
+                fill: $btn-color-green;
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    
+    &__filterControlCntr{
+        @extend %scrolling-inner;
+        max-height: 200px;
+        height: auto;
+        width: 100%;
+        float: left;
+        padding: 10px;
+        margin-bottom: 10px;
+        overflow-y: auto;
+        display: none;
+    }
+
+
+    &__filterHeading{
+        border-bottom: 1px solid #eee;
+        margin: 0 0 10px 0;
+        padding-bottom: 5px;
+        line-height: 1;
+        font-weight: 800;
+    }
+
+    &__filterList{
+        width: 100%;
+        margin-bottom: 25px;
+        display: flex;
+    }
+
+    &__filterListItem{
+        margin-right: 20px;
+    }
+
+    &__filterLabel{
+        display: flex;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__filterControl{
+        margin-right: 8px;
+        width: 14px;
+        height: 14px;
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+    }
+
+
+    &__displayType{
+        @extend .drawer__displayFilters;
+        padding: 3px;
+
+        & .icon{
+            height: 30px;
+            width: 30px;
+            margin: 0;
+        }
+
+        &--active{
+            @extend .drawer__displayFilters--open;
+            opacity: .45;
+
+
+            & .icon{
+                transform: rotate(0deg);
+            }
+        }
+    }
+   
+   
+
+
+    
+
+}

@@ -16,7 +16,9 @@
 							<span itemprop="name">{{name}}</span>
 							{{/if}}
 						</a>
-						{{> components/common/customizations/navigation-mega nav_items=children parentId=id}}
+						{{#startsWith "Featured Offers" name}}{{ else }}
+							{{> components/common/customizations/navigation-mega nav_items=children parentId=id}}
+						{{/startsWith}}
 					</li>
 					{{else}}
 					<li class="hover-dropdown mega-nav" category_{{id}}>

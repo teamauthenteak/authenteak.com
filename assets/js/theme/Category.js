@@ -21,7 +21,10 @@ export default class Category extends PageManager {
     }
 
     // Product Images
-    new ProductImages(".product-slides-wrap");
+    if(document.querySelector(".product-slides-wrap")){
+      new ProductImages(".product-slides-wrap");
+    }
+   
     
     if(document.getElementById("CategoryCollection")){
       new Collection();

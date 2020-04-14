@@ -2,7 +2,6 @@
 category:
   products:
     limit: {{theme_settings.product-count}}
-  shop_by_price: true
 ---
 
 {{#partial "page"}}
@@ -16,147 +15,362 @@ category:
 
        
         <div class="product__col-1-1">
-            <div class="product__col-1-2 product__col--marginBottom">
-                <figure class="product__figure product-image" style="background-image:url({{getImage category.image ''}});"  data-product-image>
-                    <img src="{{getImage category.image 'thumbnail'}}" alt="{{alt}}" class="product__figImg">
+            <div class="product__col-1-2">
+                <figure class="product__figure product__figure--full">
+                    <img src="{{getImage category.image 'thumbnail'}}" alt="{{alt}}" class="product__img">
                 </figure>
             </div>
 
-
             <div class="product__col-1-2">
-                <h1 class="product__name">{{category.name}}</h1>
-                {{category.description}}
-                <div class="product__customizations">
-                    {{> components/products/add-to-cart-form-collection cart_icon=cart_icon}}
-                </div>
+                <h1 class="product__title">{{category.name}}</h1>
+                <p class="product__desc">{{ ellipsis (sanitize category.description) 150 }}<a href="#description" class="product__descLink">Read more &rsaquo;</a></p>
+               
+                <h2 class="product__title  product__title--2">
+                    Customize Your Collection
+                    <button class="product__swatchRequestBtn" swatch-request-button>
+                        <svg class="product__swatchRequestIcon" viewBox="0 0 20 20">
+                            <path d="M19.398 7.415l-7.444-1.996-1.303-4.861c-0.109-0.406-0.545-0.642-0.973-0.529l-9.076 2.432c-0.428 0.114-0.686 0.538-0.577 0.944l3.23 12.051c0.109 0.406 0.544 0.643 0.971 0.527l3.613-0.967-0.492 1.838c-0.109 0.406 0.149 0.83 0.577 0.943l8.11 2.174c0.428 0.115 0.862-0.121 0.972-0.529l2.97-11.084c0.108-0.406-0.15-0.83-0.578-0.943zM1.633 3.631l7.83-2.096 2.898 10.818-7.83 2.096-2.898-10.818zM15.678 18.463l-6.814-1.863 0.536-2.002 3.901-1.047c0.428-0.113 0.688-0.537 0.578-0.943l-1.508-5.627 5.947 1.631-2.64 9.851z"></path>
+                        </svg>
+                        <span class="product__swatchRequestText">Request A Free Swatch</span>
+                    </button>
+                </h2>
+                
+                <form class="form add-to-cart-form" method="post" id="collectionsATC" action="/cart.php" enctype="multipart/form-data" data-cart-item-add data-product-options-count="">
+                    <input type="hidden" name="product_id" value="" data-product-id />
+                    <input type="hidden" name="action" value="add">
+                    <input type="hidden" class="product-quantity form-input" name="qty[]" value="1">
+
+                    <div class="product-options-container" data-product-option-change data-product-brand="{{category.products.brand.name}}" id="productOptions">
+                        <ul class="preloader preloader--short preloader--background">
+                            <li class="preloader__swatch"></li>
+                            <li class="preloader__swatch"></li>
+                            <li class="preloader__swatch"></li>
+                            <li class="preloader__swatch"></li>
+                            <li class="preloader__swatch"></li>
+                            <li class="preloader__swatch"></li>
+                        
+                            <li class="preloader__swatch"></li>
+                            <li class="preloader__swatch"></li>
+                            <li class="preloader__swatch"></li>
+                            <li class="preloader__swatch"></li>
+                            <li class="preloader__swatch"></li>
+                            <li class="preloader__swatch"></li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="product__col-1-1" id="description">
+                <p class="product__desc">{{sanitize category.description}}</p>
             </div>
         </div> 
     
        
 
+        <div class="product__col-1-1 no-pad" id="collectionsCntr">
 
-        {{#each category.products }}
-        <section class="product__row product__row--border">
-            <div class="product__col-1-1">
-                <figure class="product__figure product__col-1-4">
-                    <a href="{{url}}" title="See all details about {{name}}">
-                        <img class="product__img product__img--thumb" src="{{getImage image 'category_card_size'}}" alt="{{name}}">
-                    </a>
-                </figure>
+            <ul class="preloader preloader--tall preloader--background">
+                <li class="preloader__collectionImage"></li>
+                <li class="preloader__imgSpace"></li>
+                <li class="preloader__topTitle"></li>
+                <li class="preloader__topTitleRight"></li>
+                <li class="preloader__bottomTitle"></li>
+                <li class="preloader__titleSpace"></li>
+                <li class="preloader__titleSpaceRight"></li>
+                <li class="preloader__list">
+                    <div class="preloader__listRow">
+                        <span class="preloader__listBullet"></span>
+                        <span class="preloader__listItem"></span>
+                    </div>
+                    <div class="preloader__listRow">
+                        <span class="preloader__listBullet"></span>
+                        <span class="preloader__listItem"></span>
+                    </div>
+                    <div class="preloader__listRow">
+                        <span class="preloader__listBullet"></span>
+                        <span class="preloader__listItem"></span>
+                    </div>
+                </li>
+                <li class="preloader__listRight"></li>
+                <li class="preloader__listBottom"></li>
+                <li class="preloader__lastLine"></li>
+                <li class="preloader__bottomLine"></li>
+                <li class="preloader__bottomRight"></li>
+            </ul>
+        </div>
 
-                <div class="product__col-3-4">
-                    <div class="product__col-3-4">
-                        <header class="product__nameHeader">
-                            <h1 class="product__name product__name--sm">
-                                <a href="{{url}}" title="See all details about {{name}}">{{name}}</a>
-                            </h1>
-                        </header>
-                       
+
+            {{!-- {{#each category.products }}
+            <!-- <section class="product__row product__row--border">
+                <div class="product__col-1-1">
+                    <figure class="product__figure product__col-1-4">
+                        <a href="{{url}}" title="See all details about {{name}}">
+                            <img class="product__img product__img--thumb" src="{{getImage image 'category_card_size'}}" alt="{{name}}">
+                        </a>
+                    </figure>
     
-                        <p class="product__itemNum">Item #: {{sku}} &nbsp;&nbsp;&nbsp; Internet #: {{id}}
-                            <a class="product__ratingWrapper yotpo-pdp-wrapper hide" href="{{url}}#yotpoReviews" id="yotpoRating" title="Reviews of {{name}}">
-                                <span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of 0 out of 5."></span>
-                                (<span class="yotpo-reviews-num">0</span>)
-                                <span class="yotpo-questions">
-                                    <span class="yotpo-questions-num">0</span> Questions
-                                </span>
-                            </a>
-                        </p>
-
-                        <ul class="product__highlights">
-                            {{#each custom_fields}}
-                                {{#if this.name '===' "Highlight 1"}}
-                                <li>{{value}}</li>
-                                {{else if this.name '===' "Highlight 2"}}
-                                <li>{{value}}</li>
-                                {{else if this.name '===' "Highlight 3"}}
-                                <li>{{value}}</li>
-                                {{/if}}
-                            {{/each}}
-                        </ul>
-                    
-
-                    {{#each custom_fields}}
-                        {{#if this.name '==' "Lead-Time"}}
-                        <p class="product__shipping">{{this.value}}</p>
-                        {{/if}}
-
-                        {{#if this.value '===' "Ships next business day"}}
-                        <p class="product__shipping">
-                            <span id="nextBussinessDay" class="shipping-range--tip">
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', function(){
-                                        TEAK.Modules.leadTime.setTip("nextBussinessDay");
-                                    });
-                                </script>
-                            </span>
-                        </p>
-                        {{/if}}
-
-                        {{#if this.name '==' "Lead-Time 2"}}   
-                        <p class="product__shipping">{{this.value}}</p>
-                        {{/if}}
-
-                        {{#if this.name '==' "Promo Text"}}
-                        <p class="product__promoText">{{{this.value}}}</p>
-                        {{/if}}
-
-
-                        {{#if this.name '===' "Free Shipping Icon"}}   
-                            {{#if this.value '===' "Yes"}}
-                            <div id="freeShipping">
-                                <script>
-                                /* Displays the free shipping text based on price */
-                                document.addEventListener('DOMContentLoaded', function(){
-                                    TEAK.Modules.freeShipping.set({
-                                        price: {
-                                        rrp_without_tax: '{{../../../price.rrp_without_tax.value}}' === '' ? 0 : parseInt('{{../../../price.rrp_without_tax.value}}'),
-                                        with_tax: '{{../../../price.with_tax.value}}' === '' ? 0 : parseInt('{{../../../price.with_tax.value}}'),
-                                        without_tax: '{{../../../price.without_tax.value}}' === '' ? 0 : parseInt('{{../../../price.without_tax.value}}'),
-                                        custom: '{{~default ../../../price.sale_price_without_tax.value price.without_tax.value~}}' === '' ? 0 : parseInt('{{~default ../../../price.sale_price_without_tax.value price.without_tax.value~}}')
-                                        },
-                                        sku: "{{../../../sku}}"
-                                    }, "freeShipping");
-                                });
-                                </script>
-                            </div>
-                            {{/if}}
-                        {{/if}}
-
-                    {{/each}}
-                    </div>
-                
-
-
-                    <div class="product__col-1-4 no-pad">
-                        <div class="product__price">
-                        {{#if price}}
-                            {{> components/products/price price=this.price show_savings=false save_block=false}}
-                        {{/if}}
-                    
-                        {{#if call_for_price}}
-                            {{call_for_price}}
-                        {{/if}}               
-                        </div>
-                        <button type="button" class="button button-primary button--fullWidth button-primary--green">Add to Cart</button>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-        {{/each}}
+                    <div class="product__col-3-4">
+                        <div class="product__col-2-3">
+                            <header class="product__nameHeader">
+                                <h1 class="product__name product__name--sm">
+                                    <a href="{{url}}" title="See all details about {{name}}">{{name}}</a>
+                                </h1>
+                            </header>
+                           
         
+                            <p class="product__itemNum">Item #: {{sku}} &nbsp;&nbsp;&nbsp; Internet #: {{id}}
+                                <a class="product__ratingWrapper yotpo-pdp-wrapper hide" href="{{url}}#yotpoReviews" id="yotpoRating" title="Reviews of {{name}}">
+                                    <span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of 0 out of 5."></span>
+                                    (<span class="yotpo-reviews-num">0</span>)
+                                    <span class="yotpo-questions">
+                                        <span class="yotpo-questions-num">0</span> Questions
+                                    </span>
+                                </a>
+                            </p>
+    
+                            <ul class="product__highlights">
+                                {{#each custom_fields}}
+                                    {{#if this.name '===' "Highlight 1"}}
+                                    <li>{{value}}</li>
+                                    {{else if this.name '===' "Highlight 2"}}
+                                    <li>{{value}}</li>
+                                    {{else if this.name '===' "Highlight 3"}}
+                                    <li>{{value}}</li>
+                                    {{/if}}
+                                {{/each}}
+                            </ul>
+                        
+    
+                        {{#each custom_fields}}
+                            {{#if this.name '==' "Lead-Time"}}
+                            <p class="product__shipping">{{this.value}}</p>
+                            {{/if}}
+    
+                            {{#if this.value '===' "Ships next business day"}}
+                            <p class="product__shipping">
+                                <span id="nextBussinessDay" class="shipping-range--tip">
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function(){
+                                            TEAK.Modules.leadTime.setTip("nextBussinessDay");
+                                        });
+                                    </script>
+                                </span>
+                            </p>
+                            {{/if}}
+    
+                            {{#if this.name '==' "Lead-Time 2"}}   
+                            <p class="product__shipping">{{this.value}}</p>
+                            {{/if}}
+    
+                            {{#if this.name '==' "Promo Text"}}
+                            <p class="product__promoText">{{{this.value}}}</p>
+                            {{/if}}
+    
+    
+                            {{#if this.name '===' "Free Shipping Icon"}}   
+                                {{#if this.value '===' "Yes"}}
+                                <div id="freeShipping">
+                                    <script>
+                                    /* Displays the free shipping text based on price */
+                                    document.addEventListener('DOMContentLoaded', function(){
+                                        TEAK.Modules.freeShipping.set({
+                                            price: {
+                                            rrp_without_tax: '{{../../../price.rrp_without_tax.value}}' === '' ? 0 : parseInt('{{../../../price.rrp_without_tax.value}}'),
+                                            with_tax: '{{../../../price.with_tax.value}}' === '' ? 0 : parseInt('{{../../../price.with_tax.value}}'),
+                                            without_tax: '{{../../../price.without_tax.value}}' === '' ? 0 : parseInt('{{../../../price.without_tax.value}}'),
+                                            custom: '{{~default ../../../price.sale_price_without_tax.value price.without_tax.value~}}' === '' ? 0 : parseInt('{{~default ../../../price.sale_price_without_tax.value price.without_tax.value~}}')
+                                            },
+                                            sku: "{{../../../sku}}"
+                                        }, "freeShipping");
+                                    });
+                                    </script>
+                                </div>
+                                {{/if}}
+                            {{/if}}
+                        {{/each}}
+    
+    
+                        </div>
+                    
+    
+    
+                        <div class="product__col-1-3 no-pad">
+                            <div class="product__price">
+                            {{#if price}}
+                                {{> components/products/price price=this.price show_savings=false save_block=false}}
+                            {{/if}}
+                        
+                            {{#if call_for_price}}
+                                {{call_for_price}}
+                            {{/if}}               
+                            </div>
 
-        <section class="products-related products-recently-viewed section" id="recentlyViewedProducts">
-            <div class="container">
-                <h3 class="section-title">{{lang 'product.recently_viewed_products_heading'}}</h3>
-                <div class="product-grid product-rv-carousel"></div>
-            </div>
-        </section>
+                            
+                            <button type="button" data-button-atc class="button button-primary button--fullWidth button-primary--green">Add to Cart</button>
+                        
+                            <div class="product__swatchCol">
+                                <ul class="product__swatchList">
+                                    <li class="product__swatchItem">
+                                        <a href="#" class="product__clearSwatch" title="Clear Swatch">
+                                            <svg class="icon icon-close"><use xlink:href="#icon-close" /></svg>
+                                        </a>
+                                        <div class="product__swatch">
+                                            <div class="product__swatchColor" style="background-image: url('https://dummyimage.com/256x256/cccccc/777777.png&text=Choose');">
+                                                <img class="product__swatchImg" src="https://dummyimage.com/256x256/cccccc/777777.png&text=Choose">
+                                            </div>
+                                        </div>
+                                        <div class="product__swatchText">
+                                            <p class="product__swatchOptionText">
+                                                <span class="product__swatchLabel">Select Frame:</span>
+                                                <span class="product__swatchValue">Anthracite</span>
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <li class="product__swatchItem">
+                                        <a href="#" class="product__clearSwatch" title="Clear Swatch">
+                                            <svg class="icon icon-close"><use xlink:href="#icon-close" /></svg>
+                                        </a>
+                                        <div class="product__swatch">
+                                            <div class="product__swatchColor" style="background-image: url('https://dummyimage.com/256x256/cccccc/777777.png&text=Choose');">
+                                                <img class="product__swatchImg" src="https://dummyimage.com/256x256/cccccc/777777.png&text=Choose">
+                                            </div>
+                                        </div>
+                                        <div class="product__swatchText">
+                                            <p class="product__swatchOptionText">
+                                                <span class="product__swatchLabel">Select Canopy:</span>
+                                                <span class="product__swatchValue">Grade C: Obravia Sand - Ships within 1 week</span>
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <li class="product__swatchItem">
+                                        <a href="#" class="product__clearSwatch" title="Clear Swatch">
+                                            <svg class="icon icon-close"><use xlink:href="#icon-close" /></svg>
+                                        </a>
+                                        <div class="product__swatch">
+                                            <div class="product__swatchColor" style="background-image: url('https://dummyimage.com/256x256/cccccc/777777.png&text=Choose');">
+                                                <img class="product__swatchImg" src="https://dummyimage.com/256x256/cccccc/777777.png&text=Choose">
+                                            </div>
+                                        </div>
+                                        <div class="product__swatchText">
+                                            <p class="product__swatchOptionText">
+                                                <span class="product__swatchLabel">Select Mounting Option:</span> 
+                                                <span class="product__swatchValue">Recommended Rolling Base - Color will match frame selected ab</span>
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <li class="product__swatchItem">
+                                        <a href="#" class="product__clearSwatch" title="Clear Swatch">
+                                            <svg class="icon icon-close"><use xlink:href="#icon-close" /></svg>
+                                        </a>
+                                        <div class="product__swatch">
+                                            <div class="product__swatchColor" style="background-image: url('https://dummyimage.com/256x256/cccccc/777777.png&text=Choose');">
+                                                <img class="product__swatchImg" src="https://dummyimage.com/256x256/cccccc/777777.png&text=Choose">
+                                            </div>
+                                        </div>
+                                        <div class="product__swatchText">
+                                            <p class="product__swatchOptionText">
+                                                <span class="product__swatchLabel">Select Optional Valance:</span>
+                                                <span class="product__swatchValue">Add Valance - Excluded from Quick Ship</span>
+                                            </p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
 
+                        </div>
+                    </div>
+
+    
+                </div>
+            </section> -->
+            {{/each}} --}}
+        </div>
     </div>
 
+    <section class="products-related products-recently-viewed section" id="recentlyViewedProducts">
+        <div class="container">
+            <h3 class="section-title">{{lang 'product.recently_viewed_products_heading'}}</h3>
+            <div class="product-grid product-rv-carousel"></div>
+        </div>
+    </section>
+
+<script data-json="raw-options" id="optionModuleJSON" type="application/json"></script>
+
+{{> components/products/customizations/request-swatch-modal product}}
+
+
+<aside class='drawer drawer--options drawer--close' id="optionsDrawer">
+    <button class="drawer__close" drawer--close>
+        <svg class="drawer__closeIcon" enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.4 12l5.3-5.3c0.4-0.4 0.4-1 0-1.4s-1-0.4-1.4 0l-5.3 5.3-5.3-5.3c-0.4-0.4-1-0.4-1.4 0s-0.4 1 0 1.4l5.3 5.3-5.3 5.3c-0.4 0.4-0.4 1 0 1.4 0.2 0.2 0.4 0.3 0.7 0.3s0.5-0.1 0.7-0.3l5.3-5.3 5.3 5.3c0.2 0.2 0.5 0.3 0.7 0.3s0.5-0.1 0.7-0.3c0.4-0.4 0.4-1 0-1.4l-5.3-5.3z"></path>
+        </svg>
+    </button>
+    <div class="drawer__content" id="optionModalSwatches">
+        <ul class="preloader preloader--short preloader--background">
+            <li class="preloader__swatchTopTitle"></li>
+            <li class="preloader__swatchProductImg"></li>
+            <li class="preloader__swatch"></li>
+            <li class="preloader__swatch"></li>
+            <li class="preloader__swatch"></li>
+            <li class="preloader__swatch"></li>
+            <li class="preloader__swatch"></li>
+            <li class="preloader__swatch"></li>
+            <li class="preloader__swatch"></li>
+            <li class="preloader__swatch"></li>
+            <li class="preloader__swatch"></li>
+            <li class="preloader__swatch"></li>
+            <li class="preloader__swatch"></li>
+            <li class="preloader__swatch"></li>
+        </ul>
+
+        <div class="drawer__main hide">
+            <h2 class="drawer__contentHeading"></h2>
+
+            <figure class="drawer__imgCntr">
+                <img src="https://dummyimage.com/600x400/cccccc/fff.gif&text=" class="drawer__img" />
+            </figure>
+
+            <form class="drawer__filters" id="optionForm">
+                <fieldset class="drawer__controlSet">
+                    <input type="text" autocomplete="off" id="drawerSearchInput" class="drawer__control drawer__control--input" placeholder="Search By Name">
+                    <button type="button" class="drawer__clearControl hide"><svg class="icon icon-close"><use xlink:href="#icon-close" /></svg></button>
+                </fieldset>
+                
+                <div class="drawer__topCntr">
+                    <ul class="drawer__displayList">
+                        <li class="drawer__displayItem drawer__displayItem--filters">
+                            <button type="button" class="drawer__displayFilters">
+                                <span class="drawer__displayFilterText">Filter Options</span>
+                                <svg class="icon icon-arrow-down"><use xlink:href="#icon-arrow-down" /></svg>
+                            </button>
+                        </li>
+                        <li class="drawer__displayItem">
+                            <button type="button" class="drawer__displayType drawer__displayType--active" rel="grid">
+                                <svg class="icon icon-grid"><use xlink:href="#icon-grid" /></svg>
+                            </button>
+                        </li>
+                        <li class="drawer__displayItem">
+                            <button type="button" class="drawer__displayType" rel="list">
+                                <svg class="icon icon-list"><use xlink:href="#icon-list" /></svg>
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="drawer__filterControlCntr" id="filterControlCntr"></div>
+                </div>
+
+                <div class="drawer__contentCntr"></div>
+
+                <div class="drawer__selectedText">
+                    <span class="drawer__selectedSwatchText"></span>
+                    <button type="button" class="drawer__saveBtn" drawer--close>Save & Finish</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</aside>
+<div class="drawer__overlay drawer__overlay--hide"></div>
 
 {{/partial}}
-
 {{> layout/base}}

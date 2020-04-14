@@ -1,5 +1,5 @@
 import PageManager from '../PageManager';
-import GraphQL from './utils/GraphQL';
+import GraphQL from './graphql/GraphQL';
 /**
  * Personlaiation Module:
  *  Cutom personalization dispay and data interaction
@@ -274,26 +274,9 @@ export default class Personalization extends PageManager {
                 image: element.node.defaultImage.url,
                 title: element.node.name,
                 product_id: element.node.entityId,
-                price: determinePrice(element.node.prices) 
+                price: TEAK.Utils.graphQL.determinePrice(element.node.prices) 
             });
         });
-
-        
-        // get product price
-        function determinePrice(prices){
-            if(prices.salePrice !== null){
-                if(prices.salePrice.value !== 0){
-                    return prices.salePrice.value;
-
-                }else{
-                    return  prices.price.value;
-                }
-
-            }else{
-                return  prices.price.value;
-            }
-        }
-
 
         return noramlized;
     }

@@ -79,17 +79,58 @@ window.TEAK.User = {};
  * ------------------------------------------ */
 window.TEAK.Utils = {
 
+    graphQL: {
+        // get product price
+        determinePrice: function(prices){
+            if(prices.salePrice !== null){
+                if(prices.salePrice.value !== 0){
+                    return prices.salePrice.value;
+
+                }else{
+                    return  prices.price.value;
+                }
+
+            }else{
+                return  prices.price.value;
+            }
+        }
+    },
+
+
+
+    // parse url paramters
+    getParameterByName: function(name, url) {
+        if (!url){url = window.location.href;}
+
+        name = name.replace(/[\[\]]/g, '\\$&');
+
+        let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+
+        if (!results){return null;}
+        if (!results[2]){return '';}
+
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    },
+
+
+    // test if we are on local hose
     isLocal(){
         return (window.location.hostname === "localhost" || window.location.hostname === "local.authenteak.com");
     },
 
+
+    // removes extra spaces from a string
     removeSpaces(string){
         return string.replace(/\s/g, '');
     },
 
+
+    // if we are on a handheld device
     isHandheld: window.matchMedia("only screen and (max-width: 900px)").matches,
 
 
+    // gets the product json with tool tips from local or script manager
     getProductJSON: function(){
         if( TEAK.Data.ProductData ){
             return TEAK.Data.ProductData;
@@ -101,6 +142,7 @@ window.TEAK.Utils = {
     },
 
     
+    // gets the main drop down json from local or script manager
     getMenuJSON: function(){
         if( TEAK.Data.MenuData ){
             return TEAK.Data.MenuData;
@@ -110,6 +152,7 @@ window.TEAK.Utils = {
         
         return TEAK.Data.MenuData ? TEAK.Data.MenuData : this.getLocalJsonData("/assets/js/theme/header.json");
     },
+
 
 
     getTagData: function(id){
@@ -186,7 +229,7 @@ window.TEAK.Utils = {
     },
 
 
-
+    // formats a number string to local currency format
     formatPrice: function(price){
         return price.toLocaleString('en-US', {
             style: 'currency',
@@ -195,6 +238,7 @@ window.TEAK.Utils = {
     },
 
 
+    // get cart quantiy from local storage object
     getCartQnty: function(cart){
         let count = 0;
 
@@ -210,6 +254,7 @@ window.TEAK.Utils = {
     },
 
 
+    // creates a unique guid
     guid: function() {
 		let nav = window.navigator,
 			screen = window.screen,

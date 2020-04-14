@@ -16,13 +16,38 @@
     }
 
     &__name{
-        margin: 0;
-        font-size: 1.6rem;
+        margin: 0 0 16px 0;
+        font-size: 1.8rem;
+        line-height: 1.4;
 
         &--sm{
             font-size: 1.4rem;
             margin: 0;
         }
+    }
+
+    &__title{
+        @extend .product__name;
+
+        &--2{
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            margin: 30px 0 0 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            align-content: center;
+        }
+    }
+
+    &__desc{
+        margin: 0 0 15px 0;
+    }
+
+    &__descLink{
+        text-decoration: none;
+        border-bottom: 1px solid #ccc;
     }
 
     &__itemNum{
@@ -61,17 +86,25 @@
             justify-content: start;
             text-align: left;
         }
-
-        & .product-price-line{
-            margin: 0;
-            align-items: baseline;
-        }
-
-        & .price-rrp{
-            opacity: 0.5;
-            font-size: 1.1rem;
-        }
     }
+
+    &__priceLine{
+        margin: 0;
+        align-items: baseline;
+    }
+
+    &__priceValue{
+        order: 0;
+    }
+
+    &__priceRrp{
+        @extend .highlight;
+        @extend .price-rrp;
+        opacity: 0.5;
+        font-size: 1.1rem;
+    }
+
+
 
     &__promoText{
         @extend .pdp-promo-text;
@@ -122,6 +155,7 @@
         @extend .landing__row;
         text-align: left;
         padding: 0;
+        flex-direction: column;
         
         &--border{
             border-top: 1px solid #eee;
@@ -136,12 +170,16 @@
             @extend .landing__row--noFlex;
         }
     }
-
     
 
     &__col--marginBottom{
         margin-bottom: 40px;
     }
+
+    &__col--rightBorder{
+        border-right: 1px solid #eee;
+    }
+
 
     &__col-1-1{
         @extend %span-1-1;
@@ -221,9 +259,15 @@
     }
 
 
+
+
     &__figure{
         @extend %span;
         @extend .no-pad;
+
+        &--full{
+            width: 100%;
+        }
     }
 
     &__figImg{
@@ -233,6 +277,7 @@
 
     &__img{
         object-fit: cover;
+        width: 100%;
 
         &--thumb{
             width: 100%;
@@ -259,6 +304,187 @@
     &__sidesWrap{
         @extend .product-slides-wrap;
     }
+
+
+
+    &__swatchCol{
+        @extend %span-1-1;
+        @extend %span;
+        padding: 20px 0 0 0;
+    }
+
+    &__swatchList{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        height: 100%;
+        justify-content: center;
+    }
+
+    &__swatchItem{
+        margin: 5px 0;
+        padding: 10px 0 5px 0;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        position: relative;
+
+        &--select{
+            width: 100%;
+
+            &:after{
+                @extend .form-select-wrapper:after;
+                width: 20px;
+                height: 10px;
+            }
+        }
+    }
+
+    &__swatchLabel{
+        width: 100%;
+        border: 1px solid #ccc;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        padding: 8px 10px;
+        border-radius: $border-radius;
+        cursor: pointer;
+
+        &:hover{
+            border-color: #929396;
+
+            & .icon-long-arrow-right{
+                fill: #929396;
+            }
+        }
+
+        & .icon-long-arrow-right{
+            width: 20px;
+            height: 10px;
+            fill: #333;
+            margin-right: 10px;
+        }
+    }
+
+
+    &__clearSwatch{
+        @extend .blog__clearFilter;
+        position: absolute;
+        top: 0px;
+        right: -8px;
+        padding: 5px;
+        background-color: #e74c3c;
+        margin: 0;
+
+        & .icon{
+            width: 10px;
+            height: 10px;
+            fill: #fff;
+        }
+    }
+
+    &__swatchColHeading{
+        margin: 10px 0 0 0;
+        line-height: 1;
+        font-size: 1rem;
+        text-transform: uppercase;
+    }
+
+    &__swatch{
+       width: 55px;
+       max-width: 55px;
+       height: 55px;
+       border-radius: 50%;
+       position: relative;
+       overflow: hidden;
+       flex: 0 0 auto;
+       width: 25%;
+    }
+
+
+    &__swatchControls{
+        margin: 10px 0;
+        padding: 5px 0;
+        border-top: 1px solid #eee;
+        @extend .form-field;
+        @extend .form-field-options;
+        @extend .form-field-swatch;
+    }
+
+
+    &__swatchColor{
+        background-color: #eee;
+        background-size: cover;
+    }
+
+    &__swatchImg{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        object-fit: cover;
+    }
+
+    &__swatchText{
+        padding-left: 10px;
+        width: 75%;
+    }
+
+    &__swatchOptionText{
+        margin: 0;
+        font-size: 0.75rem;
+    }
+
+    &__swatchName{
+        font-weight: 800;
+        margin-bottom: 5px;
+        display: block;
+        line-height: 1;
+        text-align: left;
+    }
+
+    &__swatchValue{
+        line-height: 1.2;
+        display: block;
+        text-align: left;
+    }
+
+    &__swatchRequestBtn{
+        display: none;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        padding: 5px 0;
+    }
+
+    &__swatchRequestIcon{
+        width: 15px;
+        height: 15px;
+        fill: #3498db;
+    }
+
+    &__swatchRequestText{
+        font-size: 0.9rem;
+        margin-left: 8px;
+        color: #3498db;
+    }
+
+
+    &__swatchSelect{
+        @extend .form-input;
+        @extend .form-select;
+        width: 100%;
+    }
+
+
 }
 
 body.product{

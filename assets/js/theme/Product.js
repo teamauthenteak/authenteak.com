@@ -16,6 +16,8 @@ import ProductOptions from './product/customizations/ProductOptions';
 import AddToCartModal from './product/customizations/AddToCartModal';
 import PrintMode from './product/customizations/PrintMode';
 
+import ProductSwatchModal from './product/ProductSwatchModal';
+
 export default class Product extends PageManager {
 	constructor() {
 		super();

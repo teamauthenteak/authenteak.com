@@ -9,7 +9,8 @@
     
   </div>
 
-  <div class="form-field-control-wrapper"><div class="form-field-control">
+  <div class="form-field-control-wrapper">
+    <div class="form-field-control">
     {{#each values}}
       <label class="swatch-wrap" for="attribute-{{id}}" data-swatch-value="{{label}}" data-product-attribute-value="{{id}}">
         <input
@@ -80,7 +81,7 @@
   </div></div>
 
   {{#inArray (split "Select Head Cushion Fabric||Select Canopy||Select Optional Cushions||Select Optional Cushion||Select Fabric||Select Cushion||Select Throw Pillows Fabric" "||") display_name }}
-    <button class="form-field-swatch__request-button" type="button" data-option-title="{{display_name}}">{{lang 'product.choose_swatch'}}</button>
+    <button class="form-field-swatch__request-button" swatch-request-button type="button" data-option-title="{{display_name}}">{{lang 'product.choose_swatch'}}</button>
   {{/inArray}}
 
 </div>

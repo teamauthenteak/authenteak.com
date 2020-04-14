@@ -1,9 +1,4 @@
-:root {
-    --star-size: 15px;
-    --star-color: #fff;
-    --star-background: #fc0;
-  }
-  
+
   .yotpo-stars-rating {
     --percent: calc(var(--rating) / 5 * 100%);
     position: relative;
@@ -13,7 +8,7 @@
     line-height: 1;
     height: 15px;
     width: 90px;
-    margin-right: 5px;;
+    margin-right: 5px;
    
     &::before {
       content: '★★★★★';

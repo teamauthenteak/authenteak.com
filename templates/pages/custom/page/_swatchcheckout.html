@@ -157,7 +157,7 @@
                     </div>
 
                     <div class="form-field form-field-common form-required">
-                        <button type="submit" id="sendSamplesBtn" class="swatchCheckout__submit">
+                        <button type="submit" id="sendSamplesBtn" class="swatchCheckout__submit" autocomplete="off">
                             <span class="swatchCheckout__submitText">Send my free samples</span>
                             <svg class="icon icon-spinner hide"><use xlink:href="#icon-spinner" /></svg>
                         </button>
@@ -226,13 +226,14 @@
 
         $(document)
             .on("click", ".swatchCheckout__removeItem", removeSwatch)
-            .on("click", sendSamplesBtn, initProgressBtn)
+            .on("click", "#sendSamplesBtn", initProgressBtn)
             .on("submit", "#swatchCheckoutForm", postToZendesk);
 
         
         formInput = document.querySelectorAll(".form-input");
+
         formInput.forEach(function(element){
-            element.addEventListener('invalid', captureErr)
+            element.addEventListener('invalid', captureErr);
         });
         
 

@@ -3525,7 +3525,7 @@ button {
   display: block;
 
   &:after {
-    @include icon-arrow-down($color-meta);
+    @include icon-arrow-down(#333);
     position: absolute;
     top: 50%;
     right: 20px;

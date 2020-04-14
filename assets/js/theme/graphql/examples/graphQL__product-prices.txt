@@ -1,0 +1,45 @@
+query productPrices{
+    site{
+      products(entityIds:[6310, 2393, 2402]){
+        edges{
+          node{
+            entityId
+            name
+            priceRanges {
+              retailPriceRange{
+                min {
+                  ...PriceFields
+                }
+                max {
+                  ...PriceFields
+                }
+              }
+              priceRange {
+                min {
+                  ...PriceFields
+                }
+                max {
+                  ...PriceFields
+                }
+              }
+            }
+            prices {
+              price {
+                ...PriceFields
+              }
+              salePrice {
+                ...PriceFields
+              }
+              retailPrice {
+                ...PriceFields
+              }
+            }
+          }
+        }
+      }
+  	}
+}
+
+fragment PriceFields on Money {
+  value
+}

@@ -5,7 +5,7 @@ import './theme/global/jquery';
 import 'jquery-trend';
 import 'jquery-revealer';
 import 'validetta';
-import './simplebar/simplebar';
+// import './simplebar/simplebar';
 import './DoubleTapToGo/jquery.doubletaptogo';
 
 import stencilUtils from '@bigcommerce/stencil-utils';
@@ -30,12 +30,12 @@ import Home from './theme/Home';
 import orderComplete from './theme/OrderComplete';
 import page from './theme/Page';
 import product from './theme/Product';
-import personalization from './theme/Personalization';
 import AmpProduct from './theme/AmpProduct';
 import search from './theme/Search';
 import sitemap from './theme/Sitemap';
 import subscribe from './theme/Subscribe';
 import wishlist from './theme/Wishlist';
+
 
 let PageClasses = {
   mapping: {

@@ -88,26 +88,29 @@ export default class Cart extends PageManager {
     next();
 
     // Cart Page Prop 65 Toggle
-    var propBtnEl = document.querySelector('.prop-link');
-    var propWrapEl = document.querySelector('.prop-wrapper');
-    var propActive = false;
+    if(document.querySelector('.prop-link')){
+      let propBtnEl = document.querySelector('.prop-link');
+      let propWrapEl = document.querySelector('.prop-wrapper');
+      let propActive = false;
 
-    propBtnEl.addEventListener('click', togglePropEl);
+      propBtnEl.addEventListener('click', togglePropEl);
 
-    function togglePropEl() {
-      propActive = !propActive;
-      propWrapEl.classList.toggle('open');
-      updatePropBtn();
-      console.log(propActive);
-    }
+      function togglePropEl() {
+        propActive = !propActive;
+        propWrapEl.classList.toggle('open');
+        updatePropBtn();
+        console.log(propActive);
+      }
 
-    function updatePropBtn() {
-      if (propActive) {
-        propBtnEl.innerHTML = "Close Information";
-      } else {
-        propBtnEl.innerHTML = "California's Residents see Proposition 65 Information";
+      function updatePropBtn() {
+        if (propActive) {
+          propBtnEl.innerHTML = "Close Information";
+        } else {
+          propBtnEl.innerHTML = "California's Residents see Proposition 65 Information";
+        }
       }
     }
+    
   }
 
 

@@ -12,7 +12,7 @@ export default class ProductOptions {
 		this.$warrantyJSON = $('[data-json="warranty"]')
 		this.$swatches = $('[data-swatch-selector]');
 		this.$dropdowns = $('[data-product-attribute="set-select"]');
-		this.$raqButtons = $('button.form-field-swatch__request-button');
+		this.$raqButtons = $('button[swatch-request-button]');
 		this.raqModalSelector = '#swatchpopuplist';
 		this.$raqModal = $(this.raqModalSelector);
 		this.$raqSwatches = this.$raqModal.find('.swatchinnerpopup ul');
@@ -97,6 +97,8 @@ export default class ProductOptions {
 		let self = this;
 
 
+
+
 		// on hover & touchend - show swatch color in main view
 		function showSwatchColor(e) {
 			window.clearTimeout(self.hoverTimeout);
@@ -114,6 +116,9 @@ export default class ProductOptions {
 			}
 
 			$swatchText.text(self.formatLabelWithRelativePricing(label, currentSelection));
+
+			// console.log(label)
+			// console.log(currentSelection)
 		}
 
 
@@ -130,6 +135,8 @@ export default class ProductOptions {
 			}, 50);
 		}
 
+		// hides the swatch overlay on click of the x button
+		$(".product-swatch-hover-container").on("click", "button.product-swatch-hover-close", hideSwatchColor);
 
 
 		// on click of the selected watch - then on a consequantal hoveroff, reshow the initally selected swatch
@@ -155,6 +162,8 @@ export default class ProductOptions {
 				label = self.parseOptionLabel($el.data('swatch-value')),
 				customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
 
+				console.log($el)
+
 			$el.parents(".form-field-control").find("input:checked").prop("checked", false).attr("checked", false);
 
 			// save the raw selection so we can use it later in other evenets
@@ -174,8 +183,8 @@ export default class ProductOptions {
 			// if you uncheck the swatch
 			if ($el.attr('data-is-selected') && $el.find("input:radio").is(":checked")) {
 
-				console.trace()
-				console.log($el.data())
+				// console.trace()
+				// console.log($el.data())
 
 				$el.find('input:radio').prop('checked', false).attr('checked', false);
 
@@ -235,6 +244,8 @@ export default class ProductOptions {
 			.on('mouseout', 'label', hideSwatchColor)
 			.on('click', 'label', selectSwatchColor);
 
+		
+
 	}
 
 
@@ -285,9 +296,21 @@ export default class ProductOptions {
 
 			// Toggle detail pane visible state
 			$hoverDetail.addClass('is-visible');
+
+			if( window.TEAK.Utils.isHandheld ){
+				$(".product-swatch-hover-close").removeClass("hide");
+			}
+			
+
 		} else {
 			$hoverDetail.removeClass('is-visible');
+
+			// race condition hack to prevent baggette box from triggering when closing the icon
+			setTimeout(() => {
+				$(".product-swatch-hover-close").addClass("hide");
+			}, 1);
 		}
+
 	}
 
 	// Hide the hover detail pane
@@ -314,8 +337,12 @@ export default class ProductOptions {
 				}
 
 				if ($opt.val() && $opt.val().length > 0) {
+					
 					$opt.text(self.formatLabelWithRelativePricing(label, currentSelection));
 				}
+
+				// console.log(label)
+				// console.log(currentSelection)
 			});
 		});
 	}
@@ -343,7 +370,7 @@ export default class ProductOptions {
 		this.$raqSwatches.on('click', 'li[data-request-swatch]', (e) => {
 			let $el = $(e.currentTarget);
 
-			if (!$el.hasClass('is-selected') && self.$raqSwatches.find('li.is-selected').length >= 5) {
+			if (!$el.hasClass('is-selected') && self.$raqSwatches.find('li.is-selected').length >= 3) {
 				return false; // Don't add swatches if five are already selected
 			}
 			
@@ -557,45 +584,68 @@ export default class ProductOptions {
 		let data = {},
 			additional = [];
 		let parts = label.split('--');
+
 		for (var i in parts) {
 			let part = parts[i].trim();
+
 			if (i == 0) {
+
 				let grade = part.match(/Grade ([^ ]+)/i);
 				if (grade) {
 					data.grade = grade[1].toUpperCase();
 				}
+
 				let priceAdjust = part.match(/\((\+\$[\d.]+)\)/);
 				if (priceAdjust) {
 					data.priceAdjust = priceAdjust[1];
 				}
+
 				let priceAdjustNumeric = part.match(/\(([+-])\$([\d.]+)\)/);
 				if (priceAdjustNumeric) {
-					data.priceAdjustNumeric =
-						Math.round(Number.parseFloat(priceAdjustNumeric[1] + priceAdjustNumeric[2]) * 100) / 100;
+					data.priceAdjustNumeric = Math.round(Number.parseFloat(priceAdjustNumeric[1] + priceAdjustNumeric[2]) * 100) / 100;
 				}
+
 				data.text = part.replace(/Grade [^ ]+ /ig, '').replace(/\([+-][^ ]+/g, '').trim();
+
+				let brandName = data.text.split(" ")[0];
+				switch(brandName){
+					case "Outdura": data.brandName = brandName; break;
+					case "Sunbrella": data.brandName = brandName; break;
+					case "Bella": data.brandName = brandName; break;
+					case "Acrylic": data.brandName = brandName; break;
+					case "Obravia": data.brandName = brandName; break;
+				}
+
 			} else if (part.match(/^LEAD:/)) {
+
 				let match = part.match(/^LEAD:(\d+)([W|D])/);
+
 				data.leadtime_from = {
 					value: Number.parseInt(match[1]),
 					unit: match[2].match(/^d$/i) ? 'day' : 'week'
 				};
+
 				data.leadtime_weeks_from = data.leadtime_from.unit == 'week' ?
 					data.leadtime_from.value :
 					data.leadtime_from.value / 5;
 				match = part.match(/^LEAD:(\d+)([W|D])(?:-(\d+)([W|D])|)$/);
+
 				if (match && match[3]) {
 					data.leadtime_to = {
 						value: Number.parseInt(match[3]),
 						unit: match[4].match(/^d$/i) ? 'day' : 'week'
 					};
+
 					data.leadtime_weeks_to = data.leadtime_to.unit == 'week' ?
 						data.leadtime_to.value :
 						data.leadtime_to.value / 5;
+
 				} else {
+
 					data.leadtime_to = data.leadtime_from;
 					data.leadtime_weeks_to = data.leadtime_weeks_from;
 				}
+
 			} else {
 				additional.push(part);
 			}
@@ -608,6 +658,8 @@ export default class ProductOptions {
 
 		return data;
 	}
+
+
 
 	// Convert a swatch thumbnail URL to an object of multiple sizes
 	getSwatchImages(thumb) {

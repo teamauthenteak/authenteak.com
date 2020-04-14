@@ -137,6 +137,7 @@ export default class ProductUtils {
 
   /**
    * Bind product options changes.
+   * triggers on page load and on click of product option
    */
   _bindProductOptionChange() {
     utils.hooks.on('product-option-change', (event, changedOption) => {
@@ -180,6 +181,8 @@ export default class ProductUtils {
           }
         }
 
+        console.log(data)
+
         // Extrapolate and test for base price
         if (data.base || (typeof data.variantID == 'undefined' && typeof data.v3_variant_id == 'undefined')) {
           viewModel.$price.data('base-price', data.price.without_tax);
@@ -196,6 +199,7 @@ export default class ProductUtils {
             price: data.price,
             excludingTax: this.context.productExcludingTax,
           };
+
           viewModel.$price.html(this.options.priceWithoutTaxTemplate(priceStrings));
           // console.log('updating!');
           // console.log(this);

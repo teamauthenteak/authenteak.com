@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.20.23]
+- collections page updaes
+- removed simple bar for swatch options in favor of ligheter css scroll styling
+- changed product swatches to css scroll rather than simplebar
+- Added Bolt page error fix
+- moved cart RV to show when a cart is empty
+- fixed an issue where the button on reqeust swatch checkout form was auto clicking
+- fixed issue in top nav where featured offers was triggering a dropdown with only the words "shop all featured"
+
 ## [1.20.22]
 - collections page updaes
 - fixed pdp thunbial cut off issue
