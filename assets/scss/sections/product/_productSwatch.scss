@@ -131,6 +131,10 @@
         overflow: scroll;
     }
 
+    &__freezeBody{
+        @extend %freeze-body;
+    }
+
     &__underlay {
         display: none;
         position: fixed;

@@ -1,5 +1,11 @@
+%freeze-body{
+    overflow: hidden;
+    position: relative;
+    max-height: 100vh;
+}
+
 .scroll-locked{
-    position: fixed;
+    @extend %freeze-body;
 }
 
 .show{

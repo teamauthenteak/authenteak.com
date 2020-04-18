@@ -8,6 +8,9 @@
 - moved cart RV to show when a cart is empty
 - fixed an issue where the button on reqeust swatch checkout form was auto clicking
 - fixed issue in top nav where featured offers was triggering a dropdown with only the words "shop all featured"
+- integrated new options modal drawer flyout
+- updated options on PDP with drawer flyout
+- fixed some issues with the tooltip with the new product option fields
 
 ## [1.20.22]
 - collections page updaes

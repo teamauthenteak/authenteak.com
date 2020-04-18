@@ -104,9 +104,11 @@ export default class AddToCartModal {
 
     $('.modal-cart .option-value-wrapper').each(function() {
       let value = $(document).find(`input[type="radio"][name="attribute[${$(this).attr('data-option-id')}]"]:checked`).attr('data-parsed-label');
+      
       if (!value) {
         value = $(document).find(`select[name="attribute[${$(this).attr('data-option-id')}]"] option:selected`).text();
       }
+      
       $(this).text(value);
     });
 
@@ -128,32 +130,35 @@ export default class AddToCartModal {
       e.preventDefault();
     });
 
-    // get product data from cart rather than calcualte from the UI
-    let pendingCartTotal = window.localStorage.getItem('cartData');
+    try{
+      // get product data from cart rather than calcualte from the UI
+      let pendingCartTotal = window.localStorage.getItem('cartData');
 
-    pendingCartTotal = JSON.parse(pendingCartTotal);
-    pendingCartTotal = pendingCartTotal[0].hasOwnProperty("cartAmount") ? parseFloat(pendingCartTotal[0].cartAmount) : 0.00;
-    
-    if (pendingCartTotal > 0){
-      if( pendingCartTotal < 1 ) {
-        pendingCartTotal = `00.${pendingCartTotal}`;
+      pendingCartTotal = JSON.parse(pendingCartTotal);
+      pendingCartTotal = pendingCartTotal[0].hasOwnProperty("cartAmount") ? parseFloat(pendingCartTotal[0].cartAmount) : 0.00;
+      
+      if (pendingCartTotal > 0){
+        if( pendingCartTotal < 1 ) {
+          pendingCartTotal = `00.${pendingCartTotal}`;
 
-      }else if( pendingCartTotal % 1 === 0 ) {
-        pendingCartTotal = `${pendingCartTotal}.00`;
+        }else if( pendingCartTotal % 1 === 0 ) {
+          pendingCartTotal = `${pendingCartTotal}.00`;
+        }
       }
-    }
 
-    // pendingCartTotal = `$${pendingCartTotal}`.replace(/^(\$\d*)(\d\d)$/, "$1.$2").replace(/(\d)(\d\d\d)\./, "$1,$2.");
+      // pendingCartTotal = `$${pendingCartTotal}`.replace(/^(\$\d*)(\d\d)$/, "$1.$2").replace(/(\d)(\d\d\d)\./, "$1,$2.");
+      
+      // add comma formatting
+      pendingCartTotal = `$${pendingCartTotal}`.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+
+      // let pendingCartQuantity = Number.parseInt($('.modal-cart__count-value').attr('data-quantity')) + Number.parseInt(qty);
+      let pendingCartQuantity = Number.parseInt($('.modal-cart__count-value').attr('data-quantity'));
+
+      $('.modal-cart__subtotal-value').text(pendingCartTotal);
+      $('.modal-cart__count-value').text(pendingCartQuantity);
+      $('.modal-cart__count-unit').text(pendingCartQuantity === 1 ? ' item' : ' items');
     
-    // add comma formatting
-    pendingCartTotal = `$${pendingCartTotal}`.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
-
-    // let pendingCartQuantity = Number.parseInt($('.modal-cart__count-value').attr('data-quantity')) + Number.parseInt(qty);
-    let pendingCartQuantity = Number.parseInt($('.modal-cart__count-value').attr('data-quantity'));
-
-    $('.modal-cart__subtotal-value').text(pendingCartTotal);
-    $('.modal-cart__count-value').text(pendingCartQuantity);
-    $('.modal-cart__count-unit').text(pendingCartQuantity === 1 ? ' item' : ' items');
+    }catch(err){ console.log(err) }
 
 
     try {

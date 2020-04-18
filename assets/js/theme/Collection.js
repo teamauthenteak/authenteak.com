@@ -127,8 +127,7 @@ export default class Collection extends PageManager {
                 optObj = Object.assign($this.data(), that.productOptionsModule.parseOptionLabel(radioObj.label), {id: $this.attr("id")}, {value: $this.val()} ),
                 opt = getOptionValues(optObj);
             
-
-            $(this)
+            $this
                 .val(opt.entityId)
                 .attr("name", `attribute[${opt.entityId}]`)
                 .siblings(".product__swatchColor").css("backgroundImage", `https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${opt.entityId}.preview.jpg`)
@@ -152,6 +151,8 @@ export default class Collection extends PageManager {
 
 
         function getOptionValues(optObj){
+            console.log(optObj.id)
+            console.log(that.productOptionScope)
             let optionNode = that.productOptionScope[optObj.id].find((element) => element.node.displayName === radioObj.optionTitle),
                 swatch = optionNode.node.values.edges.find((element) => {
                     let parsedSwatch = that.productOptionsModule.parseOptionLabel(element.node.label);

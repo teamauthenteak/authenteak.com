@@ -54,25 +54,39 @@ export default class ProductUtils {
     this._bindAddWishlist();
 
     this.Validator = new FormValidator(this.context);
+
     this.Validator.initSingle(
-      this.$el.find('form[data-cart-item-add]'),
-      {
-        onError: (e) => {
+      this.$el.find('form[data-cart-item-add]'), {
+        onValid: (e) => {
+          let event = new CustomEvent("form-field-success-state");
+          window.dispatchEvent(event);
+        },
+        onError: function(e) {
           let $firstError = $(e.target).find('.form-field-invalid').first();
+
+          // notify other apps of the form field error for specific ui updates
+          let invalidFields = this.getInvalidFields();
+          let event = new CustomEvent("form-field-error-state", {detail: invalidFields});
+          window.dispatchEvent(event);
+
+
           if ('scrollBehavior' in document.documentElement.style) {
             window.scroll({
               top: $firstError.offset().top - 112,
               left: 0,
               behavior: 'smooth'
             });
+
           } else {
             window.scroll(0, $firstError.offset().top - 200);
           }
+
         }
-      }
+     }
     );
 
     this.boundCartCallback = this._bindAddToCart.bind(this);
+
     utils.hooks.on('cart-item-add', this.boundCartCallback);
 
     // Trigger a change event so the values are correct for pre-selected options
@@ -181,12 +195,13 @@ export default class ProductUtils {
           }
         }
 
-        console.log(data)
+        // console.log(data)
 
         // Extrapolate and test for base price
         if (data.base || (typeof data.variantID == 'undefined' && typeof data.v3_variant_id == 'undefined')) {
           viewModel.$price.data('base-price', data.price.without_tax);
         }
+
         if (data.price.without_tax !== viewModel.$price.data('base-price')) {
           delete data.price.rrp_without_tax;
           delete data.price.rrp_with_tax;

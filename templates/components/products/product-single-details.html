@@ -27,7 +27,7 @@
       <div class="mobileShow">
         {{> components/common/breadcrumbs breadcrumbs}}
       </div>
-      <p class="item-number item-number-mobile mobileShow">Item #: {{product.sku}} &nbsp;&nbsp;&nbsp; Internet #: {{product.id}}</p>
+      <p class="item-number item-number-mobile mobileShow">Item #: {{product.sku}} &nbsp;&nbsp;&nbsp; Internet #: <span id="productID">{{product.id}}</span></p>
 
       {{> components/products/customizations/swatch-hover-detail}}
 
@@ -70,7 +70,7 @@
       {{/if}}
       
         <div class="item-number">
-          <span class="mobileHide">Item #: {{product.sku}} &nbsp;&nbsp;&nbsp; Internet #: {{product.id}}</span>
+          <span class="mobileHide">Item #: {{product.sku}} &nbsp;&nbsp;&nbsp; Internet #: <span id="productID">{{product.id}}</span></span>
           <a class="yotpo-pdp-wrapper hide" href="#yotpoReviews" id="yotpoRating" title="Reviews of {{product.title}}">
             <span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of 0 out of 5."></span>
             (<span class="yotpo-reviews-num">0</span>)
@@ -184,12 +184,12 @@
             {{/if}}
           {{/each}}
         </ul>
-        <hr>
+        
         {{> components/products/add-to-cart-form cart_icon=cart_icon}}
 
       {{else}}
         {{> components/products/add-to-cart-form cart_icon=cart_icon}}
-        <hr>
+       
         {{> components/products/product-description}}
       {{/if}}
 

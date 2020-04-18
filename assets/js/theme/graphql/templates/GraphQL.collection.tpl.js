@@ -113,7 +113,7 @@ export default class GraphQL_Collection_TPL {
 
                                 if(productOption.displayStyle === "Swatch"){
                                     return `<li class="product__swatchItem" id="${product.entityId}.${productOption.entityId}">
-                                                <button type="button" drawer--open class="product__swatchLabel" data-product-id="${product.entityId}" rel="${productOption.entityId}" data-product-img="${product.defaultImage.url}">
+                                                <label drawer--open class="product__swatchLabel" data-product-id="${product.entityId}" rel="${productOption.entityId}" data-product-img="${product.defaultImage.url}">
                                                     <div class="product__swatch">
                                                         <input class="product__swatchRadio" id="${productOption.entityId}" type="radio" name="" value="" data-label="${productOption.displayName}">
                                                         <div class="product__swatchColor" style="background-image: url('https://dummyimage.com/256x256/cccccc/777777.png&text=Choose');">
@@ -122,12 +122,12 @@ export default class GraphQL_Collection_TPL {
                                                     </div>
                                                     <div class="product__swatchText">
                                                         <p class="product__swatchOptionText">
-                                                            <span class="product__swatchName">${productOption.displayName}:</span>
+                                                            <span class="product__swatchName">${productOption.displayName} ${productOption.values.edges.length > 10 ? `(${productOption.values.edges.length})` : '' }</span>
                                                             <span class="product__swatchValue"></span>
                                                         </p>
                                                     </div>
                                                     <svg class="icon icon-long-arrow-right"><use xlink:href="#icon-long-arrow-right" /></svg>
-                                                </button>
+                                                </label>
                                             </li>`;
                                 }
 

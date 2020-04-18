@@ -60,6 +60,16 @@ export default class Product extends PageManager {
 		new AddToCartModal();
 
 
+		if( document.getElementById("productInfo") ){
+			try{
+				this.productInfo = JSON.parse(document.getElementById("productInfo").innerHTML);
+			}catch(err){}
+		}
+
+		// add product swatch modal
+		new ProductSwatchModal(this.productInfo);
+
+
 		if(document.getElementById("relatedProductIDs")){
 			// Recommened Products Yotpo Update
 			this.recommended = new Personalization({
@@ -273,21 +283,17 @@ export default class Product extends PageManager {
 
 	// saved this viwerd poduct - include the yotpo rating
 	saveViewedProduct(){
-		try{
-			let productInfo = document.getElementById("productInfo").innerHTML;
-
-			productInfo = JSON.parse(productInfo);
-			
+		try{			
 			$.ajax(`${this.recentlyViewed.yotpoReviewsUrl}/${this.recentlyViewed.yotpoKey}/products/${this.productId}/reviews.json`)
 				.done((dataObj) => {
 					let totalScore = dataObj.response.bottomline.average_score;
 
 					totalScore = (totalScore === 0) ? 0 : totalScore.toFixed(1);
 
-					productInfo["rating"] = totalScore;
-					productInfo["total_review"] = dataObj.response.bottomline.total_review;
+					this.productInfo["rating"] = totalScore;
+					this.productInfo["total_review"] = dataObj.response.bottomline.total_review;
 
-					this.recentlyViewed.saveViewed(productInfo);
+					this.recentlyViewed.saveViewed(this.productInfo);
 				});
 				/* .then((data) => {
 					this.buildProductSchema(data);
@@ -532,16 +538,13 @@ TEAK.Modules.toolTip = {
 		this.optionKeys = Object.keys(this.brandObj);
 
 		this.optionKeys.forEach((element, i) => {
-			let $optionSelector = $("#productOptions").find("[data-option-title='"+ this.optionKeys[i] +"'] .toolTip");
+			let $optionSelector = $("#productOptions").find("[data-option-title='"+ this.optionKeys[i] +"']");
 
 			$optionSelector
-				.find(".toolTip__cntr")
-					.append(this.brandObj[element].tip)
-						.end()
-				.addClass("toolTip--show");
+				.find(".toolTip").addClass("toolTip--show")
+					.end()
+				.find(".toolTip__cntr").append(this.brandObj[element].tip).append(this.closeBtn);	
 		});
-
-		$(".toolTip__cntr").append(this.closeBtn);
 	},
 
 
@@ -580,11 +583,9 @@ TEAK.Modules.toolTip = {
 		TEAK.Modules.toolTip.activeModal = tipData.hasOwnProperty("toolTipId")  ? tipData.toolTipId : $(this).attr("rel");
 
 		let $activeModal = $("#"+ TEAK.Modules.toolTip.activeModal);
-
 		$activeModal.toggleClass("toolTip__cntr--hide toolTip__cntr--show");
 
 		let modalHeight = $activeModal.outerHeight();
-
 		$activeModal.css({
 			height: modalHeight,
 			marginTop: -(modalHeight/2)

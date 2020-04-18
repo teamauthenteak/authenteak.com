@@ -3,14 +3,19 @@
     margin-right: 10px;
     display: none;
 
+    &__freezeBody{
+        @extend %freeze-body;
+    }
+
     &--show{
         display: block;
     }
 
     &--optionSwatch {
-        // position: absolute;
-        right: 0;
-        top: 0;
+        left: -7px;
+        top: 7px;
+        position: absolute;
+        z-index: 9;
     }
 
     &__heading{

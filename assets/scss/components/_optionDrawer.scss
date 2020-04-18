@@ -10,8 +10,10 @@
         z-index: 99999;
         top: 0;
         box-shadow: -8px 0px 17px rgba(0, 0, 0, 0.50);
-        padding: 0 20px 0 20px;
+        padding: 0 20px 0px 20px;
         overflow: auto;
+        display: flex;
+        flex-direction: column;
 
         @media only screen and (max-width: $screen-md) {
             width: 100vw;
@@ -20,26 +22,32 @@
 
     &--open{
         @extend .slideInRight;
+        @extend .fadeIn;
         right: 0;
     }
 
     &--close{
         @extend .slideOutRight;
         right: 0vw;
+        opacity: 0;
+        @extend .fadeOut;
+    }
+
+    &__freezeBody{
+        @extend %freeze-body;
     }
 
     &__overlay{
         @extend .animated;
         position: fixed;
         z-index: 9999;
-        background-color: rgba(0,0,0, 0.70);
+        background-color: rgba(0,0,0, 0.1);
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
         width: 100vw;
         height: 100vh;
-        // box-shadow: inset -8px 0px 170px rgba(0, 0, 0, 1);
 
         &--hide{
             visibility: hidden;
@@ -63,6 +71,9 @@
     &__main{
         width: 100%;
         float: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
     }
 
     &__contentHeading{
@@ -90,6 +101,20 @@
     &__contentCntr{
         display: flex;
     }
+
+    &__content{
+        position: relative;
+        float: left;
+        // height: 75%;
+        flex: 1 0 auto;
+    }
+
+
+    &__filters{
+        flex: 1 0 auto;
+        position: relative;
+    }
+
 
     &__control{
 
@@ -126,9 +151,17 @@
         & .form-field-control{
             overflow: auto;
             flex: 1 0 auto;
-            max-height: 275px !important;
+            max-height: 36vh !important;
             @extend %scrolling-inner;
             justify-content: flex-start;
+
+            @media only screen and (max-width: $screen-lg) {
+                max-height: 40vh !important;
+            }
+
+            @media only screen and (max-width: $screen-xl) {
+                max-height: 45vh !important;
+            }
         }      
         
         .swatch-color{
@@ -210,12 +243,6 @@
             .form-label-grade{
                margin-right: 5px;
             }
-
-            .form-label-price{
-
-            }
-
-            
         }
 
         &--grid{
@@ -231,6 +258,10 @@
 
                 @media only screen and (max-width: $screen-md) {
                     width: (100%/3) !important;
+                }
+
+                @media only screen and (max-width: $screen-lg) {
+                    width: (100%/4) !important;
                 }
             }
 
@@ -257,10 +288,10 @@
                 text-align: center;
                 bottom: 5px;
                 clip: unset;
+                overflow: visible;
             }
         }
 
-        
     }
 
     &__clearControl{
@@ -297,20 +328,7 @@
     }
 
     
-    &__selectedText{
-        width: 100%;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        align-content: center;
-        font-size: 1rem;
-        padding: 10px 0 0 0;
-        flex-direction: column;
-    }
 
-    &__selectedSwatchText{
-        padding-left: 5px;
-    }
 
 
     &__displayList{
@@ -384,13 +402,10 @@
 
     
     &__filterControlCntr{
-        @extend %scrolling-inner;
-        max-height: 200px;
         height: auto;
         width: 100%;
         float: left;
-        padding: 10px;
-        margin-bottom: 10px;
+        padding: 10px 0 0 0;
         overflow-y: auto;
         display: none;
     }
@@ -406,7 +421,7 @@
 
     &__filterList{
         width: 100%;
-        margin-bottom: 25px;
+        margin-bottom: 40px;
         display: flex;
     }
 
@@ -452,9 +467,40 @@
         }
     }
    
-   
 
+    &__footer{
+        width: 40vw;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        align-content: center;
+        font-size: 1rem;
+        padding: 10px 20px;
+        flex-direction: column;
+        bottom: 0;
+        background-color: #fff;
+        box-shadow: -1px -4px 20px rgba(0, 0, 0, 0.18);
+        margin-left: -21px;
+        float: left;
+        flex: 0 0 auto;
+        height: 120px;
+        z-index: 999;
 
+        @media only screen and (max-width: $screen-md) {
+            width: 100vw;
+        }
+       
+    }
+
+    &__selectedSwatchText{
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+
+    &__sorryMessage{
+        text-align: center;
+    }
     
 
 }

@@ -7,6 +7,7 @@ import utils from '@bigcommerce/stencil-utils';
  */
 export default class ProductOptions {
 	constructor() {
+		
 		this.$optionsJSON = document.getElementById("optionModuleJSON").innerHTML;
 		this.rawOptions = JSON.parse(this.$optionsJSON);
 		this.$warrantyJSON = $('[data-json="warranty"]')
@@ -37,6 +38,7 @@ export default class ProductOptions {
 		this.bindSwatchLabelData();
 		// Handle functionality that occurs in background
 		this.preloadImages();
+
 
 		window.TEAK.Modules.requestASwatch = {};
 	}
@@ -95,9 +97,7 @@ export default class ProductOptions {
 	// Handle swatch hover and click events
 	bindSwatchEvents() {
 		let self = this;
-
-
-
+		
 
 		// on hover & touchend - show swatch color in main view
 		function showSwatchColor(e) {
@@ -162,7 +162,6 @@ export default class ProductOptions {
 				label = self.parseOptionLabel($el.data('swatch-value')),
 				customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
 
-				console.log($el)
 
 			$el.parents(".form-field-control").find("input:checked").prop("checked", false).attr("checked", false);
 
@@ -237,14 +236,12 @@ export default class ProductOptions {
 			self.updateLeadTime();
 		}
 
-
+		this.$swatches.off();
 
 		this.$swatches
 			.on('mouseover', 'label', showSwatchColor)
 			.on('mouseout', 'label', hideSwatchColor)
 			.on('click', 'label', selectSwatchColor);
-
-		
 
 	}
 
@@ -252,6 +249,8 @@ export default class ProductOptions {
 	// Bind dropdown events
 	bindDropdownEvents() {
 		let self = this;
+
+		this.$dropdowns.off();
 
 		this.$dropdowns.on('change', 'select', (e) => {
 			let $el = $(e.currentTarget);
@@ -318,6 +317,7 @@ export default class ProductOptions {
 		this.$hoverDetail.removeClass('is-visible');
 	}
 
+
 	// Update and clean-up dropdown option labels
 	updateDropdownOptionLabels() {
 		let self = this;
@@ -347,9 +347,12 @@ export default class ProductOptions {
 		});
 	}
 
+
 	// Bind Request-a-Swatch modal features
 	bindRequestASwatchFeature() {
 		let self = this;
+
+		this.$raqButtons.off();
 
 		this.$raqButtons.on('click', (e) => {
 			e.preventDefault();
@@ -363,9 +366,13 @@ export default class ProductOptions {
 							closeModal();
 						}
 					})
-					.css({"position": "fixed"});
+					.addClass("swatchModal__freezeBody");
 			}, 100);
 		});
+
+
+
+		this.$raqSwatches.off();
 
 		this.$raqSwatches.on('click', 'li[data-request-swatch]', (e) => {
 			let $el = $(e.currentTarget);
@@ -386,6 +393,10 @@ export default class ProductOptions {
 			self.updateRequestASwatchForm();
 		});
 
+
+
+		this.$raqSelections.off();
+
 		this.$raqSelections.on('click', 'li[data-request-swatch] .deselect', (e) => {
 			let $el = $(e.currentTarget).closest('li[data-request-swatch]');
 			self.$raqSwatches.find(`li[data-swatch-title="${$el.data('swatch-title')}"]`).removeClass('is-selected');
@@ -394,12 +405,13 @@ export default class ProductOptions {
 		});
 
 
+		this.$raqModal.off();
 		// Request-a-Swatch form close
 		this.$raqModal.on('click', '[close-popup]', closeModal);
 
+
 		// Request-a-Swatch form close to show modal
 		$(document).on('modal-cart-display', closeModal);
-
 
 		$(document).on("click", ".swatchModal__reqBtn", (e) => {
 			this.submitSwatchRequest(e)
@@ -409,7 +421,7 @@ export default class ProductOptions {
 		function closeModal(){
 			self.$raqModal.removeClass('is-open');
 			$(document.body)
-				.css({"position": "static"})
+				.removeClass("swatchModal__freezeBody")
 				.off('click.closeRASModal');
 		}
 
