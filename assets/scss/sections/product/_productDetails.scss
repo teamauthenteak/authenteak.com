@@ -457,6 +457,8 @@ ul.highlight-group {
 }
 
 .add-to-cart-form{
+    max-width: 600%;
+    
     .shipping-range{
         @media screen and (min-width: $screen-xl){
             display: none

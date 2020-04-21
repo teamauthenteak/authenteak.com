@@ -619,14 +619,28 @@ export default class ProductOptions {
 
 				data.text = part.replace(/Grade [^ ]+ /ig, '').replace(/\([+-][^ ]+/g, '').trim();
 
+				// brand name
 				let brandName = data.text.split(" ")[0];
 				switch(brandName){
 					case "Outdura": data.brandName = brandName; break;
 					case "Sunbrella": data.brandName = brandName; break;
-					case "Bella": data.brandName = brandName; break;
+					case "Bella": data.brandName = brandName + " Dura"; break;
 					case "Acrylic": data.brandName = brandName; break;
 					case "Obravia": data.brandName = brandName; break;
 				}
+
+				// Rain
+				let sunbrellaRain = data.text.toLowerCase().includes("sunbrella rain");
+				if(sunbrellaRain){
+					data.brandName = "Sunbrella Rain";
+				}
+
+				// ships by
+				let ships = data.text.split("Ships")[1];
+				if(ships){
+					data.ships = "Ships " + ships;
+				}
+
 
 			} else if (part.match(/^LEAD:/)) {
 

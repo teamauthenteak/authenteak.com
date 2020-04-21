@@ -32,15 +32,22 @@ export default class ProductSwatchModal {
             brandName: {
                 name: "Brand",
                 key: "brandName",
-                items: [],
                 target: "filterByBrand",
+                items: [],
                 values: []
             },
             grade: {
                 name: "Grade",
                 key: "grade",
-                items: [],
                 target: "filterByGrade",
+                items: [],
+                values: []
+            },
+            ships: {
+                name: "Shipping",
+                key: "ships",
+                target: "filterByShip",
+                items: [],
                 values: []
             }
         };
@@ -52,7 +59,6 @@ export default class ProductSwatchModal {
         this.filteredBrands = [];
         this.filteredGrades = [];
         
-
         this.init();
         this.bindings();
     }
@@ -62,6 +68,11 @@ export default class ProductSwatchModal {
     init(){
         let base = this.graph_tpl.getSwatchDrawer();
         $(base).appendTo(document.body);
+
+        // show the request-a-swatch button if we have the trigger from the tempaltes on the page
+        if( document.getElementById("productOptions").querySelector("div[show-request-swatch-button]") ){
+            document.getElementById("productDetails").querySelector(".product__swatchRequestBtn--pdp").style.display = "flex";
+        }
     }
 
 
@@ -111,6 +122,10 @@ export default class ProductSwatchModal {
 
 
 
+    /** --------------------------------------------
+     * Add-to-cart Validation Handlers
+     -----------------------------------------------*/
+
     // on page main label swatch for ATC
     handelSwatchError(e){
         this.handelSwatchValid();
@@ -131,15 +146,43 @@ export default class ProductSwatchModal {
 
 
 
+    /** --------------------------------------------
+     * Swatch select in Drawer
+    -----------------------------------------------*/
+
+    // on click of the actual swatch color make this choice and notify
+    selectSwatchColor(e){
+        let $this = $(e.currentTarget).parents("label");
+
+        $this.parents(".form-field-control").find("input:checked").prop("checked", false).attr("checked", false);
+    
+        if ( $this.attr('data-is-selected') && $this.find("input[type=radio]").is(":checked")) {
+            $this.find('input[type=radio]').prop('checked', false).attr('checked', false);
+
+        }else{
+            $this.attr('data-is-selected', true);
+            $this.find('input[type=radio]').prop('checked', true).attr('checked', true);
+
+            this.$optionsDrawer.find(".drawer__footer").removeClass("hide");
+        }
+
+        this.labelInteract(e);
+        this.updateSwatchButton(e, $this);
+    }
+
+
+
     // when a swatch is clicked activate the selected UI
     labelInteract(e){
         let $this = $(e.currentTarget),
-            label = $this.data("label");
+            label = $this.data("label"),
+            swatchImg = $this.siblings(".swatch").find("img").clone();
 
         label = this.productOptionsModule.parseOptionLabel(label);
 
         this.$optionsDrawer.find(".drawer__selectedSwatchText").text(`Selected: ${label.text}${label.priceAdjust ? ", " + label.priceAdjust : ''}`);
-        
+        this.$optionsDrawer.find(".drawer__imgCntr").html(swatchImg);
+
         e.preventDefault();
     }
 
@@ -160,13 +203,13 @@ export default class ProductSwatchModal {
                 .data("parsedLabel", this.selectedSwatchObj.text)
                 .attr({'checked': true, "id": `attribute[${this.selectedSwatchObj.productAttributeValue}]`})
                     .end()
-            .find(".product__swatchValue").text(this.selectedSwatchObj.text + (this.selectedSwatchObj.hasOwnProperty("priceAdjust") ? ` (${this.selectedSwatchObj.priceAdjust})` : '') )
+            .find(".product__swatchValue").addClass("show").text(this.selectedSwatchObj.text + (this.selectedSwatchObj.hasOwnProperty("priceAdjust") ? ` (${this.selectedSwatchObj.priceAdjust})` : '') )
                 .end()
             .find(".product__swatchColor").css("backgroundImage", `https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${this.selectedSwatchObj.productAttributeValue}.preview.jpg`)
             .find(".product__swatchImg").attr("src", `https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${this.selectedSwatchObj.productAttributeValue}.preview.jpg`)
         
                 // .end()
-            // needs to be a function that updates price differently if on PDP or collections page
+            // needs to be a function that updates price differently if collections page
             // .parents(".product__row").find(".product__priceValue").text(function(){
             //     if(opt.hasOwnProperty("priceAdjust")){
             //         let productPrice = $(this).data("price"),
@@ -177,7 +220,7 @@ export default class ProductSwatchModal {
             //     }
             // });
 
-            // this updates the price on the PDP
+            // this triggers a price update on the PDP from ProductUtils.js
             let thisInput =  this.$optionTriggerButton.find("input:radio");
             utils.hooks.emit('product-option-change', null, thisInput);
 
@@ -241,7 +284,6 @@ export default class ProductSwatchModal {
             .find(".drawer__selectedSwatchText").html("");
 
 
-
         if( e.currentTarget.hasAttribute("drawer--open") ){         
             this.optionsProductRefferenceId = this.getProductID(e);
             this.optionSetRefferenceId = parseInt($(e.currentTarget).attr("rel"));
@@ -258,31 +300,12 @@ export default class ProductSwatchModal {
 
 
 
-    // on click of the actual swatch color make this choice and notify
-    selectSwatchColor(e){
-        let $this = $(e.currentTarget).parents("label");
-
-        $this.parents(".form-field-control").find("input:checked").prop("checked", false).attr("checked", false);
-    
-        if ( $this.attr('data-is-selected') && $this.find("input[type=radio]").is(":checked")) {
-            $this.find('input[type=radio]').prop('checked', false).attr('checked', false);
-
-        }else{
-            $this.attr('data-is-selected', true);
-            $this.find('input[type=radio]').prop('checked', true).attr('checked', true);
-
-            this.$optionsDrawer.find(".drawer__footer").removeClass("hide");
-        }
-
-        this.labelInteract(e);
-        this.updateSwatchButton(e, $this);
-    }
-
 
 
     // when the checkboxes are clicked setup the filter
     attributeFilter(e){
-        let name = $(e.currentTarget).attr("name"), key = $(e.currentTarget).attr("key");
+        let name = $(e.currentTarget).attr("name"),
+            key = $(e.currentTarget).attr("key");
 
         if( $(e.currentTarget).is(":checked") ){
             this.filter[key].values.push(name);
@@ -292,9 +315,9 @@ export default class ProductSwatchModal {
             this.filter[key].values.splice(index, 1);
         }
 
-        let hasValues = (this.filter.grade.values.length > 0 || this.filter.brandName.values.length > 0);
+        let hasValues = (this.filter.grade.values.length > 0 || this.filter.brandName.values.length > 0 || this.filter.ships.values.length > 0);
 
-        this.swatchFilter({filter: hasValues });
+        this.swatchFilterController({filter: hasValues });
     }
 
 
@@ -305,7 +328,7 @@ export default class ProductSwatchModal {
 
         let hasKeyWords = this.filterKeyWord !== "";
 
-        this.swatchFilter({filter: hasKeyWords });
+        this.swatchFilterController({filter: hasKeyWords });
         this.$optionForm.find(".drawer__clearControl").toggleClass("hide", !hasKeyWords);
     }
 
@@ -315,14 +338,14 @@ export default class ProductSwatchModal {
     clearKeyword(e){
         this.$search.val("").focus();
         this.$optionForm.find(".drawer__clearControl").addClass("hide");
-        this.swatchFilter({filter: false });
+        this.swatchFilterController({filter: false });
 
         e.preventDefault();
     }
 
 
     /**
-     * Swatch filtering based on control inputs
+     * Swatch filtering Controller
      * @param {Object} arg.filter - boolean - to filter or to restore to normal
      * 
      * Hierarchy: Keyword > Brand > Grade
@@ -341,45 +364,49 @@ export default class ProductSwatchModal {
      * 
      */
     
-    swatchFilter(arg){
+    swatchFilterController(arg){
         let hasKeywords = this.filterKeyWord !== "",
             hasBrandNames = this.filter.brandName.values.length > 0,
-            hasGrades = this.filter.grade.values.length > 0;
+            hasGrades = this.filter.grade.values.length > 0,
+            hasShipping = this.filter.ships.values.length > 0;
 
         // reset our temporary containers
         this.filteredKeywords = [];
         this.filteredBrands = [];
         this.filteredGrades = [];
+        this.filteredShipping = [];
 
 
         if(arg.filter){
            
             // filter by keyword only
-            if( hasKeywords && !hasBrandNames && !hasGrades ){ 
+            if( hasKeywords && !hasBrandNames && !hasGrades && !hasShipping ){ 
                 this.filterKeyword();
                 this.filteredArray = this.filteredKeywords;
-            }
-            
+
             // filer by brand only
-            if( hasBrandNames && !hasKeywords && !hasGrades ){
-                this.filterBrands(); 
+            } else if( hasBrandNames && !hasKeywords && !hasGrades && !hasShipping ){
+                this.filterBrands();
                 this.filteredArray = this.filteredBrands;
-            }
-            
+
             // filter by grade only
-            if( hasGrades && !hasKeywords && !hasBrandNames ){ 
-                this.filterGrades(); 
+            } else if( hasGrades && !hasKeywords && !hasBrandNames && !hasShipping ){ 
+                this.filterGrades();
                 this.filteredArray = this.filteredGrades;
-            }
 
-            // if we only want grades and brands
-            if( !hasKeywords && hasGrades && hasBrandNames ){
-                this.filteredArray = this.filterBrandGrade();
-            }
+            // filter by shipping only
+            } else if( hasShipping && !hasGrades && !hasKeywords && !hasBrandNames ){ 
+                this.filterShipping();
+                this.filteredArray = this.filteredShipping;
+            
+             // if we want all options
+            }else {
+                this.filterKeyword();
+                this.filterBrands();
+                this.filterGrades();
+                this.filterShipping();
 
-             // if we want keywords, brands and grades
-             if( hasKeywords && hasBrandNames && hasGrades ){
-                this.filteredArray = this.filterKeywordBrandGrade();
+                this.filteredArray = this.filterAll( hasKeywords, hasBrandNames, hasGrades, hasShipping );
             }
 
         }else{
@@ -392,37 +419,49 @@ export default class ProductSwatchModal {
 
 
     // WITH this keyword RETURN all the options that have this brand OR this brand AND this grade OR this grade
-    filterKeywordBrandGrade(){
-        let brandsBatch = [], gradesBatch = [];
+    filterAll( hasKeywords, hasBrandNames, hasGrades, hasShipping ){
+        let fetchedResults = [];
 
         // get all of the objects that match our inital filters
-        this.filterKeyword();
-        this.filterBrands();
-        this.filterGrades();
+        fetchedResults = fetchedResults.concat( 
+            hasBrandNames ? this.filteredBrands : [], 
+            hasGrades ? this.filteredGrades : [], 
+            hasShipping ? this.filteredShipping : [],
+            hasKeywords ? this.filteredKeywords : []
+        );
 
-        // for each keyword match see if the label in our matched brands OR grades matches the filtered keywords
-        this.filteredKeywords.forEach((keywordElement) => {
-            brandsBatch = this.filteredBrands.filter(brandElement => brandElement.node.label.toLowerCase() === keywordElement.node.label.toLowerCase() );
-            gradesBatch = this.filteredGrades.filter(gradeElement => gradeElement.node.label.toLowerCase() === keywordElement.node.label.toLowerCase() );
+
+        // check for duplicates
+        let results = this.duplicateItemCheck(fetchedResults);
+
+        
+        // filter our checked results
+        results = results.filter((item) => {
+            let isIncluded = [];
+
+            // check all of the multi option values
+            for ( const obj in this.filter ) {
+                let filterKey = this.filter[obj].key;
+                
+                if( this.filter[obj].values.length > 0 ){
+                    isIncluded.push(this.filter[obj].values.includes( item.node[filterKey] ));
+                }
+            }
+
+            // check for keywords
+            if( hasKeywords ){
+                let label = item.node.label.toLowerCase();
+                isIncluded.push( label.includes(this.filterKeyWord) );
+            }
+            
+            // if this item passes all tests then use it
+            return isIncluded.every(testItem => testItem === true);
         });
 
-        return brandsBatch.concat(gradesBatch);
+
+        return results;
     }
 
-
-    //  RETURN all options WITH this this brand OR this brand AND this grade OR this grade
-    filterBrandGrade(){
-        let gradesBatch = [];
-
-        this.filterBrands();
-        this.filterGrades();
-
-        this.filteredBrands.forEach((brandElement) => {
-            gradesBatch = this.filteredGrades.filter(gradeElement => gradeElement.node.brandName === brandElement.node.brandName);
-        });
-
-       return gradesBatch;
-    }
     
 
 
@@ -464,6 +503,17 @@ export default class ProductSwatchModal {
         });
     }
 
+    // filter each option based on Shipping
+    filterShipping(){
+        this.optionsArray.values.edges.forEach((element) => {           
+            this.filter.ships.values.forEach((filterElement) => {
+                if( filterElement === element.node.ships ){
+                    this.filteredShipping.push(element);
+                }
+            });
+        });
+    }
+
     // build the new UI after we have filterd the options
     buildFilteredSwatchList(){
          let labelCntr = this.$optionForm.find(".form-field-control");
@@ -479,6 +529,25 @@ export default class ProductSwatchModal {
              let tpl = this.graph_tpl.getOptionSwatch(element.node, this.filteredArray);
              $(tpl).appendTo(labelCntr);
          });
+    }
+
+    // check for duplicates in our fetched array
+    duplicateItemCheck(mergedResults){
+        let checkedArray = [],
+            tmp = {},
+            resultsLength = mergedResults.length;
+    
+        while( resultsLength-- ){
+            let item = mergedResults[resultsLength],
+                itemID = item.node.entityId;
+
+            if( !tmp[itemID] ){
+                checkedArray.unshift(item);
+                tmp[itemID] = true;
+            }
+        }
+
+        return checkedArray;
     }
 
 

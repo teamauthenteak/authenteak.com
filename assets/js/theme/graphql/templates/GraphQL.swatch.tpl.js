@@ -83,7 +83,7 @@ export default class GraphQL_Swatch_TPL {
                 <ul class="drawer__filterList" id="${filterObj.target}">
 
         ${Object.keys(filterObj.items).map((key) => {
-            return `<li class="drawer__filterListItem">
+            return `<li class="drawer__filterListItem" name="${filterObj.items[key]}">
                         <label class="drawer__filterLabel">
                             <input type="checkbox" class="drawer__filterControl" key="${filterObj.key}" name="${filterObj.items[key]}">
                             ${filterObj.name === "Grade" ? "Grade" : ''} ${filterObj.items[key]} 

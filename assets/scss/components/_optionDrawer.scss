@@ -10,7 +10,7 @@
         z-index: 99999;
         top: 0;
         box-shadow: -8px 0px 17px rgba(0, 0, 0, 0.50);
-        padding: 0 20px 0px 20px;
+        padding: 0 20px 20px 20px;
         overflow: auto;
         display: flex;
         flex-direction: column;
@@ -85,6 +85,8 @@
         width: 100%;
         height: auto;
         margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
     }
 
     &__img{
@@ -250,7 +252,7 @@
             align-content: baseline;
 
             & .swatch-wrap{
-                width: (100%/5) !important;
+                width: (100%/4) !important;
                 height: auto !important;
                 padding-bottom: 50px !important;
                 flex-direction: column;
@@ -258,10 +260,6 @@
 
                 @media only screen and (max-width: $screen-md) {
                     width: (100%/3) !important;
-                }
-
-                @media only screen and (max-width: $screen-lg) {
-                    width: (100%/4) !important;
                 }
             }
 
@@ -423,10 +421,23 @@
         width: 100%;
         margin-bottom: 40px;
         display: flex;
+        flex-direction: row;
     }
 
     &__filterListItem{
         margin-right: 20px;
+
+        &[name='Sunbrella']{
+            order: -1;
+        }
+
+        &[name='Obravia']{
+            order: 0;
+        }
+
+        &[name='acrylic']{
+            order: 2;
+        }
     }
 
     &__filterLabel{
@@ -479,7 +490,8 @@
         flex-direction: column;
         bottom: 0;
         background-color: #fff;
-        box-shadow: -1px -4px 20px rgba(0, 0, 0, 0.18);
+        border-top: 1px solid #ccc;
+        // box-shadow: -1px -4px 20px rgba(0, 0, 0, 0.18);
         margin-left: -21px;
         float: left;
         flex: 0 0 auto;

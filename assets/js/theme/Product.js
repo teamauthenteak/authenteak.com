@@ -537,6 +537,7 @@ TEAK.Modules.toolTip = {
 		this.brandObj = this.data["tool-tips"].brands[this.key];
 		this.optionKeys = Object.keys(this.brandObj);
 
+
 		this.optionKeys.forEach((element, i) => {
 			let $optionSelector = $("#productOptions").find("[data-option-title='"+ this.optionKeys[i] +"']");
 

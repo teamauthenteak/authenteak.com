@@ -60,8 +60,25 @@
         line-height: 1;
     }
 
+    & .form-select{
+        height: 70px !important;
+        width: 100%;
+        font-size: 1rem;
+        font-weight: 800;
+        margin: 10px 0;
+
+        &:hover{
+            box-shadow: 0 0 0 1px $btn-color-green inset !important;
+        }
+    }
+
     & .form-select-wrapper{
-        width: 50%;
+        width: 100%;
+
+        &::after{
+            width: 15px;
+            height: 15px;
+        }
 
         @media only screen and (max-width: $screen-sm) {
             width: 100%;

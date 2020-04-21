@@ -9,6 +9,7 @@
   <input type="hidden" name="action" value="add">
   <input type="hidden" name="product_id" value="{{product.id}}" data-product-id/>
 
+  {{#if product.options}}
   <h2 class="product__title product__title--2 product__title--customizePDP">
     Customize Your Product
     <button class="product__swatchRequestBtn product__swatchRequestBtn--pdp" swatch-request-button>
@@ -18,6 +19,7 @@
         <span class="product__swatchRequestText product__swatchRequestText--pdp">Request A Free Swatch</span>
     </button>
   </h2>
+ {{/if}}
 
   <div class="product-options-container" data-product-option-change data-product-brand="{{product.brand.name}}" id="productOptions">
     {{#if product.customizations}}
