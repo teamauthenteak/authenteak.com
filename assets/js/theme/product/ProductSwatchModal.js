@@ -1,6 +1,5 @@
 import GraphQL from '../graphql/GraphQL';
 import GraphQL_Swatch_TPL from '../graphql/templates/GraphQL.swatch.tpl';
-import ProductOptions from '../product/customizations/ProductOptions';
 import utils from '@bigcommerce/stencil-utils';
 import { concatSeries } from 'async';
 
@@ -109,17 +108,6 @@ export default class ProductSwatchModal {
         // on page main label swatch Events from Product Utils
         window.addEventListener("form-field-error-state", (e) => { this.handelSwatchError(e) });
         window.addEventListener("form-field-success-state", (e) => { this.handelSwatchValid(e) });
-
-
-        // if we are on the collections page wait until the main optiosn json is setup
-        if(document.getElementById("CategoryCollection")){
-            window.addEventListener("Collection_Product_Options_Setup", (e) => {
-                this.productOptionsModule = new ProductOptions();
-            });
-        
-        }else{
-            this.productOptionsModule = new ProductOptions();
-        }
     }
 
 
@@ -132,7 +120,7 @@ export default class ProductSwatchModal {
     // on page main label swatch for ATC
     handelSwatchError(e){
         this.handelSwatchValid();
-console.log(e.detail)
+
         e.detail.forEach((element) => {
             $(element.field.labels[0]).addClass("product__swatchLabel--error");
         });
@@ -181,7 +169,7 @@ console.log(e.detail)
             label = $this.data("label"),
             swatchImg = $this.siblings(".swatch").find("img").clone();
 
-        label = this.productOptionsModule.parseOptionLabel(label.toString());
+        label = TEAK.Utils.parseOptionLabel(label.toString());
 
         this.$optionsDrawer
             .find(".drawer__selectedSwatchText").text(`Selected: ${label.text}${label.priceAdjust ? ", " + label.priceAdjust : ''}`)
@@ -199,7 +187,7 @@ console.log(e.detail)
     updateSwatchButton(e, $this){
         let labelData = $this.data(),
             inputData =  $(e.currentTarget).data(),
-            parsedLabel = this.productOptionsModule.parseOptionLabel(labelData.swatchValue.toString());
+            parsedLabel = TEAK.Utils.parseOptionLabel(labelData.swatchValue.toString());
 
         this.selectedSwatchObj = Object.assign(labelData, inputData, parsedLabel)
 
@@ -619,7 +607,7 @@ console.log(e.detail)
 
                 // parse each of the options
                 element.node.values.edges.forEach((element) => {
-                    let labelObj = this.productOptionsModule.parseOptionLabel(element.node.label);
+                    let labelObj = TEAK.Utils.parseOptionLabel(element.node.label);
                     this.getFilteredItem(labelObj);
                     return Object.assign(element.node, labelObj);
                 });

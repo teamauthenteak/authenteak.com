@@ -14,7 +14,6 @@ export default class Collection extends PageManager {
 
         new ProductSwatchModal();
 
-        this.productOptionsModule = "";                         // new ProductOptions() in setOptionsJSON()
         this.$atc = $("form#collectionsATC");
 
         // options
@@ -102,7 +101,7 @@ export default class Collection extends PageManager {
         selectObj["name"] = $(e.currentTarget).attr("name");
         selectObj["value"] = $(e.currentTarget).val();
 
-        Object.assign(selectObj, this.productOptionsModule.parseOptionLabel(e.currentTarget.selectedOptions[0].label));
+        Object.assign(selectObj, TEAK.Utils.parseOptionLabel(e.currentTarget.selectedOptions[0].label));
 
         $(e.currentTarget)
             .parents(".product__row").find(".product__priceValue").text(function(){
@@ -124,7 +123,7 @@ export default class Collection extends PageManager {
         // find all of the coresponding products options with this same option title
         $(this.collectionsCntr).find(`input[data-label*="${radioObj.optionTitle}"]`).each(function(){
             let $this = $(this),
-                optObj = Object.assign($this.data(), that.productOptionsModule.parseOptionLabel(radioObj.label), {id: $this.attr("id")}, {value: $this.val()} ),
+                optObj = Object.assign($this.data(), TEAK.Utils.parseOptionLabel(radioObj.label), {id: $this.attr("id")}, {value: $this.val()} ),
                 opt = getOptionValues(optObj);
             
             $this
@@ -155,7 +154,7 @@ export default class Collection extends PageManager {
             console.log(that.productOptionScope)
             let optionNode = that.productOptionScope[optObj.id].find((element) => element.node.displayName === radioObj.optionTitle),
                 swatch = optionNode.node.values.edges.find((element) => {
-                    let parsedSwatch = that.productOptionsModule.parseOptionLabel(element.node.label);
+                    let parsedSwatch = TEAK.Utils.parseOptionLabel(element.node.label);
 
                     if(parsedSwatch.text === optObj.text){
                         return Object.assign(element.node, parsedSwatch, {name: `attribute[${element.node.entityId}]`});
@@ -271,9 +270,6 @@ export default class Collection extends PageManager {
         });
 
         document.getElementById("optionModuleJSON").innerHTML = JSON.stringify(arr);
-
-        // Instantiate Custom Options Module which will pick this up
-        this.productOptionsModule = new ProductOptions();
         
         //trigger productOption setup event for collections pages
         this.triggerOptionModuleSetup();
@@ -358,7 +354,7 @@ export default class Collection extends PageManager {
             
             if(dropdownIndex !== -1){
                 this.collectionsArray.edges[i].node.productOptions[dropdownIndex].node.values.edges.forEach((dropDownElement) => {
-                    let dropDownData = this.productOptionsModule.parseOptionLabel(dropDownElement.node.label);
+                    let dropDownData = TEAK.Utils.parseOptionLabel(dropDownElement.node.label);
                     return Object.assign(dropDownElement.node, dropDownData);
                 });
             }

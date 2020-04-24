@@ -7,7 +7,7 @@ import utils from '@bigcommerce/stencil-utils';
  */
 export default class ProductOptions {
 	constructor() {
-		
+
 		this.$optionsJSON = document.getElementById("optionModuleJSON").innerHTML;
 		this.rawOptions = JSON.parse(this.$optionsJSON);
 		this.$warrantyJSON = $('[data-json="warranty"]')
@@ -38,7 +38,6 @@ export default class ProductOptions {
 		this.bindSwatchLabelData();
 		// Handle functionality that occurs in background
 		this.preloadImages();
-
 
 		window.TEAK.Modules.requestASwatch = {};
 	}
@@ -77,7 +76,7 @@ export default class ProductOptions {
 
 				for (let j in raw.values) {
 					let rawVal = raw.values[j];
-					let value = this.parseOptionLabel(rawVal.label);
+					let value = TEAK.Utils.parseOptionLabel(rawVal.label);
 
 					value.label = value.text;
 
@@ -97,7 +96,7 @@ export default class ProductOptions {
 	// Handle swatch hover and click events
 	bindSwatchEvents() {
 		let self = this;
-		
+
 
 		// on hover & touchend - show swatch color in main view
 		function showSwatchColor(e) {
@@ -107,7 +106,7 @@ export default class ProductOptions {
 				$optionText = $el.closest('[data-swatch-selector]').find('.form-field-title-cntr'),
 				$swatchText = $el.closest('[data-swatch-selector]').find('.swatch-value'),
 				currentSelection = window.TEAK.currentSelections[$optionText.data('option-title')] || false,
-				label = self.parseOptionLabel($el.data('swatch-value')),
+				label = TEAK.Utils.parseOptionLabel($el.data('swatch-value')),
 				customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
 
 			if (customOptionData) {
@@ -142,7 +141,7 @@ export default class ProductOptions {
 		// on click of the selected watch - then on a consequantal hoveroff, reshow the initally selected swatch
 		function showSelectedSwatchColor(e) {
 			let $el = $(e.currentTarget),
-				label = self.parseOptionLabel($el.data('swatch-value'));
+				label = TEAK.Utils.parseOptionLabel($el.data('swatch-value'));
 
 			showSwatchColor({
 				currentTarget: self.currentlySelectedSwatch,
@@ -159,7 +158,7 @@ export default class ProductOptions {
 			let $el = $(e.currentTarget),
 				$optionText = $el.closest('[data-swatch-selector]').find('.form-field-title-cntr'),
 				$swatchText = $el.closest('[data-swatch-selector]').find('.swatch-value'),
-				label = self.parseOptionLabel($el.data('swatch-value')),
+				label = TEAK.Utils.parseOptionLabel($el.data('swatch-value')),
 				customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
 
 
@@ -256,7 +255,7 @@ export default class ProductOptions {
 			let $el = $(e.currentTarget);
 			let $optionText = $el.closest('[data-product-attribute="set-select"]').find('.form-field-title-cntr');
 			let $opt = $el.find('option:selected');
-			let label = self.parseOptionLabel($opt.text().trim());
+			let label = TEAK.Utils.parseOptionLabel($opt.text().trim());
 			let customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
 
 			if (customOptionData) {
@@ -291,10 +290,10 @@ export default class ProductOptions {
 					$opt.data('originalValue', $opt.text());
 				}
 
-				let label = self.parseOptionLabel($opt.text().trim());
+				let label = TEAK.Utils.parseOptionLabel($opt.text().trim());
 				let customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
 
-				console.log(label)
+				// console.log(label)
 				
 				if (customOptionData) {
 					label = customOptionData;
@@ -305,7 +304,7 @@ export default class ProductOptions {
 
 					$opt.text(updatedLabel);
 
-					console.log(updatedLabel)
+					// console.log(updatedLabel)
 
 					// $optionText.find(".selectBox__value")
 					// console.log( $opt.parents(".selectBox__label").find("select.selectBox__select").find('option') )
@@ -534,7 +533,7 @@ export default class ProductOptions {
 	bindSwatchLabelData() {
 		let self = this;
 		this.$swatches.find('label[data-swatch-value]').each(function() {
-			let data = self.parseOptionLabel($(this).data('swatch-value'));
+			let data = TEAK.Utils.parseOptionLabel($(this).data('swatch-value'));
 			for (var i in data) {
 				$(this).attr(`data-swatch-${i}`, data[i]);
 			}
@@ -613,6 +612,8 @@ export default class ProductOptions {
 	}
 
 	// Parse the option label to extract data
+	// moved to TEAK.Utils
+	/*
 	parseOptionLabel(label) {
 		let data = {},
 			additional = [];
@@ -706,7 +707,7 @@ export default class ProductOptions {
 
 		return data;
 	}
-
+*/
 
 
 	// Convert a swatch thumbnail URL to an object of multiple sizes
@@ -807,13 +808,15 @@ export default class ProductOptions {
 
 	// Format label text with relative pricing
 	formatLabelWithRelativePricing(option, currentOption) {
+		console.trace();
+		
 		var labelText = option.grade ? `Grade ${option.grade}: ${option.text}` : option.text;
 
 		var priceDiff = option.priceAdjustNumeric || 0;
 
 		if (currentOption && typeof currentOption.priceAdjustNumeric !== 'undefined') {
-			console.log(priceDiff)
-			console.log(currentOption.priceAdjustNumeric)
+			// console.log(priceDiff)
+			// console.log(currentOption.priceAdjustNumeric)
 			priceDiff = priceDiff - currentOption.priceAdjustNumeric;
 		}
 
