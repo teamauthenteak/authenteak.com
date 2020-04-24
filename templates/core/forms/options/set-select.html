@@ -8,7 +8,7 @@
 			</p>
 		</div>
 		<select class="selectBox__select form-input" id="attribute-{{id}}" name="attribute[{{id}}]" {{#if required}}required{{/if}} aria-required="{{required}}">
-			<option disabled selected>Select one</option>
+			<option value="" disabled selected>Select one</option>
 			{{#each values}}
 			<option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{label}}</option>
 			{{/each}}
