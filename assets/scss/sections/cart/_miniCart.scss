@@ -122,12 +122,19 @@
 .mini-cart-item-options .option-value {
     display: block;
     margin-top: 10px;
+    line-height: 1;
 }
 
 .mini-cart-item-options .option-value-label-mc {
     display: block;
-    font-size: .8em;
-    line-height: .8em;
+    font-size: .8rem;
+    line-height: 1;
+    font-weight: 800;
+}
+
+.option-value-wrapper{
+    font-size: 0.7rem;
+    line-height: 1;
 }
 
 .mini-cart-item-options .option-value:not(:last-child):after {

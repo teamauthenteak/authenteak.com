@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.20.24]
+- removed * from selectbox options
+- added new tabbed tool tip option
+- Move breadcrumbs above title on mobile devvices
+- Hide video tabs on PDP
+- Create Catalogs Landing Page Tempalte
+- Create Category Landing Page Templates
+- Fix remove icon on cart page
+
 ## [1.20.23]
 - collections page updaes
 - removed simple bar for swatch options in favor of ligheter css scroll styling

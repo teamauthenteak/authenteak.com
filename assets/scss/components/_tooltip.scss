@@ -207,9 +207,10 @@
         animation-name: remodal-opening-keyframes;
 
         & [type=radio]:checked ~ label {
-            background: white;
+            background: rgba(110, 164, 56, 0.09);
             z-index: 2;
-            color: initial;
+            color: $btn-color-green;
+            border-bottom-color: $btn-color-green;
         }
 
         [type=radio]:checked ~ label ~ .toolTip__tabContent {
@@ -230,13 +231,12 @@
     }
 
     &__tabLabel{
-        background-color: #e6e6e6;
         color: #999;
         padding: 20px;
         font-size: 1.6rem;
         width: 100%;
         flex: 1 0 auto;
-        height: 100px;
+        height: 85px;
         line-height: 1;
         display: flex;
         align-items: center;
@@ -247,19 +247,25 @@
         border-bottom-right-radius: 0;
         border-bottom-left-radius: 0;
         cursor: pointer;
-        border-bottom: 20px solid #fff;
         border-left: 1px solid #fff;
+        margin-bottom: 20px;
         z-index: 99;
+        border-bottom: 3px solid #f9f9f9;
+
+        &:hover{
+            background: rgba(110, 164, 56, 0.05);
+        }
     }
 
     &__tabContent{
+        @extend %scrolling-inner;
         position: absolute;
         background: white;
-        top: 80px;
+        top: 90px;
         left: 0;
         right: 0;
         bottom: 0;
-        padding: 30px 40px 0 40px;
+        padding: 40px 40px 10px 40px;
         height: 410px;
         width: 100%;
         overflow: auto;

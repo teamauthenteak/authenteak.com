@@ -8157,7 +8157,7 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
 
   @include media($min: $breakpoint-l) {
     top: 50%;
-    right: rem-calc(-53px);
+    // right: rem-calc(-53px);
     transform: translateY(-50%);
   }
 

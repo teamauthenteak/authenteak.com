@@ -57,10 +57,12 @@ export default class ProductUtils {
 
     this.Validator.initSingle(
       this.$el.find('form[data-cart-item-add]'), {
+        
         onValid: (e) => {
           let event = new CustomEvent("form-field-success-state");
           window.dispatchEvent(event);
         },
+        
         onError: function(e) {
           let $firstError = $(e.target).find('.form-field-invalid').first();
 

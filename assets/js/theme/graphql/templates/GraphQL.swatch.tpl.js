@@ -68,9 +68,9 @@ export default class GraphQL_Swatch_TPL {
                             </form>
                         </div>
                     </div>
-                    <footer class="drawer__footer hide">
+                    <footer class="drawer__footer">
                         <span class="drawer__selectedSwatchText"></span>
-                        <button type="button" class="drawer__saveBtn" drawer--close>Save & Finish</button>
+                        <button type="button" class="drawer__saveBtn" drawer--close disabled>Save & Finish</button>
                     </footer>
                 </aside>
                 <div class="drawer__overlay drawer__overlay--hide"></div>`;

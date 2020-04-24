@@ -1,25 +1,20 @@
-
-<div class="form-field form-field-options form-field-select{{#if required}} form-required{{/if}}" data-option-title="{{display_name}}" set-select data-product-attribute="set-select">
-  {{> core/forms/customizations/tooltip name=display_name type="select"}}
-
-  <label class="form-label">
-    <span class="form-field-control">
-      <div class="form-select-wrapper">
-        <select
-          class="form-input form-select"
-          id="attribute-{{id}}"
-          name="attribute[{{id}}]"
-          {{#if required}}required{{/if}}
-          aria-required="{{required}}">
-          <option value="" {{#any values selected=true}}{{else}}selected{{/any}} disabled>{{display_name}} {{#if required}}<span class="required-text">{{lang 'common.required'}}</span>{{/if}}</option>
-          {{#each values}}
-            <option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{label}}</option>
-          {{/each}}
-          {{#unless required}}
-            <option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{lang 'core.product.none'}}</option>
-          {{/unless}}
-        </select>
-      </div>
-    </span>
-  </label>
+<div class="selectBox form-field form-field-options form-field-select{{#if required}} form-required{{/if}}" data-option-title="{{display_name}}" set-select data-product-attribute="set-select">
+	{{> core/forms/customizations/tooltip name=display_name type="select"}}
+	<label class="selectBox__label form-label" for="attribute-{{id}}">
+		<div class="selectBox__text selectBox__text--right">
+			<p class="selectBox__optionText">
+				<span class="selectBox__name selectBox__name--labelLeft">{{display_name}}</span>
+				<span class="selectBox__value">Select one</span>
+			</p>
+		</div>
+		<select class="selectBox__select form-input" id="attribute-{{id}}" name="attribute[{{id}}]" {{#if required}}required{{/if}} aria-required="{{required}}">
+			<option disabled selected>Select one</option>
+			{{#each values}}
+			<option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{label}}</option>
+			{{/each}}
+			{{#unless required}}
+			<option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{lang 'core.product.none'}}</option>
+			{{/unless}}
+		</select>
+	</label>
 </div>

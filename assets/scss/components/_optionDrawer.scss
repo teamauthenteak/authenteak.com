@@ -87,11 +87,15 @@
         margin-bottom: 20px;
         display: flex;
         justify-content: center;
+
+        & .swatch-pattern-image{
+            @extend .drawer__img;
+        }
     }
 
     &__img{
         width: 100%;
-        height: 150px;
+        height: 200px;
         object-fit: contain;
     }
 
@@ -320,9 +324,22 @@
     &__saveBtn{
         @extend .button;
         @extend .button--fullWidth;
-        @extend .button-secondary;
-        @extend .button-secondary--darkTrans;
+        @extend .button-primary;
+        @extend .button-primary--dark;
+        opacity: 1;
         margin: 10px 0;
+
+        &[disabled]{
+            @extend .button-secondary--darkTrans;
+            opacity: 0.25;
+
+            &:hover{
+                background-color: transparent !important;
+                border-color: #666 !important;
+                color: #666 !important;
+            }
+        }
+
     }
 
     
@@ -422,10 +439,13 @@
         margin-bottom: 40px;
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
     }
 
     &__filterListItem{
-        margin-right: 20px;
+        margin: 0 20px 5px 0;
+        line-height: 1;
+
 
         &[name='Sunbrella']{
             order: -1;
@@ -445,6 +465,7 @@
         align-content: center;
         align-items: center;
         justify-content: center;
+        padding: 8px 0
     }
 
     &__filterControl{

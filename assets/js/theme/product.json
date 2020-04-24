@@ -60,6 +60,7 @@
             },
             "Travis Industries": {
                 "Select Ignition Type": {
+					"type": "general",
                     "tip": [
                         "<h2 class='toolTip__heading--2'>What are the differences in the Tempest Torch ignition types?</h2>",
                         
@@ -75,6 +76,7 @@
             },
             "Shademaker": {
                 "Select Canopy": {
+					"type": "general",
                     "tip": [
                         "<h2 class='toolTip__heading--2'>What are the different Shademaker Canopy Materials?</h2>",
                         
@@ -109,8 +111,9 @@
                 }
             },
             "Lynx Grills": {
-            "Select Burner Configuration": {
-                "tip": [
+            	"Select Burner Configuration": {
+					"type": "general",
+					"tip": [
                         "<h2 class='toolTip__heading--2'>What are the different burner configurations for the Lynx Professional collection?</h2>",
                         
                         "<p class='toolTip__text'><strong>All Conventional Burners:</strong> Within this option, all burners (# depends on size of grill) are cast ceramic burners. Lynx’s cast ceramic burners are superior to more commonly used stainless steel burners as ceramic burners are extremely heavy-duty and able to produce an intense amount of heat. We recommend all conventional burners if you generally grill burgers and hot dogs more often than steaks.</p>",
@@ -122,8 +125,9 @@
                 }
             },
         	"Elaine Smith Pillows": {
-            "Select Optional Faux Down Insert": {
-                "tip": [
+            	"Select Optional Faux Down Insert": {
+					"type": "general",
+					"tip": [
                         "<h2 class='toolTip__heading--2'>What is the faux down insert?</h2>",
                         
                         "<p class='toolTip__text'>All Elaine Smith outdoor pillows are sold as a complete pillow with a soft Sunbrella acrylic fabric casing and a sealed insert made of 100% polyester fiber. Elaine Smith offers an optional upgrade of a faux down insert, which adds additional softness. A tailored, hidden zipper allows easy casing removal for cleaning. Made in the USA.</p>"
@@ -131,20 +135,20 @@
                 }
             },
         	"Gloster": {
-            "Select Year Ventura Furniture Was Originally Purchased": {
-                "tip": [
-                    
-                        "<p class='toolTip__text'>Gloster made a running model change to their Ventura deep seating frames at the end of 2007 and their replacement cushions are specific to the model year of their frames.  The easiest way to determine what year your frames were produced is to locate the batch code on the lower back rail or on the bottom of your existing frames. The batch code will be on a sticker and the first two numbers of the code will indicate the year the frame was made.  Please select the correct model year from the drop down menu.</p>"
-                    ]
+            	"Select Year Ventura Furniture Was Originally Purchased": {
+					"type": "general",
+					"tip": [
+						"<p class='toolTip__text'>Gloster made a running model change to their Ventura deep seating frames at the end of 2007 and their replacement cushions are specific to the model year of their frames.  The easiest way to determine what year your frames were produced is to locate the batch code on the lower back rail or on the bottom of your existing frames. The batch code will be on a sticker and the first two numbers of the code will indicate the year the frame was made.  Please select the correct model year from the drop down menu.</p>"
+					]
                 },
-             "Select Year Kingston Furniture Was Originally Purchased": {
-                "tip": [
-                    
-                        "<p class='toolTip__text'>Gloster made a running model change to their Kingston deep seating frames at the end of 2009 and their replacement cushions are specific to the model year of their frames.  The easiest way to determine what year your frames were produced is to locate the batch code on the lower back rail or on the bottom of your existing frames. The batch code will be on a sticker and the first two numbers of the code will indicate the year the frame was made.  Please select the correct model year from the drop down menu.</p>"
-                    ]
-                }
+            	"Select Year Kingston Furniture Was Originally Purchased": {
+					"type": "general",
+					"tip": [
+						"<p class='toolTip__text'>Gloster made a running model change to their Kingston deep seating frames at the end of 2009 and their replacement cushions are specific to the model year of their frames.  The easiest way to determine what year your frames were produced is to locate the batch code on the lower back rail or on the bottom of your existing frames. The batch code will be on a sticker and the first two numbers of the code will indicate the year the frame was made.  Please select the correct model year from the drop down menu.</p>"
+					]
+				}
           	}
-        },	
+        },
         "elements": {
             "free_white_glove_delivery": [
                 "<h2 class='toolTip__heading--2'>White Glove Delivery | Free with Purchase of $2,999+</h2>",

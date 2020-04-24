@@ -507,7 +507,7 @@ TEAK.Modules.toolTip = {
 				return `<div class="toolTip__tab">
 							<input type="radio" class="toolTip__tabControl" id="toolTipTab_${key}" name="toolTipTabs" ${key === '0' ? 'checked' : '' }>
 							<label for="toolTipTab_${key}" class="toolTip__tabLabel">${tabArr[key].label}</label>
-							<div class="toolTip__tabContent" id="${tabArr[key].id}"></div>
+							<div class="toolTip__tabContent" id="${tabArr[key].id}">${tabArr[key].tabContent.join("")}</div>
 						</div>`}).join("")}
 				</div>`;
 	},
@@ -537,15 +537,20 @@ TEAK.Modules.toolTip = {
 		this.brandObj = this.data["tool-tips"].brands[this.key];
 		this.optionKeys = Object.keys(this.brandObj);
 
-
 		this.optionKeys.forEach((element, i) => {
-			let $optionSelector = $("#productOptions").find("[data-option-title='"+ this.optionKeys[i] +"']");
+			let $optionSelector = $("#productOptions").find("[data-option-title='"+ this.optionKeys[i] +"']"),
+				type = this.data["tool-tips"].brands[this.key][this.optionKeys[i]].type;
 
-			$optionSelector
-				.find(".toolTip").addClass("toolTip--show")
-					.end()
-				.find(".toolTip__cntr").append(this.brandObj[element].tip).append(this.closeBtn);	
+			switch(type){
+				case "tabs": 
+					this.tabsTip($optionSelector, this.brandObj[element].tip);
+					break;
+				default: 
+					this.generalTip($optionSelector, this.brandObj[element].tip);
+			}
 		});
+		
+		return this;
 	},
 
 
@@ -565,6 +570,36 @@ TEAK.Modules.toolTip = {
 		return this;
 	},
 
+
+
+	tabsTip($optionSelector, tipArr){
+		let tabs = this.getTabs(tipArr);
+
+		$optionSelector
+			.find(".toolTip").addClass("toolTip--show")
+				.end()
+			.find(".toolTip__cntr")
+				.addClass("toolTip__cntr--withTabs")
+				.append(tabs)
+				.append(this.closeBtn);
+
+		return this;
+	},
+
+
+
+	generalTip($optionSelector, tipObj){
+		tipObj = tipObj.join("");
+
+		$optionSelector
+			.find(".toolTip").addClass("toolTip--show")
+				.end()
+			.find(".toolTip__cntr")
+				.append(tipObj)
+				.append(this.closeBtn);	
+
+		return this;
+	},
 
 
 	// open 

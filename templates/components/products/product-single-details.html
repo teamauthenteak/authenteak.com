@@ -16,7 +16,7 @@
 
   <div class="container">
     {{#unless quick_view}}
-    <div class="mobileHide">
+    <div class="mobileShow mobileShow--lg">
       {{> components/common/breadcrumbs breadcrumbs}}
     </div>
     {{/unless}}
@@ -24,7 +24,7 @@
   <div class="product-details-wrapper">
     <div class="product-details-column">
       <h2 class="product-title mobileShow">{{this.product.title}}</h2>
-      <div class="mobileShow">
+      <div class="mobileHide mobileHide--lg">
         {{> components/common/breadcrumbs breadcrumbs}}
       </div>
       <p class="item-number item-number-mobile mobileShow">Item #: {{product.sku}} &nbsp;&nbsp;&nbsp; Internet #: <span id="productID">{{product.id}}</span></p>
@@ -248,7 +248,7 @@
           <li><a data-tabval="careTab" class="careBtn">Care Info</a></li>
           <li><a data-tabval="shipTab" class="shipBtn">Shipping</a></li>
           <li><a data-tabval="pdfTab" class="pdfBtn">Resources</a></li>
-          <li><a data-tabval="videoTab" class="videoBtn">{{lang 'product.videos'}}</a></li>
+          <!-- <li><a data-tabval="videoTab" class="videoBtn">{{lang 'product.videos'}}</a></li> -->
           <li><a data-tabval="warrantyTab" class="warrantyTab">Warranty</a></li>
           <li><a data-tabval="returnTab" class="returnTab">Return Policy</a></li>
         </ul>
@@ -272,8 +272,8 @@
     <a class="mobile-tab-heading mobile-pdfTab" data-tabVal="pdfTab">Resources</a>
     <div class="pdfContent"></div>
 
-    <a class="mobile-tab-heading mobie-videoTab" data-tabVal="videoTab">{{lang 'product.videos'}}</a>
-    <div class="videoContent"></div>
+    <!-- <a class="mobile-tab-heading mobie-videoTab" data-tabVal="videoTab">{{lang 'product.videos'}}</a>
+    <div class="videoContent"></div> -->
     
     <a class="mobile-tab-heading mobile-warratyTab" data-tabVal="warrantyTab">Warranty</a>
     <div class="warrantyContent"></div>
@@ -376,12 +376,6 @@
     "contentCntr": ".pdfContent"
   },
   {
-    "id": "videoTab",
-    "tabBtnClass": ".videoBtn",
-    "mobileClass": ".mobile-videoTab",
-    "contentCntr": ".videoContent"
-  },
-  {
     "id": "warrantyTab",
     "tabBtnClass": ".warrantyBtn",
     "mobileClass": ".mobile-warrantyTab",
@@ -395,3 +389,12 @@
   }
 ]
 </script>
+
+{{!-- 
+  {
+    "id": "videoTab",
+    "tabBtnClass": ".videoBtn",
+    "mobileClass": ".mobile-videoTab",
+    "contentCntr": ".videoContent"
+  },
+  --}}

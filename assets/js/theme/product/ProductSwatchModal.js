@@ -77,6 +77,9 @@ export default class ProductSwatchModal {
 
 
 
+    /** --------------------------------------------
+     * Event Listners and Selector Pre-Cache
+     -----------------------------------------------*/
 
     bindings(){
         this.$optionModalSwatches = $("#optionModalSwatches");
@@ -129,7 +132,7 @@ export default class ProductSwatchModal {
     // on page main label swatch for ATC
     handelSwatchError(e){
         this.handelSwatchValid();
-
+console.log(e.detail)
         e.detail.forEach((element) => {
             $(element.field.labels[0]).addClass("product__swatchLabel--error");
         });
@@ -180,8 +183,12 @@ export default class ProductSwatchModal {
 
         label = this.productOptionsModule.parseOptionLabel(label);
 
-        this.$optionsDrawer.find(".drawer__selectedSwatchText").text(`Selected: ${label.text}${label.priceAdjust ? ", " + label.priceAdjust : ''}`);
-        this.$optionsDrawer.find(".drawer__imgCntr").html(swatchImg);
+        this.$optionsDrawer
+            .find(".drawer__selectedSwatchText").text(`Selected: ${label.text}${label.priceAdjust ? ", " + label.priceAdjust : ''}`)
+                .end()
+            .find(".drawer__imgCntr").html(swatchImg)
+                .end()
+            .find(".drawer__saveBtn").prop("disabled", false);
 
         e.preventDefault();
     }
@@ -203,7 +210,7 @@ export default class ProductSwatchModal {
                 .data("parsedLabel", this.selectedSwatchObj.text)
                 .attr({'checked': true, "id": `attribute[${this.selectedSwatchObj.productAttributeValue}]`})
                     .end()
-            .find(".product__swatchValue").addClass("show").text(this.selectedSwatchObj.text + (this.selectedSwatchObj.hasOwnProperty("priceAdjust") ? ` (${this.selectedSwatchObj.priceAdjust})` : '') )
+            .find(".product__swatchValue").addClass("show").text( this.selectedSwatchObj.text )
                 .end()
             .find(".product__swatchColor").css("backgroundImage", `https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${this.selectedSwatchObj.productAttributeValue}.preview.jpg`)
             .find(".product__swatchImg").attr("src", `https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${this.selectedSwatchObj.productAttributeValue}.preview.jpg`)
@@ -294,7 +301,7 @@ export default class ProductSwatchModal {
         }else{
             this.$preloader.removeClass("hide");
             this.$optionModalSwatches.find(".drawer__main").addClass("hide");
-            this.$optionsDrawer.find(".drawer__footer").addClass("hide");
+            this.$optionsDrawer.find(".drawer__saveBtn").prop("disabled", true);
         }
     }
 

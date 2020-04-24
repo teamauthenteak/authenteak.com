@@ -265,10 +265,54 @@ export default class ProductOptions {
 
 			window.TEAK.currentSelections[$optionText.data('option-title')] = label;
 
+			if( label.text !== "Select one" ){
+				$el.parents(".selectBox__label").find(".selectBox__value").text(label.text).addClass("selectBox__value--choosen");
+			}
+
 			self.updateLeadTime();
 			self.updateDropdownOptionLabels();
 		});
 	}
+
+
+	// Update and clean-up dropdown option labels
+	updateDropdownOptionLabels() {
+		let self = this;
+
+		this.$dropdowns.each(function() {
+			let $el = $(this);
+			let $optionText = $el.closest('[data-product-attribute="set-select"]').find('.form-field-title-cntr');
+			let currentSelection = window.TEAK.currentSelections[$optionText.data('option-title')] || false;
+
+			$el.find('option').each(function() {
+				let $opt = $(this);
+
+				if (!$opt.data('originalValue')) {
+					$opt.data('originalValue', $opt.text());
+				}
+
+				let label = self.parseOptionLabel($opt.text().trim());
+				let customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
+				
+				if (customOptionData) {
+					label = customOptionData;
+				}
+
+				if ($opt.val() && $opt.val().length > 0) {
+					let updatedLabel = self.formatLabelWithRelativePricing(label, currentSelection);
+
+					$opt.text(updatedLabel);
+
+					// $optionText.find(".selectBox__value")
+					// console.log( $opt.parents(".selectBox__label").find("select.selectBox__select").find('option') )
+					// .text(updatedLabel).addClass("selectBox__value--choosen");
+				}
+
+			});
+		});
+	}
+
+
 
 	// Show the hover detail pane and populate all data
 	showHoverDetail(option) {
@@ -318,34 +362,7 @@ export default class ProductOptions {
 	}
 
 
-	// Update and clean-up dropdown option labels
-	updateDropdownOptionLabels() {
-		let self = this;
-		this.$dropdowns.each(function() {
-			let $el = $(this);
-			let $optionText = $el.closest('[data-product-attribute="set-select"]').find('.form-field-title-cntr');
-			let currentSelection = window.TEAK.currentSelections[$optionText.data('option-title')] || false;
-			$el.find('option').each(function() {
-				let $opt = $(this);
-				if (!$opt.data('originalValue')) {
-					$opt.data('originalValue', $opt.text());
-				}
-				let label = self.parseOptionLabel($opt.text().trim());
-				let customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
-				if (customOptionData) {
-					label = customOptionData;
-				}
 
-				if ($opt.val() && $opt.val().length > 0) {
-					
-					$opt.text(self.formatLabelWithRelativePricing(label, currentSelection));
-				}
-
-				// console.log(label)
-				// console.log(currentSelection)
-			});
-		});
-	}
 
 
 	// Bind Request-a-Swatch modal features
@@ -619,7 +636,7 @@ export default class ProductOptions {
 
 				data.text = part.replace(/Grade [^ ]+ /ig, '').replace(/\([+-][^ ]+/g, '').trim();
 
-				// brand name
+				// brand name ~ We're making a bad assumption here but...have too
 				let brandName = data.text.split(" ")[0];
 				switch(brandName){
 					case "Outdura": data.brandName = brandName; break;
@@ -635,7 +652,7 @@ export default class ProductOptions {
 					data.brandName = "Sunbrella Rain";
 				}
 
-				// ships by
+				// ships by 
 				let ships = data.text.split("Ships")[1];
 				if(ships){
 					data.ships = "Ships " + ships;

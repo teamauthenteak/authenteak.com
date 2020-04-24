@@ -16,12 +16,25 @@
     display: none !important;
 }
 
+
 .mobileHide{
     display: flex !important;
+
+    @media only screen and (min-width: $screen-lg) {
+        &--lg{
+            display: none !important;
+        }
+    }
 }
 
 .mobileShow{
     display: none !important;
+
+    @media only screen and (min-width: $screen-lg) {
+        &--lg{
+            display: flex !important;
+        }
+    }
 }
 
 

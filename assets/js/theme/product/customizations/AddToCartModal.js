@@ -103,10 +103,10 @@ export default class AddToCartModal {
     unitPrice = `$${unitPrice}`.replace(/^(\$\d*)(\d\d)$/, "$1.$2").replace(/(\d)(\d\d\d)\./, "$1,$2.");
 
     $('.modal-cart .option-value-wrapper').each(function() {
-      let value = $(document).find(`input[type="radio"][name="attribute[${$(this).attr('data-option-id')}]"]:checked`).attr('data-parsed-label');
-      
+      let value = $(document).find(`input[type="radio"][name="attribute[${$(this).data('optionId')}]"]:checked`).data('parsedLabel');
+
       if (!value) {
-        value = $(document).find(`select[name="attribute[${$(this).attr('data-option-id')}]"] option:selected`).text();
+        value = $(document).find(`select[name="attribute[${$(this).data('optionId')}]"] option:selected`).text();
       }
       
       $(this).text(value);
