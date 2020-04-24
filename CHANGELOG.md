@@ -8,6 +8,10 @@
 - Create Catalogs Landing Page Tempalte
 - Create Category Landing Page Templates
 - Fix remove icon on cart page
+- fixed an issue where the negative price regix wasnt working for the priceAdjust object in product options
+- fixed mobile header issue where the search icon was hard to click
+- added modifier classes for landing.css to fine tune for device sizes
+- added easy css touch scroll for ios devices
 
 ## [1.20.23]
 - collections page updaes

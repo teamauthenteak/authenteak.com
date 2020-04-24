@@ -1,3 +1,7 @@
+
+
+
+
 /*
     Styles for custom Landing pages
     - extends brands page properties
@@ -275,10 +279,11 @@
         column-width: 20%;
 
         &--inline{
-            
+            list-style-type: none;
         }
 
         &--spaceEven{
+            list-style-type: none;
             display: flex;
             justify-content: space-evenly;
             align-content: center;
@@ -357,4 +362,29 @@
             color: #111;
         }
     }
+}
+
+// Mobile Landscape
+@media only screen and (min-width: $screen-xs) {
+  @include make-landing-grid(xs);
+}
+
+// Tablet Portrait
+@media only screen and (min-width: $screen-sm) {
+  @include make-landing-grid(sm);
+}
+
+// Tablet Landscape
+@media only screen and (min-width: $screen-md) {
+  @include make-landing-grid(md);
+}
+
+// Desktop
+@media only screen and (min-width: $screen-lg) {
+  @include make-landing-grid(lg);
+}
+
+// Desktop Wide & HD TV
+@media only screen and (min-width: $screen-xl) {
+  @include make-landing-grid(xl);
 }

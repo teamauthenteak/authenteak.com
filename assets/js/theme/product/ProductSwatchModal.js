@@ -181,7 +181,7 @@ console.log(e.detail)
             label = $this.data("label"),
             swatchImg = $this.siblings(".swatch").find("img").clone();
 
-        label = this.productOptionsModule.parseOptionLabel(label);
+        label = this.productOptionsModule.parseOptionLabel(label.toString());
 
         this.$optionsDrawer
             .find(".drawer__selectedSwatchText").text(`Selected: ${label.text}${label.priceAdjust ? ", " + label.priceAdjust : ''}`)
@@ -199,7 +199,7 @@ console.log(e.detail)
     updateSwatchButton(e, $this){
         let labelData = $this.data(),
             inputData =  $(e.currentTarget).data(),
-            parsedLabel = this.productOptionsModule.parseOptionLabel(labelData.swatchValue);
+            parsedLabel = this.productOptionsModule.parseOptionLabel(labelData.swatchValue.toString());
 
         this.selectedSwatchObj = Object.assign(labelData, inputData, parsedLabel)
 

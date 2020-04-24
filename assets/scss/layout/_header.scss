@@ -52,9 +52,12 @@ header{
 
     .site-branding-link{
         display: block;
-        height: 40px;
+        height: auto;
         width: 100%;
         text-align: center;
+        margin: 0 auto;
+        max-width: 200px;
+        
 
         @media screen and (min-width: $screen-md){
             text-align: center;

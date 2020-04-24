@@ -293,6 +293,8 @@ export default class ProductOptions {
 
 				let label = self.parseOptionLabel($opt.text().trim());
 				let customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
+
+				console.log(label)
 				
 				if (customOptionData) {
 					label = customOptionData;
@@ -302,6 +304,8 @@ export default class ProductOptions {
 					let updatedLabel = self.formatLabelWithRelativePricing(label, currentSelection);
 
 					$opt.text(updatedLabel);
+
+					console.log(updatedLabel)
 
 					// $optionText.find(".selectBox__value")
 					// console.log( $opt.parents(".selectBox__label").find("select.selectBox__select").find('option') )
@@ -612,6 +616,7 @@ export default class ProductOptions {
 	parseOptionLabel(label) {
 		let data = {},
 			additional = [];
+
 		let parts = label.split('--');
 
 		for (var i in parts) {
@@ -624,7 +629,7 @@ export default class ProductOptions {
 					data.grade = grade[1].toUpperCase();
 				}
 
-				let priceAdjust = part.match(/\((\+\$[\d.]+)\)/);
+				let priceAdjust = part.match(/\(([+-]\$[\d.]+)\)/);
 				if (priceAdjust) {
 					data.priceAdjust = priceAdjust[1];
 				}
@@ -807,10 +812,13 @@ export default class ProductOptions {
 		var priceDiff = option.priceAdjustNumeric || 0;
 
 		if (currentOption && typeof currentOption.priceAdjustNumeric !== 'undefined') {
+			console.log(priceDiff)
+			console.log(currentOption.priceAdjustNumeric)
 			priceDiff = priceDiff - currentOption.priceAdjustNumeric;
 		}
 
 		if (priceDiff !== 0) {
+			
 			labelText += ' (' + this.formatPriceDiff(priceDiff) + ')';
 		}
 

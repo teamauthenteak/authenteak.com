@@ -9,6 +9,7 @@
         margin: 15px 0 5px 0;
         height: 70px;
         flex-direction: column !important;
+        position: relative;
 
         &:after {
             @include icon-arrow-down(#333);

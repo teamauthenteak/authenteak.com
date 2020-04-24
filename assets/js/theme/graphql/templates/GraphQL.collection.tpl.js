@@ -23,13 +23,12 @@ export default class GraphQL_Collection_TPL {
                         </figure>
 
                         <div class="product__col-3-4">
-                            <div class="product__col-2-3">
+                            <div class="product__col-6-10">
                                 <header class="product__nameHeader">
                                     <h1 class="product__name product__name--sm">
                                         <a href="${product.path}" title="See all details about ${product.name}">${product.name}</a>
                                     </h1>
                                 </header>
-                            
 
                                 <p class="product__itemNum">Item #: ${product.sku} &nbsp;&nbsp;&nbsp; Internet #: ${product.entityId}
                                     <a class="product__ratingWrapper yotpo-pdp-wrapper hide" href="${product.path}#yotpoReviews" id="yotpoRating" title="Reviews of ${product.path}">
@@ -95,7 +94,7 @@ export default class GraphQL_Collection_TPL {
                         
 
 
-                            <div class="product__col-1-3 no-pad">
+                            <div class="product__col-4-10 no-pad">
                                 <div class="product__price">
                                     <div class="product__priceLine">
                                         <span class="product__priceValue" data-price="${ TEAK.Utils.graphQL.determinePrice(product.prices) }">${TEAK.Utils.formatPrice( TEAK.Utils.graphQL.determinePrice(product.prices) )}</span>
@@ -134,18 +133,23 @@ export default class GraphQL_Collection_TPL {
 
                                 if(productOption.displayStyle === "DropdownList"){
                                     return `<li class="product__swatchItem product__swatchItem--select" id="${productOption.entityId}">
-                                                
-                                                <select class="product__swatchSelect" id="attribute-${productOption.entityId}" name="attribute[${productOption.entityId}]" ${productOption.isRequired ? ' required' : ''} aria-required="true">
-                                                    <option value="" selected disabled>${productOption.displayName}</option>
+                                                <label class="selectBox__label form-label" for="attribute-${productOption.entityId}">
+                                                    <div class="selectBox__text selectBox__text--right">
+                                                        <p class="selectBox__optionText">
+                                                            <span class="selectBox__name selectBox__name--labelLeft">${productOption.displayName}</span>
+                                                            <span class="selectBox__value">Select one</span>
+                                                        </p>
+                                                    </div>
+                                                    <select class="selectBox__select form-input" id="attribute-${productOption.entityId}"  name="attribute[${productOption.entityId}]" required aria-required="true">
+                                                        <option disabled selected>Select one</option>
 
-                                            ${Object.keys(productOption.values.edges).map((key) => {
-                                                let dropdown = productOption.values.edges[key].node;
-
-                                                return `
-                                                    <option value="${dropdown.entityId}" data-product-attribute-value="${dropdown.label}">${dropdown.text !== undefined ? dropdown.text : dropdown.label.split("--")[0]}  ${dropdown.hasOwnProperty("priceAdjust") ? `(${dropdown.priceAdjust})` : '' }</option>
-                                                `}).join('')}
-
-                                                </select>
+                                                        ${Object.keys(productOption.values.edges).map((key) => {
+                                                            let dropdown = productOption.values.edges[key].node;
+                                                            return `<option value="${dropdown.entityId}" data-product-attribute-value="${dropdown.label}">${dropdown.text !== undefined ? dropdown.text : dropdown.label.split("--")[0]}  ${dropdown.hasOwnProperty("priceAdjust") ? `(${dropdown.priceAdjust})` : '' }</option>
+                                                        `}).join('')}
+                                                        
+                                                    </select>
+                                                </label>
                                             </li>`;
                                 }
                                

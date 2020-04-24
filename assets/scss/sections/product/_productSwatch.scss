@@ -1,25 +1,3 @@
-// glboal scrol car
-%scrolling-inner{
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #777 #f2f2f2;
-
-    &::-webkit-scrollbar {
-        width: 8px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    &::-webkit-scrollbar-track {
-        background: #f2f2f2;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: #777 ;
-        border-radius: 5px;
-    }
-}
-
 
 /*Product Detail Swatches*/
 .form-field-swatch {
