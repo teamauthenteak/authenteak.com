@@ -12,6 +12,9 @@
 - fixed mobile header issue where the search icon was hard to click
 - added modifier classes for landing.css to fine tune for device sizes
 - added easy css touch scroll for ios devices
+- Fixed issue where the regex for the atc modal price was calculating incorrectly
+- added additional ui updates for the product swatch drawer
+- fixed an issue for the negative pricing rule not calculating correctly becasue it was picking up the wrong value
 
 ## [1.20.23]
 - collections page updaes

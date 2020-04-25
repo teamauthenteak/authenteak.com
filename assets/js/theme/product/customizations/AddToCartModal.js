@@ -146,12 +146,9 @@ export default class AddToCartModal {
         }
       }
 
-      // pendingCartTotal = `$${pendingCartTotal}`.replace(/^(\$\d*)(\d\d)$/, "$1.$2").replace(/(\d)(\d\d\d)\./, "$1,$2.");
-      
-      // add comma formatting
-      pendingCartTotal = `$${pendingCartTotal}`.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+      pendingCartTotal = parseInt(pendingCartTotal, 10);
+      pendingCartTotal = TEAK.Utils.formatPrice(pendingCartTotal);
 
-      // let pendingCartQuantity = Number.parseInt($('.modal-cart__count-value').attr('data-quantity')) + Number.parseInt(qty);
       let pendingCartQuantity = Number.parseInt($('.modal-cart__count-value').attr('data-quantity'));
 
       $('.modal-cart__subtotal-value').text(pendingCartTotal);

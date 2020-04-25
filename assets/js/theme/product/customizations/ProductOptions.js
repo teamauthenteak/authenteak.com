@@ -253,7 +253,7 @@ export default class ProductOptions {
 
 		this.$dropdowns.on('change', 'select', (e) => {
 			let $el = $(e.currentTarget);
-			let $optionText = $el.closest('[data-product-attribute="set-select"]').find('.form-field-title-cntr');
+			let $optionText = $el.parents(".selectBox");
 			let $opt = $el.find('option:selected');
 			let label = TEAK.Utils.parseOptionLabel($opt.text().trim());
 			let customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
@@ -280,8 +280,9 @@ export default class ProductOptions {
 
 		this.$dropdowns.each(function() {
 			let $el = $(this);
-			let $optionText = $el.closest('[data-product-attribute="set-select"]').find('.form-field-title-cntr');
+			let $optionText = $el.parents(".selectBox");
 			let currentSelection = window.TEAK.currentSelections[$optionText.data('option-title')] || false;
+
 
 			$el.find('option').each(function() {
 				let $opt = $(this);
@@ -798,14 +799,11 @@ export default class ProductOptions {
 
 	// Format label text with relative pricing
 	formatLabelWithRelativePricing(option, currentOption) {	
-		console.log(option)	
 		var labelText = option.grade ? `Grade ${option.grade}: ${option.text}` : option.text;
 
 		var priceDiff = option.priceAdjustNumeric || 0;
 
 		if (currentOption && typeof currentOption.priceAdjustNumeric !== 'undefined') {
-			console.log(priceDiff)
-			console.log(currentOption.priceAdjustNumeric)
 			priceDiff = priceDiff - currentOption.priceAdjustNumeric;
 		}
 

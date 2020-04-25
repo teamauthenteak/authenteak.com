@@ -72,7 +72,6 @@ export default class GraphQL_Swatch_TPL {
                     </div>
                     <footer class="drawer__footer">
                         <button type="button" class="drawer__saveBtn" drawer--close>Save & Finish</button>
-                        <!-- <button type="button" class="drawer__cancelBtn" drawer--reset>Cancel</button> -->
                     </footer>
                 </aside>
                 <div class="drawer__overlay drawer__overlay--hide"></div>`;
