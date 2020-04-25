@@ -1,7 +1,6 @@
 import GraphQL from '../graphql/GraphQL';
 import GraphQL_Swatch_TPL from '../graphql/templates/GraphQL.swatch.tpl';
 import utils from '@bigcommerce/stencil-utils';
-import { concatSeries } from 'async';
 
 /**
  * Product Swatch Modal
@@ -154,7 +153,10 @@ export default class ProductSwatchModal {
             $this.attr('data-is-selected', true);
             $this.find('input[type=radio]').prop('checked', true).attr('checked', true);
 
-            this.$optionsDrawer.find(".drawer__footer").removeClass("hide");
+            this.$optionsDrawer
+                .find(".drawer__content").css("paddingBottom", 83)
+                    .end()
+                .find(".drawer__footer").css("position", "absolute");
         }
 
         this.labelInteract(e);
@@ -267,23 +269,24 @@ export default class ProductSwatchModal {
         e.preventDefault();
 
         this.$optionForm.find("button.drawer__displayFilters--open").click();
-        
         $(document.body).toggleClass("drawer__freezeBody");
-        
         this.$optionModalSwatches.find(".drawer__contentCntr, .drawer__contentHeading").html("");
         
-        this.$optionsDrawer
-            .toggleClass("drawer--close drawer--open")
+        this.$optionsDrawer.toggleClass("drawer--close drawer--open")
             .siblings(".drawer__overlay").toggleClass("fadeIn drawer__overlay--hide")
                 .end()
-            .find(".drawer__selectedSwatchText").html("");
+            .find(".drawer__selectedSwatchText").html("")
+                .end()
+            .find(".drawer__content").css("paddingBottom", 20)
+                .end()
+            .find(".drawer__footer").css("position", "static");
 
 
         if( e.currentTarget.hasAttribute("drawer--open") ){         
             this.optionsProductRefferenceId = this.getProductID(e);
             this.optionSetRefferenceId = parseInt($(e.currentTarget).attr("rel"));
 
-            this.$optionModalSwatches.find(".drawer__img").attr("src", productImg)
+            this.$optionModalSwatches.find(".drawer__imgCntr").find("img").attr("src", productImg)
             this.initOptions();
 
         }else{

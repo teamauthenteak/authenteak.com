@@ -292,23 +292,13 @@ export default class ProductOptions {
 
 				let label = TEAK.Utils.parseOptionLabel($opt.text().trim());
 				let customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
-
-				// console.log(label)
 				
 				if (customOptionData) {
 					label = customOptionData;
 				}
 
-				if ($opt.val() && $opt.val().length > 0) {
-					let updatedLabel = self.formatLabelWithRelativePricing(label, currentSelection);
-
-					$opt.text(updatedLabel);
-
-					// console.log(updatedLabel)
-
-					// $optionText.find(".selectBox__value")
-					// console.log( $opt.parents(".selectBox__label").find("select.selectBox__select").find('option') )
-					// .text(updatedLabel).addClass("selectBox__value--choosen");
+				if ($opt.val() && $opt.val() !== "") {
+					$opt.text(self.formatLabelWithRelativePricing(label, currentSelection));
 				}
 
 			});
@@ -807,16 +797,15 @@ export default class ProductOptions {
 	}
 
 	// Format label text with relative pricing
-	formatLabelWithRelativePricing(option, currentOption) {
-		console.trace();
-		
+	formatLabelWithRelativePricing(option, currentOption) {	
+		console.log(option)	
 		var labelText = option.grade ? `Grade ${option.grade}: ${option.text}` : option.text;
 
 		var priceDiff = option.priceAdjustNumeric || 0;
 
 		if (currentOption && typeof currentOption.priceAdjustNumeric !== 'undefined') {
-			// console.log(priceDiff)
-			// console.log(currentOption.priceAdjustNumeric)
+			console.log(priceDiff)
+			console.log(currentOption.priceAdjustNumeric)
 			priceDiff = priceDiff - currentOption.priceAdjustNumeric;
 		}
 

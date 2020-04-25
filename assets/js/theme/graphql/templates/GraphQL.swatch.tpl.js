@@ -7,11 +7,6 @@ export default class GraphQL_Swatch_TPL {
     // main drawer
     getSwatchDrawer(){
         return `<aside class='drawer drawer--options drawer--close' id="optionsDrawer">
-                    <button class="drawer__close" drawer--close>
-                        <svg class="drawer__closeIcon" enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M13.4 12l5.3-5.3c0.4-0.4 0.4-1 0-1.4s-1-0.4-1.4 0l-5.3 5.3-5.3-5.3c-0.4-0.4-1-0.4-1.4 0s-0.4 1 0 1.4l5.3 5.3-5.3 5.3c-0.4 0.4-0.4 1 0 1.4 0.2 0.2 0.4 0.3 0.7 0.3s0.5-0.1 0.7-0.3l5.3-5.3 5.3 5.3c0.2 0.2 0.5 0.3 0.7 0.3s0.5-0.1 0.7-0.3c0.4-0.4 0.4-1 0-1.4l-5.3-5.3z"></path>
-                        </svg>
-                    </button>
                     <div class="drawer__content" id="optionModalSwatches">
                         <ul class="preloader preloader--short preloader--background">
                             <li class="preloader__swatchTopTitle"></li>
@@ -31,10 +26,17 @@ export default class GraphQL_Swatch_TPL {
                         </ul>
                 
                         <div class="drawer__main hide">
+                            <button class="drawer__close" drawer--close>
+                                <svg class="drawer__closeIcon" enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13.4 12l5.3-5.3c0.4-0.4 0.4-1 0-1.4s-1-0.4-1.4 0l-5.3 5.3-5.3-5.3c-0.4-0.4-1-0.4-1.4 0s-0.4 1 0 1.4l5.3 5.3-5.3 5.3c-0.4 0.4-0.4 1 0 1.4 0.2 0.2 0.4 0.3 0.7 0.3s0.5-0.1 0.7-0.3l5.3-5.3 5.3 5.3c0.2 0.2 0.5 0.3 0.7 0.3s0.5-0.1 0.7-0.3c0.4-0.4 0.4-1 0-1.4l-5.3-5.3z"></path>
+                                </svg>
+                            </button>
+
                             <h2 class="drawer__contentHeading"></h2>
                 
-                            <figure class="drawer__imgCntr">
-                                <img src="https://dummyimage.com/600x400/cccccc/fff.gif&text=" class="drawer__img" />
+                            <figure class="drawer__figCntr">
+                                <span class="drawer__imgCntr"><img src="https://dummyimage.com/600x400/cccccc/fff.gif&text=" class="drawer__img" /></span>
+                                <figcaption class="drawer__selectedSwatchText"></figcaption>
                             </figure>
                 
                             <form class="drawer__filters" id="optionForm">
@@ -69,8 +71,8 @@ export default class GraphQL_Swatch_TPL {
                         </div>
                     </div>
                     <footer class="drawer__footer">
-                        <span class="drawer__selectedSwatchText"></span>
-                        <button type="button" class="drawer__saveBtn" drawer--close disabled>Save & Finish</button>
+                        <button type="button" class="drawer__saveBtn" drawer--close>Save & Finish</button>
+                        <!-- <button type="button" class="drawer__cancelBtn" drawer--reset>Cancel</button> -->
                     </footer>
                 </aside>
                 <div class="drawer__overlay drawer__overlay--hide"></div>`;

@@ -48,6 +48,10 @@
             @media only screen and (max-width: $screen-md) {
                 flex-direction: column;
             }
+
+            @media only screen and (max-width: $screen-xs) {
+                margin-bottom: 10px;
+            }
         }
     }
 
@@ -405,6 +409,8 @@
         }
     }
 
+    
+
 
     &__clearSwatch{
         @extend .blog__clearFilter;
@@ -497,10 +503,29 @@
 
     &__swatchName{
         font-weight: 800;
-        display: block;
+        display: flex;
         line-height: 1;
         text-align: left;
         font-size: 1rem;
+    }
+
+    &__swatchOptionIconCntr{
+        display: flex;
+        font-weight: 400;
+        margin-left: 8px;
+        font-size: 0.9rem;
+        font-style: italic;
+        color: #999;
+
+        @media only screen and (max-width: $screen-xs) {
+           display: none;
+        }
+    }
+
+    &__swatchOptionIcon{
+        width: 12px;
+        height: 12px;
+        margin: 0 4px 0 2px;
     }
 
     &__swatchValue{

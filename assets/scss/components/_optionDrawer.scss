@@ -10,8 +10,6 @@
         z-index: 99999;
         top: 0;
         box-shadow: -8px 0px 17px rgba(0, 0, 0, 0.50);
-        padding: 0 20px 20px 20px;
-        overflow: auto;
         display: flex;
         flex-direction: column;
 
@@ -78,15 +76,17 @@
 
     &__contentHeading{
         text-align: center;
-        line-height: 1;;
+        line-height: 1;
+        margin-top: 0;
     }
 
-    &__imgCntr{
+    &__figCntr{
         width: 100%;
         height: auto;
         margin-bottom: 20px;
         display: flex;
         justify-content: center;
+        flex-direction: column;
 
         & .swatch-pattern-image{
             @extend .drawer__img;
@@ -111,8 +111,12 @@
     &__content{
         position: relative;
         float: left;
-        // height: 75%;
         flex: 1 0 auto;
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 100vh;
+        padding: 20px;
+        @extend %scrolling-inner;
     }
 
 
@@ -123,10 +127,13 @@
 
 
     &__control{
+        border: 1px solid #929396;
+        box-shadow: none !important;
 
         &::placeholder {
            font-size: 1rem;
            text-transform: capitalize;
+           color: #aaa;
         }
 
         &--input{
@@ -323,30 +330,6 @@
     }
 
 
-    &__saveBtn{
-        @extend .button;
-        @extend .button--fullWidth;
-        @extend .button-primary;
-        @extend .button-primary--dark;
-        opacity: 1;
-        margin: 10px 0;
-
-        &[disabled]{
-            @extend .button-secondary--darkTrans;
-            opacity: 0.25;
-
-            &:hover{
-                background-color: transparent !important;
-                border-color: #666 !important;
-                color: #666 !important;
-            }
-        }
-
-    }
-
-    
-
-
 
     &__displayList{
         margin: 0;
@@ -502,6 +485,32 @@
     }
    
 
+    &__saveBtn{
+        @extend .button;
+        @extend .button--fullWidth;
+        @extend .button-primary;
+        @extend .button-primary--dark;
+        opacity: 1;
+        margin: 10px 0;
+
+        &[disabled]{
+            @extend .button-secondary--darkTrans;
+            opacity: 0.25;
+
+            &:hover{
+                background-color: transparent !important;
+                border-color: #666 !important;
+                color: #666 !important;
+            }
+        }
+    }
+
+    &__cancelBtn{
+        background-color: transparent !important;
+        padding: 0 20px;
+    }
+
+
     &__footer{
         width: 40vw;
         display: flex;
@@ -510,16 +519,16 @@
         align-content: center;
         font-size: 1rem;
         padding: 10px 20px;
-        flex-direction: column;
+        flex-direction: row;
         bottom: 0;
         background-color: #fff;
-        border-top: 1px solid #ccc;
-        // box-shadow: -1px -4px 20px rgba(0, 0, 0, 0.18);
-        margin-left: -21px;
+        box-shadow: -1px -4px 20px rgba(0, 0, 0, 0.18);
+        // margin-left: -21px;
         float: left;
         flex: 0 0 auto;
-        height: 120px;
+        height: 86px;
         z-index: 999;
+        bottom: 0;
 
         @media only screen and (max-width: $screen-md) {
             width: 100vw;
