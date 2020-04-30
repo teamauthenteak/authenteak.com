@@ -20,7 +20,7 @@
     "history.js": "github:browserstate/history.js",
     "imagesloaded": "^4.1.1",
     "infinite-scroll": "^3.0.6",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jquery-revealer": "github:pixelunion/jquery.revealer",
     "jquery-trend": "github:pixelunion/jquery.trend",
     "lodash": "^4.17.15",
