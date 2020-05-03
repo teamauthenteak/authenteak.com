@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.20.25]
+
+
 ## [1.20.24]
 - removed * from selectbox options
 - added new tabbed tool tip option
