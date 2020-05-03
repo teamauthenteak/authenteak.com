@@ -15,6 +15,10 @@
 - Fixed issue where the regex for the atc modal price was calculating incorrectly
 - added additional ui updates for the product swatch drawer
 - fixed an issue for the negative pricing rule not calculating correctly becasue it was picking up the wrong value
+- added IE 10 & 11 backwards compatability for product options
+- implemented Implemented LazyLoad JS in to tempaltes starting with Product Swatches, RV and Recomm Products
+- fixed issue on the cart where the edit form wasnt working. reverted to use legacy options for cart page
+- added loading icon to cart edit modal button
 
 ## [1.20.23]
 - collections page updaes

@@ -22,7 +22,7 @@
                             {{#each values}}{{#unless (occurrences label "No Thanks") }}{{#unless (occurrences label "No Cushion") }}
                                 <li class="swatchModal__listItem" data-request-swatch data-swatch-title="{{> components/products/customizations/option-label label}}">
                                     <figure class="swatchModal__swatchImgCntr swatch-img">
-                                        <img class="swatchModal__swatchImg" src="{{getImage image 'core-swatch'}}" alt="{{> components/products/customizations/option-label label}}" />
+                                        <img class="swatchModal__swatchImg" data-src="{{getImage image 'core-swatch'}}" alt="{{> components/products/customizations/option-label label}}" />
                                         <figcaption class="swatchModal__swatchTitle">
                                             {{> components/products/customizations/option-label label}}
                                         </figcaption>

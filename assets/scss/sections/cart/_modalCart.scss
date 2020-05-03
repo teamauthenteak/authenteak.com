@@ -313,10 +313,11 @@
             clear: left;
             max-height: 130px;
             max-width: $swatch-wrapper-base;
-            overflow: hidden;
+            overflow: auto;
             border: 1px solid transparent;
             border-radius: 4px;
             box-shadow: 0 0 0 1px $color-border inset;
+            @extend %scrolling-inner;
 
             // @media screen and (min-width: 915px){
             //     max-height: auto;

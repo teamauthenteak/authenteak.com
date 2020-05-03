@@ -39,6 +39,24 @@
     display: none !important;
 }
 
+.ieShow{
+    @extend .hide;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .ieHide{
+        display: none !important;
+    }
+
+    .ieShow{
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
 
 .mobileHide{
     display: flex !important;

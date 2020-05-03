@@ -30,6 +30,10 @@ header{
             padding-top: 20%;
             display: block;
 
+            @media screen and (min-width: $screen-lg){
+                min-width: 350px;
+            }
+
             img, svg {
             position: absolute;
             top: 0;
@@ -163,9 +167,9 @@ header{
 
     .top-bar-center {
         display: inline-block;
-        flex: 1;
+        flex: 1 0 auto;
         padding: 5px 40px;
-        max-width: 750px;
+        max-width: 700px;
 
         @media screen and (max-width: $screen-lg + 5){   
             margin: 0 auto 10px auto !important;

@@ -115,13 +115,21 @@ window.TEAK.Utils = {
 					case "Bella": data.brandName = brandName + " Dura"; break;
 					case "Acrylic": data.brandName = brandName; break;
 					case "Obravia": data.brandName = brandName; break;
-				}
+                }
 
-				// Rain
+                // Sumbrella Rain Brand
 				let sunbrellaRain = data.text.toLowerCase().includes("sunbrella rain");
 				if(sunbrellaRain){
 					data.brandName = "Sunbrella Rain";
-				}
+                }
+
+                
+                let color = data.text.split(data.brandName);
+                if(color){
+                    data.color = color.length > 1 ? color[1] : color[0];
+                    data.color = data.color.indexOf("-") !== -1 ? data.color.split("-")[0] : data.color;
+                }
+
 
 				// ships by 
 				let ships = data.text.split("Ships")[1];
@@ -624,13 +632,44 @@ if( window.location.hostname !== "authenteak.com" ){
  ------------------------------- */
  (function () {
     if ( typeof window.CustomEvent === "function" ) return false;
-  
-    function CustomEvent ( event, params ) {
-      params = params || { bubbles: false, cancelable: false, detail: null };
-      var evt = document.createEvent( 'CustomEvent' );
-      evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
-      return evt;
-     }
-  
-    window.CustomEvent = CustomEvent;
+        function CustomEvent ( event, params ) {
+            params = params || { bubbles: false, cancelable: false, detail: null };
+            var evt = document.createEvent( 'CustomEvent' );
+            evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+            return evt;
+        }
+        window.CustomEvent = CustomEvent;
+
+
+    
+    // if (typeof Object.assign !== 'function') {
+    //     // Must be writable: true, enumerable: false, configurable: true
+    //     Object.defineProperty(Object, "assign", {
+    //     value: function assign(target, varArgs) { // .length of function is 2
+    //         'use strict';
+    //         if (target === null || target === undefined) {
+    //         throw new TypeError('Cannot convert undefined or null to object');
+    //         }
+    
+    //         var to = Object(target);
+    
+    //         for (var index = 1; index < arguments.length; index++) {
+    //         var nextSource = arguments[index];
+    
+    //         if (nextSource !== null && nextSource !== undefined) { 
+    //             for (var nextKey in nextSource) {
+    //             // Avoid bugs when hasOwnProperty is shadowed
+    //             if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+    //                 to[nextKey] = nextSource[nextKey];
+    //             }
+    //             }
+    //         }
+    //         }
+    //         return to;
+    //     },
+    //     writable: true,
+    //     configurable: true
+    //     });
+    // }
+
 })();

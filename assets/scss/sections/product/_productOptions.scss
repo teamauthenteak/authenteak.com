@@ -1,6 +1,12 @@
 /* Product Detail Options */
 .form-field-options {
 
+    &--legacy{
+        display: none;
+        visibility: hidden;
+    }
+    
+
     .form-field-title{
         margin: 0;
     }
@@ -51,6 +57,8 @@
         color: #C00;
     }
 }
+
+
 
 .product-options-container {
     margin: 0;

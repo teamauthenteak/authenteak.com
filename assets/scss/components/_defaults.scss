@@ -12,3 +12,16 @@ p a, strong a{
     text-decoration: underline;
 }
 
+// take from BC Backend
+label[for="radio-cheque"] {
+    display: none !important;
+}
+label[for="radio-stripe"] {
+    display: none !important;
+}
+div[ui-view="paymentBody-stripe"] {
+    display: none !important;
+}
+label[for=phoneInput]>small {
+    display: none;
+}

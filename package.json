@@ -30,7 +30,8 @@
     "slick-carousel": "^1.6.0",
     "susy": "^2.2.12",
     "url": "0.11.0",
-    "validetta": "github:pixelunion/validetta#v2.0.3"
+    "validetta": "github:pixelunion/validetta#v2.0.3",
+    "vanilla-lazyload": "^15.1.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

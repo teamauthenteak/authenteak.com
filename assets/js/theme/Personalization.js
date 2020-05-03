@@ -1,5 +1,7 @@
 import PageManager from '../PageManager';
 import GraphQL from './graphql/GraphQL';
+import LazyLoad from 'vanilla-lazyload';
+
 /**
  * Personlaiation Module:
  *  Cutom personalization dispay and data interaction
@@ -16,6 +18,10 @@ export default class Personalization extends PageManager {
         super();
 
         this.graphQL = new GraphQL();
+
+        this.lazyLoadInstance = new LazyLoad({
+			elements_selector: ".replaced-image, .lazy-image"
+		});
 
         this.yotpoKey = "aS8rMIONwGgNbx1ATQmUtKY173Xk5HHc75qGrnuq";
 
@@ -123,7 +129,9 @@ export default class Personalization extends PageManager {
     
 	initProductSlider(args){
 		let carouselObj = Object.assign(args.dotObj, TEAK.Globals.carouselSettings);
-		$(args.selector, args.context).slick(carouselObj);
+        $(args.selector, args.context).slick(carouselObj);
+        
+        this.lazyLoadInstance.update();
     }
     
 
@@ -237,8 +245,8 @@ export default class Personalization extends PageManager {
 
         return `<a href="${product.url}" title="${product.title}" class="product-grid-item product-recomendation-pod product-block" data-product-title="${product.title}" data-product-id="${product.product_id}">
                     <figure class="product-item-thumbnail">
-                        <div class="replaced-image lazy-loaded" style="background-image:url(${product.image})">
-                            <img class="lazy-image lazy-loaded" src="${product.image}" alt="You viewed ${product.title}">
+                        <div class="replaced-image lazy-loaded" data-bg="${product.image}">
+                            <img class="lazy-image lazy-loaded" data-src="${product.image}" alt="You viewed ${product.title}">
                         </div>
                     </figure>
                     

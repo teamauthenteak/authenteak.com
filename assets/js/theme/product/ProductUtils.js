@@ -1,7 +1,6 @@
 import utils from '@bigcommerce/stencil-utils';
 import Alert from '../components/Alert';
 import FormValidator from '../utils/FormValidator';
-
 import ProgressButton from '../utils/ProgressButton';
 
 export default class ProductUtils {
@@ -46,6 +45,8 @@ export default class ProductUtils {
       this._checkQuantity(event.currentTarget);
     });
   }
+
+
 
   init(context) {
     this.context = context;
@@ -422,7 +423,6 @@ export default class ProductUtils {
     if (window.FormData === undefined) {
       return;
     }
-    
 
     const $button = $(event.currentTarget).find('.add-to-cart');
     const quantity = this.$el.find('input.product-quantity').val();

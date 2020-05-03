@@ -11,12 +11,11 @@ import fitVids from 'fitvids';
 import ScrollLink from 'bc-scroll-link';
 import Personalization from './Personalization';
 import TabsModule from './product/TabsModule';
-
 import ProductOptions from './product/customizations/ProductOptions';
 import AddToCartModal from './product/customizations/AddToCartModal';
 import PrintMode from './product/customizations/PrintMode';
-
 import ProductSwatchModal from './product/ProductSwatchModal';
+import LazyLoad from 'vanilla-lazyload';
 
 export default class Product extends PageManager {
 	constructor() {
@@ -32,6 +31,9 @@ export default class Product extends PageManager {
 
 		this.fitVidsInitialized = false;
 
+		this.lazyLoadInstance = new LazyLoad({
+			elements_selector: ".swatch-color, .swatch-pattern-image, .swatchModal__swatchImg"
+		});
 
 		new Alert($('[data-alerts]'));
 
@@ -52,6 +54,7 @@ export default class Product extends PageManager {
 
 		// Reviews
 		new ProductReviews(this.context);
+
 
 		// Custom Options
 		new ProductOptions();
@@ -82,18 +85,14 @@ export default class Product extends PageManager {
 			this.recommendedProducts = [];
 		}
 
-
 		// Recently Viewed Module
 		this.recentlyViewed = new Personalization({
 			type: "recentlyViewed"
 		});
 		this._initRecentlyViewed();
 
-
-
 		// get this product's updtaed reviews from yotpo
 		this._getReviews();
-
 
 		// Product UI
 		this._bindEvents();
@@ -264,7 +263,7 @@ export default class Product extends PageManager {
 				$(tpl).appendTo(".product-rv-carousel", $rv);
 			});
 
-			$rv.addClass("show");	
+			$rv.addClass("show");
 		}
 
 		this.saveViewedProduct();

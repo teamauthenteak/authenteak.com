@@ -36,8 +36,10 @@ export default class ProductOptions {
 		this.bindDropdownEvents();
 		this.bindRequestASwatchFeature();
 		this.bindSwatchLabelData();
-		// Handle functionality that occurs in background
-		this.preloadImages();
+
+		if ( (navigator.appVersion.indexOf('MSIE 10') !== -1) ||  (!!window.MSInputMethodContext && !!document.documentMode) ){
+			this.preloadImages();
+		}
 
 		window.TEAK.Modules.requestASwatch = {};
 	}
@@ -258,9 +260,7 @@ export default class ProductOptions {
 			let label = TEAK.Utils.parseOptionLabel($opt.text().trim());
 			let customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
 
-			if (customOptionData) {
-				label = customOptionData;
-			}
+			label = (customOptionData) ? customOptionData : label;			
 
 			window.TEAK.currentSelections[$optionText.data('option-title')] = label;
 
@@ -269,20 +269,26 @@ export default class ProductOptions {
 			}
 
 			self.updateLeadTime();
-			self.updateDropdownOptionLabels();
+			self.updateDropdownOptionLabels(e);
 		});
 	}
 
 
 	// Update and clean-up dropdown option labels
-	updateDropdownOptionLabels() {
+	updateDropdownOptionLabels(event) {
 		let self = this;
 
-		this.$dropdowns.each(function() {
+		if( document.getElementById("CategoryCollection") && event ){
+			$(event.currentTarget).parents(".product__row").find("select.selectBox__select").each(udpateLabels);
+
+		}else{
+			this.$dropdowns.each(udpateLabels);
+		}
+
+		function udpateLabels(){
 			let $el = $(this);
 			let $optionText = $el.parents(".selectBox");
 			let currentSelection = window.TEAK.currentSelections[$optionText.data('option-title')] || false;
-
 
 			$el.find('option').each(function() {
 				let $opt = $(this);
@@ -294,18 +300,89 @@ export default class ProductOptions {
 				let label = TEAK.Utils.parseOptionLabel($opt.text().trim());
 				let customOptionData = self.findCustomOptionData($optionText.data('option-title'), label.text);
 				
-				if (customOptionData) {
-					label = customOptionData;
-				}
+				label = (customOptionData) ? customOptionData : label;
 
 				if ($opt.val() && $opt.val() !== "") {
 					$opt.text(self.formatLabelWithRelativePricing(label, currentSelection));
 				}
-
 			});
-		});
+		}
+
+
 	}
 
+
+
+	// Update lead time information
+	updateLeadTime() {
+		if (typeof window.TEAK.optionsWithLeadTimes === 'undefined') {
+			// Look at all product options to determine which have lead times
+			// Do this once and store globally
+			let optionsWithLeadTimes = [];
+
+			for (let i in window.TEAK.productCustomData.options) {
+				let opt = window.TEAK.productCustomData.options[i];
+
+				for (let j in opt.values) {
+					if (typeof opt.values[j].leadtime_from !== 'undefined') {
+						optionsWithLeadTimes.push(i);
+						break;
+					}
+				}
+			}
+
+			window.TEAK.optionsWithLeadTimes = optionsWithLeadTimes;
+		}
+
+		// If there are no options with lead times, go no further
+		if (window.TEAK.optionsWithLeadTimes.length === 0) {
+			return;
+		}
+
+		// Get shipping range elements (and capture initial value for reset)
+		let $rangeLabel = $('p.shipping-range--dynamic');
+		if (!$rangeLabel.data('originalValue')) {
+			$rangeLabel.data('originalValue', $rangeLabel.first().text().trim());
+		}
+
+		// Iterate through options to determine if any with lead times are still unset
+		let unselectedLeadTimeOpts = window.TEAK.optionsWithLeadTimes.slice(0);
+		for (var i in window.TEAK.currentSelections) {
+			let opt = window.TEAK.currentSelections[i];
+			if (typeof opt.leadtime_from !== 'undefined') {
+				// If an option has a lead time value, remove it from the array of unset options
+				let indexOfOpt = unselectedLeadTimeOpts.indexOf(i);
+				if (indexOfOpt > -1) {
+					unselectedLeadTimeOpts.splice(indexOfOpt, 1);
+				}
+			}
+		}
+
+		if (unselectedLeadTimeOpts.length > 0) {
+			// If there is an option missing a lead time, fall back to default
+			$rangeLabel.text($rangeLabel.data('originalValue'));
+		} else {
+			// Otherwise, find the longest lead time among all selected options
+			let maxLeadTimeFrom = 0;
+			let longestLeadFrom = null;
+			let maxLeadTimeTo = 0;
+			let longestLeadTo = null;
+			for (var i in window.TEAK.currentSelections) {
+				let opt = window.TEAK.currentSelections[i];
+				if (opt.leadtime_weeks_from > maxLeadTimeFrom) {
+					maxLeadTimeFrom = opt.leadtime_weeks_from;
+					longestLeadFrom = opt;
+				}
+				if (opt.leadtime_weeks_to > maxLeadTimeTo) {
+					maxLeadTimeTo = opt.leadtime_weeks_to;
+					longestLeadTo = opt;
+				}
+			}
+
+			// Display the longest lead time based on all selected options
+			$rangeLabel.text(this.formatLeadTime(longestLeadFrom.leadtime_from.value, longestLeadFrom.leadtime_from.unit, longestLeadTo.leadtime_to.value, longestLeadTo.leadtime_to.unit));
+		}
+	}
 
 
 	// Show the hover detail pane and populate all data
@@ -531,76 +608,7 @@ export default class ProductOptions {
 		});
 	}
 
-	// Update lead time information
-	updateLeadTime() {
-		if (typeof window.TEAK.optionsWithLeadTimes === 'undefined') {
-			// Look at all product options to determine which have lead times
-			// Do this once and store globally
-			let optionsWithLeadTimes = [];
 
-			for (let i in window.TEAK.productCustomData.options) {
-				let opt = window.TEAK.productCustomData.options[i];
-
-				for (let j in opt.values) {
-					if (typeof opt.values[j].leadtime_from !== 'undefined') {
-						optionsWithLeadTimes.push(i);
-						break;
-					}
-				}
-			}
-
-			window.TEAK.optionsWithLeadTimes = optionsWithLeadTimes;
-		}
-
-		// If there are no options with lead times, go no further
-		if (window.TEAK.optionsWithLeadTimes.length === 0) {
-			return;
-		}
-
-		// Get shipping range elements (and capture initial value for reset)
-		let $rangeLabel = $('p.shipping-range--dynamic');
-		if (!$rangeLabel.data('originalValue')) {
-			$rangeLabel.data('originalValue', $rangeLabel.first().text().trim());
-		}
-
-		// Iterate through options to determine if any with lead times are still unset
-		let unselectedLeadTimeOpts = window.TEAK.optionsWithLeadTimes.slice(0);
-		for (var i in window.TEAK.currentSelections) {
-			let opt = window.TEAK.currentSelections[i];
-			if (typeof opt.leadtime_from !== 'undefined') {
-				// If an option has a lead time value, remove it from the array of unset options
-				let indexOfOpt = unselectedLeadTimeOpts.indexOf(i);
-				if (indexOfOpt > -1) {
-					unselectedLeadTimeOpts.splice(indexOfOpt, 1);
-				}
-			}
-		}
-
-		if (unselectedLeadTimeOpts.length > 0) {
-			// If there is an option missing a lead time, fall back to default
-			$rangeLabel.text($rangeLabel.data('originalValue'));
-		} else {
-			// Otherwise, find the longest lead time among all selected options
-			let maxLeadTimeFrom = 0;
-			let longestLeadFrom = null;
-			let maxLeadTimeTo = 0;
-			let longestLeadTo = null;
-			for (var i in window.TEAK.currentSelections) {
-				let opt = window.TEAK.currentSelections[i];
-				if (opt.leadtime_weeks_from > maxLeadTimeFrom) {
-					maxLeadTimeFrom = opt.leadtime_weeks_from;
-					longestLeadFrom = opt;
-				}
-				if (opt.leadtime_weeks_to > maxLeadTimeTo) {
-					maxLeadTimeTo = opt.leadtime_weeks_to;
-					longestLeadTo = opt;
-				}
-			}
-
-			// Display the longest lead time based on all selected options
-			$rangeLabel.text(this.formatLeadTime(longestLeadFrom.leadtime_from.value, longestLeadFrom.leadtime_from.unit, longestLeadTo.leadtime_to.value, longestLeadTo.leadtime_to.unit));
-		}
-	}
 
 	// Parse the option label to extract data
 	// moved to TEAK.Utils
@@ -748,14 +756,17 @@ export default class ProductOptions {
 			$image.attr('data-loading', 'true');
 			let self = this;
 			let $preload = $('<img>');
+			
 			$preload.on('load', function() {
 				// If image loads successfully, save result and re-run
 				self.swatchImageResults[swatch[size]] = true;
 				self.trySwatchImages($image, swatch, size);
+
 			}).on('error', function() {
 				// If image failed to load, save result and continue iterating
 				self.swatchImageResults[swatch[size]] = false;
 				self.trySwatchImages($image, swatch, size);
+
 			}).attr('src', swatch[size]);
 
 			// Attach preload image to DOM for resource persistence

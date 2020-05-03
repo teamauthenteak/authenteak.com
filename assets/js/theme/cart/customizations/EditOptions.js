@@ -1,5 +1,6 @@
 import utils from '@bigcommerce/stencil-utils';
-
+import GraphQL from '../../graphql/GraphQL';
+import GraphQL_Legacy_TPL from '../../graphql/templates/GraphQL.legacy-options';
 /**
  *  Attach product option edit functionality to cart
  *
@@ -7,6 +8,9 @@ import utils from '@bigcommerce/stencil-utils';
  */
 export default class EditOptions {
 	constructor() {
+		this.graphQL = new GraphQL();
+		this.graph_tpl = new GraphQL_Legacy_TPL();
+
 		this.editButtonsSelector = 'button.cart-item-edit[data-cart-item-edit]';
 		this.$editButtons = $(this.editButtonsSelector);
 		this.editModalSelector = 'aside.modal-cart';
@@ -15,7 +19,6 @@ export default class EditOptions {
 		this.dropdownsSelector = '[data-product-attribute="set-select"]';
 
 		this.preloadedContent = {};
-
 
 		// Handle events that require deliberate action (e.g. click)
 		this.bindEditFunctionality();
@@ -30,25 +33,59 @@ export default class EditOptions {
 		let self = this, oldFormArray = [];
 
 		this.$editButtons.each(function(i, btn) {
-			$.ajax({
-				url: $(this).attr('data-href'),
-				success: (data) => {
-					self.preloadedContent[$(btn).attr('data-edit-id')] = $(data).find('form.add-to-cart-form .product-options-container').html();
-				}
+			let editOpt = $(this).data(),
+				editId = $(btn).data('edit-id'),
+				optionScheme = self.graphQL.getProductOptions(editOpt.productId);
+
+			self.preloadedContent[editId] = "";
+			
+			self.graphQL.get(optionScheme).then((data) => {
+				let product = data.site.products.edges[0].node,
+					optHtml = [];
+				
+				product.productOptions.edges.forEach((element) => {
+					let tpl = "";
+
+					switch(element.node.displayStyle){
+						case "DropdownList":
+							tpl = self.graph_tpl.getLegacySelectBox(element.node);
+							break;
+
+						case "Swatch":
+							tpl = self.graph_tpl.getLegacySwatches(element.node);
+							break;
+					}
+
+					optHtml.push(tpl);
+				});
+
+				self.preloadedContent[editId] = optHtml.join("");
 			});
+
+			// $.ajax({
+			// 	url: $(this).attr('data-href'),
+			// 	success: (data) => {
+			// 		self.preloadedContent[$(btn).attr('data-edit-id')] = $(data).find('form.add-to-cart-form .product-options-container').html();
+			// 	}
+			// });
 		});
 
+
+
+
+
 		$(document).on('click', this.editButtonsSelector, (e) => {
+			let editId = $(e.currentTarget).data('edit-id'),
+				optionsContent = self.preloadedContent[editId];
+
 			e.preventDefault();
 
-			if (typeof self.preloadedContent[$(e.currentTarget).attr('data-edit-id')] === 'undefined') {
+			if (typeof self.preloadedContent[editId] === 'undefined') {
 				window.setTimeout(() => {
 					$(e.target).trigger('click');
 				}, 250);
 				return;
 			}
-
-			let optionsContent = self.preloadedContent[$(e.currentTarget).attr('data-edit-id')];
 
 			window.TEAK.currentSelections = {};
 
@@ -58,7 +95,7 @@ export default class EditOptions {
 
 			self.$editModal.addClass('is-open');
 			
-			history.replaceState({}, document.title, `${location.origin}${location.pathname}?edit=${$(e.currentTarget).attr('data-edit-id')}`);
+			history.replaceState({}, document.title, `${location.origin}${location.pathname}?edit=${editId}`);
 
 			let options = [];
 
@@ -122,6 +159,12 @@ export default class EditOptions {
 
 		this.$editModal.on('click', '.button-cart', (e) => {
 			this.$editModal.find('form').trigger('submit');
+
+			$(this.$editModal)
+				.find("button").prop("disabled", true)
+					.end()
+				.find(".button-cart-text").toggleClass("hide")
+				.siblings(".icon").toggleClass("hide");
 		});
 
 		$(document).on('modal-cart-display', (e) => {

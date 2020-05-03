@@ -1,4 +1,4 @@
-<div class="selectBox form-field form-field-options form-field-select{{#if required}} form-required{{/if}}" data-option-title="{{display_name}}" set-select data-product-attribute="set-select">
+<div class="selectBox form-field form-field-options form-field-select{{#if required}} form-required{{/if}} ieHide" data-option-title="{{display_name}}" set-select data-product-attribute="set-select">
 	{{> core/forms/customizations/tooltip name=display_name type="select"}}
 	<label class="selectBox__label form-label" for="attribute-{{id}}">
 		<div class="selectBox__text selectBox__text--right">
@@ -16,5 +16,30 @@
 			<option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{lang 'core.product.none'}}</option>
 			{{/unless}}
 		</select>
+	</label>
+</div>
+
+
+
+
+<div class="form-field form-field-options form-field-select{{#if required}} form-required{{/if}} ieShow" data-product-attribute="set-select">
+	<label class="form-label">
+		<span class="form-field-title-cntr" data-option-title="{{display_name}}">
+		<span class="form-field-title">{{display_name}}:</span> &nbsp;
+		{{#if required}}<span class="required-text">{{lang 'common.required'}}</span>{{/if}}
+		</span>
+		<span class="form-field-control">
+		<div class="form-select-wrapper">
+			<select class="form-input form-select" id="attribute-{{id}}" name="attribute[{{id}}]" {{#if required}}required{{/if}} aria-required="{{required}}">
+			<option value="" {{#any values selected=true}}{{else}}selected{{/any}} disabled>{{lang 'product.pick_one'}}</option>
+			{{#each values}}
+				<option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{label}}</option>
+			{{/each}}
+			{{#unless required}}
+				<option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{lang 'core.product.none'}}</option>
+			{{/unless}}
+			</select>
+		</div>
+		</span>
 	</label>
 </div>

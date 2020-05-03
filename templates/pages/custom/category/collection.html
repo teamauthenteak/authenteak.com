@@ -35,40 +35,31 @@ category:
                     </button>
                 </h2>
                 
-                <form class="form add-to-cart-form" method="post" id="collectionsATC" action="/cart.php" enctype="multipart/form-data" data-cart-item-add data-product-options-count="">
-                    <input type="hidden" name="product_id" value="" data-product-id />
-                    <input type="hidden" name="action" value="add">
-                    <input type="hidden" class="product-quantity form-input" name="qty[]" value="1">
-
-                    <div class="product-options-container" data-product-option-change data-product-brand="{{category.products.brand.name}}" id="productOptions">
-                        <ul class="preloader preloader--short preloader--background">
-                            <li class="preloader__swatch"></li>
-                            <li class="preloader__swatch"></li>
-                            <li class="preloader__swatch"></li>
-                            <li class="preloader__swatch"></li>
-                            <li class="preloader__swatch"></li>
-                            <li class="preloader__swatch"></li>
-                        
-                            <li class="preloader__swatch"></li>
-                            <li class="preloader__swatch"></li>
-                            <li class="preloader__swatch"></li>
-                            <li class="preloader__swatch"></li>
-                            <li class="preloader__swatch"></li>
-                            <li class="preloader__swatch"></li>
-                        </ul>
-                    </div>
-                </form>
+                <div class="product-options-container" data-product-option-change data-product-brand="{{category.products.brand.name}}" id="productOptions">
+                    <ul class="preloader preloader--short preloader--background">
+                        <li class="preloader__swatch"></li>
+                        <li class="preloader__swatch"></li>
+                        <li class="preloader__swatch"></li>
+                        <li class="preloader__swatch"></li>
+                        <li class="preloader__swatch"></li>
+                        <li class="preloader__swatch"></li>
+                    
+                        <li class="preloader__swatch"></li>
+                        <li class="preloader__swatch"></li>
+                        <li class="preloader__swatch"></li>
+                        <li class="preloader__swatch"></li>
+                        <li class="preloader__swatch"></li>
+                        <li class="preloader__swatch"></li>
+                    </ul>
+                </div>
             </div>
 
             <div class="product__col-1-1" id="description">
                 <p class="product__desc">{{sanitize category.description}}</p>
             </div>
         </div> 
-    
-       
 
         <div class="product__col-1-1 no-pad" id="collectionsCntr">
-
             <ul class="preloader preloader--tall preloader--background">
                 <li class="preloader__collectionImage"></li>
                 <li class="preloader__imgSpace"></li>
@@ -297,7 +288,6 @@ category:
 <script data-json="raw-options" id="optionModuleJSON" type="application/json"></script>
 
 {{> components/products/customizations/request-swatch-modal product}}
-
 
 {{/partial}}
 {{> layout/base}}

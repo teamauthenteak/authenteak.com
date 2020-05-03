@@ -999,7 +999,7 @@ $expanded-nav-height: $topbar-height + $navbar-height;
 $modal-width-narrow: rem-calc(684px);
 $section-padding: rem-calc(80px);
 $blog-index-width: rem-calc(645px);
-$mini-cart-width: 400px;
+$mini-cart-width: 500px;
 
 // Z Indices
 $nav-mobile-z: 1000;
@@ -4068,8 +4068,8 @@ table.geotrust-ssl-seal-table {
 .mini-cart {
   position: fixed;
   top: 0;
-  right: -400px;
-  width: 400px;
+  right: -500px;
+  width: 500px;
   height: 100%;
   background-color: $color-mini-cart-background;
   transition: transform .3s ease;

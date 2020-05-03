@@ -1,6 +1,7 @@
 import PageManager from '../PageManager';
 import Modal from 'bc-modal';
 import Personalization from './Personalization';
+import LazyLoad from 'vanilla-lazyload';
 
 export default class Page extends PageManager {
     constructor() {
@@ -12,7 +13,10 @@ export default class Page extends PageManager {
             afterShow: this.initWufooWarrantyForm()
         });
 
-        
+        this.lazyLoadInstance = new LazyLoad({
+			elements_selector: ".replaced-image, .lazy-image"
+		});
+
         // add Personalization engine
         this.recentlyViewed = new Personalization({
             type: "recentlyViewed"
@@ -49,6 +53,8 @@ export default class Page extends PageManager {
 			});
 
             $rv.addClass("show");
+
+            this.lazyLoadInstance.update();
             
             this.recentlyViewed.initProductSlider({
                 dotObj: {appendDots: '.product-rv-carousel'},

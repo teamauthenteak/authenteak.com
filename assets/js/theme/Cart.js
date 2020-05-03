@@ -22,8 +22,8 @@ export default class Cart extends PageManager {
       type: "recentlyViewed"
 	});
 
-
-	this._initRecentlyViewed();
+  this._initRecentlyViewed();
+  
 
     // brute-force apple-pay bodyclass in local environment
     if (window.ApplePaySession && $('.dev-environment').length) {
@@ -124,7 +124,7 @@ export default class Cart extends PageManager {
 				$(tpl).appendTo(".product-rv-carousel", $rv);
 			});
 
-			$rv.addClass("show");
+      $rv.addClass("show");
 		}
 
   	this.recentlyViewed.initProductSlider({

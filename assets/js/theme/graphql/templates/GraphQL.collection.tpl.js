@@ -15,154 +15,158 @@ export default class GraphQL_Collection_TPL {
 
     buildCollectionsPod(product){
         return `<section class="product__row product__row--border" id="${product.entityId}">
-                    <div class="product__col-1-1">
-                        <figure class="product__figure product__col-1-4">
-                            <a href="${product.path}" title="See all details about ${product.name}">
-                                <img data-product-image class="product__img product__img--thumb" src="${product.defaultImage.url}" alt="${product.name}">
-                            </a>
-                        </figure>
+                    <form class="form add-to-cart-form" method="post" id="collection:${product.entityId}" name="collection:${product.entityId}" action="/cart.php" enctype="multipart/form-data" data-cart-item-add data-product-options-count="">
+                        <input type="hidden" name="product_id" value="${product.entityId}" data-product-id="${product.entityId}" />
+                        <input type="hidden" name="action" value="add">
+                        <input type="hidden" class="product-quantity form-input" name="qty[]" value="1">
 
-                        <div class="product__col-3-4">
-                            <div class="product__col-6-10">
-                                <header class="product__nameHeader">
-                                    <h1 class="product__name product__name--sm">
-                                        <a href="${product.path}" title="See all details about ${product.name}">${product.name}</a>
-                                    </h1>
-                                </header>
+                        <div class="product__col-1-1">
+                            <figure class="product__figure product__col-1-4">
+                                <a href="${product.path}" title="See all details about ${product.name}">
+                                    <img data-product-image class="product__img product__img--thumb" src="${product.defaultImage.url}" alt="${product.name}">
+                                </a>
+                            </figure>
 
-                                <p class="product__itemNum">Item #: ${product.sku} &nbsp;&nbsp;&nbsp; Internet #: ${product.entityId}
-                                    <a class="product__ratingWrapper yotpo-pdp-wrapper hide" href="${product.path}#yotpoReviews" id="yotpoRating" title="Reviews of ${product.path}">
-                                        <span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of 0 out of 5."></span>
-                                        (<span class="yotpo-reviews-num">0</span>)
-                                        <span class="yotpo-questions">
-                                            <span class="yotpo-questions-num">0</span> Questions
-                                        </span>
-                                    </a>
-                                </p>
+                            <div class="product__col-3-4">
+                                <div class="product__col-6-10">
+                                    <header class="product__nameHeader">
+                                        <h1 class="product__name product__name--sm">
+                                            <a href="${product.path}" title="See all details about ${product.name}">${product.name}</a>
+                                        </h1>
+                                    </header>
 
-                                <ul class="product__highlights">
-                        ${Object.keys(product.customFields.edges).map((key) => {
-                            let name = product.customFields.edges[key].node.name, tpl = '';
-
-                            if(name === "Highlight 1" || name === "Highlight 2" || name === "Highlight 3"){
-                                tpl += `<li>${product.customFields.edges[key].node.value}</li>`;
-                            }
-
-                            return tpl;
-                            
-                        }).join('') }
-                                </ul>
-
-
-                        ${Object.keys(product.customFields.edges).map((key) => {
-                            let name = product.customFields.edges[key].node.name, tpl = '';
-
-                            if(name === "Lead-Time"){
-                                tpl += `<p class="product__shipping">
-                                            ${product.customFields.edges[key].node.value}
-                                            <span id="nextBussinessDay" class="shipping-range--tip">
-                                                <script>
-                                                    document.addEventListener('DOMContentLoaded', function(){
-                                                        TEAK.Modules.leadTime.setTip("nextBussinessDay");
-                                                    });
-                                                </script>
+                                    <p class="product__itemNum">Item #: ${product.sku} &nbsp;&nbsp;&nbsp; Internet #: ${product.entityId}
+                                        <a class="product__ratingWrapper yotpo-pdp-wrapper hide" href="${product.path}#yotpoReviews" id="yotpoRating" title="Reviews of ${product.path}">
+                                            <span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of 0 out of 5."></span>
+                                            (<span class="yotpo-reviews-num">0</span>)
+                                            <span class="yotpo-questions">
+                                                <span class="yotpo-questions-num">0</span> Questions
                                             </span>
-                                        </p>`;
-                            }
+                                        </a>
+                                    </p>
 
+                                    <ul class="product__highlights">
+                            ${Object.keys(product.customFields.edges).map((key) => {
+                                let name = product.customFields.edges[key].node.name, tpl = '';
 
-                            if(name === "Lead-Time 2"){
-                                tpl += `<p class="product__shipping">${product.customFields.edges[key].node.value}</p>`;
-                            }
+                                if(name === "Highlight 1" || name === "Highlight 2" || name === "Highlight 3"){
+                                    tpl += `<li>${product.customFields.edges[key].node.value}</li>`;
+                                }
 
-
-                            if(name === "Promo Text"){
-                                tpl += `<p class="product__promoText">${product.customFields.edges[key].node.value}</p>`;
-                            }
-
-
-                            if(name === "Free Shipping Icon" && product.customFields.edges[key].node.value === "Yes"){
-                                tpl += `<div id="freeShipping">
-                                            <p class="free-shipping-text" data-pricing-free-shipping>Free Shipping</p></p>
-                                        </div>`;
-                            }
-
-                            return tpl;
-                            
-                        }).join('') }
-                            </div>
-                        
-
-
-                            <div class="product__col-4-10 no-pad">
-                                <div class="product__price">
-                                    <div class="product__priceLine">
-                                        <span class="product__priceValue" data-price="${ TEAK.Utils.graphQL.determinePrice(product.prices) }">${TEAK.Utils.formatPrice( TEAK.Utils.graphQL.determinePrice(product.prices) )}</span>
-                                        ${product.prices.retailPrice !== null ? ` <span class="product__priceRrp">${TEAK.Utils.formatPrice( product.prices.retailPrice.value )}</span>` : '' }
-                                    </div>              
-                                </div>
+                                return tpl;
                                 
-                                <button type="button" button-atc class="button button-primary button--fullWidth button-primary--green">Add to Cart</button>
-                            
-                                <div class="product__swatchCol">
-                                    <ul class="product__swatchList">
-
-                            ${Object.keys(product.productOptions).map((key) => {
-                                let productOption = product.productOptions[key].node;
-
-                                if(productOption.displayStyle === "Swatch"){
-                                    return `<li class="product__swatchItem" id="${product.entityId}.${productOption.entityId}">
-                                                <label drawer--open class="product__swatchLabel" data-product-id="${product.entityId}" rel="${productOption.entityId}" data-product-img="${product.defaultImage.url}">
-                                                    <div class="product__swatch">
-                                                        <input class="product__swatchRadio" id="${productOption.entityId}" type="radio" name="" value="" data-label="${productOption.displayName}">
-                                                        <div class="product__swatchColor" style="background-image: url('https://dummyimage.com/256x256/cccccc/777777.png&text=Choose');">
-                                                            <img class="product__swatchImg" src="https://dummyimage.com/256x256/cccccc/777777.png&text=Choose">
-                                                        </div>
-                                                    </div>
-                                                    <div class="product__swatchText">
-                                                        <p class="product__swatchOptionText">
-                                                            <span class="product__swatchName">${productOption.displayName} ${productOption.values.edges.length > 10 ? `(${productOption.values.edges.length})` : '' }</span>
-                                                            <span class="product__swatchValue"></span>
-                                                        </p>
-                                                    </div>
-                                                    <svg class="icon icon-long-arrow-right"><use xlink:href="#icon-long-arrow-right" /></svg>
-                                                </label>
-                                            </li>`;
-                                }
-
-
-                                if(productOption.displayStyle === "DropdownList"){
-                                    return `<li class="product__swatchItem product__swatchItem--select" id="${productOption.entityId}">
-                                                <label class="selectBox__label form-label" for="attribute-${productOption.entityId}">
-                                                    <div class="selectBox__text selectBox__text--right">
-                                                        <p class="selectBox__optionText">
-                                                            <span class="selectBox__name selectBox__name--labelLeft">${productOption.displayName}</span>
-                                                            <span class="selectBox__value">Select one</span>
-                                                        </p>
-                                                    </div>
-                                                    <select class="selectBox__select form-input" id="attribute-${productOption.entityId}"  name="attribute[${productOption.entityId}]" required aria-required="true">
-                                                        <option disabled selected>Select one</option>
-
-                                                        ${Object.keys(productOption.values.edges).map((key) => {
-                                                            let dropdown = productOption.values.edges[key].node;
-                                                            return `<option value="${dropdown.entityId}" data-product-attribute-value="${dropdown.label}">${dropdown.text !== undefined ? dropdown.text : dropdown.label.split("--")[0]}  ${dropdown.hasOwnProperty("priceAdjust") ? `(${dropdown.priceAdjust})` : '' }</option>
-                                                        `}).join('')}
-                                                        
-                                                    </select>
-                                                </label>
-                                            </li>`;
-                                }
-                               
-                            }).join('')}
-
+                            }).join('') }
                                     </ul>
-                                </div>
 
+
+                            ${Object.keys(product.customFields.edges).map((key) => {
+                                let name = product.customFields.edges[key].node.name, tpl = '';
+
+                                if(name === "Lead-Time"){
+                                    tpl += `<p class="product__shipping">
+                                                ${product.customFields.edges[key].node.value}
+                                                <span id="nextBussinessDay" class="shipping-range--tip">
+                                                    <script>
+                                                        document.addEventListener('DOMContentLoaded', function(){
+                                                            TEAK.Modules.leadTime.setTip("nextBussinessDay");
+                                                        });
+                                                    </script>
+                                                </span>
+                                            </p>`;
+                                }
+
+
+                                if(name === "Lead-Time 2"){
+                                    tpl += `<p class="product__shipping">${product.customFields.edges[key].node.value}</p>`;
+                                }
+
+
+                                if(name === "Promo Text"){
+                                    tpl += `<p class="product__promoText">${product.customFields.edges[key].node.value}</p>`;
+                                }
+
+
+                                if(name === "Free Shipping Icon" && product.customFields.edges[key].node.value === "Yes"){
+                                    tpl += `<div id="freeShipping">
+                                                <p class="free-shipping-text" data-pricing-free-shipping>Free Shipping</p></p>
+                                            </div>`;
+                                }
+
+                                return tpl;
+                                
+                            }).join('') }
+                                </div>
+                            
+
+
+                                <div class="product__col-4-10 no-pad">
+                                    <div class="product__price">
+                                        <div class="product__priceLine">
+                                            <span class="product__priceValue" data-price="${ TEAK.Utils.graphQL.determinePrice(product.prices) }">${TEAK.Utils.formatPrice( TEAK.Utils.graphQL.determinePrice(product.prices) )}</span>
+                                            ${product.prices.retailPrice !== null ? ` <span class="product__priceRrp">${TEAK.Utils.formatPrice( product.prices.retailPrice.value )}</span>` : '' }
+                                        </div>              
+                                    </div>
+                                
+                                    <button type="button" button-atc class="button button-primary button--fullWidth button-primary--green">Add to Cart</button>
+                                
+                                    <div class="product__swatchCol">
+                                        <ul class="product__swatchList">
+
+                                ${Object.keys(product.productOptions).map((key) => {
+                                    let productOption = product.productOptions[key].node;
+
+                                    if(productOption.displayStyle === "Swatch"){
+                                        return `<li class="product__swatchItem" id="${product.entityId}.${productOption.entityId}">
+                                                    <label drawer--open class="product__swatchLabel" data-product-id="${product.entityId}" rel="${productOption.entityId}" data-product-img="${product.defaultImage.url}">
+                                                        <div class="product__swatch">
+                                                            <input class="product__swatchRadio" id="${productOption.entityId}" type="radio" name="" value="" data-label="${productOption.displayName}">
+                                                            <div class="product__swatchColor" style="background-image: url('https://dummyimage.com/256x256/cccccc/777777.png&text=Choose');">
+                                                                <img class="product__swatchImg" src="https://dummyimage.com/256x256/cccccc/777777.png&text=Choose">
+                                                            </div>
+                                                        </div>
+                                                        <div class="product__swatchText">
+                                                            <p class="product__swatchOptionText">
+                                                                <span class="product__swatchName">${productOption.displayName} ${productOption.values.edges.length > 10 ? `(${productOption.values.edges.length})` : '' }</span>
+                                                                <span class="product__swatchValue"></span>
+                                                            </p>
+                                                        </div>
+                                                        <svg class="icon icon-long-arrow-right"><use xlink:href="#icon-long-arrow-right" /></svg>
+                                                    </label>
+                                                </li>`;
+                                    }
+
+
+                                    if(productOption.displayStyle === "DropdownList"){
+                                        return `<li class="product__swatchItem product__swatchItem--select selectBox" id="${productOption.entityId}" data-option-title="${productOption.displayName} ${productOption.entityId}" set-select data-product-attribute="set-select">
+                                                    <label class="selectBox__label form-label" for="attribute-${productOption.entityId}">
+                                                        <div class="selectBox__text selectBox__text--right">
+                                                            <p class="selectBox__optionText">
+                                                                <span class="selectBox__name selectBox__name--labelLeft">${productOption.displayName}</span>
+                                                                <span class="selectBox__value">Select one</span>
+                                                            </p>
+                                                        </div>
+                                                        <select class="selectBox__select form-input" id="attribute-${productOption.entityId}"  name="attribute[${productOption.entityId}]" required aria-required="true">
+                                                            <option disabled selected>Select one</option>
+
+                                                            ${Object.keys(productOption.values.edges).map((key) => {
+                                                                let dropdown = productOption.values.edges[key].node;
+                                                                return `<option value="${dropdown.entityId}" data-product-attribute-value="${dropdown.label}">${dropdown.text !== undefined ? dropdown.text : dropdown.label.split("--")[0]}  ${dropdown.hasOwnProperty("priceAdjust") ? `(${dropdown.priceAdjust})` : '' }</option>
+                                                            `}).join('')}
+                                                            
+                                                        </select>
+                                                    </label>
+                                                </li>`;
+                                    }
+                                
+                                }).join('')}
+
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-
-                    </div>
+                    </form>
                 </section>`;
     }
 

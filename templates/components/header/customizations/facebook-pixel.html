@@ -76,7 +76,6 @@
 
     
 
-
         function getUniqueProductIdsOnPage() {
             return Array.prototype.reduce.call(document.querySelectorAll('[data-product], [data-product-id]'), function(acc, obj) {
                 var productId = obj.getAttribute('data-product') || obj.getAttribute('data-product-id');

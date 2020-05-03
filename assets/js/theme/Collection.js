@@ -1,9 +1,14 @@
 import PageManager from '../PageManager';
+import utils from '@bigcommerce/stencil-utils';
+import productViewTemplates from './product/productViewTemplates';
 import Personalization from './Personalization';
 import GraphQL from './graphql/GraphQL';
 import GraphQL_Collection_TPL from './graphql/templates/GraphQL.collection.tpl';
 import ProductOptions from './product/customizations/ProductOptions';
 import ProductSwatchModal from './product/ProductSwatchModal';
+import AddToCartModal from './product/customizations/AddToCartModal';
+import FormValidator from './utils/FormValidator';
+
 
 export default class Collection extends PageManager {
     constructor() {
@@ -14,7 +19,7 @@ export default class Collection extends PageManager {
 
         new ProductSwatchModal();
 
-        this.$atc = $("form#collectionsATC");
+        new AddToCartModal();
 
         // options
         let optid = TEAK.Utils.getParameterByName("optid");
@@ -37,12 +42,10 @@ export default class Collection extends PageManager {
             qty: 8
         };
 
-
         this.initOptions();
         this.initCollectionProducts();
 
         this.bindings();
-
 
         // add Personalization engine
         this.recentlyViewed = new Personalization({
@@ -56,11 +59,11 @@ export default class Collection extends PageManager {
 
 
 
+
     bindings(){
-        $(this.$atc)
+        $(this.collectionsCntr)
             .on("change", "input[type='radio']", (e) => { this.trackOptionRadioChange(e); });
 
-        
         $(document.body)
             .on("change", "select.product__swatchSelect", (e) => { this.trackOptionDropdownChange(e); })
             .on("click", "[button-atc]", (e) => {})
@@ -111,8 +114,9 @@ export default class Collection extends PageManager {
                 $(this).data("price", newTotal);
                 return TEAK.Utils.formatPrice(newTotal);
             });
-    }
 
+        utils.hooks.emit('product-option-change');
+    }
 
 
 
@@ -169,8 +173,6 @@ export default class Collection extends PageManager {
 
 
 
-
-
     /**
      * Builds Options watches for products
      */
@@ -191,7 +193,6 @@ export default class Collection extends PageManager {
             this.buildOptions();
         });
     }
-
 
 
     // build the options
@@ -319,7 +320,10 @@ export default class Collection extends PageManager {
             });
 
             this.initCollectionProducts();
-        }  
+
+        }else{
+            new ProductOptions();
+        }
     }
 
 
@@ -371,6 +375,8 @@ export default class Collection extends PageManager {
             let tpl = this.graph_tpl.buildCollectionsPod(element.node);
             $(tpl).appendTo(this.collectionsCntr);
         });
+
+        
     }
 
 
@@ -432,6 +438,44 @@ export default class Collection extends PageManager {
 		}
     }
 
+
+
+
+    initValidator(formElement, context){
+        this.Validator = new FormValidator(formElement, context);
+
+        this.Validator.initSingle(
+            this.$el.find('form[data-cart-item-add]'), {
+            
+                onValid: (e) => {
+                    let event = new CustomEvent("form-field-success-state");
+                    window.dispatchEvent(event);
+                },
+            
+                onError: function(e) {
+                    let $firstError = $(e.target).find('.form-field-invalid').first();
+            
+                    // notify other apps of the form field error for specific ui updates
+                    let invalidFields = this.getInvalidFields();
+                    let event = new CustomEvent("form-field-error-state", {detail: invalidFields});
+                    window.dispatchEvent(event);
+            
+            
+                    if ('scrollBehavior' in document.documentElement.style) {
+                        window.scroll({
+                        top: $firstError.offset().top - 112,
+                        left: 0,
+                        behavior: 'smooth'
+                        });
+            
+                    } else {
+                        window.scroll(0, $firstError.offset().top - 200);
+                    }
+        
+                }
+            }
+        );
+    }
 
 
 
