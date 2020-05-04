@@ -1,4 +1,5 @@
 import utils from '@bigcommerce/stencil-utils';
+import LazyLoad from 'vanilla-lazyload';
 
 export default class AddToCartModal {
   constructor() {
@@ -8,6 +9,10 @@ export default class AddToCartModal {
       'cart-item-remove-remote',
     ];
     this.lastAddedProduct = false;
+
+    this.lazyLoadInstance = new LazyLoad({
+			elements_selector: ".replaced-image, .lazy-image"
+		});
 
     this._bindEvents();
   }
@@ -213,6 +218,8 @@ export default class AddToCartModal {
         element.querySelector("spinner");
 
         $(element).clone().appendTo(modalFooter);  
+
+        this.lazyLoadInstance.update();
       }
 
 
