@@ -23,6 +23,8 @@
 - implemented Implemented LazyLoad JS in to tempaltes starting with Product Swatches, RV and Recomm Products
 - fixed issue on the cart where the edit form wasnt working. reverted to use legacy options for cart page
 - added loading icon to cart edit modal button
+- fixed issue with legacy fall back that would not allow an atc to happen
+- fixed lazy load of atc modal recomm product images
 
 ## [1.20.23]
 - collections page updaes
