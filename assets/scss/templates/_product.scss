@@ -410,7 +410,12 @@
     }
 
     
-
+    &__atcCollectionBtn{
+        @extend .button;
+        @extend .button-primary;
+        @extend .button--fullWidth;
+        @extend .button-primary--green;
+    }
 
     &__clearSwatch{
         @extend .blog__clearFilter;

@@ -71,7 +71,7 @@ export default class ProductUtils {
           let invalidFields = this.getInvalidFields();
           let event = new CustomEvent("form-field-error-state", {detail: invalidFields});
           window.dispatchEvent(event);
-
+console.log(invalidFields)
 
           if ('scrollBehavior' in document.documentElement.style) {
             window.scroll({
@@ -418,7 +418,7 @@ export default class ProductUtils {
    */
   _bindAddToCart(event, form) {
     event.preventDefault();
-
+console.log(form)
     // Bail out if browser doesn't support FormData
     if (window.FormData === undefined) {
       return;

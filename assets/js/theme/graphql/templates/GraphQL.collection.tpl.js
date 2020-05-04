@@ -15,7 +15,7 @@ export default class GraphQL_Collection_TPL {
 
     buildCollectionsPod(product){
         return `<section class="product__row product__row--border" id="${product.entityId}">
-                    <form class="form add-to-cart-form" method="post" id="collection:${product.entityId}" name="collection:${product.entityId}" action="/cart.php" enctype="multipart/form-data" data-cart-item-add data-product-options-count="">
+                    <form class="form add-to-cart-form" method="post" id="collection:${product.entityId}" name="collection:${product.entityId}" action="/cart.php" enctype="multipart/form-data" data-product-options-count="">
                         <input type="hidden" name="product_id" value="${product.entityId}" data-product-id="${product.entityId}" />
                         <input type="hidden" name="action" value="add">
                         <input type="hidden" class="product-quantity form-input" name="qty[]" value="1">
@@ -107,7 +107,7 @@ export default class GraphQL_Collection_TPL {
                                         </div>              
                                     </div>
                                 
-                                    <button type="button" button-atc class="button button-primary button--fullWidth button-primary--green">Add to Cart</button>
+                                    <button type="button" button-atc class="product__atcCollectionBtn">Add to Cart</button>
                                 
                                     <div class="product__swatchCol">
                                         <ul class="product__swatchList">
@@ -169,7 +169,6 @@ export default class GraphQL_Collection_TPL {
                     </form>
                 </section>`;
     }
-
 
 
 

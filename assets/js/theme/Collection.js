@@ -66,7 +66,13 @@ export default class Collection extends PageManager {
 
         $(document.body)
             .on("change", "select.product__swatchSelect", (e) => { this.trackOptionDropdownChange(e); })
-            .on("click", "[button-atc]", (e) => {})
+            .on("click", "[button-atc]", (e) => { this.atcCollectionItem(e) })
+    }
+
+
+
+    atcCollectionItem(e){
+        console.log( $(e.currentTarget).parents("form") )
     }
 
 
@@ -374,6 +380,8 @@ export default class Collection extends PageManager {
         this.collectionsArray.edges.forEach((element) => {
             let tpl = this.graph_tpl.buildCollectionsPod(element.node);
             $(tpl).appendTo(this.collectionsCntr);
+
+            this.initValidator(`collection:${element.node.entityId}`, tpl);
         });
 
         
@@ -381,6 +389,46 @@ export default class Collection extends PageManager {
 
 
 
+
+
+    initValidator(formElement, context){
+        this.Validator = new FormValidator(formElement, context);
+
+        this.Validator.initSingle(
+            $(formElement).find('form'), {
+            
+                onValid: (e) => {
+                    console.log("success " + e)
+                    let event = new CustomEvent("form-field-success-state");
+                    window.dispatchEvent(event);
+                },
+            
+                onError: function(e) {
+                    console.log("error " + e)
+
+                    let $firstError = $(e.target).find('.form-field-invalid').first();
+            
+                    // notify other apps of the form field error for specific ui updates
+                    let invalidFields = this.getInvalidFields();
+                    let event = new CustomEvent("form-field-error-state", {detail: invalidFields});
+                    window.dispatchEvent(event);
+            
+            
+                    if ('scrollBehavior' in document.documentElement.style) {
+                        window.scroll({
+                        top: $firstError.offset().top - 112,
+                        left: 0,
+                        behavior: 'smooth'
+                        });
+            
+                    } else {
+                        window.scroll(0, $firstError.offset().top - 200);
+                    }
+        
+                }
+            }
+        );
+    }
 
 
 
@@ -437,47 +485,6 @@ export default class Collection extends PageManager {
             });
 		}
     }
-
-
-
-
-    initValidator(formElement, context){
-        this.Validator = new FormValidator(formElement, context);
-
-        this.Validator.initSingle(
-            this.$el.find('form[data-cart-item-add]'), {
-            
-                onValid: (e) => {
-                    let event = new CustomEvent("form-field-success-state");
-                    window.dispatchEvent(event);
-                },
-            
-                onError: function(e) {
-                    let $firstError = $(e.target).find('.form-field-invalid').first();
-            
-                    // notify other apps of the form field error for specific ui updates
-                    let invalidFields = this.getInvalidFields();
-                    let event = new CustomEvent("form-field-error-state", {detail: invalidFields});
-                    window.dispatchEvent(event);
-            
-            
-                    if ('scrollBehavior' in document.documentElement.style) {
-                        window.scroll({
-                        top: $firstError.offset().top - 112,
-                        left: 0,
-                        behavior: 'smooth'
-                        });
-            
-                    } else {
-                        window.scroll(0, $firstError.offset().top - 200);
-                    }
-        
-                }
-            }
-        );
-    }
-
-
 
 
     

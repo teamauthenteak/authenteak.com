@@ -1,6 +1,7 @@
 # Change Log
 
 ## [1.20.25]
+- Collections page
 
 
 ## [1.20.24]
