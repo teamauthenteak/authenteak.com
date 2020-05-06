@@ -21,14 +21,14 @@ export default class GraphQL_Collection_TPL {
                         <input type="hidden" class="product-quantity form-input" name="qty[]" value="1">
 
                         <div class="product__col-1-1">
-                            <figure class="product__figure product__col-1-4">
+                            <figure class="product__figure product__col-1-4--lg product__col-1-1">
                                 <a href="${product.path}" title="See all details about ${product.name}">
                                     <img data-product-image class="product__img product__img--thumb" src="${product.defaultImage.url}" alt="${product.name}">
                                 </a>
                             </figure>
 
-                            <div class="product__col-3-4">
-                                <div class="product__col-6-10">
+                            <div class="product__col-3-4--lg product__col-1-1">
+                                <div class="product__col-6-10--lg product__col-1-1">
                                     <header class="product__nameHeader">
                                         <h1 class="product__name product__name--sm">
                                             <a href="${product.path}" title="See all details about ${product.name}">${product.name}</a>
@@ -99,7 +99,7 @@ export default class GraphQL_Collection_TPL {
                             
 
 
-                                <div class="product__col-4-10 no-pad">
+                                <div class="product__col-4-10--lg product__col-1-1 no-pad">
                                     <div class="product__price">
                                         <div class="product__priceLine">
                                             <span class="product__priceValue" data-price="${ TEAK.Utils.graphQL.determinePrice(product.prices) }">${TEAK.Utils.formatPrice( TEAK.Utils.graphQL.determinePrice(product.prices) )}</span>

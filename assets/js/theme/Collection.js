@@ -71,9 +71,53 @@ export default class Collection extends PageManager {
 
 
 
+
+
+
     atcCollectionItem(e){
-        console.log( $(e.currentTarget).parents("form") )
+        let form = $(e.currentTarget).parents("form")[0];
+
+        if (window.FormData === undefined) { return; }
+
+        let formData = new FormData(form);
+
+        utils.api.cart.itemAdd(this.filterEmptyFilesFromForm(formData), (err, response) => {
+            console.log(response)
+            console.log(err)
+
+            if (response.status === 'success') {
+
+               $.event.trigger({
+                 type: 'cart-item-add-success',
+                 data: {}
+               });
+            
+            }
+       
+        });
     }
+
+
+
+    /**
+  * https://stackoverflow.com/questions/49672992/ajax-request-fails-when-sending-formdata-including-empty-file-input-in-safari
+  * Safari browser with jquery 3.3.1 has an issue uploading empty file parameters. This function removes any empty files from the form params
+  * @param formData: FormData object
+  * @returns FormData object
+  */
+  filterEmptyFilesFromForm(formData) {
+    try {
+      for (const [key, val] of formData) {
+        if (val instanceof File && !val.name && !val.size) {
+          formData.delete(key);
+        }
+      }
+    } catch (e) {
+      console.error(e); // eslint-disable-line no-console
+    }
+    return formData;
+  }
+
 
 
 

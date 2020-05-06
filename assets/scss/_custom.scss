@@ -51,15 +51,14 @@
 @import 'sections/blog/blog';
 @import 'sections/blog/filter';
 
-// other
-@import 'sections/newsletter';
-
-
 /* Tempaltes */
 @import 'templates/brands';
 @import 'templates/landing';
 @import 'templates/blog';
 @import 'templates/product';
+
+// other
+@import 'sections/newsletter';
 
 /* Plugins */
 // @import 'plugins/simplebar/simplebar';

@@ -20,7 +20,7 @@
 
  <!-- SEARCHSPRING SCRIPT -->
 {{#if category}}
-<script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" async search="search_query" category="{{#each breadcrumbs}}{{#unless @first}}{{name}}{{#unless @last}}>{{/unless}}{{/unless}}{{/each}}" name="{{ category.name }}"></script>
+<script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" search="search_query" category="{{#each breadcrumbs}}{{#unless @first}}{{name}}{{#unless @last}}>{{/unless}}{{/unless}}{{/each}}" name="{{ category.name }}"></script>
 {{else if brand}}
 <script src="//cdn.searchspring.net/search/v3/js/searchspring.catalog.js?sm8dxk" async search="search_query" brand="{{ brand.name }}"></script>
 {{else}}
@@ -90,7 +90,7 @@
 	<div class="icons-svg-sprite">{{> components/common/icons/icon-defs}}</div>
 
 	
-	<script src="{{cdn '/assets/js/bundle.js'}}"></script>
+	<script src="{{cdn '/assets/js/bundle.js'}}?v={{theme_settings.version}}"></script>
 	{{> components/common/TEAK-js}}
 	
 	{{#if page_type '===' 'product'}}

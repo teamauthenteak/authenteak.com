@@ -2,7 +2,7 @@
 
 ## [1.20.25]
 - Collections page
-
+- added release version number query parameter to bundle.js
 
 ## [1.20.24]
 - removed * from selectbox options

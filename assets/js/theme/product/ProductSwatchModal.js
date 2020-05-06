@@ -97,7 +97,7 @@ export default class ProductSwatchModal {
 
         this.$optionForm
             .on("click", "button.drawer__displayType", (e) => { this.toggleSwatchList(e); })
-            .on("click", "button.drawer__displayFilters", (e) => { this.toggleFiltersList(e); })
+            .on("click", "button.drawer__displayFiltersBtn", (e) => { this.toggleFiltersList(e); })
             .on("keyup", "input.drawer__control--input", () => { this.keyWordFilter(); })
             .on("change", "input.swatch-radio", (e) => { this.selectSwatchColor(e); })
             .on("click", ".drawer__clearControl", (e) => { this.clearKeyword(e) })
@@ -174,7 +174,7 @@ export default class ProductSwatchModal {
         label = TEAK.Utils.parseOptionLabel(label.toString());
 
         this.$optionsDrawer
-            .find(".drawer__selectedSwatchText").text(`Selected: ${label.text}${label.priceAdjust ? ", " + label.priceAdjust : ''}`)
+            .find(".drawer__selectedSwatchText").text(`Selected: ${label.text}${label.priceAdjust ? ", " + label.priceAdjust : ''}`).addClass("show")
                 .end()
             .find(".drawer__imgCntr").html(swatchImg)
                 .end()
@@ -233,11 +233,11 @@ export default class ProductSwatchModal {
     // open show filter list with checkbox controls
     toggleFiltersList(e){
         $(e.currentTarget)
-            .toggleClass("drawer__displayFilters--open")
-            .find(".drawer__displayFilterText")
-                .text(function(){
-                    return $(this).hasClass("drawer__displayFilters--open") ? "Close Filters" : "Filter Options";
-                });
+            .toggleClass("drawer__displayFiltersBtn--open");
+            // .find(".drawer__displayFilterText")
+            //     .text(function(){
+            //         return $(this).hasClass("drawer__displayFilters--open") ? "Close Filters" : "Filter";
+            //     });
 
         this.$filterCntr.slideToggle("fast");
         e.preventDefault();
@@ -268,14 +268,14 @@ export default class ProductSwatchModal {
         let productImg = this.getProductImg(e);
         e.preventDefault();
 
-        this.$optionForm.find("button.drawer__displayFilters--open").click();
+        this.$optionForm.find("button.drawer__displayFiltersBtn--open").click();
         $(document.body).toggleClass("drawer__freezeBody");
         this.$optionModalSwatches.find(".drawer__contentCntr, .drawer__contentHeading").html("");
         
         this.$optionsDrawer.toggleClass("drawer--close drawer--open")
             .siblings(".drawer__overlay").toggleClass("fadeIn drawer__overlay--hide")
                 .end()
-            .find(".drawer__selectedSwatchText").html("")
+            .find(".drawer__selectedSwatchText").html("").removeClass("show")
                 .end()
             .find(".drawer__content").css("paddingBottom", 20)
                 .end()
@@ -669,8 +669,11 @@ export default class ProductSwatchModal {
             }
         }
 
-        this.$optionForm.find(".drawer__displayFilters").toggleClass("hide", tracker.length === 0);
-        this.$optionModalSwatches.find(".drawer__contentHeading").text(this.optionsArray.displayName);
+        this.$optionForm
+            .find(".drawer__displayFiltersBtn, .drawer__controlSet").toggleClass("hide", tracker.length === 0);
+               
+        this.$optionModalSwatches
+            .find(".drawer__contentHeading").text(this.optionsArray.displayName);
     }
 
 

@@ -39,18 +39,31 @@ export default class GraphQL_Swatch_TPL {
                                 <figcaption class="drawer__selectedSwatchText"></figcaption>
                             </figure>
                 
-                            <form class="drawer__filtersForm" id="optionForm">
-                                <fieldset class="drawer__controlSet">
-                                    <input type="text" autocomplete="off" id="drawerSearchInput" class="drawer__control drawer__control--input" placeholder="Search By Name">
-                                    <button type="button" class="drawer__clearControl hide"><svg class="icon icon-close"><use xlink:href="#icon-close" /></svg></button>
-                                </fieldset>
-                                
+                            <form class="drawer__filtersForm" id="optionForm"> 
                                 <div class="drawer__topCntr">
                                     <ul class="drawer__displayList">
+                                        <li class="drawer__displayItem">
+                                            <fieldset class="drawer__controlSet">
+                                                <input type="text" autocomplete="off" id="drawerSearchInput" class="drawer__control drawer__control--input" placeholder="Search By Name">
+                                                <button type="button" class="drawer__clearControl hide"><svg class="icon icon-close"><use xlink:href="#icon-close" /></svg></button>
+                                                <button type="button" class="drawer__control drawer__control--searchTrigger">
+                                                    <svg class="icon icon-search111"><use xlink:href="#icon-search111" /></svg>
+                                                    Search
+                                                </button>
+                                            </fieldset>
+                                        </li>
                                         <li class="drawer__displayItem drawer__displayItem--filters">
-                                            <button type="button" class="drawer__displayFilters">
-                                                <span class="drawer__displayFilterText">Filter Options</span>
-                                                <svg class="icon icon-arrow-down"><use xlink:href="#icon-arrow-down" /></svg>
+                                            <button type="button" class="drawer__displayFiltersBtn">
+                                                <span class="drawer__displayFilterText drawer__displayFilterText--lg">
+                                                    Filter Options
+                                                    <svg class="icon icon-chevron-down"><use xlink:href="#icon-chevron-down" /></svg>
+                                                </span>
+
+                                                <span class="drawer__displayFilterText drawer__displayFilterText--sm">
+                                                    <svg class="icon icon-filter"><use xlink:href="#icon-filter" /></svg>
+                                                    Filter
+                                                    <svg class="icon icon-chevron-down"><use xlink:href="#icon-chevron-down" /></svg>
+                                                </span>
                                             </button>
                                         </li>
                                         <li class="drawer__displayItem">
@@ -71,7 +84,10 @@ export default class GraphQL_Swatch_TPL {
                         </div>
                     </div>
                     <footer class="drawer__footer">
-                        <button type="button" class="drawer__saveBtn" drawer--close>Save & Finish</button>
+                        <button type="button" class="drawer__saveBtn" drawer--close>
+                            <svg class="icon icon-long-arrow-left"><use xlink:href="#icon-long-arrow-left" /></svg>
+                            Save &amp; Back
+                        </button>
                     </footer>
                 </aside>
                 <div class="drawer__overlay drawer__overlay--hide"></div>`;

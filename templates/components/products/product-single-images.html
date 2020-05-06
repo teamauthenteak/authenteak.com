@@ -8,7 +8,7 @@
   
       {{#if images}}
         {{#each images}}
-          <a class="product-image" style="background-image:url("{{getImage this 'zoom'}}");" href="{{getImage this 'zoom'}}" data-product-image>
+          <a class="product-image" style="background-image:url('{{getImage this "zoom"}}');" href="{{getImage this 'zoom'}}" data-product-image>
             <img src="{{getImage this 'product'}}" alt="{{alt}}">
           </a>
         {{/each}}
