@@ -105,8 +105,10 @@ export default class ProductSwatchModal {
 
 
         // on page main label swatch Events from Product Utils
-        window.addEventListener("form-field-error-state", (e) => { this.handelSwatchError(e) });
-        window.addEventListener("form-field-success-state", (e) => { this.handelSwatchValid(e) });
+        $(window)
+            .on("form-field-error-state", (e) => { this.handelSwatchError(e) })
+            .on("form-field-success-state", (e) => { this.handelSwatchValid(e) });
+
     }
 
 
@@ -184,10 +186,11 @@ export default class ProductSwatchModal {
     }
 
 
-
-    // feel like this should be a type of direcite or seperate module...
+    // update the parent or remote swatch
+    // feel like this should be a type of directive or seperate module...
     updateSwatchButton(e, $this){
-        let labelData = $this.data(),
+        let that = this,
+            labelData = $this.data(),
             inputData =  $(e.currentTarget).data(),
             parsedLabel = TEAK.Utils.parseOptionLabel(labelData.swatchValue.toString());
 
@@ -196,25 +199,25 @@ export default class ProductSwatchModal {
         this.$optionTriggerButton
             .find("input:radio")
                 .val(this.selectedSwatchObj.productAttributeValue)
-                .prop("selected", true)
-                .data("parsedLabel", this.selectedSwatchObj.text)
-                .attr({'checked': true, "id": `attribute[${this.selectedSwatchObj.productAttributeValue}]`})
+                .prop({ "selected": true, 'checked': true })
+                .data( "parsedLabel", this.selectedSwatchObj.text)
+                .attr({ "checked": true, "id": `attribute[${this.selectedSwatchObj.productAttributeValue}]` })
                     .end()
             .find(".product__swatchValue").addClass("show").text( this.selectedSwatchObj.text )
                 .end()
             .find(".product__swatchColor").css("backgroundImage", `https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${this.selectedSwatchObj.productAttributeValue}.preview.jpg`)
             .find(".product__swatchImg").attr("src", `https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${this.selectedSwatchObj.productAttributeValue}.preview.jpg`)
-        
                 // .end()
-            // needs to be a function that updates price differently if collections page
             // .parents(".product__row").find(".product__priceValue").text(function(){
-            //     if(opt.hasOwnProperty("priceAdjust")){
-            //         let productPrice = $(this).data("price"),
-            //             newTotal = that.calculateAdjustedPrice(productPrice, opt);
 
-            //         $(this).data("price", newTotal);
-            //         return TEAK.Utils.formatPrice(newTotal);
-            //     }
+                // if( labelData.hasOwnProperty("priceAdjust") && document.getElementById("CategoryCollection") ){
+                //     let productPrice = $(this).data("price"),
+                //         newTotal = that.calculateAdjustedPrice(productPrice, labelData);
+
+                //     $(this).data("price", newTotal);
+                //     return TEAK.Utils.formatPrice(newTotal);
+                // }
+
             // });
 
             // this triggers a price update on the PDP from ProductUtils.js

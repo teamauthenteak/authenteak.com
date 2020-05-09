@@ -31,12 +31,13 @@ export default class Collection extends PageManager {
         this.optionsArray = [];                                 // temporary array for fetched options
         this.productOptionScope = {};                           // stores all product option objects with product ID key
         this.currentSelection = {};                             // saves the currently selected option
-        
+        this.atcItem = "";
+
         // products
         this.collectionsCntr = document.getElementById("collectionsCntr");
 
         this.collectionsArray = [];                             // temporary array all fetched products
-        this.collectionsProductIds = [];                        // stores all product ids for fetching of their options
+        this.collectionProducts = [];                        // stores all product ids for fetching of their options
         this.collectionSettings = {                             // used to fetched paginated options
             path: window.location.pathname,
             qty: 8
@@ -62,40 +63,329 @@ export default class Collection extends PageManager {
 
     bindings(){
         $(this.collectionsCntr)
-            .on("change", "input[type='radio']", (e) => { this.trackOptionRadioChange(e); });
+            .on("change", "input[type='radio']", (e) => { this.trackOptionRadioChange(e); })
+            .on("submit", "form.add-to-cart-form", (e) => { e.preventDefault() });
 
         $(document.body)
             .on("change", "select.product__swatchSelect", (e) => { this.trackOptionDropdownChange(e); })
-            .on("click", "[button-atc]", (e) => { this.atcCollectionItem(e) })
+            .on("click", "[button-atc]", (e) => { this.atcSubmit(e); });
+
+        $(window)
+            .on("cartDataStored", (e) => { this.handelATCModal(e.detail); })
+            .on("form-field-error-state", (e) => { 
+                this.handelSubmitState(e);
+            })
+            .on("form-field-success-state", (e) => { 
+                this.handelSubmitState(e);
+            });
+       
+
+        this.onProductOptionChange();
     }
 
 
 
+    atcSubmit(e){
+        let $target = $(e.currentTarget);
+        $target.parents("form").submit();
+    }
 
 
 
-    atcCollectionItem(e){
-        let form = $(e.currentTarget).parents("form")[0];
+    handelSubmitState(e){
+        let $target, $targtBtn, isShown;
 
+        if( e.type === "form-field-error-state" ){
+            $target = $(e.detail[0].field);
+            $targtBtn = $target.parents("form").find(".product__atcCollectionBtn");
+            isShown = false;
+
+        }else if( e.type === "form-field-success-state" ){
+            console.log(e)
+            isShown = true;
+            this.atcCollectionItem(e, $target);
+        }
+
+        this.toggleATCButton($targtBtn, isShown);
+    }
+
+
+
+    atcCollectionItem($target){
         if (window.FormData === undefined) { return; }
 
+        this.toggleATCButton($target, true);
+
+        let form = $target.parents("form")[0];
         let formData = new FormData(form);
 
         utils.api.cart.itemAdd(this.filterEmptyFilesFromForm(formData), (err, response) => {
-            console.log(response)
-            console.log(err)
-
             if (response.status === 'success') {
-
-               $.event.trigger({
-                 type: 'cart-item-add-success',
-                 data: {}
-               });
-            
+                $.event.trigger({
+                    type: 'cart-item-add-success',
+                    data: {}
+                });
             }
-       
         });
+
+        // setup this product to show the atc modal
+        let atcItem = $target.parents("form").attr('id').split("_")[1];
+        atcItem = parseInt(atcItem);
+
+        this.atcItem = this.collectionProducts.find(element => element.entityId === atcItem);
     }
+
+
+
+    initValidator(context){
+        let formElement = `collection_${context.node.entityId}`,
+            formContext = [];
+        
+        context.node.productOptions.forEach((element) => {
+            formContext.push({
+                name: `attribute[${element.node.entityId}]`,
+                rules: element.node.isRequired ? "required" : ""
+            });
+        });
+
+        // console.log(formContext)
+
+        this.Validator = new FormValidator(formElement, formContext);
+
+        this.Validator.initSingle(
+            $(`form[name=${formElement}]`), {
+            
+                onValid: (e) => {
+                    // console.log("success " + e)
+                    let event = new CustomEvent("form-field-success-state", {detail: this});
+                    window.dispatchEvent(event);
+                },
+            
+                onError: function(e) {
+                    // console.log(e)
+
+                    // let $firstError = $(e.target).find('.product__swatchLabel--error').first();
+            
+                    // notify other apps of the form field error for specific ui updates
+                    let invalidFields = this.getInvalidFields();
+                    let event = new CustomEvent("form-field-error-state", {detail: invalidFields});
+                    window.dispatchEvent(event);
+            
+            
+                    // if ('scrollBehavior' in document.documentElement.style) {
+                    //     window.scroll({
+                    //         top: $firstError.offset().top - 112,
+                    //         left: 0,
+                    //         behavior: 'smooth'
+                    //     });
+            
+                    // } else {
+                    //     window.scroll(0, $firstError.offset().top - 200);
+                    // }
+        
+                }
+            }
+        );
+    }
+
+
+    toggleATCButton($target, showAction){        
+        $target
+            .find(".product__atcCollectionBtnText").toggleClass("hide", showAction)
+                .end()
+            .find(".icon-spinner").toggleClass("hide", !showAction);
+    }
+
+
+
+    handelATCModal(cartDetail){
+        console.log(this.atcItem)
+
+        let tpl = this.graph_tpl.getAtcModalContent(this.atcItem, cartDetail);
+
+        $("#modalCartCntr").html(tpl);
+        $('.modal-cart').addClass('is-open');
+
+        this.toggleATCButton( $(`#collection_${this.atcItem.entityId}`), false );
+    }
+
+
+
+
+    onProductOptionChange(){
+
+        function getViewModel($el) {
+            return {
+                $price: $('[data-product-price-wrapper="without-tax"]', $el),
+                $testBit: $('[data-test-bit]', $el),
+                $freeShip: $('[data-pricing-free-shipping]', $el),
+                $priceWithTax: $('[data-product-price-wrapper="with-tax"]', $el),
+                $saved: $('[data-product-price-saved]', $el),
+                $sku: $('[data-product-sku]', $el),
+                $weight: $('[data-product-weight]', $el),
+                $addToCart: $('[data-button-purchase]', $el),
+                $imagePreview: $('[data-variation-preview]', $el),
+                stock: {
+                    $selector: $('[data-product-stock]', $el),
+                    $level: $('[data-product-stock-level]', $el),
+                }
+            };
+        }
+
+
+        utils.hooks.on('product-option-change', (event, changedOption) => {
+            let $changedOption = $(changedOption);
+            let $form = $changedOption.parents('form');
+            let $productid = $form.find("[name='product_id']").val();
+
+            utils.api.productAttributes.optionChange($productid, $form.serialize(), (err, response) => {
+                const viewModel = getViewModel($form);
+                const data = response ? response.data : {};
+      
+              // If our form data doesn't include the product-options-count with a positive value, return
+            //   if (this.$el.find('[data-product-options-count]').val < 1) {
+            //     return;
+            //   }
+      
+            //   this._updateAttributes(data);
+      
+              // Apply quantity changes
+            //   let qty = Number.parseInt($('.product-quantity').val());
+              let qty = 1;
+
+              if (qty > 1) {
+                for (var i in data.price) {
+                  if (data.price[i].value) {
+                    data.price[i].value *= qty;
+                    if (data.price[i].formatted) {
+                      data.price[i].formatted = data.price[i].value.toLocaleString('en-us', {style: 'currency', currency: 'USD'});
+                    }
+                  }
+                }
+              }
+      
+              console.log(data)
+      
+              // Extrapolate and test for base price
+              if (data.base || (typeof data.variantID == 'undefined' && typeof data.v3_variant_id == 'undefined')) {
+                viewModel.$price.data('base-price', data.price.without_tax);
+              }
+      
+              if (data.price.without_tax !== viewModel.$price.data('base-price')) {
+                delete data.price.rrp_without_tax;
+                delete data.price.rrp_with_tax;
+                delete data.price.saved;
+              }
+      
+              // updating price (Update price based on quantity HERE!)
+              if (viewModel.$price.length) {
+                // const priceStrings = {
+                //   price: data.price,
+                //   excludingTax: "(exc tax)",
+                // };
+
+                $form.find(".product__priceValue")
+                    .data("price", data.price.without_tax.value).text(data.price.without_tax.formatted);
+      
+                // viewModel.$price.html(productViewTemplates.priceWithoutTaxTemplate(priceStrings));
+                // console.log('updating!');
+                // console.log(this);
+                // console.log(priceStrings);
+                // console.log(data.price);
+              }
+      
+              if (viewModel.$priceWithTax.length) {
+                // const priceStrings = {
+                //   price: data.price,
+                //   includingTax: this.context.productIncludingTax,
+                // };
+
+                $form.find(".product__priceValue")
+                    .data("price", data.price.with_tax.value).text(data.price.with_tax.formatted);
+
+                // viewModel.$priceWithTax.html(this.options.priceWithTaxTemplate(priceStrings));
+              }
+      
+            //   if (viewModel.$saved.length) {
+            //     const priceStrings = {
+            //       price: data.price,
+            //       savedString: this.context.productYouSave,
+            //     };
+            //     viewModel.$saved.html(this.options.priceSavedTemplate(priceStrings));
+            //   }
+      
+              // stock
+            //   if (data.stock) {
+            //     viewModel.stock.$selector.removeClass('product-details-hidden');
+            //     viewModel.stock.$level.text(data.stock);
+            //   } else {
+            //     viewModel.stock.$level.text('0');
+            //   }
+      
+              // update sku if exists
+            //   if (viewModel.$sku.length) {
+            //     viewModel.$sku.html(data.sku);
+            //   }
+      
+              // update testBit if exists
+            //   if (viewModel.$testBit.length) {
+            //     viewModel.$testBit.html("-----");
+            //   }
+      
+              // update free shipping if exists
+            //   if (viewModel.$freeShip.length) {
+            //     viewModel.$testBit.html("Free Shipping");
+            //   }
+      
+              // update weight if exists
+            //   if (data.weight && viewModel.$weight.length) {
+            //     viewModel.$weight.html(data.weight.formatted);
+            //   }
+      
+              // handle product variant image if exists
+            //   if (data.image) {
+            //     const productImageUrl = utils.tools.image.getSrc(
+            //       data.image.data,
+            //       this.context.themeImageSizes.zoom
+            //     );
+            //     const zoomImageUrl = utils.tools.image.getSrc(
+            //       data.image.data,
+            //       this.context.themeImageSizes.product
+            //     );
+      
+            //     // to maintain a reference between option images, pull out the
+            //     // filename from the image URL and use it as an ID
+            //     const imageId = data.image.data.replace(/^.*[\\\/]/, '');
+      
+            //     this.callbacks.switchImage(productImageUrl, zoomImageUrl, data.image.alt, imageId);
+            //   }
+      
+              // update submit button state
+            //   if (!data.purchasable || !data.instock) {
+            //     if (data.purchasing_message && showMessage) {
+            //       if ($('.modal-quick-shop').length) {
+            //         this.productAlerts.error(data.purchasing_message, true);
+            //       } else {
+            //         setTimeout(() => {
+            //           this.pageAlerts.error(data.purchasing_message, true);
+            //         }, 50);
+            //       }
+            //     }
+      
+            //     viewModel.$addToCart
+            //       .addClass(this.buttonDisabledClass)
+            //       .prop('disabled', true);
+            //   } else {
+            //     viewModel.$addToCart
+            //       .removeClass(this.buttonDisabledClass)
+            //       .prop('disabled', false);
+            //   }
+
+
+            });
+          });
+    }
+
 
 
 
@@ -239,8 +529,9 @@ export default class Collection extends PageManager {
         this.getOptions().then((data) => {
             this.optionsArray = data.site.products.edges[0].node.productOptions.edges;
             this.productOptionsCntr.innerHTML = "";
-            
-            this.buildOptions();
+
+            // this.buildOptions();
+            this.setOptionsJSON();
         });
     }
 
@@ -259,9 +550,6 @@ export default class Collection extends PageManager {
                 $(".product__swatchRequestBtn").css("display", "flex");
             }
         });
-
-
-        this.setOptionsJSON();
     }
 
 
@@ -384,6 +672,9 @@ export default class Collection extends PageManager {
 
         this.collectionsArray.edges.forEach((element) => {
             collectionsProductIds.push(element.node.entityId);
+
+            // save for later reference
+            this.collectionProducts.push(element.node);
         });
 
         let optScheme = this.graphQL.getProductOptions(collectionsProductIds);
@@ -425,53 +716,8 @@ export default class Collection extends PageManager {
             let tpl = this.graph_tpl.buildCollectionsPod(element.node);
             $(tpl).appendTo(this.collectionsCntr);
 
-            this.initValidator(`collection:${element.node.entityId}`, tpl);
-        });
-
-        
-    }
-
-
-
-
-
-    initValidator(formElement, context){
-        this.Validator = new FormValidator(formElement, context);
-
-        this.Validator.initSingle(
-            $(formElement).find('form'), {
-            
-                onValid: (e) => {
-                    console.log("success " + e)
-                    let event = new CustomEvent("form-field-success-state");
-                    window.dispatchEvent(event);
-                },
-            
-                onError: function(e) {
-                    console.log("error " + e)
-
-                    let $firstError = $(e.target).find('.form-field-invalid').first();
-            
-                    // notify other apps of the form field error for specific ui updates
-                    let invalidFields = this.getInvalidFields();
-                    let event = new CustomEvent("form-field-error-state", {detail: invalidFields});
-                    window.dispatchEvent(event);
-            
-            
-                    if ('scrollBehavior' in document.documentElement.style) {
-                        window.scroll({
-                        top: $firstError.offset().top - 112,
-                        left: 0,
-                        behavior: 'smooth'
-                        });
-            
-                    } else {
-                        window.scroll(0, $firstError.offset().top - 200);
-                    }
-        
-                }
-            }
-        );
+            this.initValidator(element);
+        });   
     }
 
 

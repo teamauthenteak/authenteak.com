@@ -337,6 +337,13 @@
         @extend .button-primary;
         @extend .button--fullWidth;
         @extend .button-primary--green;
+        outline: none;
+        height: 62px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        position: relative;
     }
 
     &__clearSwatch{
@@ -483,6 +490,7 @@
         line-height: 1;
         padding: 0;
         background-color: #fff;
+        outline: none;
 
         &--pdp{
             display: none;
@@ -529,8 +537,10 @@ body.product{
 [class*='product__col-']{
     @extend %span;
 
-    & [class*='product__col-']{
-        padding: 0;
+    @media only screen and (max-width: $screen-sm) {
+        & > [class*='product__col-']{
+            padding: 0;
+        }
     }
 }
 

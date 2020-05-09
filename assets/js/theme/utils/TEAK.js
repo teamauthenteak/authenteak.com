@@ -17,6 +17,23 @@
 window.TEAK = window.TEAK || {};
 
 
+
+/** -----------------------------------------
+ * TEAK Data Model
+ * Store Model View data for interactions
+ * ------------------------------------------ */
+window.TEAK.Data = {};
+
+
+
+/** -------------------------------------------------------
+ * TEAK User Config Model
+ * User Configuration object to hold global user settings
+ * -------------------------------------------------------- */
+window.TEAK.User = {};
+
+
+
 /** -----------------------------------------------------------------------------------------
  * TEAK Globals Config Model
  * Global Configuration object to hold general settigns and globally used STATIC variables
@@ -63,13 +80,6 @@ window.TEAK.Globals = {
         ]
     }
 };
-
-
-/** -------------------------------------------------------
- * TEAK User Config Model
- * User Configuration object to hold global user settings
- * -------------------------------------------------------- */
-window.TEAK.User = {};
 
 
 
@@ -137,6 +147,7 @@ window.TEAK.Utils = {
 					data.ships = "Ships " + ships;
 				}
 
+                // console.log(data)
 
 			} else if (part.match(/^LEAD:/)) {
 
@@ -297,12 +308,14 @@ window.TEAK.Utils = {
     saveCartResponse: function(response){
         var event, storedData = JSON.stringify(response);
 
+        TEAK.Data.cart = response[0];
+
         if( window.localStorage ){
             window.localStorage.setItem('cartData', storedData);
         }
         
         if( typeof window.CustomEvent === 'function' ) {
-            event = new CustomEvent('cartDataStored');
+            event = new CustomEvent('cartDataStored', { detail: response[0] });
             
         }else{
             event = document.createEvent('cartDataStored');
@@ -381,12 +394,6 @@ window.TEAK.Utils = {
 
 
 
-
-/** -----------------------------------------
- * TEAK Data Model
- * Store Model View data for interactions
- * ------------------------------------------ */
-window.TEAK.Data = {};
 
 
 

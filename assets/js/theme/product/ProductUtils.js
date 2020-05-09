@@ -218,6 +218,7 @@ console.log(invalidFields)
             excludingTax: this.context.productExcludingTax,
           };
 
+
           viewModel.$price.html(this.options.priceWithoutTaxTemplate(priceStrings));
           // console.log('updating!');
           // console.log(this);
@@ -418,7 +419,7 @@ console.log(invalidFields)
    */
   _bindAddToCart(event, form) {
     event.preventDefault();
-console.log(form)
+
     // Bail out if browser doesn't support FormData
     if (window.FormData === undefined) {
       return;

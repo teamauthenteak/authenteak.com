@@ -1,97 +1,100 @@
 ---
 category:
-  products:
-    limit: {{theme_settings.product-count}}
+products:
+limit: {{theme_settings.product-count}}
 ---
 
 {{#partial "page"}}
 
-    <div class="product" id="CategoryCollection">
-        {{#if theme_settings.category-breadcrumbs}}
-        <div class="product__breadcrumbs mobileHide">
-            {{> components/common/breadcrumbs breadcrumbs}}
+<div class="product" id="CategoryCollection">
+    {{#if theme_settings.category-breadcrumbs}}
+    <div class="product__breadcrumbs mobileHide">
+        {{> components/common/breadcrumbs breadcrumbs}}
+    </div>
+    {{/if}}
+
+
+    <div class="product__col-1-1">
+        <div class="product__col-1-2">
+            <figure class="product__figure product__figure--full">
+                <img src="{{getImage category.image 'thumbnail'}}" alt="{{alt}}" class="product__img">
+            </figure>
         </div>
-        {{/if}}
 
-       
-        <div class="product__col-1-1">
-            <div class="product__col-1-2">
-                <figure class="product__figure product__figure--full">
-                    <img src="{{getImage category.image 'thumbnail'}}" alt="{{alt}}" class="product__img">
-                </figure>
+        <div class="product__col-1-2">
+            <h1 class="product__title">{{category.name}}</h1>
+            <p class="product__desc">{{ ellipsis (sanitize category.description) 150 }}<a href="#description"
+                    class="product__descLink">Read more &rsaquo;</a></p>
+
+            <h2 class="product__title product__title--2">
+                Customize Your Collection
+                <button class="product__swatchRequestBtn" swatch-request-button>
+                    <svg class="product__swatchRequestIcon" viewBox="0 0 20 20">
+                        <path
+                            d="M19.398 7.415l-7.444-1.996-1.303-4.861c-0.109-0.406-0.545-0.642-0.973-0.529l-9.076 2.432c-0.428 0.114-0.686 0.538-0.577 0.944l3.23 12.051c0.109 0.406 0.544 0.643 0.971 0.527l3.613-0.967-0.492 1.838c-0.109 0.406 0.149 0.83 0.577 0.943l8.11 2.174c0.428 0.115 0.862-0.121 0.972-0.529l2.97-11.084c0.108-0.406-0.15-0.83-0.578-0.943zM1.633 3.631l7.83-2.096 2.898 10.818-7.83 2.096-2.898-10.818zM15.678 18.463l-6.814-1.863 0.536-2.002 3.901-1.047c0.428-0.113 0.688-0.537 0.578-0.943l-1.508-5.627 5.947 1.631-2.64 9.851z">
+                        </path>
+                    </svg>
+                    <span class="product__swatchRequestText">Request A Free Swatch</span>
+                </button>
+            </h2>
+
+            <div class="product-options-container" data-product-option-change data-product-brand="{{category.products.brand.name}}" id="productOptions">
+                <ul class="preloader preloader--short preloader--background">
+                    <li class="preloader__swatch"></li>
+                    <li class="preloader__swatch"></li>
+                    <li class="preloader__swatch"></li>
+                    <li class="preloader__swatch"></li>
+                    <li class="preloader__swatch"></li>
+                    <li class="preloader__swatch"></li>
+
+                    <li class="preloader__swatch"></li>
+                    <li class="preloader__swatch"></li>
+                    <li class="preloader__swatch"></li>
+                    <li class="preloader__swatch"></li>
+                    <li class="preloader__swatch"></li>
+                    <li class="preloader__swatch"></li>
+                </ul>
             </div>
+        </div>
 
-            <div class="product__col-1-2">
-                <h1 class="product__title">{{category.name}}</h1>
-                <p class="product__desc">{{ ellipsis (sanitize category.description) 150 }}<a href="#description" class="product__descLink">Read more &rsaquo;</a></p>
-               
-                <h2 class="product__title product__title--2">
-                    Customize Your Collection
-                    <button class="product__swatchRequestBtn" swatch-request-button>
-                        <svg class="product__swatchRequestIcon" viewBox="0 0 20 20">
-                            <path d="M19.398 7.415l-7.444-1.996-1.303-4.861c-0.109-0.406-0.545-0.642-0.973-0.529l-9.076 2.432c-0.428 0.114-0.686 0.538-0.577 0.944l3.23 12.051c0.109 0.406 0.544 0.643 0.971 0.527l3.613-0.967-0.492 1.838c-0.109 0.406 0.149 0.83 0.577 0.943l8.11 2.174c0.428 0.115 0.862-0.121 0.972-0.529l2.97-11.084c0.108-0.406-0.15-0.83-0.578-0.943zM1.633 3.631l7.83-2.096 2.898 10.818-7.83 2.096-2.898-10.818zM15.678 18.463l-6.814-1.863 0.536-2.002 3.901-1.047c0.428-0.113 0.688-0.537 0.578-0.943l-1.508-5.627 5.947 1.631-2.64 9.851z"></path>
-                        </svg>
-                        <span class="product__swatchRequestText">Request A Free Swatch</span>
-                    </button>
-                </h2>
-                
-                <div class="product-options-container" data-product-option-change data-product-brand="{{category.products.brand.name}}" id="productOptions">
-                    <ul class="preloader preloader--short preloader--background">
-                        <li class="preloader__swatch"></li>
-                        <li class="preloader__swatch"></li>
-                        <li class="preloader__swatch"></li>
-                        <li class="preloader__swatch"></li>
-                        <li class="preloader__swatch"></li>
-                        <li class="preloader__swatch"></li>
-                    
-                        <li class="preloader__swatch"></li>
-                        <li class="preloader__swatch"></li>
-                        <li class="preloader__swatch"></li>
-                        <li class="preloader__swatch"></li>
-                        <li class="preloader__swatch"></li>
-                        <li class="preloader__swatch"></li>
-                    </ul>
+        <div class="product__col-1-1" id="description">
+           
+        </div>
+    </div>
+
+    <div class="product__col-1-1 no-pad" id="collectionsCntr">
+        <ul class="preloader preloader--tall preloader--background">
+            <li class="preloader__collectionImage"></li>
+            <li class="preloader__imgSpace"></li>
+            <li class="preloader__topTitle"></li>
+            <li class="preloader__topTitleRight"></li>
+            <li class="preloader__bottomTitle"></li>
+            <li class="preloader__titleSpace"></li>
+            <li class="preloader__titleSpaceRight"></li>
+            <li class="preloader__list">
+                <div class="preloader__listRow">
+                    <span class="preloader__listBullet"></span>
+                    <span class="preloader__listItem"></span>
                 </div>
-            </div>
-
-            <div class="product__col-1-1" id="description">
-                <p class="product__desc">{{sanitize category.description}}</p>
-            </div>
-        </div> 
-
-        <div class="product__col-1-1 no-pad" id="collectionsCntr">
-            <ul class="preloader preloader--tall preloader--background">
-                <li class="preloader__collectionImage"></li>
-                <li class="preloader__imgSpace"></li>
-                <li class="preloader__topTitle"></li>
-                <li class="preloader__topTitleRight"></li>
-                <li class="preloader__bottomTitle"></li>
-                <li class="preloader__titleSpace"></li>
-                <li class="preloader__titleSpaceRight"></li>
-                <li class="preloader__list">
-                    <div class="preloader__listRow">
-                        <span class="preloader__listBullet"></span>
-                        <span class="preloader__listItem"></span>
-                    </div>
-                    <div class="preloader__listRow">
-                        <span class="preloader__listBullet"></span>
-                        <span class="preloader__listItem"></span>
-                    </div>
-                    <div class="preloader__listRow">
-                        <span class="preloader__listBullet"></span>
-                        <span class="preloader__listItem"></span>
-                    </div>
-                </li>
-                <li class="preloader__listRight"></li>
-                <li class="preloader__listBottom"></li>
-                <li class="preloader__lastLine"></li>
-                <li class="preloader__bottomLine"></li>
-                <li class="preloader__bottomRight"></li>
-            </ul>
-        </div>
+                <div class="preloader__listRow">
+                    <span class="preloader__listBullet"></span>
+                    <span class="preloader__listItem"></span>
+                </div>
+                <div class="preloader__listRow">
+                    <span class="preloader__listBullet"></span>
+                    <span class="preloader__listItem"></span>
+                </div>
+            </li>
+            <li class="preloader__listRight"></li>
+            <li class="preloader__listBottom"></li>
+            <li class="preloader__lastLine"></li>
+            <li class="preloader__bottomLine"></li>
+            <li class="preloader__bottomRight"></li>
+        </ul>
+    </div>
 
 
-            {{!-- {{#each category.products }}
+    {{!-- {{#each category.products }}
             <!-- <section class="product__row product__row--border">
                 <div class="product__col-1-1">
                     <figure class="product__figure product__col-1-4">
@@ -274,20 +277,34 @@ category:
     
                 </div>
             </section> -->
-            {{/each}} --}}
-        </div>
-    </div>
+    {{/each}} --}}
+</div>
+</div>
 
-    <section class="products-related products-recently-viewed section" id="recentlyViewedProducts">
-        <div class="container">
-            <h3 class="section-title">{{lang 'product.recently_viewed_products_heading'}}</h3>
-            <div class="product-grid product-rv-carousel"></div>
-        </div>
-    </section>
+<section class="products-related products-recently-viewed section" id="recentlyViewedProducts">
+    <div class="container">
+        <h3 class="section-title">{{lang 'product.recently_viewed_products_heading'}}</h3>
+        <div class="product-grid product-rv-carousel"></div>
+    </div>
+</section>
 
 <script data-json="raw-options" id="optionModuleJSON" type="application/json"></script>
 
 {{> components/products/customizations/request-swatch-modal product}}
+
+
+<aside class="modal-cart">
+    <div class="modal-cart__inner">
+        <div class="modal-cart__top-bar">
+            <h2 class="modal-cart__title">Added to your Cart</h2>
+            <button class="modal-cart__close">{{> svg/close}}</button>
+        </div>
+        <div id="modalCartCntr"></div>
+    </div>
+    <div class="modal-cart__underlay"></div>
+</aside>
+
+
 
 {{/partial}}
 {{> layout/base}}

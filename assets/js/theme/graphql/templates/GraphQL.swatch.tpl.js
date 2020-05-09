@@ -42,14 +42,11 @@ export default class GraphQL_Swatch_TPL {
                             <form class="drawer__filtersForm" id="optionForm"> 
                                 <div class="drawer__topCntr">
                                     <ul class="drawer__displayList">
-                                        <li class="drawer__displayItem">
+                                        <li class="drawer__displayItem drawer__displayItem--search">
                                             <fieldset class="drawer__controlSet">
-                                                <input type="text" autocomplete="off" id="drawerSearchInput" class="drawer__control drawer__control--input" placeholder="Search By Name">
+                                                <div class="drawer__control--searchIcon"></div>
+                                                <input type="text" autocomplete="off" id="drawerSearchInput" class="drawer__control drawer__control--input" placeholder="Search">
                                                 <button type="button" class="drawer__clearControl hide"><svg class="icon icon-close"><use xlink:href="#icon-close" /></svg></button>
-                                                <button type="button" class="drawer__control drawer__control--searchTrigger">
-                                                    <svg class="icon icon-search111"><use xlink:href="#icon-search111" /></svg>
-                                                    Search
-                                                </button>
                                             </fieldset>
                                         </li>
                                         <li class="drawer__displayItem drawer__displayItem--filters">

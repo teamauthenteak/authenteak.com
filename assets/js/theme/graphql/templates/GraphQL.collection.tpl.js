@@ -15,7 +15,7 @@ export default class GraphQL_Collection_TPL {
 
     buildCollectionsPod(product){
         return `<section class="product__row product__row--border" id="${product.entityId}">
-                    <form class="form add-to-cart-form" method="post" id="collection:${product.entityId}" name="collection:${product.entityId}" action="/cart.php" enctype="multipart/form-data" data-product-options-count="">
+                    <form class="form add-to-cart-form" method="post" id="collection_${product.entityId}" name="collection_${product.entityId}" action="/cart.php" enctype="multipart/form-data" data-product-options-count="">
                         <input type="hidden" name="product_id" value="${product.entityId}" data-product-id="${product.entityId}" />
                         <input type="hidden" name="action" value="add">
                         <input type="hidden" class="product-quantity form-input" name="qty[]" value="1">
@@ -102,12 +102,17 @@ export default class GraphQL_Collection_TPL {
                                 <div class="product__col-4-10--lg product__col-1-1 no-pad">
                                     <div class="product__price">
                                         <div class="product__priceLine">
-                                            <span class="product__priceValue" data-price="${ TEAK.Utils.graphQL.determinePrice(product.prices) }">${TEAK.Utils.formatPrice( TEAK.Utils.graphQL.determinePrice(product.prices) )}</span>
+                                            <span class="product__priceValue" data-price="${ TEAK.Utils.graphQL.determinePrice(product.prices) }" data-product-price-wrapper="without-tax">
+                                                ${TEAK.Utils.formatPrice( TEAK.Utils.graphQL.determinePrice(product.prices) )}
+                                            </span>
                                             ${product.prices.retailPrice !== null ? ` <span class="product__priceRrp">${TEAK.Utils.formatPrice( product.prices.retailPrice.value )}</span>` : '' }
                                         </div>              
                                     </div>
                                 
-                                    <button type="button" button-atc class="product__atcCollectionBtn">Add to Cart</button>
+                                    <button type="button" button-atc class="product__atcCollectionBtn">
+                                        <span class="product__atcCollectionBtnText">Add to Cart</span>
+                                        <svg class="icon icon-spinner hide"><use xlink:href="#icon-spinner" /></svg>
+                                    </button>
                                 
                                     <div class="product__swatchCol">
                                         <ul class="product__swatchList">
@@ -119,7 +124,7 @@ export default class GraphQL_Collection_TPL {
                                         return `<li class="product__swatchItem" id="${product.entityId}.${productOption.entityId}">
                                                     <label drawer--open class="product__swatchLabel" data-product-id="${product.entityId}" rel="${productOption.entityId}" data-product-img="${product.defaultImage.url}">
                                                         <div class="product__swatch">
-                                                            <input class="product__swatchRadio" id="${productOption.entityId}" type="radio" name="" value="" data-label="${productOption.displayName}">
+                                                            <input class="product__swatchRadio" id="${productOption.entityId}" type="radio" name="attribute[${productOption.entityId}]" value="" ${productOption.isRequired ? 'required' : ''} data-label="${productOption.displayName}">
                                                             <div class="product__swatchColor" style="background-image: url('https://dummyimage.com/256x256/cccccc/777777.png&text=Choose');">
                                                                 <img class="product__swatchImg" src="https://dummyimage.com/256x256/cccccc/777777.png&text=Choose">
                                                             </div>
@@ -145,7 +150,7 @@ export default class GraphQL_Collection_TPL {
                                                                 <span class="selectBox__value">Select one</span>
                                                             </p>
                                                         </div>
-                                                        <select class="selectBox__select form-input" id="attribute-${productOption.entityId}"  name="attribute[${productOption.entityId}]" required aria-required="true">
+                                                        <select class="selectBox__select form-input" id="attribute-${productOption.entityId}"  name="attribute[${productOption.entityId}]" ${productOption.isRequired ? 'required' : ''} aria-required="true">
                                                             <option disabled selected>Select one</option>
 
                                                             ${Object.keys(productOption.values.edges).map((key) => {
@@ -245,6 +250,59 @@ export default class GraphQL_Collection_TPL {
                             </div>
                         </span>
                     </label>
+                </div>`;
+    }
+
+
+
+    getAtcModalContent(product, cartDetail){
+
+        return `<div class="modal-cart__cntr">
+                    <div class="modal-cart__contents">
+                        <div class="modal-cart__item-list">
+                            <div class="mini-cart-item" data-product-id="${product.entityId}">
+                                <div class="mini-cart-item-wrap">
+
+                                    <a href="${product.path}">
+                                        <img class="" src="${product.defaultImage.url}" alt="${product.name}" />
+                                    </a>
+
+                                    <div class="mini-cart-item-description">
+                                        <a href="${product.path}" class="mini-cart-item-title">${product.name}</a>
+
+                                        <div class="mini-cart-item-options">
+                                    ${Object.keys(product.productOptions).map((key) => {
+                                        return`<span class="option-value" data-name="${product.productOptions[key].node.displayName}">
+                                                    <span class="option-value-label-mc">
+                                                        ${product.productOptions[key].node.displayName.replace("Select", "Selected")}
+                                                    </span>
+                                                    <span class="option-value-wrapper" data-name="${product.productOptions[key].node.displayName}" data-option-id="${product.productOptions[key].node.entityId}"></span>
+                                                </span>`;
+                                    }).join('')}
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="mini-cart-item-price">
+                                        <span data-quantity></span> &times;
+                                        <span data-price></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-cart__summary">
+                        <div class="modal-cart__subtotal">
+                            <span class="modal-cart__subtotal-label">Order Subtotal</span>
+                            <span class="modal-cart__subtotal-value" data-value="${cartDetail.cartAmount}">
+                                ${TEAK.Utils.formatPrice(cartDetail.cartAmount)}
+                            </span>
+                        </div>
+                        
+                        <a class="button button-primary button-primary--green button-cart" href="/cart.php" onclick="TEAK.ThirdParty.heap.init({method: 'track', event:'proceed_to_cart', location: 'collections_modal' })">
+                            <span class="button-text">View Cart</span>
+                        </a>
+                        <div class="modal-cart__marketing modal-cart__marketing--summary"></div>
+                    </div>
                 </div>`;
     }
 
