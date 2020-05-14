@@ -2,6 +2,10 @@
     font-size: calc( 11px + (13 - 11) * (100vw - 375px) / (1600 - 375) ) !important;
 }
 
+%heading-responsive{
+    font-size: calc( 24px + (32 - 24) * (100vw - 375px) / (1600 - 375) );
+}
+
 .drawer{
     right: -41vw;
     @extend .animated;
@@ -90,7 +94,7 @@
         line-height: 1;
         margin-top: 0;
         width: 100%;
-        font-size: calc( 24px + (32 - 24) * (100vw - 375px) / (1600 - 375) );
+        @extend %heading-responsive;
     }
 
     &__figCntr{
@@ -184,6 +188,15 @@
            font-size: 1.2rem;
            text-transform: capitalize;
            color: #aaa;
+           vertical-align: middle;
+           display: flex;
+           align-items: center;
+           align-content: center;
+           justify-content: center;
+
+            @media only screen and (max-width: 325px) {
+                color: #fff;
+            }
         }
 
         &--input{
@@ -193,6 +206,10 @@
             color: rgba(0, 0, 0, 0.87);
             padding: 10px 5px 10px 40px;
             line-height: 1;
+            display: flex;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
         }
 
         &--searchIcon{
@@ -207,6 +224,14 @@
             bottom: 0;
             margin: auto;
             background-color: #aaa;
+        }
+    }
+
+    &__displayFilterTextElem{
+        display: block;
+
+        @media only screen and (max-width: $screen-xs) {
+            display: none;
         }
     }
 
@@ -231,7 +256,7 @@
             display: flex;
         }
 
-        @media only screen and (min-width: $screen-xs) {
+        @media only screen and (max-width: $screen-sm) {
             &--sm{
                 display: flex;
 
@@ -274,12 +299,12 @@
             flex: 1 0 auto;
         }
 
-        &--search{
+        // &--search{
             
-            @media only screen and (min-width: $screen-lg) {
-                flex: 1 0 auto;
-            }
-        }
+        //     @media only screen and (min-width: $screen-lg) {
+        //         flex: 1 0 auto;
+        //     }
+        // }
     }
 
     &__displayFiltersBtn{
@@ -287,6 +312,7 @@
         line-height: 1;
         display: flex;
         margin: 0;
+        outline: none;
         justify-content: flex-start;
         align-content: center;
         align-items: center;
@@ -586,15 +612,16 @@
 
     &__filterHeading{
         border-bottom: 1px solid #eee;
+        background-color: #f9f9f9;
         margin: 0 0 10px 0;
-        padding-bottom: 5px;
+        padding: 5px;
         line-height: 1;
         font-weight: 800;
     }
 
     &__filterList{
         width: 100%;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -659,13 +686,22 @@
    
 
     &__saveBtn{
-        @extend .button;
+        box-sizing: border-box;
+        border-width: 1px;
+        border-style: solid;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        font-weight: 500;
+        @extend %button-rounded;
+        text-decoration: none !important;
+        padding: 15px;
+
         @extend .button--fullWidth;
         @extend .button-primary;
         @extend .button-primary--dark;
         opacity: 1;
         margin: 10px 0;
-        display: flex;
+        display: flex !important;
         align-content: center;
         justify-content: center;
         align-items: center;

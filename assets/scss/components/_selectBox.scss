@@ -6,7 +6,6 @@
     
     &__label{
         @extend .product__swatchLabel;
-        margin: 15px 0 5px 0;
         height: 70px;
         flex-direction: column !important;
         position: relative;
@@ -56,6 +55,7 @@
         font-size: 0.75rem;
         display: block !important;
         padding-left: 0 !important;
+        width: 80%;
 
         &:before{
             display: none;

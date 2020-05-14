@@ -6,7 +6,7 @@ limit: {{theme_settings.product-count}}
 
 {{#partial "page"}}
 
-<div class="product" id="CategoryCollection">
+<div class="product" id="CategoryCollection" data-category-name="{{category.name}}" data-brand="{{brand.name}}">
     {{#if theme_settings.category-breadcrumbs}}
     <div class="product__breadcrumbs mobileHide">
         {{> components/common/breadcrumbs breadcrumbs}}
@@ -15,53 +15,11 @@ limit: {{theme_settings.product-count}}
 
 
     <div class="product__col-1-1">
-        <div class="product__col-1-2">
-            <figure class="product__figure product__figure--full">
-                <img src="{{getImage category.image 'thumbnail'}}" alt="{{alt}}" class="product__img">
-            </figure>
-        </div>
-
-        <div class="product__col-1-2">
-            <h1 class="product__title">{{category.name}}</h1>
-            <p class="product__desc">{{ ellipsis (sanitize category.description) 150 }}<a href="#description"
-                    class="product__descLink">Read more &rsaquo;</a></p>
-
-            <h2 class="product__title product__title--2">
-                Customize Your Collection
-                <button class="product__swatchRequestBtn" swatch-request-button>
-                    <svg class="product__swatchRequestIcon" viewBox="0 0 20 20">
-                        <path
-                            d="M19.398 7.415l-7.444-1.996-1.303-4.861c-0.109-0.406-0.545-0.642-0.973-0.529l-9.076 2.432c-0.428 0.114-0.686 0.538-0.577 0.944l3.23 12.051c0.109 0.406 0.544 0.643 0.971 0.527l3.613-0.967-0.492 1.838c-0.109 0.406 0.149 0.83 0.577 0.943l8.11 2.174c0.428 0.115 0.862-0.121 0.972-0.529l2.97-11.084c0.108-0.406-0.15-0.83-0.578-0.943zM1.633 3.631l7.83-2.096 2.898 10.818-7.83 2.096-2.898-10.818zM15.678 18.463l-6.814-1.863 0.536-2.002 3.901-1.047c0.428-0.113 0.688-0.537 0.578-0.943l-1.508-5.627 5.947 1.631-2.64 9.851z">
-                        </path>
-                    </svg>
-                    <span class="product__swatchRequestText">Request A Free Swatch</span>
-                </button>
-            </h2>
-
-            <div class="product-options-container" data-product-option-change data-product-brand="{{category.products.brand.name}}" id="productOptions">
-                <ul class="preloader preloader--short preloader--background">
-                    <li class="preloader__swatch"></li>
-                    <li class="preloader__swatch"></li>
-                    <li class="preloader__swatch"></li>
-                    <li class="preloader__swatch"></li>
-                    <li class="preloader__swatch"></li>
-                    <li class="preloader__swatch"></li>
-
-                    <li class="preloader__swatch"></li>
-                    <li class="preloader__swatch"></li>
-                    <li class="preloader__swatch"></li>
-                    <li class="preloader__swatch"></li>
-                    <li class="preloader__swatch"></li>
-                    <li class="preloader__swatch"></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="product__col-1-1" id="description">
-           
-        </div>
+        <h1 class="product__title c">{{category.name}}</h1>
+        {{{ category.description }}}
     </div>
 
+    
     <div class="product__col-1-1 no-pad" id="collectionsCntr">
         <ul class="preloader preloader--tall preloader--background">
             <li class="preloader__collectionImage"></li>
@@ -293,18 +251,24 @@ limit: {{theme_settings.product-count}}
 {{> components/products/customizations/request-swatch-modal product}}
 
 
-<aside class="modal-cart">
-    <div class="modal-cart__inner">
-        <div class="modal-cart__top-bar">
-            <h2 class="modal-cart__title">Added to your Cart</h2>
-            <button class="modal-cart__close">{{> svg/close}}</button>
+<aside class="toaster toaster--collection toaster--hide" id="toaster">
+    <div class="toaster__collection">
+        <h3 class="toaster__heading">My Collection</h3>
+        <div class="toaster__content">
+            <ul class="toaster__itemList" id="toasterItemList"></ul>
         </div>
-        <div id="modalCartCntr"></div>
+        <div class="toaster__controls">
+            <a href="/cart.php" class="toaster__cartBtn" onclick="TEAK.ThirdParty.heap.init({method: 'track', event:'proceed_to_cart', location: 'collections_modal' })">
+                <span class="toaster__cartBtnText">Cart</span> &nbsp;
+                <svg class="icon-cart" width="19" height="17" viewBox="0 0 19 17" xmlns="http://www.w3.org/2000/svg">
+                    <title>cart</title>
+                    <path d="M14.3848 8h-8.99l-.728-4h11.051l-1.333 4zm3.532-5.585c.188.261.239.597.137.901l-1.773 5.317c-.271.817-1.034 1.367-1.896 1.367h-8.627l.182 1h9.166c.552 0 1 .447 1 1 0 .553-.448 1-1 1h-9.165c-.967 0-1.794-.69-1.968-1.642L2.2708 2h-1.165c-.553 0-1-.447-1-1 0-.553.447-1 1-1h2c.483 0 .897.346.983.821L4.3028 2h12.803c.321 0 .623.154.811.415zM8.1055 15.5c0 .828-.672 1.5-1.5 1.5s-1.5-.672-1.5-1.5.672-1.5 1.5-1.5 1.5.672 1.5 1.5zm7 0c0 .828-.672 1.5-1.5 1.5s-1.5-.672-1.5-1.5.672-1.5 1.5-1.5 1.5.672 1.5 1.5z" />
+                </svg>
+            </a>
+        </div>
     </div>
-    <div class="modal-cart__underlay"></div>
+    <div class="toaster__atcModal" id="modalCartCntr"></div>
 </aside>
-
-
 
 {{/partial}}
 {{> layout/base}}

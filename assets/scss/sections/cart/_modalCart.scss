@@ -1,6 +1,10 @@
 .modal-cart {
     display: none;
 
+    &__toaster{
+        display: flex;
+    }
+
     &.is-open{
         width: 100%;
         height: 100%;

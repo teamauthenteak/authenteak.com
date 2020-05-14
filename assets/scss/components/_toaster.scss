@@ -1,0 +1,200 @@
+.toaster{
+    display: flex;
+    background-color: #fff;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    &--collection{
+        position: fixed;
+        width: 80vw;
+        bottom: 0;
+        margin-left: -40vw;
+        left: 50%;
+        z-index: 999;
+        box-shadow:  0 0 13px rgba(0, 0, 0, 0.2);
+        border-radius: $border-radius;
+        transition: all 0.5s ease;
+    }
+
+    &--hide{
+        bottom: -200px;
+    }
+
+    &__collection{
+        width: 100%;
+        display: flex;
+        align-content: center;
+        align-items: stretch;
+        justify-content: flex-start;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+    &__heading{
+        padding: 20px;
+        margin: 0;
+        line-height: 1;
+        width: 20%;
+        text-align: center;
+        border-right: 1px solid #ddd;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        display: flex;
+        font-size: calc( 14px + (24 - 14) * (100vw - 375px) / (1600 - 375) );
+        white-space: nowrap;
+
+        @media only screen and (max-width: $screen-md) {
+            white-space: pre-wrap;
+        }
+    }
+
+    &__content{
+        display: flex;
+        flex: 1 0 auto;
+        padding: 20px;
+        width: 70%;
+        height: 100%;
+
+        @media only screen and (max-width: $screen-sm) {
+            flex: auto;
+        }
+    }
+
+    &__itemList{
+        display: flex;
+        flex-direction: row;
+    }
+
+    &__item{
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+
+        &:after{
+            content: '+';
+            width: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 800;
+        }
+    }
+
+    &__itemImg{
+        height: 50px;
+        object-fit: contain;
+
+        @media only screen and (max-width: $screen-sm) {
+            height: 25px;
+        }
+    }
+
+    &__controls{
+        flex-direction: column;
+        display: flex;
+        position: relative;
+        width: 12%;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        flex: 1 0 auto;
+
+        @media only screen and (max-width: $screen-md) {
+            width: 15%;
+        }
+
+        @media only screen and (max-width: $screen-sm) {
+            flex: auto;
+        }
+    }
+    
+    &__cartBtn{
+        display: flex;
+        background-color: $btn-color-green;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        color: #fff;
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 1.2rem;
+        border-top-right-radius: $border-radius;
+
+        &:hover{
+            color: #fff
+        }
+
+        @media only screen and (max-width: $screen-md) {
+            padding: 5px;
+        }
+
+        & .icon-cart{
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    &__cartBtnText{
+        margin-right: 3px;
+        font-size: 1.2rem;
+
+        @media only screen and (max-width: $screen-lg) {
+            display: none;
+        }
+    }
+
+    &__atcModal{
+        width: 100%;
+        flex: 1 0 auto;
+        transition: all 0.5s ease;
+        height: 0;
+        padding: 0;
+        
+        &--active{
+            border-top: 1px solid #ddd;
+            padding-bottom: 20px;
+            height: 310px;
+
+            @media only screen and (max-width: $screen-sm) {
+                height: 440px;
+            }
+        }
+
+        & .modal-cart__title{
+            text-align: center;
+            text-transform: capitalize;
+            padding: 20px 0 20px 0;
+
+            @media only screen and (max-width: $screen-sm) {
+                padding-bottom: 0;
+            }
+        }
+
+        & .modal-cart__summary{
+            @media only screen and (max-width: $screen-sm) {
+                padding-top: 0;
+            }
+        }
+
+        & .modal-cart__contents{
+            width: 50%;
+            flex: 0 0 auto;
+
+            @media only screen and (max-width: $screen-sm) {
+                width: 100%;
+            }
+        }
+
+        & .modal-cart__cntr{
+            padding-top: 20px;
+
+            @media only screen and (max-width: $screen-sm) {
+                padding: 0;
+            }
+        }
+    }
+}

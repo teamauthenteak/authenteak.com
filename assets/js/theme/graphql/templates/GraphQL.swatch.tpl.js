@@ -58,7 +58,7 @@ export default class GraphQL_Swatch_TPL {
 
                                                 <span class="drawer__displayFilterText drawer__displayFilterText--sm">
                                                     <svg class="icon icon-filter"><use xlink:href="#icon-filter" /></svg>
-                                                    Filter
+                                                    <span class="drawer__displayFilterTextElem">Filter</span>
                                                     <svg class="icon icon-chevron-down"><use xlink:href="#icon-chevron-down" /></svg>
                                                 </span>
                                             </button>
@@ -83,7 +83,7 @@ export default class GraphQL_Swatch_TPL {
                     <footer class="drawer__footer">
                         <button type="button" class="drawer__saveBtn" drawer--close>
                             <svg class="icon icon-long-arrow-left"><use xlink:href="#icon-long-arrow-left" /></svg>
-                            Save &amp; Back
+                            <span>Save &amp; Back</span>
                         </button>
                     </footer>
                 </aside>

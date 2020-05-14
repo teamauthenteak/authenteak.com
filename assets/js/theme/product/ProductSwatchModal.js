@@ -21,7 +21,7 @@ export default class ProductSwatchModal {
         this.optionsArray = [];
         this.optionsProductRefferenceId = "";
         this.optionSetRefferenceId = "";
-        this.selectedSwatchObj = {};
+        this.selectedSwatcHTML = null;
 
         // result items to be returned
         this.filteredArray = [];
@@ -68,7 +68,7 @@ export default class ProductSwatchModal {
         $(base).appendTo(document.body);
 
         // show the request-a-swatch button if we have the trigger from the tempaltes on the page
-        if( document.getElementById("productOptions").querySelector("div[show-request-swatch-button]") ){
+        if( document.getElementById("productOptions") && document.getElementById("productOptions").querySelector("div[show-request-swatch-button]") ){
             document.getElementById("productDetails").querySelector(".product__swatchRequestBtn--pdp").style.display = "flex";
         }
     }
@@ -100,8 +100,9 @@ export default class ProductSwatchModal {
             .on("click", "button.drawer__displayFiltersBtn", (e) => { this.toggleFiltersList(e); })
             .on("keyup", "input.drawer__control--input", () => { this.keyWordFilter(); })
             .on("change", "input.swatch-radio", (e) => { this.selectSwatchColor(e); })
-            .on("click", ".drawer__clearControl", (e) => { this.clearKeyword(e) })
-            .on("change", "input.drawer__filterControl", (e) => { this.attributeFilter(e); });
+            .on("click", "button.drawer__clearControl", (e) => { this.clearKeyword(e) })
+            .on("change", "input.drawer__filterControl", (e) => { this.attributeFilter(e); })
+            .on("click", "div.drawer__control--searchIcon", (e) => { this.focusSearch(e); });
 
 
         // on page main label swatch Events from Product Utils
@@ -129,9 +130,9 @@ export default class ProductSwatchModal {
 
 
     
-    // on page main label swatch for ATC
+    // on page main label swatch for ATC ~ Collections page and PDP
     handelSwatchValid(e){
-        $("#productOptions").find(".product__swatchLabel--error").each(function(){
+        $("#productOptions, #collectionsCntr").find(".product__swatchLabel--error").each(function(){
             $(this).removeClass("product__swatchLabel--error");
         });
     }
@@ -163,6 +164,9 @@ export default class ProductSwatchModal {
 
         this.labelInteract(e);
         this.updateSwatchButton(e, $this);
+
+        // save this so that we can re-use the selection
+        this.selectedSwatcHTML = $this;
     }
 
 
@@ -194,36 +198,23 @@ export default class ProductSwatchModal {
             inputData =  $(e.currentTarget).data(),
             parsedLabel = TEAK.Utils.parseOptionLabel(labelData.swatchValue.toString());
 
-        this.selectedSwatchObj = Object.assign(labelData, inputData, parsedLabel)
+        let selectedSwatchObj = Object.assign(labelData, inputData, parsedLabel)
 
         this.$optionTriggerButton
             .find("input:radio")
-                .val(this.selectedSwatchObj.productAttributeValue)
+                .val(selectedSwatchObj.productAttributeValue)
                 .prop({ "selected": true, 'checked': true })
-                .data( "parsedLabel", this.selectedSwatchObj.text)
-                .attr({ "checked": true, "id": `attribute[${this.selectedSwatchObj.productAttributeValue}]` })
+                .data( "parsedLabel", selectedSwatchObj.text)
+                .attr({ "checked": true, "id": `attribute[${selectedSwatchObj.productAttributeValue}]` })
                     .end()
-            .find(".product__swatchValue").addClass("show").text( this.selectedSwatchObj.text )
+            .find(".product__swatchValue").addClass("show").text( selectedSwatchObj.text )
                 .end()
-            .find(".product__swatchColor").css("backgroundImage", `https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${this.selectedSwatchObj.productAttributeValue}.preview.jpg`)
-            .find(".product__swatchImg").attr("src", `https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${this.selectedSwatchObj.productAttributeValue}.preview.jpg`)
-                // .end()
-            // .parents(".product__row").find(".product__priceValue").text(function(){
-
-                // if( labelData.hasOwnProperty("priceAdjust") && document.getElementById("CategoryCollection") ){
-                //     let productPrice = $(this).data("price"),
-                //         newTotal = that.calculateAdjustedPrice(productPrice, labelData);
-
-                //     $(this).data("price", newTotal);
-                //     return TEAK.Utils.formatPrice(newTotal);
-                // }
-
-            // });
+            .find(".product__swatchColor").css("backgroundImage", `https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${selectedSwatchObj.productAttributeValue}.preview.jpg`)
+            .find(".product__swatchImg").attr("src", `https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${selectedSwatchObj.productAttributeValue}.preview.jpg`);
 
             // this triggers a price update on the PDP from ProductUtils.js
             let thisInput =  this.$optionTriggerButton.find("input:radio");
             utils.hooks.emit('product-option-change', null, thisInput);
-
     }
 
 
@@ -237,14 +228,11 @@ export default class ProductSwatchModal {
     toggleFiltersList(e){
         $(e.currentTarget)
             .toggleClass("drawer__displayFiltersBtn--open");
-            // .find(".drawer__displayFilterText")
-            //     .text(function(){
-            //         return $(this).hasClass("drawer__displayFilters--open") ? "Close Filters" : "Filter";
-            //     });
 
         this.$filterCntr.slideToggle("fast");
         e.preventDefault();
     }
+
 
 
     // toggles the swatch listing view 
@@ -264,6 +252,7 @@ export default class ProductSwatchModal {
 
         e.preventDefault();
     }
+
 
 
     // open/close the swatch drawer
@@ -333,6 +322,12 @@ export default class ProductSwatchModal {
         this.$optionForm.find(".drawer__clearControl").toggleClass("hide", !hasKeyWords);
     }
 
+
+    // if a person clicks the search icon make sure we focus on the search box
+    focusSearch(e){
+        e.preventDefault();
+        this.$search.focus();
+    }
 
 
     // click on the x button to clear out the imput field
@@ -459,7 +454,6 @@ export default class ProductSwatchModal {
             return isIncluded.every(testItem => testItem === true);
         });
 
-
         return results;
     }
 
@@ -517,20 +511,28 @@ export default class ProductSwatchModal {
 
     // build the new UI after we have filterd the options
     buildFilteredSwatchList(){
-         let labelCntr = this.$optionForm.find(".form-field-control");
+        let labelCntr = this.$optionForm.find(".form-field-control");
 
-         labelCntr.html("");
+        labelCntr.html("");
 
-         if( this.filteredArray.length === 0 ){       
+        if( this.filteredArray.length === 0 ){       
             $("<h3 class='drawer__sorryMessage'>Sorry, but it looks like we don't have any swatches that match your filters.</h3>").appendTo(labelCntr);
             return;
-         }
+        }
  
-         this.filteredArray.forEach((element) => {
-             let tpl = this.graph_tpl.getOptionSwatch(element.node, this.filteredArray);
-             $(tpl).appendTo(labelCntr);
-         });
+        this.filteredArray.forEach((element) => {
+            let tpl = this.graph_tpl.getOptionSwatch(element.node, this.filteredArray);
+            $(tpl).appendTo(labelCntr);
+        });
+
+        // if there is a selected swatch when we filter make sure we show it in the results
+        if( this.selectedSwatcHTML ){
+            let currentlySelected = $(this.selectedSwatcHTML).attr("for");
+            $(`label[for='${currentlySelected}']`, labelCntr).replaceWith(this.selectedSwatcHTML);
+        }
     }
+
+
 
     // check for duplicates in our fetched array
     duplicateItemCheck(mergedResults){

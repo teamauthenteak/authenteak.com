@@ -61,6 +61,18 @@
     }
 
 
+    &--greenTrans{
+        border-color: $btn-color-green;
+        background-color: transparent;
+        color: $btn-color-green;
+
+        &:hover{
+            background-color: $btn-color-green;
+            color: #fff;
+        }
+    }
+
+
     &--dark{
         background-color: #666;
         border-color: #fff;
@@ -139,8 +151,8 @@
 
 .button-mobile-nav-toggle{
     left: 10px;
-    height: 25px;
-    width: 25px;
+    height: 35px;
+    width: 35px;
     padding: 0;
 
     .burger {

@@ -2,7 +2,21 @@
 
 ## [1.20.25]
 - Collections page
+- added qty on collections page
+- fixed form validation on collections page
+- fixed atc modal to have selected poduct options on collections page
 - added release version number query parameter to bundle.js
+- fixed product swatch modal last row size issue
+- fixed facebook pixlel issue on totals/cart page
+- made tablet main nave flyout width smaller
+- added feature to save selected swatch when filtering
+- adjusted filter control icons and text for mobile
+- made ui updates for the filter controls & headings in the drawer flyout
+- added new sticky atc bottom modal that has link to cart
+- added UI to match normpal pdp options for # of options + icon
+- added Analytics to colletions page
+- fixed issue for hamberger menu being too small
+- made tablet main nav menu smaller
 
 ## [1.20.24]
 - removed * from selectbox options

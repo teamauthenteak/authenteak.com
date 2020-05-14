@@ -17,8 +17,7 @@ export default class GraphQL_Collection_TPL {
         return `<section class="product__row product__row--border" id="${product.entityId}">
                     <form class="form add-to-cart-form" method="post" id="collection_${product.entityId}" name="collection_${product.entityId}" action="/cart.php" enctype="multipart/form-data" data-product-options-count="">
                         <input type="hidden" name="product_id" value="${product.entityId}" data-product-id="${product.entityId}" />
-                        <input type="hidden" name="action" value="add">
-                        <input type="hidden" class="product-quantity form-input" name="qty[]" value="1">
+                        <input type="hidden" name="action" value="add" class="">
 
                         <div class="product__col-1-1">
                             <figure class="product__figure product__col-1-4--lg product__col-1-1">
@@ -95,6 +94,22 @@ export default class GraphQL_Collection_TPL {
                                 return tpl;
                                 
                             }).join('') }
+
+                                    <div class="form-field">
+                                        <label class="product__qtyCntr">
+                                            <strong class="product__qtyText">Quantity</strong>
+                                            <input type="number" class="product-quantity form-input" required name="qty[]" value="1" min="1" max="999" pattern="[0-9]+">
+                                            <div class="product-quantity-toggle-wrapper">
+                                                <button type="button" class="product-quantity-toggle product-quantity-decrement">
+                                                    <svg class="icon icon-minus"><use xlink:href="#icon-minus" /></svg>
+                                                </button>
+                                                <button type="button" class="product-quantity-toggle product-quantity-increment">
+                                                    <svg class="icon icon-plus"><use xlink:href="#icon-plus" /></svg>
+                                                </button>
+                                            </div>
+                                        </label>
+                                    </div>
+                                   
                                 </div>
                             
 
@@ -121,17 +136,29 @@ export default class GraphQL_Collection_TPL {
                                     let productOption = product.productOptions[key].node;
 
                                     if(productOption.displayStyle === "Swatch"){
-                                        return `<li class="product__swatchItem" id="${product.entityId}.${productOption.entityId}">
+                                        return `<li class="product__swatchItem form-field" id="${product.entityId}.${productOption.entityId}">
                                                     <label drawer--open class="product__swatchLabel" data-product-id="${product.entityId}" rel="${productOption.entityId}" data-product-img="${product.defaultImage.url}">
                                                         <div class="product__swatch">
-                                                            <input class="product__swatchRadio" id="${productOption.entityId}" type="radio" name="attribute[${productOption.entityId}]" value="" ${productOption.isRequired ? 'required' : ''} data-label="${productOption.displayName}">
+                                                            <input class="product__swatchRadio form-input" id="${productOption.entityId}" type="radio" name="attribute[${productOption.entityId}]" value="" ${productOption.isRequired ? 'required' : ''} data-label="${productOption.displayName}">
                                                             <div class="product__swatchColor" style="background-image: url('https://dummyimage.com/256x256/cccccc/777777.png&text=Choose');">
                                                                 <img class="product__swatchImg" src="https://dummyimage.com/256x256/cccccc/777777.png&text=Choose">
                                                             </div>
                                                         </div>
                                                         <div class="product__swatchText">
                                                             <p class="product__swatchOptionText">
-                                                                <span class="product__swatchName">${productOption.displayName} ${productOption.values.edges.length > 10 ? `(${productOption.values.edges.length})` : '' }</span>
+                                                                <span class="product__swatchName">
+                                                                ${productOption.displayName} 
+                                                                
+                                                                ${productOption.values.edges.length > 1 ? `
+                                                                    <span class="product__swatchOptionIconCntr">
+                                                                        &mdash; &nbsp;
+                                                                        <svg class="product__swatchOptionIcon" viewBox="0 0 20 20">
+                                                                            <path d="M19.398 7.415l-7.444-1.996-1.303-4.861c-0.109-0.406-0.545-0.642-0.973-0.529l-9.076 2.432c-0.428 0.114-0.686 0.538-0.577 0.944l3.23 12.051c0.109 0.406 0.544 0.643 0.971 0.527l3.613-0.967-0.492 1.838c-0.109 0.406 0.149 0.83 0.577 0.943l8.11 2.174c0.428 0.115 0.862-0.121 0.972-0.529l2.97-11.084c0.108-0.406-0.15-0.83-0.578-0.943zM1.633 3.631l7.83-2.096 2.898 10.818-7.83 2.096-2.898-10.818zM15.678 18.463l-6.814-1.863 0.536-2.002 3.901-1.047c0.428-0.113 0.688-0.537 0.578-0.943l-1.508-5.627 5.947 1.631-2.64 9.851z"></path>
+                                                                        </svg> ${productOption.values.edges.length} options
+                                                                    </span>` : ''
+                                                                }
+                            
+                                                                </span>
                                                                 <span class="product__swatchValue"></span>
                                                             </p>
                                                         </div>
@@ -142,7 +169,7 @@ export default class GraphQL_Collection_TPL {
 
 
                                     if(productOption.displayStyle === "DropdownList"){
-                                        return `<li class="product__swatchItem product__swatchItem--select selectBox" id="${productOption.entityId}" data-option-title="${productOption.displayName} ${productOption.entityId}" set-select data-product-attribute="set-select">
+                                        return `<li class="product__swatchItem product__swatchItem--select selectBox form-field" id="${productOption.entityId}" data-option-title="${productOption.displayName} ${productOption.entityId}" set-select data-product-attribute="set-select">
                                                     <label class="selectBox__label form-label" for="attribute-${productOption.entityId}">
                                                         <div class="selectBox__text selectBox__text--right">
                                                             <p class="selectBox__optionText">
@@ -255,9 +282,17 @@ export default class GraphQL_Collection_TPL {
 
 
 
+    getToasterItem(item){
+        return `<li class="toaster__item">
+                    <img class="toaster__itemImg" src="${item.defaultImage.url}">
+                </li>`;
+    }
+
+
     getAtcModalContent(product, cartDetail){
 
-        return `<div class="modal-cart__cntr">
+        return `<h2 class="modal-cart__title">Added to your Cart</h2>
+                <div class="modal-cart__cntr">
                     <div class="modal-cart__contents">
                         <div class="modal-cart__item-list">
                             <div class="mini-cart-item" data-product-id="${product.entityId}">
@@ -272,11 +307,13 @@ export default class GraphQL_Collection_TPL {
 
                                         <div class="mini-cart-item-options">
                                     ${Object.keys(product.productOptions).map((key) => {
-                                        return`<span class="option-value" data-name="${product.productOptions[key].node.displayName}">
+                                        return`<span class="option-value">
                                                     <span class="option-value-label-mc">
                                                         ${product.productOptions[key].node.displayName.replace("Select", "Selected")}
                                                     </span>
-                                                    <span class="option-value-wrapper" data-name="${product.productOptions[key].node.displayName}" data-option-id="${product.productOptions[key].node.entityId}"></span>
+                                                    <span class="option-value-wrapper">
+                                                        ${product.selected[product.productOptions[key].node.entityId].text}
+                                                    </span>
                                                 </span>`;
                                     }).join('')}
                                         </div>
@@ -298,7 +335,7 @@ export default class GraphQL_Collection_TPL {
                             </span>
                         </div>
                         
-                        <a class="button button-primary button-primary--green button-cart" href="/cart.php" onclick="TEAK.ThirdParty.heap.init({method: 'track', event:'proceed_to_cart', location: 'collections_modal' })">
+                        <a class="button button-primary button-primary--greenTrans button-cart" href="/cart.php" onclick="TEAK.ThirdParty.heap.init({method: 'track', event:'proceed_to_cart', location: 'collections_modal' })">
                             <span class="button-text">View Cart</span>
                         </a>
                         <div class="modal-cart__marketing modal-cart__marketing--summary"></div>

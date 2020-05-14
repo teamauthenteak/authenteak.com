@@ -25,19 +25,20 @@ export default class Collection extends PageManager {
         let optid = TEAK.Utils.getParameterByName("optid");
         this.optionsRefferenceId = optid ? optid : 2851;        // product used as the option anchor for the page
 
-        this.productOptionsCntr = document.getElementById("productOptions");
+        // this.productOptionsCntr = document.getElementById("productOptions");
         this.requestSwatchCntr = document.getElementById("swatchpopuplist").querySelector(".swatchModal__list");
 
         this.optionsArray = [];                                 // temporary array for fetched options
         this.productOptionScope = {};                           // stores all product option objects with product ID key
         this.currentSelection = {};                             // saves the currently selected option
-        this.atcItem = "";
+        this.atcItem = "";                                      // saved recently added cart item for app use
+        this.atcCollection = [];                                // all of collection items added to cart
 
         // products
         this.collectionsCntr = document.getElementById("collectionsCntr");
 
         this.collectionsArray = [];                             // temporary array all fetched products
-        this.collectionProducts = [];                        // stores all product ids for fetching of their options
+        this.collectionProducts = [];                           // stores all product ids for fetching of their options
         this.collectionSettings = {                             // used to fetched paginated options
             path: window.location.pathname,
             qty: 8
@@ -63,28 +64,25 @@ export default class Collection extends PageManager {
 
     bindings(){
         $(this.collectionsCntr)
-            .on("change", "input[type='radio']", (e) => { this.trackOptionRadioChange(e); })
-            .on("submit", "form.add-to-cart-form", (e) => { e.preventDefault() });
+            // .on("change", "input[type='radio']", (e) => { this.trackOptionRadioChange(e); })
+            .on("submit", "form.add-to-cart-form", (e) => { e.preventDefault() })
+            .on('click', 'button.product-quantity-toggle', (e) => { this.updateQuantity(e); });
 
         $(document.body)
-            .on("change", "select.product__swatchSelect", (e) => { this.trackOptionDropdownChange(e); })
-            .on("click", "[button-atc]", (e) => { this.atcSubmit(e); });
+            .on("change", "select.selectBox__select", (e) => { this.trackOptionDropdownChange(e); })
+            .on("click", "button[button-atc]", (e) => { this.atcSubmit(e); });
 
         $(window)
             .on("cartDataStored", (e) => { this.handelATCModal(e.detail); })
-            .on("form-field-error-state", (e) => { 
-                this.handelSubmitState(e);
-            })
-            .on("form-field-success-state", (e) => { 
-                this.handelSubmitState(e);
-            });
-       
+            .on("form-field-error-state", (e) => { this.handelSubmitState(e); })
+            .on("form-field-success-state", (e) => { this.handelSubmitState(e); });
 
         this.onProductOptionChange();
     }
 
 
 
+    // on collection form submit
     atcSubmit(e){
         let $target = $(e.currentTarget);
         $target.parents("form").submit();
@@ -92,54 +90,79 @@ export default class Collection extends PageManager {
 
 
 
+    // on Success / Error of the form validation
     handelSubmitState(e){
-        let $target, $targtBtn, isShown;
-
         if( e.type === "form-field-error-state" ){
-            $target = $(e.detail[0].field);
-            $targtBtn = $target.parents("form").find(".product__atcCollectionBtn");
-            isShown = false;
+            let $targtBtn = $(e.detail[0].field).parents("form").find("button[button-atc]");
+            this.toggleATCButton($targtBtn, false);
 
         }else if( e.type === "form-field-success-state" ){
-            console.log(e)
-            isShown = true;
-            this.atcCollectionItem(e, $target);
+            let form = e.originalEvent.detail;
+            this.atcCollectionItem(form);
         }
-
-        this.toggleATCButton($targtBtn, isShown);
     }
 
 
 
-    atcCollectionItem($target){
+    // sends the product info to cart when its valid
+    atcCollectionItem(form){
         if (window.FormData === undefined) { return; }
 
-        this.toggleATCButton($target, true);
-
-        let form = $target.parents("form")[0];
         let formData = new FormData(form);
+        let $targetBtn = $(form).find("button[button-atc]");
 
-        utils.api.cart.itemAdd(this.filterEmptyFilesFromForm(formData), (err, response) => {
+        this.toggleATCButton($targetBtn, true);
+
+        utils.api.cart.itemAdd(filterEmptyFilesFromForm(formData), (err, response) => {
             if (response.status === 'success') {
                 $.event.trigger({
                     type: 'cart-item-add-success',
-                    data: {}
+                    data: response
                 });
             }
         });
 
-        // setup this product to show the atc modal
-        let atcItem = $target.parents("form").attr('id').split("_")[1];
-        atcItem = parseInt(atcItem);
+        this.createCollectionData(form);
 
-        this.atcItem = this.collectionProducts.find(element => element.entityId === atcItem);
+        /**
+         * https://stackoverflow.com/questions/49672992/ajax-request-fails-when-sending-formdata-including-empty-file-input-in-safari
+         * Safari browser with jquery 3.3.1 has an issue uploading empty file parameters. This function removes any empty files from the form params
+         * @param formData: FormData object
+         * @returns FormData object
+         */
+        function filterEmptyFilesFromForm(formData) {
+            try {
+                for (const [key, val] of formData) {
+                    if (val instanceof File && !val.name && !val.size) {
+                        formData.delete(key);
+                    }
+                }
+            } catch (e) {
+                console.error(e); // eslint-disable-line no-console
+            }
+
+            return formData;
+        }
     }
 
 
 
+
+    // Validates each collection row 
     initValidator(context){
         let formElement = `collection_${context.node.entityId}`,
-            formContext = [];
+            formContext = [{
+                    name: "qty[]",
+                    rules: "required"
+                },
+                {
+                    name: "product_id",
+                    rules: "required"
+                },
+                {
+                    name: "action",
+                    rules: "required"
+                }];
         
         context.node.productOptions.forEach((element) => {
             formContext.push({
@@ -148,71 +171,192 @@ export default class Collection extends PageManager {
             });
         });
 
-        // console.log(formContext)
-
         this.Validator = new FormValidator(formElement, formContext);
 
         this.Validator.initSingle(
             $(`form[name=${formElement}]`), {
             
                 onValid: (e) => {
-                    // console.log("success " + e)
-                    let event = new CustomEvent("form-field-success-state", {detail: this});
+                    let event = new CustomEvent("form-field-success-state", {detail: e.target});
                     window.dispatchEvent(event);
                 },
             
                 onError: function(e) {
-                    // console.log(e)
-
-                    // let $firstError = $(e.target).find('.product__swatchLabel--error').first();
-            
                     // notify other apps of the form field error for specific ui updates
                     let invalidFields = this.getInvalidFields();
                     let event = new CustomEvent("form-field-error-state", {detail: invalidFields});
                     window.dispatchEvent(event);
-            
-            
-                    // if ('scrollBehavior' in document.documentElement.style) {
-                    //     window.scroll({
-                    //         top: $firstError.offset().top - 112,
-                    //         left: 0,
-                    //         behavior: 'smooth'
-                    //     });
-            
-                    // } else {
-                    //     window.scroll(0, $firstError.offset().top - 200);
-                    // }
-        
                 }
             }
         );
     }
 
 
-    toggleATCButton($target, showAction){        
+
+    // toggles the ATC button for each form
+    toggleATCButton($target, showAction){
         $target
             .find(".product__atcCollectionBtnText").toggleClass("hide", showAction)
                 .end()
             .find(".icon-spinner").toggleClass("hide", !showAction);
+
+        $target[0].toggleAttribute("disabled", showAction);
     }
 
 
 
+    // setup this product to show the atc modal
+    createCollectionData(form){
+        let that = this,
+            $form = $(form);
+
+        // Save this cart item
+        let atcItem = $form.attr('id').split("_")[1];
+        atcItem = parseInt(atcItem);
+
+        this.atcItem = this.collectionProducts.find(element => element.entityId === atcItem);
+
+        // holds all of the selected options from the collection item added to cart
+        this.atcItem["selected"] = {};
+
+        let finalQty =  $form.find("[name='qty[]']").val();
+        finalQty = parseInt(finalQty);
+        this.atcItem["qty"] = finalQty;
+
+        let adjustedPrice = $form.find(".product__priceValue").text();
+        adjustedPrice = adjustedPrice.replace(/[^\d.-]/g, '');
+        adjustedPrice = parseInt(adjustedPrice);
+        this.atcItem["adjustedPrice"] = adjustedPrice;
+
+
+        // gets the selected options from the cart collectino items form and then adds them to its atcitem object
+        $form.find(":selected, :checked").each(addSelected);
+
+        function addSelected(){
+            let optionID = $(this).is("option") ? $(this).parents("select").attr("name") : $(this).attr("name");
+            optionID = optionID.match(/\[(.*?)\]/)[1];
+            optionID = parseInt(optionID);
+
+            let value = $(this).val();
+            value = parseInt(value);
+
+            let selectedOption = that.atcItem.productOptions.find((element) => element.node.entityId === optionID);
+            selectedOption = selectedOption.node;
+
+            let selected = selectedOption.values.edges.find((element) => element.node.entityId === value );
+            selected = selected.node;
+
+            that.atcItem.selected[selectedOption.entityId] = selected.hasOwnProperty("text") ? selected : Object.assign( selected, TEAK.Utils.parseOptionLabel(selected.label) );
+        }
+
+        // save the cutomers cart added to the collection list
+        this.atcCollection.push(this.atcItem);
+
+        // track this product
+        this.initATCAnalytics();
+    }
+
+
+
+    // on success open the atc confimration modal
     handelATCModal(cartDetail){
-        console.log(this.atcItem)
+        $("#modalCartCntr").html("");
+
+        $("#toaster").removeClass("toaster--hide");
 
         let tpl = this.graph_tpl.getAtcModalContent(this.atcItem, cartDetail);
+        $("#modalCartCntr").addClass("toaster__atcModal--active").html(tpl);
 
-        $("#modalCartCntr").html(tpl);
-        $('.modal-cart').addClass('is-open');
 
-        this.toggleATCButton( $(`#collection_${this.atcItem.entityId}`), false );
+        $("#toasterItemList").html("");
+        this.atcCollection.forEach((element) => {
+            let itemTpl = this.graph_tpl.getToasterItem(element);
+            $(itemTpl).appendTo("#toasterItemList");
+        });
+
+        setTimeout(() => { $("#modalCartCntr").removeClass("toaster__atcModal--active").html(""); }, 5000);
+
+        this.toggleATCButton( $(`#collection_${this.atcItem.entityId}`).find("button[button-atc]"), false );
+    }
+
+
+
+    // updates collection item quty
+    updateQuantity(e){
+        e.preventDefault();
+    
+        let $target = $(e.currentTarget);
+        let $quantity = $target.parents('label.product__qtyCntr').find('input[type="number"]');
+        let min = parseInt($quantity.prop('min'), 10);
+        let max = parseInt($quantity.prop('max'), 10);
+    
+        let newQuantity = parseInt($quantity.val(), 10);
+        newQuantity = isNaN(newQuantity) ? min : newQuantity;
+        
+        if ($target.hasClass('product-quantity-increment') && (!max || newQuantity < max)) {
+            newQuantity++;
+
+        } else if ($target.hasClass('product-quantity-decrement') && newQuantity - 1 > min) {
+            newQuantity--;
+        }
+    
+        $quantity.val(newQuantity);
+    
+        utils.hooks.emit('product-option-change', null, $quantity[0]);
     }
 
 
 
 
     onProductOptionChange(){
+
+        utils.hooks.on('product-option-change', (event, changedOption) => {
+            let $changedOption = $(changedOption);
+            let $form = $changedOption.parents('form');
+            let $productid = $form.find("[name='product_id']").val();
+
+            utils.api.productAttributes.optionChange($productid, $form.serialize(), (err, response) => {
+                let viewModel = getViewModel($form);
+                let data = response ? response.data : {};
+            
+                // Apply quantity changes
+                let qty = Number.parseInt( $form.find('.product-quantity').val() );
+
+                if (qty > 1) {
+                    for (var i in data.price) {
+                        if (data.price[i].value) {
+                            data.price[i].value *= qty;
+
+                            if (data.price[i].formatted) {
+                                data.price[i].formatted = data.price[i].value.toLocaleString('en-us', {style: 'currency', currency: 'USD'});
+                            }
+                        }
+                    }
+                }
+
+                 // Extrapolate and test for base price
+                if (data.base || (typeof data.variantID == 'undefined' && typeof data.v3_variant_id == 'undefined')) {
+                    viewModel.$price.data('base-price', data.price.without_tax);
+                }
+      
+                if (data.price.without_tax !== viewModel.$price.data('base-price')) {
+                    delete data.price.rrp_without_tax;
+                    delete data.price.rrp_with_tax;
+                    delete data.price.saved;
+                }
+        
+                // updating price (Update price based on quantity HERE!)
+                if (viewModel.$price.length) {
+                    $form.find(".product__priceValue").data("price", data.price.without_tax.value).text(data.price.without_tax.formatted);
+                }
+      
+                if (viewModel.$priceWithTax.length) {
+                    $form.find(".product__priceValue").data("price", data.price.with_tax.value).text(data.price.with_tax.formatted);
+                }
+
+            });
+        });
+
 
         function getViewModel($el) {
             return {
@@ -231,182 +375,12 @@ export default class Collection extends PageManager {
                 }
             };
         }
-
-
-        utils.hooks.on('product-option-change', (event, changedOption) => {
-            let $changedOption = $(changedOption);
-            let $form = $changedOption.parents('form');
-            let $productid = $form.find("[name='product_id']").val();
-
-            utils.api.productAttributes.optionChange($productid, $form.serialize(), (err, response) => {
-                const viewModel = getViewModel($form);
-                const data = response ? response.data : {};
-      
-              // If our form data doesn't include the product-options-count with a positive value, return
-            //   if (this.$el.find('[data-product-options-count]').val < 1) {
-            //     return;
-            //   }
-      
-            //   this._updateAttributes(data);
-      
-              // Apply quantity changes
-            //   let qty = Number.parseInt($('.product-quantity').val());
-              let qty = 1;
-
-              if (qty > 1) {
-                for (var i in data.price) {
-                  if (data.price[i].value) {
-                    data.price[i].value *= qty;
-                    if (data.price[i].formatted) {
-                      data.price[i].formatted = data.price[i].value.toLocaleString('en-us', {style: 'currency', currency: 'USD'});
-                    }
-                  }
-                }
-              }
-      
-              console.log(data)
-      
-              // Extrapolate and test for base price
-              if (data.base || (typeof data.variantID == 'undefined' && typeof data.v3_variant_id == 'undefined')) {
-                viewModel.$price.data('base-price', data.price.without_tax);
-              }
-      
-              if (data.price.without_tax !== viewModel.$price.data('base-price')) {
-                delete data.price.rrp_without_tax;
-                delete data.price.rrp_with_tax;
-                delete data.price.saved;
-              }
-      
-              // updating price (Update price based on quantity HERE!)
-              if (viewModel.$price.length) {
-                // const priceStrings = {
-                //   price: data.price,
-                //   excludingTax: "(exc tax)",
-                // };
-
-                $form.find(".product__priceValue")
-                    .data("price", data.price.without_tax.value).text(data.price.without_tax.formatted);
-      
-                // viewModel.$price.html(productViewTemplates.priceWithoutTaxTemplate(priceStrings));
-                // console.log('updating!');
-                // console.log(this);
-                // console.log(priceStrings);
-                // console.log(data.price);
-              }
-      
-              if (viewModel.$priceWithTax.length) {
-                // const priceStrings = {
-                //   price: data.price,
-                //   includingTax: this.context.productIncludingTax,
-                // };
-
-                $form.find(".product__priceValue")
-                    .data("price", data.price.with_tax.value).text(data.price.with_tax.formatted);
-
-                // viewModel.$priceWithTax.html(this.options.priceWithTaxTemplate(priceStrings));
-              }
-      
-            //   if (viewModel.$saved.length) {
-            //     const priceStrings = {
-            //       price: data.price,
-            //       savedString: this.context.productYouSave,
-            //     };
-            //     viewModel.$saved.html(this.options.priceSavedTemplate(priceStrings));
-            //   }
-      
-              // stock
-            //   if (data.stock) {
-            //     viewModel.stock.$selector.removeClass('product-details-hidden');
-            //     viewModel.stock.$level.text(data.stock);
-            //   } else {
-            //     viewModel.stock.$level.text('0');
-            //   }
-      
-              // update sku if exists
-            //   if (viewModel.$sku.length) {
-            //     viewModel.$sku.html(data.sku);
-            //   }
-      
-              // update testBit if exists
-            //   if (viewModel.$testBit.length) {
-            //     viewModel.$testBit.html("-----");
-            //   }
-      
-              // update free shipping if exists
-            //   if (viewModel.$freeShip.length) {
-            //     viewModel.$testBit.html("Free Shipping");
-            //   }
-      
-              // update weight if exists
-            //   if (data.weight && viewModel.$weight.length) {
-            //     viewModel.$weight.html(data.weight.formatted);
-            //   }
-      
-              // handle product variant image if exists
-            //   if (data.image) {
-            //     const productImageUrl = utils.tools.image.getSrc(
-            //       data.image.data,
-            //       this.context.themeImageSizes.zoom
-            //     );
-            //     const zoomImageUrl = utils.tools.image.getSrc(
-            //       data.image.data,
-            //       this.context.themeImageSizes.product
-            //     );
-      
-            //     // to maintain a reference between option images, pull out the
-            //     // filename from the image URL and use it as an ID
-            //     const imageId = data.image.data.replace(/^.*[\\\/]/, '');
-      
-            //     this.callbacks.switchImage(productImageUrl, zoomImageUrl, data.image.alt, imageId);
-            //   }
-      
-              // update submit button state
-            //   if (!data.purchasable || !data.instock) {
-            //     if (data.purchasing_message && showMessage) {
-            //       if ($('.modal-quick-shop').length) {
-            //         this.productAlerts.error(data.purchasing_message, true);
-            //       } else {
-            //         setTimeout(() => {
-            //           this.pageAlerts.error(data.purchasing_message, true);
-            //         }, 50);
-            //       }
-            //     }
-      
-            //     viewModel.$addToCart
-            //       .addClass(this.buttonDisabledClass)
-            //       .prop('disabled', true);
-            //   } else {
-            //     viewModel.$addToCart
-            //       .removeClass(this.buttonDisabledClass)
-            //       .prop('disabled', false);
-            //   }
-
-
-            });
-          });
     }
 
 
 
 
-    /**
-  * https://stackoverflow.com/questions/49672992/ajax-request-fails-when-sending-formdata-including-empty-file-input-in-safari
-  * Safari browser with jquery 3.3.1 has an issue uploading empty file parameters. This function removes any empty files from the form params
-  * @param formData: FormData object
-  * @returns FormData object
-  */
-  filterEmptyFilesFromForm(formData) {
-    try {
-      for (const [key, val] of formData) {
-        if (val instanceof File && !val.name && !val.size) {
-          formData.delete(key);
-        }
-      }
-    } catch (e) {
-      console.error(e); // eslint-disable-line no-console
-    }
-    return formData;
-  }
+
 
 
 
@@ -437,30 +411,25 @@ export default class Collection extends PageManager {
 
 
 
+    // when the select box option is changed, update the price and make it look selected
     trackOptionDropdownChange(e){
         let selectObj = {},
-            that = this;
+            $target = $(e.currentTarget);
         
-        selectObj["name"] = $(e.currentTarget).attr("name");
-        selectObj["value"] = $(e.currentTarget).val();
+        selectObj["name"] = $target.attr("name");
+        selectObj["value"] = $target.val();
 
         Object.assign(selectObj, TEAK.Utils.parseOptionLabel(e.currentTarget.selectedOptions[0].label));
 
-        $(e.currentTarget)
-            .parents(".product__row").find(".product__priceValue").text(function(){
-                let productPrice = $(this).data("price"), 
-                    newTotal = that.calculateAdjustedPrice(productPrice, selectObj);
-
-                $(this).data("price", newTotal);
-                return TEAK.Utils.formatPrice(newTotal);
-            });
-
-        utils.hooks.emit('product-option-change');
+        $target.parents(".selectBox__label").find(".selectBox__value").text(selectObj.text).addClass("selectBox__value--choosen");
+        utils.hooks.emit('product-option-change', null, $target);
     }
 
 
 
+
     // udpates each product in the collection with a top swatch is clicked
+    /*
     trackOptionRadioChange(e){
         let  that = this, radioObj = $(e.currentTarget).data();       
 
@@ -487,10 +456,7 @@ export default class Collection extends PageManager {
                         return TEAK.Utils.formatPrice(newTotal);
                     }
                 });
-
-            // $(this).parents(".product__swatchItem").find(".product__clearSwatch").removeClass("hide");
         });
-
 
 
         function getOptionValues(optObj){
@@ -508,7 +474,7 @@ export default class Collection extends PageManager {
             return swatch.node;
         }
     }
-
+*/
 
 
 
@@ -516,7 +482,8 @@ export default class Collection extends PageManager {
     /**
      * Builds Options watches for products
      */
-
+  
+   
     // fetch the collection options
     getOptions(){
         let optionScheme = this.graphQL.getProductOptions(this.optionsRefferenceId);
@@ -528,9 +495,8 @@ export default class Collection extends PageManager {
     initOptions(){
         this.getOptions().then((data) => {
             this.optionsArray = data.site.products.edges[0].node.productOptions.edges;
-            this.productOptionsCntr.innerHTML = "";
-
-            // this.buildOptions();
+            
+            // this.buildOptions(); - adds the global options
             this.setOptionsJSON();
         });
     }
@@ -538,6 +504,8 @@ export default class Collection extends PageManager {
 
     // build the options
     buildOptions(){
+        this.productOptionsCntr.innerHTML = "";
+
         this.optionsArray.forEach((element) => {
             let tpl = this.parseOption(element.node);
             $(tpl).appendTo(this.productOptionsCntr);
@@ -686,7 +654,7 @@ export default class Collection extends PageManager {
     }
 
 
-    // Combine the fetched product data and Prodcut Options
+    // Combine the fetched product data and Product Options
     parseProductData(prodOptData){
         prodOptData.edges.forEach((element, i) => {
             this.collectionsArray.edges[i].node["productOptions"] = element.node.productOptions.edges;
@@ -731,23 +699,19 @@ export default class Collection extends PageManager {
             event: 'plp_collections_view',
             location: 'collections'
         });
+    }
 
-        // $(document.body).on("click", function(){
-        //     let qty = document.querySelector(".product-quantity").value,
-        //         price = document.querySelector(".product__priceValue").innerText.trim().replace(/\$|,/g, '');
-    
-        //     TEAK.Modules.fbPixel.addToCart("{{product.title}}", price, "{{product.id}}");
-    
-        //     TEAK.Modules.pintrest.addToCart({
-        //         price: price,
-        //         qty: qty,
-        //         id: "{{product.id}}",
-        //         name: "{{product.title}}",
-        //         brand: "{{product.brand.name}}",
-        //         categories: ["{{product.category}}"]
-        //     });
-        // });
-        
+    // analytics on ATC
+    initATCAnalytics(){    
+        TEAK.Modules.fbPixel.addToCart(this.atcItem.name, this.atcItem.adjustedPrice, this.atcItem.entityId);
+
+        TEAK.Modules.pintrest.addToCart({
+            price: this.atcItem.adjustedPrice,
+            qty: this.atcItem.qty,
+            id: this.atcItem.entityId,
+            name: this.atcItem.name,
+            categories: document.getElementById("CategoryCollection").dataset.categoryName
+        });
     }
     
 

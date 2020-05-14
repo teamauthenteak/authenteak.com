@@ -236,7 +236,7 @@
 					subTotal = parseInt(subTotal); s
 					qty = parseInt(qty);
 
-					TEAK.Modules.fbPixel.checkoutStart(subTotal, qty);
+					// TEAK.Modules.fbPixel.checkoutStart(subTotal, qty);
 					TEAK.Modules.pintrest.checkOut(subTotal, qty);
 				});
 
@@ -326,7 +326,7 @@
 					subTotal = parseInt(subTotal);
 					qty = parseInt(qty);
 
-					TEAK.Modules.fbPixel.checkoutStart(subTotal, qty);
+					// TEAK.Modules.fbPixel.checkoutStart(subTotal, qty);
 					TEAK.Modules.pintrest.checkOut(qty);
 				});
 			}
@@ -340,10 +340,10 @@
 			if (window.BoltCheckout) {
 				window.BoltCheckout.setClientCustomCallbacks({
 					success: function (trx) {
-						fbq('track', 'Purchase', {
-							value: trx.amount.amount / 100.0,
-							currency: 'USD',
-						});
+						// fbq('track', 'Purchase', {
+						// 	value: trx.amount.amount / 100.0,
+						// 	currency: 'USD',
+						// });
 					}
 				});
 				clearInterval(interval);
