@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.20.26]
+
+
 ## [1.20.25]
 - Collections page
 - added qty on collections page
