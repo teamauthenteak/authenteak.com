@@ -1,8 +1,8 @@
 {
-  "name": "Authenteak.com - 1.20.25",
-  "version": "1.20.25",
+  "name": "Authenteak.com - 1.20.25.001",
+  "version": "1.20.25.001",
   "settings": {
-    "version": "1.20.25",
+    "version": "1.20.25.001",
     "paymentbuttons-paypal-layout": "horizontal",
     "paymentbuttons-paypal-color": "gold",
     "paymentbuttons-paypal-shape": "rect",

@@ -685,6 +685,15 @@ export default class Collection extends PageManager {
             $(tpl).appendTo(this.collectionsCntr);
 
             this.initValidator(element);
+        
+            if(element.node.brand){
+                window.TEAK.Modules.toolTip.init({
+                    type: "brand",
+                    key: element.node.brand.name,
+                    id: element.node.brand.name
+                });
+            }
+            
         });   
     }
 
@@ -710,7 +719,8 @@ export default class Collection extends PageManager {
             qty: this.atcItem.qty,
             id: this.atcItem.entityId,
             name: this.atcItem.name,
-            categories: document.getElementById("CategoryCollection").dataset.categoryName
+            categories: document.getElementById("CategoryCollection").dataset.categoryName,
+            brand: this.atcItem.brand.name
         });
     }
     
