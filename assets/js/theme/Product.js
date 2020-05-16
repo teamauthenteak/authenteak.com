@@ -411,7 +411,7 @@ export default class Product extends PageManager {
 
 
 TEAK.Modules.leadTime = {
-	setTip: function(element){
+	setTip: function(element, isInline){
 		let tpl = [
 			'<a href="" class="shpping-range--tipLink" data-tool-tip-open data-tool-tip-type="element" data-tool-tip-name="next_bussiness_day" data-tool-tip-id="next_bussiness_day">',
 				'<span class="toolTip__iconCntr toolTip__iconCntr--dark">',
@@ -423,7 +423,7 @@ TEAK.Modules.leadTime = {
 			'</a>',
 			'<span class="toolTip__cntr toolTip__cntr--hide" id="next_bussiness_day"></span>'].join("");
 
-		document.getElementById(element).innerHTML = tpl;
+		return isInline ? tpl : document.getElementById(element).innerHTML = tpl;
 	}
 }
 

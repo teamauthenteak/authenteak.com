@@ -20,6 +20,10 @@
 - added Analytics to colletions page
 - fixed issue for hamberger menu being too small
 - made tablet main nav menu smaller
+- added lead time to collections page
+- added lead time tool tip to collections page
+- added tool tip for product options to collections page
+- added brand field to product graphql response 
 
 ## [1.20.24]
 - removed * from selectbox options

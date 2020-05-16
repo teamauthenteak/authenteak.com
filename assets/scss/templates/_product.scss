@@ -87,6 +87,14 @@
         @extend .shipping-range--static;
     }
 
+    &__shippingInfo{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        line-height: 1.2;
+        margin-bottom: 16px;
+    }
+
     &__priceCntr{
         float: left;
         width: 50%;

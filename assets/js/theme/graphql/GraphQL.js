@@ -167,6 +167,10 @@ export default class GraphQL {
                             }
                         }
                     }
+
+                    brand {
+                        name
+                    }
                 
                     defaultImage {
                         url(width: 500, height: 500)
