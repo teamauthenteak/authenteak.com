@@ -307,7 +307,7 @@ export default class ProductSwatchModal {
 
         let hasValues = (this.filter.grade.values.length > 0 || this.filter.brandName.values.length > 0 || this.filter.ships.values.length > 0);
 
-        this.swatchFilterController({filter: hasValues });
+        this.swatchFilterController({ filter: hasValues });
     }
 
 
@@ -418,7 +418,7 @@ export default class ProductSwatchModal {
     filterAll( hasKeywords, hasBrandNames, hasGrades, hasShipping ){
         let fetchedResults = [];
 
-        // get all of the objects that match our inital filters
+        // get all of the objects that match our initial filters
         fetchedResults = fetchedResults.concat( 
             hasBrandNames ? this.filteredBrands : [], 
             hasGrades ? this.filteredGrades : [], 
@@ -465,7 +465,7 @@ export default class ProductSwatchModal {
      * Pluck out options we want from optionsArray 
      -----------------------------------------------*/
 
-    // filter all option's labels based on this keword
+    // filter all option's labels based on this keyword
     filterKeyword(){
         this.optionsArray.values.edges.forEach((element) => {
             let label = element.node["label"].toLowerCase();
@@ -509,7 +509,7 @@ export default class ProductSwatchModal {
         });
     }
 
-    // build the new UI after we have filterd the options
+    // build the new UI after we have filtered the options
     buildFilteredSwatchList(){
         let labelCntr = this.$optionForm.find(".form-field-control");
 

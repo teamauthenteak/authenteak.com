@@ -1,0 +1,386 @@
+%ratings-flex{
+    display: flex;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.ratings{
+    @extend %ratings-flex;
+
+    @media only screen and (max-width: $screen-sm) {
+        flex-direction: column;
+        padding: 20px 0;
+    }
+
+    &__overView{
+        @extend %ratings-flex;
+        width: 50%;
+        border-right: 1px solid #ccc;
+        align-items: stretch;
+        padding: 20px 40px 20px 20px;
+
+        @media only screen and (max-width: $screen-md) {
+            flex-direction: column;
+        }
+
+        @media only screen and (max-width: $screen-sm) {
+            width: 100%;
+            padding: 0;
+            border-right: none;
+            border-bottom: 1px solid #ccc;
+        }
+    }
+
+    &__writeCta{
+        @extend %ratings-flex;
+        width: 50%;
+        padding: 20px 40px;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        align-content: center;
+
+        @media only screen and (max-width: $screen-sm) {
+            width: 100%;
+        }
+    }
+
+    &__distroCntr{
+        @extend %ratings-flex;
+        width: 70%;
+        align-items: flex-start;
+
+        @media only screen and (max-width: $screen-md) {
+            width: 100%;
+            padding: 20px 0;
+        }
+    }
+
+    &__highlights{
+        @extend %ratings-flex;
+        flex-direction: column;
+        width: 30%;
+        padding: 20px;
+        border: 3px solid #eee;
+        margin: 0 20px 0 0;
+
+        @media only screen and (max-width: $screen-md) {
+            width: 100%;
+            margin: 0 0 20px 0;
+        }
+    }
+
+    &__btn{
+        @extend .button;
+        @extend .button-primary;
+        @extend .button-primary--green;
+        padding: 8px 30px;
+        align-self: flex-end;
+    }
+
+    &__avgRate{
+        @extend %ratings-flex;
+        flex-direction: column;
+        margin-top: 0;
+    }
+
+    &__avg{
+        font-size: 4.5rem;
+        line-height: 1;
+        font-weight: 800;
+        color: #444;
+
+        &--small{
+            font-size: 2rem;
+        }
+    }
+
+    &__totalRate{
+        font-size: 1.2rem;
+        line-height: 1;
+        color: #777;
+
+        &--small{
+            font-size: 0.8rem;
+        }
+    }
+
+    &__meta{
+        margin: 0;
+        font-size: 0.8rem;
+    }
+
+    &__distroList{
+        width: 100%;
+    }
+
+    &__distro{
+        display: grid;
+        grid-template-columns: repeat(100, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+        height: 30px;
+        width: 100%;
+        padding: 0;
+        margin: 0 10px;
+        background-color: #eee;
+    }
+
+    &__distroBar{
+        grid-column-start: 1;
+        grid-column-end: 101;
+        background-color: #fc0;
+
+        &--0{
+            background-color: transparent;
+        }
+    }
+
+    &__distroData{
+        margin: 0 0 10px 0;
+    }
+
+    &__distroButton{
+        @extend %ratings-flex;
+        background-color: transparent;
+        padding: 0;
+        margin: 0;
+        flex-direction: row;
+        color: #2980b9;
+        outline: none;
+
+        &:hover{
+            opacity: 0.5;
+        }
+    }
+
+    &__distroValue{
+        width: 30px;
+        flex: 1 0 30px;
+    }
+
+    &__distroLabel{
+        position: relative;
+        width: 26px;
+        display: flex;
+        flex: 1 0 26px;
+
+        &:after{
+            content: "★";
+            color: var(--star-background);
+            padding-left: 3px;
+            position: absolute;
+            right: 0;
+        }
+    }
+
+
+    &__stars{
+        @extend.yotpo-stars-rating;
+    }
+
+
+    &__recomm{
+        @extend %ratings-flex;
+        width: 100%;
+        padding: 20px 0;
+    }
+
+    &__recommPercent{
+        font-size: 2.4rem;
+        color: #444;
+        font-weight: 800;
+        display: flex;
+        flex-direction: column;
+        line-height: 1;
+    }
+
+    &__recommCust{
+        font-size: 0.8rem;
+        font-weight: 400;
+    }
+
+    &__recommText{
+        margin-left: 20px;
+        padding-left: 20px;
+        border-left: 1px solid #ccc;
+        font-size: 1.4rem;
+        line-height: 1.2;
+    }
+
+
+    // filter
+    &__filter{
+        width: 100%;
+        display: flex;
+        padding: 20px;
+        border-top: 1px solid #eee;
+        flex-direction: row;
+        justify-content: space-between;
+
+        & .selectBox__label--scores{
+            align-self: flex-end;
+            flex: 0 0 auto;
+            width: 25%;
+        }
+    }
+
+    &__controlSet{
+        @extend .drawer__controlSet;
+        width: 30%;
+        margin-right: 10px;
+    }
+
+    &__control{
+        @extend .drawer__control;
+
+        &--input{
+            @extend .drawer__control--input;
+            height: 100% !important;
+            padding-left: 20px;
+
+            &::placeholder { 
+                color: #333;
+            }
+        }
+
+        &--searchIcon{
+            @extend .drawer__control--searchIcon;
+            right: 5px;
+            left: auto;
+            width: 50px;
+            background-color: #444;
+        }
+    }
+
+    &__loadMoreBtn{
+        @extend %ratings-flex;
+        width: 100%;
+        padding: 20px;
+        background-color: #ddd;
+        flex: 1 0 auto;
+        font-size: 1.2rem;
+        text-transform: capitalize;
+        border-radius: 4px;
+        flex-direction: column;
+        outline: none;
+
+        &:hover{
+            background-color: #f2f2f2;
+            color: #999;
+        }
+    }
+
+
+    &__loadMoreIcon{
+        @extend %ratings-flex;
+    }
+    
+
+    &__sorryMessage{
+        @extend .drawer__sorryMessage;
+        text-align: center;
+        padding: 20px;
+    }
+    
+
+    
+
+
+    // customer ratings
+    &__listItem{
+        display: flex;
+        padding: 40px 0;
+        border-top: 1px solid #eee;
+
+        @media only screen and (max-width: $screen-sm) {
+            flex-direction: column;
+        }
+    }
+
+    &__cutomerInfo{
+        width: 15%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+
+        @media only screen and (max-width: $screen-sm) {
+            width: 100%;
+            padding: 0 0 20px 0;
+        }
+
+        & .ratings__stars{
+            font-size: 20px;
+            width: 115px;
+            height: 20px;
+        }
+    }
+
+    &__content{
+        padding: 0 20px;
+        width: 85%;
+
+        @media only screen and (max-width: $screen-sm) {
+            width: 100%;
+            padding: 0;
+            text-align: center;
+        }
+    }
+
+    &__contentTitle{
+        margin: 0;
+        line-height: 1;
+    }
+
+    &__customer{
+        font-weight: 800;
+        margin-top: 20px;
+        font-size: 1.1rem;
+        line-height: 1;
+    }
+
+    &__customerVerified{
+        font-size: 0.6;
+        font-style: italic;
+        color: $btn-color-green;
+    }
+
+    &__customerRateDate{
+        color: #999;
+        font-size: 0.9rem;
+    }
+
+    &__contentAnswer{
+        @extend .product__answer;
+        margin-left: 20px;
+        font-style: italic;
+        width: 75%;
+    }
+
+    &__contentAnswerText{
+        @extend .product__answerText;
+    }
+
+    &__contentAnswerMeta{
+        @extend .product__answerMeta;
+    }
+
+}
+
+
+
+$totalRows: 101;
+
+@mixin chartValue($data) {
+    $result: $totalRows - $data;
+    grid-column-end: -$result;
+}
+
+@for $i from 0 through $totalRows {
+    .ratings__distroBar--#{$i} {
+        @include chartValue($i);
+    }
+}

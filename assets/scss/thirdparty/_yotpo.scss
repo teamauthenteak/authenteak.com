@@ -43,6 +43,11 @@
       color: var(--star-background) !important;
   }
 
+  .yotpo-reviews{
+    display: flex;
+    align-items: center;
+  }
+
   .yotpo-reviews-num{
       padding: 0 2px;
       text-decoration: none;

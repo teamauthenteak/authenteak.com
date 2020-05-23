@@ -16,6 +16,7 @@ import AddToCartModal from './product/customizations/AddToCartModal';
 import PrintMode from './product/customizations/PrintMode';
 import ProductSwatchModal from './product/ProductSwatchModal';
 import LazyLoad from 'vanilla-lazyload';
+import Yotpo from './thirdparty/Yotpo'
 
 export default class Product extends PageManager {
 	constructor() {
@@ -68,6 +69,12 @@ export default class Product extends PageManager {
 				this.productInfo = JSON.parse(document.getElementById("productInfo").innerHTML);
 			}catch(err){}
 		}
+
+		this.yotpo = new Yotpo({
+			product: this.productInfo,
+			productId: this.productId,
+			isProductPage: true
+		});
 
 		// add product swatch modal
 		new ProductSwatchModal(this.productInfo);
@@ -170,7 +177,6 @@ export default class Product extends PageManager {
 	}
 
 
-
 	/**
 	 * Build Recommended Products
 	 * @param {Array} args.productIdArray arry of recomened product ids 
@@ -206,10 +212,8 @@ export default class Product extends PageManager {
 
 	getProductRaiting(productIdArray){
 		try{
-			let yotpoObj = this.recommended.buildYotpoBulkObject(productIdArray);
-
 			// get our bulk yotpo rating for recomm products on page
-			this.recommended.fetchYotpoBulk(yotpoObj)
+			this.yotpo.fetchBulk(productIdArray)
 				.then((data) => {
 					this.appendRating(data, productIdArray);
 				});
@@ -283,7 +287,7 @@ export default class Product extends PageManager {
 	// saved this viwerd poduct - include the yotpo rating
 	saveViewedProduct(){
 		try{			
-			$.ajax(`${this.recentlyViewed.yotpoReviewsUrl}/${this.recentlyViewed.yotpoKey}/products/${this.productId}/reviews.json`)
+			this.yotpo.getProductReviews(this.productId)
 				.done((dataObj) => {
 					let totalScore = dataObj.response.bottomline.average_score;
 
@@ -327,21 +331,23 @@ export default class Product extends PageManager {
 		let $ratingCntr = $("#yotpoRating");
 
 		$.when( 
-			$.ajax(`${this.recentlyViewed.yotpoReviewsUrl}/${this.recentlyViewed.yotpoKey}/products/${this.productId}/reviews.json`),
-			$.ajax(`${this.recentlyViewed.yotpoQuestionsUrl}/${this.recentlyViewed.yotpoKey}/${this.productId}/questions`) 
+			this.yotpo.getProductReviews(this.productId),
+			this.yotpo.getProductQuestions(this.productId)
 			
 		).then((reviewData, questionData) => {
-			let totalScore = reviewData[0].response.bottomline.average_score,
-				totalReviews = reviewData[0].response.bottomline.total_review,
-				totalQuestions = questionData[0].response.total_questions;
+			this.questionData = questionData[0].response;
+			this.reviewData = reviewData[0].response;
+
+			let totalScore = this.reviewData.bottomline.average_score,
+				totalReviews = this.reviewData.bottomline.total_review,
+				totalQuestions = this.questionData.total_questions;
 
 			totalScore = totalScore === 0 ? 0 : totalScore.toFixed(1);
 			
 			this.showRaiting($ratingCntr, totalScore, totalQuestions, totalReviews);
 
-			// console.log(reviewData[0].response.bottomline.average_score)
-			// console.log(reviewData[0].response.bottomline.total_review)
-			// console.log(questionData[0].response.total_questions)
+			this.buildCustQuestions();
+			this.buildCustReviews();
 		});
 
 		
@@ -364,7 +370,39 @@ export default class Product extends PageManager {
 				.end()
 			.find(".yotpo-questions-num").text(totalQuestions)
 				.end()
-			.find(".yotpo-questions-text").text(totalQuestions > 1 ? 'Questions' : 'Question')
+			.find(".yotpo-questions-text").text(totalQuestions > 1 ? 'Questions' : (totalQuestions === 1 ? 'Question' : (totalQuestions === 0 ? 'Question' : 'Questions') ) )
+	}
+
+
+
+
+	buildCustQuestions(){
+		let hasQuestions = this.questionData.total_questions > 0;
+
+		$("#noQuestions").toggleClass("hide", hasQuestions);
+		$("#questionsTitleBtn").toggleClass("hide", !hasQuestions);
+		
+		this.questionData.questions.forEach((element) => {
+			let tpl = this.yotpo.buildProductQuestions(element);
+			$(tpl).appendTo("#productQuestions");
+		});
+		
+		// console.log(this.questionData)		
+	}
+
+
+
+	buildCustReviews(){
+		let hasReviews = this.reviewData.bottomline.total_review > 0;
+
+		$("#noReviews").toggleClass("hide", hasReviews);
+
+		if( hasReviews ){
+			let tpl = this.yotpo.buildProductReviews(this.reviewData);
+			$(tpl).appendTo("#ratingsBlock");
+		}
+		
+		// console.log(this.reviewData);
 	}
 
 

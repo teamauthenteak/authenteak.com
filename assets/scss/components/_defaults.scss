@@ -12,7 +12,11 @@ p a, strong a{
     text-decoration: underline;
 }
 
-// take from BC Backend
+p + ol{
+    margin-left: 15px;
+}
+
+// taken from BC Backend
 label[for="radio-cheque"] {
     display: none !important;
 }

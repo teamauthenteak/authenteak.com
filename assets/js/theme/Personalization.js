@@ -1,8 +1,10 @@
 import PageManager from '../PageManager';
 import GraphQL from './graphql/GraphQL';
 import LazyLoad from 'vanilla-lazyload';
+import Yotpo from './thirdparty/Yotpo';
 
-/**
+
+/*
  * Personlaiation Module:
  *  Cutom personalization dispay and data interaction
  * 
@@ -19,15 +21,12 @@ export default class Personalization extends PageManager {
 
         this.graphQL = new GraphQL();
 
+        this.yotpo = new Yotpo();
+
         this.lazyLoadInstance = new LazyLoad({
 			elements_selector: ".replaced-image, .lazy-image"
 		});
 
-        this.yotpoKey = "aS8rMIONwGgNbx1ATQmUtKY173Xk5HHc75qGrnuq";
-
-        this.yotpoBatchUrl = "https://staticw2.yotpo.com/batch?";
-        this.yotpoReviewsUrl = "https://api.yotpo.com/v1/widget";
-        this.yotpoQuestionsUrl = "https://api.yotpo.com/products";
 
         // must be passed in settings
         this.type = settings.type;
@@ -90,7 +89,7 @@ export default class Personalization extends PageManager {
             }
 
             this.savedProducts = JSON.stringify(this.savedProducts);
-            window.localStorage.setItem("TEAK_"+this.type, this.savedProducts);
+            window.localStorage.setItem("TEAK_" + this.type, this.savedProducts);
 
         }catch(err){
             console.log(err)
@@ -149,9 +148,7 @@ export default class Personalization extends PageManager {
             savedProductIds.push(element.product_id);
         });
 
-        let yotpoObj = this.buildYotpoBulkObject(savedProductIds);
-
-        return this.fetchYotpoBulk(yotpoObj).then((data) => data);
+        return this.yotpo.fetchBulk(savedProductIds).then((data) => data);
     }
 
 
@@ -163,7 +160,7 @@ export default class Personalization extends PageManager {
 
     getViewed(){
         if( window.localStorage ){
-            let saved = window.localStorage.getItem("TEAK_"+this.type);
+            let saved = window.localStorage.getItem("TEAK_" + this.type);
 
             // legacy ~ remove eveuntually
             if(!saved){
@@ -181,56 +178,6 @@ export default class Personalization extends PageManager {
 
 
 
-    /**
-     * GET bulk resopnse from Yotpo
-     * @param {Object} body JSON object for yotpo
-     */
-
-    async fetchYotpoBulk(body){
-        const response = await fetch(this.yotpoBatchUrl, {
-			method: "POST",
-			cache: 'default',
-			mode: 'cors',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(body)
-        });
-        
-        return response.json();
-    }
-
-
-
-    /**
-     * Builds the yotpo object to send to yotpo for 
-     * the updated ratings
-     * @param {Array} arr - Array of product ids
-     */
-
-    buildYotpoBulkObject(arr){
-        let yotpoObj = {
-            app_key: this.yotpoKey,
-			methods: []
-        };
-        
-		try{
-			arr.forEach( (element) => {
-				let batchObj = {
-                        method: "bottomline",
-						params: {
-							pid: element
-                        },
-                        format: "json",
-					};
-
-				yotpoObj.methods.push(batchObj);
-            });
-
-        }catch(err){}
-        
-        return yotpoObj;
-    }
 
 
 

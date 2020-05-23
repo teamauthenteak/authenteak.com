@@ -12,7 +12,7 @@
     }
 
     & .button{
-        display: inline-block !important;
+        display: inline-block;
     }
 
     &__breadcrumbs{
@@ -32,6 +32,18 @@
 
     &__title{
         @extend .product__name;
+
+        &--flex{
+            display: flex;
+
+            @media only screen and (max-width: $screen-sm) {
+                flex-direction: column;
+            }
+        }
+
+        &--noMargin{
+            margin: 0;
+        }
 
         &--2{
             font-size: 1.1rem;
@@ -59,6 +71,66 @@
         }
     }
 
+    &__titleLink{
+        display: flex;
+        align-content: center;
+        align-items: center;
+
+        & .icon{
+            width: 50px;
+            height: 50px;
+            flex: 0 0 auto;
+            fill: #333;
+            transform: rotate(0deg);
+            transition: all 0.3s ease;
+        }
+
+        &--active{
+            & .icon-chevron-down{
+                transform: rotate(180deg);
+            }
+        }
+
+        &:hover{
+            & .icon{
+                fill: $btn-color-green;
+            }
+        }
+    }
+
+    &__titleText{
+        display: flex;
+        flex: 1 0 auto;
+        align-items: center;
+        align-content: center;
+        font-weight: 400;
+
+        @media only screen and (max-width: $screen-sm) {
+            padding: 15px 0;
+        }
+
+        & .icon{
+            width: 25px;
+            height: 25px;
+            margin-right: 20px;
+            fill: #aaa;
+        }
+    }
+
+    &__titleBtn{
+        @extend .button;
+        @extend .button-primary;
+        @extend .button-primary--green;
+        padding: 8px 20px;
+        align-self: flex-end;
+
+        @media only screen and (max-width: $screen-sm) {
+            margin:20px 0;
+            align-self: center;
+            width: 100%;
+        }
+    }
+
     &__desc{
         margin: 0 0 15px 0;
     }
@@ -66,6 +138,10 @@
     &__descLink{
         text-decoration: none;
         border-bottom: 1px solid #ccc;
+    }
+
+    &__bgHighlight{
+        background-color: #f2f2f2;
     }
 
     &__itemNum{
@@ -197,13 +273,26 @@
         }
     }
     
+    &__col{
+        &--hide{
+            display: none;
+        }
 
-    &__col--marginBottom{
-        margin-bottom: 40px;
-    }
+        &--marginBottom{
+            margin-bottom: 40px;
+        }
 
-    &__col--rightBorder{
-        border-right: 1px solid #eee;
+        &--rightBorder{
+            border-right: 1px solid #eee;
+        }
+
+        &--allBorder{
+            border: 1px solid #ccc;
+        }
+
+        &--topBorder{
+            border-top: 1px solid #eee;
+        }
     }
 
 
@@ -220,6 +309,11 @@
     }
 
 
+    &__tabSection{
+        @extend %span;
+        @extend .product__col-1-1; 
+        @extend .product__col--topBorder;
+    }
 
 
     &__figure{
@@ -568,7 +662,279 @@
     }
 
 
+
+
+    // Questions
+    &__noQuestions{
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        background-color: #f9f9f9;
+        flex-direction: column;
+        border: 1px solid #eee;
+        margin: 10px 0;
+
+        &--row{
+            flex-direction: row;
+        }
+    }
+
+    &__questions{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__questionBtn{
+        padding: 0;
+        background-color: transparent;
+
+        & .icon{
+            width: 30px;
+            height: 30px;
+            fill: $btn-color-green;
+        }
+    }
+
+    &__questionCol{
+       padding-right: 20px;
+
+        &--main{
+            width: 100%;
+
+            @media only screen and (max-width: $screen-sm) {
+                padding-right: 0;
+            }
+        }
+    }
+
+    &__questionItem{
+        padding: 20px 0;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        flex-direction: row;
+
+        &:last-of-type{
+            border: none;
+        }
+    }
+
+    &__questionHeading{
+        display: flex;
+        flex-direction: column;
+        margin: 0px;
+    }
+
+    &__questionText{
+        font-size: 1.2rem;
+        line-height: 1.4;
+        font-weight: 800;
+        display: flex;
+        align-items: flex-start;
+        align-content: center;
+        margin-bottom: 3px;
+    }
+
+    &__questionAnswerCount{
+        @extend .product__swatchOptionIconCntr;
+        font-size: 1.1rem;
+        align-items: center;
+        align-content: center;
+        color: $btn-color-green;
+
+        & .icon{
+            width: 15px;
+            height: 15px;
+            margin: 0 4px 0 2px;
+            fill: $btn-color-green;
+        }
+    }
+
+    &__questionMeta{
+        font-size: 0.85rem;
+        color: #aaa;
+        font-style: italic;
+    }
+
+    
+
+    // answers
+    &__answer{
+        display: flex;
+        flex-direction: column;
+        border-left: 5px solid rgba(110, 164, 56, 0.15);
+        padding-left: 20px;
+        margin-bottom: 24px;
+    }
+
+    &__answerText{
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
+    &__answerMeta{
+        @extend .product__questionMeta;
+    }
+
+
+
+
+    // reviews
+    &__noReviews{
+        @extend .product__noQuestions;
+    }
+
+    &__noReviewsHeading{
+        margin: 0 0 10px 0;
+        font-weight: 800;
+    }
+
+    &__noReviewsText{
+        line-height: 1.2;
+        margin: 0 0 10px 0;
+    }
+
+
+
+    // modal
+    &__modal{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+    }
+
+    &__modalDialog{
+        @extend .toolTip__cntr;
+        margin-top: 5vh;
+        top: auto;
+        width: 90vw;
+        margin-left: -(90vw/2);
+        height:90vh;
+        max-height: none;
+    }
+
+    &__modalDialogCntr{
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__closeBtn{
+        @extend .toolTip__closeBtn;
+        @extend .toolTip__closeBtn--whiteBack;
+        z-index: 9999;
+        right: 38px;
+        top: 20px;
+        outline: none;
+
+        & .icon{
+            fill: #555;
+            width: 50px;
+            height: 50px;
+        }
+    }
+
+    &__modalOverlay{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(35, 35, 35, 0.22);
+        z-index: 999;
+    }
+
+    &__modalTitle{
+        padding-bottom: 10px;
+        margin: 0;
+        border-bottom: 1px solid #ccc;
+        line-height: 1;
+        text-transform: capitalize;
+
+        &--2{
+            margin: 0;
+            font-size: 2.4rem;
+        }
+
+        &--3{
+            margin: 0;
+        }
+
+        &--4{
+            margin: 0 0 5px 0;
+            font-weight: 800;
+        }
+    }
+
+    &__modalImg{
+        height: 200px;
+        object-fit: contain;
+    }
+
+    &__modalControl{
+        display: flex;
+        flex-direction: column;
+        padding: 0 20px;
+    }
+
+    &__modalControlGroup{
+        display: flex;
+        padding: 20px  0;
+    }
+
+    &__modalControlLabel{
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+        line-height: 1;
+    }
+
+    &__modalControlInput{
+        padding: 20px;
+        box-shadow: 0 0 0 1px #ccc inset;
+        border: none;
+        border-radius: $border-radius;
+
+        &::placeholder{
+            color: #aaa;
+        }
+
+        &--textarea{
+            height: 100%;
+        }
+    }
+
+    &__modalHelpList{
+        margin-top: 15px;
+
+        & li{
+            font-size: .9rem;
+            line-height: 1.3;
+            margin-bottom: 12px;
+
+            &:last-of-type{
+                margin: 0;
+            }
+        }
+    }
+
+    &__modalControlHelp{
+        font-size: 0.9rem;
+        margin: 10px 0 0 0;
+        line-height: 1.4;
+    }
+
 }
+
+
 
 body.product{
     padding: 0 !important;

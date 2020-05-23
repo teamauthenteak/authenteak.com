@@ -1,5 +1,4 @@
-<section
-  class="
+<section class="
     product-details
     product-block
     section
@@ -8,94 +7,94 @@
     {{/unless}}
     {{cart_icon}}-icon
     {{theme_settings.product-single-display-order}}
-  "
-  id="productDetails"
-  data-product-container
-  data-product-title="{{product.title}}"
-  data-product-id="{{product.id}}">
+  " id="productDetails" data-product-container data-product-title="{{product.title}}" data-product-id="{{product.id}}">
 
-  <div class="container">
-    {{#unless quick_view}}
-    <div class="mobileShow mobileShow--lg">
-      {{> components/common/breadcrumbs breadcrumbs}}
-    </div>
-    {{/unless}}
+	<div class="container">
+		{{#unless quick_view}}
+		<div class="mobileShow mobileShow--lg">
+			{{> components/common/breadcrumbs breadcrumbs}}
+		</div>
+		{{/unless}}
 
-  <div class="product-details-wrapper">
-    <div class="product-details-column">
-      <h2 class="product-title mobileShow">{{this.product.title}}</h2>
-      <div class="mobileHide mobileHide--lg">
-        {{> components/common/breadcrumbs breadcrumbs}}
-      </div>
-      <p class="item-number item-number-mobile mobileShow">Item #: {{product.sku}} &nbsp;&nbsp;&nbsp; Internet #: <span id="productID">{{product.id}}</span></p>
+		<div class="product-details-wrapper">
+			<div class="product-details-column">
+				<h2 class="product-title mobileShow">{{this.product.title}}</h2>
+				<div class="mobileHide mobileHide--lg">
+					{{> components/common/breadcrumbs breadcrumbs}}
+				</div>
+				<p class="item-number item-number-mobile mobileShow">Item #: {{product.sku}} &nbsp;&nbsp;&nbsp; Internet
+					#: <span id="productID">{{product.id}}</span></p>
 
-      {{> components/products/customizations/swatch-hover-detail}}
+				{{> components/products/customizations/swatch-hover-detail}}
 
-      {{> components/products/product-single-images videos=product.videos images=product.images default_image=theme_settings.default_image }}
-      
-      <!--moved from add-to-cart-form.html-->
-      <div class="share-block">
-        <hr>
-        <div class="share-buttons-wrap">
-            <span class="share-title">
-                {{ lang 'product.share'}}
-              </span>
-          {{> components/common/share-buttons
-            share_buttons=settings.add_this
-            url=product.url
-            image=(getImage product.main_image 'thumb')
-            title=product.title
-          }}
-        </div>
-      </div>
-      <hr>
-      <div class="consult-showroom-wrap">
-        <div class="showroom-block">
-            <span class="gallery-icon gallery-phone">{{> components/products/gallery-phone-icon}}</span>
-            <p>For a Free Design Consultation or to Order by Phone <br>Call: <a href="tel:1-866-360-8325">1-866-360-8325</a></p>
-        </div>
-      </div>
-      <!--End Share-->
-    </div>
+				{{> components/products/product-single-images videos=product.videos images=product.images default_image=theme_settings.default_image }}
 
-    <div class="product-details-column">
-      <!-- {{#if product.brand}}
+				<!--moved from add-to-cart-form.html-->
+				<div class="share-block">
+					<hr>
+					<div class="share-buttons-wrap">
+						<span class="share-title">
+							{{ lang 'product.share'}}
+						</span>
+						{{> components/common/share-buttons
+							share_buttons=settings.add_this
+							url=product.url
+							image=(getImage product.main_image 'thumb')
+							title=product.title
+						}}
+					</div>
+				</div>
+				<hr>
+				<div class="consult-showroom-wrap">
+					<div class="showroom-block">
+						<span class="gallery-icon gallery-phone">{{> components/products/gallery-phone-icon}}</span>
+						<p>For a Free Design Consultation or to Order by Phone <br>Call: <a
+								href="tel:1-866-360-8325">1-866-360-8325</a></p>
+					</div>
+				</div>
+				<!--End Share-->
+			</div>
+
+			<div class="product-details-column">
+				<!-- {{#if product.brand}}
         <a class="product-brand" href="{{product.brand.url}}">{{product.brand.name}}</a>
       {{/if}} -->
 
-      {{#if quick_view}}
-        <h1 class="product-title"><a href="{{product.url}}">{{this.product.title}}</a></h1>
-      {{else}}
-        <h1 class="product-title mobileHide">{{this.product.title}}</h1>
-      {{/if}}
-      
-        <div class="item-number">
-          <span class="mobileHide">Item #: {{product.sku}} &nbsp;&nbsp;&nbsp; Internet #: <span id="productID">{{product.id}}</span></span>
-          <a class="yotpo-pdp-wrapper hide" href="#yotpoReviews" id="yotpoRating" title="Reviews of {{product.title}}">
-            <span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of 0 out of 5."></span>
-            (<span class="yotpo-reviews-num">0</span>)
-            <span class="yotpo-questions">
-              <span class="yotpo-questions-num">0</span><span class="yotpo-questions-text"></span></span>
-            </span>
-          </a>
-        </div>
-      
+				{{#if quick_view}}
+				<h1 class="product-title"><a href="{{product.url}}">{{this.product.title}}</a></h1>
+				{{else}}
+				<h1 class="product-title mobileHide">{{this.product.title}}</h1>
+				{{/if}}
 
-      <div class="price-range">
-          {{#if product.options}}
-            {{#if product.price}}
-              {{> components/products/price price=product.price show_savings=false save_block=false}}
-            {{/if}}
-          {{else}}
-            <!-- show no price -->
-          {{/if}}
-      </div>
+				<div class="item-number">
+					<span class="mobileHide">Item #: {{product.sku}} &nbsp;&nbsp;&nbsp; Internet #: <span
+							id="productID">{{product.id}}</span></span>
+					<div class="yotpo-pdp-wrapper hide" id="yotpoRating">
+						<a href="#reviews" class="yotpo-reviews">
+							<span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of 0 out of 5."></span> (<span class="yotpo-reviews-num">0</span>)
+						</a>
+						<a href="#questions" class="yotpo-questions" title="Reviews of {{product.title}}">
+							<span class="yotpo-questions-num">0</span><span class="yotpo-questions-text"></span></span>
+						</a>
+					</div>
+				</div>
 
-      
-      <div class="affirm-pdp"></div>      
 
-      <!-- moved to add-to-cart.html -->
-      <!-- <div class="product-price">
+				<div class="price-range">
+					{{#if product.options}}
+					{{#if product.price}}
+					{{> components/products/price price=product.price show_savings=false save_block=false}}
+					{{/if}}
+					{{else}}
+					<!-- show no price -->
+					{{/if}}
+				</div>
+
+
+				<div class="affirm-pdp"></div>
+
+				<!-- moved to add-to-cart.html -->
+				<!-- <div class="product-price">
         {{#if product.price}}
           {{> components/products/price price=product.price show_savings=true save_block=true}}
         {{/if}}
@@ -105,244 +104,351 @@
         {{/if}}
       </div> -->
 
-      <div class="product-rating-block">
-        {{#if settings.show_product_rating}}
-          <div class="product-item-rating">
-            {{> components/products/ratings rating=this.product.rating}}
-            <span class="reviews-jumplink total-reviews" data-scroll="#product-reviews">
-              ( <a class="product-reviews-link link" href="{{#if quick_view}}{{product.url}}#product-reviews{{else}}#product-reviews{{/if}}">{{lang 'product.reviews.title' numReviews=product.num_reviews}}</a> )
-            </span>
-          </div>
+				<div class="product-rating-block">
+					{{#if settings.show_product_rating}}
+					<div class="product-item-rating">
+						{{> components/products/ratings rating=this.product.rating}}
+						<span class="reviews-jumplink total-reviews" data-scroll="#product-reviews">
+							( <a class="product-reviews-link link"
+								href="{{#if quick_view}}{{product.url}}#product-reviews{{else}}#product-reviews{{/if}}">{{lang 'product.reviews.title' numReviews=product.num_reviews}}</a>
+							)
+						</span>
+					</div>
 
-          {{{snippet 'product_rating'}}}
-        {{/if}}
-      </div>
+					{{{snippet 'product_rating'}}}
+					{{/if}}
+				</div>
 
-      {{#if product.release_date }}
-        <p class="message neutral">{{product.release_date}}</p>
-      {{/if}}
-      
+				{{#if product.release_date }}
+				<p class="message neutral">{{product.release_date}}</p>
+				{{/if}}
 
-      <p class="shipping-range shipping-range--static mobileHide">
-        {{#each product.custom_fields}}
-        
-          {{#if this.name '==' "Lead-Time"}}   
-              {{#if this.value '===' "Ships next business day"}}
-                <span id="nextBussinessDay" class="shipping-range--tip">
-                  <script>
-                    document.addEventListener('DOMContentLoaded', function(){
-                        TEAK.Modules.leadTime.setTip("nextBussinessDay");
-                    });
-                  </script>
-                </span>
-              {{/if}}
 
-              {{#contains this.value "ships next business day"}}
-                <span id="nextBussinessDay" class="shipping-range--tip">
-                  <script>
-                    document.addEventListener('DOMContentLoaded', function(){
-                        TEAK.Modules.leadTime.setTip("nextBussinessDay");
-                    });
-                  </script>
-                </span>
-              {{/contains}}
+				<p class="shipping-range shipping-range--static mobileHide">
+					{{#each product.custom_fields}}
 
-              {{this.value}}
+					{{#if this.name '==' "Lead-Time"}}
+					{{#if this.value '===' "Ships next business day"}}
+					<span id="nextBussinessDay" class="shipping-range--tip">
+						<script>
+							document.addEventListener('DOMContentLoaded', function () {
+								TEAK.Modules.leadTime.setTip("nextBussinessDay");
+							});
+						</script>
+					</span>
+					{{/if}}
 
-          {{/if}}
-          
-          {{#if this.name '==' "Lead-Time 2"}}   
-              {{this.value}}
-          {{/if}}
-          
-        {{/each}}
-      </p>
-      
+					{{#contains this.value "ships next business day"}}
+					<span id="nextBussinessDay" class="shipping-range--tip">
+						<script>
+							document.addEventListener('DOMContentLoaded', function () {
+								TEAK.Modules.leadTime.setTip("nextBussinessDay");
+							});
+						</script>
+					</span>
+					{{/contains}}
 
-      
-      {{#each product.custom_fields}}
-        {{#if this.name '==' "Promo Text"}}
-            <p class="pdp-promo-text">{{{this.value}}}</p>
-        {{/if}}
-      {{/each}}
+					{{this.value}}
+
+					{{/if}}
+
+					{{#if this.name '==' "Lead-Time 2"}}
+					{{this.value}}
+					{{/if}}
+
+					{{/each}}
+				</p>
 
 
 
-
-
-      {{#if theme_settings.product-single-display-order '===' 'product-description-first'}}
-        <ul class="highlight-group">
-          {{#each product.custom_fields}}
-            {{#if this.name '===' "Highlight 1"}}
-              <li>{{value}}</li>
-            {{else if this.name '===' "Highlight 2"}}
-              <li>{{value}}</li>
-            {{else if this.name '===' "Highlight 3"}}
-              <li>{{value}}</li>
-            {{else if this.name '===' "Highlight 4"}}
-              <li>{{value}}</li>
-            {{/if}}
-          {{/each}}
-        </ul>
-        
-        {{> components/products/add-to-cart-form cart_icon=cart_icon}}
-
-      {{else}}
-        {{> components/products/add-to-cart-form cart_icon=cart_icon}}
-       
-        {{> components/products/product-description}}
-      {{/if}}
-
-
-      <div class="product-message-area" data-product-alerts></div>
-
-      {{#if quick_view}}
-        <a class="quick-shop-details-lower link" href="{{this.product.url}}">{{lang 'product.view_full_details'}}</a>
-      {{/if}}
-    </div>
-  </div><!-- / product-details wrapper -->
-    {{{snippet 'product_details'}}}
-
-  </div>
-
-
-  <div class="product__row">
-    
-    <div class="product__col-1-1">
-      <div class="product__col-2-3 no-pad">
-        <h2 class="product__title">Product Overview</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis quos praesentium facilis voluptatem modi, iure earum quae accusantium perspiciatis quidem qui, fugit pariatur labore. Fugit ducimus perspiciatis inventore hic obcaecati.</p>
-      </div>
-      <div class="product__col-1-3">
-        <h3 class="product__title product__title--2">Resources</h3>
-      </div>
-    </div>
-
-    <div class="product__col-1-1">
-      <h2 class="product__title">Specifications</h2>
-   
-
-    <pre id="specifications" style="display: none;">
-      Bob,1
-      Jan,300
-      Harry,50
-      Sue,23
-    </pre>
-
-
-    <table style="width: 100%;">
-      <thead>
-      <tr>
-      <td style="text-align: center;" colspan="4"><strong>Dimensions:</strong></td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-      <td style="background-color: #ddd;">Width:</td>
-      <td>21"</td>
-      <td style="background-color: #ddd;">Depth:</td>
-      <td>21"</td>
-      </tr>
-      <tr>
-      <td style="background-color: #ddd;">Height:</td>
-      <td>18"</td>
-      <td style="background-color: #ddd;">Weight (lbs.):</td>
-      <td>20</td>
-      </tr>
-      </tbody>
-      </table>
-    </div>
-
-    
-  </div>
+				{{#each product.custom_fields}}
+				{{#if this.name '==' "Promo Text"}}
+				<p class="pdp-promo-text">{{{this.value}}}</p>
+				{{/if}}
+				{{/each}}
 
 
 
-  <div class="pdp-shadow">
-    <div class="tmp-prod-details">
-      {{{product.description}}}
 
 
-      <div id="warrantyTab">
-          {{{product.warranty}}}
-      </div>
+				{{#if theme_settings.product-single-display-order '===' 'product-description-first'}}
+				<ul class="highlight-group">
+					{{#each product.custom_fields}}
+					{{#if this.name '===' "Highlight 1"}}
+					<li>{{value}}</li>
+					{{else if this.name '===' "Highlight 2"}}
+					<li>{{value}}</li>
+					{{else if this.name '===' "Highlight 3"}}
+					<li>{{value}}</li>
+					{{else if this.name '===' "Highlight 4"}}
+					<li>{{value}}</li>
+					{{/if}}
+					{{/each}}
+				</ul>
 
-      <div id="returnTab" class="returnTabContent">          
-        <script>
-          document.addEventListener("DOMContentLoaded", function(){
-            window.TEAK.Modules.tabs.getTabContent({
-              key: "returnTab",
-              mobileCntr: ".returnContent"
-            });
-          });
-        </script>
-      </div>
+				{{> components/products/add-to-cart-form cart_icon=cart_icon}}
 
-      <div id="videoTab">
-        {{#if product.videos.list.length}}
-        <div class="tab-content-panel" id="product-videos">
-          <div class="product-videos-list">
-            {{#each product.videos.list}}
-              {{> components/products/video-block-atmo video=this}}
-            {{/each}}
-          </div>
-        </div>
-      {{/if}}
-    </div>
+				{{else}}
+				{{> components/products/add-to-cart-form cart_icon=cart_icon}}
 
-    
-    </div>
-  </div>
+				{{> components/products/product-description}}
+				{{/if}}
 
 
+				<div class="product-message-area" data-product-alerts></div>
 
-  <div class="tab-wrapper">
-      <div class="tab-header" id="tabHeader">
-        <ul>
-          <li class="active"><a data-tabval="descTab" class="descBtn">Description</a></li>
-          <li><a data-tabval="specsTab" class="specsBtn">Specifications</a></li>
-          <li><a data-tabval="careTab" class="careBtn">Care Info</a></li>
-          <li><a data-tabval="shipTab" class="shipBtn">Shipping</a></li>
-          <li><a data-tabval="pdfTab" class="pdfBtn">Resources</a></li>
-          <!-- <li><a data-tabval="videoTab" class="videoBtn">{{lang 'product.videos'}}</a></li> -->
-          <li><a data-tabval="warrantyTab" class="warrantyTab">Warranty</a></li>
-          <li><a data-tabval="returnTab" class="returnTab">Return Policy</a></li>
-        </ul>
-      </div>
-      <div class="tab-content" id="tabContent"></div>
-  </div>
+				{{#if quick_view}}
+				<a class="quick-shop-details-lower link"
+					href="{{this.product.url}}">{{lang 'product.view_full_details'}}</a>
+				{{/if}}
+			</div>
+		</div><!-- / product-details wrapper -->
+		{{{snippet 'product_details'}}}
 
-  <div class="mobile-tab-wrapper" id="mobileTabWrapper">
-    <a class="mobile-tab-heading" data-tabVal="descTab">Description</a>
-    <div class="descContent active"></div>
-    
-    <a class="mobile-tab-heading mobile-specsTab" data-tabVal="specsTab">Specifications</a>
-    <div class="specsContent"></div> 
-    
-    <a class="mobile-tab-heading mobile-careTab" data-tabVal="careTab">Care Info</a>
-    <div class="careContent"></div>
-    
-    <a class="mobile-tab-heading mobile-shipTab" data-tabVal="shipTab">Shipping</a>
-    <div class="shipContent"></div>
-    
-    <a class="mobile-tab-heading mobile-pdfTab" data-tabVal="pdfTab">Resources</a>
-    <div class="pdfContent"></div>
+	</div>
 
-    <!-- <a class="mobile-tab-heading mobie-videoTab" data-tabVal="videoTab">{{lang 'product.videos'}}</a>
-    <div class="videoContent"></div> -->
-    
-    <a class="mobile-tab-heading mobile-warratyTab" data-tabVal="warrantyTab">Warranty</a>
-    <div class="warrantyContent"></div>
 
-    <a class="mobile-tab-heading mobile-returnTab" data-tabVal="returnTab">Return Policy</a>
-    <div class="returnContent"></div>
-  </div>
 
-  <div class="product-row">
-    <a href="{{product.brand.url}}" title="More {{product.brand.name}} products" class="button button-secondary--darkTrans">
-      Shop all {{product.brand.name}}
-    </a>
-  </div>
+<div class="product__row" id="productMetaTabs">
+	<div class="product__col-1-1">
+
+		<div class="product__tabSection">
+			<h2 class="product__title product__title--noMargin">
+				<a href="#desc" class="product__titleLink product__titleLink--active" product-meta-tab>
+					<span class="product__titleText">Product Overview</span>
+					<svg class="icon icon-chevron-down"><use xlink:href="#icon-chevron-down" /></svg>
+				</a>
+			</h2>
+			<div class="= pad-top" id="desc">
+				<div class="product__col-2-3--lg product__col-1-1 pad-right">
+					{{{product.description}}}
+					<br>
+					<p>
+						<a href="{{product.brand.url}}" title="More {{product.brand.name}} products" class="button button-secondary--darkTrans">
+							Shop all {{product.brand.name}}
+						</a>
+					</p>
+				</div>
+				<div class="product__col-1-3--lg product__col-1-1 product__col--allBorder">
+					<h3 class="product__title product__title--2 pad-bottom">Resources</h3>
+					<div class="product__col-1-1 no-pad" id="pdf"></div>
+				</div>
+			</div>
+		</div> <!-- end description -->
+
+
+		<div class="product__tabSection hide">
+			<h2 class="product__title product__title--noMargin">
+				<a href="#specs" class="product__titleLink product__titleLink--active" product-meta-tab>
+					<span class="product__titleText">Specifications</span>
+					<svg class="icon icon-chevron-down"><use xlink:href="#icon-chevron-down" /></svg>
+				</a>
+			</h2>
+			<div class="product__col-1-1 pad-top" id="specs"></div>
+		</div> <!-- end specifications -->
+
+
+		<div class="product__tabSection hide">
+			<h2 class="product__title product__title--noMargin">
+				<a href="#care" class="product__titleLink" product-meta-tab>
+					<span class="product__titleText">
+						<!-- <svg class="icon icon-umbrella"><use xlink:href="#icon-umbrella" /></svg> -->
+						Care
+					</span>
+					<svg class="icon icon-chevron-down"><use xlink:href="#icon-chevron-down" /></svg>
+				</a>
+			</h2>
+			<div class="product__col-1-1 pad-top product__col--hide" id="care"></div>
+		</div> <!-- end care -->
+
+
+		<div class="product__tabSection hide">
+			<h2 class="product__title product__title--noMargin">
+				<a href="#ship" class="product__titleLink" product-meta-tab>
+					<span class="product__titleText">
+						<!-- <svg class="icon icon-truck"><use xlink:href="#icon-truck" /></svg> -->
+						Shipping
+					</span>
+					<svg class="icon icon-chevron-down"><use xlink:href="#icon-chevron-down" /></svg>
+				</a>
+			</h2>
+			<div class="product__col-1-1 pad-top product__col--hide" id="ship"></div>
+		</div> <!-- end shipping -->
+
+
+		<div class="product__tabSection">
+			<h2 class="product__title product__title--noMargin">
+				<a href="#warranty" class="product__titleLink" product-meta-tab>
+					<span class="product__titleText">
+						<!-- <svg class="icon icon-award"><use xlink:href="#icon-award" /></svg> -->
+						Warranty
+					</span>
+					<svg class="icon icon-chevron-down"><use xlink:href="#icon-chevron-down" /></svg>
+				</a>
+			</h2>
+			<div class="product__col-1-1 pad-top product__col--hide" id="warranty">
+				{{{product.warranty}}}
+			</div>
+		</div> <!-- end warranty -->
+
+
+		<div class="product__tabSection">
+			<h2 class="product__title product__title--noMargin">
+				<a href="#returns" class="product__titleLink" product-meta-tab>
+					<span class="product__titleText">
+						<!-- <svg class="icon icon-corner-up-left"><use xlink:href="#icon-corner-up-left" /></svg> -->
+						Returns
+					</span>
+					<svg class="icon icon-chevron-down"><use xlink:href="#icon-chevron-down" /></svg>
+				</a>
+			</h2>
+			<div class="product__col-1-1 pad-top product__col--hide" id="returns">
+				<script>
+					document.addEventListener("DOMContentLoaded", function(){
+					  window.TEAK.Modules.tabs.getTabContent({
+						key: "returnTab",
+						cntr: "returns"
+					  });
+					});
+				  </script>
+			</div>
+		</div> <!-- end returns -->
+
+
+
+		<div class="product__tabSection" id="questions">
+			<h2 class="product__title product__title--flex product__title--noMargin">
+				<span class="product__titleText">Questions & Answers</span>
+				<button type="button" class="product__titleBtn" id="questionsTitleBtn">Ask a new question</button>
+			</h2>
+			<div class="product__col-1-1 pad-top">
+				<ul class="product__questions" id="productQuestions"></ul>
+
+				<div class="product__noQuestions product__noQuestions--row" id="noQuestions">
+					<div class="product__col-1-3 pad-right product__col--rightBorder">
+						<p>Typical questions asked about products:</p>
+						<ul>
+							<li>&bullet; Is the item durable?</li>
+							<li>&bullet; Is the item easy to use?</li>
+							<li>&bullet; What are the dimensions of this item?</li>
+						</ul>
+					</div>
+					<div class="product__col-1-3 pad-left">
+						<a href="" class="button button-primary button-primary--green button-wide">Ask the first Question</a>
+					</div>
+				</div>
+			</div>
+		</div> <!-- end questions -->
+
+
+
+		<div class="product__tabSection" id="reviews">
+			<h2 class="product__title product__title--flex product__title--noMargin">
+				<span class="product__titleText">Customer Reviews</span>			
+			</h2>
+
+			<div class="product__col-1-1 no-pad">
+				<div id="ratingsBlock"></div>
+
+				<div class="product__noReviews" id="noReviews">
+					<h4 class="product__noReviewsHeading">Do you own this product? Be the first to rate it.</h4>
+					<p class="product__noReviewsText">Your feedback will help customers like you make informed decisions and will help us to improve our product offerings!</p>
+					<p class="product__noReviewsText">If you have any questions regarding the customer service you received, please <a href="/contact-us" target="__blank">contact us</a></p>
+					<br>
+					<a href="" class="button button-primary button-primary--greenTrans button-wide">Write the first review</a>
+				</div>
+			</div>
+		</div> <!-- /reviews-->
+
+
+		<div class="product__modal" id="productModal">
+			<div class="product__modalDialog">
+				<button class="product__closeBtn" data-close-modal>
+					<svg class="icon icon-close"><use xlink:href="#icon-close" /></svg>
+				</button>
+				<div class="product__modalDialogCntr">
+
+					<h1 class="product__modalTitle">Write a review</h1>
+					<div class="product__col-1-1">
+						<div class="product__col-1-4">
+							<img class="product__modalImg" src="https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/1024x1024/products/5223/53403/CP901__01269.1496156394.jpg?c=2&imbypass=on">
+						</div>
+						<div class="product__col-3-4">
+							<cite class="product__modalTitle--4">Treasure Garden</cite>
+							<h2 class="product__modalTitle--2">Treasure Garden Umbrella &amp; Cantilever Covers</h2>
+							<div class="product__col-1-1 no-pad">
+								<div class="product__col-1-2 pad-top">
+									<h4 class="product__modalTitle--4">Your Overall Rating:</h4>
+								</div>
+								<div class="product__col-1-2">
+									<ul class="ratings ratings--widget">
+										<li>★</li>
+										<li>★</li>
+										<li>★</li>
+										<li>★</li>
+										<li>★</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<form>
+						<div class="product__col-1-1 product__modalControlGroup">
+							<div class="product__col-1-1 product__modalControl">
+								<label class="product__modalControlLabel">Review Title</label>
+								<input type="text" class="product__modalControlInput product__modalControlInput--input" name="display_name" placeholder="The most important point">
+							</div>
+						</div>
+						<div class="product__col-1-1 product__modalControlGroup">
+							<div class="product__col-3-4 product__modalControl">
+								<label class="product__modalControlLabel">Your Review</label>
+								<textarea class="product__modalControlInput product__modalControlInput--textarea" name="review_content" placeholder="Example: This Umbrella was easy to assemble and came with all of its parts. I'm highly pleased with it's color, size and durability."></textarea>
+							</div>
+							<div class="product__col-1-4 product__bgHighlight">
+								<h4 class="product__modalTitle--4">Review Guidelines</h4>
+								<ul class="product__modalHelpList">
+									<li>&check; Focus on the product and its features.</li>
+									<li>&check; What do you like or dislike about the product?</li>
+									<li>&check; Did the product meet your expectations?</li>
+									<li>&check; Please contact us directly at <a href="tel:1-833-257-7070">1-833-257-7070</a> to ask about delivery, availability and customer service issues.</li>
+								</ul>
+							</div>
+						</div>
+						<div class="product__col-1-1 product__modalControlGroup">
+							<div class="product__col-1-2 product__modalControl">
+								<label class="product__modalControlLabel">Your Nickname</label>
+								<input type="text" class="product__modalControlInput product__modalControlInput--input" name="display_name">
+								<p class="product__modalControlHelp">Please do not use your own name, spaces or special characters.</p>
+							</div>
+							<div class="product__col-1-2 product__modalControl">
+								<label class="product__modalControlLabel">Your Email Address</label>
+								<input type="text" class="product__modalControlInput product__modalControlInput--input" name="display_name">
+								<p class="product__modalControlHelp">Your email will not be displayed publicly, sold nor used for SPAM.  Your email will allow for us to send notifications.</p>
+							</div>
+						</div>
+						<div class="product__col-1-1 product__modalControlGroup">
+							<div class="product__col-2-3"></div>
+							<div class="product__col-1-3 no-pad">
+								<button type="button" class="button button-primary button-primary--green button--fullWidth">Submit</button>
+							</div>
+						</div>
+					</form>
+					
+
+				</div>
+			</div>
+			<div class="product__modalOverlay"></div>
+		</div>
+		
+
+
+	</div>
+</div>
+
+
+	
+
+
 </section>
 
 <!-- moved yotpo to tempaltes/pages/product.html -->
@@ -399,7 +505,8 @@
   "brand": "{{product.brand.name}}",
   "price": "{{#block "jsonPrice"}}{{/block}}",
   "availability": "in stock",
-  "image": "{{getImage product.main_image 'product'}}"
+  "image": "{{getImage product.main_image 'product'}}",
+  "sku": "{{product.sku}}"
 }
 </script>
 
@@ -408,49 +515,28 @@
 [
   {
     "id": "specsTab",
-    "tabBtnClass": ".specsBtn",
-    "mobileClass": ".mobile-specsTab",
-    "contentCntr": ".specsContent"
+    "contentCntr": "specs"
   },
   {
     "id": "careTab",
-    "tabBtnClass": ".careBtn",
-    "mobileClass": ".mobile-careTab",
-    "contentCntr": ".careContent"
+    "contentCntr": "care"
   },
   {
-    "id": "shipTab",
-    "tabBtnClass": ".shipBtn",
-    "mobileClass": ".mobile-shipTab",{{#each product.custom_fields}}{{#if this.name '==' "Assembly Required"}}
+    "id": "shipTab",{{#each product.custom_fields}}{{#if this.name '==' "Assembly Required"}}
     "customContent": "No assembly required.",{{/if}}{{/each}}
-    "contentCntr": ".shipContent"
+    "contentCntr": "ship"
   },
   {
     "id": "pdfTab",
-    "tabBtnClass": ".pdfBtn",
-    "mobileClass": ".mobile-pdfTab",
-    "contentCntr": ".pdfContent"
+    "contentCntr": "pdf"
   },
   {
     "id": "warrantyTab",
-    "tabBtnClass": ".warrantyBtn",
-    "mobileClass": ".mobile-warrantyTab",
-    "contentCntr": ".warrantyContent"
+    "contentCntr": "warranty"
   },
   {
     "id": "returnTab",
-    "tabBtnClass": ".returnBtn",
-    "mobileClass": ".mobile-returnTab",
-    "contentCntr": ".returnContent"
+    "contentCntr": "returns"
   }
 ]
 </script>
-
-{{!-- 
-  {
-    "id": "videoTab",
-    "tabBtnClass": ".videoBtn",
-    "mobileClass": ".mobile-videoTab",
-    "contentCntr": ".videoContent"
-  },
-  --}}

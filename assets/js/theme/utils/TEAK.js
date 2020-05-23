@@ -355,6 +355,13 @@ window.TEAK.Utils = {
     },
 
 
+    formatDate: function(dateString){
+        let dateFormatted = new Date(dateString);
+        dateFormatted = dateFormatted.toString().split(" ");
+        return `${dateFormatted[1]}. ${dateFormatted[2]}, ${dateFormatted[3]}`;
+    },
+
+
     // get cart quantiy from local storage object
     getCartQnty: function(cart){
         let count = 0;

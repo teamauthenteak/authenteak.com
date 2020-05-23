@@ -245,7 +245,10 @@
         & .icon{
             width: 20px;
             height: 20px;
-            margin-right: 8px;
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            margin-top: -10px;
         }
 
         &--sm{
