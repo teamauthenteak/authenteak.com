@@ -94,6 +94,10 @@ button.cart-item-edit {
     max-width: 420px;
 }
 
+.cart-item-shipping{
+    @extend .shipping-range--static;
+}
+
 .cart-product-option-cntr{
     order: 2;
     padding-left: 10px;
@@ -256,6 +260,7 @@ button.cart-item-edit {
         }
     }   
 }
+
 
 .customer-utils .button-wishlist {
     margin-right: 10px;

@@ -1,0 +1,33 @@
+// Badges that highlight content or features
+
+.badge{
+    display: flex;
+
+    &--pdp{
+        width: auto;
+        padding: 3px 16px 3px 6px;
+        margin-left: 5px;
+        font-size: 0.75rem;
+        background-color: #fd7e23;
+        line-height: 1;
+        color: #fff;
+        font-weight: 400;
+        font-style: normal;
+        border-radius: 4px 0 0 4px;
+        position: relative;
+        height: 18px;
+
+        &:after {
+            content: "";
+            position: absolute;
+            right: -5px;
+            top: 4px;
+            width: 0;
+            height: 0;
+            border-bottom: 10px solid #fff;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            transform: rotate(-90deg);
+        }
+    }
+}

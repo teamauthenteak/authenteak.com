@@ -4,12 +4,34 @@
  * ------------------------------------------------------------------------ */
 
 export default class Yotpo {
+
+    /**
+     * 
+     * @param {$selector} options.dialog - selector for the Questions and Reviews dialog 
+     * @param {object} options.product - object literal for product
+     * @param {number} options.productId - this product id to associate reviews
+     * @param {boolean} options.isProductPage - if on product page
+     */
     constructor(options){
 
         this.settings = {
             key: "aS8rMIONwGgNbx1ATQmUtKY173Xk5HHc75qGrnuq",
             secret: "E4xXDHZQzX38EpHzT5P67u8ME7Etp34PI6iNFRQY",
             account_id: "209994",
+            fetchOptions: {
+                post: {
+                    method: "POST",
+                    cache: 'default',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                },
+                get: {
+                    method: "GET",
+                    cache: 'default',
+                }
+            },
             urls: {
                 oauth: "https://api.yotpo.com/oauth/token",
                 batch: "https://staticw2.yotpo.com/batch?",
@@ -21,65 +43,148 @@ export default class Yotpo {
             }
         };
 
-        Object.assign(this.settings, options);
+        Object.assign(this.settings, options);        
 
         // if we are on the PDP ~ therefore the ReviewQuestion Module
         if( this.settings.isProductPage ){ 
-            this.createReview();
+
+            this.createBody = {
+                appkey: this.settings.key,
+                sku: this.settings.product.sku,
+                product_title: this.settings.product.title,
+                product_url: window.location.origin + this.settings.product.url,
+                product_image_url: this.settings.product.image,
+                prevent_duplicate_review: true
+            };
+
+            this.fetchToken().then(res => { this.createBody["utoken"] = res.access_token; });
             this.bindings();
         }
     }
 
 
     bindings(){
-        $("#reviews").off();
-
         $("#reviews")
             .on("click", "button.ratings__distroButton", (e) => { this.getScoreRatings(e); })
             .on("click", "button.ratings__loadMoreBtn", (e) => { this.getNextPage(e); })
             .on("change", "select[name='sort_by_star_rating']", (e) => { this.getScoreRatings(e); })
             .on("keydown", "input.ratings__control--input", (e) => { if( e.code === "Enter" ){ this.getKeywordReviews(e); } })
             .on("click", "button.ratings__control--searchIcon", (e) => { this.getKeywordReviews(e); });
-    }
 
-
-
-    createReview(){
-        let body = {
-                appkey: this.settings.key,
-                sku: this.settings.product.sku,
-                product_title: this.settings.product.title,
-                product_url: window.location.origin + this.settings.product.url,
-                product_image_url: this.settings.product.image,
-                display_name: "John Smith",
-                email: "john@shop.com",
-                review_content: "It’s really good",
-                review_title: "Great Phone",
-                review_score: 5,
-                time_stamp: Date().now()
-            };
-
-        console.log(body)
+        $(this.settings.dialog)
+            .on("change", "input[name='review_score']", (e) => { this.setOverallRating(e); })
+            .on("submit", "form", (e) => { this.createYotpoObject(e); });
     }
 
 
 
 
-    createQuestion(){
-        let body = {
-                "review_content": "Do you have this in white?",
-                "display_name": "John",
-                "email": "john@yotpo.com",
-                "appkey": "##### YOUR APP KEY HERE #####",
-                "utoken": "#### YOUR UTOKEN HERE #####",
-                "sku": "761060802",
-                "product_title": "T-Shirt",
-                "product_description": "The most comfortable shirt you will ever own.",
-                "product_url": "http://john-doe.mystore.com/products/long-sleeve-t-shirt",
-                "product_image_url": "//cdn.mystore.com/s/files/1/0864/8972/products/t-shirt-template-ljrmrs7o_large.png%3Fv=1423289315",
-                "prevent_duplicate_review": "true",
-            };
+    /**
+     * Toggles the button loading UI
+     * @param {element} $target - $ button element 
+     * @param {boolean} isLoading - toggles hide/show state
+     */
+    toggleButtonUI($target, isLoading){
+        if( isLoading ){
+            $target.attr("disabled", true);
+        }else{
+            $target.removeAttr("disabled");
+        }
+
+        $target
+            .find("[rel='load-more-text']").toggleClass("hide", isLoading)
+                .end()
+            .find("[rel='load-more-icon']").toggleClass("hide", !isLoading);
     }
+
+
+
+
+    toggleModal(type){
+        let modalCntr = $("#productModal"),
+            tpl =  `<h1 class="product__modalTitle">Thanks For Sharing Your Thoughts!</h1>
+                    <div class="product__col-1-1 no-pad">
+                        <p>Your ${type} has been submitted successfully. Please note that it may take up to 48 hours to be displayed on AuthenTEAK.com</p>
+                    </div>
+                    <div class="product__col-1-1 pad-top">
+                        <div class="product__col-1-2 no-pad">&nbsp;</div>
+                        <div class="product__col-1-2 no-pad">
+                            <button type="button" class="product__modalSubmitBtn" product-dialog-close>Continue</button>
+                        </div>
+                    </div>`;
+
+        modalCntr
+            .find(".product__modalDialog").addClass("product__modalDialog--success")
+                .end()
+            .find(".product__modalDialogCntr").html("");
+
+        $(tpl).appendTo(".product__modalDialogCntr", modalCntr);
+    }
+
+
+
+
+    // sets the star rating widget in the dialog modal
+    setOverallRating(e){
+        let $rating = $(e.currentTarget);
+
+        Object.assign(this.createBody, {
+            score: parseInt($rating.val())
+        });
+
+        $rating.parents("fieldset.ratings--widget").find("label.ratings__widgetLabel--active").removeClass("ratings__widgetLabel--active") 
+        $rating.parents("label.ratings__widgetLabel").addClass("ratings__widgetLabel--active");
+
+        $(this.settings.dialog).find(".product__modalOutput").val($rating.attr("title"));
+    }
+
+
+
+    // serializes the dialog form
+    createYotpoObject(e){
+        let formName =  $(e.target).attr("name"),
+            formData =  $(e.target).serializeArray(),
+            obj = { time_stamp: Date.now() },
+            $button = $(e.target).find("button");
+
+        this.toggleButtonUI($button, true);
+
+        formData.forEach(element => { obj[`${element.name}`] = element.value; });
+
+        let formObj = Object.assign({}, this.createBody, obj);
+
+        this.sendCreatedData(formObj, formName, $button);
+
+        e.preventDefault();
+    }
+
+
+
+    // sends the serialized data to yotpo from the dialog form
+    sendCreatedData(formObj, formName, $button){
+        let res, type;
+
+        switch(formName){
+            case "reviews_dialog":
+                res = this.createReview(formObj);
+                type = "review";
+                break;
+
+            case "questions_dialog":
+                res = this.createQuestion(formObj);
+                type = "question"
+                break;
+        }
+
+        res.then(data => {
+            // console.log(data)
+            this.toggleButtonUI($button, false);
+            this.toggleModal(type);
+        });
+
+    }
+
+
 
 
 
@@ -127,7 +232,7 @@ export default class Yotpo {
             obj = { page: parseInt(pageNo) + 1 };
 
         $target.val(obj.page);
-        toggleButtonUI(true, false);
+        this.toggleButtonUI($target, true);
  
         if( targetData.hasOwnProperty("star") ){ 
             Object.assign(obj, {
@@ -142,26 +247,10 @@ export default class Yotpo {
                 add_to: true
             });
 
-            toggleButtonUI(false, data.response.reviews.length === 0);
+            this.toggleButtonUI($target, false);
+            $("#productRatingPageBtn").toggleClass("hide", data.response.reviews.length === 0);
         });
 
-
-
-        // toggles the load more button UI
-        function toggleButtonUI(isLoading, shouldHide){
-            if( isLoading ){
-                $target.attr("disabled", true);
-            }else{
-                $target.removeAttr("disabled");
-            }
-
-            $target
-                .find(".ratings__loadMoreText").toggleClass("hide", isLoading)
-                    .end()
-                .find(".ratings__loadMoreIcon").toggleClass("hide", !isLoading);
-
-            $("#productRatingPageBtn").toggleClass("hide", shouldHide);
-        }
     }
 
 
@@ -173,14 +262,12 @@ export default class Yotpo {
     getKeywordReviews(e){
         e.preventDefault();
 
-        let obj = {
-                domain_key: `${this.settings.productId}`,
-                free_text_search: $("[name='query']", "#ratingsFilter").val(),
-                per_page: 5
-            };
-
         let res = this.searchProductReviews({
-                body: obj,
+                body: {
+                    domain_key: `${this.settings.productId}`,
+                    free_text_search: $("[name='query']", "#ratingsFilter").val(),
+                    per_page: 5
+                },
                 page: 1
             });
 
@@ -205,10 +292,10 @@ export default class Yotpo {
 
             args.reviewData.reviews.forEach(element => {
                 let tpl = this.getRatingListItem(element);
-                $(tpl).appendTo("#productRatingsList");
+                $(tpl).appendTo($reviews);
             });
 
-        }else{
+        }else if( !args.add_to ){
             $reviews.html("");
             $("<li><h3 class='ratings__sorryMessage'>Sorry, but it looks like we don't have any reviews that match what you are looking for.</h3></li>").appendTo($reviews);
         }
@@ -218,7 +305,7 @@ export default class Yotpo {
 
 
     /**
-    * GET bulk resopnse from Yotpo
+    * GET bulk response from Yotpo
     * @param {Array} productIdArray arry of product ids 
     */
     async fetchBulk(productIdArray){
@@ -228,7 +315,7 @@ export default class Yotpo {
                 pageNumber: 1,
                 format: "json"
             }),
-            res = this.fetchYotpoBatch(body);
+            res = this.postYotpoData(this.settings.urls.batch, body);
 
         return res;
     }
@@ -272,20 +359,38 @@ export default class Yotpo {
 
 
     // General fetching service to get products
-    async fetchYotpoBatch(body){
-        const response = await fetch(this.settings.urls.batch, {
-                method: "POST",
-                cache: 'default',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(body)
-            });
-        
+    async postYotpoData(url, body){
+        const response = await fetch(url, Object.assign(this.settings.fetchOptions.post, {  body: JSON.stringify(body) } ));
         return response.json();
     }
 
+
+    // POST Customer Review Data
+    async createReview(body){    
+        let response = await this.postYotpoData(this.settings.urls.create_review, body);
+        return response;
+    }
+
+
+    // POST Customer Question Data
+    async createQuestion(body){
+        let response = await this.postYotpoData(this.settings.urls.create_question, body);
+        return response;
+    }
+
+
+    // Get Yotpo Auth Token via POST
+    async fetchToken(){
+        let opts = {
+                client_id: this.settings.key,
+                client_secret: this.settings.secret,
+                grant_type: "client_credentials"
+            };
+
+        let response = await this.postYotpoData(this.settings.urls.oauth, opts);
+
+        return response;
+    }
 
 
     /**
@@ -296,26 +401,24 @@ export default class Yotpo {
      */
     getProductReviews(productId, args){
         let query = this.setQueryPrams(args);
-
         return $.ajax(`${this.settings.urls.reviews}/${this.settings.key}/products/${productId}/reviews.json${query}`);
     }
 
 
 
     /**
-     * Get keyword based searched reviews
+     * POST keyword based searched reviews
      * @param {number} args.page - page number 
      * @param {number} args.page - star rating 
      * @param {object} args.body - the search body 
      */
-    searchProductReviews(args){
+    async searchProductReviews(args){
         let query = this.setQueryPrams(args);
+        let opts = JSON.stringify(args.body);
+        let url = `${this.settings.urls.search}/${this.settings.key}/filter.json${query}`;
 
-        return $.ajax({
-                method: "POST",
-                url: `${this.settings.urls.search}/${this.settings.key}/filter.json${query}`,
-                data: JSON.stringify(args.body)
-            });
+        let response = await this.postYotpoData(url, opts);
+        return response;
     }
 
 
@@ -348,7 +451,6 @@ export default class Yotpo {
     // gets the distribution % for each rating
     getDistributionPercentage(totalReviews, reviewDistribution){
         let distro = (reviewDistribution/totalReviews) * 100;
-
         return distro.toFixed();
     }
 
@@ -394,7 +496,7 @@ export default class Yotpo {
                         </form>
                     </div>
                     <div class="ratings__writeCta">
-                        <p><button type="button" class="ratings__btn">Write a Review</button></p>
+                        <p><button type="button" class="ratings__btn" product-dialog-open rel="writeReview">Write a Review</button></p>
                         <dl class="ratings__recomm ${this.getSentimentScore(reviewData.reviews) < 50 ? 'hide' : ''}">
                             <dt class="ratings__recommPercent">
                                 ${this.getSentimentScore(reviewData.reviews)}%
@@ -407,7 +509,7 @@ export default class Yotpo {
                 </div>
 
                 <form class="ratings__filter" id="ratingsFilter">
-                    <fieldset class="ratings__controlSet">
+                    <fieldset class="ratings__controlSet hide">
                         <button class="ratings__control--searchIcon" type="button"></button>
                         <input name="query" value="" class="ratings__control ratings__control--input" autocomplete="off" placeholder="Search Reviews">
                     </fieldset>
@@ -439,8 +541,8 @@ export default class Yotpo {
                 <div id="productRatingPageBtn">
                     <div class="product__col-1-1 no-pad ${reviewData.pagination.page !== reviewData.pagination.total ? '' : 'hide'}">
                         <button type="button" class="ratings__loadMoreBtn" value="1">
-                            <span class="ratings__loadMoreText">Load more reviews</span>
-                            <span class="ratings__loadMoreIcon hide"><svg class="icon icon-spinner"><use xlink:href="#icon-spinner" /></svg></span>
+                            <span class="ratings__loadMoreText" rel="load-more-text">Load more reviews</span>
+                            <span class="ratings__loadMoreIcon hide" rel="load-more-icon"><svg class="icon icon-spinner"><use xlink:href="#icon-spinner" /></svg></span>
                         </button>
                     </div>
                 </div>`;
@@ -450,66 +552,182 @@ export default class Yotpo {
 
     // the user ratings list HTML
     getRatingListItem(reviewData){
-        return `
-            <li class="ratings__listItem">
-                <ul class="ratings__cutomerInfo">
-                    <li class="ratings__avgRate pad-bottom">
-                        <span class="ratings__avg ratings__avg--small">${reviewData.score.toFixed(1)}</span>
-                        <span class="ratings__totalRate ratings__totalRate--small">out of 5</span>
-                    </li>
-                    <li class="ratings__stars" style="--rating:${reviewData.score};" aria-label="Rating of ${reviewData.score} out of 5."></li>
-                    <li class="ratings__customer">${reviewData.user.display_name}</li>
-                    ${reviewData.verified_buyer ? '<li class="ratings__customerVerified">Verified Buyer</li>' : ''}
-                    <li class="ratings__customerRateDate">${TEAK.Utils.formatDate(reviewData.created_at)}</li>
-                </ul>
-                <div class="ratings__content">
-                    <h3 class="ratings__contentTitle">${reviewData.title}</h3>
-                    <p class="ratings__contentText">${reviewData.content}</p>
-                ${reviewData.hasOwnProperty("comment") ? 
-                    `<div class="ratings__contentAnswer">
-                        <span class="ratings__contentAnswerText">${reviewData.comment.content}</span>
-                        <span class="ratings__contentAnswerMeta">&mdash; By AuthenTEAK Representative on ${TEAK.Utils.formatDate(reviewData.comment.created_at)}</span>
-                    </div>` : ''
-                }
-                </div>
-            </li>`;
+        return `<li class="ratings__listItem">
+                    <ul class="ratings__customerInfo">
+                        <li class="ratings__avgRate pad-bottom">
+                            <span class="ratings__avg ratings__avg--small">${reviewData.score.toFixed(1)}</span>
+                            <span class="ratings__totalRate ratings__totalRate--small">out of 5</span>
+                        </li>
+                        <li class="ratings__stars" style="--rating:${reviewData.score};" aria-label="Rating of ${reviewData.score} out of 5."></li>
+                        <li class="ratings__customer">${reviewData.user.display_name}</li>
+                        ${reviewData.verified_buyer ? '<li class="ratings__customerVerified">Verified Buyer</li>' : ''}
+                        <li class="ratings__customerRateDate">${TEAK.Utils.formatDate(reviewData.created_at)}</li>
+                    </ul>
+                    <div class="ratings__content">
+                        <h3 class="ratings__contentTitle">${reviewData.title}</h3>
+                        <p class="ratings__contentText">${reviewData.content}</p>
+                    ${reviewData.hasOwnProperty("comment") ? 
+                        `<div class="ratings__contentAnswer">
+                            <span class="ratings__contentAnswerText">${reviewData.comment.content}</span>
+                            <span class="ratings__contentAnswerMeta">&mdash; By AuthenTEAK Representative on ${TEAK.Utils.formatDate(reviewData.comment.created_at)}</span>
+                        </div>` : ''
+                    }
+                    </div>
+                </li>`;
+    }
+
+
+
+    buildReviewsModal(){
+        return `<form name="reviews_dialog">
+                    <h1 class="product__modalTitle">Write a review</h1>
+                    <div class="product__col-1-1">
+                        <div class="product__col-1-4">
+                            <img class="product__modalImg" src="${this.settings.product.image}">
+                        </div>
+                        <div class="product__col-3-4">
+                            <cite class="product__modalTitle--4">${this.settings.product.brand}</cite>
+                            <h2 class="product__modalTitle--2">${this.settings.product.title}</h2>
+
+                            <div class="product__col-1-1 product__modalControlForm">
+                                <div class="product__modalControlGroup">
+                                    <div class="product__col-1-2 no-pad product__modalControl product__modalControl--row">
+                                        <h4 class="product__modalTitle--3">Your Overall Rating:</h4>
+                                        <output class="product__modalOutput" name="result"></output>
+                                    </div>
+                                    <div class="product__col-1-2 no-pad">
+                                        <fieldset class="ratings ratings--widget">
+                                            <label class="ratings__widgetLabel" for="fiveStars">
+                                                ★ <input required type="radio" name="review_score" value="5" title="Excellent" id="fiveStars" class="ratings__widgetScore">
+                                            </label>
+                                            <label class="ratings__widgetLabel" for="fourStars">
+                                                ★ <input required type="radio" name="review_score" value="4" title="Good" id="fourStars" class="ratings__widgetScore">
+                                            </label>
+                                            <label class="ratings__widgetLabel" for="threeStars">
+                                                ★ <input required type="radio" name="review_score" value="3" title="Average" id="threeStars" class="ratings__widgetScore">
+                                            </label>
+                                            <label class="ratings__widgetLabel" for="twoStars">
+                                                ★ <input required type="radio" name="review_score" value="2" title="Fair" id="twoStars" class="ratings__widgetScore">
+                                            </label>
+                                            <label class="ratings__widgetLabel" for="oneStar">
+                                                ★ <input required type="radio" name="review_score" value="1" title="Poor" id="oneStar" class="ratings__widgetScore">
+                                            </label>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <div class="product__modalControlGroup no-pad">
+                                    <div class="product__col-1-2 no-pad product__modalControl product__modalControl--row">
+                                        <h4 class="product__modalTitle--3">Do you recommend this product?</h4>
+                                    </div>
+                                    <fieldset class="product__modalFieldset">
+                                        <label class="product__modalControlLabel product__modalControlLabel--small">
+                                            <input type="radio" name="--33401" value="yes"> &nbsp; Yes
+                                        </label> 
+                                        &nbsp; &nbsp;
+                                        <label class="product__modalControlLabel product__modalControlLabel--small">
+                                            <input type="radio"  name="--33401" value="no"> &nbsp; No
+                                        </label>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product__col-1-1 no-pad">
+                        <div class="product__col-1-1 product__modalControlGroup">
+                            <div class="product__col-1-1 product__modalControl">
+                                <label class="product__modalControlLabel">Review Title</label>
+                                <input required type="text" class="product__modalControlInput product__modalControlInput--input" name="review_title" placeholder="The most important point">
+                            </div>
+                        </div>
+                        <div class="product__col-1-1 product__modalControlGroup">
+                            <div class="product__col-3-4 product__modalControl">
+                                <label class="product__modalControlLabel">Your Review</label>
+                                <textarea required class="product__modalControlInput product__modalControlInput--textarea" name="review_content" placeholder="Example: This Umbrella was easy to assemble and came with all of its parts. I'm highly pleased with it's color, size and durability."></textarea>
+                            </div>
+                            <div class="product__col-1-4 product__bgHighlight">
+                                <h4 class="product__modalTitle--4">Review Guidelines</h4>
+                                <ul class="product__modalHelpList">
+                                    <li>&check; Focus on the product and its features.</li>
+                                    <li>&check; What do you like or dislike about the product?</li>
+                                    <li>&check; Did the product meet your expectations?</li>
+                                    <li>&check; Please contact us directly at <a href="tel:1-833-257-7070">1-833-257-7070</a> to ask about delivery, availability and customer service issues.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="product__col-1-1 product__modalControlGroup">
+                            <div class="product__col-1-2 product__modalControl">
+                                <label class="product__modalControlLabel">Your Nickname</label>
+                                <input type="text" required class="product__modalControlInput product__modalControlInput--input" name="display_name">
+                                <p class="product__modalControlHelp">Please do not use your own name, spaces or special characters.</p>
+                            </div>
+                            <div class="product__col-1-2 product__modalControl">
+                                <label class="product__modalControlLabel">Your Email Address</label>
+                                <input type="email" required class="product__modalControlInput product__modalControlInput--input" name="email">
+                                <p class="product__modalControlHelp">Your email will not be displayed publicly, sold nor used for SPAM.  Your email will allow for us to send notifications.</p>
+                            </div>
+                        </div>
+                        <div class="product__col-1-1 product__modalControlGroup">
+                            <div class="product__col-2-3"></div>
+                            <div class="product__col-1-3 no-pad">
+                                <button type="submit" class="product__modalSubmitBtn">
+                                    <span class="product__modalSubmitText" rel="load-more-text">Submit</span>
+                                    <span class="product__modalSubmitIcon hide" rel="load-more-icon"><svg class="icon icon-spinner"><use xlink:href="#icon-spinner" /></svg></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>`;
     }
 
 
     // Question Modal
     buildQuestionModal(){
-        return `<h1 class="product__modalTitle">Ask a question</h1>
-                <div class="product__col-1-1">
-                    <div class="product__col-1-4">
-                        <img class="product__modalImg" src="https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/1024x1024/products/5223/53403/CP901__01269.1496156394.jpg?c=2&imbypass=on">
-                    </div>
-                    <div class="product__col-3-4">
-                        <cite class="product__modalTitle--4">Treasure Garden</cite>
-                        <h2 class="product__modalTitle--2">Treasure Garden Umbrella &amp; Cantilever Covers</h2>
-                    </div>
-                </div>
-                <form>
-                    <div class="product__col-1-1 no-pad product__modalControlGroup">
-                        <div class="product__col-3-4 product__modalControl">
-                            <label class="product__modalControlLabel">Your Question</label>
-                            <textarea class="product__modalControlInput product__modalControlInput--textarea" name="review_content" placeholder="Example: Does this fit with my existing furniture piece? Does this require assembly?  Where is this made?"></textarea>
+        return `<form name="questions_dialog">
+                    <h1 class="product__modalTitle">Ask a question</h1>
+                    <div class="product__col-1-1">
+                        <div class="product__col-1-4">
+                            <img class="product__modalImg" src=${this.settings.product.image}">
                         </div>
-                        <div class="product__col-1-4 product__bgHighlight">
-                            <h4 class="product__modalTitle--4">Question Guidelines</h4>
-                            <ul class="product__modalHelpList">
-                                <li>&check; Ask about the product, it's features and functionality.</li>
-                                <li>&check; Please contact us directly at <a href="tel:1-833-257-7070">1-833-257-7070</a> to ask about delivery, availability and customer service issues.</li>
-                            </ul>
+                        <div class="product__col-3-4">
+                            <cite class="product__modalTitle--4">${this.settings.product.brand}</cite>
+                            <h2 class="product__modalTitle--2">${this.settings.product.title}</h2>
                         </div>
                     </div>
-                    <div class="product__col-1-1 product__modalControl">
-                        <label class="product__modalControlLabel">Nickname</label>
-                        <input type="text" class="product__modalControlInput product__modalControlInput--input" name="display_name" placeholder="Please do not use your own name, spaces or special characters">
-                    </div>
-                    <div class="product__col-1-1 product__modalControlGroup">
-                        <div class="product__col-2-3"></div>
-                        <div class="product__col-1-3 no-pad">
-                            <button type="button" class="button button-primary button-primary--green button--fullWidth">Submit</button>
+                    <div class="product__col-1-1 no-pad">
+                        <div class="product__col-1-1 no-pad product__modalControlGroup">
+                            <div class="product__col-3-4 product__modalControl">
+                                <label class="product__modalControlLabel">Your Question</label>
+                                <textarea required class="product__modalControlInput product__modalControlInput--textarea" name="review_content" placeholder="Example: Does this fit with my existing furniture piece? Does this require assembly?  Where is this made?"></textarea>
+                            </div>
+                            <div class="product__col-1-4 product__bgHighlight">
+                                <h4 class="product__modalTitle--4">Question Guidelines</h4>
+                                <ul class="product__modalHelpList">
+                                    <li>&check; Ask about the product, it's features and functionality.</li>
+                                    <li>&check; Please contact us directly at <a href="tel:1-833-257-7070">1-833-257-7070</a> to ask about delivery, availability and customer service issues.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="product__col-1-1 product__modalControlGroup">
+                            <div class="product__col-1-2 product__modalControl">
+                                <label class="product__modalControlLabel">Your Nickname</label>
+                                <input type="text" required class="product__modalControlInput product__modalControlInput--input" name="display_name">
+                                <p class="product__modalControlHelp">Please do not use your own name, spaces or special characters.</p>
+                            </div>
+                            <div class="product__col-1-2 product__modalControl">
+                                <label class="product__modalControlLabel">Your Email Address</label>
+                                <input type="email" required class="product__modalControlInput product__modalControlInput--input" name="email">
+                                <p class="product__modalControlHelp">Your email will not be displayed publicly, sold nor used for SPAM.  Your email will allow for us to send notifications.</p>
+                            </div>
+                        </div>
+                        <div class="product__col-1-1 product__modalControlGroup">
+                            <div class="product__col-2-3"></div>
+                            <div class="product__col-1-3 no-pad">
+                                <button type="submit" class="product__modalSubmitBtn">
+                                    <span class="product__modalSubmitText" rel="load-more-text">Submit</span>
+                                    <span class="product__modalSubmitIcon hide" rel="load-more-icon"><svg class="icon icon-spinner"><use xlink:href="#icon-spinner" /></svg></span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </form>`;

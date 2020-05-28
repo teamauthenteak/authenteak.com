@@ -73,7 +73,8 @@ export default class Product extends PageManager {
 		this.yotpo = new Yotpo({
 			product: this.productInfo,
 			productId: this.productId,
-			isProductPage: true
+			isProductPage: true,
+			dialog: $("#productModal")
 		});
 
 		// add product swatch modal
@@ -165,6 +166,10 @@ export default class Product extends PageManager {
 			this._accordionTabToggle(event);
 		});
 
+		$(document.body)
+			.on("click", "[product-dialog-close]", (e) => { this.closeDialog(e); })
+			.on("click", "[product-dialog-open]", (e) => { this.openDialog(e) });
+
 	}
 
 
@@ -175,6 +180,39 @@ export default class Product extends PageManager {
 			location: 'pdp'
 		});
 	}
+
+
+	openDialog(e){
+		let thisDialog = $(e.currentTarget).attr("rel"), tpl;
+
+		switch(thisDialog){
+			case "writeReview":
+				tpl = this.yotpo.buildReviewsModal();
+				break;
+			
+			case "askQuestion":
+				tpl = this.yotpo.buildQuestionModal();
+				break;
+		}
+
+		$("#productModal")
+			.removeClass("hide")
+			.find(".product__modalDialog").removeClass("product__modalDialog--success")
+				.end()
+			.find(".product__modalDialogCntr").html(tpl);
+
+		$(document.body).addClass("product__freezeBody");
+
+		e.preventDefault();
+	}
+
+
+	closeDialog(e){
+		let $this = $(e.currentTarget);
+		$this.parents(".product__modal").addClass("hide");
+		$(document.body).removeClass("product__freezeBody");
+	}
+
 
 
 	/**

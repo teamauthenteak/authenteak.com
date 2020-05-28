@@ -226,10 +226,26 @@ h1.product-title {
 .shipping-range{
     margin-top: 0;
     align-items: center;
+    @extend .alert;
 
     &--static{
+        @extend .alert--notify;
         margin: 20px 0;
-        line-height: 1.2;
+        line-height: 1.4;
+        color: #084d80;
+        text-align: left;
+        border-bottom: 3px solid #d6e4ef;
+        padding: 5px;
+        justify-content: flex-start;
+        width: auto;
+        opacity: .7;
+
+        & .icon{
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            fill: #084d80;
+        }
     }
 
     &--tip{
@@ -240,6 +256,10 @@ h1.product-title {
 .price-range,
 .item-number{
     font-size: 1.6em; 
+    display: flex;
+    align-content: center;
+    align-content: center;
+    align-items: center;
 }
 
 .price-you-save{
@@ -250,7 +270,7 @@ h1.product-title {
 }
 
 .product-price-line{
-    margin: 10px 0 0 0;
+    margin: 0;
     display: flex;
     line-height: 1;
 }

@@ -5,6 +5,7 @@
   <div class="cell cart-item-price">{{lang 'cart.price'}}</div>
 </div>
 
+
 <div class="cart-table">
   {{#each cart.items}}
     <article class="cart-item" data-cart-item data-item-id="{{id}}">
@@ -12,6 +13,7 @@
         <div class="cart-item-info-wrap">
           <div class="cart-item-image">
             {{#if type '===' 'GiftCertificate'}}
+
               <div class="gift-card-image">
                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                    viewBox="0 0 100 81.9" style="enable-background:new 0 0 100 81.9;" xml:space="preserve">
@@ -35,11 +37,26 @@
             {{#if type '===' 'GiftCertificate'}}
               <a class="product-name" href="{{edit_url}}">{{name}}</a>
             {{else}}
-              <a class="product-name" href="{{url}}">{{name}}</a>
+              <a class="product-name" href="{{url}}">
+                {{name}}
+              </a>
             {{/if}}
             <div class="cart-item-giftwrap">
               {{> components/cart/gift-wrap-item}}
             </div>
+
+            <div class="cart-item-shipping">
+              {{#each this.custom_fields}}
+                {{#if this.name '==' "Lead-Time"}}
+                  {{this.value}}
+                {{/if}}
+
+                {{#if this.name '==' "Lead-Time 2"}}
+                  {{this.value}}
+                {{/if}}
+              {{/each}}
+            </div>
+            
           </div>
         </div>
       </div>

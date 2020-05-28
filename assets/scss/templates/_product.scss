@@ -7,6 +7,10 @@
     @extend %span-1-1;
     @extend %span;
 
+    &__freezeBody{
+        @extend %freeze-body;
+    }
+
     @media only screen and (max-width: $screen-xs) {
        padding: 0;
     }
@@ -71,10 +75,42 @@
         }
     }
 
+    &__tabTitle{
+        @extend .product__title;
+        margin: 0;
+        display: flex;
+        margin: 0 -20px;
+        padding: 20px;
+
+        &:hover{
+            background-color: #f9f9f9;
+        }
+
+        &--noBg{
+            &:hover{
+                background-color: transparent;
+            }
+        }
+
+        @media only screen and (max-width: $screen-sm) {
+            flex-direction: column;
+        }
+    }
+
     &__titleLink{
         display: flex;
         align-content: center;
         align-items: center;
+        line-height: 1;
+        flex: 1 0 auto;
+        width: 100%;
+
+        &:hover{
+            & .icon-chevron-down{
+                fill: $btn-color-green;
+                transform: rotate(-90deg);
+            }
+        }
 
         & .icon{
             width: 50px;
@@ -89,13 +125,15 @@
             & .icon-chevron-down{
                 transform: rotate(180deg);
             }
-        }
 
-        &:hover{
-            & .icon{
-                fill: $btn-color-green;
+            &:hover{
+                & .icon-chevron-down{
+                    transform: rotate(180deg);
+                }
             }
         }
+
+        
     }
 
     &__titleText{
@@ -313,6 +351,12 @@
         @extend %span;
         @extend .product__col-1-1; 
         @extend .product__col--topBorder;
+
+        padding: 0 20px 0 20px;
+
+        &--active{
+            padding-bottom: 20px;
+        }
     }
 
 
@@ -819,6 +863,14 @@
         margin-left: -(90vw/2);
         height:90vh;
         max-height: none;
+
+        &--success{
+            width: 60vw;
+            margin-left: -(60vw/2);
+            height: auto;
+            top: 50%;
+            margin-top: -20vh;
+        }
     }
 
     &__modalDialogCntr{
@@ -867,6 +919,10 @@
 
         &--3{
             margin: 0;
+            font-size: 1.2rem;
+            height: 100%;
+            display: flex;
+            align-items: center;
         }
 
         &--4{
@@ -884,6 +940,22 @@
         display: flex;
         flex-direction: column;
         padding: 0 20px;
+
+        &--row{
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+
+    &__modalFieldset{
+        @extend .product__col-1-2;
+        border: 0;
+        margin: 0;
+    }
+
+    &__modalOutput{
+        padding-left: 20px;
+        font-weight: 800;
     }
 
     &__modalControlGroup{
@@ -891,10 +963,24 @@
         padding: 20px  0;
     }
 
+    &__modalControlForm{
+        padding: 20px 0 0 0;
+        display: flex;
+        flex-direction: column;
+    }
+
     &__modalControlLabel{
         font-size: 1.6rem;
         margin-bottom: 10px;
         line-height: 1;
+        display: inline-flex;
+        align-content: center;
+        flex-direction: row;
+
+        &--small{
+            font-size: 1.2rem;
+
+        }
     }
 
     &__modalControlInput{
@@ -930,6 +1016,22 @@
         font-size: 0.9rem;
         margin: 10px 0 0 0;
         line-height: 1.4;
+    }
+
+    &__modalSubmitBtn{
+        @extend .button;
+        @extend .button-primary; 
+        @extend .button-primary--green; 
+        @extend .button--fullWidth;
+        height: 62px;
+    }
+
+    &__modalSubmitText{
+
+    }
+
+    &__modalSubmitIcon{
+
     }
 
 }

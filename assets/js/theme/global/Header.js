@@ -349,7 +349,12 @@ TEAK.Modules.megaMenu = {
                 .setCustomCategory(id, "shop_by_brand")
                 .setDisplayDimention(id);
         }
-        
+		
+		// if is "trade customer" then hide this category
+		if(TEAK.User.isTradeCustomer){
+			document.querySelector("li[category_2508]").style.display = "none";
+		}
+
         return this;
     },
 

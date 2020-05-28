@@ -82,11 +82,15 @@
 
 				<div class="price-range">
 					{{#if product.options}}
-					{{#if product.price}}
-					{{> components/products/price price=product.price show_savings=false save_block=false}}
-					{{/if}}
+						{{#if product.price}}
+							{{> components/products/price price=product.price show_savings=false save_block=false}}
+						{{/if}}
 					{{else}}
 					<!-- show no price -->
+					{{/if}}
+
+					{{#if customer.customer_group_id '==' '1' }}
+					<i class="badge badge--pdp">Trade Price</i>
 					{{/if}}
 				</div>
 
@@ -125,6 +129,8 @@
 
 
 				<p class="shipping-range shipping-range--static mobileHide">
+					<!-- <svg class="icon icon-alert-triangle"><use xlink:href="#icon-alert-triangle" /></svg> -->
+
 					{{#each product.custom_fields}}
 
 					{{#if this.name '==' "Lead-Time"}}
@@ -212,8 +218,8 @@
 <div class="product__row" id="productMetaTabs">
 	<div class="product__col-1-1">
 
-		<div class="product__tabSection">
-			<h2 class="product__title product__title--noMargin">
+		<div class="product__tabSection product__tabSection--active">
+			<h2 class="product__tabTitle">
 				<a href="#desc" class="product__titleLink product__titleLink--active" product-meta-tab>
 					<span class="product__titleText">Product Overview</span>
 					<svg class="icon icon-chevron-down"><use xlink:href="#icon-chevron-down" /></svg>
@@ -237,8 +243,8 @@
 		</div> <!-- end description -->
 
 
-		<div class="product__tabSection hide">
-			<h2 class="product__title product__title--noMargin">
+		<div class="product__tabSection hide product__tabSection--active">
+			<h2 class="product__tabTitle">
 				<a href="#specs" class="product__titleLink product__titleLink--active" product-meta-tab>
 					<span class="product__titleText">Specifications</span>
 					<svg class="icon icon-chevron-down"><use xlink:href="#icon-chevron-down" /></svg>
@@ -249,7 +255,7 @@
 
 
 		<div class="product__tabSection hide">
-			<h2 class="product__title product__title--noMargin">
+			<h2 class="product__tabTitle">
 				<a href="#care" class="product__titleLink" product-meta-tab>
 					<span class="product__titleText">
 						<!-- <svg class="icon icon-umbrella"><use xlink:href="#icon-umbrella" /></svg> -->
@@ -263,7 +269,7 @@
 
 
 		<div class="product__tabSection hide">
-			<h2 class="product__title product__title--noMargin">
+			<h2 class="product__tabTitle">
 				<a href="#ship" class="product__titleLink" product-meta-tab>
 					<span class="product__titleText">
 						<!-- <svg class="icon icon-truck"><use xlink:href="#icon-truck" /></svg> -->
@@ -277,7 +283,7 @@
 
 
 		<div class="product__tabSection">
-			<h2 class="product__title product__title--noMargin">
+			<h2 class="product__tabTitle">
 				<a href="#warranty" class="product__titleLink" product-meta-tab>
 					<span class="product__titleText">
 						<!-- <svg class="icon icon-award"><use xlink:href="#icon-award" /></svg> -->
@@ -293,7 +299,7 @@
 
 
 		<div class="product__tabSection">
-			<h2 class="product__title product__title--noMargin">
+			<h2 class="product__tabTitle">
 				<a href="#returns" class="product__titleLink" product-meta-tab>
 					<span class="product__titleText">
 						<!-- <svg class="icon icon-corner-up-left"><use xlink:href="#icon-corner-up-left" /></svg> -->
@@ -316,10 +322,10 @@
 
 
 
-		<div class="product__tabSection" id="questions">
-			<h2 class="product__title product__title--flex product__title--noMargin">
+		<div class="product__tabSection product__tabSection--active" id="questions">
+			<h2 class="product__tabTitle product__tabTitle--noBg">
 				<span class="product__titleText">Questions & Answers</span>
-				<button type="button" class="product__titleBtn" id="questionsTitleBtn">Ask a new question</button>
+				<button type="button" class="product__titleBtn hide" id="questionsTitleBtn" product-dialog-open rel="askQuestion">Ask a new question</button>
 			</h2>
 			<div class="product__col-1-1 pad-top">
 				<ul class="product__questions" id="productQuestions"></ul>
@@ -334,7 +340,7 @@
 						</ul>
 					</div>
 					<div class="product__col-1-3 pad-left">
-						<a href="" class="button button-primary button-primary--green button-wide">Ask the first Question</a>
+						<a href="#" class="button button-primary button-primary--green button-wide" product-dialog-open rel="askQuestion">Ask the first Question</a>
 					</div>
 				</div>
 			</div>
@@ -342,8 +348,8 @@
 
 
 
-		<div class="product__tabSection" id="reviews">
-			<h2 class="product__title product__title--flex product__title--noMargin">
+		<div class="product__tabSection product__tabSection--active" id="reviews">
+			<h2 class="product__tabTitle product__tabTitle--noBg">
 				<span class="product__titleText">Customer Reviews</span>			
 			</h2>
 
@@ -355,109 +361,35 @@
 					<p class="product__noReviewsText">Your feedback will help customers like you make informed decisions and will help us to improve our product offerings!</p>
 					<p class="product__noReviewsText">If you have any questions regarding the customer service you received, please <a href="/contact-us" target="__blank">contact us</a></p>
 					<br>
-					<a href="" class="button button-primary button-primary--greenTrans button-wide">Write the first review</a>
+					<a href="#" class="button button-primary button-primary--greenTrans button-wide" product-dialog-open rel="writeReview">Write the first review</a>
 				</div>
 			</div>
 		</div> <!-- /reviews-->
 
 
-		<div class="product__modal" id="productModal">
+
+		<div class="product__modal hide" id="productModal">
 			<div class="product__modalDialog">
-				<button class="product__closeBtn" data-close-modal>
+				<button class="product__closeBtn" product-dialog-close value="cancel">
 					<svg class="icon icon-close"><use xlink:href="#icon-close" /></svg>
 				</button>
-				<div class="product__modalDialogCntr">
-
-					<h1 class="product__modalTitle">Write a review</h1>
-					<div class="product__col-1-1">
-						<div class="product__col-1-4">
-							<img class="product__modalImg" src="https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/1024x1024/products/5223/53403/CP901__01269.1496156394.jpg?c=2&imbypass=on">
-						</div>
-						<div class="product__col-3-4">
-							<cite class="product__modalTitle--4">Treasure Garden</cite>
-							<h2 class="product__modalTitle--2">Treasure Garden Umbrella &amp; Cantilever Covers</h2>
-							<div class="product__col-1-1 no-pad">
-								<div class="product__col-1-2 pad-top">
-									<h4 class="product__modalTitle--4">Your Overall Rating:</h4>
-								</div>
-								<div class="product__col-1-2">
-									<ul class="ratings ratings--widget">
-										<li>★</li>
-										<li>★</li>
-										<li>★</li>
-										<li>★</li>
-										<li>★</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<form>
-						<div class="product__col-1-1 product__modalControlGroup">
-							<div class="product__col-1-1 product__modalControl">
-								<label class="product__modalControlLabel">Review Title</label>
-								<input type="text" class="product__modalControlInput product__modalControlInput--input" name="display_name" placeholder="The most important point">
-							</div>
-						</div>
-						<div class="product__col-1-1 product__modalControlGroup">
-							<div class="product__col-3-4 product__modalControl">
-								<label class="product__modalControlLabel">Your Review</label>
-								<textarea class="product__modalControlInput product__modalControlInput--textarea" name="review_content" placeholder="Example: This Umbrella was easy to assemble and came with all of its parts. I'm highly pleased with it's color, size and durability."></textarea>
-							</div>
-							<div class="product__col-1-4 product__bgHighlight">
-								<h4 class="product__modalTitle--4">Review Guidelines</h4>
-								<ul class="product__modalHelpList">
-									<li>&check; Focus on the product and its features.</li>
-									<li>&check; What do you like or dislike about the product?</li>
-									<li>&check; Did the product meet your expectations?</li>
-									<li>&check; Please contact us directly at <a href="tel:1-833-257-7070">1-833-257-7070</a> to ask about delivery, availability and customer service issues.</li>
-								</ul>
-							</div>
-						</div>
-						<div class="product__col-1-1 product__modalControlGroup">
-							<div class="product__col-1-2 product__modalControl">
-								<label class="product__modalControlLabel">Your Nickname</label>
-								<input type="text" class="product__modalControlInput product__modalControlInput--input" name="display_name">
-								<p class="product__modalControlHelp">Please do not use your own name, spaces or special characters.</p>
-							</div>
-							<div class="product__col-1-2 product__modalControl">
-								<label class="product__modalControlLabel">Your Email Address</label>
-								<input type="text" class="product__modalControlInput product__modalControlInput--input" name="display_name">
-								<p class="product__modalControlHelp">Your email will not be displayed publicly, sold nor used for SPAM.  Your email will allow for us to send notifications.</p>
-							</div>
-						</div>
-						<div class="product__col-1-1 product__modalControlGroup">
-							<div class="product__col-2-3"></div>
-							<div class="product__col-1-3 no-pad">
-								<button type="button" class="button button-primary button-primary--green button--fullWidth">Submit</button>
-							</div>
-						</div>
-					</form>
-					
-
-				</div>
+				<div class="product__modalDialogCntr"></div>
 			</div>
 			<div class="product__modalOverlay"></div>
 		</div>
 		
 
-
 	</div>
 </div>
-
-
-	
 
 
 </section>
 
 <!-- moved yotpo to tempaltes/pages/product.html -->
-
 {{> components/products/customizations/request-swatch-modal product}}
 
 
 <!-- Pintrest Structured Data -->
-
 {{#partial "jsonPrice"}}
 {{#if product.price.without_tax}}
 {{> components/products/customizations/non-sale-price-value-fixed price=product.price}}

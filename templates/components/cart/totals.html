@@ -84,17 +84,17 @@
 
 {{#partial "tradeShippingPrice"}}
 {{#if cart.sub_total.value '<' '3000' }}
-{{ trim (toFixed (multiply cart.sub_total.value '0.10') 2) }}
+{{ trim (toFixed (multiply cart.sub_total.value '0.12') 2) }}
 {{/if}}
 
 {{#if cart.sub_total.value '>' '3000' }}
 {{#if cart.sub_total.value '<' '6000' }}
-{{ trim (toFixed (multiply cart.sub_total.value '0.08') 2) }}
+{{ trim (toFixed (multiply cart.sub_total.value '0.09') 2) }}
 {{/if}}
 {{/if}}
 
 {{#if cart.sub_total.value '>' '6001' }}
-{{ trim (toFixed (multiply cart.sub_total.value '0.05') 2) }}
+{{ trim (toFixed (multiply cart.sub_total.value '0.07s') 2) }}
 {{/if}}
 {{/partial}}
 

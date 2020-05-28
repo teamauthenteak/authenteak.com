@@ -511,7 +511,7 @@ export default class ProductSwatchModal {
 
     // build the new UI after we have filtered the options
     buildFilteredSwatchList(){
-        let labelCntr = this.$optionForm.find(".form-field-control");
+        let labelCntr = $("#optionForm").find(".form-field-control");
 
         labelCntr.html("");
 

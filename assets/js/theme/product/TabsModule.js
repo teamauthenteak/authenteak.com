@@ -36,7 +36,10 @@ export default class TabsModule {
             anchor = $target.attr("href");
         
         $target.toggleClass("product__titleLink--active");
-        $(anchor).slideToggle("fast");
+
+        $(anchor)
+            .slideToggle("fast")
+            .parents(".product__tabSection").toggleClass("product__tabSection--active");
     }
 
 	

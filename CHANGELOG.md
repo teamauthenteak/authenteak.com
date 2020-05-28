@@ -1,7 +1,18 @@
 # Change Log
 
 ## [1.20.26]
-
+- Updated lead time ui on PDP
+- Added lead time to cart page
+- added "trade price" badge to PDP next to Price
+- Changed horizontal tabs to vertical accordion tabs on PDP
+- added new yotpo api integrated Questions
+- added new yotpo api integrated Reviews
+- Integrated new Questions and Reviews yotpo driven form
+- added fix for duplicate swatches
+- Created 2 responsive table variations for Specs on PDP
+- Added heap events in Heap console
+- added function to remove featured offers if a trade user is logged in
+- Updated trade shipping pricing for checkout per new %
 
 ## [1.20.25]
 - Collections page

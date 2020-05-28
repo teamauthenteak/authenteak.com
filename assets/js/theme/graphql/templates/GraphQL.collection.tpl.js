@@ -142,7 +142,7 @@ export default class GraphQL_Collection_TPL {
                                                         <div class="product__swatch">
                                                             <input class="product__swatchRadio form-input" id="${productOption.entityId}" type="radio" name="attribute[${productOption.entityId}]" value="" ${productOption.isRequired ? 'required' : ''} data-label="${productOption.displayName}">
                                                             <div class="product__swatchColor" style="background-image: url('https://dummyimage.com/256x256/cccccc/777777.png&text=Choose');">
-                                                                <img class="product__swatchImg" src="https://dummyimage.com/256x256/cccccc/777777.png&text=Choose">
+                                                                <img class="product__swatchImg" src="https://dummyimage.com/256x256/cccccc/777777.png&text=select">
                                                             </div>
                                                         </div>
                                                         <div class="product__swatchText">

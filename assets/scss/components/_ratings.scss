@@ -14,6 +14,47 @@
         padding: 20px 0;
     }
 
+    &--widget{
+        display: inline-block;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        direction: rtl;
+
+        & > .ratings__widgetLabel:hover{
+            color: var(--star-background);
+        }
+
+        & > .ratings__widgetLabel:hover ~ .ratings__widgetLabel{
+            color: var(--star-background);
+        }
+
+        & > .ratings__widgetLabel--active ~ .ratings__widgetLabel{
+            color: var(--star-background);
+        }
+    }
+
+    &__widgetLabel{
+        @extend %ratings-flex;
+        width: (100%/5);
+        cursor: pointer;
+        font-size: 3rem;
+        float: right;
+        color: #ccc;
+        line-height: 1;
+
+        &--active{
+            color: var(--star-background);
+        }
+    }
+
+    &__widgetScore{
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
     &__overView{
         @extend %ratings-flex;
         width: 50%;
@@ -130,7 +171,7 @@
     &__distroBar{
         grid-column-start: 1;
         grid-column-end: 101;
-        background-color: #fc0;
+        background-color: var(--star-background);
 
         &--0{
             background-color: transparent;
@@ -216,7 +257,7 @@
         display: flex;
         padding: 20px;
         border-top: 1px solid #eee;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
 
         & .selectBox__label--scores{
@@ -299,7 +340,7 @@
         }
     }
 
-    &__cutomerInfo{
+    &__customerInfo{
         width: 15%;
         display: flex;
         flex-direction: column;
