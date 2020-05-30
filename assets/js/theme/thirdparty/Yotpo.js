@@ -107,8 +107,8 @@ export default class Yotpo {
                         <p>Your ${type} has been submitted successfully. Please note that it may take up to 48 hours to be displayed on AuthenTEAK.com</p>
                     </div>
                     <div class="product__col-1-1 pad-top">
-                        <div class="product__col-1-2 no-pad">&nbsp;</div>
-                        <div class="product__col-1-2 no-pad">
+                        <div class="product__col-1-2--lg product__col-1-1 no-pad">&nbsp;</div>
+                        <div class="product__col-1-2--lg product__col-1-1 no-pad">
                             <button type="button" class="product__modalSubmitBtn" product-dialog-close>Continue</button>
                         </div>
                     </div>`;
@@ -581,21 +581,21 @@ export default class Yotpo {
     buildReviewsModal(){
         return `<form name="reviews_dialog">
                     <h1 class="product__modalTitle">Write a review</h1>
-                    <div class="product__col-1-1">
-                        <div class="product__col-1-4">
+                    <div class="product__modalHeading">
+                        <div class="product__col-1-4--lg product__col-1-1 c">
                             <img class="product__modalImg" src="${this.settings.product.image}">
                         </div>
-                        <div class="product__col-3-4">
+                        <div class="product__col-3-4--lg product__col-1-1">
                             <cite class="product__modalTitle--4">${this.settings.product.brand}</cite>
                             <h2 class="product__modalTitle--2">${this.settings.product.title}</h2>
 
                             <div class="product__col-1-1 product__modalControlForm">
                                 <div class="product__modalControlGroup">
-                                    <div class="product__col-1-2 no-pad product__modalControl product__modalControl--row">
+                                    <div class="product__col-1-2--lg product__col-1-1 no-pad product__modalControl product__modalControl--row">
                                         <h4 class="product__modalTitle--3">Your Overall Rating:</h4>
                                         <output class="product__modalOutput" name="result"></output>
                                     </div>
-                                    <div class="product__col-1-2 no-pad">
+                                    <div class="product__col-1-2--lg product__col-1-1 no-pad">
                                         <fieldset class="ratings ratings--widget">
                                             <label class="ratings__widgetLabel" for="fiveStars">
                                                 ★ <input required type="radio" name="review_score" value="5" title="Excellent" id="fiveStars" class="ratings__widgetScore">
@@ -617,7 +617,7 @@ export default class Yotpo {
                                 </div>
 
                                 <div class="product__modalControlGroup no-pad">
-                                    <div class="product__col-1-2 no-pad product__modalControl product__modalControl--row">
+                                    <div class="product__col-1-2--lg no-pad product__modalControl product__modalControl--row">
                                         <h4 class="product__modalTitle--3">Do you recommend this product?</h4>
                                     </div>
                                     <fieldset class="product__modalFieldset">
@@ -641,11 +641,11 @@ export default class Yotpo {
                             </div>
                         </div>
                         <div class="product__col-1-1 product__modalControlGroup">
-                            <div class="product__col-3-4 product__modalControl">
+                            <div class="product__col-3-4--lg product__col-1-1 product__modalControl">
                                 <label class="product__modalControlLabel">Your Review</label>
                                 <textarea required class="product__modalControlInput product__modalControlInput--textarea" name="review_content" placeholder="Example: This Umbrella was easy to assemble and came with all of its parts. I'm highly pleased with it's color, size and durability."></textarea>
                             </div>
-                            <div class="product__col-1-4 product__bgHighlight">
+                            <div class="product__col-1-4--lg product__col-1-1 product__bgHighlight">
                                 <h4 class="product__modalTitle--4">Review Guidelines</h4>
                                 <ul class="product__modalHelpList">
                                     <li>&check; Focus on the product and its features.</li>
@@ -656,20 +656,20 @@ export default class Yotpo {
                             </div>
                         </div>
                         <div class="product__col-1-1 product__modalControlGroup">
-                            <div class="product__col-1-2 product__modalControl">
+                            <div class="product__col-1-2--lg product__col-1-1 product__modalControl">
                                 <label class="product__modalControlLabel">Your Nickname</label>
                                 <input type="text" required class="product__modalControlInput product__modalControlInput--input" name="display_name">
                                 <p class="product__modalControlHelp">Please do not use your own name, spaces or special characters.</p>
                             </div>
-                            <div class="product__col-1-2 product__modalControl">
+                            <div class="product__col-1-2--lg product__col-1-1 product__modalControl">
                                 <label class="product__modalControlLabel">Your Email Address</label>
                                 <input type="email" required class="product__modalControlInput product__modalControlInput--input" name="email">
                                 <p class="product__modalControlHelp">Your email will not be displayed publicly, sold nor used for SPAM.  Your email will allow for us to send notifications.</p>
                             </div>
                         </div>
                         <div class="product__col-1-1 product__modalControlGroup">
-                            <div class="product__col-2-3"></div>
-                            <div class="product__col-1-3 no-pad">
+                            <div class="product__col-2-3--lg product__col-1-1 no-pad"></div>
+                            <div class="product__col-1-3--lg product__col-1-1 no-pad">
                                 <button type="submit" class="product__modalSubmitBtn">
                                     <span class="product__modalSubmitText" rel="load-more-text">Submit</span>
                                     <span class="product__modalSubmitIcon hide" rel="load-more-icon"><svg class="icon icon-spinner"><use xlink:href="#icon-spinner" /></svg></span>
@@ -685,22 +685,22 @@ export default class Yotpo {
     buildQuestionModal(){
         return `<form name="questions_dialog">
                     <h1 class="product__modalTitle">Ask a question</h1>
-                    <div class="product__col-1-1">
-                        <div class="product__col-1-4">
+                    <div class="product__modalHeading">
+                        <div class="product__col-1-4--lg product__col-1-1 c">
                             <img class="product__modalImg" src=${this.settings.product.image}">
                         </div>
-                        <div class="product__col-3-4">
+                        <div class="product__col-3-4--lg product__col-1-1">
                             <cite class="product__modalTitle--4">${this.settings.product.brand}</cite>
                             <h2 class="product__modalTitle--2">${this.settings.product.title}</h2>
                         </div>
                     </div>
                     <div class="product__col-1-1 no-pad">
                         <div class="product__col-1-1 no-pad product__modalControlGroup">
-                            <div class="product__col-3-4 product__modalControl">
+                            <div class="product__col-3-4--lg product__col-1-1 product__modalControl">
                                 <label class="product__modalControlLabel">Your Question</label>
                                 <textarea required class="product__modalControlInput product__modalControlInput--textarea" name="review_content" placeholder="Example: Does this fit with my existing furniture piece? Does this require assembly?  Where is this made?"></textarea>
                             </div>
-                            <div class="product__col-1-4 product__bgHighlight">
+                            <div class="product__col-1-4--lg product__col-1-1 product__bgHighlight">
                                 <h4 class="product__modalTitle--4">Question Guidelines</h4>
                                 <ul class="product__modalHelpList">
                                     <li>&check; Ask about the product, it's features and functionality.</li>
@@ -709,20 +709,20 @@ export default class Yotpo {
                             </div>
                         </div>
                         <div class="product__col-1-1 product__modalControlGroup">
-                            <div class="product__col-1-2 product__modalControl">
+                            <div class="product__col-1-2--lg product__col-1-1 product__modalControl">
                                 <label class="product__modalControlLabel">Your Nickname</label>
                                 <input type="text" required class="product__modalControlInput product__modalControlInput--input" name="display_name">
                                 <p class="product__modalControlHelp">Please do not use your own name, spaces or special characters.</p>
                             </div>
-                            <div class="product__col-1-2 product__modalControl">
+                            <div class="product__col-1-2--lg product__col-1-1 product__modalControl">
                                 <label class="product__modalControlLabel">Your Email Address</label>
                                 <input type="email" required class="product__modalControlInput product__modalControlInput--input" name="email">
                                 <p class="product__modalControlHelp">Your email will not be displayed publicly, sold nor used for SPAM.  Your email will allow for us to send notifications.</p>
                             </div>
                         </div>
                         <div class="product__col-1-1 product__modalControlGroup">
-                            <div class="product__col-2-3"></div>
-                            <div class="product__col-1-3 no-pad">
+                            <div class="product__col-2-3--lg product__col-1-1 no-pad"></div>
+                            <div class="product__col-1-3--lg product__col-1-1 no-pad">
                                 <button type="submit" class="product__modalSubmitBtn">
                                     <span class="product__modalSubmitText" rel="load-more-text">Submit</span>
                                     <span class="product__modalSubmitIcon hide" rel="load-more-icon"><svg class="icon icon-spinner"><use xlink:href="#icon-spinner" /></svg></span>

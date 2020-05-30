@@ -229,7 +229,7 @@ window.TEAK.Utils = {
     },
 
 
-    // test if we are on local hose
+    // test if we are on localhost
     isLocal(){
         return (window.location.hostname === "localhost" || window.location.hostname === "local.authenteak.com");
     },
@@ -499,7 +499,6 @@ window.TEAK.ThirdParty = {
             }
         }
     },
-
 
 
     heap:{

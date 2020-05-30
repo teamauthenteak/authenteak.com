@@ -13,6 +13,14 @@
 - Added heap events in Heap console
 - added function to remove featured offers if a trade user is logged in
 - Updated trade shipping pricing for checkout per new %
+- added feature to hide resources if there are no resources for a given product
+- added check if warranty data is available on pdp to hide its tab
+- added custom code to cart to add custom coupon code for trade customers
+- fixed cart edit button alignment issue on cart page
+- fixed UI issues on Questions and Reviews Mobile
+- Fixed UI issue on question no question CTA
+- hide lead time 2 on mobile on pdp
+- mobile Question and Reviews UI fixes
 
 ## [1.20.25]
 - Collections page

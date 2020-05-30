@@ -681,6 +681,4 @@ export default class ProductSwatchModal {
             .find(".drawer__contentHeading").text(this.optionsArray.displayName);
     }
 
-
-
 }

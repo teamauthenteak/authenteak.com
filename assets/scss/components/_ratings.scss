@@ -264,6 +264,10 @@
             align-self: flex-end;
             flex: 0 0 auto;
             width: 25%;
+
+            @media only screen and (max-width: $screen-sm) {
+                width: 100%;
+            }
         }
     }
 

@@ -34,18 +34,6 @@
   </section>
 
 
-
-<div class="yotpo yotpo-main-widget" 
-data-product-id="{{ product.id }}"
-data-price="{{> components/products/customizations/non-sale-price-value-fixed price=product.price}}"
-data-currency="{{ currency_selector.active_currency_code }}" 
-data-name="{{ product.title }}" 
-data-url="{{ product.url }}" 
-data-image-url="{{getImage product.main_image}}" 
-data-description="{{ product.description }}"
-id="yotpoReviews"> 
-</div>
-
   {{> core/structured-data/amp-product}}
   {{> core/structured-data/amp-product-reviews}}
 

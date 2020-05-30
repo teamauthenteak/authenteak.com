@@ -83,7 +83,7 @@
         padding: 20px;
 
         &:hover{
-            background-color: #f9f9f9;
+            background-color: rgba(110, 164, 56, 0.05);
         }
 
         &--noBg{
@@ -180,6 +180,10 @@
 
     &__bgHighlight{
         background-color: #f2f2f2;
+
+        @media only screen and (max-width: $screen-sm) {
+            padding: 10px !important;
+        }        
     }
 
     &__itemNum{
@@ -720,8 +724,23 @@
         border: 1px solid #eee;
         margin: 10px 0;
 
+        @media only screen and (max-width: $screen-sm) {
+           text-align: center;
+
+           & .product__col--rightBorder{
+               border-right: none;
+               border-bottom: 1px solid #eee;
+               padding: 0 0 20px 0 !important;
+               margin-bottom: 20px;
+           }
+        }
+
         &--row{
             flex-direction: row;
+
+            @media only screen and (max-width: $screen-sm) {
+                flex-direction: column;
+            }
         }
     }
 
@@ -905,6 +924,16 @@
         z-index: 999;
     }
 
+    &__modalHeading{
+        width: 100%;
+        padding: 20px;
+        float: left;
+
+        @media only screen and (max-width: $screen-sm) {
+            padding: 0 0 20px 0;
+        }
+    }
+
     &__modalTitle{
         padding-bottom: 10px;
         margin: 0;
@@ -912,9 +941,17 @@
         line-height: 1;
         text-transform: capitalize;
 
+        @media only screen and (max-width: $screen-sm) {
+            font-size: 1.8rem !important;
+        }
+
         &--2{
             margin: 0;
             font-size: 2.4rem;
+
+            @media only screen and (max-width: $screen-sm) {
+                margin-bottom: 20px;
+            }
         }
 
         &--3{
@@ -923,11 +960,17 @@
             height: 100%;
             display: flex;
             align-items: center;
+
+            @media only screen and (max-width: $screen-sm) {
+                font-size: 1.1rem;
+            }
         }
 
         &--4{
             margin: 0 0 5px 0;
             font-weight: 800;
+            font-style: normal;
+            font-size: 1rem;
         }
     }
 
@@ -941,6 +984,10 @@
         flex-direction: column;
         padding: 0 20px;
 
+        @media only screen and (max-width: $screen-sm) {
+            padding: 0 0 20px 0 !important;
+        }
+
         &--row{
             flex-direction: row;
             align-items: center;
@@ -951,6 +998,10 @@
         @extend .product__col-1-2;
         border: 0;
         margin: 0;
+
+        @media only screen and (max-width: $screen-sm) {
+            width: 100%;
+        }
     }
 
     &__modalOutput{
@@ -960,7 +1011,12 @@
 
     &__modalControlGroup{
         display: flex;
-        padding: 20px  0;
+        padding: 20px 0;
+
+        @media only screen and (max-width: $screen-sm) {
+            flex-direction: column;
+            padding: 0 0 20px 0 !important;
+        }
     }
 
     &__modalControlForm{
@@ -995,6 +1051,10 @@
 
         &--textarea{
             height: 100%;
+
+            @media only screen and (max-width: $screen-sm) {
+                height: 200px;
+            }
         }
     }
 

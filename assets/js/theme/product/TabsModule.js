@@ -52,20 +52,26 @@ export default class TabsModule {
                 let content = document.getElementById(element.id).innerHTML;
 
                 $("#" + element.contentCntr).parents(".product__tabSection").removeClass("hide");
-                
+
                 document.getElementById(element.contentCntr).innerHTML = content;
                 document.querySelector('#' + element.id).parentNode.removeChild(document.querySelector('#' + element.id))
 
                 this.setCustomContent(element);
+
+            }else if( element.contentCntr === "pdf" ){
+                $("#pdf")
+                    .parents(".product__col-1-3--lg").addClass("hide")
+                    .siblings(".product__col-2-3--lg").removeClass("product__col-2-3--lg");
             }
         });
     }
 
+    // adds any additional content to a paragraph
     setCustomContent(element){
         if(element.hasOwnProperty("customContent")){
             let customNode = document.createElement('p');
             customNode.innerHTML = element.customContent;
-            document.getElementById(element.id).appendChild(customNode);
+            document.getElementById(element.contentCntr).appendChild(customNode);
         }
     }
 
