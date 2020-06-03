@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.20.27]
+- Collection page v2 updates
+- moved CTA positions
+
 ## [1.20.26]
 - Updated lead time ui on PDP
 - Added lead time to cart page
@@ -26,18 +30,18 @@
 - Collections page
 - added qty on collections page
 - fixed form validation on collections page
-- fixed atc modal to have selected poduct options on collections page
+- fixed atc modal to have selected product options on collections page
 - added release version number query parameter to bundle.js
 - fixed product swatch modal last row size issue
-- fixed facebook pixlel issue on totals/cart page
+- fixed facebook pixel issue on totals/cart page
 - made tablet main nave flyout width smaller
 - added feature to save selected swatch when filtering
 - adjusted filter control icons and text for mobile
 - made ui updates for the filter controls & headings in the drawer flyout
 - added new sticky atc bottom modal that has link to cart
-- added UI to match normpal pdp options for # of options + icon
-- added Analytics to colletions page
-- fixed issue for hamberger menu being too small
+- added UI to match normal pdp options for # of options + icon
+- added Analytics to collections page
+- fixed issue for hamburger menu being too small
 - made tablet main nav menu smaller
 - added lead time to collections page
 - added lead time tool tip to collections page
@@ -45,29 +49,29 @@
 - added brand field to product graphql response 
 
 ## [1.20.24]
-- removed * from selectbox options
+- removed * from select-box options
 - added new tabbed tool tip option
-- Move breadcrumbs above title on mobile devvices
+- Move breadcrumbs above title on mobile devices
 - Hide video tabs on PDP
-- Create Catalogs Landing Page Tempalte
+- Create Catalogs Landing Page Template
 - Create Category Landing Page Templates
 - Fix remove icon on cart page
-- fixed an issue where the negative price regix wasnt working for the priceAdjust object in product options
+- fixed an issue where the negative price regex wasn't working for the priceAdjust object in product options
 - fixed mobile header issue where the search icon was hard to click
 - added modifier classes for landing.css to fine tune for device sizes
 - added easy css touch scroll for ios devices
 - Fixed issue where the regex for the atc modal price was calculating incorrectly
 - added additional ui updates for the product swatch drawer
-- fixed an issue for the negative pricing rule not calculating correctly becasue it was picking up the wrong value
-- added IE 10 & 11 backwards compatability for product options
-- implemented Implemented LazyLoad JS in to tempaltes starting with Product Swatches, RV and Recomm Products
-- fixed issue on the cart where the edit form wasnt working. reverted to use legacy options for cart page
+- fixed an issue for the negative pricing rule not calculating correctly because it was picking up the wrong value
+- added IE 10 & 11 backwards compatibility for product options
+- implemented Implemented LazyLoad JS in to templates starting with Product Swatches, RV and Recomm Products
+- fixed issue on the cart where the edit form wasn't working. reverted to use legacy options for cart page
 - added loading icon to cart edit modal button
 - fixed issue with legacy fall back that would not allow an atc to happen
 - fixed lazy load of atc modal recomm product images
 
 ## [1.20.23]
-- collections page updaes
+- collections page updates
 - removed simple bar for swatch options in favor of ligheter css scroll styling
 - changed product swatches to css scroll rather than simplebar
 - Added Bolt page error fix

@@ -8,6 +8,7 @@ import ProductOptions from './product/customizations/ProductOptions';
 import ProductSwatchModal from './product/ProductSwatchModal';
 import AddToCartModal from './product/customizations/AddToCartModal';
 import FormValidator from './utils/FormValidator';
+import Yotpo from './thirdparty/Yotpo';
 
 
 export default class Collection extends PageManager {
@@ -16,6 +17,8 @@ export default class Collection extends PageManager {
 
         this.graphQL = new GraphQL();
         this.graph_tpl = new GraphQL_Collection_TPL();
+
+        this.yotpo = new Yotpo();
 
         new ProductSwatchModal();
 
@@ -584,7 +587,7 @@ export default class Collection extends PageManager {
 
 
 
-    // notifys other modules that the options module JSON is ready - for collections / non PDP pages
+    // notifies other modules that the options module JSON is ready - for collections / non PDP pages
     triggerOptionModuleSetup(){
         let event = new Event("Collection_Product_Options_Setup");
         window.dispatchEvent(event);
@@ -592,15 +595,65 @@ export default class Collection extends PageManager {
 
 
 
+    /**
+	 * Yotpo: Fetch Bulk Ratings
+	 */
+	getProductRating(collectionsArray){
+        let productIdArray = [];
 
+        collectionsArray.edges.forEach((element) => {
+            productIdArray.push(element.node.entityId);
+        });
+
+        // get our bulk yotpo rating for recomm products on page
+        this.yotpo.fetchBulk(productIdArray)
+            .then((data) => {
+                this.appendRating(data, productIdArray, collectionsArray);
+                this.updateRatingUI(collectionsArray);
+            });
+    }
 
 
 
     /**
-     * builds our product collections
-     */ 
+	 * Bind the fetched yotpo rating field to the corresponding product
+	 * @param {Array} dataArray - Data Array of Objects fetched from yotpo
+	 * @param {Array} productIdArray - array of product ids
+	 */
 
-    // the quantaty to fetch is related toe the complexity of the query
+	appendRating(dataArray, productIdArray, collectionsArray){        
+		for (let i = 0; i < productIdArray.length; i++) {
+            Object.assign( collectionsArray.edges[i].node, {
+                total_review: dataArray[i].result.total,
+                rating: dataArray[i].result.average_score
+            });
+		}	
+    }
+    
+
+    
+    // Updates the collection product UI with the rating
+    updateRatingUI(collectionsArray){
+        collectionsArray.edges.forEach(element => {
+            if( element.node.total_review > 0 ){
+                $(`#yotpoRating${element.node.entityId}`)
+                    .find(".yotpo-reviews-num").text(element.node.total_review)
+                        .end()
+                    .find(".yotpo-stars-rating").css({"--rating": element.node.rating}).attr("aria-label", `Rating of ${element.node.rating} out of 5.`)
+                        .end()
+                    .removeClass("hide")
+            }       
+        });
+    }
+
+
+    
+
+
+    /**
+     * builds our product collections
+     * the quantity to fetch is related to the complexity of the query
+     */ 
     getCollections(){
         let collectionsScheme = this.graphQL.getCategoryByUrl(this.collectionSettings);
         return this.graphQL.get(collectionsScheme);
@@ -614,8 +667,9 @@ export default class Collection extends PageManager {
             this.collectionsArray = data.site.route.node.products;
         });
 
-        // we have to do this becasue the graphql API is too complex so we have to make seperate calls
+        // we have to do this because the graphql API is too complex so we have to make separate calls
         this.getEachProductOption();
+
 
         if(!this.collectionSettings.hasOwnProperty("after")){ this.collectionsCntr.innerHTML = ""; }
         
@@ -662,7 +716,7 @@ export default class Collection extends PageManager {
             // save this option to our global scope
             this.productOptionScope[this.collectionsArray.edges[i].node.entityId] = element.node.productOptions.edges;
 
-            // we are doing this to extract text data from dropdown swatches for price adjustmetn and UI
+            // we are doing this to extract text data from dropdown swatches for price adjustment and UI
             let dropdownIndex = this.collectionsArray.edges[i].node.productOptions.findIndex((element) => element.node.displayStyle === "DropdownList")
             
             if(dropdownIndex !== -1){
@@ -693,8 +747,10 @@ export default class Collection extends PageManager {
                     id: element.node.brand.name
                 });
             }
-            
-        });   
+        });
+
+        // get the product rating from yotpo for each product id
+        this.getProductRating(this.collectionsArray);
     }
 
 
@@ -726,7 +782,7 @@ export default class Collection extends PageManager {
     
 
     
-    // RV Persaonlization
+    // RV Personalization
     initRecentlyViewed(){
 		let $rv = $("#recentlyViewedProducts"),
 			recentProducts = this.recentlyViewed.getViewed();

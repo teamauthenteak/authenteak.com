@@ -262,7 +262,7 @@ export default class Product extends PageManager {
 
 
 	/**
-	 * Bind the fetched yotpo rating field to the coresponding product
+	 * Bind the fetched yotpo rating field to the corresponding product
 	 * @param {Array} dataArray - Data Array of Objects fetched from yotpo
 	 * @param {Array} productIdArray - array of product ids
 	 */
@@ -322,7 +322,7 @@ export default class Product extends PageManager {
 
 
 
-	// saved this viwerd poduct - include the yotpo rating
+	// saved this viewed product - include the yotpo rating
 	saveViewedProduct(){
 		try{			
 			this.yotpo.getProductReviews(this.productId)
@@ -336,9 +336,6 @@ export default class Product extends PageManager {
 
 					this.recentlyViewed.saveViewed(this.productInfo);
 				});
-				/* .then((data) => {
-					this.buildProductSchema(data);
-				});	*/
 
 		}catch(err){
 			console.log(err)

@@ -52,7 +52,7 @@ export default class Yotpo {
                 appkey: this.settings.key,
                 sku: this.settings.product.sku,
                 product_title: this.settings.product.title,
-                product_url: window.location.origin + this.settings.product.url,
+                product_url: (TEAK.Utils.isLocal() ? window.location.origin : '') + this.settings.product.url,
                 product_image_url: this.settings.product.image,
                 prevent_duplicate_review: true
             };
@@ -75,7 +75,6 @@ export default class Yotpo {
             .on("change", "input[name='review_score']", (e) => { this.setOverallRating(e); })
             .on("submit", "form", (e) => { this.createYotpoObject(e); });
     }
-
 
 
 

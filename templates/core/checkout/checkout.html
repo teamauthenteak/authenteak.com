@@ -20,6 +20,14 @@
     <script src="{{cdn '/assets/js/bundle.js'}}"></script>
     {{> components/common/TEAK-js}}
 
+    <script>
+      if( TEAK.User.isTradeCustomer ){
+        let couponCode = document.querySelector(".redeemable-label");
+        couponCode.style.display = "none";
+        couponCode.parentNode.removeChild(couponCode);
+      }
+    </script>
+
     <script type="text/javascript">
         window.language = {{{langJson 'optimized_checkout'}}};
     </script>

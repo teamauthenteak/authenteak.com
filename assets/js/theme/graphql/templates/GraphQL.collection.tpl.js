@@ -14,20 +14,20 @@ export default class GraphQL_Collection_TPL {
      */
 
     buildCollectionsPod(product){
-        return `<section class="product__row product__row--border" id="${product.entityId}">
+        return `<section class="product__row product__row--border product__row--section" id="${product.entityId}">
                     <form class="form add-to-cart-form" method="post" id="collection_${product.entityId}" name="collection_${product.entityId}" action="/cart.php" enctype="multipart/form-data" data-product-options-count="">
                         <input type="hidden" name="product_id" value="${product.entityId}" data-product-id="${product.entityId}" />
                         <input type="hidden" name="action" value="add" class="">
 
                         <div class="product__col-1-1">
                             <figure class="product__figure product__col-1-4--lg product__col-1-1">
-                                <a href="${product.path}" title="See all details about ${product.name}">
+                                <a href="${product.path}" title="See all details about ${product.name}" class="product__figLink">
                                     <img data-product-image class="product__img product__img--thumb" src="${product.defaultImage.url}" alt="${product.name}">
                                 </a>
                             </figure>
 
-                            <div class="product__col-3-4--lg product__col-1-1">
-                                <div class="product__col-6-10--lg product__col-1-1">
+                            <div class="product__col-3-4--lg product__col-1-1 pad-left">
+                                <div class="product__col-6-10--lg product__col-1-1 pad-right">
                                     <header class="product__nameHeader">
                                         <h1 class="product__name product__name--sm">
                                             <a href="${product.path}" title="See all details about ${product.name}">${product.name}</a>
@@ -35,12 +35,9 @@ export default class GraphQL_Collection_TPL {
                                     </header>
 
                                     <p class="product__itemNum">Item #: ${product.sku} &nbsp;&nbsp;&nbsp; Internet #: ${product.entityId}
-                                        <a class="product__ratingWrapper yotpo-pdp-wrapper hide" href="${product.path}#yotpoReviews" id="yotpoRating" title="Reviews of ${product.path}">
+                                        <a class="product__ratingWrapper hide" href="${product.path}#reviews" id="yotpoRating${product.entityId}" title="Reviews of ${product.path}">
                                             <span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of 0 out of 5."></span>
                                             (<span class="yotpo-reviews-num">0</span>)
-                                            <span class="yotpo-questions">
-                                                <span class="yotpo-questions-num">0</span> Questions
-                                            </span>
                                         </a>
                                     </p>
 
@@ -59,7 +56,9 @@ export default class GraphQL_Collection_TPL {
 
 
                             ${Object.keys(product.customFields.edges).map((key) => {
-                                let name = product.customFields.edges[key].node.name, tpl = '';
+                                let name = product.customFields.edges[key].node.name,
+                                    tpl = '',
+                                    leadTimeTwoIndex = product.customFields.edges.findIndex(element => element.node.name === "Lead-Time 2");
 
                                 if(name === "Lead-Time"){
                                     tpl += `<p class="product__shippingInfo">`;
@@ -71,12 +70,13 @@ export default class GraphQL_Collection_TPL {
                                                 </span>`;
                                     }
 
-                                    tpl += `${product.customFields.edges[key].node.value} </p>`;
-                                }
+                                    tpl += `${product.customFields.edges[key].node.value}`;
 
+                                    if( leadTimeTwoIndex !== -1 ){
+                                        tpl += `  ${product.customFields.edges[leadTimeTwoIndex].node.value}`
+                                    }
 
-                                if(name === "Lead-Time 2"){
-                                    tpl += `<p class="product__shippingInfo">${product.customFields.edges[key].node.value}</p>`;
+                                    tpl += `</p>`;
                                 }
 
 
@@ -95,7 +95,7 @@ export default class GraphQL_Collection_TPL {
                                 
                             }).join('')}
 
-                                    <div class="form-field">
+                                    <div class="form-field no-margin">
                                         <label class="product__qtyCntr">
                                             <strong class="product__qtyText">Quantity</strong>
                                             <input type="number" class="product-quantity form-input" required name="qty[]" value="1" min="1" max="999" pattern="[0-9]+">
@@ -114,7 +114,8 @@ export default class GraphQL_Collection_TPL {
                             
 
 
-                                <div class="product__col-4-10--lg product__col-1-1 no-pad">
+                                <div class="product__col-4-10--lg product__col-1-1 pad-left">
+                                    
                                     <div class="product__price">
                                         <div class="product__priceLine">
                                             <span class="product__priceValue" data-price="${ TEAK.Utils.graphQL.determinePrice(product.prices) }" data-product-price-wrapper="without-tax">
@@ -123,12 +124,7 @@ export default class GraphQL_Collection_TPL {
                                             ${product.prices.retailPrice !== null ? ` <span class="product__priceRrp">${TEAK.Utils.formatPrice( product.prices.retailPrice.value )}</span>` : '' }
                                         </div>              
                                     </div>
-                                
-                                    <button type="button" button-atc class="product__atcCollectionBtn">
-                                        <span class="product__atcCollectionBtnText">Add to Cart</span>
-                                        <svg class="icon icon-spinner hide"><use xlink:href="#icon-spinner" /></svg>
-                                    </button>
-                                
+
                                     <div class="product__swatchCol">
                                         <ul class="product__swatchList">
 
@@ -195,6 +191,12 @@ export default class GraphQL_Collection_TPL {
 
                                         </ul>
                                     </div>
+
+                                    <button type="button" button-atc class="product__atcCollectionBtn">
+                                        <span class="product__atcCollectionBtnText">Add to Cart</span>
+                                        <svg class="icon icon-spinner hide"><use xlink:href="#icon-spinner" /></svg>
+                                    </button>
+
                                 </div>
                             </div>
                         </div>
