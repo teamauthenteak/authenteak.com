@@ -24,6 +24,10 @@
 - added feature to save lead time to storage to show on my account orders page
 - Added firebase as a front-end source to store external data
 - removed billing address from my account order page and print invoice page
+- fixed tablet checkout UI display issues
+- added custom lead time messaging to invoice email and order confirmation page
+- fixed issue on order confirmation page where there was a race condition for the showing of the feedback modal link
+- fixed trade coupon issue on cart & checkout page
 
 ## [1.20.26]
 - Updated lead time ui on PDP

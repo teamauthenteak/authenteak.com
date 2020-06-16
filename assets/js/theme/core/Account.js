@@ -14,9 +14,7 @@ export default class Account {
 
 		this.orderId = TEAK.Utils.getParameterByName("order_id", window.location.href);
 
-		this.getCustomerInfo()
-
-		console.log(this.orderId)
+		this.getCustomerInfo();
 	}
 
 

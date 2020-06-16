@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				amount = amount + element.discountedAmount;
 			});
 
-			if (amount > 0) {
+			if (amount > 0 && !TEAK.User.isTradeCustomer ) {
 				let discountCntr = document.getElementById("cartTotalItemDiscount"),
 					subTotal = document.getElementById("cartSubTotal"),
 					currencSymbol = cart[0].currency.symbol;
