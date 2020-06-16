@@ -185,11 +185,6 @@ window.TEAK.Utils = {
                 }
                 
 
-                let customFilter = data.text.split(";filters");
-                if( customFilter ){
-                    console.log(customFilter)
-                }
-
 
 			} else if (part.match(/^LEAD:/)) {
 
@@ -222,13 +217,24 @@ window.TEAK.Utils = {
 				}
 
 			} else {
-				additional.push(part);
+                additional.push(part);
+
+                // custom filters
+                let customFilter = part.split("-f-");
+                if( customFilter ){
+                    console.log( customFilter[1].trim().split(" ")[1].split(" ") )
+
+                    data.customFilters = customFilter[1].trim().split(" ")[1].split(" ")
+                }
 			}
 		}
 
 		if (additional.length > 0) {
-			data.additional = additional;
-		}
+            data.additional = additional;
+
+           
+        }
+        
 		data.raw = label;
 
 		return data;

@@ -66,7 +66,7 @@
 		  <span class="swatch {{#if data.[1]}}two-colors{{/if}}{{#if data.[2]}} three-colors{{/if}}">
 			{{#and pattern image}}
 			  <span class="swatch-color swatch-pattern ieShow" style="background-image: url("{{getImage image 'core-swatch'}}");">
-				<img class="swatch-pattern-image ieShow" loading="lazy" src="{{getImage image 'core-swatch'}}" alt="{{trim label}}">
+				<img class="swatch-pattern-image ieShow" data-src="{{getImage image 'core-swatch'}}" alt="{{trim label}}">
 			  </span>
 			{{/and}}
   
@@ -91,7 +91,7 @@
   
 		  {{#if pattern}}
 			<span class="swatch-pattern-expanded">
-			  <img class="swatch-pattern-image ieShow" loading="lazy" src="{{getImage image 'core-swatch'}}" alt="{{trim label}}">
+			  <img class="swatch-pattern-image ieShow" loading="lazy" data-src="{{getImage image 'core-swatch'}}" alt="{{trim label}}">
 			</span>
 		  {{/if}}
   
