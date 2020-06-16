@@ -7,8 +7,8 @@
       {{#if required}}<span class="required-text">{{lang 'common.required'}}</span>{{/if}}
     </span>
 
-    <span class="form-field-control">
-      <span class="form-select-wrapper form-date-year">
+    <span class="form-field-control" for="date-year-{{id}}">
+      <label class="form-select-wrapper form-date-year">
         <select
           class="form-input form-select"
           id="date-year-{{id}}"
@@ -20,9 +20,9 @@
             <option {{#if ../year.value '==' value}}selected{{/if}} value="{{value}}">{{label}}</option>
           {{/each}}
         </select>
-      </span>
+      </label>
 
-      <span class="form-select-wrapper form-date-month">
+      <label class="form-select-wrapper form-date-month" for="date-month-{{id}}">
         <select
           class="form-input form-select"
           id="date-month-{{id}}"
@@ -34,9 +34,9 @@
             <option {{#if ../month.value '==' value}}selected{{/if}} value="{{value}}">{{label}}</option>
           {{/each}}
         </select>
-      </span>
+      </label>
 
-      <span class="form-select-wrapper form-date-day">
+      <label class="form-select-wrapper form-date-day" for="date-day-{{id}}">
         <select
           class="form-input form-select"
           id="date-day-{{id}}"
@@ -48,7 +48,7 @@
             <option {{#if ../day.value '==' value}}selected{{/if}} value="{{value}}">{{label}}</option>
           {{/each}}
         </select>
-      </span>
+      </label>
     </span>
 
   </span>

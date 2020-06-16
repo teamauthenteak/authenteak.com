@@ -147,10 +147,5 @@ export default class Category extends PageManager {
 
     // toggle button classes
     $target.addClass('active').siblings().removeClass('active');
-
-    // TODO - possibly add this back after testing in live environ
-    // if (typeof(Storage) !== 'undefined') {
-    //   localStorage.setItem('listingView', $target.data('listing-view'));
-    // }
   }
 }

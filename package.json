@@ -17,6 +17,7 @@
     "bc-tabs": "github:pixelunion/bc-tabs#v0.4.1",
     "blazy": "^1.8.2",
     "eventemitter2": "^0.4.14",
+    "firebase": "^7.15.1",
     "fitvids": "^2.0.0",
     "history.js": "github:browserstate/history.js",
     "imagesloaded": "^4.1.1",

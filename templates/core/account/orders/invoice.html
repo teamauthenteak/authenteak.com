@@ -21,7 +21,7 @@
     </address>
 
     <div class="address-row">
-      <div class="invoice-upper-column">
+      <!-- <div class="invoice-upper-column">
         <h3>{{lang 'core.account.receipt.billing_title'}}</h3>
         <ul>
           <li><strong>{{order.billing_address.full_name}}</strong></li>
@@ -35,7 +35,7 @@
           <li>{{lang 'core.invoice.phone' number=order.billing_address.phone}}</li>
           {{#if order.billing_address.email}}<li>{{lang 'core.invoice.email' email=order.billing_address.email}}</li>{{/if}}
         </ul>
-      </div>
+      </div> -->
       {{#if order.shipping_address}}
         {{#unless order.has_multiple_shipping_addresses}}
           <div class="invoice-upper-column">

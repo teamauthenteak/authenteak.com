@@ -12,6 +12,7 @@
       "id": "{{id}}",
       "purchaseDate": "{{date}}",
       "totalItems": "{{items.length}}",
+      "items": "[{{#each items}}{{this.order_product_id}}{{#unless @last}},{{/unless}}{{/each}}]",
       "total": "{{total.value}}"
     }{{#unless @last}},{{/unless}}{{/each}}
   ]
@@ -20,7 +21,8 @@
 
   <div class="account-items">
     {{#each orders}}
-      <article class="account-item">
+
+      <article class="account-item" id="order_{{id}}">
         <a class="account-item-link" href="{{details_url}}"></a>
 
         <div class="account-item-thumbnail">
@@ -58,7 +60,8 @@
         </div>
 
         <div class="account-item-badge">
-          <h2 class="account-status">{{status}}</h2>
+          <h2 class="account-status" data-status="{{status}}">{{status}}</h2>
+          <p><a href="" title="more details on your order">View Status Details &rsaquo;</a></p>
         </div>
       </article>
     {{/each}}

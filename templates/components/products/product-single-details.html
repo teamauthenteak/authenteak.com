@@ -90,7 +90,7 @@
 					{{/if}}
 
 					{{#if customer.customer_group_id '==' '1' }}
-					<i class="badge badge--pdp">Trade Price</i>
+					<em class="badge badge--pdp">Trade Price</em>
 					{{/if}}
 				</div>
 
@@ -129,9 +129,7 @@
 
 
 				<p class="shipping-range shipping-range--static">
-					<!-- <svg class="icon icon-alert-triangle"><use xlink:href="#icon-alert-triangle" /></svg> -->
-
-					{{#each product.custom_fields}}
+				{{#each product.custom_fields}}
 
 					{{#if this.name '==' "Lead-Time"}}
 					{{#if this.value '===' "Ships next business day"}}
@@ -162,7 +160,7 @@
 					{{this.value}}
 					{{/if}}
 
-					{{/each}}
+				{{/each}}
 				</p>
 
 
@@ -172,7 +170,6 @@
 				<p class="pdp-promo-text mobileHide">{{{this.value}}}</p>
 				{{/if}}
 				{{/each}}
-
 
 
 

@@ -103,5 +103,21 @@
       {{/if}}
     </div>
   {{/or}}
-{{/if}}
+
+
+  {{else}}
+
+    {{!-- free --}}
+    <div class="product-price-line" data-product-price-wrapper="without-tax" three>
+      <span class="price-value"> {{> components/products/customizations/non-sale-price-fixed price=price}}</span>
+      {{#if price.saved}}
+        <span class="price-rrp {{#unless price.with_tax}}highlight{{/unless}}">{{price.rrp_without_tax.formatted}}</span>
+      {{/if}}
+      <br>
+    </div>
+
+  {{/if}}
+
+
+
 {{/if}}

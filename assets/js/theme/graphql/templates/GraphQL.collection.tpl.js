@@ -149,9 +149,7 @@ export default class GraphQL_Collection_TPL {
                                                                 ${productOption.values.edges.length > 1 ? `
                                                                     <span class="product__swatchOptionIconCntr">
                                                                         &mdash; &nbsp;
-                                                                        <svg class="product__swatchOptionIcon" viewBox="0 0 20 20">
-                                                                            <path d="M19.398 7.415l-7.444-1.996-1.303-4.861c-0.109-0.406-0.545-0.642-0.973-0.529l-9.076 2.432c-0.428 0.114-0.686 0.538-0.577 0.944l3.23 12.051c0.109 0.406 0.544 0.643 0.971 0.527l3.613-0.967-0.492 1.838c-0.109 0.406 0.149 0.83 0.577 0.943l8.11 2.174c0.428 0.115 0.862-0.121 0.972-0.529l2.97-11.084c0.108-0.406-0.15-0.83-0.578-0.943zM1.633 3.631l7.83-2.096 2.898 10.818-7.83 2.096-2.898-10.818zM15.678 18.463l-6.814-1.863 0.536-2.002 3.901-1.047c0.428-0.113 0.688-0.537 0.578-0.943l-1.508-5.627 5.947 1.631-2.64 9.851z"></path>
-                                                                        </svg> ${productOption.values.edges.length} options
+                                                                        <svg class="product__swatchOptionIcon" viewBox="0 0 20 20"><use xlink:href="#icon-swatch"/></svg> ${productOption.values.edges.length} options
                                                                     </span>` : ''
                                                                 }
                             
@@ -210,10 +208,7 @@ export default class GraphQL_Collection_TPL {
     getToolTip(productOption){
         return `<div class="toolTip toolTip--option${productOption.displayStyle}">
                     <a href="" title="About the ${productOption.displayName} option" class="toolTip__iconCntr toolTip__iconCntr--dark" data-tool-tip-open rel="${productOption.displayName.replace(/ /g,'')}">
-                        <svg class="toolTip__icon toolTip__icon--white" enable-background="new 0 0 20 20" version="1.1" viewBox="0 0 20 20" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-                            <title>tool tip</title>
-                            <path d="M12.432 0c1.34 0 2.010 0.912 2.010 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-0.75-1.974-1.99 0-1.043 0.881-2.479 2.643-2.479zM8.309 20c-1.058 0-1.833-0.652-1.093-3.524l1.214-5.092c0.211-0.814 0.246-1.141 0-1.141-0.317 0-1.689 0.562-2.502 1.117l-0.528-0.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273 0.705 3.23l-1.391 5.352c-0.246 0.945-0.141 1.271 0.106 1.271 0.317 0 1.357-0.392 2.379-1.207l0.6 0.814c-2.502 2.547-5.235 3.527-6.291 3.527z"></path>
-                        </svg>
+                        <svg class="toolTip__icon toolTip__icon--white"><use xlink:href="#icon-info"/></svg>
                     </a>  
                 </div>
                 <div class="toolTip__cntr toolTip__cntr--hide" id="${productOption.displayName.replace(/ /g,'')}"></div>`;

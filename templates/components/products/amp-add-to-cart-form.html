@@ -186,9 +186,7 @@
       </button>
     {{else}}
       {{#if product.out_of_stock}}
-        <div
-          class="button button-primary button-wide add-to-cart button-disabled"
-        >
+        <div class="button button-primary button-wide add-to-cart button-disabled">
           {{lang 'product.sold_out'}}
         </div>
       {{/if}}
@@ -199,37 +197,60 @@
     {{#if settings.show_wishlist}}
       <div class="wishlist-form" data-wishlist-dropdown>
         {{#if customer.wishlists.length}}
-          <a
-            class="button button-secondary button-wide add-to-wishlist"
-            href="#"
-            data-wishlist-toggle
-          >
+          <a class="button button-secondary button-wide add-to-wishlist" href="#" data-wishlist-toggle>
             {{lang 'product.add_to_wishlist'}}
           </a>
           <ul class="add-to-wishlists" data-wishlist-panel>
             {{#each customer.wishlists}}
               <li>
-                <a
-                  href="{{../product.add_to_wishlist_url}}&wishlistid={{id}}"
-                  data-wishlist="{{view_url}}"
-                >
+                <a href="{{../product.add_to_wishlist_url}}&wishlistid={{id}}" data-wishlist="{{view_url}}">
                   {{name}} ({{num_items}})
                 </a>
               </li>
             {{/each}}
           </ul>
         {{else}}
-          <a
-            class="button button-secondary button-wide add-to-wishlist"
-            href="{{product.add_to_wishlist_url}}"
-          >
+          <a class="button button-secondary button-wide add-to-wishlist" href="{{product.add_to_wishlist_url}}" >
             {{lang 'product.add_to_wishlist'}}
           </a>
         {{/if}}
       </div>
     {{/if}}
   </div>
+
+  {{else}}
+
+    {{#if product.can_purchase}}
+        <button
+          type="submit"
+          class="
+            button
+            button-primary
+            button-primary--green
+            button-wide
+            add-to-cart
+            button-progress
+            spinner
+          "
+          data-button-purchase
+          onclick="TEAK.ThirdParty.heap.init({method: 'track', event:'add_to_cart', location: 'pdp' })">
+          <span class="button-text">
+            {{#if product.pre_order}}
+              {{lang 'product.pre_order'}}
+            {{else}}
+              {{#if cart_icon '==' 'bag'}}
+                {{lang 'product.add_to_bag'}}
+              {{else}}
+                {{lang 'product.add_to_cart'}}
+              {{/if}}
+            {{/if}}
+          </span>
+        </button>
+      {{/if}}
 {{/if}}
+
+
+
 </form>
 
 <script type=text/plain target=amp-script id="">	

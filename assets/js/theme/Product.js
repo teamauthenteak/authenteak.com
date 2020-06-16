@@ -16,20 +16,17 @@ import AddToCartModal from './product/customizations/AddToCartModal';
 import PrintMode from './product/customizations/PrintMode';
 import ProductSwatchModal from './product/ProductSwatchModal';
 import LazyLoad from 'vanilla-lazyload';
-import Yotpo from './thirdparty/Yotpo'
+import Yotpo from './thirdparty/Yotpo';
 
 export default class Product extends PageManager {
 	constructor() {
 		super();
 
 		this.productId = $("#productDetails").data("productId");
-
 		this.el = '[data-product-container]';
 		this.$el = $(this.el);
 		this.productImgs = '.product-slides-wrap';
-
 		this.tabObj = {};
-
 		this.fitVidsInitialized = false;
 
 		this.lazyLoadInstance = new LazyLoad({
@@ -488,10 +485,7 @@ TEAK.Modules.leadTime = {
 		let tpl = [
 			'<a href="" class="shpping-range--tipLink" data-tool-tip-open data-tool-tip-type="element" data-tool-tip-name="next_bussiness_day" data-tool-tip-id="next_bussiness_day">',
 				'<span class="toolTip__iconCntr toolTip__iconCntr--dark">',
-					'<svg class="toolTip__icon toolTip__icon--white" enable-background="new 0 0 20 20" version="1.1" viewBox="0 0 20 20" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">',
-						'<title>tool tip</title>',
-					'<path d="M12.432 0c1.34 0 2.010 0.912 2.010 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-0.75-1.974-1.99 0-1.043 0.881-2.479 2.643-2.479zM8.309 20c-1.058 0-1.833-0.652-1.093-3.524l1.214-5.092c0.211-0.814 0.246-1.141 0-1.141-0.317 0-1.689 0.562-2.502 1.117l-0.528-0.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273 0.705 3.23l-1.391 5.352c-0.246 0.945-0.141 1.271 0.106 1.271 0.317 0 1.357-0.392 2.379-1.207l0.6 0.814c-2.502 2.547-5.235 3.527-6.291 3.527z"></path>',
-					'</svg>',
+					'<svg class="toolTip__icon toolTip__icon--white"><use xlink:href="#icon-info"/></svg>',
 				'</span>',
 			'</a>',
 			'<span class="toolTip__cntr toolTip__cntr--hide" id="next_bussiness_day"></span>'].join("");
@@ -568,9 +562,7 @@ TEAK.Modules.toolTip = {
 	activeModal: "",
 
 	closeBtn: 	`<button class="toolTip__closeBtn" data-tool-tip-close>
-					<svg class="toolTip__closeIcon" enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-						<path d="M13.4 12l5.3-5.3c0.4-0.4 0.4-1 0-1.4s-1-0.4-1.4 0l-5.3 5.3-5.3-5.3c-0.4-0.4-1-0.4-1.4 0s-0.4 1 0 1.4l5.3 5.3-5.3 5.3c-0.4 0.4-0.4 1 0 1.4 0.2 0.2 0.4 0.3 0.7 0.3s0.5-0.1 0.7-0.3l5.3-5.3 5.3 5.3c0.2 0.2 0.5 0.3 0.7 0.3s0.5-0.1 0.7-0.3c0.4-0.4 0.4-1 0-1.4l-5.3-5.3z"></path>
-					</svg>
+					<svg class="toolTip__closeIcon"><use xlink:href="#icon-close"/></svg>
 				</button>`,
 
 	getTabs: function(tabArr){

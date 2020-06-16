@@ -62,7 +62,7 @@ function production() {
     compress: {
         warnings: true,
     },
-    sourceMap: true, // Toggle to turn on source maps.
+    sourceMap: false, // Toggle to turn on source maps.
   }));
 
   webpack(webpackConfig).run(err => {

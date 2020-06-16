@@ -3,6 +3,9 @@
   "version": "1.20.27",
   "settings": {
     "version": "1.20.27",
+    "store_logo": {
+      "title": "Authenteak.com Outdoor Living"
+    },
     "paymentbuttons-paypal-layout": "horizontal",
     "paymentbuttons-paypal-color": "gold",
     "paymentbuttons-paypal-shape": "rect",

@@ -330,9 +330,10 @@ export default class ProductSwatchModal {
     }
 
 
-    // click on the x button to clear out the imput field
+    // click on the x button to clear out the input field
     clearKeyword(e){
-        this.$search.val("").focus();
+        this.filterKeyWord = "";
+        this.$search.val(this.filterKeyWord).focus();
         this.$optionForm.find(".drawer__clearControl").addClass("hide");
         this.swatchFilterController({filter: false });
 
@@ -346,17 +347,17 @@ export default class ProductSwatchModal {
      * 
      * Hierarchy: Keyword > Brand > Grade
      * 
-     *  - runing through the options array object check to see if any options have:
+     *  - running through the options array object check to see if any options have:
      *      1) label I typed in has a keyword;
      *      2) if any options have the grade I am looking for;
-     *      3) if any optiosn have the Brand I am looking for;
+     *      3) if any options have the Brand I am looking for;
      * 
      * - IF my option has the Keyword I am looking for then show,
      * - IF my option has the Keyword AND the brand then show
      * - IF my option has the keyword AND the brand AND the Grade then show
      * 
-     * - WITH this keyword RETURN all the options that have this brand OR this brand AND this grade OR this grade
-     * - RETURN all options WITH this this brand OR this brand AND this grade OR this grade
+     * - WITH this keyword RETURN all the options that HAVE this brand OR this brand AND this grade OR this grade
+     * - However, RETURN all options WITH this brand OR this brand AND this grade OR this grade
      * 
      */
     
@@ -443,7 +444,7 @@ export default class ProductSwatchModal {
                     isIncluded.push(this.filter[obj].values.includes( item.node[filterKey] ));
                 }
             }
-
+console.log(this.filterKeyWord)
             // check for keywords
             if( hasKeywords ){
                 let label = item.node.label.toLowerCase();

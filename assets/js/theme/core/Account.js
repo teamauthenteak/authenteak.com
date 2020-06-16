@@ -1,12 +1,51 @@
 import initAlertDismissable from './alertDismissable';
 import initDownloadGallery from './downloadGallery';
 import updateState from './updateState';
+import firebase from 'firebase';
 
 export default class Account {
 	constructor() {
 		this._bindEvents();
 		this.heapAnalytics();
+
+		firebase.initializeApp(TEAK.Globals.firebase.config);
+		this.db = firebase.firestore();
+		this.customer = this.db.collection("customer").doc(TEAK.User.uuid);
+
+		this.orderId = TEAK.Utils.getParameterByName("order_id", window.location.href);
+
+		this.getCustomerInfo()
+
+		console.log(this.orderId)
 	}
+
+
+
+	getCustomerInfo(){
+		this.customer.get().then((doc) => {
+			if( doc.exists ){
+				let customerData = doc.data();
+
+				customerData.orders.forEach((element) => {
+					if( Object.keys(element)[0] === `order_${this.orderId}` ){
+						this.setLeadTime(element);
+					}
+				});
+			}
+
+		}).catch((error) => {
+			console.log(error);
+		});
+	}
+
+
+
+	setLeadTime(order){
+		order[`order_${this.orderId}`].forEach((product) => {
+			$(`#${product.id}`).find(".account-receipt-lead-time").text(product.lead_time).removeClass("hide");
+		});
+	}
+
 
 
 	heapAnalytics() {

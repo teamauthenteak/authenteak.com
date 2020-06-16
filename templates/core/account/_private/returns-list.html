@@ -45,7 +45,7 @@
         </div>
 
         <div class="account-item-badge">
-          <h2 class="account-status">
+          <h2 class="account-status" data-status="{{status}}">
             {{#if status '===' 'ReturnStatusPending'}}
               {{lang 'core.account.returns.status.pending'}}
             {{/if}}

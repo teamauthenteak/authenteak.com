@@ -7,7 +7,7 @@
     </div>
     <div class="form-field-control">
       {{#each radios}}
-        <label class="form-label">
+        <label class="form-label" for="radio-{{../name}}-{{#if id}}{{id}}{{else}}{{display}}{{/if}}">
           <input class="form-input form-radio"
             id="radio-{{../name}}-{{#if id}}{{id}}{{else}}{{display}}{{/if}}"
             name="{{../name}}"

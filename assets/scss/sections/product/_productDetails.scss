@@ -25,6 +25,26 @@
     text-align: center;
 }
 
+.product-img-hover{
+    cursor: zoom-in;
+    transition: opacity .5s;
+
+    &:hover{
+        opacity: 0;
+    }
+}
+
+.product-image-zoom-text{
+    margin: -30px 0 0 0;
+    text-align: center;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #777;
+
+    @media only screen and (max-width: $screen-md) {
+       display: none;
+    }
+}
 
 .product-images-container{
     height: auto;
@@ -245,6 +265,10 @@ h1.product-title {
             margin-right: 10px;
             fill: #084d80;
         }
+    }
+
+    &--dynamic{
+        display: none;
     }
 
     &--tip{

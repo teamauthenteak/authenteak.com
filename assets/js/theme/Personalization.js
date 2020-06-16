@@ -88,8 +88,7 @@ export default class Personalization extends PageManager {
                 this.savedProducts.pop();
             }
 
-            this.savedProducts = JSON.stringify(this.savedProducts);
-            window.localStorage.setItem("TEAK_" + this.type, this.savedProducts);
+            window.TEAK.Utils.storeData("TEAK_" + this.type, this.savedProducts);
 
         }catch(err){
             console.log(err)

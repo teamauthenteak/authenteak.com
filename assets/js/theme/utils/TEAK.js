@@ -1,7 +1,7 @@
 /**
  *  Global Namespace Object { TEAK }
  *  Usage: 
- *      - Primarly used to share data between the View & Model
+ *      - Primarily used to share data between the View & Model
  *      and other third party modules outside of the application 
  *      scope of app.js and its compilation
  * 
@@ -36,11 +36,22 @@ window.TEAK.User = {};
 
 /** -----------------------------------------------------------------------------------------
  * TEAK Globals Config Model
- * Global Configuration object to hold general settigns and globally used STATIC variables
- * Template rendred dynamic globals are in templates > components > common > TEAK-js.html
+ * Global Configuration object to hold general settings and globally used STATIC variables
+ * Template rendered dynamic globals are in templates > components > common > TEAK-js.html
  * ------------------------------------------------------------------------------------------ */
 
 window.TEAK.Globals = {
+    firebase: {
+        config: {
+            apiKey: "AIzaSyA99IwZolQj97wBxcm2IyYPnm8kxw7KGKA",
+            authDomain: "authenteak-b0b4b.firebaseapp.com",
+            databaseURL: "https://authenteak-b0b4b.firebaseio.com",
+            projectId: "authenteak-b0b4b",
+            storageBucket: "authenteak-b0b4b.appspot.com",
+            messagingSenderId: "603457517921",
+            appId: "1:603457517921:web:aad9da00b949350031ed20"
+          }
+    },
     graphQl_dev: "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJlYXQiOjE2MDIyODgwMDAsInN1Yl90eXBlIjoyLCJ0b2tlbl90eXBlIjoxLCJjb3JzIjpbImh0dHA6Ly9sb2NhbC5hdXRoZW50ZWFrLmNvbTozMzAwIl0sImNpZCI6MSwiaWF0IjoxNTg1MjQxNTQ0LCJzdWIiOiJhOTRjM2MzMDk0bzVpdThsdTduYWVpbms2eTUxMTQwIiwic2lkIjo5OTkyMzI0MzIsImlzcyI6IkJDIn0.Lq9Re5VLVYh56F6PXEumWHaWkT_z8UK2bB5dwlXilkGAmQYO0e8gmaW4K2NH23g3GEWszp6FwLi_Cs4vypqnAA",
     carouselSettings: {
         infinite: true,
@@ -85,10 +96,31 @@ window.TEAK.Globals = {
 
 /** -----------------------------------------
  * TEAK Utility Services
- * Global helper mehtods for any application
+ * Global helper methods for any application
  * ------------------------------------------ */
 window.TEAK.Utils = {
 
+    // gets the global svg sprite and then appends it to the DOM
+    getSvgSprite: function(url){
+        $.get(url).then(data => {
+            let spriteDiv = document.createElement("div");
+            spriteDiv.className = "icons-svg-sprite";
+            spriteDiv.innerHTML = new XMLSerializer().serializeToString(data.documentElement);
+            document.body.insertBefore(spriteDiv, document.body.childNodes[0]);
+        });
+    },
+
+    // Converts any string to SHA256 Encryption
+    digestMessageSHA256: async function(message) {
+        const msgUint8 = new TextEncoder().encode(message);                           
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);           
+        const hashArray = Array.from(new Uint8Array(hashBuffer));                     
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        return hashHex.toLowerCase();
+    },
+
+
+    // Parses an Option's Label String unto a useable object
     parseOptionLabel: function(label) {
 		let data = {},
 			additional = [];
@@ -105,10 +137,12 @@ window.TEAK.Utils = {
 					data.grade = grade[1].toUpperCase();
 				}
 
+
 				let priceAdjust = part.match(/\(([+-]\$[\d.]+)\)/);
 				if (priceAdjust) {
 					data.priceAdjust = priceAdjust[1];
 				}
+
 
 				let priceAdjustNumeric = part.match(/\(([+-])\$([\d.]+)\)/);
 				if (priceAdjustNumeric) {
@@ -117,6 +151,7 @@ window.TEAK.Utils = {
 
 				data.text = part.replace(/Grade [^ ]+ /ig, '').replace(/\([+-][^ ]+/g, '').trim();
 
+
 				// brand name ~ We're making a bad assumption here but...have too
 				let brandName = data.text.split(" ")[0];
 				switch(brandName){
@@ -124,8 +159,10 @@ window.TEAK.Utils = {
 					case "Sunbrella": data.brandName = brandName; break;
 					case "Bella": data.brandName = brandName + " Dura"; break;
 					case "Acrylic": data.brandName = brandName; break;
-					case "Obravia": data.brandName = brandName; break;
+                    case "Obravia": data.brandName = brandName; break;
+                    case "Spuncrylic": data.brandName = brandName; break;
                 }
+
 
                 // Sumbrella Rain Brand
 				let sunbrellaRain = data.text.toLowerCase().includes("sunbrella rain");
@@ -145,9 +182,14 @@ window.TEAK.Utils = {
 				let ships = data.text.split("Ships")[1];
 				if(ships){
 					data.ships = "Ships " + ships;
-				}
+                }
+                
 
-                // console.log(data)
+                let customFilter = data.text.split(";filters");
+                if( customFilter ){
+                    console.log(customFilter)
+                }
+
 
 			} else if (part.match(/^LEAD:/)) {
 
@@ -301,31 +343,21 @@ window.TEAK.Utils = {
 
 
     /**
-     * Picks out the cart resonse if its a JSON object and if it has cart.php
-     * Saving this to local storage and emmiting an event with the data
+     * Picks out the cart response if its a JSON object and if it has cart.php
+     * Saving this to local storage and emitting an event with the data
      * for anybody to pick up to use in the view
      */
     saveCartResponse: function(response){
-        var event, storedData = JSON.stringify(response);
-
         TEAK.Data.cart = response[0];
 
-        if( window.localStorage ){
-            window.localStorage.setItem('cartData', storedData);
-        }
-        
-        if( typeof window.CustomEvent === 'function' ) {
-            event = new CustomEvent('cartDataStored', { detail: response[0] });
-            
-        }else{
-            event = document.createEvent('cartDataStored');
-            event.initEvent('submit', true, true);
-        }
+        TEAK.Utils.storeData("cartData", response, {
+            name: "cartDataStored",
+            data: response[0]
+        });
     
-        window.dispatchEvent(event);
-        
         return this;
     },
+
 
 
     getStoredCart: function(){
@@ -344,6 +376,41 @@ window.TEAK.Utils = {
 
         return this;
     },
+
+
+
+
+    /**
+     * Stores any object to LocalStorage and can emit a subsequent event
+     * 
+     * @param {string} key - storage key (use TEAK_ as the namespace)
+     * @param {*} data - data to be stored
+     * @param {string} eventArgs.name - event name to emitted
+     * @param {object} eventArgs.data - event data to be dispatched 
+     */
+
+    storeData: function(key, data, eventArgs){
+        let event;
+
+        if( window.localStorage ){
+            window.localStorage.setItem(key, JSON.stringify(data));
+        }
+
+        if( eventArgs ){
+            if( typeof window.CustomEvent === 'function' ) {
+                let eventDetail = eventArgs.hasOwnProperty("data") ? { detail: eventArgs.data } : null;
+
+                event = new CustomEvent(eventArgs.name, eventDetail);
+                
+            }else{
+                event = document.createEvent(eventArgs.name);
+                event.initEvent('submit', true, true);
+            }
+    
+            window.dispatchEvent(event);
+        }
+    },
+
 
 
     // formats a number string to local currency format
@@ -487,13 +554,20 @@ window.TEAK.Modules = {};
  * Store settigns for 3rd parties
  * ------------------------------------------ */
 window.TEAK.ThirdParty = {
+
+    klaviyo: {
+        api_key: "pk_3784e980b946e8c97f81595f193161ec09",
+        site_id: "JL4kkS"
+    },
+
+
     google:{
         getUID: function(){
             if(window.localStorage){
                 let storedUID = window.localStorage.getItem('TEAK_customerUID'),
                     googleUID = storedUID ? storedUID : TEAK.Utils.guid() + '.authenteak.com';
 
-                window.localStorage.setItem("TEAK_customerUID", googleUID);
+                window.TEAK.Utils.storeData("TEAK_customerUID", googleUID);
 
                 return googleUID;
             }
@@ -509,7 +583,7 @@ window.TEAK.ThirdParty = {
         },
 
         /** 
-         * Custom tracking events for heap analitics
+         * Custom tracking events for heap analytics
          * {
          *      method: "",
          *      id: "",
@@ -628,7 +702,7 @@ window.TEAK.ThirdParty = {
     }
 };
 
-// intellisuggest
+// IntelliSuggest
 TEAK.ThirdParty.IntelliSuggest.buildData();
 
 if( window.location.hostname !== "authenteak.com" ){
@@ -640,11 +714,11 @@ if( window.location.hostname !== "authenteak.com" ){
 
 
 /** -----------------------------
- * window.CustomEvent Ployfill
+ * window.CustomEvent Polyfill
  * needs to be moved to its own file at some point
  ------------------------------- */
  (function () {
-    if ( typeof window.CustomEvent === "function" ) return false;
+    if ( typeof window.CustomEvent === "function" ) { return false; }
         function CustomEvent ( event, params ) {
             params = params || { bubbles: false, cancelable: false, detail: null };
             var evt = document.createEvent( 'CustomEvent' );
@@ -652,37 +726,4 @@ if( window.location.hostname !== "authenteak.com" ){
             return evt;
         }
         window.CustomEvent = CustomEvent;
-
-
-    
-    // if (typeof Object.assign !== 'function') {
-    //     // Must be writable: true, enumerable: false, configurable: true
-    //     Object.defineProperty(Object, "assign", {
-    //     value: function assign(target, varArgs) { // .length of function is 2
-    //         'use strict';
-    //         if (target === null || target === undefined) {
-    //         throw new TypeError('Cannot convert undefined or null to object');
-    //         }
-    
-    //         var to = Object(target);
-    
-    //         for (var index = 1; index < arguments.length; index++) {
-    //         var nextSource = arguments[index];
-    
-    //         if (nextSource !== null && nextSource !== undefined) { 
-    //             for (var nextKey in nextSource) {
-    //             // Avoid bugs when hasOwnProperty is shadowed
-    //             if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
-    //                 to[nextKey] = nextSource[nextKey];
-    //             }
-    //             }
-    //         }
-    //         }
-    //         return to;
-    //     },
-    //     writable: true,
-    //     configurable: true
-    //     });
-    // }
-
 })();

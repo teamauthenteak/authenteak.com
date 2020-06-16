@@ -1,40 +1,36 @@
 export default class ImageZoom {
-  constructor(el) {
-    this.$el = $(el);
+	constructor(el) {
+        this.$el = $(this.el);
+        
+        this.zoomedImg = $("a.product-image", "#productImgWrapper");
 
-    // create empty image
-    const defaultImg = new Image();
-    // set src so we can access the other attribute data
-    defaultImg.src = this.$el.find('img').attr('src');
+		this.image = {
+			width: this.zoomedImg.find("img")[0].naturalWidth,
+			height: this.zoomedImg.find("img")[0].naturalHeight
+		};
 
-    this.image = {
-      offset: this.$el.offset(),
-      width: this.$el.width(),
-      height: this.$el.height(),
-    }
+		// Only init if image is wide/tall enough to zoom
+		if ( this.image.width > 800 || this.image.height > 800 && !TEAK.Utils.isHandheld ) {
+			this._bindEvents();
+		}
+	}
 
-    // Only init if image is wide/tall enough to zoom
-    if ((defaultImg.width / this.image.width) > 1.4 || (defaultImg.height / this.image.height) > 1.4) {
-      this._bindEvents();
-    } else {
-      this.$el.addClass('no-zoom').height(this.$el.parent().height());
-    }
-  }
 
-  _bindEvents() {
-    this.$el.on('mousemove', (event) => {
-      this._zoomImage(event);
-    });
-  }
+	_bindEvents(){
+		this.zoomedImg.on('mousemove', (e) => { this._zoomImage(e); });
+	}
 
-  _zoomImage(event) {
-    const $wrapper = $('.product-slides-wrap').offset()
-    const topOffset = $wrapper.top
-    const leftOffset = $wrapper.left
 
-    const top = (event.pageY - topOffset) / this.image.height * 100;
-    const left = (event.pageX - leftOffset) / this.image.width * 100;
+	_zoomImage(e) {
+		let zoomed = e.currentTarget,
+			offsetX = e.offsetX ? e.offsetX : e.touches[0].pageX,
+			offsetY = e.offsetY ? e.offsetY : e.touches[0].pageY,
+			x = offsetX / zoomed.offsetWidth * 100,
+			y = offsetY / zoomed.offsetHeight * 100;
 
-    this.$el.css('background-position', `${left}% ${top}%`)
-  }
+		this.zoomedImg.css({"backgroundPosition": `${x}% ${y}%`});
+	}
 }
+
+
+

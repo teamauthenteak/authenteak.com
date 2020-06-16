@@ -63,6 +63,7 @@ export default class Yotpo {
     }
 
 
+
     bindings(){
         $("#reviews")
             .on("click", "button.ratings__distroButton", (e) => { this.getScoreRatings(e); })
@@ -73,7 +74,10 @@ export default class Yotpo {
 
         $(this.settings.dialog)
             .on("change", "input[name='review_score']", (e) => { this.setOverallRating(e); })
-            .on("submit", "form", (e) => { this.createYotpoObject(e); });
+            .on("submit", "form", (e) => { 
+                e.preventDefault();
+                this.createYotpoObject(e);
+            });
     }
 
 
@@ -83,6 +87,7 @@ export default class Yotpo {
      * @param {element} $target - $ button element 
      * @param {boolean} isLoading - toggles hide/show state
      */
+
     toggleButtonUI($target, isLoading){
         if( isLoading ){
             $target.attr("disabled", true);
@@ -139,10 +144,11 @@ export default class Yotpo {
 
 
 
+
     // serializes the dialog form
-    createYotpoObject(e){
-        let formName =  $(e.target).attr("name"),
-            formData =  $(e.target).serializeArray(),
+    async createYotpoObject(e){
+        let formName = $(e.target).attr("name"),
+            formData = $(e.target).serializeArray(),
             obj = { time_stamp: Date.now() },
             $button = $(e.target).find("button");
 
@@ -150,12 +156,17 @@ export default class Yotpo {
 
         formData.forEach(element => { obj[`${element.name}`] = element.value; });
 
+        // For Verified Reviews
+        if( formName === "reviews_dialog" ){
+            obj.reviewer_type = "verified_reviewer";
+            obj.signature = await TEAK.Utils.digestMessageSHA256(`${obj.email}${obj.reviewer_type}${obj.time_stamp}${this.settings.secret}`);
+        }
+
         let formObj = Object.assign({}, this.createBody, obj);
 
         this.sendCreatedData(formObj, formName, $button);
-
-        e.preventDefault();
     }
+
 
 
 
@@ -176,7 +187,6 @@ export default class Yotpo {
         }
 
         res.then(data => {
-            // console.log(data)
             this.toggleButtonUI($button, false);
             this.toggleModal(type);
         });
@@ -192,6 +202,7 @@ export default class Yotpo {
      * https://apidocs.yotpo.com/reference#retrieve-reviews-for-a-specific-product
      * @param {jquery} e - $ DOM event object
      */
+
     getScoreRatings(e){
         let $target = $(e.currentTarget),
             requestedScore = $target.val(),
@@ -213,7 +224,8 @@ export default class Yotpo {
 
 
         if( $target.hasClass("selectBox__select") ){
-            $target.parents(".selectBox__label").find(".selectBox__value").text(`${$target.val()} Stars`).addClass("selectBox__value--choosen");
+            let starCount = $target.val();
+            $target.parents(".selectBox__label").find(".selectBox__value").text(`${starCount} Star${starCount > 1 ? 's' : ''}`).addClass("selectBox__value--choosen");
         }
     } 
 
@@ -365,7 +377,7 @@ export default class Yotpo {
 
 
     // POST Customer Review Data
-    async createReview(body){    
+    async createReview(body){
         let response = await this.postYotpoData(this.settings.urls.create_review, body);
         return response;
     }
@@ -425,6 +437,13 @@ export default class Yotpo {
     // fetches yotpo questions for a given product
     getProductQuestions(productId){
         return $.ajax(`${this.settings.urls.questions}/${this.settings.key}/${productId}/questions`);
+    }
+
+    
+
+    // Gets the user uploaded product images for a given reviewed product
+    getUserProductImages(productId){
+        return $.ajax(`${this.settings.urls.reviews}/${this.settings.key}/albums/product/${productId}`);
     }
 
 
@@ -512,14 +531,14 @@ export default class Yotpo {
                         <button class="ratings__control--searchIcon" type="button"></button>
                         <input name="query" value="" class="ratings__control ratings__control--input" autocomplete="off" placeholder="Search Reviews">
                     </fieldset>
-                    <label class="selectBox__label selectBox__label--scores"> 
+                    <label class="selectBox__label selectBox__label--scores" for="sortStarRating"> 
                         <div class="selectBox__text selectBox__text--right">
                             <p class="selectBox__optionText">
                                 <span class="selectBox__name selectBox__name--labelLeft">Sort by:</span>
                                 <span class="selectBox__value">Select Star Rating</span>
                             </p>
                         </div>
-                        <select class="selectBox__select" name="sort_by_star_rating">
+                        <select class="selectBox__select" name="sort_by_star_rating" id="sortStarRating">
                             <option value="5">5 ★★★★★</option>
                             <option value="4">4 ★★★★</option>
                             <option value="3">3 ★★★</option>
@@ -744,11 +763,11 @@ export default class Yotpo {
                         <h2 class="product__questionHeading">
                             <span class="product__questionText">
                                 ${question.content}
-                                <span class="product__questionAnswerCount">
+                                <!-- <span class="product__questionAnswerCount">
                                     &mdash; &nbsp; 
                                     <svg class="icon icon-message-square"><use xlink:href="#icon-message-square" /></svg> 
                                     ${question.sorted_public_answers.length} ${question.sorted_public_answers.length === 1 ? 'answer' : 'answers'}
-                                </span>
+                                </span> -->
                             </span>
                             <span class="product__questionMeta">Asked by ${question.asker.display_name} on ${TEAK.Utils.formatDate(question.created_at)}</span>
                         </h2>

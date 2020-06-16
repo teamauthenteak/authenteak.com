@@ -2,7 +2,28 @@
 
 ## [1.20.27]
 - Collection page v2 updates
-- moved CTA positions
+- moved CTA positions on collections page
+- moved analytics inline code to external script files
+  - Remove Affirm from Script Manager -> moved to base.html
+  - Remove Affirm jQuery version form Script Manager -> not necessary
+  - Remove Anti-Flicker for Google -> not necessary
+  - Removed Pingdom Page Load tracker -> not necessary
+- hide coupon code on checkout page if a trade user is logged in
+- created a search spring filter comp for possible UI update
+- reduced white space on collections page
+- fixed and updated a number of heap events for the PDP Options
+- added checkbox to my account sign-up form
+- updated promo text color
+- created Selenium IDE Smoke and Regression Tests
+- refactored image zoom js to work more efficiently on the PDP
+- Added verified reviewer for yotpo with SHA-256 encryption
+- Fixed the major 508 ADA known problems on: Home, PLP, PDP, Cart, Category Pages, Header
+- Fixed an issue in the product options drawer where if you search by keyword, then clear the keyword using the clear button, then click any filter, no search results come up.
+- Moved inline global SVG to fetched XHR SVG for performance
+- refactored save to localstorage to be more universal
+- added feature to save lead time to storage to show on my account orders page
+- Added firebase as a front-end source to store external data
+- removed billing address from my account order page and print invoice page
 
 ## [1.20.26]
 - Updated lead time ui on PDP

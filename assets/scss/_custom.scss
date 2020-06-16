@@ -12,6 +12,7 @@
 
 /* Components */
 @import 'components/defaults';
+@import 'components/icons';
 @import 'components/generics';
 @import 'components/buttons';
 @import 'components/calculator';
@@ -56,6 +57,9 @@
 @import 'sections/blog/blog';
 @import 'sections/blog/filter';
 
+// my account
+@import 'sections/myaccount/legacy';
+
 /* Tempaltes */
 @import 'templates/brands';
 @import 'templates/landing';
@@ -81,6 +85,7 @@
 @import 'thirdparty/searchspring';
 @import 'thirdparty/bolt';
 @import 'thirdparty/klaviyo';
+@import 'thirdparty/shogun';
 
 /* Print */
 @import 'print';

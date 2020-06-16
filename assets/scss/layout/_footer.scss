@@ -47,6 +47,11 @@ footer{
         bottom: 20px;
     }
     
+    @media screen and (min-width: $screen-lg) {
+        .footer-col-arrow{
+            display: none;
+        }
+    }
 
     @media screen and (max-width: $screen-lg) {
         &.site-footer .footer-nav {
@@ -60,10 +65,7 @@ footer{
             margin-right: 0;
             padding-right: 0;
         }
-    }
 
-
-    @media screen and (max-width: $screen-lg) {
         &.site-footer .footer-nav,
         &.site-footer .footer-info,
         &.site-footer .footer-social {

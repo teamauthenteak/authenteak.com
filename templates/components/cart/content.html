@@ -1,14 +1,13 @@
 <div class="cart-table-header">
-  <div class="cell cart-item-info">{{lang 'cart.product_info'}}</div>
-  <div class="cell cart-item-options">{{lang 'cart.options'}}</div>
-  <div class="cell cart-item-quantity">{{lang 'cart.quantity'}}</div>
-  <div class="cell cart-item-price">{{lang 'cart.price'}}</div>
+  <div class="cell cart-item-info cart-item-info--heading">{{lang 'cart.product_info'}}</div>
+  <div class="cell cart-item-options cart-item-options--heading">{{lang 'cart.options'}}</div>
+  <div class="cell cart-item-quantity cart-item-quantity--heading">{{lang 'cart.quantity'}}</div>
+  <div class="cell cart-item-price cart-item-price--heading">{{lang 'cart.price'}}</div>
 </div>
-
 
 <div class="cart-table">
   {{#each cart.items}}
-    <article class="cart-item" data-cart-item data-item-id="{{id}}">
+    <article class="cart-item cart-item--cntr" data-cart-item data-item-id="{{id}}">
       <div class="cell cart-item-info">
         <div class="cart-item-info-wrap">
           <div class="cart-item-image">
@@ -77,6 +76,8 @@
               </div>
             {{/each}}
           {{/if}}
+
+      
           {{#each options}}
             <div class="product-option">
               <span class="cart-label" data-name="{{name}}">
@@ -90,9 +91,10 @@
               {{/if}}
             </div>
           {{/each}}
+
           </div>
         {{#and options (if name "!==" "Request a Swatch")}}
-        <button class="cart-item-edit" data-cart-item-edit data-href="{{url}}" data-edit-id="{{id}}" data-product-id="{{product_id}}">
+        <button type="button" class="cart-item-edit" {{#if options}} {{else}} disabled {{/if}} data-cart-item-edit data-href="{{url}}" data-edit-id="{{id}}" data-product-id="{{product_id}}">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
             <g>
               <path fill="#020202" d="M422.953,176.019c0.549-0.48,1.09-0.975,1.612-1.498l21.772-21.772c12.883-12.883,12.883-33.771,0-46.654   l-40.434-40.434c-12.883-12.883-33.771-12.883-46.653,0l-21.772,21.772c-0.523,0.523-1.018,1.064-1.498,1.613L422.953,176.019z"/>
@@ -105,9 +107,11 @@
           {{/each}}
           <div class="data-cart-item-edit__content"></div>
         </button>
-        {{/and}}
-        </div>
+        {{/and}}  
       </div>
+    </div>
+
+
       <div class="cell cart-item-quantity">
         <span class="cart-label">{{lang 'cart.quantity'}}:</span>
         {{> components/common/quantity}}
@@ -125,3 +129,15 @@
     </article>
   {{/each}}
 </div>
+
+
+<script type="application/json" id="cartProductJson">
+[ 
+  {{#each cart.items}}{
+    "name": "{{name}}",
+    "id": "{{camelcase name}}",
+    "product_id": {{product_id}},
+    "lead_time": "{{#each this.custom_fields}}{{#if this.name '==' "Lead-Time"}}{{this.value}}{{/if}}{{#if this.name '==' "Lead-Time 2"}}{{this.value}}{{/if}}{{/each}}"
+  }{{#unless @last}},{{/unless}}{{/each}}
+]
+</script>

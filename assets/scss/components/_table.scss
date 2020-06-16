@@ -69,6 +69,17 @@
         text-transform: capitalize;
     }
 
+    &__headText{
+        font-style: 600;
+        color: inherit;
+        text-transform: capitalize;
+    }
+
+    &__headImg{
+        width: 100%;
+        object-fit: contain;
+    }
+
     &__body{
         display: flex;
         flex-direction: row;

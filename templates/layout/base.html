@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" lang="{{ locale_name }}" base-html>
+<html class="no-js" lang="{{locale_name}}" base-html>
 
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -14,9 +14,8 @@
 {{{stylesheet '/assets/css/theme.css'}}}
 {{ getFontsCollection }}
 
-<!--[if gte IE 8]>
-<script src="{{cdn '/assets/js/modernizr.js'}}"></script>
-<![endif]-->
+<script src="{{cdn '/assets/js/theme/utils/Analytics.js'}}"></script>
+<!--[if gte IE 8]><script src="{{cdn '/assets/js/modernizr.js'}}"></script><![endif]-->
 
  <!-- SEARCHSPRING SCRIPT -->
 {{#if category}}
@@ -28,18 +27,15 @@
 {{/if}}
 <script src="//cdn.searchspring.net/intellisuggest/is.min.js" async></script>
 
-{{> components/header/customizations/heap}}
-
 {{{head.scripts}}}
 {{inject 'themeImageSizes' theme_settings._images}}
 {{> components/common/global-injects}}
 {{{snippet 'html_head'}}}
-
-{{> components/header/customizations/facebook-pixel}}
-{{> components/header/customizations/pintrest-ad}}
 </head>
 
 <body class="{{> components/common/body-classes}}">
+	{{> components/header/customizations/facebook-pixel}}
+	{{> components/header/customizations/pintrest-ad}}
 
 	<div class="site-wrapper">
 		{{{snippet 'header'}}}
@@ -61,7 +57,6 @@
 					{{#block "page"}}{{/block}}
 				</main>
 
-				
 				{{> components/common/banners banners=banners.bottom class='banners-bottom'}}
 
 				{{#if settings.show_newsletter_box}}
@@ -76,22 +71,16 @@
 
 		{{> components/mini-cart/mini-cart cart_icon=theme_settings.cart_icon }}
 		{{> components/common/search-panel}}
-		<button class="button-top" data-scroll="#">
-			<svg class="icon icon-arrow-up">
-				<use xlink:href="#icon-arrow-up" /></svg>
-		</button>
 
-		{{> components/common/login-modal}}
+		<button type="button" class="button-top" data-scroll="#"><svg class="icon icon-arrow-up"><use xlink:href="#icon-arrow-up" /></svg></button>
 	</div> <!-- /site-wrapper -->
 
 
 	{{{snippet 'footer'}}}
-
-	<div class="icons-svg-sprite">{{> components/common/icons/icon-defs}}</div>
-
 	
 	<script src="{{cdn '/assets/js/bundle.js'}}?v={{theme_settings.version}}"></script>
 	{{> components/common/TEAK-js}}
+	<script>window.stencilBootstrap( "{{template_file}}", {{ jsContext }} ).load();</script>
 	
 	{{#if page_type '===' 'product'}}
 		{{> components/common/facebook-like}}
@@ -101,73 +90,34 @@
 		{{> components/common/facebook-like}}
 	{{/if}}
 
-	<script>
-		window.stencilBootstrap( "{{template_file}}", {{ jsContext }} ).load();
-		_affirm_config = { public_api_key: "RPBIJDV9I1IHTVL3", script: "https://cdn1.affirm.com/js/v2/affirm.js", session_id: "sID"};
-		(function (l, g, m, e, a, f, b) { var d, c = l[m] || {}, h = document.createElement(f), n = document.getElementsByTagName(f)[0], k = function (a, b, c) { return function () { a[b]._.push([c, arguments]) } }; c[e] = k(c, e, "set"); d = c[e]; c[a] = {}; c[a]._ = []; d._ = []; c[a][b] = k(c, a, b); a = 0; for (b = "set add save post open empty reset on off trigger ready setProduct".split(" "); a < b.length; a++)d[b[a]] = k(c, e, b[a]); a = 0; for (b = ["get", "token", "url", "items"]; a < b.length; a++)d[b[a]] = function () { }; h.async = !0; h.src = g[f]; n.parentNode.insertBefore(h, n); delete g[f]; d(g); l[m] = c })(window, _affirm_config, "affirm", "checkout", "ui", "script", "ready");
-	</script>
-
 	{{{footer.scripts}}}
 
-	{{#if customer}} {{!-- used for analitics unique tracking ---}}
-	<script>
-	document.addEventListener('DOMContentLoaded', function(){
-		window.TEAK.ThirdParty.heap.init({
-		  method: 'identify',
-		  id: '{{customer.id}}.authenteak.com'
-		});
-
-		if(window.localStorage){ 
-			window.localStorage.setItem("TEAK_customerUID", '{{customer.id}}.authenteak.com');
-		}
-	});
-	</script>
+	{{#if customer}} {{!-- used for analytics unique tracking ---}}
+	<script>document.addEventListener('DOMContentLoaded', function(){ window.TEAK.ThirdParty.heap.init({ method: 'identify', id: '{{customer.id}}.authenteak.com' }); window.TEAK.Utils.storeData("TEAK_customerUID", '{{customer.id}}.authenteak.com'); }); </script>
 	{{/if}}
 
-	
-	{{#if page_type '===' 'product'}}	
+
+	{{#or page_type '===' 'cart' page_type '===' 'product'}}
+	<!-- Affirm Marketing -->
+	<script async src="https://apps.minibc.com/bootstrap/5d1a3a877d7f1.js"></script>
 	<script>
-		document.addEventListener('DOMContentLoaded', function(){
-
-
-			// tool tip start
-			window.TEAK.Modules.toolTip.init({
-				type: "brand",
-				key: "{{product.brand.name}}",
-				id: "{{product.brand.name}}"
-			});
-
-			// IntelliSuggest tracking
-			try{
-				var productCode = "{{product.sku}}";
-
-				IntelliSuggest.init({
-					siteId: TEAK.ThirdParty.IntelliSuggest.siteId,
-					context: 'Product/' + productCode,
-					seed: [productCode]
-				});
-
-				IntelliSuggest.viewItem({
-					sku: productCode
-				});
-			} catch(err) {}
-		});
-
-		// search spring filtering fix
-		(function(window){
-			var oldHistoryReplaceState = window.History.replaceState;
-
-			window.History.replaceState = function(a, b, url, c) {
-				if(!url.match(/(#|\/)(dev:|filter:|sort:|page:|perpage:|list|grid)/)) {
-					oldHistoryReplaceState(a, b, url, c);
-				}
-			}
-		}(window));
+	const _affirm_config = { public_api_key: "RPBIJDV9I1IHTVL3", script: "https://cdn1.affirm.com/js/v2/affirm.js", session_id: "sID"};
+	(function (l, g, m, e, a, f, b) { var d, c = l[m] || {}, h = document.createElement(f), n = document.getElementsByTagName(f)[0], k = function (a, b, c) { return function () { a[b]._.push([c, arguments]) } }; c[e] = k(c, e, "set"); d = c[e]; c[a] = {}; c[a]._ = []; d._ = []; c[a][b] = k(c, a, b); a = 0; for (b = "set add save post open empty reset on off trigger ready setProduct".split(" "); a < b.length; a++)d[b[a]] = k(c, e, b[a]); a = 0; for (b = ["get", "token", "url", "items"]; a < b.length; a++)d[b[a]] = function () { }; h.async = !0; h.src = g[f]; n.parentNode.insertBefore(h, n); delete g[f]; d(g); l[m] = c })(window, _affirm_config, "affirm", "checkout", "ui", "script", "ready");
 	</script>
+	{{/or}}
+
+
+	{{#if page_type '===' 'cart'}}
+	<script src="{{cdn '/assets/js/theme/cart/CartTotals.js'}}"></script>
+	{{/if}}
+
+
+	{{#if page_type '===' 'product'}}
+	<!-- Tool Tips -->
+	<script>document.addEventListener('DOMContentLoaded', function(){ window.TEAK.Modules.toolTip.init({ type: "brand", key: "{{product.brand.name}}", id: "{{product.brand.name}}" }); });	</script>
 	{{/if}}
 
 	{{> core/structured-data/website}}
 	{{> core/structured-data/breadcrumbs}}
-
 </body>
 </html>

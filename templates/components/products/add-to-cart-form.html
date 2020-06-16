@@ -13,9 +13,7 @@
   <h2 class="product__title product__title--2 product__title--customizePDP">
     Customize Your Product
     <button class="product__swatchRequestBtn product__swatchRequestBtn--pdp" swatch-request-button>
-        <svg class="product__swatchRequestIcon product__swatchRequestIcon--pdp" viewBox="0 0 20 20">
-            <path d="M19.398 7.415l-7.444-1.996-1.303-4.861c-0.109-0.406-0.545-0.642-0.973-0.529l-9.076 2.432c-0.428 0.114-0.686 0.538-0.577 0.944l3.23 12.051c0.109 0.406 0.544 0.643 0.971 0.527l3.613-0.967-0.492 1.838c-0.109 0.406 0.149 0.83 0.577 0.943l8.11 2.174c0.428 0.115 0.862-0.121 0.972-0.529l2.97-11.084c0.108-0.406-0.15-0.83-0.578-0.943zM1.633 3.631l7.83-2.096 2.898 10.818-7.83 2.096-2.898-10.818zM15.678 18.463l-6.814-1.863 0.536-2.002 3.901-1.047c0.428-0.113 0.688-0.537 0.578-0.943l-1.508-5.627 5.947 1.631-2.64 9.851z"></path>
-        </svg>
+        <svg class="product__swatchRequestIcon product__swatchRequestIcon--pdp"><use xlink:href="#icon-swatch"/></svg>
         <span class="product__swatchRequestText product__swatchRequestText--pdp">Request A Free Swatch</span>
     </button>
   </h2>
@@ -264,6 +262,88 @@
       </div>
     {{/if}}
   </div>
+
+  {{else}}
+
+  {{!-- free block ---}}
+
+  {{#if product.can_purchase}}
+  <div class="product-quantity-submit">
+    <div class="product-quantity-container">
+
+      {{#if product.show_quantity_input}}
+        <div class="form-field form-inline form-field--quantity">
+          <label class="form-label">
+            <strong class="form-label-text">
+              {{ lang 'product.quantity'}}
+            </strong>
+            <input
+              type="number"
+              class="product-quantity form-input"
+              name="qty[]"
+              value="{{#if product.quantity}}{{product.quantity}}{{else}}{{#if product.min_purchase_quantity}}{{product.min_purchase_quantity}}{{else}}1{{/if}}{{/if}}"
+              min="{{#if product.min_purchase_quantity}}{{product.min_purchase_quantity}}{{else}}0{{/if}}"
+              {{#if product.max_purchase_quantity}}max="{{product.max_purchase_quantity}}"{{/if}}
+              pattern="[0-9]+"
+            >
+            <div class="product-quantity-toggle-wrapper">
+              <button type="button" class="product-quantity-toggle product-quantity-decrement">
+                <svg class="icon icon-minus"><use xlink:href="#icon-minus" /></svg>
+              </button>
+              
+              <button type="button" class="product-quantity-toggle product-quantity-increment">
+                <svg class="icon icon-plus"><use xlink:href="#icon-plus" /></svg>
+              </button>
+             
+            </div>
+          </label>
+        </div>
+      {{/if}}
+    </div>
+  
+    {{#if product.can_purchase}}
+      <button type="submit" class="button button-primary button-primary--green button-wide add-to-cart button-progress spinner" data-button-purchase onclick="TEAK.ThirdParty.heap.init({method: 'track', event:'add_to_cart', location: 'pdp' })">
+        <span class="button-text">
+          {{#if product.pre_order}}
+            {{lang 'product.pre_order'}}
+          {{else}}
+            {{#if cart_icon '==' 'bag'}}
+              {{lang 'product.add_to_bag'}}
+            {{else}}
+              {{lang 'product.add_to_cart'}}
+            {{/if}}
+          {{/if}}
+        </span>
+      </button>
+    {{/if}}
+
+    
+    {{#if settings.show_wishlist}}
+      <div class="wishlist-form" data-wishlist-dropdown>
+        {{#if customer.wishlists.length}}
+          <a class="button button-secondary button-wide add-to-wishlist" href="#" data-wishlist-toggle>
+            {{lang 'product.add_to_wishlist'}}
+          </a>
+          <ul class="add-to-wishlists" data-wishlist-panel>
+            {{#each customer.wishlists}}
+              <li>
+                <a href="{{../product.add_to_wishlist_url}}&wishlistid={{id}}" data-wishlist="{{view_url}}">
+                  {{name}} ({{num_items}})
+                </a>
+              </li>
+            {{/each}}
+          </ul>
+        {{else}}
+          <a class="button button-secondary button-wide add-to-wishlist" href="{{product.add_to_wishlist_url}}">
+            {{lang 'product.add_to_wishlist'}}
+          </a>
+        {{/if}}
+      </div>
+    {{/if}}
+  </div>
+
+    {{/if}}
+
 {{/if}}
 </form>
 

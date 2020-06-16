@@ -8,6 +8,14 @@ button.cart-item-edit {
     flex: 1 0 auto;
     width: 40px;
     position: static !important;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+
+    &[disabled]{
+        display: none;
+    }
 }
 
 .cart-header{
@@ -87,6 +95,66 @@ button.cart-item-edit {
     margin-bottom: 0 !important;
 }
 
+@media screen and (max-width: $screen-md) {
+    .cart-table-header{
+        display: none;
+    }
+
+    .cart-item--cntr{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        position: relative;
+    }
+
+    .cart-item-text{
+        padding-right: 0;
+    }
+
+    .cart-item-info{
+        width: 100%;
+        padding-right: 0 !important;
+        order: 1;
+    }
+
+    .cart-item-options{
+        width: 100%;
+        order: 3;
+        padding-right: 0 !important;
+        flex: 1 0 auto;
+    }
+
+    .cart-item-quantity{
+        order: 2;
+        padding-right: 0 !important;
+        flex: 1 0 auto;
+        display: flex !important;
+
+    }
+
+    .cart-item-price{
+        position: static;
+        order: 4;
+        padding-right: 0 !important;
+        flex: 1 0 auto;
+        display: flex !important;
+        justify-content: flex-end;
+        align-items: center;
+        align-content: center;
+    }
+}
+
+@media screen and (max-width: $screen-sm) {
+    .cart-item-options{
+        order: 2;
+    }
+
+    .cart-item-quantity{
+        order: 3;
+        justify-content: flex-start;
+    }
+}
+
 .cart-options{
     display: flex !important;
     flex-direction: row;
@@ -98,6 +166,16 @@ button.cart-item-edit {
 
 .cart-item-options{
     max-width: 420px;
+}
+
+.cart-item-quantity{
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    & .quantity-control{
+        display: flex;
+    }
 }
 
 .cart-item-shipping{
@@ -141,6 +219,11 @@ button.cart-item-edit {
 .cart-item-remove{
     top: auto;
     bottom: 0;
+
+    @media screen and (max-width: $screen-md) {
+        top: 0;
+        bottom: auto;
+    }
 }
 
 .cart-item-image{
