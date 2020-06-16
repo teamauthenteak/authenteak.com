@@ -1,5 +1,7 @@
 
-(function(firebase){
+// to save product lead time data to firebase for cross device
+// work around until we can save customer data to actual database
+(function(window, document, firebase){
 	let leadTimeData;
 
 	firebase.initializeApp(TEAK.Globals.firebase.config);
@@ -16,14 +18,14 @@
 	order = JSON.parse(order.replace(/&quot;/g,'"'));
 
 	let orderData = {};
-	orderData["order_" + order.id] = leadTimeData;
+	orderData[`"order_${order.id}`] = leadTimeData;
 
 
 	db.collection("customer").doc(TEAK.User.uuid).update({
 		orders: firebase.firestore.FieldValue.arrayUnion(orderData)
-	})
+	});
 
-}(firebase));
+}(window, document, firebase));
 
 
 

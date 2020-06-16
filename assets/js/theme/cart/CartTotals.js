@@ -93,7 +93,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 				return this;
 			}
-
 		};
 
 
@@ -144,8 +143,8 @@ document.addEventListener('DOMContentLoaded', function () {
 				discountCntr.classList.remove("hide");
 				discountCntr.querySelector(".cart-total-item--discount").innerHTML = "-" + currencSymbol + (amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 			}
-
 		}
+
 
 		document.addEventListener('DOMContentLoaded', function () {
 			checkForDiscount();
