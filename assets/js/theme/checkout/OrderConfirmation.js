@@ -21,7 +21,7 @@
 	orderData[`"order_${order.id}`] = leadTimeData;
 
 
-	db.collection("customer").doc(TEAK.User.uuid).update({
+	db.collection("customer").doc(TEAK.User.uuid).set({
 		orders: firebase.firestore.FieldValue.arrayUnion(orderData)
 	});
 
