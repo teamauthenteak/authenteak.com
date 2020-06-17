@@ -382,16 +382,10 @@ export default class Collection extends PageManager {
 
 
 
-
-
-
-
-
-
     calculateAdjustedPrice(productPrice, optionObj){
-        let newPrice; //optid = optionObj[additional[0]];
+        let newPrice;
 
-        // if the selected optoin has a price adjustmetn and its NOT currently active
+        // if the selected option has a price adjustment and its NOT currently active
         if(optionObj.hasOwnProperty("priceAdjustNumeric")){
             if( !this.currentSelection.hasOwnProperty(optionObj.name) ){
                 newPrice = productPrice + optionObj.priceAdjustNumeric;

@@ -20,6 +20,7 @@
     "firebase": "^7.15.1",
     "fitvids": "^2.0.0",
     "history.js": "github:browserstate/history.js",
+    "idb": "^5.0.4",
     "imagesloaded": "^4.1.1",
     "infinite-scroll": "^3.0.6",
     "jquery": "^3.4.1",

@@ -77,12 +77,13 @@ document.addEventListener('DOMContentLoaded', function () {
 				return this;
 			},
 
+
 			showButtonAmazon: function () {
 				document.getElementById("OffAmazonPaymentsWidgets0").classList.add("amazonpay-button-inner-image--show");
 
 				amazonBtn.addEventListener("click", function () {
-					let subTotal = "{{cart.sub_total.formatted}}".replace(/\$|,/g, ''),
-						qty = "{{cart.quantity}}";
+					let subTotal = TEAK.Data.cart.sub_total.replace(/\$|,/g, ''),
+						qty = TEAK.Data.cart.quantity;
 
 					subTotal = parseInt(subTotal); s
 					qty = parseInt(qty);
@@ -165,11 +166,11 @@ document.addEventListener('DOMContentLoaded', function () {
 			for (let i = 0; i < boltButtons.length; i++) {
 				boltButtons[i].style.display = 'contents';
 
-				// Facebook Pixel track for Bolt - initate checkout
+				// Facebook Pixel track for Bolt - initiate checkout
 				// cannot track 'AddPaymentInfo' because bolt is in a iframe
 				boltButtons[i].addEventListener("click", function () {
-					let subTotal = "{{cart.sub_total.formatted}}".replace(/\$|,/g, ''),
-						qty = "{{cart.quantity}}";
+					let subTotal = TEAK.Data.cart.sub_total.replace(/\$|,/g, ''),
+						qty = TEAK.Data.cart.quantity;
 
 					subTotal = parseInt(subTotal);
 					qty = parseInt(qty);

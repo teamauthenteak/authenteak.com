@@ -1,5 +1,5 @@
 {{#if order.items}}
-  <div class="account-items account-receipt-items" id="order_{{order.id}}">
+  <div class="account-items account-receipt-items" id="order_{{order.id}}" {{order.date}}>
     <h2 class="account-sub-heading">{{lang 'core.account.receipt.items.title'}}</h2>
 
     {{#each order.items}}
@@ -44,7 +44,10 @@
               </div>
             {{/if}}
 
-            <p class="account-receipt-lead-time hide"></p>
+            <p class="account-receipt-lead-time hide">
+              <strong>We anticipate your order shipping in: </strong>
+              <span class="account-receipt-lead-time-cntr"></span>
+            </p>
 
             {{#if customizations}}
               <div class="account-item-detail">

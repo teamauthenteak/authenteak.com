@@ -40,7 +40,10 @@ export default class Account {
 
 	setLeadTime(order){
 		order[`order_${this.orderId}`].forEach((product) => {
-			$(`#${product.id}`).find(".account-receipt-lead-time").text(product.lead_time).removeClass("hide");
+			$(`#${product.id}`)
+				.find(".account-receipt-lead-time-cntr").text(product.lead_time)
+					.end()
+				.find(".account-receipt-lead-time").removeClass("hide");
 		});
 	}
 

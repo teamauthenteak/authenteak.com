@@ -14,8 +14,12 @@
 {{{stylesheet '/assets/css/theme.css'}}}
 {{ getFontsCollection }}
 
+<!--[if gte IE 8]>
+<script src="{{cdn '/assets/js/theme/utils/Polyfills.js'}}"></script>
+<script src="{{cdn '/assets/js/modernizr.js'}}"></script>
+<![endif]-->
+
 <script src="{{cdn '/assets/js/theme/utils/Analytics.js'}}"></script>
-<!--[if gte IE 8]><script src="{{cdn '/assets/js/modernizr.js'}}"></script><![endif]-->
 
  <!-- SEARCHSPRING SCRIPT -->
 {{#if category}}
@@ -108,6 +112,14 @@
 
 
 	{{#if page_type '===' 'cart'}}
+	<script>
+		Object.assign(TEAK.Data, {
+			cart: {
+				sub_total: "{{cart.sub_total.formatted}}",
+				quantity: "{{cart.quantity}}"
+			}
+		});
+	</script>
 	<script src="{{cdn '/assets/js/theme/cart/CartTotals.js'}}"></script>
 	{{/if}}
 
