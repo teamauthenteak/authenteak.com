@@ -183,7 +183,7 @@ window.TEAK.Utils = {
 				if(ships){
 					data.ships = "Ships " + ships;
                 }
-                
+
 
 
 			} else if (part.match(/^LEAD:/)) {
@@ -226,16 +226,17 @@ window.TEAK.Utils = {
 
                     data.customFilters = customFilter[1].trim().split(" ")[1].split(" ")
                 }
+
 			}
 		}
 
 		if (additional.length > 0) {
             data.additional = additional;
-
-           
         }
         
 		data.raw = label;
+
+        console.log(data)
 
 		return data;
     },
@@ -714,22 +715,3 @@ TEAK.ThirdParty.IntelliSuggest.buildData();
 if( window.location.hostname !== "authenteak.com" ){
     $(window).on("load", TEAK.ThirdParty.IntelliSuggest.fixLinks);
 }
-
-
-
-
-
-/** -----------------------------
- * window.CustomEvent Polyfill
- * needs to be moved to its own file at some point
- ------------------------------- */
- (function () {
-    if ( typeof window.CustomEvent === "function" ) { return false; }
-        function CustomEvent ( event, params ) {
-            params = params || { bubbles: false, cancelable: false, detail: null };
-            var evt = document.createEvent( 'CustomEvent' );
-            evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
-            return evt;
-        }
-        window.CustomEvent = CustomEvent;
-})();

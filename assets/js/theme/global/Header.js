@@ -33,17 +33,17 @@ export default class Header {
 		var extra_config = getConfigData(),
 			promoLink = document.createElement("a");
 			
-		if(!this.promoBanner){ return; }
-
-
+		if( !this.promoBanner ){ return; }
+		
 		if(window.sessionStorage.getItem("TEAK__dismissPromoBanner")){
 			let isDissmissed = window.sessionStorage.getItem("TEAK__dismissPromoBanner");
 			this.promoBanner.style.display = isDissmissed ? "none" : "flex";
-
+			
 			return;
 		}
 
 
+		if( Object.keys(extra_config).length === 0 ){ return; }
 
 		if ( extra_config.marketing_content.hasOwnProperty("banner") ) {
 			let promo = extra_config.marketing_content.banner;
@@ -71,18 +71,18 @@ export default class Header {
 
 
 		function getConfigData() {
-			var data;
+			var data = {};
 
 			if (TEAK.Modules.megaMenu.data) {
 				data = window.TEAK.Modules.megaMenu.data;
 
 			} else {
 
-				if (document.getElementById("megaMenuEnhancement") && !TEAK.Utils.isLocal() ) {
+				if ( document.getElementById("megaMenuEnhancement") ) {
 					data = document.getElementById("megaMenuEnhancement").innerHTML;
 					data = JSON.parse(data);
 
-				} else {
+				} else if( TEAK.Utils.isLocal() ) {
 					// run it on on our local
 					$.ajax({
 						dataType: "json",
@@ -91,7 +91,6 @@ export default class Header {
 						success: (res) => { data = res; }
 					});
 				}
-
 			}
 
 			return data;

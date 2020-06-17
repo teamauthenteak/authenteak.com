@@ -47,6 +47,13 @@ export default class ProductSwatchModal {
                 target: "filterByShip",
                 items: [],
                 values: []
+            },
+            customFilter: {
+                name: "More Filters",
+                key: "customFilter",
+                target: "filterByCustom",
+                items: [],
+                values: []
             }
         };
         
