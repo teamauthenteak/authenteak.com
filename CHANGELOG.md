@@ -38,6 +38,7 @@
 - reverted new option filter in teak js
 - reverted GA, Bing, Pintrest in analytics js as it wasn't reporting correctly.
 - added pollyfills from teak to IE only
+- fixed issue where firebase wasn't adding new users to the db
 
 ## [1.20.26]
 - Updated lead time ui on PDP
