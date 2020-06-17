@@ -185,6 +185,7 @@ window.TEAK.Utils = {
                 }
 
 
+
 			} else if (part.match(/^LEAD:/)) {
 
 				let match = part.match(/^LEAD:(\d+)([W|D])/);
@@ -219,22 +220,20 @@ window.TEAK.Utils = {
                 additional.push(part);
 
                 // // custom filters
-                // let customFilter = part.split("-f");
-
+                // let customFilter = part.split("-f-");
                 // if( customFilter ){
-                //     data.customFilter = {};
-                    
-                //     customFilter[1].trim().split(" ").forEach((element) => {
-                //         data.customFilter[element] = true;
-                //     });
+                //     console.log( customFilter[1].trim().split(" ")[1].split(" ") )
+
+                //     data.customFilters = customFilter[1].trim().split(" ")[1].split(" ")
                 // }
 
 			}
 		}
 
 		if (additional.length > 0) {
-			data.additional = additional;
-		}
+            data.additional = additional;
+        }
+        
 		data.raw = label;
 
         console.log(data)

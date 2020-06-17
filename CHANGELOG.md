@@ -30,6 +30,7 @@
 - fixed trade coupon issue on cart & checkout page
 - removed > from footer header links that were appearing in breadcrumbs on tablet
 - fixed issue where _learnq was throwing exception
+- fixed issue where firebase wasn't adding new users to the db
 
 ## [1.20.26]
 - Updated lead time ui on PDP
