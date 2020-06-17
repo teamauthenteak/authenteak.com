@@ -1,4 +1,7 @@
 # Change Log
+## [1.20.28]
+
+
 
 ## [1.20.27]
 - Collection page v2 updates
@@ -30,6 +33,11 @@
 - fixed trade coupon issue on cart & checkout page
 - removed > from footer header links that were appearing in breadcrumbs on tablet
 - fixed issue where _learnq was throwing exception
+- fixed issue with my account and an exception thrown for the top promo banner
+- added BC Mustache tags to get cart data points to JS and reff back to carttotals.js
+- reverted new option filter in teak js
+- reverted GA, Bing, Pintrest in analytics js as it wasn't reporting correctly.
+- added pollyfills from teak to IE only
 
 ## [1.20.26]
 - Updated lead time ui on PDP
