@@ -77,7 +77,7 @@
 		let cartBrands = {};
 
 		cartProductJson.forEach(function(element){
-			cartBrands[element.brand] = true;
+			cartBrands[element.brand] = null;
 		});
 
 		if(  Object.keys(cartBrands).length >= 2 ){
