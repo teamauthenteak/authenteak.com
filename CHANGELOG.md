@@ -5,6 +5,12 @@
 - Slight refactor of CartTotals.js
 - Added feature to count brands and show "multiple shipping message"
 
+## [1.20.28.002]
+- added custom filters to product options
+- added feature for default image for a "No Something" product option swatch
+- Slight refactor of CartTotals.js
+- Added feature to count brands and show "multiple shipping message"
+
 
 ## [1.20.27]
 - Collection page v2 updates
