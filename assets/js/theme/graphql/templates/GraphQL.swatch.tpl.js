@@ -100,7 +100,7 @@ export default class GraphQL_Swatch_TPL {
             return `<li class="drawer__filterListItem" name="${filterObj.items[key]}">
                         <label class="drawer__filterLabel">
                             <input type="checkbox" class="drawer__filterControl" key="${filterObj.key}" name="${filterObj.items[key]}">
-                            ${filterObj.name === "Grade" ? "Grade" : ''} ${filterObj.items[key]} 
+                            <span class="drawer__filterLabelText">${filterObj.name === "Grade" ? "Grade" : ''} ${filterObj.items[key].split("_").join(" ")}</spam>
                         </label>
                     </li>`}).join("")}
             
@@ -129,8 +129,8 @@ export default class GraphQL_Swatch_TPL {
         return `<label class="swatch-wrap" for="attribute-${thisOption.entityId}" data-swatch-value="${thisOption.label}" data-product-attribute-value="${thisOption.entityId}" data-is-selected>
                     <input class="form-input swatch-radio"  data-option-title="${swatch.displayName}" data-parent-id="${swatch.entityId}" id="attribute-${thisOption.entityId}" type="radio" name="attribute[${swatch.entityId}]" value="${thisOption.entityId}" data-label="${thisOption.label}" ${thisOption.isDefault ? 'checked' : ''} ${swatch.isRequired ? ' required' : ''} aria-required="${swatch.isRequired}">
                     <span class="swatch">
-                        <span class="swatch-color swatch-pattern" style="background-image: url('https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${thisOption.entityId}.preview.jpg');">
-                            <img class="swatch-pattern-image" src="https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${thisOption.entityId}.preview.jpg" alt="${thisOption.label}">
+                        <span class="swatch-color swatch-pattern" style="background-image: url('${thisOption.label.includes("No ") ? "https://authenteak.s3.us-east-2.amazonaws.com/images/2098122.preview.png" : `https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${thisOption.entityId}.preview.jpg`}');">
+                            <img class="swatch-pattern-image" src="${thisOption.label.includes("No ") ? "https://authenteak.s3.us-east-2.amazonaws.com/images/2098122.preview.png" : `https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${thisOption.entityId}.preview.jpg`}" alt="${thisOption.label}">
                         </span>
                         ${thisOption.hexColors.length !== 0 ? '<span class="swatch-color" style="background-color: #'+thisOption.hexColors[0]+'"></span>' : '' }
                     </span>

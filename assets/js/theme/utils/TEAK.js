@@ -220,11 +220,11 @@ window.TEAK.Utils = {
                 additional.push(part);
 
                 // custom filters
-                let customFilter = part.split("-f-");
-                if( customFilter ){
-                    console.log( customFilter[1].trim().split(" ")[1].split(" ") )
-
-                    data.customFilters = customFilter[1].trim().split(" ")[1].split(" ")
+                let hasCustomFilter = part.includes("-f");
+                
+                if( hasCustomFilter ){
+                    let customFilter = part.split("-f");
+                    data.customFilter = customFilter[1].trim().split(" ");
                 }
 
 			}
@@ -235,8 +235,6 @@ window.TEAK.Utils = {
         }
         
 		data.raw = label;
-
-        console.log(data)
 
 		return data;
     },

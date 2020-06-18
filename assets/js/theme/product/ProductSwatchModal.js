@@ -48,10 +48,10 @@ export default class ProductSwatchModal {
                 items: [],
                 values: []
             },
-            customFilter: {
-                name: "More Filters",
+            features: {
+                name: "Feature",
                 key: "customFilter",
-                target: "filterByCustom",
+                target: "filterByFeature",
                 items: [],
                 values: []
             }
@@ -312,7 +312,7 @@ export default class ProductSwatchModal {
             this.filter[key].values.splice(index, 1);
         }
 
-        let hasValues = (this.filter.grade.values.length > 0 || this.filter.brandName.values.length > 0 || this.filter.ships.values.length > 0);
+        let hasValues = (this.filter.grade.values.length > 0 || this.filter.brandName.values.length > 0 || this.filter.ships.values.length > 0 || this.filter.features.values.length > 0);
 
         this.swatchFilterController({ filter: hasValues });
     }
@@ -373,28 +373,30 @@ export default class ProductSwatchModal {
             hasBrandNames = this.filter.brandName.values.length > 0,
             hasGrades = this.filter.grade.values.length > 0,
             hasShipping = this.filter.ships.values.length > 0;
+            hasFeatures = this.filter.features.values.length > 0;
 
         // reset our temporary containers
         this.filteredKeywords = [];
         this.filteredBrands = [];
         this.filteredGrades = [];
         this.filteredShipping = [];
+        this.filteredFeatures = [];
 
 
         if(arg.filter){
            
             // filter by keyword only
-            if( hasKeywords && !hasBrandNames && !hasGrades && !hasShipping ){ 
+            if( hasKeywords && !hasBrandNames && !hasGrades && !hasShipping && !hasFeatures ){ 
                 this.filterKeyword();
                 this.filteredArray = this.filteredKeywords;
 
             // filer by brand only
-            } else if( hasBrandNames && !hasKeywords && !hasGrades && !hasShipping ){
+            } else if( hasBrandNames && !hasKeywords && !hasGrades && !hasShipping && !hasFeatures ){
                 this.filterBrands();
                 this.filteredArray = this.filteredBrands;
 
             // filter by grade only
-            } else if( hasGrades && !hasKeywords && !hasBrandNames && !hasShipping ){ 
+            } else if( hasGrades && !hasKeywords && !hasBrandNames && !hasShipping && !hasFeatures ){ 
                 this.filterGrades();
                 this.filteredArray = this.filteredGrades;
 
@@ -402,6 +404,11 @@ export default class ProductSwatchModal {
             } else if( hasShipping && !hasGrades && !hasKeywords && !hasBrandNames ){ 
                 this.filterShipping();
                 this.filteredArray = this.filteredShipping;
+
+            // filter by shipping only
+            } else if( hasFeatures && !hasShipping && !hasGrades && !hasKeywords && !hasBrandNames ){ 
+                this.filterFeatures();
+                this.filteredArray = this.filteredFeatures;
             
              // if we want all options
             }else {
@@ -409,6 +416,7 @@ export default class ProductSwatchModal {
                 this.filterBrands();
                 this.filterGrades();
                 this.filterShipping();
+                this.filterFeatures();
 
                 this.filteredArray = this.filterAll( hasKeywords, hasBrandNames, hasGrades, hasShipping );
             }
@@ -451,7 +459,7 @@ export default class ProductSwatchModal {
                     isIncluded.push(this.filter[obj].values.includes( item.node[filterKey] ));
                 }
             }
-console.log(this.filterKeyWord)
+
             // check for keywords
             if( hasKeywords ){
                 let label = item.node.label.toLowerCase();
@@ -510,6 +518,17 @@ console.log(this.filterKeyWord)
     filterShipping(){
         this.optionsArray.values.edges.forEach((element) => {           
             this.filter.ships.values.forEach((filterElement) => {
+                if( filterElement === element.node.ships ){
+                    this.filteredShipping.push(element);
+                }
+            });
+        });
+    }
+
+    // filter each option based on custom features
+    filterFeatures(){
+        this.optionsArray.values.edges.forEach((element) => {           
+            this.filter.features.values.forEach((filterElement) => {
                 if( filterElement === element.node.ships ){
                     this.filteredShipping.push(element);
                 }
@@ -655,9 +674,22 @@ console.log(this.filterKeyWord)
         // rebuild the items
         for (const obj in this.filter) {
             if( optionItem[this.filter[obj].key] && !isInFilterArray( this.filter[obj].items, optionItem[this.filter[obj].key] ) ){
-                this.filter[obj].items.push(optionItem[this.filter[obj].key]);
+                
+                if( Array.isArray(optionItem[this.filter[obj].key]) ){
+                    optionItem[this.filter[obj].key].forEach((element) => {
+                        if( !isInFilterArray(this.filter[obj].items, element) ){
+                            this.filter[obj].items.push(element);
+                        }
+                    });
+
+                }else{
+                    this.filter[obj].items.push( optionItem[this.filter[obj].key] );
+                }
+               
             }
         }
+
+        console.log(this.filter)
 
         function isInFilterArray(filterArray, filterItem){
             return filterArray.some(ArrVal => filterItem === ArrVal);

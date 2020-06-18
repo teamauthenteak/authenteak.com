@@ -135,6 +135,7 @@
 [ 
   {{#each cart.items}}{
     "name": "{{name}}",
+    "brand": "{{brand.name}}",
     "id": "{{camelcase name}}",
     "product_id": {{product_id}},
     "lead_time": "{{#each this.custom_fields}}{{#if this.name '==' "Lead-Time"}}{{this.value}}{{/if}}{{#if this.name '==' "Lead-Time 2"}}{{this.value}}{{/if}}{{/each}}"

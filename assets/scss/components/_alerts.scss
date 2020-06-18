@@ -9,16 +9,35 @@
 
     &--notify{
         background-color: #ebf7ff;
+        color: #084d80;
     }
 
     &--success{
        background-color: #edf9eb; 
     }
+
+    &--warn{
+        background-color: #fcf8e3;
+        color: #c09853;
+    }
+
+    &__message{
+        white-space: unset;
+        font-size: 1rem;
+        line-height: 1;
+    }
 }
+
+
 
 .promo{
     @extend .alert;
     padding: 10px 100px;
+    color: #666;
+
+    strong{
+        color: #222;
+    }
 
     &--notify{
        @extend .alert--notify;
@@ -26,6 +45,10 @@
 
     &--success{
         @extend .alert--success;
+    }
+
+    &--warn{
+        @extend .alert--warn;
     }
 
     &__icon{
@@ -42,10 +65,5 @@
         white-space: unset;
         font-size: 1rem;
         line-height: 1;
-        color: #666;
-
-        strong{
-            color: #222;
-        }
     }   
 }

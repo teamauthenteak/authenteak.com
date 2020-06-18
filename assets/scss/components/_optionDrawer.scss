@@ -656,6 +656,10 @@
         padding: 8px 0
     }
 
+    &__filterLabelText{
+        text-transform: capitalize;
+    }
+
     &__filterControl{
         margin-right: 8px;
         width: 14px;

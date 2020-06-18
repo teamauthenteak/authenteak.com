@@ -2,21 +2,21 @@
     "marketing_content": {
         "banner": {
             "isVisable": true,
-            "header_promo": "<strong>Shop the Savings &nbsp;&nbsp; | &nbsp;&nbsp; Explore Featured Offers > blah blah  blah blah blah blah blah blah blah blah v blah blah v blah v v v vblahblahblah blah </strong>",
-            "header_promo_link": "/featured-offers/",
-            "header_promo_color": "maroon",
+            "header_promo": "The health and safety of our employees, customers and communities is our top priority. Our response to COVID-19 >",
+            "header_promo_link": "/covid19-update",
+            "header_promo_color": "grey",
             "header_custom_class": ""
         },
         "inline": {
             "isVisable": true,
-            "header_promo": "<strong><a href='/shipping'>Free Shipping on All Orders!</a></strong>",
-            "header_promo_link": "/shipping",
+            "header_promo": "<a href='/fathers-day-gift-guide/'>Father’s Day Outdoor Gift Guide ></a>",
+            "header_promo_link": "/fathers-day-gift-guide/",
             "header_promo_color": "green",
             "header_custom_class": ""
         }
     },
     "category_2480": {
-        "minWidth": 950,
+        "minWidth": 1050,
         "makeShort": false,
         "landing_image": {
             "title": "Outdoor Furniture",
@@ -127,7 +127,7 @@
         }
     },
     "category_798": {
-        "minWidth": 600,
+        "minWidth": 650,
         "makeShort": false,
         "landing_image": {
             "title": "Patio Umbrealls",
@@ -170,7 +170,7 @@
         }
     },
     "category_787": {
-        "minWidth": 850,
+        "minWidth": 900,
         "makeShort": false,
         "landing_image": {
             "title": "Grills & Outdoor Kitchens",
@@ -231,7 +231,7 @@
         }
     },
     "category_906": {
-        "minWidth": 500,
+        "minWidth": 600,
         "makeShort": false,
         "landing_image": {
             "title": "Outdoor Heating",
@@ -280,14 +280,14 @@
         }
     },
     "category_911": {
-        "minWidth": 310,
+        "minWidth": 500,
         "makeShort": false,
         "landing_image": {
             "title": "Planters",
             "url": "/planters/fiberglass-planters/#?Category0=Planters&Category1=Fiberglass+Planters&search_return=all&sort_by_field=Price+High+to+Low",
             "caption": "Branch Out <br><strong>Shop Large Planters</strong>",
             "img": {
-                "src": "https://cdn3.bigcommerce.com/s-r14v4z7cjw/product_images/uploaded_images/planters-nav.jpg?t=1497018011&_ga=2.147601655.1391367146.1496936389-170994603.1491244766",
+                "src": "https://authenteak.s3.us-east-2.amazonaws.com/mega-menu-assets/MegaNav_Planters.jpg",
                 "alt": "Planters &amp; Outdoor Decor"
             }
         },
@@ -308,7 +308,7 @@
                     "emphasis": false
                 },
                 {
-                    "title": "Shop All Planters",
+                    "title": "Shop All Brands",
                     "url": "/planters/shop-all-planters/",
                     "highlight": false,
                     "emphasis": true
@@ -388,12 +388,6 @@
                     "emphasis": false
                 },
                 {
-                    "title": "Sovaro",
-                    "url": "/outdoor-entertainment/shop-all-outdoor-entertainment/#/filter:brand:Sovaro",
-                    "highlight": false,
-                    "emphasis": false
-                },
-                {
                     "title": "Kingsley Bate",
                     "url": "/outdoor-entertainment/shop-all-outdoor-entertainment/#/filter:brand:Kingsley$2520Bate",
                     "highlight": false,
@@ -453,10 +447,6 @@
     },
     "category_1196": {
         "makeShort": false,
-        "minWidth": 1200
-    },
-    "category_2508": {
-        "makeShort": false,
-        "minWidth": 800
+        "minWidth": 1600
     }
 }
