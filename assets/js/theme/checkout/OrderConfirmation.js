@@ -173,11 +173,11 @@ TEAK.Checkout = {
 
 	// facebook purchase track
 	facebookPixel: function(storedCart){
-		window.fbq('track', 'Purchase', {
-			currency: "USD", 
-			value: storedCart.baseAmount,
-			content_type: 'product'
-		});
+		// window.fbq('track', 'Purchase', {
+		// 	currency: "USD", 
+		// 	value: storedCart.baseAmount,
+		// 	content_type: 'product'
+		// });
 
 		return this;
 	},
