@@ -372,7 +372,7 @@ export default class ProductSwatchModal {
         let hasKeywords = this.filterKeyWord !== "",
             hasBrandNames = this.filter.brandName.values.length > 0,
             hasGrades = this.filter.grade.values.length > 0,
-            hasShipping = this.filter.ships.values.length > 0;
+            hasShipping = this.filter.ships.values.length > 0,
             hasFeatures = this.filter.features.values.length > 0;
 
         // reset our temporary containers

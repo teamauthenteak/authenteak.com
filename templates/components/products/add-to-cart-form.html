@@ -354,7 +354,7 @@
     let qty = document.querySelector(".product-quantity").value,
         price = document.querySelector(".price-value").innerText.trim().replace(/\$|,/g, '');
 
-    TEAK.Modules.fbPixel.addToCart("{{product.title}}", price, "{{product.id}}");
+    // TEAK.Modules.fbPixel.addToCart("{{product.title}}", price, "{{product.id}}");
 
     TEAK.Modules.pintrest.addToCart({
       price: price, 

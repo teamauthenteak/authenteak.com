@@ -762,7 +762,7 @@ export default class Collection extends PageManager {
 
     // analytics on ATC
     initATCAnalytics(){    
-        TEAK.Modules.fbPixel.addToCart(this.atcItem.name, this.atcItem.adjustedPrice, this.atcItem.entityId);
+        // TEAK.Modules.fbPixel.addToCart(this.atcItem.name, this.atcItem.adjustedPrice, this.atcItem.entityId);
 
         TEAK.Modules.pintrest.addToCart({
             price: this.atcItem.adjustedPrice,

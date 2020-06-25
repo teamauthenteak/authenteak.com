@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.20.28.004]
+- fixed option drawer filtering issue. 
+- removed fb pixel TEAK calls from inline js
+
 ## [1.20.28.003]
 - pull out custom facebook pixel code
 
