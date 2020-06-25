@@ -2,7 +2,7 @@ import slick from 'slick-carousel';
 import productViewTemplates from './productViewTemplates';
 import ProductImages from './ProductImages';
 import baguetteBox from 'baguettebox.js';
-import ImageZoom from './ImageZoom';
+import ImageZoom from '../components/ImageZoom';
 import imagesLoaded from 'imagesLoaded';
 
 function scrollToTop() {

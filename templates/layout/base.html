@@ -124,11 +124,6 @@
 	{{/if}}
 
 
-	{{#if page_type '===' 'product'}}
-	<!-- Tool Tips -->
-	<script>document.addEventListener('DOMContentLoaded', function(){ window.TEAK.Modules.toolTip.init({ type: "brand", key: "{{product.brand.name}}", id: "{{product.brand.name}}" }); });	</script>
-	{{/if}}
-
 	{{> core/structured-data/website}}
 	{{> core/structured-data/breadcrumbs}}
 </body>

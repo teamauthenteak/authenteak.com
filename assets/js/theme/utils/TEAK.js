@@ -234,8 +234,10 @@ window.TEAK.Utils = {
             data.additional = additional;
         }
         
-		data.raw = label;
-
+        data.raw = label;
+        
+        console.log(data);
+        
 		return data;
     },
     
@@ -303,6 +305,7 @@ window.TEAK.Utils = {
         return TEAK.Data.ProductData ? TEAK.Data.ProductData : this.getLocalJsonData("/assets/js/theme/product.json");
     },
 
+    
     
     // gets the main drop down json from local or script manager
     getMenuJSON: function(){

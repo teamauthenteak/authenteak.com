@@ -9,7 +9,8 @@ import ProductSwatchModal from './product/ProductSwatchModal';
 import AddToCartModal from './product/customizations/AddToCartModal';
 import FormValidator from './utils/FormValidator';
 import Yotpo from './thirdparty/Yotpo';
-
+import toolTip from './components/ToolTips';
+import ToolTips from './components/ToolTips';
 
 export default class Collection extends PageManager {
     constructor() {
@@ -21,7 +22,7 @@ export default class Collection extends PageManager {
         this.yotpo = new Yotpo();
 
         new ProductSwatchModal();
-
+        new ToolTips();
         new AddToCartModal();
 
         // options
