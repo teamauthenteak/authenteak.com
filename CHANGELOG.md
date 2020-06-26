@@ -1,13 +1,16 @@
 # Change Log
 
-## [1.20.28.004]
+## [1.20.27.005]
+- fixed an issue where there was an extra " for the order id causing a mismatch for the lead time
+
+## [1.20.27.004]
 - fixed option drawer filtering issue. 
 - removed fb pixel TEAK calls from inline js
 
-## [1.20.28.003]
+## [1.20.27.003]
 - pull out custom facebook pixel code
 
-## [1.20.28.002]
+## [1.20.27.002]
 - added custom filters to product options
 - added feature for default image for a "No Something" product option swatch
 - Slight refactor of CartTotals.js
