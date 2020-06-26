@@ -23,7 +23,6 @@ export default class Account {
 		this.customer.get().then((doc) => {
 			if( doc.exists ){
 				let customerData = doc.data();
-
 				customerData.orders.forEach((element) => {
 					if( Object.keys(element)[0] === `order_${this.orderId}` ){
 						this.setLeadTime(element);

@@ -253,15 +253,3 @@
 
 </form>
 
-<script type=text/plain target=amp-script id="">	
-(function(){
-  var atcBtn = document.querySelector("[data-button-purchase]"),
-      product = document.querySelector("[data-product-container]").dataset,
-      price = document.querySelector(".price-value").innerText.trim().replace(/\$|,/g, '');
-
-  atcBtn.addEventListener("click", function(){
-    TEAK.Modules.fbPixel.addToCart(product.productTitle, price, product.productId);
-  });
-
-}());
-</script>

@@ -152,7 +152,7 @@
 	// Get the cart detail from localstorage
 	function getStoredCart() {
 		let storedCart = localStorage.getItem('cartData');
-		return JSON.parse(storedCart);;
+		return storedCart ? JSON.parse(storedCart) : [];
 	}
 
 	function getCartQnty(cart) {
@@ -182,21 +182,25 @@
 		let cart = getStoredCart(),
 			amount = 0;
 
-		cart[0].discounts.forEach(function (element) {
-			amount = amount + element.discountedAmount;
-		});
+		if( cart.length > 0 ){
+			cart[0].discounts.forEach(function (element) {
+				amount = amount + element.discountedAmount;
+			});
 
-		if (amount > 0 && !TEAK.User.isTradeCustomer ) {
-			let discountCntr = document.getElementById("cartTotalItemDiscount"),
-				subTotal = document.getElementById("cartSubTotal"),
-				currencSymbol = cart[0].currency.symbol;
+			if (amount > 0 && !TEAK.User.isTradeCustomer ) {
+				let discountCntr = document.getElementById("cartTotalItemDiscount"),
+					subTotal = document.getElementById("cartSubTotal"),
+					currencSymbol = cart[0].currency.symbol;
 
-			subTotal.innerHTML = currencSymbol + (cart[0].baseAmount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+				subTotal.innerHTML = currencSymbol + (cart[0].baseAmount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
-			discountCntr.classList.remove("hide");
-			discountCntr.querySelector(".cart-total-item--discount").innerHTML = "-" + currencSymbol + (amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+				discountCntr.classList.remove("hide");
+				discountCntr.querySelector(".cart-total-item--discount").innerHTML = "-" + currencSymbol + (amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+			}
 		}
+
 	}
+
 
 	document.addEventListener('DOMContentLoaded', function () {
 		checkForDiscount();
