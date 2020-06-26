@@ -1,5 +1,15 @@
 # Change Log
 
+## [1.20.28]
+- moved the header.json and product.json to firebase
+
+## [1.20.27.005]
+- fixed an issue where there was an extra " for the order id causing a mismatch for the lead time
+
+## [1.20.27.004]
+- fixed option drawer filtering issue. 
+- removed fb pixel TEAK calls from inline js
+
 ## [1.20.27.003]
 - pull out custom facebook pixel code
 
