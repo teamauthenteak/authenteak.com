@@ -1,9 +1,9 @@
 # Change Log
 
-## [1.20.28.003]
+## [1.20.27.003]
 - pull out custom facebook pixel code
 
-## [1.20.28.002]
+## [1.20.27.002]
 - added custom filters to product options
 - added feature for default image for a "No Something" product option swatch
 - Slight refactor of CartTotals.js

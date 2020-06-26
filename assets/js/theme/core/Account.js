@@ -23,8 +23,11 @@ export default class Account {
 		this.customer.get().then((doc) => {
 			if( doc.exists ){
 				let customerData = doc.data();
+
 				customerData.orders.forEach((element) => {
-					if( Object.keys(element)[0] === `order_${this.orderId}` ){
+					let orderID = Object.keys(element)[0].replace(/"/g, ""); /* fix for a extra " in the string defect */
+
+					if( orderID === `order_${this.orderId}` ){
 						this.setLeadTime(element);
 					}
 				});
@@ -38,7 +41,7 @@ export default class Account {
 
 
 	setLeadTime(order){
-		order[`order_${this.orderId}`].forEach((product) => {
+		order[Object.keys(order)[0]].forEach((product) => {
 			$(`#${product.id}`)
 				.find(".account-receipt-lead-time-cntr").text(product.lead_time)
 					.end()
