@@ -159,7 +159,7 @@ export default class GraphQL {
                     path
                     sku
                 
-                    customFields (names: ["Highlight 1", "Highlight 2", "Highlight 3", "Highlight 4", "Lead-Time", "Lead-Time 2", "Promo Text"]){
+                    customFields (names: ["Highlight 1", "Highlight 2", "Highlight 3", "Highlight 4", "Lead-Time", "Lead-Time 2", "Promo Text", "Featured Highlight", "Specs Highlight"]){
                         edges{
                             node{
                                 name
