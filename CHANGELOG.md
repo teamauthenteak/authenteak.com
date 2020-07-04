@@ -2,6 +2,8 @@
 
 ## [1.20.28]
 - moved the header.json and product.json to firebase
+- Built ReactJS/PHP BigCommerce App to manage header and product data from control panel
+- Add Custom field for product dimensions
 
 ## [1.20.27.005]
 - fixed an issue where there was an extra " for the order id causing a mismatch for the lead time
