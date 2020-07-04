@@ -187,6 +187,14 @@
 					<li>{{value}}</li>
 					{{/if}}
 					{{/each}}
+
+					{{#each product.custom_fields}}
+					{{#if this.name '===' "Featured Highlight"}}
+					<li>{{value}}</li>
+					{{else if this.name '===' "Specs Highlight"}}
+					<li>{{value}}</li>
+					{{/if}}
+					{{/each}}
 				</ul>
 
 				{{> components/products/add-to-cart-form cart_icon=cart_icon}}

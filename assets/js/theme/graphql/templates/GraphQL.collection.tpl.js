@@ -49,6 +49,10 @@ export default class GraphQL_Collection_TPL {
                                     tpl += `<li>${product.customFields.edges[key].node.value}</li>`;
                                 }
 
+                                if(name === "Featured Highlight" || name === "Specs Highlight"){
+                                    tpl += `<li>${product.customFields.edges[key].node.value}</li>`;
+                                }
+
                                 return tpl;
                                 
                             }).join('') }

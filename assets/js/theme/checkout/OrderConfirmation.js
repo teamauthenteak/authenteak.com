@@ -18,7 +18,7 @@
 	order = JSON.parse(order.replace(/&quot;/g,'"'));
 
 	let orderData = {};
-	orderData[`"order_${order.id}`] = leadTimeData;
+	orderData[`order_${order.id}`] = leadTimeData;
 
 
 	db.collection("customer").doc(TEAK.User.uuid).set({
