@@ -23,7 +23,7 @@
     "jquery": "^3.5.0",
     "jquery-revealer": "github:pixelunion/jquery.revealer",
     "jquery-trend": "github:pixelunion/jquery.trend",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "normalize.scss": "^0.1.0",
     "npm": "^6.13.4",
     "slick-carousel": "^1.6.0",
