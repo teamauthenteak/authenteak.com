@@ -34,6 +34,24 @@
         }
     }
 
+    &__infoGraphic{
+        width: 100%;
+        margin: 30px 0;
+    }
+
+    &__infoItem{
+        justify-content: flex-start;
+        display: flex;
+        align-items: center;
+        align-content: center;
+
+        & .icon-no-assembly{
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+    }
+
     &__title{
         @extend .product__name;
 

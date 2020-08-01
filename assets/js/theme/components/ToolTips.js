@@ -301,9 +301,7 @@ TEAK.Modules.freeShipping = {
 				"EL-OFS304"
 			],
 			isExcluded = excludedSkus.includes(args.sku),
-			
 			freeShipping = '<p class="free-shipping-text" data-pricing-free-shipping>Free Shipping</p></p>',
-			
 			shippingTabs = [
 					{
 						id: "free_white_glove_delivery",
@@ -315,7 +313,7 @@ TEAK.Modules.freeShipping = {
 					}
 				],
 
-			freeWhiteGlove = '<p class="free-shipping-text" data-pricing-free-shipping>Free Shipping</p></p>',
+			freeWhiteGlove = '<p class="free-shipping-text" data-pricing-free-shipping>Free Standard Shipping</p></p>',
 				// `<p class="free-shipping-text" data-pricing-free-shipping>
 				// 	<a href="" class="free-shipping-text--link" data-tool-tip-open data-tool-tip-type="element" data-tool-tip-name="free_white_glove_delivery, threshold_delivery" data-tool-tip-id="free_delivery">
 				// 		<span>This item qualifies for free upgraded delivery</span> &nbsp;

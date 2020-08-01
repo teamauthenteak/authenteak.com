@@ -262,21 +262,23 @@
 
 	let config = { childList: true, subtree: true };
 	// Change totalClassName
-	let totalClassName = "cart-total-grandTotal";
+	let totalClassName = "grand-total";
 	let bigCommerceTotalPrice = "";
 
 	let callback = function (mutationsList) {
-		let elms = document.getElementsByClassName(totalClassName);
-		
-		if (elms.length == 0) { return; }
-		
-		let newPrice = elms[0].innerHTML;
-
-		if (newPrice !== bigCommerceTotalPrice && window.BoltCheckout && window.BoltCheckout.reloadBigCommerceCart) {
-			window.BoltCheckout.reloadBigCommerceCart();
-		}
-		
-		bigCommerceTotalPrice = newPrice;
+		setTimeout(function(){
+			let elms = document.getElementsByClassName(totalClassName);
+			
+			if (elms.length == 0) { return; }
+			
+			let newPrice = elms[0].innerText || elms[0].innerHTML;
+	
+			if (newPrice !== bigCommerceTotalPrice && window.BoltCheckout && window.BoltCheckout.reloadBigCommerceCart) {
+				window.BoltCheckout.reloadBigCommerceCart();
+			}
+			
+			bigCommerceTotalPrice = newPrice;
+		}, 200);
 	};
 
 	new MutationObserver(callback).observe(document.body, config);

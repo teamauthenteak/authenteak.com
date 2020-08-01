@@ -39,9 +39,8 @@ export default class Header {
 		if( !this.promoBanner ){ return; }
 		
 		if(window.sessionStorage.getItem("TEAK__dismissPromoBanner")){
-			let isDissmissed = window.sessionStorage.getItem("TEAK__dismissPromoBanner");
-			this.promoBanner.style.display = isDissmissed ? "none" : "flex";
-			
+			let isDismissed = window.sessionStorage.getItem("TEAK__dismissPromoBanner");
+			this.promoBanner.style.display = isDismissed ? "none" : "flex";
 			return;
 		}
 

@@ -235,9 +235,7 @@ window.TEAK.Utils = {
         }
         
         data.raw = label;
-        
-        console.log(data);
-        
+                
 		return data;
     },
     

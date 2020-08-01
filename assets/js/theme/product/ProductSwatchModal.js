@@ -205,7 +205,7 @@ export default class ProductSwatchModal {
             inputData =  $(e.currentTarget).data(),
             parsedLabel = TEAK.Utils.parseOptionLabel(labelData.swatchValue.toString());
 
-        let selectedSwatchObj = Object.assign(labelData, inputData, parsedLabel)
+        let selectedSwatchObj = Object.assign(labelData, inputData, parsedLabel);
 
         this.$optionTriggerButton
             .find("input:radio")
@@ -214,7 +214,7 @@ export default class ProductSwatchModal {
                 .data( "parsedLabel", selectedSwatchObj.text)
                 .attr({ "checked": true, "id": `attribute[${selectedSwatchObj.productAttributeValue}]` })
                     .end()
-            .find(".product__swatchValue").addClass("show").text( selectedSwatchObj.text )
+            .find(".product__swatchValue").addClass("show").text( `${selectedSwatchObj.text} ${selectedSwatchObj.priceAdjust ? ` (${selectedSwatchObj.priceAdjust})` : '' }` )
                 .end()
             .find(".product__swatchColor").css("backgroundImage", `https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${selectedSwatchObj.productAttributeValue}.preview.jpg`)
             .find(".product__swatchImg").attr("src", `https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${selectedSwatchObj.productAttributeValue}.preview.jpg`);
@@ -637,7 +637,7 @@ export default class ProductSwatchModal {
 
         this.fetchedOptionsArray.forEach((element) => {
 
-            // if this option for this prodcut is what we asked for
+            // if this option for this product is what we asked for
             if(element.node.entityId === this.optionSetRefferenceId){
 
                 // parse each of the options
@@ -647,7 +647,9 @@ export default class ProductSwatchModal {
                     return Object.assign(element.node, labelObj);
                 });
                 
-                this.optionsArray = element.node;
+                // this.optionsArray = element.node;
+                this.optionsArray = this.filterOutDiscontinued(element.node);
+
 
                 this.constructSwatch(this.optionsArray);
                 this.constructFilterItem();
@@ -656,6 +658,31 @@ export default class ProductSwatchModal {
 
     }
 
+
+    // Temp fix - removed discontinued swatches from products
+    filterOutDiscontinued(swatch){
+        let newSwatch = {...swatch},
+            discontinued = [
+                'Sunbrella Rain Meadow',
+                'Sunbrella Agra Indigo',
+                'Sunbrella Fretwork Navy',
+                'Sunbrella Idol Stripe Navy',
+                'Sunbrella Lila Dove',
+                'Sunbrella Lilac',
+                'Sunbrella Rochelle Pebble',
+                'Sunbrella Terrazzo Cobalt',
+                'Sunbrella Toile Meadow White Flowers',
+                'Sunbrella Toile White Meadow Flowers',
+            ];
+
+        newSwatch.values.edges.forEach((element, index) => {
+            if( discontinued.includes(element.node.text) ){
+                newSwatch.values.edges.splice(index, 1);
+            }
+        });
+
+        return newSwatch;
+    }
 
 
     /**

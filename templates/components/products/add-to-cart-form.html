@@ -96,6 +96,8 @@
       </p>
       {{/if}}
     
+
+
   <div class="product-price">
       {{#if product.price}}
         {{> components/products/price price=product.price show_savings=true save_block=true}}
@@ -110,9 +112,8 @@
       {{#contains product.call_for_price "showroom pricing"}}
         <p class="product-price-message-text">Century Leisure requests that we do not publish pricing for this item.  Please email <a href="mailto:customercare@authenteak.com">customercare@authenteak.com</a> for pricing and additional information.</p>
       {{/contains}}
-
-     
   </div>
+
 
 
 {{#if product.price.without_tax.value ">" 0.01}}

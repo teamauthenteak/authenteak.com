@@ -183,9 +183,6 @@ export default class HeaderFlyout {
 			if( this.data[id].minWidth ){
 				let wrapperWidth = checkWrapperWidth(this.data[id]);
 
-				// console.log(this.data[id].minWidth)
-				// console.log(minWidth)
-
 				$(categoryId)
 					.parents(".dropdown-panel").css({
 						"minWidth": this.data[id].minWidth
@@ -383,6 +380,7 @@ export default class HeaderFlyout {
     async getFirebaseHeaderData(collection, storageKey){
         let data = this.header.collection(collection).get().then((querySnapshot) => {
                 querySnapshot.forEach(doc => Object.assign(data, {[doc.id]: doc.data()} ));
+
                 data = Object.assign(data, {timestamp: new Date().getTime()} )
                 TEAK.Utils.storeData(storageKey, data);
             });

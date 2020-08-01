@@ -67,7 +67,7 @@
         background-color:rgba(110, 163, 66, 0.09);
         border-bottom: 1px solid rgba(191, 214, 171, 0.30);
 
-        & .promoBanner__link, .promoBanner__text{
+        & .promoBanner__link, .promoBanner__text, .promoBanner__closeBtnIcon{
             color:rgba(110, 163, 66, 1);
         }
     }
@@ -76,8 +76,8 @@
         background-color:rgba(15, 160, 234, 0.09);
         border-bottom: 1px solid rgba(15, 160, 234, 0.30);
         
-        & .promoBanner__link, .promoBanner__text{
-            color: #fff;
+        & .promoBanner__link, .promoBanner__text, .promoBanner__closeBtnIcon{
+            color: rgba(15, 160, 234, 1);;
         }
     }
 

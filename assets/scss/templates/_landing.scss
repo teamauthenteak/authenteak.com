@@ -12,6 +12,11 @@
     @extend %span;
     @extend .no-pad;
 
+    &__button{
+        @extend .button;
+        @extend .button-secondary--darkTrans
+    }
+
     a{
         display: inline-block;
         color: inherit;

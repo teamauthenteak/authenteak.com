@@ -140,7 +140,7 @@ header{
     }
 
     .top-bar-left {
-        width: 30%;
+        width: auto;
         transition: width 0.25s ease;
 
         @media screen and (max-width: $screen-lg + 5){ 
@@ -167,9 +167,9 @@ header{
 
     .top-bar-center {
         display: inline-block;
-        flex: 1 0 auto;
+        flex: 0 1 auto;
         padding: 5px 40px;
-        max-width: 700px;
+        // max-width: 700px;
 
         @media screen and (max-width: $screen-lg + 5){   
             margin: 0 auto 10px auto !important;

@@ -197,6 +197,17 @@
 					{{/each}}
 				</ul>
 
+				{{#each product.custom_fields}}
+					{{#if this.name '==' "Assembly Required"}}
+					<ul class="product__infoGraphic">
+						<li class="product__infoItem">
+							<svg class="icon icon-no-assembly"><use xlink:href="#icon-no-assembly-2" /></svg>
+							<strong>No assembly required.</strong>
+						</li>
+					</ul>
+					{{/if}}
+				{{/each}}
+
 				{{> components/products/add-to-cart-form cart_icon=cart_icon}}
 
 				{{else}}
@@ -204,6 +215,9 @@
 
 				{{> components/products/product-description}}
 				{{/if}}
+
+
+				
 
 
 				<div class="product-message-area" data-product-alerts></div>

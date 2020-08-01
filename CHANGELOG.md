@@ -1,10 +1,19 @@
 # Change Log
 
+## [1.20.28.001]
+- added filter for discontinued swatches on PDP
 
 ## [1.20.28]
 - moved the header.json and product.json to firebase
 - Built ReactJS/PHP BigCommerce App to manage header and product data from control panel
 - Add Custom field for product dimensions
+- added price adjust to selected product swatch option
+- updated free shipping text
+- updated promo color text and button icon
+- added no assembly required verbiage and icon
+- fixed header issue where the excess l/r space on the header logo
+- merged Bolt fix for coupon code issue in to cart totals.js
+- fixed issue to show both the price adjusted value on selected product options
 
 ## [1.20.27.005]
 - fixed an issue where there was an extra " for the order id causing a mismatch for the lead time
