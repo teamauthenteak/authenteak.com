@@ -160,6 +160,10 @@
           {{#if product.call_for_price}}
             <p>{{product.call_for_price}}</p>
           {{/if}}
+
+          {{#if customer.customer_group_id '==' '1' }}
+					  <em class="badge badge--pdp">Trade Price</em>
+					{{/if}}
           
           <!-- 
           {{#each product.custom_fields}}

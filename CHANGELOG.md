@@ -1,7 +1,9 @@
 # Change Log
 
 ## [1.20.28.001]
-- added filter for discontinued swatches on PDP
+- added filter to remove discontinued swatches on PDP
+- fixed issue where discount message was not showing on mobile
+- removed footer link to testimonials page
 
 ## [1.20.28]
 - moved the header.json and product.json to firebase
