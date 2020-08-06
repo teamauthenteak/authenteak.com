@@ -30,11 +30,11 @@ export default class Header {
 	}
 
 
-
 	// sets the header promo banner on the page when marketing_content JSON has a value
 	async _headerPromoBanner() {
-		var extra_config = await this.headerFlyout.getHeaderMarketingData(),
+		var headerMarketing = await this.headerFlyout.getHeaderMarketingData(),
 			promoLink = document.createElement("a");
+
 			
 		if( !this.promoBanner ){ return; }
 		
@@ -44,10 +44,10 @@ export default class Header {
 			return;
 		}
 
-		if( typeof extra_config === "undefined" || Object.keys(extra_config).length === 0 ){ return; }
+		if( typeof headerMarketing === "undefined" || Object.keys(headerMarketing).length === 0 ){ return; }
 
-		if ( extra_config.marketing_content.hasOwnProperty("banner") ) {
-			let promo = extra_config.marketing_content.banner;
+		if ( headerMarketing.hasOwnProperty("banner") ) {
+			let promo = headerMarketing.banner;
 
 			if( promo.header_promo_link !== ""){
 				promoLink.setAttribute("href", promo.header_promo_link);
@@ -61,9 +61,9 @@ export default class Header {
 			this.promoBanner.style.display = promo.isVisable ? "flex" : "none";
 		}
 		
-		if( extra_config.marketing_content.hasOwnProperty("inline") ){
+		if( headerMarketing.hasOwnProperty("inline") ){
 			let promoNode = document.createElement("span"),				
-				promoText = extra_config.marketing_content.inline.header_promo;
+				promoText = headerMarketing.inline.header_promo;
 
 			promoNode.innerHTML = promoText;
 			document.getElementById('globalHeaderPromo').appendChild(promoNode);

@@ -8,8 +8,8 @@
 }
 
 
-.main-nav-bar > .nav-container-wide {
-    max-width: $standard-width;
+.main-nav-bar > .nav-container-wide, .nav-container-wide.container {
+    max-width: 1600px !important;
 }
 
 .main-nav-bar > .container {

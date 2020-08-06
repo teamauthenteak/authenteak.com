@@ -22,14 +22,21 @@ html{
 .site-canvas{
   padding: 0 !important;
   margin-top: 163px;
+  transition: margin-top 0.25s ease;
 
-  @media only screen and (max-width: $screen-md) {
-    margin-top: 150px;
-  }
-
-  @media only screen and (min-width: $screen-xl) {
+  @media only screen and (min-width: $screen-md) and (max-width: 1600px) {
     margin-top: 13%;
   }
+
+  @media only screen and (min-width: 1400px) and (max-width: 1800px) {
+    margin-top: 10%;
+  }
+
+  @media only screen and (min-width: 1800px) {
+    margin-top: 9%;
+  }
+
+
 }
 
 [class*='span-'], %span {

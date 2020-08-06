@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.20.28.003]
+- maxed header width at 1600px;
+- updated checkout confirmation message
+- fixed header spacing/whitespace issue
+
+## [1.20.28.002]
+- fixed issue were header marketing data was not pulling correctly from the cloud
+- added localstorage expiration for header content to make sure we get updated flyout in a 24 hours
+
 ## [1.20.28.001]
 - added filter to remove discontinued swatches on PDP
 - fixed issue where discount message was not showing on mobile

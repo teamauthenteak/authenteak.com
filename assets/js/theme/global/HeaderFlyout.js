@@ -352,40 +352,50 @@ export default class HeaderFlyout {
 
 
     // get top bar marketing content from storage if not, then firebase and save
-    getHeaderMarketingData(){
-        if( window.localStorage ){
-            this.marketingData = JSON.parse(window.localStorage.getItem("TEAK_headerMarketing"));
+    async getHeaderMarketingData(){
+        this.marketingData = TEAK.Utils.getStoredData('TEAK_headerMarketing');
 
-            if( !this.marketingData ){
-                this.marketingData = this.getFirebaseHeaderData("marketing_content", "TEAK_headerMarketing");
-                return this.marketingData;
-            }
+        if( !this.marketingData ){
+            this.marketingData = this.getFirebaseHeaderData("marketing_content", "TEAK_headerMarketing");
+            return this.marketingData;
+
+        }else{
+            return this.marketingData;
         }
+
+        
     }
 
 
     // get flyout data from storage if not, then firebase and save
-    getFlyoutData(){
-        if( window.localStorage ){
-            this.data = JSON.parse(window.localStorage.getItem("TEAK_flyoutData"));
+    async getFlyoutData(){
+        this.data = TEAK.Utils.getStoredData('TEAK_flyoutData');
 
-            if( !this.data ){
-                this.data = this.getFirebaseHeaderData("flyout", "TEAK_flyoutData");
-            }
+        if( !this.data ){
+            this.data = this.getFirebaseHeaderData("flyout", "TEAK_flyoutData");
+            return this.data;
+            
+        }else{
+            return this.data;
         }
+
     }
 
 
     // fetch from firebase and then save 
     async getFirebaseHeaderData(collection, storageKey){
-        let data = this.header.collection(collection).get().then((querySnapshot) => {
+        let data = {};
+
+        return this.header.collection(collection).get().then((querySnapshot) => {
                 querySnapshot.forEach(doc => Object.assign(data, {[doc.id]: doc.data()} ));
-
-                data = Object.assign(data, {timestamp: new Date().getTime()} )
+                
+                let now =  new Date();
+                data = Object.assign(data, {expiry: now.getTime() + 86400000} );
+                
                 TEAK.Utils.storeData(storageKey, data);
-            });
 
-        return data;
+                return data;
+            });
     }
 
 
@@ -404,6 +414,7 @@ export default class HeaderFlyout {
             this.setMarketingContent();
         }
     }
+
 
     // update firebase with marketing
     setMarketingContent(){

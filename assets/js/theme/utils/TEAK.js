@@ -321,15 +321,19 @@ window.TEAK.Utils = {
     getTagData: function(id){
         var data;
 
-        if(document.getElementById(id) && !TEAK.Utils.isLocal() ){
-            data = document.getElementById(id).innerHTML;
-            data = data ? JSON.parse(data) : {};
-
-        }else{
-            return false;
-        }
-
-        return data;
+        try{
+            if(document.getElementById(id) && !TEAK.Utils.isLocal() ){
+                data = document.getElementById(id).innerHTML;
+                data = data ? JSON.parse(data) : {};
+    
+            }else{
+                return false;
+            }
+    
+            return data;
+            
+        }catch(err){}
+        
     },
 
 
@@ -414,6 +418,31 @@ window.TEAK.Utils = {
             }
     
             window.dispatchEvent(event);
+        }
+    },
+
+
+
+    /**
+     * Retrieves stored data and expires it if 
+     * there is an expiry key in the data AND if the date has passed
+     * @param {String} key - Storage Key
+     */
+
+    getStoredData: function(key){
+        let now = new Date();
+
+        if( window.localStorage ){
+            let data = JSON.parse(window.localStorage.getItem(key));
+
+            if(data && data.hasOwnProperty("expiry")){
+                if(now.getTime() > data.expiry){
+                    window.localStorage.removeItem(key);
+                    return null;
+                }
+            }
+        
+            return data;
         }
     },
 
