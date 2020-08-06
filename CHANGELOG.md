@@ -1,5 +1,7 @@
 # Change Log
 
+## [1.20.29]
+
 ## [1.20.28.003]
 - maxed header width at 1600px;
 - updated checkout confirmation message
