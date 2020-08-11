@@ -178,6 +178,8 @@ export default class ToolTips{
 	generalTip($optionSelector, tipObj){
 		tipObj = tipObj.join("");
 
+		console.log(tipObj)
+
 		$optionSelector
 			.find(".toolTip").addClass("toolTip--show")
 				.end()
@@ -193,7 +195,7 @@ export default class ToolTips{
         
 		e.preventDefault();
 
-        this.activeModal = tipData.hasOwnProperty("toolTipId")  ? tipData.toolTipId : $(e.currentTarget).attr("rel");
+        this.activeModal = tipData.hasOwnProperty("toolTipId") ? tipData.toolTipId : $(e.currentTarget).attr("rel");
 
 		let $activeModal = $("#"+ this.activeModal);
 		$activeModal.toggleClass("toolTip__cntr--hide toolTip__cntr--show");
@@ -346,7 +348,11 @@ TEAK.Modules.leadTime = {
 					'<svg class="toolTip__icon toolTip__icon--white"><use xlink:href="#icon-info"/></svg>',
 				'</span>',
 			'</a>',
-			'<span class="toolTip__cntr toolTip__cntr--hide" id="next_bussiness_day"></span>'].join("");
+			'<span class="toolTip__cntr toolTip__cntr--hide" id="next_bussiness_day">',
+				'<button type="button" class="toolTip__closeBtn" data-tool-tip-close><svg class="toolTip__closeIcon"><use xlink:href="#icon-close"/></svg></button>',
+				'<h2 class="toolTip__heading--2">Next Business Day Processing</h2>',
+                '<p class="toolTip__text">Transit time is determined by shipping method and destination. Orders placed by 12pm ET may be shipped same day. Orders placed after 2pm ET will be processed the next business day.</p>',
+			'</span>'].join("");
 
 		return isInline ? tpl : document.getElementById(element).innerHTML = tpl;
 	}
