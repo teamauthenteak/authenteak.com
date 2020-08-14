@@ -85,13 +85,20 @@
 						{{#if product.price}}
 							{{> components/products/price price=product.price show_savings=false save_block=false}}
 						{{/if}}
+
+						{{#if customer.customer_group_id '==' '1' }}
+							{{#each product.custom_fields}}
+								{{#if this.name '==' "Trade Discount"}}
+								<em class="badge badge--pdp">{{this.value}}% Trade Discount Applied</em>
+								{{/if}}
+							{{/each}}
+						{{/if}}
+						
 					{{else}}
 					<!-- show no price -->
 					{{/if}}
 
-					{{#if customer.customer_group_id '==' '1' }}
-					<em class="badge badge--pdp">Trade Price</em>
-					{{/if}}
+			
 				</div>
 
 

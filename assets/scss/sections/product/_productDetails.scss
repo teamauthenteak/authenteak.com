@@ -301,6 +301,8 @@ h1.product-title {
 .product-price{
     margin-top: 20px;
     color: #2e3036;
+    display: flex;
+    align-items: center;
 }
 
 .product-recomendation-pod, .product-carousel{

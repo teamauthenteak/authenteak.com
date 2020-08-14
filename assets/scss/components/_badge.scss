@@ -6,8 +6,8 @@
     &--pdp{
         width: auto;
         padding: 3px 16px 3px 6px;
-        margin-left: 5px;
-        font-size: 0.75rem;
+        margin-left: 10px;
+        font-size: 0.9rem;
         background-color: #fd7e23;
         line-height: 1;
         color: #fff;
@@ -16,6 +16,9 @@
         border-radius: 4px 0 0 4px;
         position: relative;
         height: 18px;
+        display: flex;
+        align-items: center;
+        align-content: center;
 
         &:after {
             content: "";

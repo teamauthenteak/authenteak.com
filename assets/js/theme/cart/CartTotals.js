@@ -52,17 +52,16 @@
 	
 			let subTotal = document.getElementById("subTotalJson") ? JSON.parse(document.getElementById("subTotalJson").innerHTML) : 0;
 			subTotal = subTotal === 0 ? 0 : parseFloat(subTotal.total);
-
-			console.log(subTotal)
 	
 			let tax = document.getElementById("cartTax") ? parseFloat(document.getElementById("cartTax").dataset.tax.trim()) : 0;
 			
-			console.log(tax)
+			// console.log(tax)
+			// console.log(shippingTotal)
 
 			let total = shippingTotal + subTotal + tax;
 
-			console.log(total)
-	
+			// console.log(total)
+
 			grandTotal.innerHTML = total.toLocaleString('en-US', {
 				style: 'currency',
 				currency: 'USD'

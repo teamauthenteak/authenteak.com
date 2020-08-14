@@ -16,13 +16,14 @@
 		<span class="cart-total-item" id="cartSubTotal">{{cart.sub_total.formatted}}</span>
 	</div>
 
+	<script type="application/json" id="subTotalJson">
+		{"total": "{{cart.sub_total.value}}"}
+	</script>
+
 	{{#each cart.taxes}}
 	<div class="cart-totals-item">
 		<span class="cart-total-label">{{name}}:</span>
 		<span class="cart-total-item" data-tax="{{cost.value}}" id="cartTax">{{cost.formatted}}</span>
-		<script type="application/json" id="subTotalJson">
-			{"total": "{{cart.sub_total.value}}"}
-		</script>
 	</div>
 	{{/each}}
 

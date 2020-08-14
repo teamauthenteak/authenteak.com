@@ -112,6 +112,15 @@
       {{#contains product.call_for_price "showroom pricing"}}
         <p class="product-price-message-text">Century Leisure requests that we do not publish pricing for this item.  Please email <a href="mailto:customercare@authenteak.com">customercare@authenteak.com</a> for pricing and additional information.</p>
       {{/contains}}
+
+
+      {{#if customer.customer_group_id '==' '1' }}
+				{{#each product.custom_fields}}
+					{{#if this.name '==' "Trade Discount"}}
+					<em class="badge badge--pdp">{{this.value}}% Trade Discount Applied</em>
+					{{/if}}
+				{{/each}}
+			{{/if}}
   </div>
 
 
@@ -162,7 +171,11 @@
           {{/if}}
 
           {{#if customer.customer_group_id '==' '1' }}
-					  <em class="badge badge--pdp">Trade Price</em>
+          {{#each product.custom_fields}}
+              {{#if this.name '==' "Trade Discount"}}
+              <em class="badge badge--pdp">{{this.value}}% Trade Discount Applied</em>
+              {{/if}}
+				  {{/each}}
 					{{/if}}
           
           <!-- 

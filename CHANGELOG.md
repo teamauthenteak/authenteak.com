@@ -1,6 +1,9 @@
 # Change Log
 
 ## [1.20.29]
+- Trade Cart fixes
+- Trade Flag fixes on PDP
+- Trade Flag custom field addition
 
 ## [1.20.28.003]
 - maxed header width at 1600px;
