@@ -14,13 +14,40 @@
         {{> components/footer/resources-navigation}}
       </div>
       {{#if theme_settings.footer-show-address}}
-        <div class="footer-col footer-info">
-          <h4 class="footer-title">{{lang 'footer.address'}}</h4>
-          <p>Appointments Recommended<br>{{nl2br settings.address}}</p>
+      
+      <div class="footer-col footer-nav footer-accordion-3 footer-accordion">
+          <h4 class="footer-title">{{lang 'footer.address'}}<span class="footer-col-arrow"></span></h4>
+          <nav class="navigation">
+            <ul>
+              <li>
+                <a href="{{url}}/store-locator" title="find a store">Store Locator</a>
+              </li>
+              <li>
+                <a href="{{url}}/atlanta-outdoor-furniture-showroom" title="Atlanta Outdoor showroom">About Our Atlanta Showroom</a>
+              </li>
+            </ul>
+          </nav>
+      
+          <p>
+            {{nl2br settings.address}}<br>
+            <em>Appointments Recommended</em>
+          </p>
           
-          <p>{{lang 'footer.store_hours_mon_sat'}}<br>{{lang 'footer.store_hours_sun'}}<br><a href="tel:1-866-360-8325">1-866-360-8325</a></p>
-        </div>
-        <div class="mobile-share-consult">
+          <!-- <p>{{lang 'footer.store_hours_mon_sat'}}<br>{{lang 'footer.store_hours_sun'}}<br><a href="tel:1-866-360-8325">1-866-360-8325</a></p> -->
+          <p>
+              {{lang 'footer.store_hours_mon_sat'}}<br>
+              {{lang 'footer.store_hours_sun'}}
+          </p>
+
+          <div class='blog-link'>
+            <p>Get inspired with our blog</p>
+            <a href="/blog">
+              <img src="https://cdn3.bigcommerce.com/s-r14v4z7cjw/product_images/uploaded_images/blog-footer-promo.png?t=1497549146&_ga=2.139326138.847722574.1497277559-170994603.1491244766" alt="blog">
+            </a>
+          </div>
+      </div>
+
+      <div class="mobile-share-consult">
           <div class="share-block">
             <div class="share-buttons-wrap">
                 <span class="share-title">
@@ -41,20 +68,36 @@
                 <p>For a Free Design Consultation or to Order by Phone <br>Call: <a href="tel:1-866-360-8325" title="calls us">1-866-360-8325</a></p>
             </div>
           </div>
-        </div>
+      </div>
       {{/if}}
+
+
       {{#any social_media.length theme_settings.geotrust-ssl-common-name}}
-        <div class="footer-col footer-social">
+        <div class="footer-col footer-nav pad-left">
+          <h4 class="footer-title">{{lang 'footer.contact_nav'}}</h4>
+          <nav class="navigation">
+            <ul>
+              <li>
+                <a href="{{url}}/contact-us" title="contact our offices">Contact Us</a>
+              </li>
+              <li>
+                <a href="{{url}}/contact-us" title="contact our offices">Call us: <a href="tel:1-866-360-8325" title="calls us">1-866-360-8325</a></a>
+              </li>
+              <li>
+
+                <a href="javascript:$zopim.livechat.window.show()">
+                  <svg class="footer__chatBtn chat__offline" viewBox="0 0 260 93" width="260" height="93" id="footerChatOffline"><use xlink:href="#desktop-footer-offline"/></svg>
+                  <svg class="footer__chatBtn chat__online hide" viewBox="0 0 260 93" width="260" height="93" id="footerChatOnline"><use xlink:href="#desktop-footer-online"/></svg>
+                </a>
+
+              </li>
+            </ul>
+          </nav>
           {{#if social_media.length}}
             <h4 class="footer-title">{{lang 'footer.social_title'}}</h4>
             {{> components/common/social-media-links links=social_media}}
           {{/if}}
-          <div class='blog-link'>
-            <p>Get inspired with our blog</p>
-            <a href="/blog">
-              <img src="https://cdn3.bigcommerce.com/s-r14v4z7cjw/product_images/uploaded_images/blog-footer-promo.png?t=1497549146&_ga=2.139326138.847722574.1497277559-170994603.1491244766" alt="blog">
-            </a>
-          </div>
+          
         </div>
       {{/any}}
     </div>

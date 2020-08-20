@@ -191,8 +191,14 @@ export default class ToolTips{
 
 	// open 
 	openTipModal(e){
-        let tipData = $(e.currentTarget).data();
-        
+		let tipData = $(e.currentTarget).data();
+		
+		TEAK.ThirdParty.heap.init({
+            method: 'track',
+            event: 'pdp_view_tooltip',
+            location: 'pdp'
+		});
+		        
 		e.preventDefault();
 
         this.activeModal = tipData.hasOwnProperty("toolTipId") ? tipData.toolTipId : $(e.currentTarget).attr("rel");

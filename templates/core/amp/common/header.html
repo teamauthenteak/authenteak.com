@@ -51,11 +51,18 @@
 				<div class="top-bar-right customer-utils">
 	
 					<!--Testing Right Aligned Account-->
-					<a href="tel:1-866-350-8325" title="Call 1-866-350-8325">
+					<!-- <a href="tel:1-866-350-8325" title="Call 1-866-350-8325">
 						<span class="head-phone-number">1-866-350-8325</span>
-					</a>
+					</a> -->
+
+					<a href="javascript:$zopim.livechat.window.show()" class="customer__chat">
+						<svg class="header__chatBtn" width="168" height="20" id="headerChatOffline"><use xlink:href="#desktop-header-offline"/></svg>
+						<svg class="header__chatBtn hide" width="168" height="20" id="headerChatOnline"><use xlink:href="#desktop-footer-online"/></svg>
+					  </a>
+
 					<div class="customer-links">
 						<a class="top-bar-button" href="/login.php" title="Login to Authenteak">
+							<svg class="icon icon-person"><use xlink:href="#icon-person"/></svg>
 							<span class="button-text">My Account</span>
 						</a>
 					</div>
@@ -65,7 +72,7 @@
 						<span class="mini-cart-subtotal button-text" data-cart-quantity="0">0</span>
 						<svg class="icon-cart" width="19" height="17"><use xlink:href="#icon-cart"/></svg>
 					</a>
-					<span class="global-header-text-promo" id="globalHeaderPromo"></span>
+					<span class="global-header-text-promo hide" id="globalHeaderPromo"></span>
 				</div>
 	
 				<span class="button-mobile-nav-tel">

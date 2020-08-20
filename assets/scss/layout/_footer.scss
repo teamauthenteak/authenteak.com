@@ -15,6 +15,10 @@
         line-height: 1;
         display: block;
     }
+
+    &__chatBtn{
+        margin-left: -10px;
+    }
 }
 
 
@@ -113,6 +117,21 @@ footer{
             padding: 0;
         }
     }
+}
+
+@media screen and (min-width: 1024px){
+    .site-footer .footer-nav {
+        width: (100%/5);
+        float: left;
+        margin-right: 0;
+    }
+}
+
+.site-footer .social-media-link{
+    & svg{
+        fill: #6ea438
+    }
+    
 }
 
 // Mobile

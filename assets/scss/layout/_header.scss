@@ -8,9 +8,14 @@ header{
         }
     }
 
-    
     .mobile-search-wrapper{
         display: none;
+    }
+
+    @media screen and (max-width: $screen-md){
+        .mobile-search-wrapper{
+            display: block !important;
+        }
     }
     
     // header logo
@@ -104,6 +109,31 @@ header{
     }
 
 
+    .customer__chat{
+        margin-right: 40px;
+
+
+        @media screen and (max-width: $screen-md){
+            position: absolute;
+            top: 50%;
+            right: 55px;
+            height: 23px;
+            margin: 6px 0 0 0;
+        }
+
+        &Desktop{
+            @media screen and (max-width: $screen-md){
+                display: none;
+            }
+        }
+
+        &Mobile{
+            @media screen and (min-width: $screen-md){
+                display: none;
+            }
+        }
+
+    }
 
 
 
@@ -113,6 +143,11 @@ header{
         transition: padding 0.25s ease;
 
         .compressed & { padding: 0; }
+
+        & .icon-person{
+            width: 20px;
+            height: 20px;
+        }
     }
 
     .top-bar .container {
@@ -142,6 +177,10 @@ header{
         display: inline-block;
         margin-right: -4px;
         vertical-align: top;
+    }
+
+    .top-bar-right{
+        position: relative;
     }
 
     .top-bar-left {
