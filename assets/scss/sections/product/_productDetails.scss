@@ -308,6 +308,8 @@ h1.product-title {
 .product-recomendation-pod, .product-carousel{
     & .product-price{
         margin-top: 3px;
+        text-align: center;
+        justify-content: center;
     }
 
     & .product-item-title{

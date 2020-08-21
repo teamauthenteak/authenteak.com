@@ -1,22 +1,17 @@
 
 {{#partial "page"}}
-    <div class="landing landing--a">
-
-        <div class="landing__headerCntr">
-            <h1 class="landing__header">Layout for Template A</h1>
+    <div class="landing">
+        <div class="landing__hero" id="homeHero">
+            <div class="landing__heroCarousel">
+                <img src="https://dummyimage.com/1920x500/ccc/999" alt="" class="landing__heroImg">
+                <img src="https://dummyimage.com/1920x500/ddd/999" alt="" class="landing__heroImg">
+                <img src="https://dummyimage.com/1920x500/eee/999" alt="" class="landing__heroImg">
+            </div>
         </div>
 
 
-        <div class="landing__hero">
-            <img src="https://dummyimage.com/1280x400/ccc/999" alt="" class="landing__heroImg">
-        </div>
 
         <div class="landing__section">
-            <div class="landing__row landing__row--noFlex bottom-pad">
-                <p class="landing__p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pellentesque sapien malesuada metus pulvinar malesuada. Nunc quis commodo dolor. Nam turpis diam, tempor sed egestas ac, semper non mauris. Fusce eu tortor vel dui varius pharetra nec eu ligula. Quisque sodales elit et odio rhoncus, ut blandit eros feugiat. In at massa a odio porta malesuada. Quisque venenatis tincidunt arcu, id finibus lectus condimentum sed.</p>
-                <a href="" class="button button--small button-secondary--darkTrans">Shop All Outdoor Furniture</a>
-            </div>
-
             <div class="landing__row landing__row--wrapCenter">
                 <div class="landing__col-1-4">
                     <a href="" class="landing__linkFull">
@@ -34,30 +29,6 @@
                     <a href="" class="button button--small button-secondary--darkTrans">Outdoor Furniture</a>
                 </div>
 
-                <div class="landing__col-1-4">
-                    <a href="" class="landing__linkFull">
-                        <img src="https://dummyimage.com/425x300/ccc/999" alt="" class="landing__figImg">
-                    </a>
-                    <div class="landing__titleCaption landing__titleCaption--small">Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>
-                    <a href="" class="button button--small button-secondary--darkTrans">Outdoor Furniture</a>
-                </div>
-
-                <div class="landing__col-1-4">
-                    <a href="" class="landing__linkFull">
-                        <img src="https://dummyimage.com/425x300/ccc/999" alt="" class="landing__figImg">
-                    </a>
-                    <div class="landing__titleCaption landing__titleCaption--small">Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>
-                    <a href="" class="button button--small button-secondary--darkTrans">Outdoor Furniture</a>
-                </div>
-
-                <div class="landing__col-1-4">
-                    <a href="" class="landing__linkFull">
-                        <img src="https://dummyimage.com/425x300/ccc/999" alt="" class="landing__figImg">
-                    </a>
-                    <div class="landing__titleCaption landing__titleCaption--small">Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>
-                    <a href="" class="button button--small button-secondary--darkTrans">Outdoor Furniture</a>
-                </div>
-    
                 <div class="landing__col-1-4">
                     <a href="" class="landing__linkFull">
                         <img src="https://dummyimage.com/425x300/ccc/999" alt="" class="landing__figImg">
@@ -169,18 +140,16 @@
                     </div>
                 </div>
             </div>
-
-
-
-            <div class="landing__row">
-                <div class="landing__col-1-1">
-
-                </div>
-            </div>
-
-
         </div><!-- /landing section -->
     </div>
+
+    <!-- Recently Viewed -->
+    <section class="products-related products-recently-viewed section" id="recentlyViewedProducts">
+        <div class="container">
+          <h3 class="section-title">{{lang 'product.recently_viewed_products_heading'}}</h3>
+          <div class="product-grid product-rv-carousel"></div>
+        </div>
+    </section>
 
     {{/partial}}
 

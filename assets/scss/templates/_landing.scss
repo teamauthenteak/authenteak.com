@@ -30,6 +30,29 @@
         display: unset !important;
     }
 
+    &__hero{
+        max-height: 500px;
+        margin-bottom: 20px;
+
+        & .carousel-navigation-item{
+            display: block !important;
+
+            & .icon{
+                height: 100px;
+                width: 40px;
+            }
+        }
+
+        & .landing__heroImg{
+            object-fit: contain;
+            max-height: 500px;
+        }
+
+        & .slick-dots{
+            display: block !important;
+        }
+    }
+
     &__spacer{
         width: 100%;
         height: 1px;

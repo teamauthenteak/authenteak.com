@@ -1,9 +1,22 @@
 # Change Log
 
+## [1.20.30]
+- added clyde script to cart footer
+- Added home page hero
+
+## [1.20.29.001]
+- added payment info to footer
+
 ## [1.20.29]
 - Trade Cart fixes
 - Trade Flag fixes on PDP
 - Trade Flag custom field addition
+- update footer link arrangements
+- added new live chat icons in header/footer for desktop and mobile
+- added new heap tag: pdp_view_tooltip
+- added new icons to icon definitions
+- made mobile search bar show
+- remove search icon, added my account icon
 
 ## [1.20.28.003]
 - maxed header width at 1600px;

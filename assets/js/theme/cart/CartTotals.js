@@ -50,7 +50,7 @@
 			// updates the grand total
 			let shippingTotal = grandTotal ? parseFloat(grandTotal.dataset.total.trim()) : 0;
 	
-			let subTotal = document.getElementById("subTotalJson") ? JSON.parse(document.getElementById("subTotalJson").innerHTML) : 0;
+			let subTotal = TEAK.Data.cart.sub_total;
 			subTotal = subTotal === 0 ? 0 : parseFloat(subTotal.total);
 	
 			let tax = document.getElementById("cartTax") ? parseFloat(document.getElementById("cartTax").dataset.tax.trim()) : 0;

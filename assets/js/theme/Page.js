@@ -24,7 +24,22 @@ export default class Page extends PageManager {
         this._initRecentlyViewed();
 
         this.bindEvents();
+
+        if(window.location.pathname === "/"){
+            this.initHero();
+        }
     }
+
+
+
+    initHero(){
+        let carouselObj = Object.assign({appendDots: '.landing__heroCarousel'}, TEAK.Globals.heroCarouselSettings);
+        $(".landing__heroCarousel", "#homeHero").slick(carouselObj);
+        
+        this.lazyLoadInstance.update();
+    }
+
+
 
 
     _initRecentlyViewed(){
@@ -32,7 +47,6 @@ export default class Page extends PageManager {
 			recentProducts = this.recentlyViewed.getViewed();
 
 		if (recentProducts) {
-
             // only doing this because of shogun ~ delete once shogun is removed
             if(window.location.pathname === "/"){
                 $(`<section class="products-related products-recently-viewed section show" id="recentlyViewedProducts">
@@ -57,7 +71,7 @@ export default class Page extends PageManager {
             this.lazyLoadInstance.update();
             
             this.recentlyViewed.initProductSlider({
-                dotObj: {appendDots: '.product-rv-carousel'},
+                dotObj: { appendDots: '.product-rv-carousel' },
                 selector: '.product-rv-carousel',
                 context: '#recentlyViewedProducts'
             });

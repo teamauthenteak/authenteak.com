@@ -7526,7 +7526,6 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
 
 .footer-nav-wrap {
   @extend %clearfix;
-  padding-bottom: 57px;
 }
 
 .button-top {
@@ -7605,7 +7604,7 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
 }
 
 .footer-site-copyright {
-  margin-top: 42px;
+  // margin-top: 42px;
 }
 
 .footer-theme-credits {

@@ -19,6 +19,17 @@
     &__chatBtn{
         margin-left: -10px;
     }
+
+    &__legalInfo{
+        text-align: left;
+    }
+
+    &__legal{
+        font-size: 0.75rem;
+        line-height: 1.4;
+        margin-top: 0;
+        color: #555;
+    }
 }
 
 
@@ -35,6 +46,10 @@ footer{
     &.site-footer .bottom-bar {
         padding: 25px 0;
         position: relative;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: space-between;
     }
 
     &.site-footer .footer-social a svg {

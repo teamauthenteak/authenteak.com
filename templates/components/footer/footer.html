@@ -104,7 +104,7 @@
 
 
     <div class="bottom-bar {{#if theme_settings.theme-credits}}show-credits{{/if}}">
-      <div class="footer-payment-icons">
+      <!-- <div class="footer-payment-icons">
         <ul class="footer-payment-icons-list">
           {{#if theme_settings.payment_visa}}
             <li>{{> svg/visa}}</li>
@@ -130,15 +130,18 @@
             <li>{{> svg/applepay}}</li>
           {{/if}}
         </ul>
+      </div> -->
+      <div class="footer__legalInfo">
+        {{#if theme_settings.store-copyright}}
+          <span class="footer-site-copyright">
+            &copy; <span id="footerCurrentYear"></span> {{settings.store_name}}
+          </span>
+        {{/if}}
+        <p class="footer__legal">Accepted Payment Methods: Visa, Mastercard, American Express, Discover, Amazon Pay, PayPal, Affirm Financing</p>
       </div>
-      
-      
-      {{> core/geotrust-ssl-seal}}
-      
 
-      {{#if theme_settings.store-copyright}}
-         <span class="footer-site-copyright">&copy; <span id="footerCurrentYear"></span> {{settings.store_name}}</span>
-      {{/if}}
+      {{> core/geotrust-ssl-seal}}
+
 
       {{#if theme_settings.sitemap}}
         <p><a href="{{urls.home}}" title="home">{{lang 'sitemap.title'}}</a></p>

@@ -121,8 +121,25 @@
 		});
 	</script>
 	<script src="{{cdn '/assets/js/theme/cart/CartTotals.js'}}"></script>
-	{{/if}}
 
+	<!-- <script src="https://js.joinclyde.com/widget.js"></script> 
+	<script>
+	Clyde.init({
+		key: 'ck_live_my-client-key',
+		type: 'list',
+		skuList: ['SKU_XXX', 'SKU_YYY'],
+		pageKey: 'productPage'
+
+	}, function() {
+		Clyde.appendToSelector('#prompt-container-element');
+		// Clyde.appendToSelectorWithSku();
+		// Get the product SKU currently active on the page.
+		var productSku = 'SKU_XXX';
+		// Set the active product.
+		Clyde.setActiveProduct(productSku);
+	});
+	</script>-->
+	{{/if}}
 
 	{{> core/structured-data/website}}
 	{{> core/structured-data/breadcrumbs}}
