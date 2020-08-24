@@ -1,47 +1,69 @@
 
 {{#partial "page"}}
     <div class="landing">
+
         <div class="landing__hero" id="homeHero">
             <div class="landing__heroCarousel">
-                <img src="https://dummyimage.com/1920x500/ccc/999" alt="" class="landing__heroImg">
-                <img src="https://dummyimage.com/1920x500/ddd/999" alt="" class="landing__heroImg">
-                <img src="https://dummyimage.com/1920x500/eee/999" alt="" class="landing__heroImg">
+
+                <picture class="landing__heroSlide">
+                    <div class="landing__heroCaption">
+                        <h2 class="landing__heroHeading">Extend Summer</h2>
+                        <a href="" title="" class="button button--small button-secondary--whiteTrans">Get Inspired by light</a>
+                    </div>
+                    
+                    <source media="(max-width: 699px)" srcset="https://dummyimage.com/480x350/aaa/999">
+                    <source media="(min-width: 700px)" srcset="https://dummyimage.com/1920x500/aaa/999">
+                    <img src="https://dummyimage.com/1920x500/aaa/999" alt="" class="landing__heroImg">
+                </picture><!-- end slide -->
+
+
+                <picture class="landing__heroSlide hide">
+                    <div class="landing__heroCaption">
+                        <h2 class="landing__heroHeading">Extend Summer</h2>
+                        <a href="" title="" class="button button--small button-secondary--whiteTrans">Get Inspired by light</a>
+                    </div>
+                    
+                    <source media="(max-width: 699px)" srcset="https://dummyimage.com/480x350/bbb/999">
+                    <source media="(min-width: 700px)" srcset="https://dummyimage.com/1920x500/bbb/999">
+                    <img src="https://dummyimage.com/1920x500/bbb/999" alt="" class="landing__heroImg">
+                </picture><!-- end slide -->
+
+
+                <picture class="landing__heroSlide hide">
+                    <div class="landing__heroCaption">
+                        <h2 class="landing__heroHeading">Extend Summer</h2>
+                        <a href="" title="" class="button button--small button-secondary--whiteTrans">Get Inspired by light</a>
+                    </div>
+                    
+                    <source media="(max-width: 699px)" srcset="https://dummyimage.com/480x350/ccc/999">
+                    <source media="(min-width: 700px)" srcset="https://dummyimage.com/1920x500/ccc/999">
+                    <img src="https://dummyimage.com/1920x500/ccc/999" alt="" class="landing__heroImg">
+                </picture><!-- end slide -->
+
             </div>
         </div>
 
 
+        <header class="landing__headerCntr">
+            <h1 class="landing__header landing__header--1 no-margin">Luxury Outdoor Furnishings</h1>
+        </header>
+
 
         <div class="landing__section">
             <div class="landing__row landing__row--wrapCenter">
-                <div class="landing__col-1-4">
+                <div class="landing__col-1-2">
                     <a href="" class="landing__linkFull">
                         <img src="https://dummyimage.com/425x300/ccc/999" alt="" class="landing__figImg">
                     </a>
-                    <div class="landing__titleCaption landing__titleCaption--small">Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>
+                    <h2 class="landing__titleCaption landing__titleCaption--small">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h2>
                     <a href="" class="button button--small button-secondary--darkTrans">Outdoor Furniture</a>
                 </div>
     
-                <div class="landing__col-1-4">
+                <div class="landing__col-1-2">
                     <a href="" class="landing__linkFull">
                         <img src="https://dummyimage.com/425x300/ccc/999" alt="" class="landing__figImg">
                     </a>
-                    <div class="landing__titleCaption landing__titleCaption--small">Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>
-                    <a href="" class="button button--small button-secondary--darkTrans">Outdoor Furniture</a>
-                </div>
-
-                <div class="landing__col-1-4">
-                    <a href="" class="landing__linkFull">
-                        <img src="https://dummyimage.com/425x300/ccc/999" alt="" class="landing__figImg">
-                    </a>
-                    <div class="landing__titleCaption landing__titleCaption--small">Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>
-                    <a href="" class="button button--small button-secondary--darkTrans">Outdoor Furniture</a>
-                </div>
-
-                <div class="landing__col-1-4">
-                    <a href="" class="landing__linkFull">
-                        <img src="https://dummyimage.com/425x300/ccc/999" alt="" class="landing__figImg">
-                    </a>
-                    <div class="landing__titleCaption landing__titleCaption--small">Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>
+                    <h2 class="landing__titleCaption landing__titleCaption--small">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h2>
                     <a href="" class="button button--small button-secondary--darkTrans">Outdoor Furniture</a>
                 </div>
             </div><!-- /landing row-->

@@ -34,7 +34,14 @@ export default class Page extends PageManager {
 
     initHero(){
         let carouselObj = Object.assign({appendDots: '.landing__heroCarousel'}, TEAK.Globals.heroCarouselSettings);
-        $(".landing__heroCarousel", "#homeHero").slick(carouselObj);
+        
+        $(".landing__heroCarousel")
+            .on("init", function(event, slick){
+                $(this).find(".landing__heroSlide").each(function(){
+                    $(this).removeClass("hide");
+                });
+            })
+            .slick(carouselObj);
         
         this.lazyLoadInstance.update();
     }

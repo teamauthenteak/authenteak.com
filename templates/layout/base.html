@@ -116,6 +116,8 @@
 		Object.assign(TEAK.Data, {
 			cart: {
 				sub_total: "{{cart.sub_total.formatted}}",
+				sub_total_raw: "{{cart.sub_total.value}}",{{#each cart.taxes}}
+				tax: "{{cost.value}}",{{/each}}
 				quantity: "{{cart.quantity}}"
 			}
 		});
@@ -126,9 +128,9 @@
 	<script>
 	Clyde.init({
 		key: 'ck_live_my-client-key',
-		type: 'list',
+		type: 'simple',
 		skuList: ['SKU_XXX', 'SKU_YYY'],
-		pageKey: 'productPage'
+		pageKey: 'cart'
 
 	}, function() {
 		Clyde.appendToSelector('#prompt-container-element');

@@ -5,7 +5,8 @@
 - Added home page hero
 
 ## [1.20.29.001]
-- added payment info to footer
+- added payment info text to footer
+- installed authenteak.com GeoTrust SSL certificate to BigCommerce and added badge to footer
 
 ## [1.20.29]
 - Trade Cart fixes
@@ -16,7 +17,9 @@
 - added new heap tag: pdp_view_tooltip
 - added new icons to icon definitions
 - made mobile search bar show
-- remove search icon, added my account icon
+- Mobile: remove search icon, added my account icon
+- Minor Footer design realignment changes
+
 
 ## [1.20.28.003]
 - maxed header width at 1600px;

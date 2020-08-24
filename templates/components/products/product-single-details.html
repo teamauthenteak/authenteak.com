@@ -171,12 +171,13 @@
 				</p>
 
 
-
+			{{#if customer.customer_group_id '!=' '1' }}
 				{{#each product.custom_fields}}
-				{{#if this.name '==' "Promo Text"}}
-				<p class="pdp-promo-text">{{{this.value}}}</p>
-				{{/if}}
+					{{#if this.name '==' "Promo Text"}}
+					<p class="pdp-promo-text">{{{this.value}}}</p>
+					{{/if}}
 				{{/each}}
+			{{/if}}
 
 
 

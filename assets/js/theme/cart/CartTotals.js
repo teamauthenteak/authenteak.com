@@ -47,20 +47,14 @@
 		let grandTotal = document.getElementById("grandTotal");
 	
 		if( grandTotal ){
-			// updates the grand total
+			// updates the grand total after template calculation
 			let shippingTotal = grandTotal ? parseFloat(grandTotal.dataset.total.trim()) : 0;
 	
-			let subTotal = TEAK.Data.cart.sub_total;
-			subTotal = subTotal === 0 ? 0 : parseFloat(subTotal.total);
+			let subTotal = TEAK.Data.cart.sub_total_raw;
+			subTotal = subTotal === "0" ? 0 : parseFloat(subTotal);
 	
-			let tax = document.getElementById("cartTax") ? parseFloat(document.getElementById("cartTax").dataset.tax.trim()) : 0;
-			
-			// console.log(tax)
-			// console.log(shippingTotal)
-
+			let tax = TEAK.Data.cart.hasOwnProperty("tax") ? parseFloat(TEAK.Data.cart.tax) : 0;
 			let total = shippingTotal + subTotal + tax;
-
-			// console.log(total)
 
 			grandTotal.innerHTML = total.toLocaleString('en-US', {
 				style: 'currency',

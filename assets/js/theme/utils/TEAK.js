@@ -57,7 +57,6 @@ window.TEAK.Globals = {
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
-        adaptiveHeight: true,
         arrows: true,
         easing: "linear",
         autoplaySpeed: 8000,

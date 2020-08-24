@@ -137,12 +137,13 @@
         {{/each}}
       
 
-      
-      {{#each product.custom_fields}}
-        {{#if this.name '==' "Promo Text"}}
-            <p class="pdp-promo-text">{{{this.value}}}</p>
-        {{/if}}
-      {{/each}}
+        {{#if customer.customer_group_id '!=' '1' }}
+				{{#each product.custom_fields}}
+					{{#if this.name '==' "Promo Text"}}
+					<p class="pdp-promo-text">{{{this.value}}}</p>
+					{{/if}}
+				{{/each}}
+			{{/if}}
 
 
       {{#if theme_settings.product-single-display-order '===' 'product-description-first'}}

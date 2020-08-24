@@ -128,7 +128,7 @@
     &--whiteTrans{
         background-color: rgba(0, 0, 0, 0.25);
         border-color: #fff;
-        color: #fff;
+        color: #fff !important;
         padding-left: $standard-padding * 3;
         padding-right: $standard-padding * 3;
 
