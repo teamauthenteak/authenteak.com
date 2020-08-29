@@ -67,7 +67,23 @@ button.cart-item-edit {
 
 .data-cart-item-edit__content { display: none !important; }
 
+.cart-1-2{
+    @extend %span-1-2;
+    @extend %span;
+}
 
+.cart-coverage{
+    width: 100%;
+    float: left;
+    padding-bottom: 20px;
+    padding-top: 1.625rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-coverage-heading{
+    margin-top: 0;
+    line-height: 1;
+}
 
 .product-quantity-submit .form-field{
     width: 100%;
@@ -93,6 +109,10 @@ button.cart-item-edit {
     padding: 10px;
     margin-left: 10px;
     margin-bottom: 0 !important;
+}
+
+.product-option[data-name='Product']{
+    display: none;
 }
 
 @media screen and (max-width: $screen-md) {
@@ -279,6 +299,10 @@ button.cart-item-edit {
     }
 }
 
+.cart-totals-column{
+    width: 75%;
+}
+
 .cart-totals-column--rv {
     width: 100%;
     clear: both;
@@ -286,7 +310,7 @@ button.cart-item-edit {
 
 .cart-totals-column--coupon{
     clear: both;
-    float: left;
+    float: left !important;
 }
 
 

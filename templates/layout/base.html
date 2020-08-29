@@ -37,7 +37,7 @@
 {{{snippet 'html_head'}}}
 </head>
 
-<body class="{{> components/common/body-classes}}">
+<body class="{{> components/common/body-classes}} {{#if customer.customer_group_id '==' '1' }}trade__customer{{/if}}">
 	{{> components/header/customizations/facebook-pixel}}
 	{{> components/header/customizations/pintrest-ad}}
 
@@ -122,25 +122,8 @@
 			}
 		});
 	</script>
+	<script src="https://js.joinclyde.com/widget.js"></script>
 	<script src="{{cdn '/assets/js/theme/cart/CartTotals.js'}}"></script>
-
-	<!-- <script src="https://js.joinclyde.com/widget.js"></script> 
-	<script>
-	Clyde.init({
-		key: 'ck_live_my-client-key',
-		type: 'simple',
-		skuList: ['SKU_XXX', 'SKU_YYY'],
-		pageKey: 'cart'
-
-	}, function() {
-		Clyde.appendToSelector('#prompt-container-element');
-		// Clyde.appendToSelectorWithSku();
-		// Get the product SKU currently active on the page.
-		var productSku = 'SKU_XXX';
-		// Set the active product.
-		Clyde.setActiveProduct(productSku);
-	});
-	</script>-->
 	{{/if}}
 
 	{{> core/structured-data/website}}

@@ -24,6 +24,16 @@ export default class QuantityWidget {
         $quantityInput.val(value - 1).trigger('change');
       }
 
+
+      /**
+       * +/- Clyde Conracts
+       */
+      let clydeIncrement = $target.data();
+
+      if ( clydeIncrement.hasOwnProperty("clydeItemId") ) {
+        TEAK.Utils.storeData("clyde_increment", clydeIncrement);
+      }
+
     });
 
     // Simple input validation (keep input within min/max range)

@@ -6,7 +6,7 @@
 
 export default class GraphQL {
     constructor(){
-        this.graphEndpoint = 'https://authenteak.com/graphql';
+        this.graphEndpoint = `${window.location.hostname === "authenteak.com" || window.location.hostname === "local.authenteak.com" ? "https://authenteak.com/" : "/" }graphql`;
 
         this.settings = {
             method: 'POST',
@@ -239,6 +239,46 @@ export default class GraphQL {
                         }
                     }
                 }`;
+    }
+
+
+
+    getVariantData(productId){
+        return `query VariantData {
+                site {
+                    product(entityId: 124) {
+                        options {
+                            edges {
+                                node {
+                                    displayName 
+                                    entityId
+                                }
+                            }
+                        }
+                        variants(entityIds: 458) {
+                            edges {
+                                node {
+                                    options {
+                                        edges {
+                                            node {
+                                                displayName 
+                                                entityId 
+                                                values {
+                                                    edges {
+                                                        node {
+                                                            entityId
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }`
     }
 
 

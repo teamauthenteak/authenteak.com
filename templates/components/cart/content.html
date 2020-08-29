@@ -7,7 +7,7 @@
 
 <div class="cart-table">
   {{#each cart.items}}
-    <article class="cart-item cart-item--cntr" data-cart-item data-item-id="{{id}}">
+    <article class="cart-item cart-item--cntr" data-cart-item data-item-id="{{id}}" name="{{name}}" data-product-id="{{product_id}}">
       <div class="cell cart-item-info">
         <div class="cart-item-info-wrap">
           <div class="cart-item-image">
@@ -33,6 +33,7 @@
           </div>
           <div class="cart-item-text">
             <div class="product-brand">{{brand.name}}</div>
+
             {{#if type '===' 'GiftCertificate'}}
               <a class="product-name" href="{{edit_url}}">{{name}}</a>
             {{else}}
@@ -40,10 +41,16 @@
                 {{name}}
               </a>
             {{/if}}
+
+            <div class="clyde-cart-cta clyde__{{@index}}" data-item-id="{{id}}"></div>
+            <button type="button" class="clyde__faqBtn hide" onclick="TEAK.ThirdParty.clydeFaqOpen()">What is Clyde Protection? Read our FAQs &rsaquo;</button>
+
+
             <div class="cart-item-giftwrap">
               {{> components/cart/gift-wrap-item}}
             </div>
 
+            
             <div class="cart-item-shipping">
               {{#each this.custom_fields}}
                 {{#if this.name '==' "Lead-Time"}}
@@ -56,7 +63,6 @@
               {{/each}}
             </div>
 
-            <div class="clyde-cart-attach-point" data-item-id="{{id}}"></div>
             
           </div>
         </div>
@@ -67,7 +73,7 @@
           {{#if configurable_fields}}
             {{#each configurable_fields}}
               <div class="product-option">
-                <span class="cart-label">{{name}}: </span>
+                <span class="cart-label" data-value="{{value}}">{{name}}: </span>
                 {{#if is_file}}
                   <a href="/viewfile.php?prodfield={{../id}}&cartitem={{../../id}}">
                     {{value}}
@@ -81,7 +87,7 @@
 
       
           {{#each options}}
-            <div class="product-option">
+            <div class="product-option" data-name="{{name}}" data-value="{{value}}">
               <span class="cart-label" data-name="{{name}}">
                 {{#replace "Select " name}}Selected {{/replace}}: </span>
               {{#if is_file}}
@@ -132,6 +138,10 @@
   {{/each}}
 </div>
 
+<div class="clyde__faq hide" id="clydeFAQ">
+  <button type="button" class="clyde__closeBtn" onclick="TEAK.ThirdParty.clydeFaqClose()">×</button>
+  <div class="clyde__faqCntr"></div>
+</div>
 
 <script type="application/json" id="cartProductJson">
 [ 

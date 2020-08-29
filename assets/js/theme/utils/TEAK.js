@@ -140,6 +140,11 @@ window.TEAK.Globals = {
  * ------------------------------------------ */
 window.TEAK.Utils = {
 
+    // test if we are on localhost
+    isLocal(){
+        return (window.location.hostname === "localhost" || window.location.hostname === "local.authenteak.com");
+    },
+
     // gets the global svg sprite and then appends it to the DOM
     getSvgSprite: function(url){
         $.get(url).then(data => {
@@ -282,6 +287,25 @@ window.TEAK.Utils = {
 
 
     graphQL: {
+
+        get: function(queryObj){
+            return fetch(`${window.location.hostname === "authenteak.com" || window.location.hostname === "local.authenteak.com" ? "https://authenteak.com/" : "/" }graphql`, {
+                        method: 'POST',
+                        credentials: 'include',
+                        mode: 'cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${ (window.location.hostname === "localhost" || window.location.hostname === "local.authenteak.com") ? TEAK.Globals.graphQl_dev : TEAK.Globals.graphQl }`
+                        },
+                        body: JSON.stringify({
+                            query: queryObj
+                        })
+                    })
+                    .then(res => res.json())
+                    .then(res => res.data);
+        },
+
+
         // get product price
         determinePrice: function(prices){
             if(prices.salePrice !== null){
@@ -295,7 +319,47 @@ window.TEAK.Utils = {
             }else{
                 return  prices.price.value;
             }
+        },
+
+
+        getVariantData: function(productId, variantId){
+            return `query getVariantData{
+                        site {
+                            product (entityId: ${productId}){
+                                options {
+                                    edges {
+                                        node {
+                                            displayName 
+                                            entityId
+                                        }
+                                    }
+                                }
+                                variants (entityIds: ${variantId}) {
+                                    edges {
+                                        node {
+                                            options {
+                                                edges {
+                                                    node {
+                                                        displayName 
+                                                        entityId 
+                                                        values {
+                                                            edges {
+                                                                node {
+                                                                    entityId
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }`
         }
+
     },
 
 
@@ -313,12 +377,6 @@ window.TEAK.Utils = {
         if (!results[2]){return '';}
 
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
-    },
-
-
-    // test if we are on localhost
-    isLocal(){
-        return (window.location.hostname === "localhost" || window.location.hostname === "local.authenteak.com");
     },
 
 
@@ -629,6 +687,35 @@ window.TEAK.Modules = {};
  * Store settigns for 3rd parties
  * ------------------------------------------ */
 window.TEAK.ThirdParty = {
+
+    bigCommerce: {
+
+        getCart: function() {
+            return fetch('/api/storefront/carts?include=lineItems.physicalItems.options', {
+                        method: "GET",
+                        credentials: "same-origin"
+                    })
+                    .then(response => response.json());
+        },
+    
+        addCartItem: function(cartId, cartItems) {
+            return $.ajax({
+                        url: '/api/storefront/carts/' + cartId + '/items',
+                        type: "POST",
+                        data: JSON.stringify(cartItems)
+                    })
+                    .then(response => response);
+        },
+
+        deleteCartItem: function(cartId, itemId) {
+            return $.ajax({
+                        url: "/api/storefront/carts/" + cartId + '/items/' + itemId,
+                        type: "DELETE"
+                    })
+                    .then(response => response);
+         }
+    },
+
 
     klaviyo: {
         api_key: "pk_3784e980b946e8c97f81595f193161ec09",

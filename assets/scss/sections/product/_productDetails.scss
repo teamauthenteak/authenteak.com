@@ -343,6 +343,12 @@ h1.product-title {
     order: 1;
 }
 
+.trade__customer{
+    & .price-rrp{
+        display: none;
+    }
+}
+
 .price-value{
     order: 0;
 }

@@ -220,7 +220,8 @@ document.addEventListener('DOMContentLoaded', function(){
 	$(window).on("load", TEAK.Checkout.insertSurveyLink);
 
 	// clear out stored cart data
-	TEAK.Checkout.clearStorage('cartData');
+	let clearItems = ['cartData', 'clyde', 'clyde_increment', 'clyde_delete'];
+	clearItems.forEach((item) => { TEAK.Checkout.clearStorage(item) });
 
 	$(document.body)
 		.on("click", TEAK.Checkout.checkClickToCloseModal)

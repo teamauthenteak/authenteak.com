@@ -10,7 +10,7 @@
       "collection.html": "/outdoor-furniture/shop-by-collection/kingsley-bate-sag-harbor-collection/"
     },
     "page": {
-      "template_a.html" : "/",
+      "_template_a.html" : "/",
       "test.html" : "/test-page/",
       "warranties.html": "/warranties",
       "_swatchcheckout.html": "/swatch-checkout/"

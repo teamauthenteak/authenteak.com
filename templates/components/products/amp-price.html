@@ -68,8 +68,10 @@
         <div class="product-price-line" data-product-price-wrapper="without-tax">
           <span class="price-value"> {{> components/products/customizations/non-sale-price-fixed price=price}}</span>
 
+          {{#if customer.customer_group_id '!=' '1' }}
           {{#if price.saved}}
             <span class="price-rrp {{#unless price.with_tax}}highlight{{/unless}}">{{price.rrp_without_tax.formatted}}</span>
+          {{/if}}
           {{/if}}
           <br>
           

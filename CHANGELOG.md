@@ -3,6 +3,13 @@
 ## [1.20.30]
 - added clyde script to cart footer
 - Added home page hero
+- added clyde add/remove/update contracts
+- added clyde widget
+- added message for non trade qualified products
+- added feature to remove MSRP for trade users
+- button to show FAQ on page takeover modal in cart
+- updated trade badge text
+- added clyde icons in cart
 
 ## [1.20.29.001]
 - added payment info text to footer

@@ -117,11 +117,25 @@
       {{#if customer.customer_group_id '==' '1' }}
 				{{#each product.custom_fields}}
 					{{#if this.name '==' "Trade Discount"}}
-					<em class="badge badge--pdp">{{this.value}}% Trade Discount Applied</em>
+            {{#if this.value '==' 'Note: This item is not eligible for a trade discount'}}
+            {{else}}
+              <em class="badge badge--pdp">{{this.value}}% Trade Discount Applied</em>
+            {{/if}}
 					{{/if}}
 				{{/each}}
 			{{/if}}
   </div>
+
+  {{#if customer.customer_group_id '==' '1' }}
+    {{#each product.custom_fields}}
+      {{#if this.name '==' "Trade Discount"}}
+        {{#if this.value '==' 'Note: This item is not eligible for a trade discount'}}
+        <p>{{this.value}}</p>
+        {{else}}
+        {{/if}}
+      {{/if}}
+    {{/each}}
+  {{/if}}
 
 
 
@@ -173,7 +187,11 @@
           {{#if customer.customer_group_id '==' '1' }}
           {{#each product.custom_fields}}
               {{#if this.name '==' "Trade Discount"}}
-              <em class="badge badge--pdp">{{this.value}}% Trade Discount Applied</em>
+                  {{#if this.value '==' 'Note: This item is not eligible for a trade discount'}}
+  
+                  {{else}}
+                  <em class="badge badge--pdp">{{this.value}}% Trade Discount Applied</em>
+                  {{/if}}
               {{/if}}
 				  {{/each}}
 					{{/if}}
