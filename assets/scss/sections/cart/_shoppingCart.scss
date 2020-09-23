@@ -329,52 +329,6 @@ button.cart-item-edit {
     }
 }
 
-
-%promo-icon-size{
-    width: 20px;
-    height: 20px;
-}
-
-.promo{
-    margin: 10px auto;
-    padding: 10px 100px;
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-
-    &--notify{
-        background-color: #ebf7ff;
-    }
-
-    &--success{
-       background-color: #edf9eb; 
-    }
-
-    &__icon{
-        @extend %promo-icon-size;
-        margin-right: 15px;
-    }
-
-    &__svg{
-        @extend %promo-icon-size;
-        fill: #666
-    }
-
-    &__message {
-        white-space: unset;
-        font-size: 1rem;
-        line-height: 1;
-        color: #666;
-
-        strong{
-            color: #222;
-        }
-    }   
-}
-
-
 .customer-utils .button-wishlist {
     margin-right: 10px;
 }

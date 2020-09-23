@@ -3,6 +3,12 @@
  * script for the totals.html template
  */
 
+
+
+/** ----------------------------
+ * Clyde 3rd Party Module
+ ------------------------------*/
+ 
 (async function (document, window, TEAK, Clyde, $) {
 	let cart = await TEAK.ThirdParty.bigCommerce.getCart(),
 		clydeData = TEAK.Utils.getStoredData("clyde"),
@@ -83,24 +89,36 @@
 
 			TEAK.Utils.storeData("clyde", clydeObj);
 
+
 			// get variant data of the contract so we can update the contract with product info
 			let graphVariantTpl = TEAK.Utils.graphQL.getVariantData(parseInt(selectedContract.bcProductId), parseInt(selectedContract.bcVariantId));
 			
+
 			// add product data to clyde data
 			TEAK.Utils.graphQL.get(graphVariantTpl).then(function(response){
-				let options = [];
+				let clydeItem = { 
+					lineItems: [
+						{
+							quantity: parseInt(clydeObj[key].parent.quantity, 10),
+							productId: parseInt(selectedContract.bcProductId, 10),
+							optionSelections: []
+						}
+					]
+				};
 
+
+				// add covered product information to clyde contract item
 				response.site.product.options.edges.forEach(function(element){
 					switch(element.node.displayName){
 						case "covered-product-code":
-							options.push({
+							clydeItem.lineItems[0].optionSelections.push({
 								optionId: element.node.entityId,
 								optionValue: selectedContract.coveredProductCode
 							});
 							break;
 						
 						case "Product":
-							options.push({
+							clydeItem.lineItems[0].optionSelections.push({
 								optionId: element.node.entityId,
 								optionValue: clydeObj[key].parent.name
 							})
@@ -110,25 +128,17 @@
 					}
 				});
 
+
+				// add the covered product's variant information to clyde contract item
 				response.site.product.variants.edges[0].node.options.edges.forEach(function(element){
-					options.push({
+					clydeItem.lineItems[0].optionSelections.push({
 						optionId: element.node.entityId,
 						optionValue: element.node.values.edges[0].node.entityId
 					});
 				});
 
 
-				let clydeItem = { 
-						lineItems: [
-							{
-								quantity: parseInt(clydeObj[key].parent.quantity, 10),
-								productId: parseInt(selectedContract.bcProductId, 10),
-								optionSelections: options
-							}
-						]
-					};
-				
-
+				// add the clyde item to cart
 				TEAK.ThirdParty.bigCommerce.addCartItem(cart[0].id, clydeItem).then(function(){
 					TEAK.ThirdParty.heap.init({
 						method: 'track',
@@ -371,6 +381,10 @@
 
 
 
+/** ------------------------------------------------
+ * 1. 3rd Party Analytics: IntelliSuggest
+ * 2. Trade User Customizations for Grand Total
+ --------------------------------------------------*/
 
 (function (document, window, TEAK) {
 	let cartProductJson;
@@ -451,16 +465,6 @@
 		}
 	}
 
-
-
-	function readOnlyQty(){
-		$("[name*='Clyde Protection Plan']").each(function(){
-			$(this).find(".quantity-input").attr("readonly", true);
-		})
-	}
-
-
-
 	document.addEventListener('DOMContentLoaded', function () {
 		getProductCartJSON();
 		updateGrandTotal();
@@ -480,6 +484,9 @@
  * This is only a hack.
  * This needs to be done at the paypal level because...it's a hack.
  * This simply replaces the amazon button with a new one
+ * 
+ * 1. Amazon Button
+ * 2. More Trade User
 */
 
 (function (document, window) {
@@ -595,7 +602,9 @@
 
 
 
-// Bolt Customizations
+/* -------------------------------
+ Bolt 3rd Party Customizations
+---------------------------------- */
 (function (window, document, TEAK) {
 	let originalCheckoutButton = document.querySelector(".cart-actions .button-primary");
 	let boltButtons = document.getElementsByClassName("bolt-button-wrapper");

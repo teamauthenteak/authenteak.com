@@ -33,4 +33,81 @@
             transform: rotate(-90deg);
         }
     }
+
+
+    &--cart{
+        display: none;
+        padding: 10px 5px 5px 5px;
+        margin: 0px;
+        font-size: 0.8rem;
+        background-color: #fd7e23;
+        line-height: 1.4;
+        color: #fff;
+        font-weight: 400;
+        font-style: normal;
+        border-radius: 0;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        text-transform: uppercase;
+        position: absolute;
+        top: -2em;
+        width: 50px;
+        right: 0;
+        height: 70px;
+
+        @media only screen and (max-width: $screen-md ) {
+            top: -0.5em;
+        }
+
+        &:after {
+            content: "";
+            position: absolute;
+            right: -7px;
+            bottom: -5px;
+            width: 0;
+            height: 0;
+            border-top: 18px solid #fff;
+            border-left: 32px solid transparent;
+            border-right: 32px solid transparent;
+            transform: rotate(-180deg);
+        }
+    }
+}
+
+.trade__customer{
+    & .badge--cart{
+        display: block;
+    }
+
+    // because we have the badge we have to make this higher
+    & .cart-item{
+        min-height: 200px;
+
+        @media only screen and (max-width: $screen-md ) {
+            padding-top: 3.5em;
+        }
+    }
+
+    // for trade customers with a badge we have to move this around
+    & .cart-item-remove{
+        @media only screen and (max-width: $screen-lg ) {
+            left: 0;
+            padding: 5px;
+            line-height: 1;
+            top: auto;
+            bottom: 0;
+            right: 0;
+        }
+
+        @media only screen and (max-width: $screen-md ) {
+            left: 0;
+            right: auto;
+            padding: 5px;
+            line-height: 1;
+            top: 0em;
+        }
+    }
 }

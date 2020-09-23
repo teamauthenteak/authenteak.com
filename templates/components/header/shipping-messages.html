@@ -7,6 +7,11 @@
 	<div class="alert__message">Your order may ship in multiple packages.</div>
 </div>
 
+{{#if customer.customer_group_id '==' '1' }}
+<div class="promo promo--warn">
+  <div class="promo__message">Trade pricing and account credentials are confidential.<br>Account information may not be shared. Violating this policy will result in a termination of trade benefits.</div>
+</div>
+{{/if}}
 
 <div class="hide">
 {{#if cart.sub_total.value '<' '2998' }}

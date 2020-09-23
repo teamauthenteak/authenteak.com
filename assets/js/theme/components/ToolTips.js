@@ -136,12 +136,16 @@ export default class ToolTips{
 			let $optionSelector = $("#productOptions").find(`[data-option-title='${key}']`);
 
 			switch(element[key].type){
-				case "tabs": 
+				case "tooltip.tabs": 
 					this.tabsTip($optionSelector, element[key].tip);
                     break;
-                    
-				default: 
+					
+				case "tooltip":
+				case "general":
 					this.generalTip($optionSelector, element[key].tip);
+					break;
+
+				default: return;
 			}
 		});
     }

@@ -39,6 +39,9 @@
     display: none !important;
 }
 
+.async-hide { opacity: 0 !important}
+
+
 .ieShow{
     @extend .hide;
     visibility: hidden !important;

@@ -10,6 +10,8 @@
 - button to show FAQ on page takeover modal in cart
 - updated trade badge text
 - added clyde icons in cart
+- Trade discount bug fixes
+- landing page class for vertical align images
 
 ## [1.20.29.001]
 - added payment info text to footer

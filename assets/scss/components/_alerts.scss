@@ -1,3 +1,9 @@
+%promo-icon-size{
+    width: 20px;
+    height: 20px;
+}
+
+
 .alert{
     margin: 10px auto;
     padding: 10px;
@@ -24,16 +30,19 @@
     &__message{
         white-space: unset;
         font-size: 1rem;
-        line-height: 1;
+        line-height: 1.4;
     }
 }
-
 
 
 .promo{
     @extend .alert;
     padding: 10px 100px;
     color: #666;
+
+    @media only screen and (max-width: $screen-md ) {
+        padding: 10px
+    }
 
     strong{
         color: #222;
@@ -64,6 +73,10 @@
     &__message {
         white-space: unset;
         font-size: 1rem;
-        line-height: 1;
+        line-height: 1.4;
+
+        strong{
+            color: #222;
+        }
     }   
 }

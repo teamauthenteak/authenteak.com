@@ -208,12 +208,14 @@
 
 				{{#each product.custom_fields}}
 					{{#if this.name '==' "Assembly Required"}}
+					{{#if this.value '==' 'no' }}
 					<ul class="product__infoGraphic">
 						<li class="product__infoItem">
 							<svg class="icon icon-no-assembly"><use xlink:href="#icon-no-assembly-2" /></svg>
 							<strong>No assembly required.</strong>
 						</li>
 					</ul>
+					{{/if}}
 					{{/if}}
 				{{/each}}
 

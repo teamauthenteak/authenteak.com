@@ -101,6 +101,7 @@
           {{/each}}
 
           </div>
+
         {{#and options (if name "!==" "Request a Swatch")}}
         <button type="button" class="cart-item-edit" {{#if options}} {{else}} disabled {{/if}} data-cart-item-edit data-href="{{url}}" data-edit-id="{{id}}" data-product-id="{{product_id}}">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
@@ -119,6 +120,7 @@
       </div>
     </div>
 
+   
 
       <div class="cell cart-item-quantity">
         <span class="cart-label">{{lang 'cart.quantity'}}:</span>
@@ -130,6 +132,13 @@
         {{#if total_discounted}}
           <span class="cart-item-discount">{{total_discounted.formatted}}</span>
         {{/if}}
+
+          {{#each this.custom_fields}}
+            {{#if this.name '==' "Trade Discount"}}
+              <em class="badge badge--cart">Trade Price</em>
+            {{/if}}
+          {{/each}}
+        
         <a class="cart-item-remove" data-cart-item-remove href="{{remove_url}}">
           {{> svg/close}}
         </a>
