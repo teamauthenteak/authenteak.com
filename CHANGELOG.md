@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.20.31]
+- new cart layout and cart functionality
+- fix for trade flag show
+
 ## [1.20.30]
 - added clyde script to cart footer
 - Added home page hero

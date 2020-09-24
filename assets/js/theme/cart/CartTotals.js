@@ -400,7 +400,6 @@
 	}
 
 
-
 	// sets any analytics data
 	function setAnalytics() {
 		try {
@@ -469,6 +468,17 @@
 		getProductCartJSON();
 		updateGrandTotal();
 		setAnalytics();
+	});
+
+
+
+	let cartSummaryBtn = document.getElementById("cartSummaryBtn");
+	let cartContent = document.querySelector(".cart-content-cntr");
+
+	cartSummaryBtn.addEventListener("click", function(){		
+		cartSummaryBtn.classList.toggle("cart__summaryBtn--closed");
+		cartSummaryBtn.querySelector(".cart__summaryBtnText").innerHTML = cartSummaryBtn.classList.contains("cart__summaryBtn--closed") ? "Show Cart Summary" : "Hide Cart Summary";
+		cartContent.classList.toggle("hide");
 	});
 
 

@@ -3,6 +3,10 @@
     margin: 20px 0;
     @extend %button-rounded;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 }
 
 .paypal-smart-buttons{
@@ -20,10 +24,14 @@
         justify-content: center !important;
         align-items: center !important;
         align-content: center !important;
+        width: 100% !important;
     }
 
     .zoid-component-frame{
         padding-top: 5px !important;
+        width: 200px !important;
+        height: 40px !important;
+        position: static !important;
     }
 
     .paypal-button-shape-rect{

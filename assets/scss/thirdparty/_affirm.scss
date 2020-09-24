@@ -5,6 +5,10 @@
 .cart-affirm-btn{
     max-height: 55px;
     width: 100%;
+
+    @media only screen and (max-width: $screen-md) {
+        max-height: 40px;
+    }
 }
 
 .affirm-modal-trigger{
@@ -26,11 +30,14 @@
 }
 
 .cart-afirm-link{
-    display: block;
+    display: flex;
     width: 100%;
     line-height: 1;
     background-color: #0fa0ea;
     @extend %button-rounded;
     margin-top: 20px;
     height: 55px !important;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }
