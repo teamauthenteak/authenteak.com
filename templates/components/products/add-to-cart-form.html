@@ -9,6 +9,16 @@
   <input type="hidden" name="action" value="add">
   <input type="hidden" name="product_id" value="{{product.id}}" data-product-id/>
 
+  {{#if product.options}}
+  <h2 class="product__title product__title--2 product__title--customizePDP">
+    Customize Your Product
+    <button class="product__swatchRequestBtn product__swatchRequestBtn--pdp" swatch-request-button>
+        <svg class="product__swatchRequestIcon product__swatchRequestIcon--pdp"><use xlink:href="#icon-swatch"/></svg>
+        <span class="product__swatchRequestText product__swatchRequestText--pdp">Request A Free Swatch</span>
+    </button>
+  </h2>
+ {{/if}}
+
   <div class="product-options-container" data-product-option-change data-product-brand="{{product.brand.name}}" id="productOptions">
     {{#if product.customizations}}
       {{#each product.customizations}}
@@ -19,11 +29,10 @@
     {{#if product.options}}
       {{#each product.options}}
         {{{dynamicComponent 'core/forms/options' }}}
-        <hr>
       {{/each}}
     {{/if}}
   </div>
-  <script data-json="raw-options" type="application/json">{{{json product.options}}}</script>
+  <script data-json="raw-options" id="optionModuleJSON" type="application/json">{{{json product.options}}}</script>
   <script data-json="raw-warranty" type="application/json">{{{json product.warranty}}}</script>
 
   {{#if product.event_date}}
@@ -31,7 +40,8 @@
   {{/if}}
 
 
-
+  {{#if customer.customer_group_id '!=' '1' }}
+  
     {{#each product.custom_fields}}
       {{#if this.name '===' "Free Shipping Icon"}}   
         {{#if this.value '===' "Yes"}}
@@ -58,27 +68,75 @@
         {{/if}}
       {{/if}}
     {{/each}}
-      
 
+    {{/if}}
+      
+    
       {{#if product.options}}
       <p class="shipping-range shipping-range--dynamic">
         {{#each product.custom_fields}}
           {{#if this.name '==' "Lead-Time"}}
               {{this.value}}
+
+              {{#if this.value '===' "Ships next business day"}}
+                <span id="nextBussinessDay" class="shipping-range--tip">
+                  <script>
+                    document.addEventListener('DOMContentLoaded', function(){
+                        TEAK.Modules.leadTime.setTip("nextBussinessDay");
+                    });
+                  </script>
+                </span>
+              {{/if}}
+          {{/if}}
+
+          {{#if this.name '==' "Lead-Time 2"}}   
+            {{this.value}}
           {{/if}}
         {{/each}}
       </p>
       {{/if}}
     
+
+
   <div class="product-price">
       {{#if product.price}}
         {{> components/products/price price=product.price show_savings=true save_block=true}}
       {{/if}}
   
       {{#if product.call_for_price}}
-        <p>{{product.call_for_price}}</p>
+        {{#if product.call_for_price "!==" "showroom pricing"}}
+        <p class="product-price-message">{{product.call_for_price}}</p>
+        {{/if}}
       {{/if}}
+
+      {{#contains product.call_for_price "showroom pricing"}}
+        <p class="product-price-message-text">This manufacturer requests that we do not publish pricing for this item.  Please email <a href="mailto:customercare@authenteak.com">customercare@authenteak.com</a> for pricing and additional information.</p>
+      {{/contains}}
+
+
+      {{#if customer.customer_group_id '==' '1' }}
+				{{#each product.custom_fields}}
+					{{#if this.name '==' "Trade Discount"}}
+            {{#if this.value '==' 'Note: This item is not eligible for a trade discount'}}
+            {{else}}
+              <em class="badge badge--pdp">{{this.value}}% Trade Discount Applied</em>
+            {{/if}}
+					{{/if}}
+				{{/each}}
+			{{/if}}
   </div>
+
+  {{#if customer.customer_group_id '==' '1' }}
+    {{#each product.custom_fields}}
+      {{#if this.name '==' "Trade Discount"}}
+        {{#if this.value '==' 'Note: This item is not eligible for a trade discount'}}
+        <p>{{this.value}}</p>
+        {{else}}
+        {{/if}}
+      {{/if}}
+    {{/each}}
+  {{/if}}
+
 
 
 {{#if product.price.without_tax.value ">" 0.01}}
@@ -116,7 +174,6 @@
       {{/if}}
 
       <div class="product-price">
-
         <div style="display: none;">
           {{#if product.price}}
             {{> components/products/price price=product.price show_savings=true save_block=true}}
@@ -125,6 +182,18 @@
           {{#if product.call_for_price}}
             <p>{{product.call_for_price}}</p>
           {{/if}}
+
+          {{#if customer.customer_group_id '==' '1' }}
+          {{#each product.custom_fields}}
+              {{#if this.name '==' "Trade Discount"}}
+                  {{#if this.value '==' 'Note: This item is not eligible for a trade discount'}}
+  
+                  {{else}}
+                  <em class="badge badge--pdp">{{this.value}}% Trade Discount Applied</em>
+                  {{/if}}
+              {{/if}}
+				  {{/each}}
+					{{/if}}
           
           <!-- 
           {{#each product.custom_fields}}
@@ -166,7 +235,7 @@
           spinner
         "
         data-button-purchase
-        onclick="TEAK.thirdParty.heap.init({method: 'track', event:'add_to_cart', location: 'pdp' })">
+        onclick="TEAK.ThirdParty.heap.init({method: 'track', event:'add_to_cart', location: 'pdp' })">
         <span class="button-text">
           {{#if product.pre_order}}
             {{lang 'product.pre_order'}}
@@ -189,8 +258,12 @@
       {{/if}}
     {{/if}}
 
-    <p class="product-trade"><a href="/to-the-trade" title="Learn more about trade benifits">Shopping for a Client? Apply for Trade benefits.</a></p>
 
+    {{#if customer.customer_group_id '!=' '1' }}
+    <p class="product-trade"><a href="/to-the-trade" title="Learn more about trade benifits">Shopping for a Client? Apply for Trade benefits.</a></p>
+    {{/if}}
+
+    
     {{#if settings.show_wishlist}}
       <div class="wishlist-form" data-wishlist-dropdown>
         {{#if customer.wishlists.length}}
@@ -224,6 +297,88 @@
       </div>
     {{/if}}
   </div>
+
+  {{else}}
+
+  {{!-- free block ---}}
+
+  {{#if product.can_purchase}}
+  <div class="product-quantity-submit">
+    <div class="product-quantity-container">
+
+      {{#if product.show_quantity_input}}
+        <div class="form-field form-inline form-field--quantity">
+          <label class="form-label">
+            <strong class="form-label-text">
+              {{ lang 'product.quantity'}}
+            </strong>
+            <input
+              type="number"
+              class="product-quantity form-input"
+              name="qty[]"
+              value="{{#if product.quantity}}{{product.quantity}}{{else}}{{#if product.min_purchase_quantity}}{{product.min_purchase_quantity}}{{else}}1{{/if}}{{/if}}"
+              min="{{#if product.min_purchase_quantity}}{{product.min_purchase_quantity}}{{else}}0{{/if}}"
+              {{#if product.max_purchase_quantity}}max="{{product.max_purchase_quantity}}"{{/if}}
+              pattern="[0-9]+"
+            >
+            <div class="product-quantity-toggle-wrapper">
+              <button type="button" class="product-quantity-toggle product-quantity-decrement">
+                <svg class="icon icon-minus"><use xlink:href="#icon-minus" /></svg>
+              </button>
+              
+              <button type="button" class="product-quantity-toggle product-quantity-increment">
+                <svg class="icon icon-plus"><use xlink:href="#icon-plus" /></svg>
+              </button>
+             
+            </div>
+          </label>
+        </div>
+      {{/if}}
+    </div>
+  
+    {{#if product.can_purchase}}
+      <button type="submit" class="button button-primary button-primary--green button-wide add-to-cart button-progress spinner" data-button-purchase onclick="TEAK.ThirdParty.heap.init({method: 'track', event:'add_to_cart', location: 'pdp' })">
+        <span class="button-text">
+          {{#if product.pre_order}}
+            {{lang 'product.pre_order'}}
+          {{else}}
+            {{#if cart_icon '==' 'bag'}}
+              {{lang 'product.add_to_bag'}}
+            {{else}}
+              {{lang 'product.add_to_cart'}}
+            {{/if}}
+          {{/if}}
+        </span>
+      </button>
+    {{/if}}
+
+    
+    {{#if settings.show_wishlist}}
+      <div class="wishlist-form" data-wishlist-dropdown>
+        {{#if customer.wishlists.length}}
+          <a class="button button-secondary button-wide add-to-wishlist" href="#" data-wishlist-toggle>
+            {{lang 'product.add_to_wishlist'}}
+          </a>
+          <ul class="add-to-wishlists" data-wishlist-panel>
+            {{#each customer.wishlists}}
+              <li>
+                <a href="{{../product.add_to_wishlist_url}}&wishlistid={{id}}" data-wishlist="{{view_url}}">
+                  {{name}} ({{num_items}})
+                </a>
+              </li>
+            {{/each}}
+          </ul>
+        {{else}}
+          <a class="button button-secondary button-wide add-to-wishlist" href="{{product.add_to_wishlist_url}}">
+            {{lang 'product.add_to_wishlist'}}
+          </a>
+        {{/if}}
+      </div>
+    {{/if}}
+  </div>
+
+    {{/if}}
+
 {{/if}}
 </form>
 
@@ -234,7 +389,7 @@
     let qty = document.querySelector(".product-quantity").value,
         price = document.querySelector(".price-value").innerText.trim().replace(/\$|,/g, '');
 
-    TEAK.Modules.fbPixel.addToCart("{{product.title}}", price, "{{product.id}}");
+    // TEAK.Modules.fbPixel.addToCart("{{product.title}}", price, "{{product.id}}");
 
     TEAK.Modules.pintrest.addToCart({
       price: price, 

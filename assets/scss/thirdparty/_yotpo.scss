@@ -1,9 +1,4 @@
-:root {
-    --star-size: 15px;
-    --star-color: #fff;
-    --star-background: #fc0;
-  }
-  
+
   .yotpo-stars-rating {
     --percent: calc(var(--rating) / 5 * 100%);
     position: relative;
@@ -13,6 +8,7 @@
     line-height: 1;
     height: 15px;
     width: 90px;
+    margin-right: 5px;
    
     &::before {
       content: '★★★★★';
@@ -33,7 +29,7 @@
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0px 0px 1px #000;
+      text-shadow: 0px 0px 1px var(--star-background);
       position: absolute;
       top: 0;
       left: 0;
@@ -47,9 +43,14 @@
       color: var(--star-background) !important;
   }
 
+  .yotpo-reviews{
+    display: flex;
+    align-items: center;
+  }
+
   .yotpo-reviews-num{
-      padding: 0 5px;
-      text-decoration: underline;
+      padding: 0 2px;
+      text-decoration: none;
   }
 
   .yotpo-questions{
@@ -57,6 +58,7 @@
       margin-left: 5px;
       border-left: 1px solid #ccc;
       text-decoration: underline;
+      font-size: 0.75rem;
   }
 
 //Yotpo
@@ -81,12 +83,18 @@
     flex: 1 0 auto;
     margin-left: 20px;
     height: 20px;
+    color: #2e3036;
+}
+
+.yotpo-questions-num{
+    padding-right: 3px;
 }
 
 .yotpo-rv-wrapper{
     @extend .yotpo-pdp-wrapper;
     margin: 0;
     justify-content: center;
+    color: #2e3036;
 
     & .yotpo-reviews-num{
         padding: 0 1px;
@@ -105,7 +113,7 @@
 }
 
 .yotpo-stars + a.text-m, .slick-list .product-price-line{
-    display: none;
+    // display: none;
 }
 
 .yotpo-default-button{
@@ -157,4 +165,8 @@
 
 .yotpo.yotpo-main-widget .yotpo-icon-btn .yotpo-icon, .yotpo-icon-button-text{
     color: #666 !important;
+}
+
+.yotpo .yotpo-review .yotpo-header .yotpo-review-stars .yotpo-icon{
+    color: var(--star-background) !important;
 }

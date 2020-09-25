@@ -7,8 +7,16 @@
     @extend %span-1-1;
     @extend %span;
 
+    &__freezeBody{
+        @extend %freeze-body;
+    }
+
+    @media only screen and (max-width: $screen-xs) {
+       padding: 0;
+    }
+
     & .button{
-        display: inline-block !important;
+        display: inline-block;
     }
 
     &__breadcrumbs{
@@ -16,26 +24,202 @@
     }
 
     &__name{
-        margin-top: 0;
-        font-size: 1.6rem;
+        margin: 0 0 16px 0;
+        font-size: 1.8rem;
+        line-height: 1.4;
 
         &--sm{
-            font-size: 1.1rem;
+            font-size: 1.4rem;
             margin: 0;
         }
     }
 
-    &__itemNum{
-        margin-top: 2px;
+    &__infoGraphic{
+        width: 100%;
+        margin: 30px 0;
+    }
+
+    &__infoItem{
+        justify-content: flex-start;
         display: flex;
-        justify-content: center;
         align-items: center;
         align-content: center;
+
+        & .icon-no-assembly{
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+    }
+
+    &__title{
+        @extend .product__name;
+
+        &--flex{
+            display: flex;
+
+            @media only screen and (max-width: $screen-sm) {
+                flex-direction: column;
+            }
+        }
+
+        &--noMargin{
+            margin: 0;
+        }
+
+        &--2{
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            margin: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            align-content: center;
+        }
+
+        &--customizePDP{
+            text-transform: capitalize;
+            padding-bottom: 0;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            
+            @media only screen and (max-width: $screen-md) {
+                flex-direction: column;
+            }
+
+            @media only screen and (max-width: $screen-xs) {
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    &__tabTitle{
+        @extend .product__title;
+        margin: 0;
+        display: flex;
+        margin: 0 -20px;
+        padding: 20px;
+
+        &:hover{
+            background-color: rgba(110, 164, 56, 0.05);
+        }
+
+        &--noBg{
+            &:hover{
+                background-color: transparent;
+            }
+        }
+
+        @media only screen and (max-width: $screen-sm) {
+            flex-direction: column;
+        }
+    }
+
+    &__titleLink{
+        display: flex;
+        align-content: center;
+        align-items: center;
+        line-height: 1;
+        flex: 1 0 auto;
+        width: 100%;
+
+        &:hover{
+            & .icon-chevron-down{
+                fill: $btn-color-green;
+                transform: rotate(-90deg);
+            }
+        }
+
+        & .icon{
+            width: 50px;
+            height: 50px;
+            flex: 0 0 auto;
+            fill: #333;
+            transform: rotate(0deg);
+            transition: all 0.3s ease;
+        }
+
+        &--active{
+            & .icon-chevron-down{
+                transform: rotate(180deg);
+            }
+
+            &:hover{
+                & .icon-chevron-down{
+                    transform: rotate(180deg);
+                }
+            }
+        }
+
+        
+    }
+
+    &__titleText{
+        display: flex;
+        flex: 1 0 auto;
+        align-items: center;
+        align-content: center;
+        font-weight: 400;
+
+        @media only screen and (max-width: $screen-sm) {
+            padding: 15px 0;
+        }
+
+        & .icon{
+            width: 25px;
+            height: 25px;
+            margin-right: 20px;
+            fill: #aaa;
+        }
+    }
+
+    &__titleBtn{
+        @extend .button;
+        @extend .button-primary;
+        @extend .button-primary--green;
+        padding: 8px 20px;
+        align-self: flex-end;
+
+        @media only screen and (max-width: $screen-sm) {
+            margin:20px 0;
+            align-self: center;
+            width: 100%;
+        }
+    }
+
+    &__desc{
+        margin: 0 0 15px 0;
+    }
+
+    &__descLink{
+        text-decoration: none;
+        border-bottom: 1px solid #ccc;
+    }
+
+    &__bgHighlight{
+        background-color: #f2f2f2;
+
+        @media only screen and (max-width: $screen-sm) {
+            padding: 10px !important;
+        }        
+    }
+
+    &__itemNum{
+        margin: 10px 0 20px 0;
+        padding-bottom: 10px;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        border-bottom: 1px solid #eee;
+        line-height: 1;
+        font-size: .75rem;;
     }
 
     &__ratingWrapper{
+        @extend .yotpo-pdp-wrapper;
         text-decoration: none;
-        display: flex ;
+        display: flex;
     }
 
     &__shipping{
@@ -43,12 +227,67 @@
         @extend .shipping-range--static;
     }
 
+    &__shippingInfo{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        line-height: 1.4;
+        margin-bottom: 16px;
+
+        @extend .alert--notify;
+        padding: 5px;
+        color: #084d80;
+        text-align: left;
+        border-bottom: 3px solid #d6e4ef;
+    }
+
+    &__priceCntr{
+        float: left;
+        width: 50%;
+        padding: 20px 0;
+    }
+
+    &__price{
+        font-size: 1.6rem;
+        margin: 0;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        float: left;
+        line-height: 1;
+        width: 100%;
+
+        &--left{
+            justify-content: start;
+            text-align: left;
+        }
+    }
+
+    &__priceLine{
+        margin: 0;
+        align-items: baseline;
+    }
+
+    &__priceValue{
+        order: 0;
+    }
+
+    &__priceRrp{
+        @extend .highlight;
+        @extend .price-rrp;
+        opacity: 0.5;
+        font-size: 1.1rem;
+    }
+
+
+
     &__promoText{
         @extend .pdp-promo-text;
     }
 
     &__highlights{
         @extend .highlight-group;
+        margin-bottom: 20px;
     }
 
     &__headerCntr{
@@ -90,10 +329,15 @@
     &__row{
         @extend .landing__row;
         text-align: left;
+        padding: 0;
+        flex-direction: column;
+
+        &--section{
+            padding: 20px 0 !important;
+        }
         
         &--border{
             border-top: 1px solid #eee;
-            margin-top: 20px;
         }
 
         @media only screen and (max-width: $screen-sm) {
@@ -105,76 +349,29 @@
             @extend .landing__row--noFlex;
         }
     }
+    
+    &__col{
+        &--hide{
+            display: none;
+        }
 
-    &__figure{
-        @extend %span;
-        @extend .no-pad;
-    }
+        &--marginBottom{
+            margin-bottom: 40px;
+        }
 
-    &__col-1-1{
-        @extend %span-1-1;
-        @extend %span;   
-    }
+        &--rightBorder{
+            border-right: 1px solid #eee;
+        }
 
-    &__col-1-2{
-        @extend %span-1-2;
-        @extend %span;  
-        
-        @media only screen and (max-width: $screen-sm) {
-            width: 100%;
+        &--allBorder{
+            border: 1px solid #ccc;
+        }
 
-            & .product__col-1-2{
-                width: 50%;
-            }
-       }
-    }
-
-    &__col-1-3{
-        @extend %span-1-3;
-        @extend %span;  
-
-        @media only screen and (max-width: $screen-sm) {
-            width: 100%;
+        &--topBorder{
+            border-top: 1px solid #eee;
         }
     }
 
-    &__col-2-3{
-        @extend %span-2-3;
-        @extend %span;   
-
-        @media only screen and (max-width: $screen-sm) {
-            width: 100%;
-        }
-    }
-
-    &__col-1-4{
-        @extend %span-1-4;   
-        @extend %span;
-
-        @media only screen and (max-width: $screen-sm) {
-            width: 50%;
-       }
-    }
-
-    &__col-2-4{
-        @extend %span-2-4;
-        @extend %span;
-
-        @media only screen and (max-width: $screen-sm) {
-            width: 50%;
-       }
-    }
-
-    &__col-3-4{
-        @extend %span-3-4;
-        @extend %span;
-
-        @media only screen and (max-width: $screen-sm) {
-            width: 50%;
-       }
-    }
-
-   
 
     &__titleCaption{
         @extend .landing__titleCaption;
@@ -188,6 +385,33 @@
         @extend .brands__video;
     }
 
+
+    &__tabSection{
+        @extend %span;
+        @extend .product__col-1-1; 
+        @extend .product__col--topBorder;
+
+        padding: 0 20px 0 20px;
+
+        &--active{
+            padding-bottom: 20px;
+        }
+    }
+
+
+    &__figure{
+        @extend %span;
+        padding: 0;
+
+        @media only screen and (max-width: $screen-xs) {
+           padding: 20px
+        }
+
+        &--full{
+            width: 100%;
+        }
+    }
+
     &__figImg{
         @extend .landing__figImg;
         // max-height: 500px;
@@ -195,10 +419,16 @@
 
     &__img{
         object-fit: cover;
+        width: 100%;
 
         &--thumb{
             width: 100%;
         }
+    }
+
+    &__figLink{
+        display: block;
+        padding: 0 20px;
     }
 
     &__imgPagination{
@@ -221,8 +451,731 @@
     &__sidesWrap{
         @extend .product-slides-wrap;
     }
+
+
+
+    // qty
+    &__qtyCntr{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        align-content: center;
+        justify-content: flex-start;
+
+        & .product-quantity{
+            width: 70px;
+            text-align: center;
+        }
+    }
+
+    &__qtyText{
+        font-size: 1.2rem;
+        font-weight: 400;
+        margin-right: 10px;
+    }
+
+
+    // swatch
+    &__swatchCol{
+        @extend %span-1-1;
+        @extend %span;
+        padding: 20px 0;
+    }
+
+    &__swatchList{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        height: 100%;
+        justify-content: center;
+    }
+
+    &__swatchItem{
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        position: relative;
+
+        &--select{
+            width: 100%;
+        }
+    }
+
+    &__swatchLabel{
+        width: 100%;
+        border: 1px solid #ccc;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        padding: 8px 10px;
+        border-radius: $border-radius;
+        cursor: pointer;
+
+        &--error{
+            border-color: #FF5E5D;
+
+            & .product-quantity{
+                box-shadow: 0 0 0 1px #FF5E5D inset !important;
+            }
+
+            &:hover{
+                border-color: #FF5E5D !important;
+            }
+        }
+
+        &:hover{
+            border-color: $btn-color-green;
+        }
+
+        & .icon-long-arrow-right{
+            width: 10%;
+            height: 15px;
+            fill: #333;
+            margin-right: 4px;
+            margin-top: -4px;
+        }
+    }
+
+    
+    &__atcCollectionBtn{
+        @extend .button;
+        @extend .button-primary;
+        @extend .button--fullWidth;
+        @extend .button-primary--green;
+        outline: none;
+        height: 62px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        position: relative;
+    }
+
+    &__clearSwatch{
+        @extend .blog__clearFilter;
+        position: absolute;
+        top: 0px;
+        right: -8px;
+        padding: 5px;
+        background-color: #e74c3c;
+        margin: 0;
+
+        & .icon{
+            width: 10px;
+            height: 10px;
+            fill: #fff;
+        }
+    }
+
+    &__swatchColHeading{
+        margin: 10px 0 0 0;
+        line-height: 1;
+        font-size: 1rem;
+        text-transform: uppercase;
+    }
+
+    &__swatch{
+       width: 55px;
+       max-width: 55px;
+       height: 55px;
+       border-radius: 50%;
+       position: relative;
+       overflow: hidden;
+       flex: 0 0 auto;
+       width: 25%;
+
+       &--labelRight{
+            order: 2;
+       }
+    }
+
+    &__swatchLabelIcon{
+        @extend .icon;
+        @extend .icon-long-arrow-right;
+
+        &--right{
+            order: 3
+        }
+    }
+
+
+    &__swatchControls{
+        margin: 10px 0;
+        padding: 5px 0;
+        border-top: 1px solid #eee;
+        @extend .form-field;
+        @extend .form-field-options;
+        @extend .form-field-swatch;
+    }
+
+
+    &__swatchColor{
+        background-color: #eee;
+        background-size: cover;
+    }
+
+    &__swatchImg{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        object-fit: cover;
+    }
+
+    &__swatchText{
+        padding-left: 10px;
+        width: 75%;
+
+        &--right{
+            order: 1;
+            width: 100%;
+        }
+    }
+
+    &__swatchOptionText{
+        margin: 0;
+        font-size: 0.75rem;
+    }
+
+    &__swatchName{
+        font-weight: 800;
+        display: flex;
+        line-height: 1;
+        text-align: left;
+        font-size: 1rem;
+    }
+
+    &__swatchOptionIconCntr{
+        display: flex;
+        font-weight: 400;
+        margin-left: 8px;
+        font-size: 0.9rem;
+        font-style: italic;
+        color: #999;
+        white-space: nowrap;
+        align-items: center;
+
+        @media only screen and (max-width: $screen-lg) {
+            margin: 0;
+        }
+
+        @media only screen and (max-width: $screen-sm) {
+           display: none;
+        }
+    }
+
+    &__swatchOptionIcon{
+        width: 12px;
+        height: 12px;
+        margin: 0 4px 0 2px;
+    }
+
+    &__swatchValue{
+        display: none;
+        line-height: 1;
+        text-align: left;
+        margin-top: 5px;
+        padding: 0 0 0 16px;
+        position: relative;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        height: 14px;
+
+        &:before{
+            position: absolute;
+            content: "";
+            @include icon-check-mark($btn-color-green);
+            width: 12px;
+            height: 12px;
+            top: 50%;
+            left: 0;
+            margin-top: (-12px/2);
+        }
+    }
+
+    &__swatchRequestBtn{
+        display: none;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        line-height: 1;
+        padding: 0;
+        background-color: #fff;
+        outline: none;
+
+        &--pdp{
+            display: none;
+        }
+    }
+
+    &__swatchRequestIcon{
+        width: 15px;
+        height: 15px;
+        fill: #3498db;
+
+        &--pdp{
+            fill: $btn-color-green
+        }
+    }
+
+    &__swatchRequestText{
+        font-size: .95rem;
+        margin-left: 8px;
+        line-height: 1;
+        color: #3498db;
+        border-bottom: 1px solid #3498db;
+
+        &--pdp{
+            color: $btn-color-green;
+            border-bottom: 1px solid $btn-color-green;
+        }
+    }
+
+
+    &__swatchSelect{
+        @extend .form-input;
+        @extend .form-select;
+        width: 100%;
+    }
+
+
+
+
+    // Questions
+    &__noQuestions{
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        background-color: #f9f9f9;
+        flex-direction: column;
+        border: 1px solid #eee;
+        margin: 10px 0;
+
+        @media only screen and (max-width: $screen-sm) {
+           text-align: center;
+
+           & .product__col--rightBorder{
+               border-right: none;
+               border-bottom: 1px solid #eee;
+               padding: 0 0 20px 0 !important;
+               margin-bottom: 20px;
+           }
+        }
+
+        &--row{
+            flex-direction: row;
+
+            @media only screen and (max-width: $screen-sm) {
+                flex-direction: column;
+            }
+        }
+    }
+
+    &__questions{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__questionBtn{
+        padding: 0;
+        background-color: transparent;
+
+        & .icon{
+            width: 30px;
+            height: 30px;
+            fill: $btn-color-green;
+        }
+    }
+
+    &__questionCol{
+       padding-right: 20px;
+
+        &--main{
+            width: 100%;
+
+            @media only screen and (max-width: $screen-sm) {
+                padding-right: 0;
+            }
+        }
+    }
+
+    &__questionItem{
+        padding: 20px 0;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        flex-direction: row;
+
+        &:last-of-type{
+            border: none;
+        }
+    }
+
+    &__questionHeading{
+        display: flex;
+        flex-direction: column;
+        margin: 0px;
+    }
+
+    &__questionText{
+        font-size: 1.2rem;
+        line-height: 1.4;
+        font-weight: 800;
+        display: flex;
+        align-items: flex-start;
+        align-content: center;
+        margin-bottom: 3px;
+    }
+
+    &__questionAnswerCount{
+        @extend .product__swatchOptionIconCntr;
+        font-size: 1.1rem;
+        align-items: center;
+        align-content: center;
+        color: $btn-color-green;
+
+        & .icon{
+            width: 15px;
+            height: 15px;
+            margin: 0 4px 0 2px;
+            fill: $btn-color-green;
+        }
+    }
+
+    &__questionMeta{
+        font-size: 0.85rem;
+        color: #aaa;
+        font-style: italic;
+    }
+
+    
+
+    // answers
+    &__answer{
+        display: flex;
+        flex-direction: column;
+        border-left: 5px solid rgba(110, 164, 56, 0.15);
+        padding-left: 20px;
+        margin-bottom: 24px;
+    }
+
+    &__answerText{
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
+    &__answerMeta{
+        @extend .product__questionMeta;
+    }
+
+
+
+
+    // reviews
+    &__noReviews{
+        @extend .product__noQuestions;
+    }
+
+    &__noReviewsHeading{
+        margin: 0 0 10px 0;
+        font-weight: 800;
+    }
+
+    &__noReviewsText{
+        line-height: 1.2;
+        margin: 0 0 10px 0;
+    }
+
+
+
+    // modal
+    &__modal{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+    }
+
+    &__modalDialog{
+        @extend .toolTip__cntr;
+        margin-top: 5vh;
+        top: auto;
+        width: 90vw;
+        margin-left: -(90vw/2);
+        height:90vh;
+        max-height: none;
+
+        &--success{
+            width: 60vw;
+            margin-left: -(60vw/2);
+            height: auto;
+            top: 50%;
+            margin-top: -20vh;
+        }
+    }
+
+    &__modalDialogCntr{
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__closeBtn{
+        @extend .toolTip__closeBtn;
+        @extend .toolTip__closeBtn--whiteBack;
+        z-index: 9999;
+        right: 38px;
+        top: 20px;
+        outline: none;
+
+        & .icon{
+            fill: #555;
+            width: 50px;
+            height: 50px;
+        }
+    }
+
+    &__modalOverlay{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(35, 35, 35, 0.22);
+        z-index: 999;
+    }
+
+    &__modalHeading{
+        width: 100%;
+        padding: 20px;
+        float: left;
+
+        @media only screen and (max-width: $screen-sm) {
+            padding: 0 0 20px 0;
+        }
+    }
+
+    &__modalTitle{
+        padding-bottom: 10px;
+        margin: 0;
+        border-bottom: 1px solid #ccc;
+        line-height: 1;
+        text-transform: capitalize;
+
+        @media only screen and (max-width: $screen-sm) {
+            font-size: 1.8rem !important;
+        }
+
+        &--2{
+            margin: 0;
+            font-size: 2.4rem;
+
+            @media only screen and (max-width: $screen-sm) {
+                margin-bottom: 20px;
+            }
+        }
+
+        &--3{
+            margin: 0;
+            font-size: 1.2rem;
+            height: 100%;
+            display: flex;
+            align-items: center;
+
+            @media only screen and (max-width: $screen-sm) {
+                font-size: 1.1rem;
+            }
+        }
+
+        &--4{
+            margin: 0 0 5px 0;
+            font-weight: 800;
+            font-style: normal;
+            font-size: 1rem;
+        }
+    }
+
+    &__modalImg{
+        height: 200px;
+        object-fit: contain;
+    }
+
+    &__modalControl{
+        display: flex;
+        flex-direction: column;
+        padding: 0 20px;
+
+        @media only screen and (max-width: $screen-sm) {
+            padding: 0 0 20px 0 !important;
+        }
+
+        &--row{
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+
+    &__modalFieldset{
+        @extend .product__col-1-2;
+        border: 0;
+        margin: 0;
+
+        @media only screen and (max-width: $screen-sm) {
+            width: 100%;
+        }
+    }
+
+    &__modalOutput{
+        padding-left: 20px;
+        font-weight: 800;
+    }
+
+    &__modalControlGroup{
+        display: flex;
+        padding: 20px 0;
+
+        @media only screen and (max-width: $screen-sm) {
+            flex-direction: column;
+            padding: 0 0 20px 0 !important;
+        }
+    }
+
+    &__modalControlForm{
+        padding: 20px 0 0 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__modalControlLabel{
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+        line-height: 1;
+        display: inline-flex;
+        align-content: center;
+        flex-direction: row;
+
+        &--small{
+            font-size: 1.2rem;
+
+        }
+    }
+
+    &__modalControlInput{
+        padding: 20px;
+        box-shadow: 0 0 0 1px #ccc inset;
+        border: none;
+        border-radius: $border-radius;
+
+        &::placeholder{
+            color: #aaa;
+        }
+
+        &--textarea{
+            height: 100%;
+
+            @media only screen and (max-width: $screen-sm) {
+                height: 200px;
+            }
+        }
+    }
+
+    &__modalHelpList{
+        margin-top: 15px;
+
+        & li{
+            font-size: .9rem;
+            line-height: 1.3;
+            margin-bottom: 12px;
+
+            &:last-of-type{
+                margin: 0;
+            }
+        }
+    }
+
+    &__modalControlHelp{
+        font-size: 0.9rem;
+        margin: 10px 0 0 0;
+        line-height: 1.4;
+    }
+
+    &__modalSubmitBtn{
+        @extend .button;
+        @extend .button-primary; 
+        @extend .button-primary--green; 
+        @extend .button--fullWidth;
+        height: 62px;
+    }
+
+    &__modalSubmitText{
+
+    }
+
+    &__modalSubmitIcon{
+
+    }
+
 }
+
+
 
 body.product{
     padding: 0 !important;
+}
+
+[class*='product__col-']{
+    @extend %span;
+
+    @media only screen and (max-width: $screen-sm) {
+        & > [class*='product__col-']{
+            padding: 0;
+        }
+    }
+}
+
+// Mobile Portrait
+@include make-default-landing-grid(product__col);
+
+// Mobile Landscape
+@media only screen and (min-width: $screen-xs) {
+    @include make-landing-grid(xs, product__col);
+}
+
+// Tablet Portrait
+@media only screen and (min-width: $screen-sm) {
+    @include make-landing-grid(sm, product__col);
+}
+
+// Tablet Landscape
+@media only screen and (min-width: $screen-md) {
+    @include make-landing-grid(md, product__col);
+}
+
+// Desktop
+@media only screen and (min-width: $screen-lg) {
+    @include make-landing-grid(lg, product__col);
+}
+
+// Desktop Wide & HD TV
+@media only screen and (min-width: $screen-xl) {
+    @include make-landing-grid(xl, product__col);
 }

@@ -1,4 +1,6 @@
-
+%button-rounded{
+    border-radius: $button-border-radius !important;
+}
 
 .button {
     box-sizing: border-box;
@@ -8,6 +10,7 @@
     text-transform: uppercase;
     font-weight: 500;
     @extend %button-rounded;
+    text-decoration: none !important;
 
     &.progress{
         &:before, &:after{
@@ -19,11 +22,19 @@
         font-size: 1rem;
         padding: 8px 20px !important;
     }
+
+    &--fullWidth{
+        width: 100%;
+    }
+
+    &.button-wide{
+        @media screen and (max-width: $screen-sm){
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+        }
+    }
 }
 
-%button-rounded{
-    border-radius: $button-border-radius !important;
-}
 
 .button-primary{
     border-color: $btn-color-orange;
@@ -53,6 +64,19 @@
         &:hover{
             border-color: $btn-color-green;
             color: $btn-color-green;
+        }
+    }
+
+
+    &--greenTrans{
+        border-color: $btn-color-green;
+        background-color: rgba(255, 255, 255, 0.25);
+        color: $btn-color-green;
+
+        &:hover{
+            background-color: $btn-color-green;
+            border-color: $btn-color-green;
+            color: #fff;
         }
     }
 
@@ -89,6 +113,11 @@
         padding-left: $standard-padding * 3;
         padding-right: $standard-padding * 3;
 
+        @media only screen and (max-width: $screen-sm) {
+            padding-left: $standard-padding;
+            padding-right: $standard-padding;
+        }
+
         &:hover {
             background-color: #666;
             border-color: #fff;
@@ -99,9 +128,14 @@
     &--whiteTrans{
         background-color: rgba(0, 0, 0, 0.25);
         border-color: #fff;
-        color: #fff;
+        color: #fff !important;
         padding-left: $standard-padding * 3;
         padding-right: $standard-padding * 3;
+
+        @media only screen and (max-width: $screen-sm) {
+            padding-left: $standard-padding;
+            padding-right: $standard-padding;
+        }
 
         &:hover {
             background-color: #666;
@@ -135,8 +169,8 @@
 
 .button-mobile-nav-toggle{
     left: 10px;
-    height: 25px;
-    width: 25px;
+    height: 35px;
+    width: 35px;
     padding: 0;
 
     .burger {
@@ -151,7 +185,7 @@
 
 .button-mobile-nav-cart{
     position: absolute;
-    top: 50%;
+    top: 40%;
     right: 17px;
     transform: translateY(-50%);
 
@@ -179,6 +213,9 @@
 
 .button-cart{
     text-transform: uppercase;
+    position: relative;
+    height: 62px;
+    outline: none;
 }
 
 .button-mobile-nav-tel{
@@ -227,16 +264,17 @@
     height: 28px;
     transform: translateY(-38%);
 
-    @media screen and (min-width: $screen-xl){
-        display: none;
-    }
-
-    @media screen and (max-width: $screen-md){
+    @media screen and (max-width: $screen-lg){
         display: block;
     }
 
+    @media screen and (max-width: $screen-md){
+        display: none;
+    }
+
     @media screen and (min-width: $screen-sm){
-        right: 80px;
+        // right: 80px;
+        display: none;
     }
   
     &.has-promo {
@@ -265,6 +303,7 @@
     width: 35px;
     height: 35px;
     border-radius: 44px;
+    right: 5px;
 
     &:hover{
         .icon{

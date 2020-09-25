@@ -61,7 +61,8 @@
             {{{snippet 'product_rating'}}}
           {{/if}}
 
-          <div class="yotpo bottomLine" data-product-id="{{id}}"></div>
+          <!-- <div class="yotpo bottomLine" data-product-id="{{id}}"></div> -->
+
 
           {{#if quick_shop}}
             <button
@@ -88,6 +89,7 @@
           {{/if}}
         </div>
       </div>
+
   </figure>
 
   <div class="product-item-details">
@@ -99,14 +101,24 @@
     
     <h5 class="product-item-title">{{name}}</h5>
 
-    {{!-- 
-    <div class="product-item-price" data-product-price="{{> components/products/customizations/non-sale-price-fixed price=price}}">
-      {{> components/products/price
-        price=price
-        as_low_as=as_low_as
-      }}
+    <div class="product-price hide">
+      {{#if price}}
+        {{~default product.price.sale_price_without_tax.value price.without_tax.formatted~}}
+      {{/if}}
+
+      {{#if price}}
+          {{> components/products/price price=product.price show_savings=true save_block=true}}
+      {{/if}}
+  
+      {{#if call_for_price}}
+        <p>{{call_for_price}}</p>
+      {{/if}}
     </div>
-    --}}
+
+    <div class="yotpo-rv-wrapper hide yotpoRating__{{id}}">
+      <span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of ${product.rating} out of 5."></span>
+      (<span class="yotpo-reviews-num">0</span>)
+    </div>
 
   </div>
 </a>

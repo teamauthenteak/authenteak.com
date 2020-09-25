@@ -3,10 +3,15 @@
     margin: 20px 0;
     @extend %button-rounded;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 }
 
 .paypal-smart-buttons{
     margin: 0 !important;
+    width: 100% !important;
 }
 
 .paypal-button{
@@ -19,13 +24,25 @@
         justify-content: center !important;
         align-items: center !important;
         align-content: center !important;
+        width: 100% !important;
     }
 
     .zoid-component-frame{
         padding-top: 5px !important;
+        width: 200px !important;
+        height: 40px !important;
+        position: static !important;
     }
 
     .paypal-button-shape-rect{
         @extend %button-rounded;
     }
+}
+
+.apple-pay-checkout-button {
+    @extend %button-rounded;
+    height: 55px !important;
+    overflow: hidden;
+    width: 100% !important;
+    max-width: 350px;
 }

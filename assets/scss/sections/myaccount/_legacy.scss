@@ -1,0 +1,32 @@
+.account-status{
+    letter-spacing: normal;
+    border-radius: $border-radius;
+
+    &[data-status='Awaiting Shipment']{
+        background-color: #0984e3;
+    }
+
+    &[data-status='Partially Shipped']{
+        background-color: #00cec9;
+    }
+
+    &[data-status='Shipped']{
+        background-color: #6ea041;
+    }
+
+    &[data-status='Partially Refunded']{
+        background-color: #fdcb6e;
+    }
+
+    &[data-status='Refunded']{
+        background-color: #e17055;
+    }
+}
+
+.account-item-badge{
+    text-align: right;
+}
+
+.account-receipt-lead-time{
+    @extend .shipping-range--static;
+}

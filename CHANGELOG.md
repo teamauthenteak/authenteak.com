@@ -1,5 +1,290 @@
 # Change Log
 
+## [1.20.31]
+- new cart layout and cart functionality
+- fix for trade flag show
+
+## [1.20.30]
+- added clyde script to cart footer
+- Added home page hero
+- added clyde add/remove/update contracts
+- added clyde widget
+- added message for non trade qualified products
+- added feature to remove MSRP for trade users
+- button to show FAQ on page takeover modal in cart
+- updated trade badge text
+- added clyde icons in cart
+- Trade discount bug fixes
+- landing page class for vertical align images
+
+## [1.20.29.001]
+- added payment info text to footer
+- installed authenteak.com GeoTrust SSL certificate to BigCommerce and added badge to footer
+
+## [1.20.29]
+- Trade Cart fixes
+- Trade Flag fixes on PDP
+- Trade Flag custom field addition
+- update footer link arrangements
+- added new live chat icons in header/footer for desktop and mobile
+- added new heap tag: pdp_view_tooltip
+- added new icons to icon definitions
+- made mobile search bar show
+- Mobile: remove search icon, added my account icon
+- Minor Footer design realignment changes
+
+
+## [1.20.28.003]
+- maxed header width at 1600px;
+- updated checkout confirmation message
+- fixed header spacing/whitespace issue
+
+## [1.20.28.002]
+- fixed issue were header marketing data was not pulling correctly from the cloud
+- added localstorage expiration for header content to make sure we get updated flyout in a 24 hours
+
+## [1.20.28.001]
+- added filter to remove discontinued swatches on PDP
+- fixed issue where discount message was not showing on mobile
+- removed footer link to testimonials page
+
+## [1.20.28]
+- moved the header.json and product.json to firebase
+- Built ReactJS/PHP BigCommerce App to manage header and product data from control panel
+- Add Custom field for product dimensions
+- added price adjust to selected product swatch option
+- updated free shipping text
+- updated promo color text and button icon
+- added no assembly required verbiage and icon
+- fixed header issue where the excess l/r space on the header logo
+- merged Bolt fix for coupon code issue in to cart totals.js
+- fixed issue to show both the price adjusted value on selected product options
+
+## [1.20.27.005]
+- fixed an issue where there was an extra " for the order id causing a mismatch for the lead time
+
+## [1.20.27.004]
+- fixed option drawer filtering issue. 
+- removed fb pixel TEAK calls from inline js
+
+## [1.20.27.003]
+- pull out custom facebook pixel code
+
+## [1.20.27.002]
+- added custom filters to product options
+- added feature for default image for a "No Something" product option swatch
+- Slight refactor of CartTotals.js
+- Added feature to count brands and show "multiple shipping message"
+
+## [1.20.27]
+- Collection page v2 updates
+- moved CTA positions on collections page
+- moved analytics inline code to external script files
+  - Remove Affirm from Script Manager -> moved to base.html
+  - Remove Affirm jQuery version form Script Manager -> not necessary
+  - Remove Anti-Flicker for Google -> not necessary
+  - Removed Pingdom Page Load tracker -> not necessary
+- hide coupon code on checkout page if a trade user is logged in
+- created a search spring filter comp for possible UI update
+- reduced white space on collections page
+- fixed and updated a number of heap events for the PDP Options
+- added checkbox to my account sign-up form
+- updated promo text color
+- created Selenium IDE Smoke and Regression Tests
+- refactored image zoom js to work more efficiently on the PDP
+- Added verified reviewer for yotpo with SHA-256 encryption
+- Fixed the major 508 ADA known problems on: Home, PLP, PDP, Cart, Category Pages, Header
+- Fixed an issue in the product options drawer where if you search by keyword, then clear the keyword using the clear button, then click any filter, no search results come up.
+- Moved inline global SVG to fetched XHR SVG for performance
+- refactored save to localstorage to be more universal
+- added feature to save lead time to storage to show on my account orders page
+- Added firebase as a front-end source to store external data
+- removed billing address from my account order page and print invoice page
+- fixed tablet checkout UI display issues
+- added custom lead time messaging to invoice email and order confirmation page
+- fixed issue on order confirmation page where there was a race condition for the showing of the feedback modal link
+- fixed trade coupon issue on cart & checkout page
+- removed > from footer header links that were appearing in breadcrumbs on tablet
+- fixed issue where _learnq was throwing exception
+- fixed issue with my account and an exception thrown for the top promo banner
+- added BC Mustache tags to get cart data points to JS and reff back to carttotals.js
+- reverted new option filter in teak js
+- reverted GA, Bing, Pintrest in analytics js as it wasn't reporting correctly.
+- added pollyfills from teak to IE only
+- fixed issue where firebase wasn't adding new users to the db
+
+## [1.20.26]
+- Updated lead time ui on PDP
+- Added lead time to cart page
+- added "trade price" badge to PDP next to Price
+- Changed horizontal tabs to vertical accordion tabs on PDP
+- added new yotpo api integrated Questions
+- added new yotpo api integrated Reviews
+- Integrated new Questions and Reviews yotpo driven form
+- added fix for duplicate swatches
+- Created 2 responsive table variations for Specs on PDP
+- Added heap events in Heap console
+- added function to remove featured offers if a trade user is logged in
+- Updated trade shipping pricing for checkout per new %
+- added feature to hide resources if there are no resources for a given product
+- added check if warranty data is available on pdp to hide its tab
+- added custom code to cart to add custom coupon code for trade customers
+- fixed cart edit button alignment issue on cart page
+- fixed UI issues on Questions and Reviews Mobile
+- Fixed UI issue on question no question CTA
+- hide lead time 2 on mobile on pdp
+- mobile Question and Reviews UI fixes
+
+## [1.20.25]
+- Collections page
+- added qty on collections page
+- fixed form validation on collections page
+- fixed atc modal to have selected product options on collections page
+- added release version number query parameter to bundle.js
+- fixed product swatch modal last row size issue
+- fixed facebook pixel issue on totals/cart page
+- made tablet main nave flyout width smaller
+- added feature to save selected swatch when filtering
+- adjusted filter control icons and text for mobile
+- made ui updates for the filter controls & headings in the drawer flyout
+- added new sticky atc bottom modal that has link to cart
+- added UI to match normal pdp options for # of options + icon
+- added Analytics to collections page
+- fixed issue for hamburger menu being too small
+- made tablet main nav menu smaller
+- added lead time to collections page
+- added lead time tool tip to collections page
+- added tool tip for product options to collections page
+- added brand field to product graphql response 
+
+## [1.20.24]
+- removed * from select-box options
+- added new tabbed tool tip option
+- Move breadcrumbs above title on mobile devices
+- Hide video tabs on PDP
+- Create Catalogs Landing Page Template
+- Create Category Landing Page Templates
+- Fix remove icon on cart page
+- fixed an issue where the negative price regex wasn't working for the priceAdjust object in product options
+- fixed mobile header issue where the search icon was hard to click
+- added modifier classes for landing.css to fine tune for device sizes
+- added easy css touch scroll for ios devices
+- Fixed issue where the regex for the atc modal price was calculating incorrectly
+- added additional ui updates for the product swatch drawer
+- fixed an issue for the negative pricing rule not calculating correctly because it was picking up the wrong value
+- added IE 10 & 11 backwards compatibility for product options
+- implemented Implemented LazyLoad JS in to templates starting with Product Swatches, RV and Recomm Products
+- fixed issue on the cart where the edit form wasn't working. reverted to use legacy options for cart page
+- added loading icon to cart edit modal button
+- fixed issue with legacy fall back that would not allow an atc to happen
+- fixed lazy load of atc modal recomm product images
+
+## [1.20.23]
+- collections page updates
+- removed simple bar for swatch options in favor of ligheter css scroll styling
+- changed product swatches to css scroll rather than simplebar
+- Added Bolt page error fix
+- moved cart RV to show when a cart is empty
+- fixed an issue where the button on reqeust swatch checkout form was auto clicking
+- fixed issue in top nav where featured offers was triggering a dropdown with only the words "shop all featured"
+- integrated new options modal drawer flyout
+- updated options on PDP with drawer flyout
+- fixed some issues with the tooltip with the new product option fields
+
+## [1.20.22]
+- collections page updaes
+- fixed pdp thunbial cut off issue
+- fixed pdp thunbial pre loading alingment issue
+- added logic to search for "ships next day" on lead time to show tool tip
+- added TEAK tempalte object for js globals
+- Added Recently Viewed to Home page
+- changed swatch order from 5 to 3
+- graphql for recommended products on pdp
+- added check to make sure recommended products are on the page
+- changed cart header button to link to cart for graceful dedegration
+- added promo text to cart for upgraded delivery for orders > or < 2998
+- added reload if on cart to refresh the page messages and values
+- updated atc modal selector for new graphql recommended products
+
+## [1.20.21.003]
+- removed all free white glove delivery wording and options due to covid-19
+
+## [1.20.21.002]
+- fix to allow the tab tool tip to close when the user clicks off tool top or hit esc key
+- fixed Question(s) logic for PDP yotpo product qeustions
+- Update check-out to checkout on first step of swatch request funnel
+
+## [1.20.21.001]
+- adding heap script to order confirmation and checkout pages
+- added tax to cart page for trade users
+- update swatch checkout verbage
+
+## [1.20.21]
+- refactored header mega nav to JSON from inline JS for performance
+- added ability to clear blog on click/toggle-off of the active filter
+- Added tool tip for next bussiness day lead time field
+- Created new PDP Tabs Module and moved the code out of Product.js
+- added custom content feature for when a field no assumebly is present it adds content to shipping or any tab
+- added Tab JSON to product-single-details page from product.js to get template logic
+- added Tool Tip Tab ability
+- Trade Conditions to show/hide features
+- Trade condition in cart for % shipping
+- fixed issue where only one video shows in the top PDP page while there are multiple videos
+- Added top PDP arrows back to product thumbnails
+
+## [1.20.20.002]
+- fixed yotpo https error
+- fixed width issue on swatch checkout
+- removed legacy localstorage RV for TEAK namesspaced object
+- initalize slider in page.js only if the rv is avalaible
+- added the total_review field durring udpate/save and when the product object is fetched in product.js
+
+## [1.20.20]
+- New product swatch order checkout flow
+- order total snapshot
+- survey monkey modal at order confirmation
+- review stars
+- mega menu carrots
+- rich article snipets for blogs
+- lead time 2 on PDP
+- spaceing fix on blog
+- updateing pencil banner css
+- remove home from blog breadcrumbs
+- update the zend desk logo
+- product reviews condition when 0 reviews are present
+- added blog filter and post(s) logic
+
+## [1.20.19.001]
+- fixed further exceptions for missing cart in teak.js
+
+## [1.20.19]
+- added survey monkey to order confirmaiton page
+- Added a check to see if the old form data is different thant he new form data, if not then dont submit an unchanged edit options form to the server
+- added padding to search bar to keep it from being cut off
+- added cutom heap fields for myaccount to determine customer order history
+
+## [1.20.18.005]
+- fixed an issue where heap load is conflicting with the load event in teak.js
+- removed manual heap load event
+- updated footer alt tag for free deisng services
+- wrapped heap call
+
+## [1.20.18.004]
+- note: prevous versions were for merging
+- heap analyitcs fixes per call today
+- added promo banner dismission
+- added free design link in footer
+- fixed warantees page brand order
+
+## [1.20.18]
+- Heap Analytics tracking defect fixes
+- QA js exception fixes
+- added RV to cart page
+- fixed an issue with the selectbox option values still showing dollar amounts
+- made the logo smaller on mobile
+- fixed issue where one has to click an option value twice before it can be selected
+- fixed issue were at window sizes larger than table 1080 but smaller than 1300px larger main nav menus were being cutoff
+
 ## [1.20.17.001]
 - added unique UID for google analitcs as well as updated the uid in heap to use unified code
 

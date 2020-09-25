@@ -5,12 +5,14 @@
 
 /* Mixins */
 @import "/mixins/grid";
+@import "/mixins/landing-grid";
 @import 'mixins/respond';
 @import 'mixins/placeholder';
 
 
 /* Components */
 @import 'components/defaults';
+@import 'components/icons';
 @import 'components/generics';
 @import 'components/buttons';
 @import 'components/calculator';
@@ -18,6 +20,14 @@
 @import 'components/promobanner';
 @import 'components/breadcrumbs';
 @import 'components/progress';
+@import 'components/preloader';
+@import 'components/optionDrawer';
+@import 'components/selectBox';
+@import 'components/toaster';
+@import 'components/ratings';
+@import 'components/table';
+@import 'components/badge';
+@import 'components/alerts';
 
 /* Layout */
 @import 'layout/default';
@@ -47,9 +57,8 @@
 @import 'sections/blog/blog';
 @import 'sections/blog/filter';
 
-// other
-@import 'sections/newsletter';
-
+// my account
+@import 'sections/myaccount/legacy';
 
 /* Tempaltes */
 @import 'templates/brands';
@@ -57,9 +66,13 @@
 @import 'templates/blog';
 @import 'templates/product';
 
+// other
+@import 'sections/newsletter';
+
 /* Plugins */
-@import 'plugins/simplebar/simplebar';
+// @import 'plugins/simplebar/simplebar';
 @import 'plugins/slick';
+@import 'plugins/animate';
 
 /* Third Party */
 @import 'thirdparty/affirm';
@@ -72,6 +85,8 @@
 @import 'thirdparty/searchspring';
 @import 'thirdparty/bolt';
 @import 'thirdparty/klaviyo';
+@import 'thirdparty/shogun';
+@import 'thirdparty/clyde';
 
 /* Print */
 @import 'print';

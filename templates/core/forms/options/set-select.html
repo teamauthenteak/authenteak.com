@@ -1,31 +1,59 @@
-
-<div class="form-field form-field-options form-field-select{{#if required}} form-required{{/if}}"
-  data-product-attribute="set-select">
-  <label class="form-label">
-    <span class="form-field-title-cntr" data-option-title="{{display_name}}">
-      {{> core/forms/customizations/tooltip name=display_name type="select"}}
-
-      <span class="form-field-title">{{display_name}}:</span> &nbsp;
-      {{#if required}}<span class="required-text">{{lang 'common.required'}}</span>{{/if}}
-
-    </span>
-    <span class="form-field-control">
-      <div class="form-select-wrapper">
-        <select
-          class="form-input form-select"
-          id="attribute-{{id}}"
-          name="attribute[{{id}}]"
-          {{#if required}}required{{/if}}
-          aria-required="{{required}}">
-          <option value="" {{#any values selected=true}}{{else}}selected{{/any}} disabled>{{lang 'product.pick_one'}}</option>
-          {{#each values}}
-            <option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{label}}</option>
-          {{/each}}
-          {{#unless required}}
-            <option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{lang 'core.product.none'}}</option>
-          {{/unless}}
-        </select>
-      </div>
-    </span>
-  </label>
+<div class="selectBox form-field form-field-options form-field-select{{#if required}} form-required{{/if}} ieHide" data-option-title="{{display_name}}" set-select data-product-attribute="set-select" id="selectBox--{{id}}">
+	{{> core/forms/customizations/tooltip name=display_name type="select"}}
+	<label class="selectBox__label form-label" for="attribute-{{id}}">
+		<div class="selectBox__text selectBox__text--right">
+			<p class="selectBox__optionText">
+				<span class="selectBox__name selectBox__name--labelLeft">{{display_name}}</span>
+				<span class="selectBox__value">Select one</span>
+			</p>
+		</div>
+		<select class="selectBox__select form-input selectBox__select--{{id}}" id="attribute-{{id}}" name="attribute[{{id}}]" {{#if required}}required{{/if}} aria-required="{{required}}">
+			<option value="" disabled selected>Select one</option>
+			{{#each values}}
+			<option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{label}}</option>
+			{{/each}}
+			{{#unless required}}
+			<option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{lang 'core.product.none'}}</option>
+			{{/unless}}
+		</select>
+	</label>
 </div>
+
+
+
+
+<div class="form-field form-field-options form-field-select{{#if required}} form-required{{/if}} ieShow" data-product-attribute="set-select" id="formFieldOptions--{{id}}">
+	<label class="form-label">
+		<span class="form-field-title-cntr" data-option-title="{{display_name}}">
+		<span class="form-field-title">{{display_name}}:</span> &nbsp;
+		{{#if required}}<span class="required-text">{{lang 'common.required'}}</span>{{/if}}
+		</span>
+		<span class="form-field-control">
+		<div class="form-select-wrapper">
+			<select class="form-input form-select form-select--{{id}}" id="attribute-{{id}}" name="attribute[{{id}}]" {{#if required}}required{{/if}} aria-required="{{required}}">
+				<option value="" {{#any values selected=true}}{{else}}selected{{/any}} disabled>{{lang 'product.pick_one'}}</option>
+				{{#each values}}
+				<option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{label}}</option>
+				{{/each}}
+				{{#unless required}}
+				<option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{lang 'core.product.none'}}</option>
+				{{/unless}}
+			</select>
+		</div>
+		</span>
+	</label>
+
+	<script>
+		// Fall baack for IE10 & 11 ~ remove a node so our templtes dont 
+		(function(document){
+			if( navigator.appVersion.indexOf("MSIE 10") !== -1 || (navigator.userAgent.indexOf("Trident") !== -1 && navigator.userAgent.indexOf("rv:11") !== -1) ){
+				var selectParent = document.getElementById("selectBox--{{id}}");
+				var selectbox = document.querySelector(".selectBox__select--{{id}}");
+				selectParent.removeChild(selectbox)
+			}else{
+				document.getElementById("formFieldOptions--{{id}}").remove();
+			}
+		}(document))
+	</script>
+</div>
+

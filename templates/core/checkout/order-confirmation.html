@@ -4,72 +4,26 @@
     <title>{{head.title}}</title>
     {{{head.meta_tags}}}
     {{{head.config}}}
-
     <link href="{{head.favicon}}" rel="shortcut icon">
-
     {{{checkout.checkout_head}}}
     {{{stylesheet '/assets/css/optimized-checkout.css'}}}
+    {{{stylesheet '/assets/css/theme.css'}}}
     {{getFontsCollection}}
 
+    <script src="{{cdn '/assets/js/theme/utils/Analytics.js'}}"></script>
+    <!--[if gte IE 8]><script src="{{cdn '/assets/js/modernizr.js'}}"></script><![endif]-->
     <script async src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id=JL4kkS"></script>
-    
-      <style rel="stylesheet" type="text/css">
-      .checkoutHeader-logo{
-        max-width: 350px;
-      }
-
-      .klaviyo-form-MnvYmV{
-        position: fixed;
-        width: 500px;
-        top: 50%;
-        z-index: 9999;
-        left: 50%;
-        margin-top: -100px;
-        margin-left: -250px;
-        height: 200px;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        box-shadow: 0px 1px 50px 7px rgba(0, 0, 0, 0.34);
-        border-radius: 5px;
-        display: none;
-        flex: 1;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-      }
-      
-      .ResetElements__Div-sc-8e6zl9-0{
-        align-content: center !important;
-        align-items: center !important;
-      }
-
-      .ResetElements__Input-sc-8e6zl9-6{
-        height: 32px !important;
-        width: 100% !important;
-      }
-
-      .unsubscribe__closeModal{
-        order: 1;
-        color: #222;
-        font-size: 1.6rem;
-        line-height: 1;
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 10px 20px;
-      }
-    </style>
-
-
-    <script type="text/javascript">
-      window.language = {{{langJson 'optimized_checkout'}}};
-    </script>
-
+    <script async src="//cdn.searchspring.net/intellisuggest/is.min.js"></script>
+    <script src="{{cdn '/assets/js/bundle.js'}}"></script>
+    {{> components/common/TEAK-js}}
+    <script>window.language = {{{langJson 'optimized_checkout'}}};</script>
     {{{head.scripts}}}
   </head>
 
+
   <body>
+    {{> components/header/customizations/facebook-pixel}}
+
     <header class="checkoutHeader optimizedCheckout-header">
       <div class="checkoutHeader-content">
         <h1 class="is-srOnly">{{lang 'checkout.title'}}</h1>
@@ -88,142 +42,30 @@
       </div>
     </header>
 
+    <div class="promo promo--notify">
+      <div class="alert__message">Due to increased volumes and Covid-19 related challenges, lead-times may be extended.</div>
+    </div>
+
     {{{checkout.order_confirmation_content}}}
 
-   
-    <script>
-      let TEAK = {} || window.TEAK;
+    <div class="toolTip__cntr toolTip__cntr--small toolTip__cntr--hide" id="feedBackModal">
+      <button class="toolTip__closeBtn toolTip__closeBtn--whiteBack" data-close-modal rel="#feedBackModal">
+        <svg class="icon icon-close"><use xlink:href="#icon-close" /></svg>
+      </button>
 
+      <iframe src="https://www.surveymonkey.com/r/ZB9WGC8" style="width: 100%; height: 500px;"></iframe>
+    </div>
 
-      try{
-          TEAK.thirdParty.heap.init({
-            method: 'identify',
-            id: '{{customer.id}}'
-            
-          }).init({
-            method: 'track',
-            event: 'orderCompleted'
-
-          }).init({
-            method: 'addUser',
-            email: '{{customer.email}}',
-            name: '{{customer.name}}',
-            city: '{{customer.shipping_address.city}}',
-            state: '{{customer.shipping_address.state}}',
-            firstPurchaseDate: '',
-            createdAt: '',
-            purchaseCount: '',
-            purchaseTotalValue: ''
-          });
-
-      }catch(e){
-        console.log(e);
-      }
-      
-
-      
-      TEAK.Checkout = {
-
-        // clear cart from local storage
-        clearStorage: function(item){
-          window.localStorage.removeItem(item);
-          return this;
-        },
-
-        /* 
-          Injects the unsubscribe form into the pages
-          - Note: this is a work around because Bolt doesnt support Klaviyo  email signup from it's UI
-        */
-        buildUI: function(){
-          let confirmSection = document.getElementById("micro-app-ng-checkout").querySelector(".orderConfirmation-section");
-
-          let klaviyoForm = document.createElement('div');
-          klaviyoForm.setAttribute("class", "klaviyo-form-MnvYmV");
-          
-          let text = document.createElement('p');
-          text.setAttribute("class", "unsubscribe__text");
-          text.innerHTML = "It's official, you're an AuthenTEAK Insider! You'll be the first to know about promotions, events & new arrivals. If you wish to unsubscribe, <a href='' onclick='TEAK.Checkout.unsubscribePopupOpen(event);'>let us know</a>.";
-
-          let closeBtn = document.createElement('a');
-          closeBtn.setAttribute("class", "unsubscribe__closeModal");
-          closeBtn.setAttribute("onclick", "TEAK.Checkout.unsubscribePopupClose(event)");
-          closeBtn.innerHTML = "&times;";
-          klaviyoForm.appendChild(closeBtn);
-
-          confirmSection.appendChild(text);
-          confirmSection.appendChild(klaviyoForm);
-
-          this.hidePayByCheck();
-
-          return this;
-        },
-
-        /* Open Modal */
-        unsubscribePopupOpen: function(event){
-          event.preventDefault();
-          document.querySelector(".klaviyo-form-MnvYmV").style.display = "flex";
-          return this;
-        },
-
-        /* Close Modal */
-        unsubscribePopupClose: function(event){
-          event.preventDefault();
-          document.querySelector(".klaviyo-form-MnvYmV").style.display = "none";
-          return this;
-        },
-
-        // hide pay by check field
-        hidePayByCheck: function(){
-          let tags = document.getElementsByClassName("orderConfirmation-section");
-
-          for (let i = 0; i < tags.length; i++) {
-            let txt = tags[i].innerText || tags[i].innerHTML;
-            if (txt.includes("pay by check")) {
-              tags[i].style.display = 'none';
-            }
-          }
-        },
-
-        // third party intelliSuggest tracking
-        intelliSuggest: function(){
-          try{
-            IntelliSuggest.init({
-              siteId: TEAK.thirdParty.IntelliSuggest.siteId,
-            });
-              
-            // Loop through products in cart
-            TEAK.thirdParty.IntelliSuggest.haveItemArray.forEach( function(element){
-              IntelliSuggest.haveItem(element);
-            });
-        
-            IntelliSuggest.inSale({
-                orderId: TEAK.thirdParty.IntelliSuggest.cartId,
-                total: TEAK.thirdParty.IntelliSuggest.cartAmount,
-                city: "{{order.shipping_address.city}}",
-                state: "{{order.shipping_address.state}}",
-                country: "US"
-            });
-
-          } catch(err) {
-            console.log(err)
-          }
-
-          return this;
-        }
-
-      };
-
-      setTimeout(TEAK.Checkout.buildUI, 500);
-
-      // 3rd Party IntelliSuggest tracking
-      document.addEventListener('DOMContentLoaded', TEAK.Checkout.intelliSuggest);
-
-      // clear out stored cart data
-      TEAK.Checkout.clearCart('cartData');
+    <script type="application/json" id="orderID">
+    {{json checkout.order}}
     </script>
 
-    {{{footer.scripts}}}
+    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
 
+    <script src="{{cdn '/assets/js/theme/checkout/OrderConfirmation.js'}}"></script>
+    {{{footer.scripts}}}
 
 </body>
 </html>

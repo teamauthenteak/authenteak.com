@@ -8,7 +8,7 @@ import GiftWrapping from './cart/GiftWrapping';
 import Loading from 'bc-loading';
 import QuantityWidget from './components/QuantityWidget';
 import svgIcon from './global/svgIcon';
-
+import Personalization from './Personalization';
 import EditOptions from './cart/customizations/EditOptions';
 
 export default class Cart extends PageManager {
@@ -16,6 +16,14 @@ export default class Cart extends PageManager {
     super();
 
     this.$cartContent = $('[data-cart-content]');
+
+    // add Personalization engine
+    this.recentlyViewed = new Personalization({
+      type: "recentlyViewed"
+	});
+
+  this._initRecentlyViewed();
+  
 
     // brute-force apple-pay bodyclass in local environment
     if (window.ApplePaySession && $('.dev-environment').length) {
@@ -26,7 +34,7 @@ export default class Cart extends PageManager {
   loaded(next) {
     const context = this.context;
 
-    new QuantityWidget({scope: '[data-cart-content]'});
+    new QuantityWidget({ scope: '[data-cart-content]' });
 
     // Custom Options
     new EditOptions();
@@ -35,7 +43,7 @@ export default class Cart extends PageManager {
       loadingMarkup: `<div class="loading-overlay">${svgIcon('spinner')}</div>`,
     };
 
-    new GiftWrapping({scope: '[data-cart-content]', context});
+    new GiftWrapping({ scope: '[data-cart-content]', context });
     const cartContentOverlay = new Loading(loadingOptions, true, '.product-listing');
     const cartTotalsOverlay = new Loading(loadingOptions, true, '[data-cart-totals]');
 
@@ -80,25 +88,50 @@ export default class Cart extends PageManager {
     next();
 
     // Cart Page Prop 65 Toggle
-    var propBtnEl = document.querySelector('.prop-link');
-    var propWrapEl = document.querySelector('.prop-wrapper');
-    var propActive = false;
+    if(document.querySelector('.prop-link')){
+      let propBtnEl = document.querySelector('.prop-link');
+      let propWrapEl = document.querySelector('.prop-wrapper');
+      let propActive = false;
 
-    propBtnEl.addEventListener('click',  togglePropEl);
+      propBtnEl.addEventListener('click', togglePropEl);
 
-    function togglePropEl() {
-      propActive = !propActive;
-      propWrapEl.classList.toggle('open');
-      updatePropBtn();
-      console.log(propActive);
-    }
+      function togglePropEl() {
+        propActive = !propActive;
+        propWrapEl.classList.toggle('open');
+        updatePropBtn();
+        console.log(propActive);
+      }
 
-    function updatePropBtn() {
-      if (propActive) {
-        propBtnEl.innerHTML = "Close Information";
-      } else {
-        propBtnEl.innerHTML = "California's Residents see Proposition 65 Information";
+      function updatePropBtn() {
+        if (propActive) {
+          propBtnEl.innerHTML = "Close Information";
+        } else {
+          propBtnEl.innerHTML = "California's Residents see Proposition 65 Information";
+        }
       }
     }
+    
   }
+
+
+	_initRecentlyViewed(){
+		let $rv = $("#recentlyViewedProducts"),
+			recentProducts = this.recentlyViewed.getViewed();
+
+		if (recentProducts) {
+			recentProducts.forEach((element) => {
+				let tpl = this.recentlyViewed.buildPersonalizationSlider(element);
+				$(tpl).appendTo(".product-rv-carousel", $rv);
+			});
+
+      $rv.addClass("show");
+		}
+
+  	this.recentlyViewed.initProductSlider({
+      dotObj: {appendDots: '.product-rv-carousel'},
+      selector: '.product-rv-carousel',
+      context: '#recentlyViewedProducts'
+    });
+	}
+
 }

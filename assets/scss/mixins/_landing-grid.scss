@@ -1,0 +1,35 @@
+
+// calculates each grid column
+@mixin calc-landing-grid-column($index, $class, $columns, $base) {
+	@if ($index > 0) and ($class != null){
+
+		.#{$base}-#{$index}-#{$columns}--#{$class} {
+			@extend %span-#{$index}-#{$columns}-#{$class};
+		}
+
+	} @else {
+
+		.#{$base}-#{$index}-#{$columns}{
+			@extend %span-#{$index}-#{$columns};
+		}
+	}
+}
+
+// loops each column to serve calculating each grid column
+@mixin loop-landing-grid-columns($columns, $class, $base) {
+	@each $j in 1, 2, 3, 4, 10{
+		@for $i from 1 through $j {
+			@include calc-landing-grid-column($i, $class, $j, $base);
+		}
+	}
+}
+
+// Create grid for specific class
+@mixin make-landing-grid($class, $base) {
+	@include loop-landing-grid-columns($grid-columns, $class, $base);
+}
+
+// makes the default grid type
+@mixin make-default-landing-grid($base) {
+	@include loop-landing-grid-columns($grid-columns, null, $base);
+}

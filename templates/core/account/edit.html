@@ -11,10 +11,13 @@
     {{> core/alerts/alert-success forms.edit_account.success}}
 
   <script>
-    window.TEAK.thirdParty.heap.init({
+document.addEventListener('DOMContentLoaded', function(){
+    window.TEAK.ThirdParty.heap.init({
       method: 'identify',
-      id: '{{customer.id}}'
+      id: '{{customer.id}}.authenteak.com',
+      loggedIn: true
     });
+});
   </script>
 {{/if}}
 

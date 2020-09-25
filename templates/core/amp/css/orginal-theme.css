@@ -5562,9 +5562,9 @@ table.geotrust-ssl-seal-table {
       margin-right: 1.69492%; } }
   @media screen and (min-width: 1024px) {
     .site-footer .footer-nav {
-      width: 15.25424%;
+      width: 17%;
       float: left;
-      margin-right: 1.69492%; } }
+      margin-right: 0; } }
   .site-footer .footer-nav li {
     margin-bottom: 0.5rem; }
   .site-footer .navigation ul ul {

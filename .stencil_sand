@@ -1,15 +1,19 @@
 {
   "normalStoreUrl": "https://authenteaksandbox3.mybigcommerce.com",
   "port": "3300",
-  "clientId": "rz66zoq1909z88klo4taglvo5v15mq",
-  "accessToken": "ghszbquykuw7q05fvfg2dq1ezzly5rl",
+  "clientId": "ijelag55xgkgn6hjjujxx873zku4tx9",
+  "accessToken": "rhohi1ca1ca7nrhpizjc8gz7ywc3gga",
   "customLayouts": {
     "brand": {},
     "category": {
-      "shop-all-brands.html" : "/shop-all-brands/"
+      "shop-all-brands.html": "/shop-all-brands/",
+      "collection.html": "/outdoor-furniture/shop-by-collection/kingsley-bate-sag-harbor-collection/"
     },
     "page": {
-      "template_c.html" : "/test-page/"
+      "_template_a.html" : "/",
+      "test.html" : "/test-page/",
+      "warranties.html": "/warranties",
+      "_swatchcheckout.html": "/swatch-checkout/"
     },
     "product": {}
   }

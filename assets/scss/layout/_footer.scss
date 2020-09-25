@@ -1,3 +1,41 @@
+.footer{
+    &__seal{
+        position: absolute;
+        bottom: 20px;
+        border: none;
+
+        & *{
+            border: none;
+            padding: 0;
+        }
+    }
+
+    &__sealLink{
+        font-size: 0.2rem;
+        line-height: 1;
+        display: block;
+    }
+
+    &__chatBtn{
+        margin-left: -10px;
+    }
+
+    &__legalInfo{
+        text-align: left;
+        width: 100%;
+        margin-left: 40px;
+    }
+
+    &__legal{
+        font-size: 0.75rem;
+        line-height: 1.4;
+        margin: 0;
+        color: #555;
+    }
+}
+
+
+
 footer{
     &.site-footer {
         font-weight: normal;
@@ -9,6 +47,11 @@ footer{
     
     &.site-footer .bottom-bar {
         padding: 25px 0;
+        position: relative;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: space-between;
     }
 
     &.site-footer .footer-social a svg {
@@ -25,6 +68,11 @@ footer{
         bottom: 20px;
     }
     
+    @media screen and (min-width: $screen-lg) {
+        .footer-col-arrow{
+            display: none;
+        }
+    }
 
     @media screen and (max-width: $screen-lg) {
         &.site-footer .footer-nav {
@@ -38,10 +86,7 @@ footer{
             margin-right: 0;
             padding-right: 0;
         }
-    }
 
-
-    @media screen and (max-width: $screen-lg) {
         &.site-footer .footer-nav,
         &.site-footer .footer-info,
         &.site-footer .footer-social {
@@ -72,9 +117,11 @@ footer{
             margin: 10px 0;
             cursor: pointer;
             user-select: none;
+            font-size: 0.9rem;
 
             span{
                 margin-left: 10px;
+                position: relative;
             }
         }
 
@@ -89,6 +136,21 @@ footer{
     }
 }
 
+@media screen and (min-width: 1024px){
+    .site-footer .footer-nav {
+        width: (100%/5);
+        float: left;
+        margin-right: 0;
+    }
+}
+
+.site-footer .social-media-link{
+    & svg{
+        fill: #6ea438
+    }
+    
+}
+
 // Mobile
 footer.mobile-footer .footer-col.footer-accordion nav {
     display: none;
@@ -97,15 +159,19 @@ footer.mobile-footer .footer-col.footer-accordion nav {
 footer.mobile-footer .footer-col.footer-accordion .footer-title span::after {
     position: absolute;
     content: "";
-    background: url("data:image/svg+xml; utf8, <svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 20 20' enable-background='new 0 0 20 20' xml:space='preserve'><path d='M13.25 10l-7.141-7.42c-0.268-0.27-0.268-0.707 0-0.979 0.268-0.27 0.701-0.27 0.969 0l7.83 7.908c0.268 0.271 0.268 0.709 0 0.979l-7.83 7.908c-0.268 0.271-0.701 0.27-0.969 0s-0.268-0.707 0-0.979l7.141-7.417z'></path></svg>");
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml,%3Csvg class='icon-arrow-down' viewBox='0 0 9 7' enable-background='new 0 0 9 7' version='1.1' xml:space='preserve' xmlns='http://www.w3.org/2000/svg'%3E%3Ctitle%3Edropdown_arrow%3C/title%3E%3Cpath d='M1.832.753l2.668 2.7 2.67-2.7c.418-.42 1.097-.42 1.516 0 .417.424.42 1.11 0 1.533l-3.428 3.46c-.417.42-1.098.42-1.518 0L.314 2.287c-.42-.424-.42-1.11 0-1.533.42-.42 1.1-.42 1.518 0z'%3E%3C/path%3E%3C/svg%3E");
+    // background: url("data:image/svg+xml; utf8, <svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 20 20' enable-background='new 0 0 20 20' xml:space='preserve'><path d='M13.25 10l-7.141-7.42c-0.268-0.27-0.268-0.707 0-0.979 0.268-0.27 0.701-0.27 0.969 0l7.83 7.908c0.268 0.271 0.268 0.709 0 0.979l-7.83 7.908c-0.268 0.271-0.701 0.27-0.969 0s-0.268-0.707 0-0.979l7.141-7.417z'></path></svg>");
     color: #999;
-    height: 15px;
-    width: 15px;
+    height: 10px;
+    width: 10px;
+    transform: rotate(-90deg);
+    top: 3px;
 }
 
 footer.mobile-footer .footer-col.footer-accordion .footer-title.accordion-open span::after {
     content: "";
-    transform: rotate(90deg);
+    transform: rotate(0deg);
 }
 
 .gallery-icon {

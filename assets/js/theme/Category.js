@@ -8,6 +8,7 @@ import fillFacetRatingStars from './global/fillFacetRatingStars';
 import toggleFacet from './global/toggleFacet';
 import InfiniteScroll from 'infinite-scroll';
 import ProductImages from './product/ProductImages';
+import Collection from './Collection';
 
 export default class Category extends PageManager {
   constructor() {
@@ -20,9 +21,18 @@ export default class Category extends PageManager {
     }
 
     // Product Images
-		new ProductImages(".product-slides-wrap");
-
+    if(document.querySelector(".product-slides-wrap")){
+      new ProductImages(".product-slides-wrap");
+    }
+   
+    
+    if(document.getElementById("CategoryCollection")){
+      new Collection();
+    }
+    
     this._bindEvents();
+
+    this.initAnalytics();
 
     fillFacetRatingStars();
   }
@@ -49,6 +59,15 @@ export default class Category extends PageManager {
       $(event.currentTarget).toggleClass('is-open').next().toggleClass('visible');
     });
   }
+
+
+  initAnalytics(){
+		TEAK.ThirdParty.heap.init({
+      method: 'track',
+      event: 'plp_view',
+      location: 'plp'
+    });
+	}
 
 
   // infinate scroll for BC powered HTML underlay, only for SEO purposes
@@ -128,10 +147,5 @@ export default class Category extends PageManager {
 
     // toggle button classes
     $target.addClass('active').siblings().removeClass('active');
-
-    // TODO - possibly add this back after testing in live environ
-    // if (typeof(Storage) !== 'undefined') {
-    //   localStorage.setItem('listingView', $target.data('listing-view'));
-    // }
   }
 }

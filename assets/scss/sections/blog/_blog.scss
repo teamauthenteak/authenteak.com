@@ -4,17 +4,19 @@
 }
 
 .blog{
-    
-    .newsletter{
+
+    & .breadcrumb[data-name='Home'], .newsletter{
         display: none;
     }
+    
 
     &__header{
         @extend %span-1-1;
         @extend %span;
 
         &--post{
-            margin-bottom: 40px;
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
     }
 
@@ -75,8 +77,10 @@
 
 
     &__hero{
-        margin: 80px 0 300px 0;
+        margin: 80px 0 0px 0;
         position: relative;
+        display: flex;
+        height: 325px;
         @extend %block-layout-defaults;
 
         @media only screen and (max-width: $screen-sm) {
@@ -89,19 +93,19 @@
     }
 
     &__heroImgCntr{
-        background-color: #ccc;
+        background-color: #f2f2f2;
         width: 100%;
         max-height: 500px;
     }
 
     &__heroLink{
-        display: block;
+        display: flex;
+        width: 50%;
     }
 
     &__heroImg{
-        width: 100%;
-        height: auto;
-        object-fit: contain;
+        height: 100%;
+        object-fit: cover;
 
         @media only screen and (max-width: $screen-md) {
             height: 400px;
@@ -111,13 +115,13 @@
     &__heroHeading{
         border: 1px solid #ccc;
         padding: 20px;
-        width: 75%;
+        width: 50%;
         text-align: center;
-        position: absolute;
+        // position: absolute;
         background-color: #fff;
         left: 50%;
-        margin-left: (-75%/2);
-        bottom: -220px;
+        // margin-left: (-75%/2);
+        // bottom: -220px;
     }
 
     &__heroHeadingLink{
@@ -181,6 +185,7 @@
     &__postMeta{
         @extend %block-layout-defaults;
         text-align: center;
+        margin-bottom: 0;
 
         &--date{
             padding-right: 15px;
@@ -198,10 +203,54 @@
     &__postCntrHeading{
         width: 100%;
         text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 40px;
+        line-height: 1;
+        height: 40px;
+
+        @media only screen and (max-width: $screen-sm) {
+            flex-direction: column;
+            margin-bottom: 50px;
+        }
     }
 
     &__postTopicMeta{
         text-transform: capitalize;
+        display: inline-flex;
+        padding: 6px 10px 6px 20px;
+        border: 1px solid #ddd;
+        margin-left: 15px;
+        border-radius: $button-border-radius;
+        font-size: 1.2rem;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        line-height: 1;
+        background-color: #f2f2f2;
+
+        @media only screen and (max-width: $screen-sm) {
+            margin-top: 15px;
+        }
+    }
+
+    &__clearFilter{
+        display: flex;
+        line-height: 1;
+        padding: 7px;
+        border-radius: $button-border-radius;
+        background-color: #ccc;
+        margin-left: 10px;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+
+        & .icon{
+            width: 12px;
+            height: 12px;
+            fill: #fff;
+        }
     }
 
     &__postPod{
@@ -395,12 +444,12 @@
 }
 
 
+
 .blog-link {
     margin: 25px 0;
 }
 
 .blog-link p {
-    text-align: center;
     font-style: italic;
     margin: 0;
 }

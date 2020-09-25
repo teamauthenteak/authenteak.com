@@ -1,7 +1,37 @@
+html, body{
+    width: 100%;
+    height: 100%;
+}
+
 body *{
     font-family: "Karla", sans-serif !important;
+    -webkit-overflow-scrolling: touch;
 }
 
 p a, strong a{
     text-decoration: underline;
+}
+
+p + ol{
+    margin-left: 15px;
+}
+
+// taken from BC Backend
+label[for="radio-cheque"] {
+    display: none !important;
+}
+label[for="radio-stripe"] {
+    display: none !important;
+}
+div[ui-view="paymentBody-stripe"] {
+    display: none !important;
+}
+label[for=phoneInput]>small {
+    display: none;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }

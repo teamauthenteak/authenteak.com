@@ -1,5 +1,7 @@
 import PageManager from '../PageManager';
 import Modal from 'bc-modal';
+import Personalization from './Personalization';
+import LazyLoad from 'vanilla-lazyload';
 
 export default class Page extends PageManager {
     constructor() {
@@ -11,10 +13,80 @@ export default class Page extends PageManager {
             afterShow: this.initWufooWarrantyForm()
         });
 
+        this.lazyLoadInstance = new LazyLoad({
+			elements_selector: ".replaced-image, .lazy-image"
+		});
+
+        // add Personalization engine
+        this.recentlyViewed = new Personalization({
+            type: "recentlyViewed"
+        });
+        this._initRecentlyViewed();
+
         this.bindEvents();
+
+        if(window.location.pathname === "/"){
+            this.initHero();
+        }
     }
 
 
+
+    initHero(){
+        let carouselObj = Object.assign({appendDots: '.landing__heroCarousel'}, TEAK.Globals.heroCarouselSettings);
+        
+        $(".landing__heroCarousel")
+            .on("init", function(event, slick){
+                $(this).find(".landing__heroSlide").each(function(){
+                    $(this).removeClass("hide");
+                });
+            })
+            .slick(carouselObj);
+        
+        this.lazyLoadInstance.update();
+    }
+
+
+
+
+    _initRecentlyViewed(){
+		let $rv = $("#recentlyViewedProducts"),
+			recentProducts = this.recentlyViewed.getViewed();
+
+		if (recentProducts) {
+            // only doing this because of shogun ~ delete once shogun is removed
+            if(window.location.pathname === "/"){
+                $(`<section class="products-related products-recently-viewed section show" id="recentlyViewedProducts">
+                        <div class="container">
+                            <h3 class="section-title">RECENTLY VIEWED ITEMS</h3>
+                            <div class="product-grid product-rv-carousel"></div>
+                        </div>
+                    </section>`).insertAfter(".page-content"); 
+            }
+
+
+			recentProducts.forEach((element) => {
+                let tpl = this.recentlyViewed.buildPersonalizationSlider(element);
+                
+                if(document.querySelector(".product-grid")){
+                    $(tpl).appendTo(".product-rv-carousel", $rv);
+                }
+			});
+
+            $rv.addClass("show");
+
+            this.lazyLoadInstance.update();
+            
+            this.recentlyViewed.initProductSlider({
+                dotObj: { appendDots: '.product-rv-carousel' },
+                selector: '.product-rv-carousel',
+                context: '#recentlyViewedProducts'
+            });
+		}
+	}
+
+
+    
 
     initWufooWarrantyForm(){
         let s11hxi4x1j1ouoy,

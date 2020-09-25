@@ -9,12 +9,8 @@
 {{/if}}
 {{/partial}}
 
-<script id="schema-product">
-(function(document){
-  let schema = document.createElement('script');
-
-  schema.type = 'application/ld+json';
-  schema.text = JSON.stringify({
+<script id="schema-product" type="application/ld+json">
+{
     "@context": "http://schema.org/",
     "@type": "Product",
     "name": "{{product.title}}",
@@ -23,35 +19,28 @@
     "sku": "{{product.sku}}",
     "brand": "{{product.brand.name}}",
     "mpn": "{{product.mpn}}",
-	  "gtin": "{{product.gtin}}",
+    "gtin": "{{product.gtin}}",
     "offers": {
-      "@type": "Offer",
-      "priceCurrency": "{{currency_selector.active_currency_code}}",
-      "price": "{{#block "jsonPrice"}}{{/block}}",
-      "priceValidUntil": "2020-11-05",
-      "url": "//authenteak.com{{product.url}}",
-      "itemCondition": "{{#if product.condition '===' 'New'}}http://schema.org/NewCondition{{/if}}{{#if product.condition '===' 'Used'}}http://schema.org/UsedCondition{{/if}}{{#if product.condition '===' 'Refurbished'}}http://schema.org/RefurbishedCondition{{/if}}",
-      "availability": "{{#unless product.out_of_stock_message}}http://schema.org/InStock{{else}}http://schema.org/OutOfStock{{/unless}}",
-      "seller": {
-        "@type": "Organization",
-        "name": "{{settings.store_name}}"
-      }
+		"@type": "Offer",
+		"priceCurrency": "{{currency_selector.active_currency_code}}",
+		"price": "{{#block "jsonPrice"}}{{/block}}",
+		"priceValidUntil": "{{random 2021 2022}}-{{random 1 12}}-{{random 1 29}}",
+		"url": "{{product.url}}",
+		"itemCondition": "{{#if product.condition '===' 'New'}}http://schema.org/NewCondition{{/if}}{{#if product.condition '===' 'Used'}}http://schema.org/UsedCondition{{/if}}{{#if product.condition '===' 'Refurbished'}}http://schema.org/RefurbishedCondition{{/if}}",
+		"availability": "{{#unless product.out_of_stock_message}}http://schema.org/InStock{{else}}http://schema.org/OutOfStock{{/unless}}",
+		"seller": {
+			"@type": "Organization",
+			"name": "{{settings.store_name}}"
+		}
     },
     "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": 5,
-      "reviewCount": 1
+		"@type": "AggregateRating",
+		"ratingValue": 5,
+		"reviewCount": 1
     },
     "review": {
-      "@type": "Review",
-      "author": "site"
+		"@type": "Review",
+		"author": "site"
     }
-  });
-
-  document.querySelector('body').appendChild(schema);
-
-  let script = document.getElementById('schema-product');
-  script.parentElement.removeChild(script);
-
-}(document));
+}
 </script>

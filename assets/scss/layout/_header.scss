@@ -8,9 +8,14 @@ header{
         }
     }
 
-    
     .mobile-search-wrapper{
         display: none;
+    }
+
+    @media screen and (max-width: $screen-lg){
+        .mobile-search-wrapper{
+            display: block !important;
+        }
     }
     
     // header logo
@@ -29,6 +34,10 @@ header{
             min-width: 250px;
             padding-top: 20%;
             display: block;
+
+            @media screen and (min-width: $screen-lg){
+                min-width: 350px;
+            }
 
             img, svg {
             position: absolute;
@@ -52,9 +61,12 @@ header{
 
     .site-branding-link{
         display: block;
-        height: 40px;
+        height: auto;
         width: 100%;
         text-align: center;
+        margin: 0 auto;
+        max-width: 200px;
+        
 
         @media screen and (min-width: $screen-md){
             text-align: center;
@@ -66,6 +78,11 @@ header{
         height: 100%;
         object-fit: contain; 
         max-width: 500px;
+        margin-top: -5px;
+
+        @media screen and (max-width: $screen-sm){
+            max-width: 200px;
+        }
 
         @media screen and (max-width: $screen-xs - 80){
             max-width: 160px;
@@ -80,6 +97,10 @@ header{
         & .container{
             max-width: $standard-width;
         }
+
+        & .nav-container-wide.container{
+            max-width: 1600px !important;
+        }
     }
 
     &.site-header.compressed {
@@ -88,6 +109,31 @@ header{
     }
 
 
+    .customer__chat{
+        margin-right: 40px;
+
+
+        @media screen and (max-width: $screen-md){
+            position: absolute;
+            top: 50%;
+            right: 55px;
+            height: 23px;
+            margin: 6px 0 0 0;
+        }
+
+        &Desktop{
+            @media screen and (max-width: $screen-md){
+                display: none;
+            }
+        }
+
+        &Mobile{
+            @media screen and (min-width: $screen-md){
+                display: none;
+            }
+        }
+
+    }
 
 
 
@@ -97,6 +143,11 @@ header{
         transition: padding 0.25s ease;
 
         .compressed & { padding: 0; }
+
+        & .icon-person{
+            width: 20px;
+            height: 20px;
+        }
     }
 
     .top-bar .container {
@@ -106,6 +157,7 @@ header{
         min-height: auto;
         align-items: flex-start;
         align-content: flex-start;
+        max-width: 1600px !important;
 
         @media screen and (min-width: $screen-lg + 5){   
             align-items: center;
@@ -127,8 +179,12 @@ header{
         vertical-align: top;
     }
 
+    .top-bar-right{
+        position: relative;
+    }
+
     .top-bar-left {
-        width: 30%;
+        width: auto;
         transition: width 0.25s ease;
 
         @media screen and (max-width: $screen-lg + 5){ 
@@ -155,14 +211,14 @@ header{
 
     .top-bar-center {
         display: inline-block;
-        flex: 1;
-        padding: 0px 40px;
-        max-width: 750px;
+        flex: 0 1 auto;
+        padding: 5px 40px;
+        // max-width: 700px;
 
         @media screen and (max-width: $screen-lg + 5){   
             margin: 0 auto 10px auto !important;
             width: 40%;
-            padding: 0;
+            padding: 5px 0;
         }
 
         @media screen and (max-width: $screen-md){   

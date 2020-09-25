@@ -26,7 +26,8 @@
     {{/if}}
   {{/if}}
 
-  <div class="account-receipt-summary">
+
+  <!-- <div class="account-receipt-summary">
     <h2 class="account-receipt-summary-title">
       {{lang 'core.account.receipt.billing_title'}}
     </h2>
@@ -42,10 +43,11 @@
       </li>
       <li>{{order.billing_address.country}}</li>
     </ul>
-  </div>
+  </div> -->
+
 
   <div class="account-receipt-summary">
-    <span class="account-status">{{order.status_text}}</span>
+    <span class="account-status" data-status="{{order.status_text}}">{{order.status_text}}</span>
 
     <div class="account-item-details">
       <div class="account-item-detail">

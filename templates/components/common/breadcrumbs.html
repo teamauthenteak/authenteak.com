@@ -2,9 +2,9 @@
   <ul class="breadcrumbs">
     {{#each this}}
       {{#if url}}
-        <li class="breadcrumb {{#if @last}}is-active{{/if}}">
+        <li class="breadcrumb {{#if @last}}is-active{{/if}}" data-name="{{chop name}}">
           <a href="{{url}}" class="breadcrumb-label breadcrumb-link">
-            <span class="breadcrumb__mobileLabel">&lsaquo;</span>
+            {{!-- <span class="breadcrumb__mobileLabel">&lsaquo;</span> --}}
             <span itemprop="name">{{chop name}}</span>
           </a>
         </li>

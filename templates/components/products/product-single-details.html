@@ -1,5 +1,4 @@
-<section
-  class="
+<section class="
     product-details
     product-block
     section
@@ -8,92 +7,106 @@
     {{/unless}}
     {{cart_icon}}-icon
     {{theme_settings.product-single-display-order}}
-  "
-  id="productDetails"
-  data-product-container
-  data-product-title="{{product.title}}"
-  data-product-id="{{product.id}}">
-  <div class="container">
-    {{#unless quick_view}}
-    <div class="mobileHide">
-      {{> components/common/breadcrumbs breadcrumbs}}
-    </div>
-    {{/unless}}
+  " id="productDetails" data-product-container data-product-title="{{product.title}}" data-product-id="{{product.id}}">
 
-    <div class="product-details-column">
-      <h2 class="product-title mobileShow">{{this.product.title}}</h2>
-      <div class="mobileShow">
-        {{> components/common/breadcrumbs breadcrumbs}}
-      </div>
-      <p class="item-number item-number-mobile mobileShow">ITEM #: {{product.sku}}</p>
+	<div class="container">
+		{{#unless quick_view}}
+		<div class="mobileShow mobileShow--lg">
+			{{> components/common/breadcrumbs breadcrumbs}}
+		</div>
+		{{/unless}}
 
-      {{> components/products/customizations/swatch-hover-detail}}
+		<div class="product-details-wrapper">
+			<div class="product-details-column">
+				<h2 class="product-title mobileShow">{{this.product.title}}</h2>
+				<div class="mobileHide mobileHide--lg">
+					{{> components/common/breadcrumbs breadcrumbs}}
+				</div>
+				<p class="item-number item-number-mobile mobileShow">Item #: {{product.sku}} &nbsp;&nbsp;&nbsp; Internet
+					#: <span id="productID">{{product.id}}</span></p>
 
-      {{> components/products/product-single-images videos=product.videos images=product.images default_image=theme_settings.default_image }}
-      
-      <!--moved from add-to-cart-form.html-->
-      <div class="share-block">
-        <hr>
-        <div class="share-buttons-wrap">
-            <span class="share-title">
-                {{ lang 'product.share'}}
-              </span>
-          {{> components/common/share-buttons
-            share_buttons=settings.add_this
-            url=product.url
-            image=(getImage product.main_image 'thumb')
-            title=product.title
-          }}
-        </div>
-      </div>
-      <hr>
-      <div class="consult-showroom-wrap">
-        <div class="showroom-block">
-            <span class="gallery-icon gallery-phone">{{> components/products/gallery-phone-icon}}</span>
-            <p>For a Free Design Consultation or to Order by Phone <br>Call: <a href="tel:1-866-360-8325">1-866-360-8325</a></p>
-        </div>
-      </div>
-      <!--End Share-->
-    </div>
+				{{> components/products/customizations/swatch-hover-detail}}
 
-    <div class="product-details-column">
-      <!-- {{#if product.brand}}
+				{{> components/products/product-single-images videos=product.videos images=product.images default_image=theme_settings.default_image }}
+
+				<!--moved from add-to-cart-form.html-->
+				<div class="share-block">
+					<hr>
+					<div class="share-buttons-wrap">
+						<span class="share-title">
+							{{ lang 'product.share'}}
+						</span>
+						{{> components/common/share-buttons
+							share_buttons=settings.add_this
+							url=product.url
+							image=(getImage product.main_image 'thumb')
+							title=product.title
+						}}
+					</div>
+				</div>
+				<hr>
+				<div class="consult-showroom-wrap">
+					<div class="showroom-block">
+						<span class="gallery-icon gallery-phone">{{> components/products/gallery-phone-icon}}</span>
+						<p>For a Free Design Consultation or to Order by Phone <br>Call: <a
+								href="tel:1-866-360-8325">1-866-360-8325</a></p>
+					</div>
+				</div>
+				<!--End Share-->
+			</div>
+
+			<div class="product-details-column">
+				<!-- {{#if product.brand}}
         <a class="product-brand" href="{{product.brand.url}}">{{product.brand.name}}</a>
       {{/if}} -->
 
-      {{#if quick_view}}
-        <h1 class="product-title"><a href="{{product.url}}">{{this.product.title}}</a></h1>
-      {{else}}
-        <h1 class="product-title mobileHide">{{this.product.title}}</h1>
-      {{/if}}
-      
-        <div class="item-number">
-          <span class="mobileHide">ITEM #: {{product.sku}}</span>
-          <a class="yotpo-pdp-wrapper" href="#yotpoReviews" id="yotpoRating" title="Reviews of {{product.title}}">
-            <span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of 0 out of 5."></span>
-            <span class="yotpo-reviews-num">0</span>
-            <span class="yotpo-questions">
-              <span class="yotpo-questions-num">0</span> Questions
-            </span>
-          </a>
-        </div>
-      
+				{{#if quick_view}}
+				<h1 class="product-title"><a href="{{product.url}}">{{this.product.title}}</a></h1>
+				{{else}}
+				<h1 class="product-title mobileHide">{{this.product.title}}</h1>
+				{{/if}}
 
-      <div class="price-range">
-          {{#if product.options}}
-            {{#if product.price}}
-              {{> components/products/price price=product.price show_savings=false save_block=false}}
-            {{/if}}
-          {{else}}
-            <!-- show no price -->
-          {{/if}}
-      </div>
+				<div class="item-number">
+					<span class="mobileHide">Item #: {{product.sku}} &nbsp;&nbsp;&nbsp; Internet #: <span
+							id="productID">{{product.id}}</span></span>
+					<div class="yotpo-pdp-wrapper hide" id="yotpoRating">
+						<a href="#reviews" class="yotpo-reviews">
+							<span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of 0 out of 5."></span> (<span class="yotpo-reviews-num">0</span>)
+						</a>
+						<a href="#questions" class="yotpo-questions" title="Reviews of {{product.title}}">
+							<span class="yotpo-questions-num">0</span><span class="yotpo-questions-text"></span></span>
+						</a>
+					</div>
+				</div>
 
-      
-      <div class="affirm-pdp"></div>      
 
-      <!-- moved to add-to-cart.html -->
-      <!-- <div class="product-price">
+				<div class="price-range">
+					{{#if product.options}}
+						{{#if product.price}}
+							{{> components/products/price price=product.price show_savings=false save_block=false}}
+						{{/if}}
+
+						{{#if customer.customer_group_id '==' '1' }}
+							{{#each product.custom_fields}}
+								{{#if this.name '==' "Trade Discount"}}
+									{{#if this.value '==' 'Note: This item is not eligible for a trade discount'}}
+									{{else}}
+									<em class="badge badge--pdp">{{this.value}}% Trade Discount Applied</em>
+									{{/if}}
+								{{/if}}
+							{{/each}}
+						{{/if}}
+						
+					{{else}}
+					<!-- show no price -->
+					{{/if}}
+				</div>
+
+
+				<div class="affirm-pdp"></div>
+
+				<!-- moved to add-to-cart.html -->
+				<!-- <div class="product-price">
         {{#if product.price}}
           {{> components/products/price price=product.price show_savings=true save_block=true}}
         {{/if}}
@@ -103,159 +116,310 @@
         {{/if}}
       </div> -->
 
-      <div class="product-rating-block">
-        {{#if settings.show_product_rating}}
-          <div class="product-item-rating">
-            {{> components/products/ratings rating=this.product.rating}}
-            <span class="reviews-jumplink total-reviews" data-scroll="#product-reviews">
-              ( <a class="product-reviews-link link" href="{{#if quick_view}}{{product.url}}#product-reviews{{else}}#product-reviews{{/if}}">{{lang 'product.reviews.title' numReviews=product.num_reviews}}</a> )
-            </span>
-          </div>
+				<div class="product-rating-block">
+					{{#if settings.show_product_rating}}
+					<div class="product-item-rating">
+						{{> components/products/ratings rating=this.product.rating}}
+						<span class="reviews-jumplink total-reviews" data-scroll="#product-reviews">
+							( <a class="product-reviews-link link"
+								href="{{#if quick_view}}{{product.url}}#product-reviews{{else}}#product-reviews{{/if}}">{{lang 'product.reviews.title' numReviews=product.num_reviews}}</a>
+							)
+						</span>
+					</div>
 
-          {{{snippet 'product_rating'}}}
-        {{/if}}
-      </div>
+					{{{snippet 'product_rating'}}}
+					{{/if}}
+				</div>
 
-      {{#if product.release_date }}
-        <p class="message neutral">{{product.release_date}}</p>
-      {{/if}}
-      
-
-      
-        {{#each product.custom_fields}}
-          {{#if this.name '==' "Lead-Time"}}   
-              <p class="shipping-range shipping-range--static mobileHide">{{this.value}}</p>
-          {{/if}}
-        {{/each}}
-      
-
-      
-      {{#each product.custom_fields}}
-        {{#if this.name '==' "Promo Text"}}
-            <p class="pdp-promo-text">{{{this.value}}}</p>
-        {{/if}}
-      {{/each}}
+				{{#if product.release_date }}
+				<p class="message neutral">{{product.release_date}}</p>
+				{{/if}}
 
 
-      {{#if theme_settings.product-single-display-order '===' 'product-description-first'}}
-        <ul class="highlight-group">
-          {{#each product.custom_fields}}
-            {{#if this.name '===' "Highlight 1"}}
-              <li>{{value}}</li>
-            {{else if this.name '===' "Highlight 2"}}
-              <li>{{value}}</li>
-            {{else if this.name '===' "Highlight 3"}}
-              <li>{{value}}</li>
-            {{/if}}
-          {{/each}}
-        </ul>
-        <hr>
-        {{> components/products/add-to-cart-form cart_icon=cart_icon}}
+				<p class="shipping-range shipping-range--static">
+				{{#each product.custom_fields}}
 
-      {{else}}
-        {{> components/products/add-to-cart-form cart_icon=cart_icon}}
-        <hr>
-        {{> components/products/product-description}}
-      {{/if}}
+					{{#if this.name '==' "Lead-Time"}}
+					{{#if this.value '===' "Ships next business day"}}
+					<span id="nextBussinessDay" class="shipping-range--tip">
+						<script>
+							document.addEventListener('DOMContentLoaded', function () {
+								TEAK.Modules.leadTime.setTip("nextBussinessDay");
+							});
+						</script>
+					</span>
+					{{/if}}
 
-      <div class="product-message-area" data-product-alerts></div>
+					{{#contains this.value "ships next business day"}}
+					<span id="nextBussinessDay" class="shipping-range--tip">
+						<script>
+							document.addEventListener('DOMContentLoaded', function () {
+								TEAK.Modules.leadTime.setTip("nextBussinessDay");
+							});
+						</script>
+					</span>
+					{{/contains}}
 
-      {{#if quick_view}}
-        <a class="quick-shop-details-lower link" href="{{this.product.url}}">{{lang 'product.view_full_details'}}</a>
-      {{/if}}
-    </div>
+					{{this.value}}
 
-    {{{snippet 'product_details'}}}
+					{{/if}}
 
-  </div>
-  <div class="pdp-shadow">
-    <div class="tmp-prod-details">
-      {{{product.description}}}
-      <div id="warrantyTab">
-          {{{product.warranty}}}
-      </div>
+					{{#if this.name '==' "Lead-Time 2"}}
+					{{this.value}}
+					{{/if}}
 
-      <div id="returnTab" class="returnTabContent">          
-        <script>
-          document.addEventListener("DOMContentLoaded", function(){
-            window.TEAK.Modules.tabs.getTabContent({
-              key: "returnTab",
-              mobileCntr: ".returnContent"
-            });
-          });
-        </script>
-      </div>
+				{{/each}}
+				</p>
 
-      <div id="videoTab">
-        {{#if product.videos.list.length}}
-        <div class="tab-content-panel" id="product-videos">
-          <div class="product-videos-list">
-            {{#each product.videos.list}}
-              {{> components/products/video-block-atmo video=this}}
-            {{/each}}
-          </div>
-        </div>
-      {{/if}}
-    </div>
-    </div>
-  </div>
 
-  <div class="tab-wrapper">
-      <div class="tab-header">
-        <ul>
-          <li class="active"><a data-tabval="descTab" class="descBtn">Description</a></li>
-          <li><a data-tabval="specsTab" class="specsBtn">Specifications</a></li>
-          <li><a data-tabval="careTab" class="careBtn">Care Info</a></li>
-          <li><a data-tabval="shipTab" class="shipBtn">Shipping</a></li>
-          <li><a data-tabval="pdfTab" class="pdfBtn">Resources</a></li>
-          <li><a data-tabval="videoTab" class="videoBtn">{{lang 'product.videos'}}</a></li>
-          <li><a data-tabval="warrantyTab" class="warrantyTab">Warranty</a></li>
-          <li><a data-tabval="returnTab" class="returnTab">Return Policy</a></li>
-        </ul>
-      </div>
-      <div class="tab-content"></div>
-  </div>
+			{{#if customer.customer_group_id '!=' '1' }}
+				{{#each product.custom_fields}}
+					{{#if this.name '==' "Promo Text"}}
+					<p class="pdp-promo-text">{{{this.value}}}</p>
+					{{/if}}
+				{{/each}}
+			{{/if}}
 
-  <div class="mobile-tab-wrapper">
-    <a class="mobile-tab-heading" data-tabVal="descTab">Description</a>
-    <div class="descContent active"></div>
-    
-    <a class="mobile-tab-heading mobile-specsTab" data-tabVal="specsTab">Specifications</a>
-    <div class="specsContent"></div> 
-    
-    <a class="mobile-tab-heading mobile-careTab" data-tabVal="careTab">Care Info</a>
-    <div class="careContent"></div>
-    
-    <a class="mobile-tab-heading mobile-shipTab" data-tabVal="shipTab">Shipping</a>
-    <div class="shipContent"></div>
-    
-    <a class="mobile-tab-heading mobile-pdfTab" data-tabVal="pdfTab">Resources</a>
-    <div class="pdfContent"></div>
 
-    <a class="mobile-tab-heading mobie-videoTab" data-tabVal="videoTab">{{lang 'product.videos'}}</a>
-    <div class="videoContent"></div>
-    
-    <a class="mobile-tab-heading mobile-warratyTab" data-tabVal="warrantyTab">Warranty</a>
-    <div class="warrantyContent"></div>
 
-    <a class="mobile-tab-heading mobile-returnTab" data-tabVal="returnTab">Return Policy</a>
-    <div class="returnContent"></div>
-  </div>
 
-  <div class="product-row">
-    <a href="{{product.brand.url}}" title="More {{product.brand.name}} products" class="button button-secondary--darkTrans">
-      Shop all {{product.brand.name}}
-    </a>
-  </div>
+				{{#if theme_settings.product-single-display-order '===' 'product-description-first'}}
+				<ul class="highlight-group">
+					{{#each product.custom_fields}}
+					{{#if this.name '===' "Highlight 1"}}
+					<li>{{value}}</li>
+					{{else if this.name '===' "Highlight 2"}}
+					<li>{{value}}</li>
+					{{else if this.name '===' "Highlight 3"}}
+					<li>{{value}}</li>
+					{{else if this.name '===' "Highlight 4"}}
+					<li>{{value}}</li>
+					{{/if}}
+					{{/each}}
+
+					{{#each product.custom_fields}}
+					{{#if this.name '===' "Featured Highlight"}}
+					<li>{{value}}</li>
+					{{else if this.name '===' "Specs Highlight"}}
+					<li>{{value}}</li>
+					{{/if}}
+					{{/each}}
+				</ul>
+
+				{{#each product.custom_fields}}
+					{{#if this.name '==' "Assembly Required"}}
+					{{#if this.value '==' 'no' }}
+					<ul class="product__infoGraphic">
+						<li class="product__infoItem">
+							<svg class="icon icon-no-assembly"><use xlink:href="#icon-no-assembly-2" /></svg>
+							<strong>No assembly required.</strong>
+						</li>
+					</ul>
+					{{/if}}
+					{{/if}}
+				{{/each}}
+
+				{{> components/products/add-to-cart-form cart_icon=cart_icon}}
+
+				{{else}}
+				{{> components/products/add-to-cart-form cart_icon=cart_icon}}
+
+				{{> components/products/product-description}}
+				{{/if}}
+
+
+				
+
+
+				<div class="product-message-area" data-product-alerts></div>
+
+				{{#if quick_view}}
+				<a class="quick-shop-details-lower link"
+					href="{{this.product.url}}">{{lang 'product.view_full_details'}}</a>
+				{{/if}}
+			</div>
+		</div><!-- / product-details wrapper -->
+		{{{snippet 'product_details'}}}
+
+	</div>
+
+
+
+<div class="product__row" id="productMetaTabs">
+	<div class="product__col-1-1">
+
+		<div class="product__tabSection product__tabSection--active">
+			<h2 class="product__tabTitle">
+				<a href="#desc" class="product__titleLink product__titleLink--active" product-meta-tab>
+					<span class="product__titleText">Product Overview</span>
+					<svg class="icon icon-chevron-down"><use xlink:href="#icon-chevron-down" /></svg>
+				</a>
+			</h2>
+			<div class="= pad-top" id="desc">
+				<div class="product__col-2-3--lg product__col-1-1 pad-right">
+					{{{product.description}}}
+					<br>
+					<p>
+						<a href="{{product.brand.url}}" title="More {{product.brand.name}} products" class="button button-secondary--darkTrans">
+							Shop all {{product.brand.name}}
+						</a>
+					</p>
+				</div>
+				<div class="product__col-1-3--lg product__col-1-1 product__col--allBorder">
+					<h3 class="product__title product__title--2 pad-bottom">Resources</h3>
+					<div class="product__col-1-1 no-pad" id="pdf"></div>
+				</div>
+			</div>
+		</div> <!-- end description -->
+
+
+		<div class="product__tabSection hide product__tabSection--active">
+			<h2 class="product__tabTitle">
+				<a href="#specs" class="product__titleLink product__titleLink--active" product-meta-tab>
+					<span class="product__titleText">Specifications</span>
+					<svg class="icon icon-chevron-down"><use xlink:href="#icon-chevron-down" /></svg>
+				</a>
+			</h2>
+			<div class="product__col-1-1 pad-top" id="specs"></div>
+		</div> <!-- end specifications -->
+
+
+		<div class="product__tabSection hide">
+			<h2 class="product__tabTitle">
+				<a href="#care" class="product__titleLink" product-meta-tab>
+					<span class="product__titleText">
+						<!-- <svg class="icon icon-umbrella"><use xlink:href="#icon-umbrella" /></svg> -->
+						Care
+					</span>
+					<svg class="icon icon-chevron-down"><use xlink:href="#icon-chevron-down" /></svg>
+				</a>
+			</h2>
+			<div class="product__col-1-1 pad-top product__col--hide" id="care"></div>
+		</div> <!-- end care -->
+
+
+		<div class="product__tabSection hide">
+			<h2 class="product__tabTitle">
+				<a href="#ship" class="product__titleLink" product-meta-tab>
+					<span class="product__titleText">
+						<!-- <svg class="icon icon-truck"><use xlink:href="#icon-truck" /></svg> -->
+						Shipping
+					</span>
+					<svg class="icon icon-chevron-down"><use xlink:href="#icon-chevron-down" /></svg>
+				</a>
+			</h2>
+			<div class="product__col-1-1 pad-top product__col--hide" id="ship"></div>
+		</div> <!-- end shipping -->
+
+
+		<div class="product__tabSection {{#if product.warranty}}{{else}}hide{{/if}}">
+			<h2 class="product__tabTitle">
+				<a href="#warranty" class="product__titleLink" product-meta-tab>
+					<span class="product__titleText">
+						<!-- <svg class="icon icon-award"><use xlink:href="#icon-award" /></svg> -->
+						Warranty
+					</span>
+					<svg class="icon icon-chevron-down"><use xlink:href="#icon-chevron-down" /></svg>
+				</a>
+			</h2>
+			<div class="product__col-1-1 pad-top product__col--hide" id="warranty">
+				{{{product.warranty}}}
+			</div>
+		</div> <!-- end warranty -->
+
+
+		<div class="product__tabSection">
+			<h2 class="product__tabTitle">
+				<a href="#returns" class="product__titleLink" product-meta-tab>
+					<span class="product__titleText">
+						<!-- <svg class="icon icon-corner-up-left"><use xlink:href="#icon-corner-up-left" /></svg> -->
+						Returns
+					</span>
+					<svg class="icon icon-chevron-down"><use xlink:href="#icon-chevron-down" /></svg>
+				</a>
+			</h2>
+			<div class="product__col-1-1 pad-top product__col--hide" id="returns">
+				<script>
+					document.addEventListener("DOMContentLoaded", function(){
+					  window.TEAK.Modules.tabs.getTabContent({
+						key: "returnTab",
+						cntr: "returns"
+					  });
+					});
+				  </script>
+			</div>
+		</div> <!-- end returns -->
+
+
+
+		<div class="product__tabSection product__tabSection--active" id="questions">
+			<h2 class="product__tabTitle product__tabTitle--noBg">
+				<span class="product__titleText">Questions & Answers</span>
+				<button type="button" class="product__titleBtn hide" id="questionsTitleBtn" product-dialog-open rel="askQuestion">Ask a new question</button>
+			</h2>
+			<div class="product__col-1-1 pad-top">
+				<ul class="product__questions" id="productQuestions"></ul>
+
+				<div class="product__noQuestions product__noQuestions--row" id="noQuestions">
+					<div class="product__col-1-3--lg product__col-1-1 pad-right product__col--rightBorder">
+						<p>Typical questions asked about products:</p>
+						<ul>
+							<li>&bullet; Is the item durable?</li>
+							<li>&bullet; Is the item easy to use?</li>
+							<li>&bullet; What are the dimensions of this item?</li>
+						</ul>
+					</div>
+					<div class="product__col-1-3--lg product__col-1-1 pad-left c">
+						<a href="#" class="button button-primary button-primary--green button-wide" product-dialog-open rel="askQuestion">Ask the first Question</a>
+					</div>
+				</div>
+			</div>
+		</div> <!-- end questions -->
+
+
+
+		<div class="product__tabSection product__tabSection--active" id="reviews">
+			<h2 class="product__tabTitle product__tabTitle--noBg">
+				<span class="product__titleText">Customer Reviews</span>			
+			</h2>
+
+			<div class="product__col-1-1 no-pad">
+				<div id="ratingsBlock"></div>
+
+				<div class="product__noReviews" id="noReviews">
+					<h4 class="product__noReviewsHeading">Do you own this product? Be the first to rate it.</h4>
+					<p class="product__noReviewsText">Your feedback will help customers like you make informed decisions and will help us to improve our product offerings!</p>
+					<p class="product__noReviewsText">If you have any questions regarding the customer service you received, please <a href="/contact-us" target="__blank">contact us</a></p>
+					<br>
+					<a href="#" class="button button-primary button-primary--greenTrans button-wide" product-dialog-open rel="writeReview">Write the first review</a>
+				</div>
+			</div>
+		</div> <!-- /reviews-->
+
+
+
+		<div class="product__modal hide" id="productModal">
+			<div class="product__modalDialog">
+				<button class="product__closeBtn" product-dialog-close value="cancel">
+					<svg class="icon icon-close"><use xlink:href="#icon-close" /></svg>
+				</button>
+				<div class="product__modalDialogCntr"></div>
+			</div>
+			<div class="product__modalOverlay"></div>
+		</div>
+		
+
+	</div>
+</div>
+
+
 </section>
 
 <!-- moved yotpo to tempaltes/pages/product.html -->
-
 {{> components/products/customizations/request-swatch-modal product}}
 
 
 <!-- Pintrest Structured Data -->
-
 {{#partial "jsonPrice"}}
 {{#if product.price.without_tax}}
 {{> components/products/customizations/non-sale-price-value-fixed price=product.price}}
@@ -268,44 +432,73 @@
 
 <script type="application/ld+json">
 {
-    "provider_name": "AuthenTEAK",
-    "url": "//authenteak.com{{product.url}}",
-    "title": "{{this.product.title}}",
-    "description": "{{json product.description}}",
-    "product_id": "{{product.id}}",
-    "brand": "{{product.brand.name}}",
-    "price": "{{#block "jsonPrice"}}{{/block}}",
-    "currency_code": "{{product.price.without_tax.currency}}",
-    "availability": "in stock",
-    "images": [{{#forEach product.images}}
-      "{{getImage this 'product'}}"{{#unless isLast}},{{/unless}}{{/forEach}}
-    ],
-    "related_items": [{{#forEach product.related_products}}
-      "//authenteak.com{{url}}"{{#unless isLast}},{{/unless}}{{/forEach}}
-    ],
-    "color": [{{#forEach product.options}}{{#inArray (split "Select Head Cushion Fabric||Select Canopy||Select Optional Cushions||Select Optional Cushion||Select Fabric||Select Cushion||Select Throw Pillows Fabric" "||") display_name }}{{#forEach values}}{{#unless (occurrences label "No Thanks") }}{{#unless (occurrences label "No Cushion") }}
-        {
-          "name": "{{ trim (first (split label ' (+' )) }}",
-          "{{getImage image 'core-swatch'}}",
-          "map": ""
-        }{{#unless isLast}},{{/unless}}{{/unless}}{{/unless}}{{/forEach}}{{/inArray}}{{/forEach}}
-    ],
-    "geographic_availability": "US"
+  "provider_name": "AuthenTEAK",
+  "url": "{{product.url}}",
+  "title": "{{this.product.title}}",
+  "description": "{{json product.description}}",
+  "product_id": "{{product.id}}",
+  "brand": "{{product.brand.name}}",
+  "price": "{{#block "jsonPrice"}}{{/block}}",
+  "currency_code": "{{product.price.without_tax.currency}}",
+  "availability": "in stock",
+  "images": [{{#each product.images}}
+    "{{getImage this 'product'}}"{{#unless @last}},{{/unless}}{{/each}}
+  ],
+  "related_items": [{{#each product.related_products}}
+    "//authenteak.com{{url}}"{{#unless @last}},{{/unless}}{{/each}}
+  ],
+  "color": [{{#forEach product.options}}{{#inArray (split "Select Head Cushion Fabric||Select Canopy||Select Optional Cushions||Select Optional Cushion||Select Fabric||Select Cushion||Select Throw Pillows Fabric" "||") display_name }}{{#forEach values}}{{#unless (occurrences label "No Thanks") }}{{#unless (occurrences label "No Cushion") }}
+      {
+        "name": "{{ trim (first (split label ' (+' )) }}",
+        "{{getImage image 'core-swatch'}}",
+        "map": ""
+      }{{#unless isLast}},{{/unless}}{{/unless}}{{/unless}}{{/forEach}}{{/inArray}}{{/forEach}}
+  ],
+  "geographic_availability": "US"
+}
+</script><!-- end Pintrest Strucutred Data -->
+
+
+<script type="application/json" id="productInfo">
+{
+  "url": "{{product.url}}",
+  "title": "{{this.product.title}}",
+  "product_id": "{{product.id}}",
+  "brand": "{{product.brand.name}}",
+  "price": "{{#block "jsonPrice"}}{{/block}}",
+  "availability": "in stock",
+  "image": "{{getImage product.main_image 'product'}}",
+  "sku": "{{product.sku}}"
 }
 </script>
 
-<!-- end Pintrest Strucutred Data -->
 
-
-
-<script type="application/ld+json" id="productInfo">
+<script type="application/json" id="tabJSON">
+[
   {
-      "url": "{{product.url}}",
-      "title": "{{this.product.title}}",
-      "product_id": "{{product.id}}",
-      "brand": "{{product.brand.name}}",
-      "price": "{{#block "jsonPrice"}}{{/block}}",
-      "availability": "in stock",
-      "image": "{{getImage product.main_image 'product'}}"
+    "id": "specsTab",
+    "contentCntr": "specs"
+  },
+  {
+    "id": "careTab",
+    "contentCntr": "care"
+  },
+  {
+    "id": "shipTab",{{#each product.custom_fields}}{{#if this.name '==' "Assembly Required"}}
+    "customContent": "No assembly required.",{{/if}}{{/each}}
+    "contentCntr": "ship"
+  },
+  {
+    "id": "pdfTab",
+    "contentCntr": "pdf"
+  },
+  {
+    "id": "warrantyTab",
+    "contentCntr": "warranty"
+  },
+  {
+    "id": "returnTab",
+    "contentCntr": "returns"
   }
-  </script>
+]
+</script>

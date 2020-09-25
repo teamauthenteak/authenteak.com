@@ -1,19 +1,74 @@
-{{#if shipping_messages}}
-  {{#each shipping_messages}}
-    <div class="promo-message">{{{message}}}</div>
-  {{/each}}
+
+<div class="alert alert--notify">
+	<div class="alert__message">Due to increased volumes and Covid-19 related challenges, lead-times may be extended.</div>
+</div>
+
+<div class="alert alert--warn hide" id="multiPackageAlert" style="display: none;">
+	<div class="alert__message">Your order may ship in multiple packages.</div>
+</div>
+
+{{#if customer.customer_group_id '==' '1' }}
+<div class="promo promo--warn">
+  <div class="promo__message">Trade pricing and account credentials are confidential.<br>Account information may not be shared. Violating this policy will result in a termination of trade benefits.</div>
+</div>
 {{/if}}
+
+<div class="hide">
+{{#if cart.sub_total.value '<' '2998' }}
+	<div class="promo promo--notify">
+		<div class="promo__icon">
+			<svg class="promo__svg" enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+				<title>shopping cart</title>
+				<path d="M11 21c0 1.105-0.895 2-2 2s-2-0.895-2-2c0-1.105 0.895-2 2-2s2 0.895 2 2z"></path>
+				<path d="M22 21c0 1.105-0.895 2-2 2s-2-0.895-2-2c0-1.105 0.895-2 2-2s2 0.895 2 2z"></path>
+				<path d="M23.8 5.4c-0.2-0.3-0.5-0.4-0.8-0.4h-16.2l-0.8-4.2c-0.1-0.5-0.5-0.8-1-0.8h-4c-0.6 0-1 0.4-1 1s0.4 1 1 1h3.2l0.8 4.2c0 0 0 0.1 0 0.1l1.7 8.3c0.3 1.4 1.5 2.4 2.9 2.4 0 0 0 0 0.1 0h9.7c1.5 0 2.7-1 3-2.4l1.6-8.4c0-0.3 0-0.6-0.2-0.8zM20.4 14.2c-0.1 0.5-0.5 0.8-1 0.8h-9.7c-0.5 0-0.9-0.3-1-0.8l-1.5-7.2h14.6l-1.4 7.2z"></path>
+			</svg>
+		</div>
+		<div class="promo__message">Add <strong>${{ trim (toFixed (subtract '2998' cart.sub_total.value) ) }}</strong> to your cart to recieve complimentary upgraded delivery!</div>
+	</div>
+{{/if}}
+
+
+{{#if cart.sub_total.value '>=' '2998' }}
+	<div class="promo promo--success">
+		<div class="promo__icon">
+			<svg class="promo__svg"  enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+				<title>truck</title>
+				<path d="M23.7 10.3l-3-3c-0.2-0.2-0.4-0.3-0.7-0.3h-3v-4c0-0.6-0.4-1-1-1h-15c-0.6 0-1 0.4-1 1v13c0 0.6 0.4 1 1 1h1.4c-0.3 0.5-0.4 1-0.4 1.5 0 1.9 1.6 3.5 3.5 3.5s3.5-1.6 3.5-3.5c0-0.5-0.1-1-0.4-1.5h6.7c-0.2 0.5-0.4 1-0.4 1.5 0 1.9 1.6 3.5 3.5 3.5s3.5-1.6 3.5-3.5c0-0.5-0.1-1-0.4-1.5h1.5c0.6 0 1-0.4 1-1v-5c0-0.3-0.1-0.5-0.3-0.7zM2 4h13v11h-13v-11zM7 18.5c0 0.8-0.7 1.5-1.5 1.5s-1.5-0.7-1.5-1.5 0.7-1.5 1.5-1.5 1.5 0.7 1.5 1.5zM20 18.5c0 0.8-0.7 1.5-1.5 1.5s-1.5-0.7-1.5-1.5 0.7-1.5 1.5-1.5 1.5 0.7 1.5 1.5zM22 15h-5v-6h2.6l2.4 2.4v3.6z"></path>
+			</svg>
+		</div>
+		<div class="promo__message">You quality for complimentary upgraded delivery!</div>
+	</div>
+{{/if}}
+</div>
+
+
+{{#if shipping_messages}}
+	<div class="promo promo--notify">
+	{{#each shipping_messages}}
+		<div class="promo__message">{{{message}}}</div>
+	{{/each}}
+	</div>
+{{/if}}
+
+
+
 
 {{#if cart.status_messages}}
-  {{#each cart.status_messages}}
-    {{#if type '==' 2}}
-      <div class="promo-message">{{{message}}}</div>
-    {{/if}}
-  {{/each}}
+	<div class="promo promo--notify">
+	{{#each cart.status_messages}}
+	{{#if type '==' 2}}
+		<div class="promo__message">{{{message}}}</div>
+	{{/if}}
+	{{/each}}
+	</div>
 {{/if}}
 
+
 {{#if product.shipping_messages}}
-  {{#each product.shipping_messages}}
-    <div class="promo-message">{{{message}}}</div>
-  {{/each}}
+	<div class="promo promo--notify">
+	{{#each product.shipping_messages}}
+		<div class="promo__message">{{{message}}}</div>
+	{{/each}}
+	</div>
 {{/if}}

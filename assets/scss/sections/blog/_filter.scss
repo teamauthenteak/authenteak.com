@@ -128,15 +128,19 @@
         @extend %filter-row;
         cursor: pointer;
         border: 1px solid #eee;
-        border-radius: 99rem;
+        border-radius: $button-border-radius;
+
+        @media only screen and (min-width: $screen-lg) {
+            max-width: 300px;
+        }
 
         &:last-of-type{
             margin-right: 0;
         }
 
         &--active{
-            color: #000;
-            border-color: #777;
+            color: #555;
+            border-color: #ccc;
             background-color: #f9f9f9;
         }
 

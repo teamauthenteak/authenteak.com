@@ -1,27 +1,396 @@
 /**
  *  Global Namespace Object { TEAK }
  *  Usage: 
- *      - Primarly used to share data between the View & Model
+ *      - Primarily used to share data between the View & Model
  *      and other third party modules outside of the application 
  *      scope of app.js and its compilation
+ * 
+ *  - Globals
+ *  - User
+ *  - Data
+ *  - GraphQL
+ *  - Utils
+ *  - Modules
+ *  - ThirdParty
  */
+
 window.TEAK = window.TEAK || {};
 
 
 
 /** -----------------------------------------
- * TEAK Utility Methods
- * Global helper mehtods for any application
+ * TEAK Data Model
+ * Store Model View data for interactions
+ * ------------------------------------------ */
+window.TEAK.Data = {};
+
+
+
+/** -------------------------------------------------------
+ * TEAK User Config Model
+ * User Configuration object to hold global user settings
+ * -------------------------------------------------------- */
+window.TEAK.User = {};
+
+
+
+/** -----------------------------------------------------------------------------------------
+ * TEAK Globals Config Model
+ * Global Configuration object to hold general settings and globally used STATIC variables
+ * Template rendered dynamic globals are in templates > components > common > TEAK-js.html
+ * ------------------------------------------------------------------------------------------ */
+
+window.TEAK.Globals = {
+    firebase: {
+        config: {
+            apiKey: "AIzaSyA99IwZolQj97wBxcm2IyYPnm8kxw7KGKA",
+            authDomain: "authenteak-b0b4b.firebaseapp.com",
+            databaseURL: "https://authenteak-b0b4b.firebaseio.com",
+            projectId: "authenteak-b0b4b",
+            storageBucket: "authenteak-b0b4b.appspot.com",
+            messagingSenderId: "603457517921",
+            appId: "1:603457517921:web:aad9da00b949350031ed20"
+          }
+    },
+    graphQl_dev: "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJlYXQiOjE2MDIyODgwMDAsInN1Yl90eXBlIjoyLCJ0b2tlbl90eXBlIjoxLCJjb3JzIjpbImh0dHA6Ly9sb2NhbC5hdXRoZW50ZWFrLmNvbTozMzAwIl0sImNpZCI6MSwiaWF0IjoxNTg1MjQxNTQ0LCJzdWIiOiJhOTRjM2MzMDk0bzVpdThsdTduYWVpbms2eTUxMTQwIiwic2lkIjo5OTkyMzI0MzIsImlzcyI6IkJDIn0.Lq9Re5VLVYh56F6PXEumWHaWkT_z8UK2bB5dwlXilkGAmQYO0e8gmaW4K2NH23g3GEWszp6FwLi_Cs4vypqnAA",
+    heroCarouselSettings: {
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: true,
+        easing: "linear",
+        autoplaySpeed: 8000,
+        autoplay: true,
+        dots: true,
+        speed: 800,
+        lazyLoad: "progressive",
+        prevArrow: '<span class="carousel-navigation-item previous"><svg class="icon icon-arrow-left"><use xlink:href="#icon-arrow-left" /></svg></span>',
+        nextArrow: '<span class="carousel-navigation-item next"><svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right" /></svg></span>',
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    autoplay: true
+                }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    autoplay: true
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    autoplay: true
+                }
+            }
+        ]
+    },
+    carouselSettings: {
+        infinite: true,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        autoplaySpeed: 4000,
+        dots: true,
+        speed: 800,
+        lazyLoad: "progressive",
+        prevArrow: '<span class="carousel-navigation-item previous"><svg class="icon icon-arrow-left"><use xlink:href="#icon-arrow-left" /></svg></span>',
+        nextArrow: '<span class="carousel-navigation-item next"><svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right" /></svg></span>',
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    autoplay: false
+                }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    autoplay: true
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    autoplay: true
+                }
+            }
+        ]
+    }
+};
+
+
+
+/** -----------------------------------------
+ * TEAK Utility Services
+ * Global helper methods for any application
  * ------------------------------------------ */
 window.TEAK.Utils = {
 
+    // test if we are on localhost
+    isLocal(){
+        return (window.location.hostname === "localhost" || window.location.hostname === "local.authenteak.com");
+    },
+
+    // gets the global svg sprite and then appends it to the DOM
+    getSvgSprite: function(url){
+        $.get(url).then(data => {
+            let spriteDiv = document.createElement("div");
+            spriteDiv.className = "icons-svg-sprite";
+            spriteDiv.innerHTML = new XMLSerializer().serializeToString(data.documentElement);
+            document.body.insertBefore(spriteDiv, document.body.childNodes[0]);
+        });
+    },
+
+    // Converts any string to SHA256 Encryption
+    digestMessageSHA256: async function(message) {
+        const msgUint8 = new TextEncoder().encode(message);                           
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);           
+        const hashArray = Array.from(new Uint8Array(hashBuffer));                     
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        return hashHex.toLowerCase();
+    },
+
+
+    // Parses an Option's Label String unto a useable object
+    parseOptionLabel: function(label) {
+		let data = {},
+			additional = [];
+
+		let parts = label.split('--');
+
+		for (var i in parts) {
+			let part = parts[i].trim();
+
+			if (i == 0) {
+
+				let grade = part.match(/Grade ([^ ]+)/i);
+				if (grade) {
+					data.grade = grade[1].toUpperCase();
+				}
+
+
+				let priceAdjust = part.match(/\(([+-]\$[\d.]+)\)/);
+				if (priceAdjust) {
+					data.priceAdjust = priceAdjust[1];
+				}
+
+
+				let priceAdjustNumeric = part.match(/\(([+-])\$([\d.]+)\)/);
+				if (priceAdjustNumeric) {
+					data.priceAdjustNumeric = Math.round(Number.parseFloat(priceAdjustNumeric[1] + priceAdjustNumeric[2]) * 100) / 100;
+				}
+
+				data.text = part.replace(/Grade [^ ]+ /ig, '').replace(/\([+-][^ ]+/g, '').trim();
+
+
+				// brand name ~ We're making a bad assumption here but...have too
+				let brandName = data.text.split(" ")[0];
+				switch(brandName){
+					case "Outdura": data.brandName = brandName; break;
+					case "Sunbrella": data.brandName = brandName; break;
+					case "Bella": data.brandName = brandName + " Dura"; break;
+					case "Acrylic": data.brandName = brandName; break;
+                    case "Obravia": data.brandName = brandName; break;
+                    case "Spuncrylic": data.brandName = brandName; break;
+                }
+
+
+                // Sumbrella Rain Brand
+				let sunbrellaRain = data.text.toLowerCase().includes("sunbrella rain");
+				if(sunbrellaRain){
+					data.brandName = "Sunbrella Rain";
+                }
+
+                
+                let color = data.text.split(data.brandName);
+                if(color){
+                    data.color = color.length > 1 ? color[1] : color[0];
+                    data.color = data.color.indexOf("-") !== -1 ? data.color.split("-")[0] : data.color;
+                }
+
+
+				// ships by 
+				let ships = data.text.split("Ships")[1];
+				if(ships){
+					data.ships = "Ships " + ships;
+                }
+
+
+
+			} else if (part.match(/^LEAD:/)) {
+
+				let match = part.match(/^LEAD:(\d+)([W|D])/);
+
+				data.leadtime_from = {
+					value: Number.parseInt(match[1]),
+					unit: match[2].match(/^d$/i) ? 'day' : 'week'
+				};
+
+				data.leadtime_weeks_from = data.leadtime_from.unit == 'week' ?
+					data.leadtime_from.value :
+					data.leadtime_from.value / 5;
+				match = part.match(/^LEAD:(\d+)([W|D])(?:-(\d+)([W|D])|)$/);
+
+				if (match && match[3]) {
+					data.leadtime_to = {
+						value: Number.parseInt(match[3]),
+						unit: match[4].match(/^d$/i) ? 'day' : 'week'
+					};
+
+					data.leadtime_weeks_to = data.leadtime_to.unit == 'week' ?
+						data.leadtime_to.value :
+						data.leadtime_to.value / 5;
+
+				} else {
+
+					data.leadtime_to = data.leadtime_from;
+					data.leadtime_weeks_to = data.leadtime_weeks_from;
+				}
+
+			} else {
+                additional.push(part);
+
+                // custom filters
+                let hasCustomFilter = part.includes("-f");
+                
+                if( hasCustomFilter ){
+                    let customFilter = part.split("-f");
+                    data.customFilter = customFilter[1].trim().split(" ");
+                }
+
+			}
+		}
+
+		if (additional.length > 0) {
+            data.additional = additional;
+        }
+        
+        data.raw = label;
+                
+		return data;
+    },
+    
+
+
+    graphQL: {
+
+        get: function(queryObj){
+            return fetch(`${window.location.hostname === "authenteak.com" || window.location.hostname === "local.authenteak.com" ? "https://authenteak.com/" : "/" }graphql`, {
+                        method: 'POST',
+                        credentials: 'include',
+                        mode: 'cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${ (window.location.hostname === "localhost" || window.location.hostname === "local.authenteak.com") ? TEAK.Globals.graphQl_dev : TEAK.Globals.graphQl }`
+                        },
+                        body: JSON.stringify({
+                            query: queryObj
+                        })
+                    })
+                    .then(res => res.json())
+                    .then(res => res.data);
+        },
+
+
+        // get product price
+        determinePrice: function(prices){
+            if(prices.salePrice !== null){
+                if(prices.salePrice.value !== 0){
+                    return prices.salePrice.value;
+
+                }else{
+                    return  prices.price.value;
+                }
+
+            }else{
+                return  prices.price.value;
+            }
+        },
+
+
+        getVariantData: function(productId, variantId){
+            return `query getVariantData{
+                        site {
+                            product (entityId: ${productId}){
+                                options {
+                                    edges {
+                                        node {
+                                            displayName 
+                                            entityId
+                                        }
+                                    }
+                                }
+                                variants (entityIds: ${variantId}) {
+                                    edges {
+                                        node {
+                                            options {
+                                                edges {
+                                                    node {
+                                                        displayName 
+                                                        entityId 
+                                                        values {
+                                                            edges {
+                                                                node {
+                                                                    entityId
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }`
+        }
+
+    },
+
+
+
+    // parse url paramters
+    getParameterByName: function(name, url) {
+        if (!url){url = window.location.href;}
+
+        name = name.replace(/[\[\]]/g, '\\$&');
+
+        let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+
+        if (!results){return null;}
+        if (!results[2]){return '';}
+
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    },
+
+
+    // removes extra spaces from a string
     removeSpaces(string){
         return string.replace(/\s/g, '');
     },
 
+
+    // if we are on a handheld device
     isHandheld: window.matchMedia("only screen and (max-width: 900px)").matches,
 
 
+    // gets the product json with tool tips from local or script manager
     getProductJSON: function(){
         if( TEAK.Data.ProductData ){
             return TEAK.Data.ProductData;
@@ -29,10 +398,12 @@ window.TEAK.Utils = {
 
         TEAK.Data.ProductData = this.getTagData("productTipsJSON");
 
-        return TEAK.Data.ProductData ? TEAK.Data.ProductData : this.getJsonData("/assets/js/theme/product.json");
+        return TEAK.Data.ProductData ? TEAK.Data.ProductData : this.getLocalJsonData("/assets/js/theme/product.json");
     },
 
     
+    
+    // gets the main drop down json from local or script manager
     getMenuJSON: function(){
         if( TEAK.Data.MenuData ){
             return TEAK.Data.MenuData;
@@ -40,26 +411,31 @@ window.TEAK.Utils = {
 
         TEAK.Data.MenuData = this.getTagData("megaMenuEnhancement");
         
-        return TEAK.Data.MenuData ? TEAK.Data.MenuData : this.getJsonData("/assets/js/theme/header.json");
+        return TEAK.Data.MenuData ? TEAK.Data.MenuData : this.getLocalJsonData("/assets/js/theme/header.json");
     },
+
 
 
     getTagData: function(id){
         var data;
 
-        if(document.getElementById(id) && window.location.hostname !== "localhost"){
-            data = document.getElementById(id).innerHTML;
-            data = data ? JSON.parse(data) : {};
-
-        }else{
-            return false;
-        }
-
-        return data;
+        try{
+            if(document.getElementById(id) && !TEAK.Utils.isLocal() ){
+                data = document.getElementById(id).innerHTML;
+                data = data ? JSON.parse(data) : {};
+    
+            }else{
+                return false;
+            }
+    
+            return data;
+            
+        }catch(err){}
+        
     },
 
 
-    getJsonData: function(path){
+    getLocalJsonData: function(path){
         let responseData;
 
         // run it on on our local
@@ -75,37 +451,34 @@ window.TEAK.Utils = {
 
 
     /**
-     * Picks out the cart resonse if its a JSON object and if it has cart.php
-     * Saving this to local storage and emmiting an event with the data
+     * Picks out the cart response if its a JSON object and if it has cart.php
+     * Saving this to local storage and emitting an event with the data
      * for anybody to pick up to use in the view
      */
     saveCartResponse: function(response){
-        var event, storedData = JSON.stringify(response);
+        TEAK.Data.cart = response[0];
 
-        if( window.localStorage ){
-            window.localStorage.setItem('cartData', storedData);
-        }
-        
-        if( typeof window.CustomEvent === 'function' ) {
-            event = new CustomEvent('cartDataStored');
-            
-        }else{
-            event = document.createEvent('cartDataStored');
-            event.initEvent('submit', true, true);
-        }
+        TEAK.Utils.storeData("cartData", response, {
+            name: "cartDataStored",
+            data: response[0]
+        });
     
-        window.dispatchEvent(event);
-        
         return this;
     },
 
 
+
     getStoredCart: function(){
-        var storedCart = window.localStorage ? window.localStorage.getItem('cartData') : "";
+        var storedCart = window.localStorage ? window.localStorage.getItem('cartData') : {};
            
         try{           
             storedCart = JSON.parse(storedCart);
-            return storedCart[0];           
+
+            if(typeof storedCart !== "undefined" && typeof storedCart.lineItems !== "undefined"){
+                storedCart[0].cartQty = this.getCartQnty(storedCart[0]);
+            }
+
+            return storedCart[0];
         }
         catch(e){}
 
@@ -113,10 +486,87 @@ window.TEAK.Utils = {
     },
 
 
+
+
+    /**
+     * Stores any object to LocalStorage and can emit a subsequent event
+     * 
+     * @param {string} key - storage key (use TEAK_ as the namespace)
+     * @param {*} data - data to be stored
+     * @param {string} eventArgs.name - event name to emitted
+     * @param {object} eventArgs.data - event data to be dispatched 
+     */
+
+    storeData: function(key, data, eventArgs){
+        let event;
+
+        if( window.localStorage ){
+            window.localStorage.setItem(key, JSON.stringify(data));
+        }
+
+        if( eventArgs ){
+            if( typeof window.CustomEvent === 'function' ) {
+                let eventDetail = eventArgs.hasOwnProperty("data") ? { detail: eventArgs.data } : null;
+
+                event = new CustomEvent(eventArgs.name, eventDetail);
+                
+            }else{
+                event = document.createEvent(eventArgs.name);
+                event.initEvent('submit', true, true);
+            }
+    
+            window.dispatchEvent(event);
+        }
+    },
+
+
+
+    /**
+     * Retrieves stored data and expires it if 
+     * there is an expiry key in the data AND if the date has passed
+     * @param {String} key - Storage Key
+     */
+
+    getStoredData: function(key){
+        let now = new Date();
+
+        if( window.localStorage ){
+            let data = JSON.parse(window.localStorage.getItem(key));
+
+            if(data && data.hasOwnProperty("expiry")){
+                if(now.getTime() > data.expiry){
+                    window.localStorage.removeItem(key);
+                    return null;
+                }
+            }
+        
+            return data;
+        }
+    },
+
+
+
+    // formats a number string to local currency format
+    formatPrice: function(price){
+        return price.toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        });
+    },
+
+
+    formatDate: function(dateString){
+        let dateFormatted = new Date(dateString);
+        dateFormatted = dateFormatted.toString().split(" ");
+        return `${dateFormatted[1]}. ${dateFormatted[2]}, ${dateFormatted[3]}`;
+    },
+
+
+    // get cart quantiy from local storage object
     getCartQnty: function(cart){
         let count = 0;
 
-        if(!cart.hasOwnProperty('lineItems')){
+        if( typeof cart.lineItems === "undefined" ){
             return 0;
         }
     
@@ -128,6 +578,7 @@ window.TEAK.Utils = {
     },
 
 
+    // creates a unique guid
     guid: function() {
 		let nav = window.navigator,
 			screen = window.screen,
@@ -153,15 +604,78 @@ window.TEAK.Utils = {
 
 
 
+
+
 /** -----------------------------------------
- * TEAK Data
- * Store Model View data for interactions
+ * TEAK GraphQL Service
+ * Fetches the BC GraphOL API Endpoint
+ * - may move this into app.js - not sure if this is needed externally
+
+window.TEAK.GraphQL = {
+    tpl: {
+        productInfo: function(arr){
+            return `query getProductInfo{
+                        site{
+                            products(entityIds:[${arr}]){
+                                edges{
+                                    node{
+                                        entityId
+                                        name
+                                        path
+                    
+                                        defaultImage {
+                                            url(width: 500, height: 500)
+                                        }
+                                        
+                                        prices {
+                                            price {
+                                                ...PriceFields
+                                            }
+                                            salePrice {
+                                                ...PriceFields
+                                            }
+                                            retailPrice {
+                                                ...PriceFields
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    fragment PriceFields on Money {
+                        value
+                    }`;
+        }
+    },
+
+    get: function(queryObj){
+        return fetch('https://authenteak.com/graphql', {
+                    method: 'POST',
+                    credentials: 'include',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${ TEAK.Utils.isLocal() ? TEAK.Globals.graphQl_dev : TEAK.Globals.graphQl }`
+                    },
+                    body: JSON.stringify({
+                        query: queryObj
+                    })
+                })
+                .then(res => res.json())
+                .then(res => res.data);
+    }    
+};
  * ------------------------------------------ */
-window.TEAK.Data = {};
+
+
+ 
+
 
 
 /** -----------------------------------------
- * TEAK Modules
+ * TEAK Module Services
  * Module Controllers for external scripts
  * ------------------------------------------ */
 window.TEAK.Modules = {};
@@ -169,17 +683,53 @@ window.TEAK.Modules = {};
 
 
 /** -----------------------------------------
- * TEAK 3rd Parties
+ * TEAK 3rd Parties Services
  * Store settigns for 3rd parties
  * ------------------------------------------ */
-window.TEAK.thirdParty = {
+window.TEAK.ThirdParty = {
+
+    bigCommerce: {
+
+        getCart: function() {
+            return fetch('/api/storefront/carts?include=lineItems.physicalItems.options', {
+                        method: "GET",
+                        credentials: "same-origin"
+                    })
+                    .then(response => response.json());
+        },
+    
+        addCartItem: function(cartId, cartItems) {
+            return $.ajax({
+                        url: '/api/storefront/carts/' + cartId + '/items',
+                        type: "POST",
+                        data: JSON.stringify(cartItems)
+                    })
+                    .then(response => response);
+        },
+
+        deleteCartItem: function(cartId, itemId) {
+            return $.ajax({
+                        url: "/api/storefront/carts/" + cartId + '/items/' + itemId,
+                        type: "DELETE"
+                    })
+                    .then(response => response);
+         }
+    },
+
+
+    klaviyo: {
+        api_key: "pk_3784e980b946e8c97f81595f193161ec09",
+        site_id: "JL4kkS"
+    },
+
+
     google:{
         getUID: function(){
             if(window.localStorage){
                 let storedUID = window.localStorage.getItem('TEAK_customerUID'),
                     googleUID = storedUID ? storedUID : TEAK.Utils.guid() + '.authenteak.com';
 
-                window.localStorage.setItem("TEAK_customerUID", googleUID);
+                window.TEAK.Utils.storeData("TEAK_customerUID", googleUID);
 
                 return googleUID;
             }
@@ -187,11 +737,15 @@ window.TEAK.thirdParty = {
     },
 
 
-
     heap:{
 
+        load(){
+            let HEAP_ENV_ID = !TEAK.Utils.isLocal() ? '702616063' : '753981833';  
+            window.heap.load(HEAP_ENV_ID);
+        },
+
         /** 
-         * Custom tracking events for heap analitics
+         * Custom tracking events for heap analytics
          * {
          *      method: "",
          *      id: "",
@@ -217,9 +771,9 @@ window.TEAK.thirdParty = {
 
                 // user identification
                 case 'identify':
-                    let id = args.id ? args.id : TEAK.Utils.guid();
+                    let id = args.id ? args.id + '.authenteak.com' : "";
 
-                    window.heap.identify(`${id}.authenteak.com`);
+                    window.heap.identify(id);
                     break;
 
 
@@ -227,11 +781,14 @@ window.TEAK.thirdParty = {
                 case 'addUser':
                     let storedCart = TEAK.Utils.getStoredCart();
 
-                    args.createdAt = storedCart.createdTime;
-                    args.purchaseCount = window.TEAK.Utils.getCartQnty(storedCart).toString();
-                    args.purchaseTotalValue = storedCart.cartAmount;
-
-                    window.heap.addUserProperties(args);
+                    if(typeof storedCart !== "undefined" && typeof storedCart.cartAmount !== "undefined"){
+                        args.createdAt = new Date(Date.now());
+                        args.purchaseCount = window.TEAK.Utils.getCartQnty(storedCart).toString();
+                        args.purchaseTotalValue = storedCart.cartAmount;
+    
+                        window.heap.addUserProperties(args);
+                    }
+                   
                     break;
             }
 
@@ -240,27 +797,32 @@ window.TEAK.thirdParty = {
 
 
         buildOrderData: function(){
-            let storedCart = TEAK.Utils.getStoredCart(),
-                order = {
-                    email: storedCart.email,
+            var storedCart = TEAK.Utils.getStoredCart();
+
+            if(typeof storedCart !== "undefined" && typeof storedCart.lineItems !== "undefined"){
+                let order = {
                     total: storedCart.cartAmount,
                     order_id: storedCart.id,
                     items: []
                 };
 
-            storedCart.lineItems.physicalItems.forEach((element) => {
-                order.items.push({
-                    name: element.name.toString(),
-                    sku: element.productId.toString(),
-                    qty: element.quantity.toString(),
-                    price: element.salePrice.toString()
+                storedCart.lineItems.physicalItems.forEach((element) => {
+                    order.items.push({
+                        name: element.name.toString(),
+                        sku: element.productId.toString(),
+                        qty: element.quantity.toString(),
+                        price: element.salePrice.toString()
+                    });
                 });
-            });
 
-            return order;
+                return order;
+            }
+            
         }
     },
 
+
+    Searchspring: {},
 
 
     IntelliSuggest:{
@@ -282,7 +844,7 @@ window.TEAK.thirdParty = {
         buildData: function(){  
             let storedCart = TEAK.Utils.getStoredCart();
 
-            if(storedCart.hasOwnProperty("lineItems")){
+            if(typeof storedCart !== "undefined" && typeof storedCart.lineItems !== "undefined"){
                 this.cartAmount = storedCart.cartAmount;
                 this.cartId = storedCart.id;
 
@@ -302,30 +864,9 @@ window.TEAK.thirdParty = {
     }
 };
 
-TEAK.thirdParty.IntelliSuggest.buildData();
+// IntelliSuggest
+TEAK.ThirdParty.IntelliSuggest.buildData();
 
-if( window.location.hostname === "localhost" ){
-    $(window).on("load", TEAK.thirdParty.IntelliSuggest.fixLinks);
+if( window.location.hostname !== "authenteak.com" ){
+    $(window).on("load", TEAK.ThirdParty.IntelliSuggest.fixLinks);
 }
-
-
-
-
-
-
-/** -----------------------------
- * window.CustomEvent Ployfill
- * needs to be moved to its own file at some point
- ------------------------------- */
- (function () {
-    if ( typeof window.CustomEvent === "function" ) return false;
-  
-    function CustomEvent ( event, params ) {
-      params = params || { bubbles: false, cancelable: false, detail: null };
-      var evt = document.createEvent( 'CustomEvent' );
-      evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
-      return evt;
-     }
-  
-    window.CustomEvent = CustomEvent;
-})();

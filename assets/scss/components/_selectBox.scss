@@ -1,0 +1,93 @@
+.selectBox{
+
+    & .toolTip--optionSelect{
+        top: -6px;
+    }
+    
+    &__label{
+        @extend .product__swatchLabel;
+        height: 70px;
+        flex-direction: column !important;
+        position: relative;
+
+        &:after {
+            @include icon-arrow-down(#333);
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            margin-top: -(15px/2);
+            pointer-events: none;
+            content: "";
+        }
+    }
+
+    &__text{
+        @extend .product__swatchText;
+        padding-left: 0px !important;
+        width: auto;
+        position: absolute;
+        // z-index: 9;
+        left: 18px;
+        top: 17px;
+
+        &--right{
+            @extend .product__swatchText--right;
+        }
+    }
+
+    &__optionText{
+        @extend .product__swatchOptionText;
+    }
+
+    &__name{
+        @extend .product__swatchName;
+
+        &--labelLeft{
+            @extend .product__swatchName--labelLeft;
+        }
+    }
+
+    &__value{
+        @extend .product__swatchValue;
+        font-size: 0.75rem;
+        display: block !important;
+        padding-left: 0 !important;
+        width: 80%;
+
+        &:before{
+            display: none;
+        }
+
+        &--choosen{
+            padding: 0 0 0 16px !important;
+
+            &:after{
+                position: absolute;
+                content: "";
+                @include icon-check-mark($btn-color-green);
+                width: 12px;
+                height: 12px;
+                top: 50%;
+                left: 0;
+                margin-top: (-12px/2);
+            }
+        }
+    }
+
+    &__select{
+        position: absolute;
+        height: 100% !important;
+        width: 100% !important;
+        top: 0px;
+        left: 0px;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        opacity: 0;
+        box-shadow: none;
+    }
+
+}

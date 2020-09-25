@@ -1,5 +1,17 @@
 <header class=" site-header logo-align-{{theme_settings.global-header-logo-alignment}}" role="banner">
-  <div class="promoBanner" id="topHeaderPromo"></div>
+  {{#if customer.customer_group_id '!=' '1' }}
+  <div class="promoBanner" id="topHeaderPromo">
+    <button class="promoBanner__closeBtn"><span class="promoBanner__closeBtnIcon">⨯</span></button>
+  </div>
+  {{/if}}
+
+
+  {{#if customer.customer_group_id '==' '1' }}
+  <div class="promoBanner promoBanner--green show" id="topHeaderPromoTrade">
+   <span class="promoBanner__text">Hey there, {{customer.name}}! &nbsp; You are logged in as a trade customer.</span>
+  </div>
+  {{/if}}
+
 
   <div data-alerts>
     {{#each product.reviews.messages}}
@@ -68,9 +80,22 @@
       <div class="top-bar-right customer-utils">
         
         <!--Testing Right Aligned Account-->
-        <a href="tel:1-866-350-8325">
+        <!-- <a href="tel:1-866-350-8325">
           <span class="head-phone-number">1-866-350-8325</span>
+        </a> -->
+        <a href="javascript:$zopim.livechat.window.show()"  class="customer__chat">
+          <span class="customer__chatMobile">
+            <svg class="header__chatBtn chat__offline" width="23" height="20"><use xlink:href="#mobile-header-offline"/></svg>
+            <svg class="header__chatBtn chat__online hide" width="23" height="20"><use xlink:href="#mobile-header-online"/></svg>
+          </span>
+
+          <span class="customer__chatDesktop">
+            <svg class="header__chatBtn chat__offline" width="168" height="19"><use xlink:href="#desktop-header-offline"/></svg>
+            <svg class="header__chatBtn chat__online hide" width="168" height="19"><use xlink:href="#desktop-header-online"/></svg>
+          </span>
         </a>
+
+
         {{#if settings.account_creation_enabled}}
         <div class="customer-links">
           {{#if customer}}
@@ -85,6 +110,7 @@
               <a class="top-bar-button" href="{{urls.account.index}}">
                 <!--{{> svg/account}}-->
                 <span class="button-text">
+                  <svg class="icon icon-person"><use xlink:href="#icon-person"/></svg>
                   {{lang 'header.account'}}
                 </span>
               </a>
@@ -93,6 +119,7 @@
             <a class="top-bar-button" href="{{urls.auth.login}}">
               <!--{{> svg/account}}-->
               <span class="button-text">
+                <svg class="icon icon-person"><use xlink:href="#icon-person"/></svg>
                 {{lang 'header.account'}}
               </span>
             </a>
@@ -139,7 +166,7 @@
           </a>
         {{/if}}
 
-        <button class="top-bar-button button-cart-toggle">
+        <a href="/cart.php" class="top-bar-button button-cart-toggle">
             <span
               class="mini-cart-subtotal button-text"
               data-cart-quantity="{{cart.quantity}}"
@@ -147,8 +174,11 @@
                 {{cart.quantity}}
             </span>
             {{> components/header/cart-icon}}
-        </button>
-        <span class="global-header-text-promo" id="globalHeaderPromo"></span>
+        </a>
+
+        {{#if customer.customer_group_id '!=' '1' }}
+        <span class="global-header-text-promo hide" id="globalHeaderPromo"></span>
+        {{/if}}
       </div>
 
      
@@ -175,7 +205,7 @@
 
 
       <span class="button-mobile-nav-search">
-        <a>
+        <a href="#" class="button-mobile-nav-search--link">
           {{> components/header/search-icon}}
         </a>
       </span>

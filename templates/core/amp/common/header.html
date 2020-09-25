@@ -33,18 +33,14 @@
 									itemprop="query-input">
 							</div>
 							<button class="button-search-submit" type="submit">
-								<svg class="icon-search" width="17" height="17" viewBox="0 0 17 17"
-									xmlns="http://www.w3.org/2000/svg">
-									<title>search_icon</title>
-									<path
-										d="M16.46 14.8l-3.1-3.1c.87-1.18 1.4-2.63 1.4-4.2 0-3.87-3.14-7-7-7-3.88 0-7 3.13-7 7s3.12 7 7 7c1.56 0 3-.52 4.18-1.4l3.1 3.1c.4.4 1.03.4 1.42 0 .4-.38.4-1.02 0-1.4zm-8.7-2.3c-2.77 0-5-2.24-5-5s2.23-5 5-5c2.75 0 5 2.24 5 5s-2.25 5-5 5z" />
-								</svg>
+								<svg class="icon-search" width="17" height="17"><use xlink:href="#icon-search2" /></svg>
 							</button>
+
 						</form>
 					</div>
 					<!-- End Search Button -->
 					<div class="h1 site-branding-centered has-logo">
-						<a class="site-branding-link" href="/">
+						<a class="site-branding-link" href="/" title="">
 							<amp-img class="site-branding-logo" layout="intrinsic" height="40" width="200"
 								src="https://cdn11.bigcommerce.com/s-cili3mn3r6/images/stencil/360x360/authenteak-logo_1539198053__83270.original.png"
 								alt="AuthenTEAK"></amp-img>
@@ -55,80 +51,54 @@
 				<div class="top-bar-right customer-utils">
 	
 					<!--Testing Right Aligned Account-->
-					<a href="tel:1-866-350-8325">
+					<!-- <a href="tel:1-866-350-8325" title="Call 1-866-350-8325">
 						<span class="head-phone-number">1-866-350-8325</span>
-					</a>
+					</a> -->
+
+					<a href="javascript:$zopim.livechat.window.show()" class="customer__chat">
+						<svg class="header__chatBtn" width="168" height="20" id="headerChatOffline"><use xlink:href="#desktop-header-offline"/></svg>
+						<svg class="header__chatBtn hide" width="168" height="20" id="headerChatOnline"><use xlink:href="#desktop-footer-online"/></svg>
+					  </a>
+
 					<div class="customer-links">
-						<a class="top-bar-button" href="/login.php">
-							<!--<svg class="icon-account" width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg"><title>account</title><path d="M14.842 13.542c-.088-.13-2.21-3.23-7.342-3.23-5.13 0-7.254 3.1-7.343 3.23-.287.43-.17 1.013.26 1.3.43.287 1.013.17 1.3-.26.017-.024 1.645-2.395 5.783-2.395 4.08 0 5.72 2.304 5.782 2.396.18.27.48.417.782.417.178 0 .36-.052.52-.158.43-.287.546-.87.258-1.3zM7.5 9.375c2.07 0 3.75-1.678 3.75-3.75V3.75C11.25 1.678 9.57 0 7.5 0 5.43 0 3.75 1.678 3.75 3.75v1.875c0 2.072 1.68 3.75 3.75 3.75zM5.625 3.75c0-1.036.84-1.875 1.875-1.875 1.036 0 1.875.84 1.875 1.875v1.875C9.375 6.66 8.535 7.5 7.5 7.5c-1.034 0-1.875-.84-1.875-1.875V3.75z"/></svg>
-	-->
-							<span class="button-text">
-								My Account
-							</span>
+						<a class="top-bar-button" href="/login.php" title="Login to Authenteak">
+							<svg class="icon icon-person"><use xlink:href="#icon-person"/></svg>
+							<span class="button-text">My Account</span>
 						</a>
 					</div>
 					<!--End Testing - Right Aligned Account-->
 	
-					<button class="top-bar-button button-cart-toggle">
-						<span class="mini-cart-subtotal button-text" data-cart-quantity="0">
-							0
-						</span>
-						<svg class="icon-cart" width="19" height="17" viewBox="0 0 19 17"
-							xmlns="http://www.w3.org/2000/svg">
-							<title>cart</title>
-							<path
-								d="M14.3848 8h-8.99l-.728-4h11.051l-1.333 4zm3.532-5.585c.188.261.239.597.137.901l-1.773 5.317c-.271.817-1.034 1.367-1.896 1.367h-8.627l.182 1h9.166c.552 0 1 .447 1 1 0 .553-.448 1-1 1h-9.165c-.967 0-1.794-.69-1.968-1.642L2.2708 2h-1.165c-.553 0-1-.447-1-1 0-.553.447-1 1-1h2c.483 0 .897.346.983.821L4.3028 2h12.803c.321 0 .623.154.811.415zM8.1055 15.5c0 .828-.672 1.5-1.5 1.5s-1.5-.672-1.5-1.5.672-1.5 1.5-1.5 1.5.672 1.5 1.5zm7 0c0 .828-.672 1.5-1.5 1.5s-1.5-.672-1.5-1.5.672-1.5 1.5-1.5 1.5.672 1.5 1.5z" />
-						</svg>
-					</button>
-					<span class="global-header-text-promo" id="globalHeaderPromo"></span>
+					<a href="/cart.php" class="top-bar-button button-cart-toggle">
+						<span class="mini-cart-subtotal button-text" data-cart-quantity="0">0</span>
+						<svg class="icon-cart" width="19" height="17"><use xlink:href="#icon-cart"/></svg>
+					</a>
+					<span class="global-header-text-promo hide" id="globalHeaderPromo"></span>
 				</div>
 	
 				<span class="button-mobile-nav-tel">
 					<a href="tel:1-866-350-8325" title="Call 1-866-350-8325">
-						<svg class="button-mobile-nav-tel-icon" enable-background="new 0 0 32 32" version="1.1"
-							viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-							<path
-								d="M22 20c-2 2-2 4-4 4s-4-2-6-4-4-4-4-6 2-2 4-4-4-8-6-8-6 6-6 6c0 4 4.109 12.109 8 16s12 8 16 8c0 0 6-4 6-6s-6-8-8-6z">
-							</path>
-						</svg>
+						<svg class="button-mobile-nav-tel-icon"><use xlink:href="#icon-phone2"/></svg>
 					</a>
 				</span>
 	
 	
 				<span class="button-mobile-nav-cart ">
-					<a href="/cart.php">
-						<span class="mini-cart-subtotal button-text mini-cart-quantity-mobile" data-cart-quantity="0">
-							0
-						</span>
-						<svg class="icon-cart" width="19" height="17" viewBox="0 0 19 17"
-							xmlns="http://www.w3.org/2000/svg">
-							<title>cart</title>
-							<path
-								d="M14.3848 8h-8.99l-.728-4h11.051l-1.333 4zm3.532-5.585c.188.261.239.597.137.901l-1.773 5.317c-.271.817-1.034 1.367-1.896 1.367h-8.627l.182 1h9.166c.552 0 1 .447 1 1 0 .553-.448 1-1 1h-9.165c-.967 0-1.794-.69-1.968-1.642L2.2708 2h-1.165c-.553 0-1-.447-1-1 0-.553.447-1 1-1h2c.483 0 .897.346.983.821L4.3028 2h12.803c.321 0 .623.154.811.415zM8.1055 15.5c0 .828-.672 1.5-1.5 1.5s-1.5-.672-1.5-1.5.672-1.5 1.5-1.5 1.5.672 1.5 1.5zm7 0c0 .828-.672 1.5-1.5 1.5s-1.5-.672-1.5-1.5.672-1.5 1.5-1.5 1.5.672 1.5 1.5z" />
-						</svg>
+					<a href="/cart.php" title="view your cart">
+						<span class="mini-cart-subtotal button-text mini-cart-quantity-mobile" data-cart-quantity="0">0</span>
+						<svg class="icon-cart" width="19" height="17"><use xlink:href="#icon-cart"/></svg>
 					</a>
 				</span>
 	
 	
 				<span class="button-mobile-nav-search">
-					<a>
-						<svg class="icon-search" width="17" height="17" viewBox="0 0 17 17"
-							xmlns="http://www.w3.org/2000/svg">
-							<title>search_icon</title>
-							<path
-								d="M16.46 14.8l-3.1-3.1c.87-1.18 1.4-2.63 1.4-4.2 0-3.87-3.14-7-7-7-3.88 0-7 3.13-7 7s3.12 7 7 7c1.56 0 3-.52 4.18-1.4l3.1 3.1c.4.4 1.03.4 1.42 0 .4-.38.4-1.02 0-1.4zm-8.7-2.3c-2.77 0-5-2.24-5-5s2.23-5 5-5c2.75 0 5 2.24 5 5s-2.25 5-5 5z" />
-						</svg>
+					<a href="#" class="button-mobile-nav-search--link" title="Search the site">
+						<svg class="icon-search" width="17" height="17"><use xlink:href="#icon-search2" /></svg>
 					</a>
 				</span>
 	
 	
-				<button class="button-mobile-nav-toggle ">
-					<svg class="burger" enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24"
-						xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-						<path d="M21 11h-18c-0.6 0-1 0.4-1 1s0.4 1 1 1h18c0.6 0 1-0.4 1-1s-0.4-1-1-1z"></path>
-						<path d="M3 7h18c0.6 0 1-0.4 1-1s-0.4-1-1-1h-18c-0.6 0-1 0.4-1 1s0.4 1 1 1z"></path>
-						<path d="M21 17h-18c-0.6 0-1 0.4-1 1s0.4 1 1 1h18c0.6 0 1-0.4 1-1s-0.4-1-1-1z"></path>
-					</svg>
+				<button type="button" class="button-mobile-nav-toggle">
+					<svg class="burger"><use xlink:href="#icon-hamburger"/></svg> 
 				</button>
 	
 				<div class="mobile-search-wrapper">
@@ -146,12 +116,7 @@
 									itemprop="query-input">
 							</div>
 							<button class="button-search-submit" type="submit">
-								<svg class="icon-search" width="17" height="17" viewBox="0 0 17 17"
-									xmlns="http://www.w3.org/2000/svg">
-									<title>search_icon</title>
-									<path
-										d="M16.46 14.8l-3.1-3.1c.87-1.18 1.4-2.63 1.4-4.2 0-3.87-3.14-7-7-7-3.88 0-7 3.13-7 7s3.12 7 7 7c1.56 0 3-.52 4.18-1.4l3.1 3.1c.4.4 1.03.4 1.42 0 .4-.38.4-1.02 0-1.4zm-8.7-2.3c-2.77 0-5-2.24-5-5s2.23-5 5-5c2.75 0 5 2.24 5 5s-2.25 5-5 5z" />
-								</svg>
+								<svg class="icon-search" width="17" height="17"><use xlink:href="#icon-search2" /></svg>
 							</button>
 						</form>
 					</div>

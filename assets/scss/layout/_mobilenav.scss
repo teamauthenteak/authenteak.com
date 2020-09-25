@@ -16,12 +16,12 @@
     }
 
     .button-mobile-nav-toggle--active {
-        position: absolute;
+        position: fixed;
         -ms-transform: translateY(-50%);
         transform: translateY(-50%);
         z-index: 999999;
         left: 85vw;
-        top: -90px;
+        top: 30px;
         background: transparent;
         width: 40px;
         height: 40px;
@@ -29,6 +29,11 @@
         text-align: center;
         display: flex;
         justify-content: center;
+
+        @media screen and (min-width: $screen-lg){
+            top: 60px;
+        }
+
     
         & .burger{
             background: #fff;
@@ -67,6 +72,14 @@
 @media screen and (max-width: $screen-lg + 5){
     .nav-mobile-open .navigation-mobile {
         display: block !important;
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: $screen-md + 5){
+    .nav-mobile-open .navigation-mobile {
+        display: block !important;
+        width: 80%;
     }
 }
 
@@ -100,6 +113,14 @@
     -webkit-overflow-scrolling: touch;
     z-index: 9999;
     padding-bottom: 60px;
+
+    @media screen and (max-width: $screen-md){
+        width: 50%;
+    }
+
+    @media screen and (max-width: $screen-sm){
+        width: 80%;
+    }
 
     & .navigation{
         border-bottom: 1px solid #d5dbdb;
@@ -155,7 +176,7 @@
 }
 
 .nav-mobile-text{
-    flex: 1 0 92%;
+    flex: 0 0 auto;
     text-transform: capitalize;
     font-size: 1.1rem;
     line-height: 1.4;

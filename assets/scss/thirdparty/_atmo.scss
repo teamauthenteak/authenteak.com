@@ -6,10 +6,15 @@
     padding: 0 17px;
 
     .form-input:not([type="radio"]):not([type="checkbox"]):not(.quantity-input) {
-        box-shadow: 0 0 0 1px #929396 inset;
+        box-shadow: 0 0 0 1px #ccc inset;
         height: 2rem;
         padding: 0 1rem;
         color: #444;
+        cursor: pointer;
+
+        &:hover{
+            box-shadow: 0 0 0 1px #929396 inset;
+        }
 
         @include placeholder() { 
             color: $color-topbar-text; 

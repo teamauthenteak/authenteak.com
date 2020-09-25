@@ -19,9 +19,21 @@ export default class QuantityWidget {
 
       if (action === 'increment' && value < max) {
         $quantityInput.val(value + 1).trigger('change');
+
       } else if (action === 'decrement' && value > 0 && value > min) {
         $quantityInput.val(value - 1).trigger('change');
       }
+
+
+      /**
+       * +/- Clyde Conracts
+       */
+      let clydeIncrement = $target.data();
+
+      if ( clydeIncrement.hasOwnProperty("clydeItemId") ) {
+        TEAK.Utils.storeData("clyde_increment", clydeIncrement);
+      }
+
     });
 
     // Simple input validation (keep input within min/max range)
@@ -36,7 +48,9 @@ export default class QuantityWidget {
         //TODO: Integrate Alert system
         console.error(`Quantity "${value}" cannot be greater than maximum (${max})`);
         $target.val($target.attr('value'));
-      } if (value < min) {
+      } 
+      
+      if (value < min) {
         console.error(`Quantity value "${value}" cannot be less than minimum (${min})`);
         $target.val($target.attr('value'));
       }

@@ -1,6 +1,6 @@
 import slick from 'slick-carousel';
 import imagesLoaded from 'imagesloaded';
-import ImageZoom from './ImageZoom';
+import ImageZoom from '../components/ImageZoom';
 import baguetteBox from 'baguettebox.js';
 
 export default class ProductImages {

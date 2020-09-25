@@ -606,6 +606,11 @@ pre {
   &::placeholder { opacity: 0.8; }
 }
 
+.form-input-error{
+  box-shadow: 0 0 0 1px #FF5E5D inset !important;
+  border-color: #FF5E5D !important;
+}
+
 textarea.form-input { resize: vertical; }
 
 #{$all-text-inputs} {
@@ -994,7 +999,7 @@ $expanded-nav-height: $topbar-height + $navbar-height;
 $modal-width-narrow: rem-calc(684px);
 $section-padding: rem-calc(80px);
 $blog-index-width: rem-calc(645px);
-$mini-cart-width: 400px;
+$mini-cart-width: 500px;
 
 // Z Indices
 $nav-mobile-z: 1000;
@@ -3520,7 +3525,7 @@ button {
   display: block;
 
   &:after {
-    @include icon-arrow-down($color-meta);
+    @include icon-arrow-down(#333);
     position: absolute;
     top: 50%;
     right: 20px;
@@ -4063,8 +4068,8 @@ table.geotrust-ssl-seal-table {
 .mini-cart {
   position: fixed;
   top: 0;
-  right: -400px;
-  width: 400px;
+  right: -500px;
+  width: 500px;
   height: 100%;
   background-color: $color-mini-cart-background;
   transition: transform .3s ease;
@@ -7521,7 +7526,6 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
 
 .footer-nav-wrap {
   @extend %clearfix;
-  padding-bottom: 57px;
 }
 
 .button-top {
@@ -7600,7 +7604,7 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
 }
 
 .footer-site-copyright {
-  margin-top: 42px;
+  // margin-top: 42px;
 }
 
 .footer-theme-credits {
@@ -8152,7 +8156,7 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
 
   @include media($min: $breakpoint-l) {
     top: 50%;
-    right: rem-calc(-53px);
+    // right: rem-calc(-53px);
     transform: translateY(-50%);
   }
 
@@ -8323,6 +8327,7 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
 }
 
 .apple-pay-checkout-button {
+  @extend %button-rounded;
   display: none;
   box-sizing: border-box;
   min-width: rem-calc(176);

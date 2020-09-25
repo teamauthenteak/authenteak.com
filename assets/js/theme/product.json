@@ -3,36 +3,75 @@
         "brands": {
             "Treasure Garden": {
                 "Select Canopy": {
-                    "tip": [
-                        "<h2 class='toolTip__heading--2'>What are the different Treasure Garden Canopy Materials?</h2>",
-                        
-                        "<p class='toolTip__text'>Treasure Garden offers both acrylic and polyester fabrics for their umbrella canopies. The acrylic fabrics are known as Grade A and the polyester fabrics are known as Grade C. Both fabrics are made of a solution-dyed yarn, which means the pigments are saturated through the entire thread and are not a print on the surface of the fabric. Both fabrics are resistant to fading, stains, mold and mildew and are easily cleanable.</p>",
-                        
-                        "<p class='toolTip__text'>The fabrics differ as follows:</p>",
-                        
-                        "<h3 class='toolTip__heading--3'>Grade A</h3>",
-                        "<ul class='toolTip__list'>",
-                            "<li class='toolTip__listItem'>5-year warranty against fading</li>",
-                            "<li class='toolTip__listItem'>Made of 100% solution-dyed acrylic fabric</li>",
-                            "<li class='toolTip__listItem'>Grade A canopies are made by brands such as Sunbrella, Outdura and Docril</li>",
-                        "</ul>",
-                        
-                        "<h3 class='toolTip__heading--3'>Grade C</h3>",
-                        "<ul class='toolTip__list'>",
-                            "<li class='toolTip__listItem'>4-year warranty against fading</li>",
-                            "<li class='toolTip__listItem'>Made of 100% solution-dyed polyester</li>",
-                            "<li class='toolTip__listItem'>Grade C Canopies are Treasure Garden’s proprietary version of their best-selling Grade A acrylic fabrics</li>",
-                        "</ul>"
-                    ]
-                }
-            },	
+					"type": "tabs",
+					"tip": [
+						{
+							"id": "fabric_grades",
+							"label": "Fabric Grades",
+							"tabContent": [
+								"<h2 class='toolTip__heading--2'>Canopy Fabric Grades</h2>",
+								
+								"<p class='toolTip__text'>Treasure Garden offers both acrylic and polyester fabrics for their umbrella canopies. The acrylic fabrics are known as Grade A and the polyester fabrics are known as Grade C. Both fabrics are made of a solution-dyed yarn, which means the pigments are saturated through the entire thread and are not a print on the surface of the fabric. Both fabrics are resistant to fading, stains, mold and mildew and are easily cleanable.</p>",
+								
+								"<p class='toolTip__text'>The fabrics differ as follows:</p>",
+								
+								"<h3 class='toolTip__heading--3'>Grade A/A+</h3>",
+								"<ul class='toolTip__list'>",
+									"<li class='toolTip__listItem'>5-year warranty against fading</li>",
+									"<li class='toolTip__listItem'>Made of 100% solution-dyed acrylic</li>",
+									"<li class='toolTip__listItem'>Grade A canopies are made by brands such as Sunbrella, Outdura and Docril</li>",
+								"</ul>",
+								
+								"<h3 class='toolTip__heading--3'>Grade C</h3>",
+								"<ul class='toolTip__list'>",
+									"<li class='toolTip__listItem'>4-year warranty against fading</li>",
+									"<li class='toolTip__listItem'>Made of 100% solution-dyed polyester</li>",
+									"<li class='toolTip__listItem'>Grade C Canopies are Treasure Garden’s proprietary version of their best-selling Grade A acrylic fabrics</li>",
+								"</ul>"
+							]
+						},
+						{
+							"id": "replacement_canopy",
+							"label": "Replacement Canopy",
+							"tabContent": [
+								"<h2 class='toolTip__heading--2'>Measuring for Replacement Canopy</h2>",
+								
+								"<p class='toolTip__text'>Replacement canopies are brand specific and they are not universal in size. A canopy that may fit a 9-foot octagonal umbrella from one brand will not necessarily fit the same size and shape canopy from another brand. When ordering a replacement canopy, you will first want to know the brand, model, size and shape of your existing umbrella, as well as the number of ribs. Canopies are super easy to replace for both market and cantilever umbrellas and can typically be swapped out in a matter of minutes. Canopies are usually much easier to replace when the umbrella is in the closed position. Please contact us if you would like to learn more about the best way to know which replacement canopy will fit your existing umbrella.</p>",
+								
+								"<p class='toolTip__text'>One of the easier ways to help determine which canopy size umbrella you currently have is to take measurements. The following info helps explains how to measure your umbrella to help determine which replacement canopy is right for your existing frame.</p>",
+								
+								"<h3 class='toolTip__heading--3'>Round, Octagonal, Hexagonal and Square Canopies</h3>",
+								"<ul class='toolTip__list'>",
+									"<li class='toolTip__listItem'>1. Using a tape measure, measure from the top of the rib at the center pole down to the outer edge of the umbrella. This is your radius measurement.</li>",
+									"<li class='toolTip__listItem'>2. Multiply your radius by 2 to come up with the diameter of your canopy.</li>",
+									"<li class='toolTip__listItem'>3. Divide that number by 12 to give you the measurement in feet.</li>",
+								"</ul>",
+								
+								"<h3 class='toolTip__heading--3'>Rectangular Canopies</h3>",
+								"<ul class='toolTip__list'>",
+									"<li class='toolTip__listItem'>1. Using a tape measure, measure the long side for length and the short side for width (not the ribs that angle out towards the corners). These measurements will give you the radius.</li>",
+									"<li class='toolTip__listItem'>2. Multiply your radius of both measurements by 2 to come up with the diameter for the width and depth of your canopy.</li>",
+									"<li class='toolTip__listItem'>3. Divide that number by 12 to give you the measurement in feet.</li>",
+								"</ul>"
+							]
+						}
+					]
+				},
+				"Select Optional Valance":{
+					"tip": [
+						"<h2 class='toolTip__heading--2'>What is a valance?</h2>",
+                        "<p class='toolTip__text'>A valance is an additional flap of fabric approximately 7-inches in height that hangs around the perimeter of the canopy and is often seen on a beach or café-style umbrella or on a large cantilever umbrella. While generally thought of as only providing a decorative touch, a valance also provides the benefit of keeping direct UV rays shielded while the sun approaches from a sharp angle.</p>"
+					]
+				}	
+            },
             "Travis Industries": {
                 "Select Ignition Type": {
+					"type": "general",
                     "tip": [
                         "<h2 class='toolTip__heading--2'>What are the differences in the Tempest Torch ignition types?</h2>",
                         
                         "<h3 class='toolTip__heading--3'>Manual Ignition:</h3>",
-                        "<p class='toolTip__text'>The manual light Tempest Torch has a built-in Piezo igniter and works much like a gas grill spark ignition. To start the torch, turn the gas control knob and push the ignition button for easy lighting. This manual light model has an easy access control panel and allows for low to high flame control. No electrical is needed for this model making it an affordable and easy installation.</p>",
+                        "<p class='toolTip__text'>The manual ignition Tempest Torch has a built-in Piezo igniter and works much like a gas grill spark ignition. To start the torch, turn the gas control knob and push the ignition button for easy lighting. This manual ignition model has an easy access control panel and allows for low to high flame control. No electrical is needed for this model making it an affordable and easy installation.</p>",
                         
                         "<h3 class='toolTip__heading--3'>Eletronic Ignition:</h3>",
                         "<p class='toolTip__text'>The new 24V electronic ignition Tempest Torch can be used with a standard light switch, a remote control, a programmable timer, or even connected to a Smart Home system. With its miniaturized gas valve and control module built into the torch base, the electronic ignition model can be wired up to 445 feet from its transformer. <a href='/travis-industries-tempest-torch-transformer-for-electronic-ignition-torch-head/' target='_blank'>Transformers sold separately</a>. For additional info and details, read the <a href='/content/PDF/TempestTorchPDFs/Tempest%2024V%20Manual_New.pdf' target='_blank'>owner’s manual</a>. Adding multiple torches with electronic ignition has never been easier. Connect up to four torch heads per transformer.</p>",
@@ -40,7 +79,111 @@
                         "<p class='toolTip__text'>Manual and Electronic Ignition models are available for both Natural Gas and Liquid Propane.</p>"
                     ]
                 }
-            }
+            },
+            "Shademaker": {
+                "Select Canopy": {
+					"type": "general",
+                    "tip": [
+                        "<h2 class='toolTip__heading--2'>What are the different Shademaker Canopy Materials?</h2>",
+                        
+                        "<p class='toolTip__text'>Shademaker offers both acrylic and polyester fabrics for their umbrella canopies. The acrylic fabrics (Grade A) are available in two weights: furniture grade and awning grade. Furniture grade fabrics are better suited for low-wind, non-coastal areas and residential use. Awning grade fabrics are ideal for demanding commercial and high-wind residential locations. The polyester fabrics (Grade C) are available in awning grade only. All fabrics are made of a solution-dyed yarn, which means the pigments are saturated through the entire thread and are not a print on the surface of the fabric. All fabrics are fade, stain, mold and mildew resistant and are easily cleanable.</p>",
+                        
+                        "<p class='toolTip__text'>The fabrics differ as follows:</p>",
+                        
+                        "<h3 class='toolTip__heading--3'>Grade A Awning</h3>",
+                        "<ul class='toolTip__list'>",
+                            "<li class='toolTip__listItem'>10-year limited warranty</li>",
+                            "<li class='toolTip__listItem'>100% solution-dyed acrylic</li>",
+                            "<li class='toolTip__listItem'>Made by the brand Sunbrella</li>",
+                            "<li class='toolTip__listItem'>Awning grade fabric has a heavier weight, ideal for commercial or high-wind areas</li>",
+                        "</ul>",
+                        
+                        "<h3 class='toolTip__heading--3'>Grade A Furniture</h3>",
+                        "<ul class='toolTip__list'>",
+                            "<li class='toolTip__listItem'>5-year limited warranty</li>",
+                            "<li class='toolTip__listItem'>100% solution-dyed acrylic</li>",
+                            "<li class='toolTip__listItem'>Made by brands such as Sunbrella, Outdura and Docril</li>",
+                            "<li class='toolTip__listItem'>Furniture grade fabric has a lighter weight than Awning grade fabric and is better suited for non-coastal areas and residential use</li>",
+                        "</ul>",
+                        
+                        "<h3 class='toolTip__heading--3'>Grade C Awning</h3>",
+                        "<ul class='toolTip__list'>",
+                            "<li class='toolTip__listItem'>5-year limited warranty</li>",
+                            "<li class='toolTip__listItem'>100% solution-dyed polyester</li>",
+                            "<li class='toolTip__listItem'>Made by the brand O’bravia</li>",
+                            "<li class='toolTip__listItem'>Awning grade fabric has a heavier weight, ideal for commercial or high-wind areas</li>",
+                        "</ul>"
+                    ]
+                }
+            },
+			 "Bambrella": {
+                "Select Canopy": {
+					"type": "general",
+                    "tip": [
+                        "<h2 class='toolTip__heading--2'>What are the different Bambrella Canopy Materials?</h2>",
+                        
+                        "<p class='toolTip__text'>All Bambrella canopy fabrics are made of either acrylic or polyester yarns and are intended for full-time outdoor use. These all-weather solution-dyed fabrics are fade, stain, mold and mildew resistant and clean easily.</p>",
+                        
+                        "<p class='toolTip__text'>The fabrics differ as follows:</p>",
+                        
+                        "<h3 class='toolTip__heading--3'>Spuncrylic</h3>",
+                        "<ul class='toolTip__list'>",
+                            "<li class='toolTip__listItem'>100% solution-dyed polyester</li>",
+                            "<li class='toolTip__listItem'>Limited color selection</li>",
+                            "<li class='toolTip__listItem'>UPF: 50+</li>",
+                            "<li class='toolTip__listItem'>Similar performance to acrylic at a good value</li>",
+							"<li class='toolTip__listItem'>2-year limited warranty</li>",
+                        "</ul>",
+                        
+                        "<h3 class='toolTip__heading--3'>Sunbrella</h3>",
+                        "<ul class='toolTip__list'>",
+                            "<li class='toolTip__listItem'>100% solution-dyed acrylic</li>",
+                            "<li class='toolTip__listItem'>Large color selection</li>",
+                            "<li class='toolTip__listItem'>UPF: 50+</li>",
+                            "<li class='toolTip__listItem'>High performance industry leading fabrics</li>",
+							"<li class='toolTip__listItem'>5-year limited warranty</li>",
+                        "</ul>"
+                    ]
+                }
+            },
+            "Lynx Grills": {
+            	"Select Burner Configuration": {
+					"type": "general",
+					"tip": [
+                        "<h2 class='toolTip__heading--2'>What are the different burner configurations for the Lynx Professional collection?</h2>",
+                        
+                        "<p class='toolTip__text'><strong>All Conventional Burners:</strong> Within this option, all burners (# depends on size of grill) are cast ceramic burners. Lynx’s cast ceramic burners are superior to more commonly used stainless steel burners as ceramic burners are extremely heavy-duty and able to produce an intense amount of heat. We recommend all conventional burners if you generally grill burgers and hot dogs more often than steaks.</p>",
+                        
+                        "<p class='toolTip__text'><strong>All Infrared Burners:</strong> All of the burners (# depends on size of the grill) are Lynx’s exclusive Trident Infrared Burners. Infrared heat is especially beneficial for grilling because it’s a source of direct heat and is able to soar to the highest temperatures while also being able to cook evenly at low temperatures. We recommend all infrared or one infrared if you like to sear steaks and roast veggies on the grill.</p>",
+                        
+                        "<p class='toolTip__text'><strong>Conventional Burners + One Infrared:</strong> This hybrid option contains both Lynx cast ceramic burners (# depends on size of the grill) and one Trident Infrared Burner. This configuration is ideal for the grill master that wants to have versatility in their grilling options. This way, you’ll have the consistency of the conventional ceramic burners, but the option to crank up the heat with the Trident infrared burners to create a high temperature grilling surface for searing.</p>"
+                    ]
+                }
+            },
+        	"Elaine Smith Pillows": {
+            	"Select Optional Faux Down Insert": {
+					"type": "general",
+					"tip": [
+                        "<h2 class='toolTip__heading--2'>What is the faux down insert?</h2>",
+                        
+                        "<p class='toolTip__text'>All Elaine Smith outdoor pillows are sold as a complete pillow with a soft Sunbrella acrylic fabric casing and a sealed insert made of 100% polyester fiber. Elaine Smith offers an optional upgrade of a faux down insert, which adds additional softness. A tailored, hidden zipper allows easy casing removal for cleaning. Made in the USA.</p>"
+                    ]
+                }
+            },
+        	"Gloster": {
+            	"Select Year Ventura Furniture Was Originally Purchased": {
+					"type": "general",
+					"tip": [
+						"<p class='toolTip__text'>Gloster made a running model change to their Ventura deep seating frames at the end of 2007 and their replacement cushions are specific to the model year of their frames.  The easiest way to determine what year your frames were produced is to locate the batch code on the lower back rail or on the bottom of your existing frames. The batch code will be on a sticker and the first two numbers of the code will indicate the year the frame was made.  Please select the correct model year from the drop down menu.</p>"
+					]
+                },
+            	"Select Year Kingston Furniture Was Originally Purchased": {
+					"type": "general",
+					"tip": [
+						"<p class='toolTip__text'>Gloster made a running model change to their Kingston deep seating frames at the end of 2009 and their replacement cushions are specific to the model year of their frames.  The easiest way to determine what year your frames were produced is to locate the batch code on the lower back rail or on the bottom of your existing frames. The batch code will be on a sticker and the first two numbers of the code will indicate the year the frame was made.  Please select the correct model year from the drop down menu.</p>"
+					]
+				}
+          	}
         },
         "elements": {
             "free_white_glove_delivery": [
@@ -50,38 +193,48 @@
                 "<p class='toolTip__text'>We ask that you have the area in which the product is being delivered clear of debris and obstacles, including the walkway into the space. Please make sure doorways are of sufficient height and width in relation to the items going through. If you live in a condo or apartment, you may need to arrange elevator appointment for your delivery. This may include installation of floor and wall pads. Please ask your building manager to provide you with the interior dimensions (to include doorway) of the elevator to insure product fit. For cantilever umbrellas that use a sand filled base, you should have the sand available prior to the delivery.</p>",
                 "<p class='toolTip__text'>For all White Glove Deliveries, you MUST inspect the product and any packaging you see at the time of delivery. If there is any damage to either the product or the package, or if there is any reason for you to be at all concerned about damage, please reference it clearly on the PROOF OF DELIVERY sheet that they ask you to sign. This simply insures that if there is any damage, it will be easy to take care of the problem.</p>",
                 "<p class='toolTip__text'>Please refer to <strong><a href='/shipping#rec' target='_blank'>Receiving and Inspecting Merchandise</a></strong> for more information on how to receive and inspect your delivery.</p>"
+            ],
+            "threshold_delivery": [
+                "<h2 class='toolTip__heading--2'>First Threshold Delivery</h2>",
+                "<p class='toolTip__text'>First Threshold Delivery is an enhanced delivery option that ensures your order is delivered to the outermost door of the delivery address, in most cases being the front door, garage, or service entrance of a multi-family property.</p>", 
+                "<p class='toolTip__text'>The difference between Standard Delivery and First Threshold Delivery is that the standard option is a delivery to the beginning of your driveway (i.e. curbside). First Threshold Delivery helps provide assurance and peace of mind with your order, bringing your delivery safely to your doorstep and away from the street.</p>",
+                "<p class='toolTip__text'>Due to occasional carrier restrictions and/or potential distance limitations, First Threshold Delivery may not be available and in those cases, we reserve the right to cancel this service with sufficient notice and refund any applicable fees.</p>"
+            ],
+            "next_bussiness_day": [
+                "<h2 class='toolTip__heading--2'>Next Bussiness Day Processing</h2>",
+                "<p class='toolTip__text'>Transit time is determined by shipping method and destination. Orders placed by 12pm ET may be shipped same day. Orders placed after 2pm ET will be processed the next business day.</p>"
             ]
-        }
-    },
-    "tabs": {
-        "returnTab":[
-            "<p>Please contact us with any questions regarding our return policy prior to placing your order. We are available to assist during the showroom hours of Monday – Friday, 10a – 5p (ET) by calling <a href=tel:866-350-8325'>866-350-8325</a>, emailing <a href='mailto:customercare@authenteak.com'>customercare@authenteak.com</a> or via chat.</p>",
-            "<p>We stand by our products 100% and will replace or refund any item which arrives damaged or defective. Please refer to our information on Receiving and Inspecting Merchandise to learn how to handle damage related to shipping, freight and/or delivery.</p>",
-            "<p>Items eligible for a return and refund must be returned within 30 days of delivery. All returns must be in original condition and packaging. We are unable to accept returns of merchandise that has been assembled, altered, or used. Some items are not eligible for returns or refunds. See below for more details.</p>",
-            "<p>All returns will incur a 15% restocking fee. In the event of an exchange, AuthenTEAK may waive a portion of the restocking fee.</p>",
-            "<p>AuthenTEAK does not offer free returns and the customer is responsible for all costs associated with the returning of merchandise. Additionally, if the order was shipped and/or delivered at no charge (i.e. Free Shipping), including any Free White Glove promotions, the cost of that shipping and/or delivery service will be deducted from any eligible refunds.</p>",
-            "<p>For assistance with your return, including the logistics of your return, call <a href='tel:866-350-8325'>866-350-8325</a> between 10a – 5p (ET), Monday – Friday, email <a href='mailto:customercare@authenteak.com'>customercare@authenteak.com</a> or chat.</p>",
-            "<p>All refunds must include a Return Authorization (RA) number. To obtain an RA number and process your refund, please contact customer support during business hours, or complete our <a href='/policies#s-5fc0a361-5456-4c5e-b7c0-57ac50dd0702'>Returns Authorization Form</a>. Refunds are processed within one week of receipt and inspection of merchandise.</p>",
-            "<h4>FINAL SALE AND CLEARANCE ITEMS</h4>",
-            "<p>Any items marked as Clearance or Final Sale online or in our showroom are considered final-sale items and cannot be returned.</p>",
+		}
+	},
+	"tabs": {
+		"returnTab":[
+			"<p>Please contact us with any questions regarding our return policy prior to placing your order. We are available to assist during the showroom hours of Monday – Friday, 10a – 5p (ET) by calling <a href=tel:866-350-8325'>866-350-8325</a>, emailing <a href='mailto:customercare@authenteak.com'>customercare@authenteak.com</a> or via chat.</p>",
+			"<p>We stand by our products 100% and will replace or refund any item which arrives damaged or defective. Please refer to our information on Receiving and Inspecting Merchandise to learn how to handle damage related to shipping, freight and/or delivery.</p>",
+			"<p>Items eligible for a return and refund must be returned within 30 days of delivery. All returns must be in original condition and packaging. We are unable to accept returns of merchandise that has been assembled, altered, or used. Some items are not eligible for returns or refunds. See below for more details.</p>",
+			"<p>All returns will incur a 15% restocking fee. In the event of an exchange, AuthenTEAK may waive a portion of the restocking fee.</p>",
+			"<p>AuthenTEAK does not offer free returns and the customer is responsible for all costs associated with the returning of merchandise. Additionally, if the order was shipped and/or delivered at no charge (i.e. Free Shipping), including any Free White Glove promotions, the cost of that shipping and/or delivery service will be deducted from any eligible refunds.</p>",
+			"<p>For assistance with your return, including the logistics of your return, call <a href='tel:866-350-8325'>866-350-8325</a> between 10a – 5p (ET), Monday – Friday, email <a href='mailto:customercare@authenteak.com'>customercare@authenteak.com</a> or chat.</p>",
+			"<p>All refunds must include a Return Authorization (RA) number. To obtain an RA number and process your refund, please contact customer support during business hours, or complete our <a href='/policies#s-5fc0a361-5456-4c5e-b7c0-57ac50dd0702'>Returns Authorization Form</a>. Refunds are processed within one week of receipt and inspection of merchandise.</p>",
+			"<h4>FINAL SALE AND CLEARANCE ITEMS</h4>",
+			"<p>Any items marked as Clearance or Final Sale online or in our showroom are considered final-sale items and cannot be returned.</p>",
 
-            "<h4>CUSTOM ORDERS</h4>",
-            "<p>Made-to-Order and Custom Order merchandise are non-returnable, non-cancellable and non-refundable with the exception of manufacturer defects or damage. Customers have one business day from placement of these orders to cancel their order by phoning or emailing the showroom and speaking with a customer care representative to obtain a cancellation confirmation.</p>",
-            "<p><strong>The following items are considered Made-to-Order or Custom Order:</strong></p>",
-            "<ol>",
-                "<li>Fabric by The Yard</li>",
-                "<li>Furniture Cushions, including Replacement Cushions and Casings</li>",
-                "<li>Upholstered Furniture</li>",
-                "<li>Solair Awnings</li>",
-                "<li>Furniture with custom sizes</li>",
-                "<li>Curtains/Drapes</li>",
-                "<li>Kitchen Cabinetry by Danver, Urban Bonfire or NatureKast.</li>",
-            "</ol>",
-            "<p>If you are unclear on our return policy, please contact us for assistance prior to placing your order.</p>",
+			"<h4>CUSTOM ORDERS</h4>",
+			"<p>Made-to-Order and Custom Order merchandise are non-returnable, non-cancellable and non-refundable with the exception of manufacturer defects or damage. Customers have one business day from placement of these orders to cancel their order by phoning or emailing the showroom and speaking with a customer care representative to obtain a cancellation confirmation.</p>",
+			"<p><strong>The following items are considered Made-to-Order or Custom Order:</strong></p>",
+			"<ol>",
+				"<li>Fabric by The Yard</li>",
+				"<li>Furniture Cushions, including Replacement Cushions and Casings</li>",
+				"<li>Upholstered Furniture</li>",
+				"<li>Solair Awnings</li>",
+				"<li>Furniture with custom sizes</li>",
+				"<li>Curtains/Drapes</li>",
+				"<li>Kitchen Cabinetry by Danver, Urban Bonfire or NatureKast.</li>",
+			"</ol>",
+			"<p>If you are unclear on our return policy, please contact us for assistance prior to placing your order.</p>",
 
-            "<h4>PRICING</h4>",
-            "<p>All prices on our website are in US dollars (USD) and are subject to any applicable taxes according to state and local laws. Availability, prices, and delivery lead times are subject to change.</p>",
-            "<p><strong>* Attention:</strong> There may be errors in the prices, descriptions or images of certain merchandise, and we must reserve the right to restrict orders of those items.</p>"
-        ]
-    }
+			"<h4>PRICING</h4>",
+			"<p>All prices on our website are in US dollars (USD) and are subject to any applicable taxes according to state and local laws. Availability, prices, and delivery lead times are subject to change.</p>",
+			"<p><strong>* Attention:</strong> There may be errors in the prices, descriptions or images of certain merchandise, and we must reserve the right to restrict orders of those items.</p>"
+		]
+	}
 }

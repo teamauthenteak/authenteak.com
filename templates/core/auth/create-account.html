@@ -23,8 +23,31 @@
     {{{forms.create_account.recaptcha.markup}}}
 
     <div class="account-create-form-actions">
-      <input class="button account-button-primary" type="submit" value="{{lang 'core.auth.create.submit'}}">
+      <p>
+        <label for="klaviyoSignup"> 
+          <input type="checkbox" checked value="" name="" id="klaviyoSignup" onchange="TEAK.klavioSignup()">
+          Sign me up for AuthenTEAK insider membership benefits
+        </label> 
+      </p>
+
+      <script>
+        var TEAK = window.TEAK || {};
+
+       if( window.localStorage ){ window.localStorage.setItem("TEAK_klaviyoSignup", true); }
+
+        TEAK.klavioSignup = function(){
+          TEAK.Utils.storeData("TEAK_klaviyoSignup", {
+            canSignUp: document.getElementById("klaviyoSignup").checked
+          });
+        };
+      </script>
+
+      
+      <button class="button account-button-primary" type="submit" value="{{lang 'core.auth.create.submit'}}">
+        {{lang 'core.auth.create.submit'}}
+      </button>
     </div>
+    
   </form>
 {{/partial}}
 

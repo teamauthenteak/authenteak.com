@@ -1,0 +1,115 @@
+.clyde{
+
+    &__faq{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        z-index: 9999;
+    }
+
+    &__closeBtn{
+        font-size: 4rem;
+        padding: 0 20px;
+        line-height: 1;
+        background: transparent;
+        text-align: center;
+        width: 80px;
+        align-self: flex-end;
+        outline: #eee;
+    }
+
+    &__faqBtn{
+        padding: 0;
+        margin: 3px 0;
+        background-color: transparent;
+        color: $btn-color-green;
+        outline: #eee;
+        text-align: left;
+    }
+
+    &__faqCntr{
+        padding: 0 20px;
+        height: 100%;
+        overflow: auto;
+
+        & .landing__header{
+            line-height: 1;
+            margin-top: 0;
+        }
+    }
+
+    &__iconTitle{
+        line-height: 1.4;
+        margin: 10px 0 0 0;
+        text-align: center;
+        font-size: .8rem;
+    }
+    
+    &__coverageIcons{
+        width: 40px;
+        height: 40px;
+
+        &--large{
+            width: 80px;
+            height: 80px;
+        }
+    }
+    
+    &__iconList{
+        display: flex;
+        flex-direction: row;
+        float: left;
+        width: 100%;
+
+        &--margin{
+            margin: 0 0 40px 0;
+        }
+
+        @media screen and (max-width: $screen-sm) {
+            flex-wrap: wrap;
+        }
+    }
+    
+    &__iconListItem{
+        padding: 0 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 25%;
+
+        @media screen and (max-width: $screen-sm) {
+            width: 50%;
+            padding: 20px;
+        }
+    }
+}
+
+
+.clyde-cart-cta{
+    width: 50%;
+}
+
+.cart-item--cntr[name*="Clyde Protection Plan"]{
+    & .button-control-action{
+        opacity: 0;
+    }
+
+    & .cart-item-shipping, & .cart-label,  & .cart-item-edit{
+        display: none;
+    }
+
+    & .quantity-input{
+        background-color: #eee;
+        height: 35px !important;
+        color: #999;
+        cursor: not-allowed;
+    }
+}

@@ -1,3 +1,5 @@
+// promo or "good" alerts.  
+
 .promoBanner{
     width: 100%;
     display: none;
@@ -5,6 +7,7 @@
     align-items: center;
     justify-content: center;
     align-content: center;
+    color: #fff;
 
     &__affirmLogo{
         width: 67px;
@@ -28,6 +31,9 @@
         align-items: center;
         justify-content: center;
         align-content: center;
+        order: 1;
+        line-height: 1;
+        padding: 5px 0;
 
         @media only screen and (max-width: $screen-xs) {
             font-size: 0.7rem;
@@ -35,11 +41,33 @@
         }
     }
 
+    &__text{
+        @extend .promoBanner__link;
+    }
+    
+    &__closeBtn{
+        color: #fff;
+        font-weight: 300;
+        background-color: transparent;
+        width: 50px;
+        height: 20px;
+        order: 2;
+    }
+
+
+    &__closeBtnIcon{
+        font-size: 2.1rem;
+        line-height: 0;
+        margin-top: 0px;
+        display: block;
+        height: 12px;
+    }
+
     &--green{
         background-color:rgba(110, 163, 66, 0.09);
         border-bottom: 1px solid rgba(191, 214, 171, 0.30);
 
-        & .promoBanner__link{
+        & .promoBanner__link, .promoBanner__text, .promoBanner__closeBtnIcon{
             color:rgba(110, 163, 66, 1);
         }
     }
@@ -47,28 +75,27 @@
     &--blue{
         background-color:rgba(15, 160, 234, 0.09);
         border-bottom: 1px solid rgba(15, 160, 234, 0.30);
-
-        & .promoBanner__link{
-            color: #0fa0ea;
+        
+        & .promoBanner__link, .promoBanner__text, .promoBanner__closeBtnIcon{
+            color: rgba(15, 160, 234, 1);;
         }
     }
 
     &--grey{
-        background-color: #e4e0dd;
+        background-color: #2E3036;
         border-bottom: 1px solid transparent;
 
-        & .promoBanner__link{
-            color: #403f3f;
+        & .promoBanner__link, .promoBanner__text{
+            color: #fff;
         }
     }
 
     &--red{
         background-color: #7D0404;
         border-bottom: 1px solid #f38c8c;
-        color: #fff;
 
-        & .promoBanner__link{
-            color: #fbefef;
+        & .promoBanner__link, .promoBanner__text{
+            color: #fff;
         }
     }
 
@@ -76,9 +103,9 @@
     &--black{
         background-color: #121212;
         border-bottom: 1px solid #555;
-        color: #ccc;
+        color: #fff;
 
-        & .promoBanner__link{
+        & .promoBanner__link, .promoBanner__text{
             color: #fff !important;
         }
     }
@@ -86,7 +113,6 @@
     &--maroon{
         background-color: #822828;
         border-bottom: 1px solid #f38c8c;
-        color: #fff;
 
         & .promoBanner__link{
             color: #fff !important;

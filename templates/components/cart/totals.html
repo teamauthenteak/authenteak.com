@@ -1,331 +1,189 @@
-<script
-  id="bolt-connect"
-  type="text/javascript"
-  src="https://connect.bolt.com/connect-bigcommerce.js"
-  data-publishable-key="3ximKwUWJJ6Q.SC4loucq5R6G.7c46996f8803dcf5a87ddc1ef5f9a9c866bbcb290f9c4ba450c92ef72081e578"
-  data-shopping-cart-id="BigCommerce">
+<script id="bolt-connect" src="https://connect.bolt.com/connect-bigcommerce.js"
+	data-publishable-key="3ximKwUWJJ6Q.SC4loucq5R6G.7c46996f8803dcf5a87ddc1ef5f9a9c866bbcb290f9c4ba450c92ef72081e578"
+	data-shopping-cart-id="BigCommerce">
 </script>
 
-<div class="cart-totals-column">
-  {{> components/cart/coupon-codes}}
+
+<div class="cart-1-1 cart-totals-col">
+	<h2 class="cart-total-heading">Order Summary</h2>
+	
+	<div class="cart-sub-total cart-totals-item">
+		<span class="cart-total-label">{{lang 'cart.sub_total'}}</span>
+		<span class="cart-total-item" id="cartSubTotal">{{cart.sub_total.formatted}}</span>
+	</div>
+
+	{{#each cart.taxes}}
+	<div class="cart-totals-item">
+		<span class="cart-total-label">{{name}}:</span>
+		<span class="cart-total-item" data-tax="{{cost.value}}" id="cartTax">{{cost.formatted}}</span>
+	</div>
+	{{/each}}
+
+	<div class="cart-totals-item hide" id="cartTotalItemDiscount">
+		<span class="cart-total-label">{{lang 'cart.discount'}}:</span>
+		<span class="cart-total-item cart-total-item--discount"></span>
+	</div>
+
+	{{#if customer.customer_group_id '!=' '1' }}
+	{{#if cart.coupons}}
+	<div class="cart-totals-item">
+		<span class="cart-total-label">
+			{{lang 'cart.coupon_codes.coupon_code'}}
+		</span>
+		<ul class="coupons-active list-bulleted">
+			{{#each cart.coupons}}
+			<li>
+				{{lang 'cart.coupon_codes.label' code=code}}
+				<span class="cart-total-item">{{discount.formatted}}</span>
+				<a class="link" href="{{remove_url}}">
+					{{lang 'cart.coupon_codes.remove'}}
+				</a>
+			</li>
+			{{/each}}
+		</ul>
+	</div>
+	{{/if}}
+	{{/if}}
+
+	{{!-- > components/cart/shipping-calculator cart.shipping_handling --}}
+	{{#if settings.gift_certificates_enabled}}
+	{{> components/cart/gift-certificates}}
+	{{/if}}
+
+	{{#if cart.gift_wrapping_cost.value ">" 0}}
+	<div class="cart-totals-item">
+		<span class="cart-total-label">{{lang 'cart.gift_wrapping.title'}}</span>
+		<span class="cart-total-item">{{cart.gift_wrapping_cost.formatted}}</span>
+	</div>
+	{{/if}}
+
+
+
+
+	{{#if customer.customer_group_id '!=' '1' }}
+	<div class="cart-totals-item">
+		<span class="cart-total-label">{{lang 'cart.shipping'}}</span>
+		<span class="cart-total-item">$0.00</span>
+	</div>
+
+	<div class="cart-grand-total cart-totals-item">
+		<span class="cart-total-label">{{lang 'cart.grand_total'}}</span>
+		<span class="cart-total-item grand-total">
+			{{cart.grand_total.formatted}}
+		</span>
+	</div>
+	{{/if}}
+
+
+
+	{{#if customer.customer_group_id '==' '1' }}
+	
+	{{#partial "tradeShippingPrice"}}
+	{{#if cart.sub_total.value '<' '3000' }}
+	{{ trim (toFixed (multiply cart.sub_total.value '0.12') 2) }}
+	{{/if}}
+	
+	{{#if cart.sub_total.value '>' '3000' }}
+	{{#if cart.sub_total.value '<' '6000' }}
+	{{ trim (toFixed (multiply cart.sub_total.value '0.09') 2) }}
+	{{/if}}
+	{{/if}}
+	
+	{{#if cart.sub_total.value '>' '6001' }}
+	{{ trim (toFixed (multiply cart.sub_total.value '0.07s') 2) }}
+	{{/if}}
+	{{/partial}}
+
+	<div class="cart-totals-item">
+		<span class="cart-total-label">{{lang 'cart.shipping'}}</span>
+		<span class="cart-total-item">${{> 'tradeShippingPrice' }}</span>
+	</div>
+
+	<div class="cart-grand-total cart-totals-item">
+		<span class="cart-total-label">{{lang 'cart.grand_total'}}</span>
+		<span class="cart-total-item grand-total" id="grandTotal" data-total="{{> 'tradeShippingPrice' }}"></span>
+	</div>
+
+	{{/if}}
+
+
+	{{#if customer.customer_group_id '!=' '1' }}
+		{{> components/cart/coupon-codes}}
+	{{/if}}
+
+
+	<div class="cart-actions">
+		<!-- <a class="button button-secondary button-wide" href="{{urls.home}}">
+		{{lang 'cart.keep_shopping'}}
+	</a> -->
+
+		<!-- <a class="button button-primary button-wide button-checkout" href="{{urls.checkout.single_address}}">
+		{{lang 'cart.checkout'}}
+	</a> -->
+
+		<div class="bolt-button-wrapper" style="display: contents;">
+			<div class="bolt-checkout-button large-width with-cards responsive bolt-multi-step-checkout"
+				style="--bolt-primary-action-color:#6ea438"></div>
+		</div>
+
+		{{#if cart.show_multiple_address_shipping}}
+		<a class="checkout-multiple" href="{{urls.checkout.multiple_address}}">
+			{{lang 'cart.checkout_multiple'}}
+		</a>
+		{{/if}}
+	</div>
+
+
+	<p class="cart-or-use-label">-- or --</p>
+
+	<div class="cart-additional-checkout-buttons">
+		<a href="{{urls.checkout.single_address}}" class="cart-afirm-link">
+			<svg class="cart-affirm-btn" enable-background="new 0 0 296 60" version="1.1" viewBox="0 0 296 60" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+				<title>60_296-blue</title>
+				<defs><polygon id="b" points="29.708 39.178 95.708 39.178 95.708 12.843 29.708 12.843"/></defs>
+				<g fill="none" fill-rule="evenodd">
+					<g transform="translate(-.5 -.5)">
+						<g transform="translate(.52344 .44727)" fill="#0FA0EA" stroke="#0FA0EA" stroke-width="2"><rect x="1" y="1" width="294" height="58" rx="8"/></g>
+						<text fill="#FFFFFF" font-family="Calibre-Semibold, Calibre" font-size="22" font-weight="500"><tspan x="105.59668" y="38.8670156">Monthly payments</tspan></text>
+						<path d="m34.036 36.91c-0.815 0-1.224-0.402-1.224-1.063 0-1.227 1.373-1.646 3.878-1.913 0 1.641-1.109 2.976-2.654 2.976m1.08-9.233c-1.79 0-3.85 0.842-4.968 1.734l1.021 2.149c0.897-0.82 2.347-1.522 3.655-1.522 1.242 0 1.928 0.416 1.928 1.253 0 0.563-0.454 0.848-1.314 0.959-3.211 0.417-5.73 1.304-5.73 3.779 0 1.962 1.397 3.149 3.58 3.149 1.557 0 2.944-0.866 3.603-2.008v1.688h2.904v-7.074c0-2.921-2.031-4.107-4.679-4.107" fill="#fff"/>
+						<path d="m64.266 27.996v10.862h3.107v-5.234c0-2.487 1.506-3.218 2.556-3.218 0.411 0 0.963 0.119 1.328 0.394l0.566-2.872c-0.479-0.206-0.981-0.251-1.392-0.251-1.598 0-2.602 0.707-3.264 2.144v-1.825h-2.901z" fill="#fff"/>
+						<path d="m86.229 27.677c-1.643 0-2.872 0.972-3.511 1.907-0.593-1.21-1.851-1.907-3.357-1.907-1.643 0-2.78 0.912-3.305 1.962v-1.643h-2.995v10.863h3.109v-5.591c0-2.008 1.051-2.971 2.033-2.971 0.888 0 1.704 0.574 1.704 2.058v6.504h3.105v-5.591c0-2.031 1.026-2.971 2.053-2.971 0.822 0 1.688 0.598 1.688 2.035v6.527h3.104v-7.508c0-2.442-1.643-3.674-3.628-3.674" fill="#fff"/>
+						<path d="m56.703 27.996h-2.815v-1.104c0-1.438 0.82-1.849 1.528-1.849 0.782 0 1.391 0.347 1.391 0.347l0.958-2.191s-0.971-0.635-2.737-0.635c-1.986 0-4.245 1.119-4.245 4.633v0.799h-4.712v-1.104c0-1.438 0.82-1.849 1.528-1.849 0.402 0 0.942 0.093 1.391 0.347l0.958-2.191c-0.572-0.335-1.491-0.635-2.737-0.635-1.986 0-4.245 1.119-4.245 4.633v0.799h-1.803v2.396h1.803v8.466h3.105v-8.466h4.712v8.466h3.105v-8.466h2.815v-2.396z" fill="#fff"/>
+						<mask id="a" fill="white"><use xlink:href="#b"/></mask>
+						<polygon points="58.556 38.858 61.658 38.858 61.658 27.996 58.556 27.996" fill="#fff" mask="url(#a)"/>
+						<path d="m76.652 12.843c-8.387 0-15.861 5.821-17.982 13.306h3.039c1.773-5.573 7.787-10.466 14.943-10.466 8.699 0 16.215 6.622 16.215 16.931 0 2.314-0.299 4.402-0.867 6.245h2.949l0.029-0.102c0.484-1.901 0.73-3.968 0.73-6.143 0-11.497-8.378-19.771-19.056-19.771" fill="#fff" mask="url(#a)"/>
+					</g>
+				</g>
+			</svg>
+		</a>
+	</div>
+
+	<div class="affirm-cart"></div>
+
+	{{#if cart.additional_checkout_buttons.length}}
+	<div class="cart-additional-checkout-buttons">
+		{{#each cart.additional_checkout_buttons}}
+			{{{this}}}
+		{{/each}}
+	</div>
+	{{/if}}
+
+	<a class="prop-link-new" href="/prop65" target="_blank">California Proposition 65 Warning Information</a>
+
+	<div class="prop-wrapper prop-link">
+		<h4>California Proposition 65 Warning Information</h4>
+		<p class="prop-text">California's Proposition 65 entitles California consumers to special warnings for certain products that contain chemicals above certain threshold levels.</p>
+		<p>⚠WARNING: Furniture products can expose you to chemicals including lead which is known to the State of California to cause cancer or birth defects or other reproductive harm.</p>
+		<p>⚠WARNING: Outdoor heating and fire products can expose you to chemicals including carbon dioxide which is known to the State of California to cause cancer or birth defects or other reproductive harm.</p>
+		<p><a href="/prop65">Learn more</a> about California Proposition 65.</p>
+		<h5>For Weber Grills</h5>
+		<p>This product can expose you to chemicals including nickel, which is known to the State of California to cause cancer, birth defects, or other reproductive harm. For more information go to <a href="http://www.P65Warnings.ca.gov" target="_blank" title="P65 Warnings">www.P65Warnings.ca.gov</a>.</p>
+	</div>
 </div>
 
-<div class="cart-totals-column cart-totals-column--last">
-  <div class="cart-sub-total cart-totals-item">
-    <span class="cart-total-label">{{lang 'cart.sub_total'}}</span>
-    <span class="cart-total-item" id="cartSubTotal">{{cart.sub_total.formatted}}</span>
-  </div>
-
-  {{#each cart.taxes}}
-    <div class="cart-totals-item">
-      <span class="cart-total-label">{{name}}:</span>
-      <span class="cart-total-item">{{cost.formatted}}</span>
-    </div>
-  {{/each}}
-
-    <div class="cart-totals-item hide" id="cartTotalItemDiscount">
-      <span class="cart-total-label">{{lang 'cart.discount'}}:</span>
-      <span class="cart-total-item cart-total-item--discount"></span>
-    </div>
-
-  {{#if cart.coupons}}
-    <div class="cart-totals-item">
-      <span class="cart-total-label">
-        {{lang 'cart.coupon_codes.coupon_code'}}
-      </span>
-      <ul class="coupons-active list-bulleted">
-        {{#each cart.coupons}}
-          <li>
-            {{lang 'cart.coupon_codes.label' code=code}}
-            <span class="cart-total-item">{{discount.formatted}}</span>
-            <a class="link" href="{{remove_url}}">
-              {{lang 'cart.coupon_codes.remove'}}
-            </a>
-          </li>
-        {{/each}}
-      </ul>
-    </div>
-  {{/if}}
-
-  {{!-- > components/cart/shipping-calculator cart.shipping_handling --}}
-  {{#if settings.gift_certificates_enabled}}
-    {{> components/cart/gift-certificates}}
-  {{/if}}
-
-  {{#if cart.gift_wrapping_cost.value ">" 0}}
-    <div class="cart-totals-item">
-      <span class="cart-total-label">{{lang 'cart.gift_wrapping.title'}}</span>
-      <span class="cart-total-item">{{cart.gift_wrapping_cost.formatted}}</span>
-    </div>
-  {{/if}}
-
-  <div class="cart-totals-item">
-    <span class="cart-total-label">{{lang 'cart.shipping'}}</span>
-    <span class="cart-total-item">
-      $0.00
-    </span>
-  </div>
-
-  <div class="cart-grand-total cart-totals-item">
-    <span class="cart-total-label">{{lang 'cart.grand_total'}}</span>
-    <span class="cart-total-item grand-total">
-      {{cart.grand_total.formatted}}
-    </span>
-  </div>
-  <div class="cart-actions">
-    <!-- <a class="button button-secondary button-wide" href="{{urls.home}}">
-      {{lang 'cart.keep_shopping'}}
-    </a> -->
-   
-    <!-- <a class="button button-primary button-wide button-checkout" href="{{urls.checkout.single_address}}">
-      {{lang 'cart.checkout'}}
-    </a> -->
-
-    <div class="bolt-button-wrapper" style="display: contents;">
-      <div class="bolt-checkout-button large-width with-cards responsive bolt-multi-step-checkout" style="--bolt-primary-action-color:#6ea438"></div>
-    </div>
-
-    {{#if cart.show_multiple_address_shipping}}
-      <a class="checkout-multiple" href="{{urls.checkout.multiple_address}}">
-        {{lang 'cart.checkout_multiple'}}
-      </a>
-    {{/if}}
-  </div>
-
-
-  <p class="cart-or-use-label">-- or --</p>
-
-  <div class="cart-additional-checkout-buttons">
-    <a href="{{urls.checkout.single_address}}" class="cart-afirm-link">
-      <svg class="cart-affirm-btn"  viewBox="0 0 296 60" enable-background="new 0 0 296 60" xml:space="preserve" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px">
-        <title>60_296-blue</title>
-        <defs><polygon id="b" points="29.708 39.178 95.708 39.178 95.708 12.843 29.708 12.843"/></defs><g fill="none" fill-rule="evenodd"><g transform="translate(-.5 -.5)"><g transform="translate(.52344 .44727)" fill="#0FA0EA" stroke="#0FA0EA" stroke-width="2"><rect x="1" y="1" width="294" height="58" rx="8"/></g>
-        <text fill="#FFFFFF" font-family="Calibre-Semibold, Calibre" font-size="22" font-weight="500"><tspan x="105.59668" y="38.8670156">Monthly payments</tspan></text>
-        <path d="m34.036 36.91c-0.815 0-1.224-0.402-1.224-1.063 0-1.227 1.373-1.646 3.878-1.913 0 1.641-1.109 2.976-2.654 2.976m1.08-9.233c-1.79 0-3.85 0.842-4.968 1.734l1.021 2.149c0.897-0.82 2.347-1.522 3.655-1.522 1.242 0 1.928 0.416 1.928 1.253 0 0.563-0.454 0.848-1.314 0.959-3.211 0.417-5.73 1.304-5.73 3.779 0 1.962 1.397 3.149 3.58 3.149 1.557 0 2.944-0.866 3.603-2.008v1.688h2.904v-7.074c0-2.921-2.031-4.107-4.679-4.107" fill="#fff"/>
-        <path d="m64.266 27.996v10.862h3.107v-5.234c0-2.487 1.506-3.218 2.556-3.218 0.411 0 0.963 0.119 1.328 0.394l0.566-2.872c-0.479-0.206-0.981-0.251-1.392-0.251-1.598 0-2.602 0.707-3.264 2.144v-1.825h-2.901z" fill="#fff"/>
-        <path d="m86.229 27.677c-1.643 0-2.872 0.972-3.511 1.907-0.593-1.21-1.851-1.907-3.357-1.907-1.643 0-2.78 0.912-3.305 1.962v-1.643h-2.995v10.863h3.109v-5.591c0-2.008 1.051-2.971 2.033-2.971 0.888 0 1.704 0.574 1.704 2.058v6.504h3.105v-5.591c0-2.031 1.026-2.971 2.053-2.971 0.822 0 1.688 0.598 1.688 2.035v6.527h3.104v-7.508c0-2.442-1.643-3.674-3.628-3.674" fill="#fff"/>
-        <path d="m56.703 27.996h-2.815v-1.104c0-1.438 0.82-1.849 1.528-1.849 0.782 0 1.391 0.347 1.391 0.347l0.958-2.191s-0.971-0.635-2.737-0.635c-1.986 0-4.245 1.119-4.245 4.633v0.799h-4.712v-1.104c0-1.438 0.82-1.849 1.528-1.849 0.402 0 0.942 0.093 1.391 0.347l0.958-2.191c-0.572-0.335-1.491-0.635-2.737-0.635-1.986 0-4.245 1.119-4.245 4.633v0.799h-1.803v2.396h1.803v8.466h3.105v-8.466h4.712v8.466h3.105v-8.466h2.815v-2.396z" fill="#fff"/>
-        <mask id="a" fill="white"><use xlink:href="#b"/></mask><polygon points="58.556 38.858 61.658 38.858 61.658 27.996 58.556 27.996" fill="#fff" mask="url(#a)"/><path d="m76.652 12.843c-8.387 0-15.861 5.821-17.982 13.306h3.039c1.773-5.573 7.787-10.466 14.943-10.466 8.699 0 16.215 6.622 16.215 16.931 0 2.314-0.299 4.402-0.867 6.245h2.949l0.029-0.102c0.484-1.901 0.73-3.968 0.73-6.143 0-11.497-8.378-19.771-19.056-19.771" fill="#fff" mask="url(#a)"/></g></g>
-      </svg>
-    </a>
-  </div>
-
-  <div class="affirm-cart"></div>
-
-  {{#if cart.additional_checkout_buttons.length}}
-    <div class="cart-additional-checkout-buttons">
-      {{#each cart.additional_checkout_buttons}}
-        {{{this}}}
-      {{/each}}
-    </div>
-  {{/if}}
-
-  <a class="prop-link-new" href="/prop65" target="_blank">California Proposition 65 Warning Information</a>
-  
-  <div class="prop-wrapper prop-link">
-    <h4>California Proposition 65 Warning Information</h4>
-    <p class="prop-text">California's Proposition 65 entitles California consumers to special warnings for certain products that contain chemicals above certain threshold levels.</p>
-    <p>⚠WARNING: Furniture products can expose you to chemicals including lead which is known to the State of California to cause cancer or birth defects or other reproductive harm.</p>
-    <p>⚠WARNING: Outdoor heating and fire products can expose you to chemicals including carbon dioxide which is known to the State of California to cause cancer or birth defects or other reproductive harm.</p>
-    <p><a href="/prop65">Learn more</a> about California Proposition 65.</p>
-        
-    <h5>For Weber Grills</h5>
-    <p>This product can expose you to chemicals including nickel, which is known to the State of California to cause cancer, birth defects, or other reproductive harm.  For more information go to <a href="http://www.P65Warnings.ca.gov" target="_blank" title="P65 Warnings">www.P65Warnings.ca.gov</a>.</p>
-  </div>
-</div>
-
-<script>
-/**
- * NOTE: this is a hack.
- * This is only a hack.
- * This needs to be done at the paypal level becasue...it's a hack.
- * This simply replaes the amazon button with a new one
-*/
-
-(function(document, window){
-  let amazonBtn;
-
-  let change = {    
-    init: function(){
-      change
-        .swapButtonAmazon()
-        .showButtonAmazon();
-
-      return this;
-    },
-
-    swapButtonAmazon: function(){
-      amazonBtn = document.querySelector("img.amazonpay-button-inner-image");
-      amazonBtn.src = "//authenteak.com/content/amazon-pay-btn.png";
-      amazonBtn.style.opacity = 1;
-      amazonBtn.srcset = "//authenteak.com/content/amazon-pay-btn.png";
-
-      return this;
-    },
-
-    showButtonAmazon: function(){
-      document.getElementById("OffAmazonPaymentsWidgets0").classList.add("amazonpay-button-inner-image--show");
-
-      amazonBtn.addEventListener("click", function(){
-        let subTotal = "{{cart.sub_total.formatted}}".replace(/\$|,/g, ''),
-            qty = "{{cart.quantity}}";
-
-        subTotal = parseInt(subTotal);s
-        qty = parseInt(qty);
-
-        TEAK.Modules.fbPixel.checkoutStart(subTotal, qty);
-        TEAK.Modules.pintrest.checkOut(subTotal, qty);
-      });
-
-      return this;
-    }
-
-  }; 
 
 
 
-  // Get the cart detail from localstorage
-  function getStoredCart(){
-    let storedCart = localStorage.getItem('cartData');
-  
-    return JSON.parse(storedCart);;
-  }
-
-  function getCartQnty(cart){
-    let count = 0;
-
-    cart[0].lineItems.physicalItems.forEach( function(element){
-      count += element.quantity;
-    });
-
-    return count;
-  }
-
-  // update the cart header
-  function updateHeaderMiniCart(){
-    let $dataCart = $("[data-cart-quantity]"),
-        cart = getStoredCart(),
-        cartQty = getCartQnty(cart);
-
-    $dataCart.data("cartQuantity", cartQty);
-    $dataCart.html(cartQty);
-
-    checkForDiscount(cart);
-  }
 
 
-  function checkForDiscount(){
-    let cart = getStoredCart(),
-        amount = 0;
 
-    cart[0].discounts.forEach(function(element){
-        amount = amount + element.discountedAmount;
-    });
-
-    if( amount > 0 ){
-      let discountCntr = document.getElementById("cartTotalItemDiscount"),
-          subTotal = document.getElementById("cartSubTotal"),
-          currencSymbol =  cart[0].currency.symbol;
-
-      subTotal.innerHTML = currencSymbol + (cart[0].baseAmount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-
-      discountCntr.classList.remove("hide");
-      discountCntr.querySelector(".cart-total-item--discount").innerHTML = "-" + currencSymbol + (amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    }
-
-  }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    checkForDiscount();
-
-    $(window)
-      .on("load", change.init)
-      .on("cartDataStored", updateHeaderMiniCart);
-  });
-
-}(document, window));
-</script>
-
-<script>
-    var originalCheckoutButton = document.querySelector(".cart-actions .button-primary");
-    var boltButtons = document.getElementsByClassName("bolt-button-wrapper");
-    
-    if (true) {
-        for (let i = 0; i < boltButtons.length; i++) {
-           boltButtons[i].style.display = 'contents';
-    
-          // Facebook Pixel track for Bolt - initate checkout
-          // cannot track 'AddPaymentInfo' because bolt is in a iframe
-          boltButtons[i].addEventListener("click", function(){
-            let subTotal = "{{cart.sub_total.formatted}}".replace(/\$|,/g, ''),
-                qty = "{{cart.quantity}}";
-    
-            subTotal = parseInt(subTotal);
-            qty = parseInt(qty);
-    
-            TEAK.Modules.fbPixel.checkoutStart(subTotal, qty);
-            TEAK.Modules.pintrest.checkOut(qty);
-          });
-        }
-        
-        if(originalCheckoutButton){
-          originalCheckoutButton.style.display = 'none';
-        }
-    }
-    
-    var interval = setInterval(function(){
-    if (window.BoltCheckout) {
-        window.BoltCheckout.setClientCustomCallbacks({
-            success : function(trx){
-                fbq('track', 'Purchase', {
-                    value: trx.amount.amount / 100.0,
-                    currency: 'USD',
-                });
-            }
-        });
-        clearInterval(interval);
-    }
-    }, 200);
-    
-    var config = { childList: true, subtree: true };
-      // Change totalClassName
-    var totalClassName = "grand-total";
-    var totalPrice = "";
-    var callback = function(mutationsList) {
-        var elms = document.getElementsByClassName(totalClassName);
-        if (elms.length == 0) {
-            return;
-        }
-        var newPrice = elms[0].innerHTML;
-        if (newPrice !== totalPrice && window.BoltCheckout) {
-            window.BoltCheckout.reloadBigCommerceCart();
-        }
-        totalPrice = newPrice;
-    };
-    new MutationObserver(callback).observe(document.body, config);
-    
-  </script>
-    
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function(){
-      try{
-        IntelliSuggest.init({
-          siteId: TEAK.thirdParty.IntelliSuggest.siteId,
-          context:'Basket',
-          seed: TEAK.thirdParty.IntelliSuggest.initArray
-        });
-
-        // Loop through products in cart
-        TEAK.thirdParty.IntelliSuggest.haveItemArray.forEach( function(element){
-          IntelliSuggest.haveItem(element);
-        });
-
-        IntelliSuggest.inBasket({});
-      } 
-      catch(err) {
-        console.log(err)
-      }
-    });
-      
-  </script>

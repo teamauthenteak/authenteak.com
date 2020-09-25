@@ -1,0 +1,17 @@
+Short Regression
+- navigate to home page
+- search sh15
+- navigate to search PLP
+- click on sh15 product
+- choose frame option
+- choose fabric options
+- click ATC
+- navigate to cart
+- click bolt checkout button
+
+Full Regression
+- Test Search
+- Test PLP
+- Test PDP
+- Test Cart
+- Test Checkout

@@ -2,7 +2,9 @@
   <div class="modal-cart__inner">
     <div class="modal-cart__top-bar">
       <h2 class="modal-cart__title">Added to your Cart</h2>
-      <button class="modal-cart__close">{{> svg/close}}</button>
+      <button class="modal-cart__close">
+        <span class="modal-cart__closeText">Continue Shopping</span> {{> svg/close}}
+      </button>
     </div>
 
     <div class="modal-cart__cntr">
@@ -68,7 +70,7 @@
                 <span class="modal-cart__count-value" data-quantity="{{cart.quantity}}">{{cart.quantity}}</span>
                 <span class="modal-cart__count-unit">{{#if cart.quantity "==" 1}}item{{else}}items{{/if}}</span>
             </div>
-            <a class="button button-primary button-primary--green button-cart" href="{{urls.cart}}" onclick="TEAK.thirdParty.heap.init({method: 'track', event:'proceed_to_cart', location: 'modal' })">
+            <a class="button button-primary button-primary--green button-cart" href="{{urls.cart}}" onclick="TEAK.ThirdParty.heap.init({method: 'track', event:'proceed_to_cart', location: 'modal' })">
               <span class="button-text">
                 {{#if theme_settings.cart_icon '==' 'bag'}}
                     {{lang 'mini_cart.view_bag'}}

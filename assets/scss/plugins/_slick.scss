@@ -17,7 +17,7 @@
 }
 
 @media only screen and (min-width: $screen-lg) {
-    .slick-arrow, .slick-dots{
+    /*.slick-arrow,*/ .slick-dots{
         display: none !important;
     }
 }

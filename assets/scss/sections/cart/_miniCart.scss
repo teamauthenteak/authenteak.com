@@ -69,6 +69,7 @@
         color: #2e3036;
         font-size: 1.8rem;
         line-height: 1;
+        text-transform: capitalize;
     }
 
     .mini-cart-item{
@@ -98,15 +99,21 @@
         }
     }
 
+    .mini-cart-item-title{
+        line-height: 1.2;
+        display: block;
+        font-size: 1.3rem;
+        text-transform: capitalize;
+        font-weight: 400;
+        color: #333;
+    }
+    
+
     .mini-cart-item-price{
         opacity: 1;
     }
 }
 
-
-.mini-cart-item-options .option-value {
-    color: inherit;
-}
 
 .mini-cart-actions {
     display: flex;
@@ -122,12 +129,22 @@
 .mini-cart-item-options .option-value {
     display: block;
     margin-top: 10px;
+    line-height: 1;
+    color: inherit;
 }
 
 .mini-cart-item-options .option-value-label-mc {
     display: block;
-    font-size: .8em;
-    line-height: .8em;
+    font-size: .8rem;
+    line-height: 1;
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 3px;
+}
+
+.option-value-wrapper{
+    font-size: 0.7rem;
+    line-height: 1;
 }
 
 .mini-cart-item-options .option-value:not(:last-child):after {

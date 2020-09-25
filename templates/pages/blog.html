@@ -64,14 +64,21 @@ blog:
 
       <section class="blog__postSection blog__postSection--topSpace">
         <h2 class="blog__postCntrHeading">
-			Explore the Blog<span id="postTopicMeta" class="blog__postTopicMeta hide"></span>
-		</h2>
+          Explore the Blog
+          <span class="blog__postTopicMeta hide">
+            <span id="postTopicMeta"></span>
+            <a href="#" class="blog__clearFilter" title="Clear Filter">
+              <svg class="icon icon-close"><use xlink:href="#icon-close" /></svg>
+            </a>
+          </span>
+           
+        </h2>
 
           <form class="blog__filter" id="blogFilter">
             <fieldset class="filter">
               <div class="filter__controlCntr">
                 <legend class="filter__heading">
-                  <button class="filter__headingControl">Sort by Topic</button> 
+                  <button class="filter__headingControl">Sort by Topic:</button> 
                 </legend>
 
                 <div class="filter__controlGroup">
@@ -143,7 +150,7 @@ blog:
 		  </div>
 		  
 		  <div class="blog__noPosts hide" id="noPosts">
-			  <h3 class="blog__noPostsHeading">Sorry. No posts under with topic found.</h3>
+			  <h3 class="blog__noPostsHeading">Sorry. No posts under this topic found.</h3>
 		  </div>
 
           <p class="blog__loadMoreCntr">

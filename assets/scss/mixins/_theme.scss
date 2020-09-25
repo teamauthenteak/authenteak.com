@@ -161,6 +161,11 @@
     @extend %background-position-svg;
     background-image: svg-url('<svg fill="#{$fill-color}" version="1.1" xmlns="http://www.w3.org/2000/svg" width="44" height="32" viewBox="0 0 44 32"><path d="M41.186 1.67c-1.936-1.937-5.075-1.937-7.011 0l-17.239 17.237-8.472-8.472c-1.935-1.937-5.076-1.937-7.011 0s-1.936 5.075 0 7.011l11.978 11.979c0.968 0.969 2.237 1.452 3.506 1.452s2.538-0.483 3.506-1.452l20.744-20.744c1.937-1.936 1.937-5.075 0.001-7.011z"></path></svg>');
   }
+
+  @mixin icon-thin-check-mark($fill-color) {
+    @extend %background-position-svg;
+    background-image: svg-url('<svg fill="#{$fill-color}" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.7 5.3c-0.4-0.4-1-0.4-1.4 0l-10.3 10.3-4.3-4.3c-0.4-0.4-1-0.4-1.4 0s-0.4 1 0 1.4l5 5c0.2 0.2 0.4 0.3 0.7 0.3s0.5-0.1 0.7-0.3l11-11c0.4-0.4 0.4-1 0-1.4z"></path></svg>');
+  }
   
   @mixin icon-email($fill-color) {
     @extend %background-position-svg;

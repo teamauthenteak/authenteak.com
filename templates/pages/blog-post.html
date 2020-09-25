@@ -22,14 +22,13 @@ blog:
   </header>
 
   <div class="container">
+      {{#if thumbnail}}
       <div class="blog__hero blog__hero--post">
           <figure class="blog__heroImgCntr">
-            {{#if thumbnail}}
             <img src="{{getImage thumbnail 'core-blog-thumbnail'}}" class="blog__heroImg" alt="{{blog.post.thumbnail.alt}}">
-            {{/if}}
-            <!-- <img src="https://dummyimage.com/1280x400/ccc/ccc" alt="{{blog.post.thumbnail.alt}}" class="blog__heroImg"> -->
           </figure>
       </div>
+      {{/if}}
 
       <div class="blog__content">
         {{{blog.post.body}}}
@@ -62,7 +61,6 @@ blog:
       <div class="blog__relatedItems" id="relatedPosts"></div>
     </div>
   </footer>
-
 </article>
 
 <script type="application/json" id="blogPostData">
@@ -83,6 +81,57 @@ blog:
       }{{#unless isLast}},{{/unless}}{{/forEach}}
     ]
   }
+</script>
+
+
+<script id="schemaBlog">
+(function(){
+postDate = '{{blog.post.date_published}}';
+  postDate = postDate.split(' ');
+  postDate = postDate[0].replace(/\D/g, '');
+  postDate = new Date(postDate);
+  try {
+    postDate = postDate.toISOString();
+  }
+  catch(error) {
+    postDate = '{{blog.post.date_published}}';
+  }
+
+  let schema = document.createElement('script');
+  schema.type = 'application/ld+json';
+  schema.text = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://google.com/article"
+  },
+  "headline": "{{blog.post.title}}",
+  "image": [
+    "{{getImage blog.post.thumbnail 'core-blog-thumbnail'}}"
+   ],
+  "datePublished": postDate,
+  "author": {
+    "@type": "Person",
+    "name": "{{blog.post.author}}"
+  },
+   "publisher": {
+    "@type": "Organization",
+    "name": "AuthenTEAK",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://authenteak.s3.us-east-2.amazonaws.com/transactional-emails/Header_AT_Logo.png"
+    }
+  },
+  "description": "{{{sanitize  (ellipsis blog.post.body 400) }}}"
+});
+
+document.querySelector('body').appendChild(schema);
+
+let script = document.getElementById('schemaBlog')
+script.parentElement.removeChild(script);
+
+}());
 </script>
 
 {{> core/structured-data/blog-post}}

@@ -20,25 +20,23 @@
 						<li class="parent {{#if children}}has-children{{else}}parent--collapse{{/if}} tier-dropdown">
 						{{/if}}
 
-							<a itemprop="url" href="{{url}}" title="{{name}}" {{#if image}}data-category-image="{{getImage image "large"}}"{{/if}}>
-								<span itemprop="name">{{name}}</span>
+							<a class="parent__link" itemprop="url" href="{{url}}" title="{{name}}" {{#if image}}data-category-image="{{getImage image "large"}}"{{/if}}>
+								<span itemprop="name" class="parent__name">{{name}}</span>
 							</a>
 
 							{{#if children}}
-
 							{{#if ../../../parentId '==' '1196'}} {{!-- if Shop All Brands ---}}
 							{{else}}
-							<ul parentid='{{../../../parentId}}'>
+							<ul parentid='{{../../../parentId}}' class="parent__childList">
 								{{#each children}}
-								<li>
-									<a itemprop="url" title="{{name}}" href="{{url}}" {{#if image}}data-category-image="{{getImage image "large"}}" {{/if}}>
-										<span itemprop="name">{{name}}</span>
+								<li class="parent__child">
+									<a itemprop="url" class="parent__childLink" title="{{name}}" href="{{url}}" {{#if image}}data-category-image="{{getImage image "large"}}" {{/if}}>
+										<span itemprop="name" class="parent__childName">{{name}}</span>
 									</a>
 								</li>
 								{{/each}}
 							</ul>
 							{{/if}}
-
 							{{/if}}
 						</li>
 						{{/startsWith}}
@@ -50,4 +48,4 @@
 	</div>
 </div>
 
-<script>document.addEventListener('DOMContentLoaded', function(){ window.TEAK.Modules.megaMenu.init("category_{{parentId}}"); });</script>
+

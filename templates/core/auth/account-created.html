@@ -1,24 +1,72 @@
 {{#partial 'account-heading'}}
-  {{lang 'core.auth.created.heading'}}
+{{lang 'core.auth.created.heading'}}
 {{/partial}}
 
 {{#partial 'account-content'}}
-  <p>{{{lang 'core.auth.created.message' store_name=settings.store_name email=customer.email}}}</p>
+<p>{{{lang 'core.auth.created.message' store_name=settings.store_name email=customer.email}}}</p>
 
-  <a class="button account-button-primary" href="{{urls.home}}">{{lang 'core.auth.created.continue'}}</a>
+<a class="button account-button-primary" title="continue to my account" href="{{urls.home}}">{{lang 'core.auth.created.continue'}}</a>
 
-  <script>
-    window.TEAK.thirdParty.heap.init({
-      method: 'identify',
-      id: '{{customer.id}}'
-      
-    }).init({
-      method: 'track',
-      event: 'createdAccount',
-      id: '{{customer.id}}'
-    });
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		window.TEAK.ThirdParty.heap.init({
+			method: 'identify',
+			id: '{{customer.id}}.authenteak.com',
+			createdAt: new Date(Date.now()),
+			loggedIn: true
+		});
 
-  </script>
+		TEAK.ThirdParty.heap.init({
+			method: 'track',
+			event: 'created_account',
+			id: '{{customer.id}}.authenteak.com',
+			createdAt: new Date(Date.now())
+		});
+
+		TEAK.ThirdParty.heap.init({
+			method: 'addUser',
+			id: '{{customer.id}}.authenteak.com',
+			city: '{{customer.shipping_address.city}}',
+			state: '{{customer.shipping_address.state}}',
+			createdAt: new Date(Date.now()),
+			loggedIn: true,
+			firstPurchaseDate: '',
+			purchaseCount: '',
+			purchaseTotalValue: '',
+			lastPurchaseDate: ''
+		});
+
+		if (window.localStorage) {
+			let klaviyo = window.localStorage.getItem("TEAK_klaviyoSignup");
+			
+			if (klaviyo.canSignUp) {
+				let klaviyoList = "WpLKLS";
+
+				$.ajax({
+					method: "POST",
+					url: "https://a.klaviyo.com/api/v2/list/" + klaviyoList + "/subscribe",
+					dataType: "json",
+					headers: { 'Content-Type': 'application/json' },
+					data: JSON.stringify({
+						api_key: TEAK.ThirdParty.klaviyo.api_key,
+						profiles: [
+							{
+								email: "{{customer.email}}",
+								full_name: "{{customer.name}}"
+							}
+						]
+					})
+				}).done(function (data) {
+					console.log(data);
+
+				}).fail(function (data) {
+					console.log("fail: " + data)
+				});
+			}
+		}
+
+	});
+</script>
 {{/partial}}
 
 {{> core/account/_private/layout class='created' nav='hidden'}}

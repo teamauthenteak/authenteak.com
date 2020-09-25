@@ -3,26 +3,40 @@
     margin-right: 10px;
     display: none;
 
-    &.show{
-        display: inline-block !important;
+    &__freezeBody{
+        @extend %freeze-body;
+    }
+
+    &--show{
+        display: block;
     }
 
     &--optionSwatch {
-        // position: absolute;
-        right: 0;
-        top: 0;
+        left: -7px;
+        top: -7px;
+        position: absolute;
+        z-index: 9;
+        margin: 0;
+    }
+
+    &--optionSelect{
+        @extend .toolTip--optionSwatch;
     }
 
     &__heading{
+        color: #333;
+
         &--2{
             margin-top: 0;
             text-transform: none;
+            color: #333;
         }
 
         &--5{
             margin-bottom: 10px;
             font-weight: 800;
             text-transform: none;
+            color: #333;
         }
     }
 
@@ -33,6 +47,7 @@
         text-transform: none;
         line-height: 1.5;
         font-size: 1rem;
+        color: #333;
 
         @media only screen and (max-width: $screen-sm) {
             font-size: 1.3rem;
@@ -80,7 +95,7 @@
 
     &__cntr{
         left: 50%;
-        top: 5vw;
+        top: 50%;
         position: fixed;
         width: 75vw;
         max-height: 600px;
@@ -92,7 +107,62 @@
         box-shadow: 20px 20px 50px 20px rgba(0, 0, 0, 0.47);
         border-radius: $border-radius;
         overflow: auto;
-        display: block;
+        -webkit-overflow-scrolling: touch;
+        // display: block;
+        // @extend .animated;
+        transform: translate3d(0, 0, 0);
+
+        &--show{
+            // @extend .zoomIn;
+            // opacity: 1;
+            // left: auto;
+            visibility: visible;
+            // z-index: 9999;
+            animation-name: remodal-opening-keyframes;
+        }
+    
+        &--hide{
+            // @extend .zoomOut;
+            // opacity: 0;
+            // left: -9999px;
+            visibility: hidden;
+            // z-index: -9999;
+            animation-name: remodal-closing-keyframes;
+        }
+
+        &--withTabs{
+            overflow: hidden;
+            padding: 0;
+            box-shadow: none;
+            background-color: transparent;
+            width: 100vw;
+            height: 100vh !important;
+            max-height: inherit;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: 0 !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            background-color: rgba(0, 0, 0, 0.75);
+            border-radius: 0;
+            animation-duration: 0.3s;
+            animation-fill-mode: forwards;
+
+            & .toolTip__closeIcon{
+                fill: #fff;
+            }
+        }
+
+        &--small{
+            width: 50vw;
+            margin-left: (-50vw / 2);
+            margin-top: (-50vh / 2);
+            padding: 10px;
+        }
 
         @media only screen and (max-width: $screen-sm) {
             width: 85vw;
@@ -117,8 +187,147 @@
         margin: 0;
         background-color: transparent;
 
+        &--whiteBack{
+            background-color: #fff;
+            width: 50px;
+            height: 50px;
+        }
+
         @media only screen and (max-width: $screen-sm) {
             top: 6px;
         }
     }
+
+    // Tool Tip Tabs
+    &__tabsCntr{
+        position: relative;
+        clear: both;
+        height: 500px;
+        width: 75vw;
+        max-height: 600px;
+        display: flex;
+        flex-direction: row;
+        background-color: #fff;
+        border-radius: $border-radius;
+        box-shadow: 20px 20px 50px 20px rgba(0, 0, 0, 0.57);
+        animation-name: remodal-opening-keyframes;
+
+        & [type=radio]:checked ~ label {
+            background: rgba(110, 164, 56, 0.09);
+            z-index: 2;
+            color: $btn-color-green;
+            border-bottom-color: $btn-color-green;
+        }
+
+        [type=radio]:checked ~ label ~ .toolTip__tabContent {
+            z-index: 1;
+        }
+    }
+
+    &__tab{
+        float: left;
+        flex: 1 0 auto;
+        width: auto;
+        height: 100%;
+        display: flex;
+    }
+
+    &__tabControl{
+        display: none;
+    }
+
+    &__tabLabel{
+        color: #999;
+        padding: 20px;
+        font-size: 1.6rem;
+        width: 100%;
+        flex: 1 0 auto;
+        height: 85px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        cursor: pointer;
+        border-left: 1px solid #fff;
+        margin-bottom: 20px;
+        z-index: 99;
+        border-bottom: 3px solid #f9f9f9;
+
+        &:hover{
+            background: rgba(110, 164, 56, 0.05);
+        }
+    }
+
+    &__tabContent{
+        @extend %scrolling-inner;
+        position: absolute;
+        background: white;
+        top: 90px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 40px 40px 10px 40px;
+        height: 410px;
+        width: 100%;
+        overflow: auto;
+    }
+
+
 }
+
+
+
+/* Keyframes
+   ========================================================================== */
+
+   @keyframes remodal-opening-keyframes {
+    from {
+      transform: scale(1.05);
+      opacity: 0;
+    //   visibility: hidden;
+    //   left: auto;
+    }
+    to {
+      transform: none;
+    //   visibility: visible;
+      opacity: 1;
+    }
+  }
+  
+  @keyframes remodal-closing-keyframes {
+    from {
+      transform: scale(1);
+    //   visibility: visible;
+      opacity: 1;
+    }
+    to {
+      transform: scale(0.95);
+      opacity: 0;
+    //   visibility: hidden;
+    }
+  }
+  
+  @keyframes remodal-overlay-opening-keyframes {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    //   visibility: visible;
+    }
+  }
+  
+  @keyframes remodal-overlay-closing-keyframes {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    //   visibility: hidden;
+    }
+  }
