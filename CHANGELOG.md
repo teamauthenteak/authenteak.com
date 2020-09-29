@@ -3,6 +3,8 @@
 ## [1.20.31]
 - new cart layout and cart functionality
 - fix for trade flag show
+- fixed issue with on cart for special characters in option values
+- fixed cart button alignments
 
 ## [1.20.30]
 - added clyde script to cart footer
