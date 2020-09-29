@@ -6,237 +6,51 @@ limit: {{theme_settings.product-count}}
 
 {{#partial "page"}}
 
-<div class="product" id="CategoryCollection" data-category-name="{{category.name}}" data-brand="{{brand.name}}">
-    {{#if theme_settings.category-breadcrumbs}}
-    <div class="product__breadcrumbs mobileHide">
-        {{> components/common/breadcrumbs breadcrumbs}}
-    </div>
-    {{/if}}
+    <div class="product" id="CategoryCollection" data-category-name="{{category.name}}" data-brand="{{brand.name}}">
+        {{#if theme_settings.category-breadcrumbs}}
+        <div class="product__breadcrumbs mobileHide">
+            {{> components/common/breadcrumbs breadcrumbs}}
+        </div>
+        {{/if}}
 
+        <div class="product__col-1-1">
+            <h1 class="product__title c">{{category.name}}</h1>
+            {{{ category.description }}}
+        </div>
 
-    <div class="product__col-1-1">
-        <h1 class="product__title c">{{category.name}}</h1>
-        {{{ category.description }}}
-    </div>
-
-    
-    <div class="product__col-1-1 no-pad" id="collectionsCntr">
-        <ul class="preloader preloader--tall preloader--background">
-            <li class="preloader__collectionImage"></li>
-            <li class="preloader__imgSpace"></li>
-            <li class="preloader__topTitle"></li>
-            <li class="preloader__topTitleRight"></li>
-            <li class="preloader__bottomTitle"></li>
-            <li class="preloader__titleSpace"></li>
-            <li class="preloader__titleSpaceRight"></li>
-            <li class="preloader__list">
-                <div class="preloader__listRow">
-                    <span class="preloader__listBullet"></span>
-                    <span class="preloader__listItem"></span>
-                </div>
-                <div class="preloader__listRow">
-                    <span class="preloader__listBullet"></span>
-                    <span class="preloader__listItem"></span>
-                </div>
-                <div class="preloader__listRow">
-                    <span class="preloader__listBullet"></span>
-                    <span class="preloader__listItem"></span>
-                </div>
-            </li>
-            <li class="preloader__listRight"></li>
-            <li class="preloader__listBottom"></li>
-            <li class="preloader__lastLine"></li>
-            <li class="preloader__bottomLine"></li>
-            <li class="preloader__bottomRight"></li>
-        </ul>
-    </div>
-
-
-    {{!-- {{#each category.products }}
-            <!-- <section class="product__row product__row--border">
-                <div class="product__col-1-1">
-                    <figure class="product__figure product__col-1-4">
-                        <a href="{{url}}" title="See all details about {{name}}">
-                            <img class="product__img product__img--thumb" src="{{getImage image 'category_card_size'}}" alt="{{name}}">
-                        </a>
-                    </figure>
-    
-                    <div class="product__col-3-4">
-                        <div class="product__col-2-3">
-                            <header class="product__nameHeader">
-                                <h1 class="product__name product__name--sm">
-                                    <a href="{{url}}" title="See all details about {{name}}">{{name}}</a>
-                                </h1>
-                            </header>
-                           
         
-                            <p class="product__itemNum">Item #: {{sku}} &nbsp;&nbsp;&nbsp; Internet #: {{id}}
-                                <a class="product__ratingWrapper yotpo-pdp-wrapper hide" href="{{url}}#yotpoReviews" id="yotpoRating" title="Reviews of {{name}}">
-                                    <span class="yotpo-stars-rating" style="--rating: 0;" aria-label="Rating of 0 out of 5."></span>
-                                    (<span class="yotpo-reviews-num">0</span>)
-                                    <span class="yotpo-questions">
-                                        <span class="yotpo-questions-num">0</span> Questions
-                                    </span>
-                                </a>
-                            </p>
-    
-                            <ul class="product__highlights">
-                                {{#each custom_fields}}
-                                    {{#if this.name '===' "Highlight 1"}}
-                                    <li>{{value}}</li>
-                                    {{else if this.name '===' "Highlight 2"}}
-                                    <li>{{value}}</li>
-                                    {{else if this.name '===' "Highlight 3"}}
-                                    <li>{{value}}</li>
-                                    {{/if}}
-                                {{/each}}
-                            </ul>
-                        
-    
-                        {{#each custom_fields}}
-                            {{#if this.name '==' "Lead-Time"}}
-                            <p class="product__shipping">{{this.value}}</p>
-                            {{/if}}
-    
-                            {{#if this.value '===' "Ships next business day"}}
-                            <p class="product__shipping">
-                                <span id="nextBussinessDay" class="shipping-range--tip">
-                                    <script>
-                                        document.addEventListener('DOMContentLoaded', function(){
-                                            TEAK.Modules.leadTime.setTip("nextBussinessDay");
-                                        });
-                                    </script>
-                                </span>
-                            </p>
-                            {{/if}}
-    
-                            {{#if this.name '==' "Lead-Time 2"}}   
-                            <p class="product__shipping">{{this.value}}</p>
-                            {{/if}}
-    
-                            {{#if this.name '==' "Promo Text"}}
-                            <p class="product__promoText">{{{this.value}}}</p>
-                            {{/if}}
-    
-    
-                            {{#if this.name '===' "Free Shipping Icon"}}   
-                                {{#if this.value '===' "Yes"}}
-                                <div id="freeShipping">
-                                    <script>
-                                    /* Displays the free shipping text based on price */
-                                    document.addEventListener('DOMContentLoaded', function(){
-                                        TEAK.Modules.freeShipping.set({
-                                            price: {
-                                            rrp_without_tax: '{{../../../price.rrp_without_tax.value}}' === '' ? 0 : parseInt('{{../../../price.rrp_without_tax.value}}'),
-                                            with_tax: '{{../../../price.with_tax.value}}' === '' ? 0 : parseInt('{{../../../price.with_tax.value}}'),
-                                            without_tax: '{{../../../price.without_tax.value}}' === '' ? 0 : parseInt('{{../../../price.without_tax.value}}'),
-                                            custom: '{{~default ../../../price.sale_price_without_tax.value price.without_tax.value~}}' === '' ? 0 : parseInt('{{~default ../../../price.sale_price_without_tax.value price.without_tax.value~}}')
-                                            },
-                                            sku: "{{../../../sku}}"
-                                        }, "freeShipping");
-                                    });
-                                    </script>
-                                </div>
-                                {{/if}}
-                            {{/if}}
-                        {{/each}}
-    
-    
-                        </div>
-                    
-    
-    
-                        <div class="product__col-1-3 no-pad">
-                            <div class="product__price">
-                            {{#if price}}
-                                {{> components/products/price price=this.price show_savings=false save_block=false}}
-                            {{/if}}
-                        
-                            {{#if call_for_price}}
-                                {{call_for_price}}
-                            {{/if}}               
-                            </div>
-
-                            
-                            <button type="button" data-button-atc class="button button-primary button--fullWidth button-primary--green">Add to Cart</button>
-                        
-                            <div class="product__swatchCol">
-                                <ul class="product__swatchList">
-                                    <li class="product__swatchItem">
-                                        <a href="#" class="product__clearSwatch" title="Clear Swatch">
-                                            <svg class="icon icon-close"><use xlink:href="#icon-close" /></svg>
-                                        </a>
-                                        <div class="product__swatch">
-                                            <div class="product__swatchColor" style="background-image: url('https://dummyimage.com/256x256/cccccc/777777.png&text=Choose');">
-                                                <img class="product__swatchImg" src="https://dummyimage.com/256x256/cccccc/777777.png&text=Choose">
-                                            </div>
-                                        </div>
-                                        <div class="product__swatchText">
-                                            <p class="product__swatchOptionText">
-                                                <span class="product__swatchLabel">Select Frame:</span>
-                                                <span class="product__swatchValue">Anthracite</span>
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li class="product__swatchItem">
-                                        <a href="#" class="product__clearSwatch" title="Clear Swatch">
-                                            <svg class="icon icon-close"><use xlink:href="#icon-close" /></svg>
-                                        </a>
-                                        <div class="product__swatch">
-                                            <div class="product__swatchColor" style="background-image: url('https://dummyimage.com/256x256/cccccc/777777.png&text=Choose');">
-                                                <img class="product__swatchImg" src="https://dummyimage.com/256x256/cccccc/777777.png&text=Choose">
-                                            </div>
-                                        </div>
-                                        <div class="product__swatchText">
-                                            <p class="product__swatchOptionText">
-                                                <span class="product__swatchLabel">Select Canopy:</span>
-                                                <span class="product__swatchValue">Grade C: Obravia Sand - Ships within 1 week</span>
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li class="product__swatchItem">
-                                        <a href="#" class="product__clearSwatch" title="Clear Swatch">
-                                            <svg class="icon icon-close"><use xlink:href="#icon-close" /></svg>
-                                        </a>
-                                        <div class="product__swatch">
-                                            <div class="product__swatchColor" style="background-image: url('https://dummyimage.com/256x256/cccccc/777777.png&text=Choose');">
-                                                <img class="product__swatchImg" src="https://dummyimage.com/256x256/cccccc/777777.png&text=Choose">
-                                            </div>
-                                        </div>
-                                        <div class="product__swatchText">
-                                            <p class="product__swatchOptionText">
-                                                <span class="product__swatchLabel">Select Mounting Option:</span> 
-                                                <span class="product__swatchValue">Recommended Rolling Base - Color will match frame selected ab</span>
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li class="product__swatchItem">
-                                        <a href="#" class="product__clearSwatch" title="Clear Swatch">
-                                            <svg class="icon icon-close"><use xlink:href="#icon-close" /></svg>
-                                        </a>
-                                        <div class="product__swatch">
-                                            <div class="product__swatchColor" style="background-image: url('https://dummyimage.com/256x256/cccccc/777777.png&text=Choose');">
-                                                <img class="product__swatchImg" src="https://dummyimage.com/256x256/cccccc/777777.png&text=Choose">
-                                            </div>
-                                        </div>
-                                        <div class="product__swatchText">
-                                            <p class="product__swatchOptionText">
-                                                <span class="product__swatchLabel">Select Optional Valance:</span>
-                                                <span class="product__swatchValue">Add Valance - Excluded from Quick Ship</span>
-                                            </p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-
-                        </div>
+        <div class="product__col-1-1 no-pad" id="collectionsCntr">
+            <ul class="preloader preloader--tall preloader--background">
+                <li class="preloader__collectionImage"></li>
+                <li class="preloader__imgSpace"></li>
+                <li class="preloader__topTitle"></li>
+                <li class="preloader__topTitleRight"></li>
+                <li class="preloader__bottomTitle"></li>
+                <li class="preloader__titleSpace"></li>
+                <li class="preloader__titleSpaceRight"></li>
+                <li class="preloader__list">
+                    <div class="preloader__listRow">
+                        <span class="preloader__listBullet"></span>
+                        <span class="preloader__listItem"></span>
                     </div>
+                    <div class="preloader__listRow">
+                        <span class="preloader__listBullet"></span>
+                        <span class="preloader__listItem"></span>
+                    </div>
+                    <div class="preloader__listRow">
+                        <span class="preloader__listBullet"></span>
+                        <span class="preloader__listItem"></span>
+                    </div>
+                </li>
+                <li class="preloader__listRight"></li>
+                <li class="preloader__listBottom"></li>
+                <li class="preloader__lastLine"></li>
+                <li class="preloader__bottomLine"></li>
+                <li class="preloader__bottomRight"></li>
+            </ul>
+        </div>
+    </div>
 
-    
-                </div>
-            </section> -->
-    {{/each}} --}}
-</div>
 </div>
 
 <section class="products-related products-recently-viewed section" id="recentlyViewedProducts">

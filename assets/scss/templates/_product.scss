@@ -63,10 +63,6 @@
             }
         }
 
-        &--noMargin{
-            margin: 0;
-        }
-
         &--2{
             font-size: 1.1rem;
             text-transform: uppercase;
@@ -91,6 +87,10 @@
             @media only screen and (max-width: $screen-xs) {
                 margin-bottom: 10px;
             }
+        }
+
+        &--noMargin{
+            margin: 0;
         }
     }
 
@@ -123,6 +123,8 @@
         line-height: 1;
         flex: 1 0 auto;
         width: 100%;
+        background-color: transparent;
+        outline: none;
 
         &:hover{
             & .icon-chevron-down{
@@ -190,6 +192,10 @@
 
     &__desc{
         margin: 0 0 15px 0;
+
+        &--margin{
+            margin-bottom: 30px;
+        }
     }
 
     &__descLink{
@@ -398,7 +404,6 @@
         }
     }
 
-
     &__figure{
         @extend %span;
         padding: 0;
@@ -409,13 +414,48 @@
 
         &--full{
             width: 100%;
+            height: 600px;
         }
     }
 
     &__figImg{
         @extend .landing__figImg;
-        // max-height: 500px;
+        max-height: 600px;
+        object-position: 50% 50%;
+        object-fit: cover;
     }
+
+    &__figSlider{
+        display: flex;
+        flex-direction: row;
+        max-height: 600px;
+
+        & .slick-list{
+            width: 90%;
+            order: 1;
+        }
+    }
+
+
+    &__figSliderThumbs{
+        width: 10%;
+        order: 0;
+        margin-right: 20px;
+
+        & li{
+            margin-bottom: 5px;
+        }
+
+        & img{
+            object-fit: fill;
+        }
+    }
+
+    &__figSliderLink{
+        display: block;
+        cursor: pointer;
+    }
+
 
     &__img{
         object-fit: cover;
@@ -503,6 +543,10 @@
 
         &--select{
             width: 100%;
+        }
+
+        &--marginBottom{
+            margin-bottom: 15px;
         }
     }
 

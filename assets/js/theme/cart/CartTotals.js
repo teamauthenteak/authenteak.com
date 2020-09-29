@@ -464,10 +464,22 @@
 		}
 	}
 
+
+	// fix cart option value special character
+	function fixCartCharacters(){
+		document.querySelectorAll(".cart-option-value").forEach(function(item){
+			let cartOptValue = item.innerHTML;
+			item.innerHTML = _.unescape(cartOptValue);
+		});
+	}
+
+
+
 	document.addEventListener('DOMContentLoaded', function () {
 		getProductCartJSON();
 		updateGrandTotal();
 		setAnalytics();
+		fixCartCharacters();
 	});
 
 

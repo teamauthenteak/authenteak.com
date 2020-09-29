@@ -227,21 +227,17 @@
 				{{> components/products/product-description}}
 				{{/if}}
 
-
-				
-
-
 				<div class="product-message-area" data-product-alerts></div>
 
 				{{#if quick_view}}
-				<a class="quick-shop-details-lower link"
-					href="{{this.product.url}}">{{lang 'product.view_full_details'}}</a>
+				<a class="quick-shop-details-lower link" href="{{this.product.url}}">{{lang 'product.view_full_details'}}</a>
 				{{/if}}
 			</div>
 		</div><!-- / product-details wrapper -->
 		{{{snippet 'product_details'}}}
 
 	</div>
+
 
 
 
@@ -255,7 +251,7 @@
 					<svg class="icon icon-chevron-down"><use xlink:href="#icon-chevron-down" /></svg>
 				</a>
 			</h2>
-			<div class="= pad-top" id="desc">
+			<div class="pad-top" id="desc">
 				<div class="product__col-2-3--lg product__col-1-1 pad-right">
 					{{{product.description}}}
 					<br>

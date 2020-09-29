@@ -35,7 +35,7 @@ import search from './theme/Search';
 import sitemap from './theme/Sitemap';
 import subscribe from './theme/Subscribe';
 import wishlist from './theme/Wishlist';
-
+import PDPCollection from './theme/ProductCollection';
 
 let PageClasses = {
   mapping: {
@@ -75,6 +75,7 @@ let PageClasses = {
     'pages/home': Home,
     'pages/order-complete': orderComplete,
     'pages/page': page,
+    'pages/custom/product/collection': PDPCollection,
     'pages/product': product,
     'pages/amp/product': product,
     'pages/search': search,

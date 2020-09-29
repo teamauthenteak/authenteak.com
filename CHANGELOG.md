@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.20.32]
+- ReactJS Collections PDP
+
 ## [1.20.31]
 - new cart layout and cart functionality
 - fix for trade flag show

@@ -86,6 +86,7 @@ export default class TabsModule {
         });
     }
 
+    
     // adds any additional content to a paragraph
     setCustomContent(element){
         if(element.hasOwnProperty("customContent")){

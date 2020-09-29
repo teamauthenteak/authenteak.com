@@ -2,7 +2,6 @@ import PageManager from '../PageManager';
 import Alert from './components/Alert';
 import ProductUtils from './product/ProductUtils';
 import ProductImages from './product/ProductImages';
-import ProductReviews from './product/ProductReviews';
 import ColorSwatch from './product/ColorSwatch';
 import productViewTemplates from './product/productViewTemplates';
 import variationImgPreview from './product/variationImgPreview';
@@ -19,6 +18,8 @@ import LazyLoad from 'vanilla-lazyload';
 import Yotpo from './thirdparty/Yotpo';
 import Tooltips from './components/ToolTips';
 
+import PDPCollections from './ProductCollection';
+
 export default class Product extends PageManager {
 	constructor() {
 		super();
@@ -34,32 +35,41 @@ export default class Product extends PageManager {
 			elements_selector: ".swatch-color, .swatch-pattern-image, .swatchModal__swatchImg"
 		});
 
+
 		new Alert($('[data-alerts]'));
+
 
 		new ScrollLink({
 			selector: '.accordion-title a',
 			offset: -117
 		});
 
+
 		new ScrollLink({
 			selector: '.reviews-jumplink'
 		});
 
+
 		// Product Images
-		new ProductImages(this.productImgs);
+		if( this.productImgs ){
+			new ProductImages(this.productImgs);
+		}
+
 
 		// Product Swatches
 		this.swatches = new ColorSwatch(); // Init our color swatches
 
-		// Reviews
-		new ProductReviews(this.context);
-
 
 		// Custom Options
-		new ProductOptions();
+		if( document.getElementById("optionModuleJSON") ){
+			new ProductOptions();
+		}
+
 
 		// Custom Cart Modal
-		new AddToCartModal();
+		if( this.productId ){
+			new AddToCartModal();
+		}
 
 
 		if( document.getElementById("productInfo") ){
@@ -68,57 +78,78 @@ export default class Product extends PageManager {
 			}catch(err){}
 		}
 
-		this.yotpo = new Yotpo({
-			product: this.productInfo,
-			productId: this.productId,
-			isProductPage: true,
-			dialog: $("#productModal")
-		});
 
-		new Tooltips({ 
-			type: "brands",
-			key: this.productInfo.brand,
-			id: this.productInfo.brand
-		});
+		if( document.getElementById("productModal") ){
+			this.yotpo = new Yotpo({
+				product: this.productInfo,
+				productId: this.productId,
+				isProductPage: true,
+				dialog: $("#productModal")
+			});
+		}
+		
 
-		// add product swatch modal
-		new ProductSwatchModal(this.productInfo);
+		if( this.productInfo ){
+			new Tooltips({ 
+				type: "brands",
+				key: this.productInfo.brand,
+				id: this.productInfo.brand
+			});
 
+			// add product swatch modal
+			new ProductSwatchModal(this.productInfo);
+		}
+		
 
 		if(document.getElementById("relatedProductIDs")){
-			// Recommened Products Yotpo Update
+			// Recommend Products Yotpo Update
 			this.recommended = new Personalization({
 				type: "recommended"
 			});
+
 			this.initRecommendedProducts({
 				// our recommended product id array built in pages > product.html
 				productIdArray: JSON.parse( document.getElementById("relatedProductIDs").innerHTML )
 			});
+
 			this.recommendedProducts = [];
 		}
 
-		// Recently Viewed Module
-		this.recentlyViewed = new Personalization({
-			type: "recentlyViewed"
-		});
-		this._initRecentlyViewed();
 
-		// get this product's updtaed reviews from yotpo
-		this._getReviews();
+		if( document.getElementById("recentlyViewedProducts") ){
+			// Recently Viewed Module
+			this.recentlyViewed = new Personalization({
+				type: "recentlyViewed"
+			});
+
+			this._initRecentlyViewed();
+		}
+		
+
+		if( document.getElementById("yotpoRating") ){
+			// get this product's updated reviews from yotpo
+			this._getReviews();
+		}
+		
 
 		// Product UI
 		this._bindEvents();
 		
-		// init custom PDP tabs
-		this.pdpTabs = new TabsModule({
-			id: "descTab",
-			dataClass: ".tmp-prod-details",
-			contentClass: ".descContent"
-		});
 
-		this._initTabs();
+		if( document.getElementById("descTab") ){
+			// init custom PDP tabs
+			this.pdpTabs = new TabsModule({
+				id: "descTab",
+				dataClass: ".tmp-prod-details",
+				contentClass: ".descContent"
+			});
+
+			this._initTabs();
+		}
+		
 
 		this.initAnalytics();
+
 
 		// Print Mode (Tear Sheet)
 		new PrintMode();
@@ -127,18 +158,25 @@ export default class Product extends PageManager {
 
 	
 	loaded(next) {
-		// Product Utils
-		this.ProductUtils = new ProductUtils(this.el, {
-			priceWithoutTaxTemplate: productViewTemplates.priceWithoutTax,
-			priceWithTaxTemplate: productViewTemplates.priceWithTax,
-			priceSavedTemplate: productViewTemplates.priceSaved,
-			variationPreviewImageTemplate: productViewTemplates.variationPreviewImage,
-			callbacks: {
-				switchImage: variationImgPreview
-			}
-		}).init(this.context);
+		if( document.getElementById("pdpCollectionsRoot") ){
+			new PDPCollections(this.context);
+		}
 
-		next();
+		if( document.querySelector(this.el) ){
+			// Product Utils
+			this.ProductUtils = new ProductUtils(this.el, {
+				priceWithoutTaxTemplate: productViewTemplates.priceWithoutTax,
+				priceWithTaxTemplate: productViewTemplates.priceWithTax,
+				priceSavedTemplate: productViewTemplates.priceSaved,
+				variationPreviewImageTemplate: productViewTemplates.variationPreviewImage,
+				callbacks: {
+					switchImage: variationImgPreview
+				}
+			}).init(this.context);
+
+			next();
+		}
+		
 	}
 
 
@@ -328,6 +366,8 @@ export default class Product extends PageManager {
 
 	// saved this viewed product - include the yotpo rating
 	saveViewedProduct(){
+		if( !this.productId ){ return; }
+		
 		try{			
 			this.yotpo.getProductReviews(this.productId)
 				.done((dataObj) => {

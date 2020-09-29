@@ -925,6 +925,17 @@
 		"outputStyle": 0,
 		"syntaxCheckerStyle": 0
 		},
+	"\/js\/theme\/graphql\/templates\/GraphQL.pdp_collections.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/graphql\/templates\/GraphQL.pdp_collections.js",
+		"outputAbbreviatedPath": "\/js\/theme\/graphql\/templates\/min\/GraphQL.pdp_collections-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
 	"\/js\/theme\/graphql\/templates\/GraphQL.swatch.tpl.js": {
 		"fileType": 64,
 		"ignore": 1,
@@ -1013,12 +1024,56 @@
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1
 		},
+	"\/js\/theme\/product\/collection\/App.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/product\/collection\/App.js",
+		"outputAbbreviatedPath": "\/js\/theme\/product\/collection\/min\/App-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
 	"\/js\/theme\/product\/ColorSwatch.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/theme\/product\/ColorSwatch.js",
 		"outputAbbreviatedPath": "\/js\/theme\/product\/min\/ColorSwatch-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/js\/theme\/product\/component\/Select.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/product\/component\/Select.js",
+		"outputAbbreviatedPath": "\/js\/theme\/product\/component\/min\/Select-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/js\/theme\/product\/component\/Swatch.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/product\/component\/Swatch.js",
+		"outputAbbreviatedPath": "\/js\/theme\/product\/component\/min\/Swatch-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/js\/theme\/product\/component\/Tabs.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/product\/component\/Tabs.js",
+		"outputAbbreviatedPath": "\/js\/theme\/product\/component\/min\/Tabs-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
@@ -1140,6 +1195,17 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/theme\/product\/wishlistDropdown.js",
 		"outputAbbreviatedPath": "\/js\/theme\/product\/min\/wishlistDropdown-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/js\/theme\/ProductCollection.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/theme\/ProductCollection.js",
+		"outputAbbreviatedPath": "\/js\/theme\/min\/ProductCollection-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,

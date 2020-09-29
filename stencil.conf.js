@@ -22,8 +22,13 @@ var webpackConfig = {
             compact: true,
             cacheDirectory: true,
             minified: true,
-            presets: [ ['es2015', {loose: true}] ],
-            plugins: ['transform-object-rest-spread']
+            presets: [ 
+              ["@babel/preset-env", {loose: true}],
+              ['@babel/preset-react']
+            ],
+            plugins: [
+              "@babel/plugin-transform-spread"
+            ]
           }
         }
       }

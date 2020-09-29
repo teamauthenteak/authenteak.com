@@ -74,7 +74,7 @@ export default class ProductSwatchModal {
         let base = this.graph_tpl.getSwatchDrawer();
         $(base).appendTo(document.body);
 
-        // show the request-a-swatch button if we have the trigger from the tempaltes on the page
+        // show the request-a-swatch button if we have the trigger from the templates on the page
         if( document.getElementById("productOptions") && document.getElementById("productOptions").querySelector("div[show-request-swatch-button]") ){
             document.getElementById("productDetails").querySelector(".product__swatchRequestBtn--pdp").style.display = "flex";
         }
@@ -83,7 +83,7 @@ export default class ProductSwatchModal {
 
 
     /** --------------------------------------------
-     * Event Listners and Selector Pre-Cache
+     * Event Listeners and Selector Pre-Cache
      -----------------------------------------------*/
 
     bindings(){

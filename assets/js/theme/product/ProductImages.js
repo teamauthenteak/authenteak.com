@@ -25,6 +25,9 @@ export default class ProductImages {
   }
 
   _init() {
+    
+    if( !this.$el[0] ){ return; }
+    
     imagesLoaded(this.$el[0], () => {
       // Hide loader
       this.$el

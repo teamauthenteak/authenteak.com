@@ -46,7 +46,7 @@ export default class Yotpo {
         Object.assign(this.settings, options);        
 
         // if we are on the PDP ~ therefore the ReviewQuestion Module
-        if( this.settings.isProductPage ){ 
+        if( this.settings.isProductPage && options.productId ){ 
 
             this.createBody = {
                 appkey: this.settings.key,

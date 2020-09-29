@@ -75,6 +75,10 @@
 
 .cart-content-cntr{
     margin-top: 30px;
+
+    @media only screen and (max-height: $screen-sm) {
+        display: block !important;
+    }
 }
 
 .cart-container{
@@ -102,6 +106,14 @@
 .cart-totals-col{
     padding: 0 40px 0 40px;
     background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & .cart-totals-item{
+        width: 100%;
+    }
 
     & .cart-totals-item:first-of-type{
         padding-top: 15px;
@@ -438,8 +450,12 @@ button.cart-item-edit {
     height: auto !important;
 }
 
+.coupon-code {
+    max-width: 400px;
+}
+
 .cart-actions{
-    max-width: 350px;
+    max-width: 4000px;
     float: right;
     width: 100%;
 
