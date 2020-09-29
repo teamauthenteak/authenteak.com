@@ -17,10 +17,10 @@
     "bc-tabs": "github:pixelunion/bc-tabs#v0.4.1",
     "blazy": "^1.8.2",
     "eventemitter2": "^0.4.14",
-    "firebase": "^7.15.1",
-    "fitvids": "^2.0.0",
+    "firebase": "^7.21.1",
+    "fitvids": "^2.1.1",
     "history.js": "github:browserstate/history.js",
-    "idb": "^5.0.4",
+    "idb": "^5.0.6",
     "imagesloaded": "^4.1.1",
     "infinite-scroll": "^3.0.6",
     "jquery": "^3.5.0",
@@ -33,7 +33,7 @@
     "susy": "^2.2.12",
     "url": "0.11.0",
     "validetta": "github:pixelunion/validetta#v2.0.3",
-    "vanilla-lazyload": "^15.1.1"
+    "vanilla-lazyload": "^15.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
