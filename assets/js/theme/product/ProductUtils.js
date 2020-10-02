@@ -71,7 +71,7 @@ export default class ProductUtils {
           let invalidFields = this.getInvalidFields();
           let event = new CustomEvent("form-field-error-state", {detail: invalidFields});
           window.dispatchEvent(event);
-console.log(invalidFields)
+
 
           if ('scrollBehavior' in document.documentElement.style) {
             window.scroll({
@@ -173,7 +173,7 @@ console.log(invalidFields)
 
       this.pageAlerts.clear();
       this.productAlerts.clear();
-
+console.log($form.serialize())
       utils.api.productAttributes.optionChange(this.productId, $form.serialize(), (err, response) => {
         const viewModel = this._getViewModel(this.$el);
         const data = response ? response.data : {};

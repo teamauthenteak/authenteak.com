@@ -222,8 +222,8 @@ button.cart-item-edit {
 
     @media screen and (max-width: $screen-lg) {
         position: absolute !important;
-        top: -4px;
-        right: 40px;
+        top: 10px;
+        right: 6px;
     }
 }
 
@@ -279,6 +279,9 @@ button.cart-item-edit {
     padding: 10px;
     margin-left: 10px;
     margin-bottom: 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .product-option[data-name='Product']{
@@ -430,7 +433,9 @@ button.cart-item-edit {
 .cart-item-remove{
     top: 0;
     bottom: auto;
-
+    display: block;
+    height: 25px;
+    
     @media screen and (min-width: $screen-lg) {
         top: -55px;
     }

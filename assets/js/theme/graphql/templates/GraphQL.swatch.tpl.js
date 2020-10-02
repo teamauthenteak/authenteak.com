@@ -80,13 +80,16 @@ export default class GraphQL_Swatch_TPL {
                             </form>
                         </div>
                     </div>
+                    
                     <footer class="drawer__footer">
                         <button type="button" class="drawer__saveBtn" drawer--close>
                             <svg class="icon icon-long-arrow-left"><use xlink:href="#icon-long-arrow-left" /></svg>
                             <span>Save &amp; Back</span>
                         </button>
                     </footer>
+
                 </aside>
+
                 <div class="drawer__overlay drawer__overlay--hide"></div>`;
     }
 
@@ -109,7 +112,7 @@ export default class GraphQL_Swatch_TPL {
     }
 
 
-    // swatche contaner
+    // swatch container
     buildSwatch(swatch){        
         return `<div class="drawer__swatchControls ${swatch.isRequired ? 'form-required' : ''}" data-swatch-selector data-product-attribute="swatch">
                     <div class="form-field-control drawer__controls--list">

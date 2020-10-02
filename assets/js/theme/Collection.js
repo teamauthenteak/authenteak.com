@@ -310,7 +310,7 @@ export default class Collection extends PageManager {
 
 
 
-
+    // this updates the price price when the product option changes   
     onProductOptionChange(){
 
         utils.hooks.on('product-option-change', (event, changedOption) => {

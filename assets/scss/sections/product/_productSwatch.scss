@@ -504,6 +504,12 @@
 
             @media screen and (max-width: $screen-md) {
                 width: 100%;
+                flex-direction: row;
+            }
+
+            @media screen and (max-width: $screen-sm) {
+                width: 100%;
+                flex-direction: column;
             }
         }
 
@@ -522,6 +528,10 @@
             align-items: center;
             align-content: center;
             flex: 1;
+
+            @media screen and (max-width: $screen-sm) {
+                width: 100%;
+            }
         }
 
         &--7-10{

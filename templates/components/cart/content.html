@@ -96,7 +96,9 @@
                 </a>
               {{else}}
               
+              <span class="cart-option-value" id="{{camelcase value}}">
                 {{> components/products/customizations/option-label value}}
+              </span>
               {{/if}}
             </div>
           {{/each}}
@@ -136,7 +138,7 @@
 
           {{#each this.custom_fields}}
             {{#if this.name '==' "Trade Discount"}}
-              <em class="badge badge--cart">Trade Price</em>
+              <em class="badge badge--cartHorz">Trade Price</em>
             {{/if}}
           {{/each}}
         

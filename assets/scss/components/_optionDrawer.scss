@@ -87,6 +87,14 @@
         flex-direction: column;
         justify-content: stretch;
         position: relative;
+
+        &--close{
+            display: none;
+        }
+
+        &--open{
+            display: flex;
+        }
     }
 
     &__contentHeading{

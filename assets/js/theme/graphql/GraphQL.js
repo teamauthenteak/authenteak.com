@@ -21,7 +21,6 @@ export default class GraphQL {
     }
 
 
-
     /**
      * Fetches Data from BigCommerce GraphQL Service
      * @param {Object} queryObj - custom graphql contract 
@@ -123,10 +122,75 @@ export default class GraphQL {
 
 
     /**
+     * Get detailed single product information
+     * @param {Array} arr - Array of product ids 
+     */
+
+    getProductDetailInfo(arr){
+        return `query getProductDetailInfo{
+                    site{
+                        products(entityIds:[${arr}]){
+                            pageInfo {
+                                startCursor
+                                endCursor
+                            }
+                            edges{
+                                node{
+                                    ... productFields
+                                }
+                            }
+                        }
+                    }
+                }
+
+                fragment productFields on Product{
+                    entityId
+                    name
+                    path
+                    sku
+                
+                    customFields (names: ["Highlight 1", "Highlight 2", "Highlight 3", "Highlight 4", "Lead-Time", "Lead-Time 2", "Promo Text", "Featured Highlight", "Specs Highlight"]){
+                        edges{
+                            node{
+                                name
+                                value
+                            }
+                        }
+                    }
+
+                    brand {
+                        name
+                    }
+                
+                    defaultImage {
+                        url(width: 500, height: 500)
+                    }
+                
+                    prices {
+                        price {
+                            ...PriceFields
+                        }
+                        salePrice {
+                            ...PriceFields
+                        }
+                        retailPrice {
+                            ...PriceFields
+                        }
+                    }
+                }
+                
+                fragment PriceFields on Money {
+                    value
+                }`;
+    }
+
+
+
+    /**
      * Fetch a given Category Products
      * @param {string} args.path - URL path of current category
      * @param {number} args.qty - number of products to get = currently limited to 8 due to complexity
-     * @param {string} args.after - endcoursor from the prevous response
+     * @param {string} args.after - endcursor from the previous response
      */
 
     getCategoryByUrl(args){
