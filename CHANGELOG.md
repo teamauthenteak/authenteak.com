@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.20.31.002]
+- october home page
+
+## [1.20.31.001]
+- bug fixes
+
 ## [1.20.31]
 - new cart layout and cart functionality
 - fix for trade flag show

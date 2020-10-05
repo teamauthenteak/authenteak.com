@@ -1,57 +1,31 @@
 
 {{#partial "page"}}
     <div class="landing">
-
+        
         <div class="landing__hero" id="homeHero">
             <div class="landing__heroCarousel">
 
                 <div class="landing__heroSlide">
                     <a href="" class="landing__heroSlideLink" title="">
-                        <div class="landing__heroCaption">
-                            <h2 class="landing__heroHeading">Extend Summer</h2>
-                            <span class="button button--small button-secondary--whiteTrans">Get Inspired by light</span>
+                        <div class="landing__heroCaption landing__heroCaption--top">
+                            <h2 class="landing__heroHeading landing__heroHeading--dark">Afternoon Delight</h2>
+                            <p class="landing__heroText">Dine alfresco in style</p>
+                            <span class="button button-primary button-primary--green button-wide">Shop Dining Sets</span>
                         </div>
 
                         <picture class="landing__heroImg">
-                            <source media="(max-width: 699px)" srcset="https://dummyimage.com/480x350/aaa/999">
-                            <source media="(min-width: 700px)" srcset="https://dummyimage.com/1920x500/aaa/999">
-                            <img src="https://dummyimage.com/1920x500/aaa/999" alt="" class="landing__heroImg">
-                        </picture>
-                    </A>
-                </div><!-- end slide -->
-
-                <div class="landing__heroSlide hide">
-                    <a href="" class="landing__heroSlideLink" title="">
-                        <div class="landing__heroCaption">
-                            <h2 class="landing__heroHeading">Extend Winter</h2>
-                            <span class="button button--small button-secondary--whiteTrans">Get Inspired by light</span>
-                        </div>
-                        
-                        <picture class="landing__heroImg">
-                            <source media="(max-width: 699px)" srcset="https://dummyimage.com/480x350/bbb/999">
-                            <source media="(min-width: 700px)" srcset="https://dummyimage.com/1920x500/bbb/999">
-                            <img src="https://dummyimage.com/1920x500/bbb/999" alt="" class="landing__heroImg">
+                            <source media="(max-width: 699px)" srcset="https://authenteak.s3.us-east-2.amazonaws.com/images/october_hero_mobile.jpg">
+                            <source media="(min-width: 700px)" srcset="https://authenteak.s3.us-east-2.amazonaws.com/images/october_hero.jpg">
+                            <img src="https://authenteak.s3.us-east-2.amazonaws.com/images/october_hero.jpg" alt="" class="landing__heroImg">
                         </picture>
                     </a>
                 </div><!-- end slide -->
-
-
-                <div class="landing__heroSlide hide">
-                    <a href="" class="landing__heroSlideLink" title="">
-                        <div class="landing__heroCaption">
-                            <h2 class="landing__heroHeading">Extend Autumn</h2>
-                            <span class="button button--small button-secondary--whiteTrans">Get Inspired by light</span>
-                        </div>
-
-                        <picture class="landing__heroImg">
-                            <source media="(max-width: 699px)" srcset="https://dummyimage.com/480x350/ccc/999">
-                            <source media="(min-width: 700px)" srcset="https://dummyimage.com/1920x500/ccc/999">
-                            <img src="https://dummyimage.com/1920x500/ccc/999" alt="" class="landing__heroImg">
-                        </picture><!-- end slide -->
-                    </a>
-                </div>
 
             </div>
+
+            <a href="#mainContent" class="landing__heroScroll" id="heroScrollLink">
+                <svg class="landing__heroScrollIcon"><use xlink:href="#icon-circle-down" /></svg>
+            </a>
         </div>
 
 
