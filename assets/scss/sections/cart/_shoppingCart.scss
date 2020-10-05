@@ -271,6 +271,9 @@ button.cart-item-edit {
 
 .product-quantity-toggle-wrapper{
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-content: center;
 }
 
 .product-quantity-toggle-wrapper .product-quantity-toggle {

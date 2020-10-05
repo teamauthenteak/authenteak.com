@@ -39,6 +39,10 @@
     display: none !important;
 }
 
+.flex{
+    display: flex !important;
+}
+
 .async-hide { opacity: 0 !important}
 
 
@@ -115,8 +119,16 @@
     padding: 0 0 $standard-padding 0 !important;
 }
 
+.pad-top-bottom{
+    padding: $standard-padding 0 $standard-padding 0 !important;
+}
+
 .pad-right{
     padding: 0 $standard-padding 0 0 !important;
+}
+
+.pad-right-left{
+    padding: 0 $standard-padding 0 $standard-padding !important;
 }
 
 .pad-left{

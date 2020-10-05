@@ -265,7 +265,7 @@ export default class ProductOptions {
 			window.TEAK.currentSelections[$optionText.data('option-title')] = label;
 
 			if( label.text !== "Select one" ){
-				$el.parents(".selectBox__label").find(".selectBox__value").text(label.text).addClass("selectBox__value--choosen");
+				$el.parents(".selectBox__label").find(".selectBox__value").text(label.text).addClass("selectBox__value--chosen");
 			}
 
 			self.updateLeadTime();

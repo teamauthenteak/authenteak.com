@@ -36,10 +36,23 @@
         &--right{
             @extend .product__swatchText--right;
         }
+
+        &--globalControl{
+            @extend .product__swatchText--right;
+            padding: 5px 15px;
+            border: 1px solid #eee;
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-content: center;
+            align-items: center;
+            height: 70px;
+        }
     }
 
     &__optionText{
         @extend .product__swatchOptionText;
+        width: 100%;
     }
 
     &__name{
@@ -61,7 +74,13 @@
             display: none;
         }
 
-        &--choosen{
+        &--normal{
+            margin: 15px 0 !important;
+            font-size: 0.94rem !important;
+            width: 100%;
+        }
+
+        &--chosen{
             padding: 0 0 0 16px !important;
 
             &:after{

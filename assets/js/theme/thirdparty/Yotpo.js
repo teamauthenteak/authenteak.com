@@ -225,7 +225,7 @@ export default class Yotpo {
 
         if( $target.hasClass("selectBox__select") ){
             let starCount = $target.val();
-            $target.parents(".selectBox__label").find(".selectBox__value").text(`${starCount} Star${starCount > 1 ? 's' : ''}`).addClass("selectBox__value--choosen");
+            $target.parents(".selectBox__label").find(".selectBox__value").text(`${starCount} Star${starCount > 1 ? 's' : ''}`).addClass("selectBox__value--chosen");
         }
     } 
 

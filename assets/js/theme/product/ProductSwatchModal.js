@@ -106,7 +106,7 @@ export default class ProductSwatchModal {
             .on("click", "button.drawer__displayType", (e) => { this.toggleSwatchList(e); })
             .on("click", "button.drawer__displayFiltersBtn", (e) => { this.toggleFiltersList(e); })
             .on("keyup", "input.drawer__control--input", () => { this.keyWordFilter(); })
-            .on("change", "input.swatch-radio", (e) => { this.selectSwatchColor(e); })
+            .on("change", "input.swatch-radio", (e) => { this.selectSwatchColor(e); }) // main back to parent interaction
             .on("click", "button.drawer__clearControl", (e) => { this.clearKeyword(e) })
             .on("change", "input.drawer__filterControl", (e) => { this.attributeFilter(e); })
             .on("click", "div.drawer__control--searchIcon", (e) => { this.focusSearch(e); });

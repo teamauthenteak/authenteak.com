@@ -27,9 +27,9 @@ export default function CollectionPod(props){
     };
 
 
-    const selectChange = () => {
+    const selectSwatch = () => {}
 
-    }
+    const selectSelect = () => {}
 
 
     useEffect(() => {
@@ -49,15 +49,15 @@ export default function CollectionPod(props){
             <section className="product__row product__row--border product__row--section">
                 <form className="form add-to-cart-form" name={`product_${props.product.entityId}`}>
                 
-                    <div className="product__col-1-1">
-                        <figure className="product__figure product__col-1-4--lg product__col-1-1">
+                    <div className="product__pod product__pod--horz">
+                        <figure className="product__figure product__col-2-10--lg product__col-1-1">
                             <a href={props.product.path} title={`See all details about ${props.product.name}`} className="product__figLink">
                                 <img className="product__img product__img--thumb" src={props.product.defaultImage.url} alt={props.product.name} />
                             </a>
                         </figure>
 
-                        <div className="product__col-3-4--lg product__col-1-1 pad-left">
-                            <div className="product__col-6-10--lg product__col-1-1 pad-right">
+                        <div className="product__col-8-10--lg product__col-1-1 pad-left flex">
+                            <div className="product__col-6-10--lg product__col-1-1 product__col--metaDesc">
                                 <header className="product__nameHeader">
                                     <h1 className="product__name product__name--sm">
                                         <a href={props.product.path} title={`See all details about ${props.product.name}`}>
@@ -73,6 +73,7 @@ export default function CollectionPod(props){
                                     </a>
                                 </p>
 
+                    
                                 <ul className="product__highlights">
                         {props.product.customFields.edges.map((item, index) => {
                             if( item.node.name === "Highlight 1" || 
@@ -110,14 +111,14 @@ export default function CollectionPod(props){
 
                         })}
 
-                                <div className="form-field no-margin">
-                                    <QuantityButton qty={setQty} />
-                                </div>
+                                <p>
+                                    <a href={props.product.path} title={`Learn more about ${props.product.name}`}>
+                                        View more details &rsaquo;
+                                    </a>
+                                </p>                            
                             </div>
                         
-
-
-                            <div className="product__col-4-10--lg product__col-1-1 pad-left">
+                            <div className="product__col-4-10--lg product__col-1-1 product__col--controls">
                                 <div className="product__price">
                                     <div className="product__priceLine">
                                         <span className="product__priceValue">
@@ -131,36 +132,76 @@ export default function CollectionPod(props){
 
                                 <div className="product__swatchCol">
                                     <ul className="product__swatchList">
-                                        {
-                                            options.map((item, index) => {
-                                                return item.node.displayStyle === "Swatch" ?
-                                                    <Swatch 
-                                                        key={index} 
-                                                        toggle={toggleDrawer} 
-                                                        displayName={item.node.displayName} 
-                                                        id={item.node.entityId} 
-                                                        values={item.node.values.edges}
-                                                        setOption={selectChange}
-                                                    /> 
+                                        <li className="product__swatchItem product__swatchItem--list">
+                                            Selected Options
+                                            <ul className="product__swatchItemList">
+                                            {options.map((item, index) => {
+                                                if( item.node.displayStyle === "Swatch" && appHook.hasOwnProperty(item.node.displayName) ){
+                                                    return  <Swatch 
+                                                                key={index} 
+                                                                toggle={toggleDrawer} 
+                                                                displayName={item.node.displayName} 
+                                                                id={item.node.entityId} 
+                                                                values={item.node.values.edges}
+                                                                type="remote"
+                                                            />;
+                                                }
+                                            })}
+                                            </ul>
+                                            <svg className="product__swatchLabelIcon product__swatchLabelIcon--45deg"><use xlinkHref="#icon-long-arrow-right" /></svg>
+                                        </li>
 
-                                                        : 
+                                        {options.map((item, index) => {
+                                            if( item.node.displayStyle === "DropdownList" && appHook.hasOwnProperty(item.node.displayName) ){
+                                                return  <Select 
+                                                            key={index} 
+                                                            displayName={item.node.displayName} 
+                                                            id={item.node.entityId} 
+                                                            values={item.node.values.edges}
+                                                            type="remote"
+                                                        />;
+                                                        
+                                            }
+                                        })}
 
-                                                    <Select 
-                                                        key={index} 
-                                                        displayName={item.node.displayName} 
-                                                        id={item.node.entityId} 
-                                                        values={item.node.values.edges} 
-                                                    />;
-                                            })
-                                        }
+
+                                        {options.map((item, index) => {
+                                            if(item.node.displayStyle === "Swatch" && !appHook.hasOwnProperty(item.node.displayName) ){
+                                                return  <Swatch 
+                                                            key={index} 
+                                                            toggle={toggleDrawer} 
+                                                            displayName={item.node.displayName} 
+                                                            id={item.node.entityId} 
+                                                            values={item.node.values.edges}
+                                                            setOption={selectSwatch}
+                                                            type="local"
+                                                        />;
+                                            }
+
+                                            if( item.node.displayStyle === "DropdownList" && !appHook.hasOwnProperty(item.node.displayName) ){
+                                                return <Select 
+                                                            key={index} 
+                                                            displayName={item.node.displayName} 
+                                                            id={item.node.entityId} 
+                                                            values={item.node.values.edges}
+                                                            setOption={selectSelect}
+                                                            type="local"
+                                                        />;
+                                            }
+                                        })}
                                     </ul>
                                 </div>
 
-                                <button type="button" className="product__atcCollectionBtn">
-                                    <span className="product__atcCollectionBtnText">Add to Cart</span>
-                                    <svg className="icon icon-spinner hide"><use xlinkHref="#icon-spinner" /></svg>
-                                </button>
+                                <div className="product__col--priceCntr">
+                                    <div className="form-field no-margin">
+                                        <QuantityButton qty={setQty} />
+                                    </div>
 
+                                    <button type="button" className="product__atcCollectionBtn">
+                                        <span className="product__atcCollectionBtnText">Add to Cart</span>
+                                        <svg className="icon icon-spinner hide"><use xlinkHref="#icon-spinner" /></svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

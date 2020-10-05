@@ -27,7 +27,17 @@ export default class Page extends PageManager {
 
         if(window.location.pathname === "/"){
             this.initHero();
+            this.scrollArrow();
         }
+    }
+
+
+    bindEvents(){
+        $(document)
+            .on("click", "[rel=fileAClaim]", (e) => {
+                this.warrantyModal.open();
+                e.preventDefault();
+            });
     }
 
 
@@ -47,6 +57,25 @@ export default class Page extends PageManager {
     }
 
 
+
+    scrollArrow(){
+		let hero = document.getElementById("homeHero").getBoundingClientRect();
+		let arrow = document.getElementById("heroScrollLink");
+		let winHeight = window.innerHeight;
+
+		$(window).resize(() => { winHeight = window.innerHeight });
+
+		$(window).scroll(() => {
+			// subtract get window height from size of hero
+			let scrollAmount = hero.bottom - winHeight;
+ 
+			// watch to see if that is how much we have scrolled by: window.scrollY
+            // when we have scrolled that much then change the arrow to a absolute position
+            arrow.classList.toggle("landing__heroScroll--static", scrollAmount < window.scrollY);
+            
+		})
+    }
+    
 
 
     _initRecentlyViewed(){
@@ -125,13 +154,6 @@ export default class Page extends PageManager {
 
 
 
-    bindEvents(){
-        $(document)
-            .on("click", "[rel=fileAClaim]", (e) => {
-                this.warrantyModal.open();
-                e.preventDefault();
-            });
-    }
 
 
 }

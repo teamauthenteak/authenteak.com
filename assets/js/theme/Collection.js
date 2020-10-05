@@ -418,7 +418,7 @@ export default class Collection extends PageManager {
 
         Object.assign(selectObj, TEAK.Utils.parseOptionLabel(e.currentTarget.selectedOptions[0].label));
 
-        $target.parents(".selectBox__label").find(".selectBox__value").text(selectObj.text).addClass("selectBox__value--choosen");
+        $target.parents(".selectBox__label").find(".selectBox__value").text(selectObj.text).addClass("selectBox__value--chosen");
         utils.hooks.emit('product-option-change', null, $target);
     }
 

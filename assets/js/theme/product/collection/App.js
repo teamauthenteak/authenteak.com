@@ -134,7 +134,7 @@ class App extends React.Component{
 
     render(){
         return(
-            <AppContext.Provider value={this.state}>
+        <AppContext.Provider value={this.state}>
             <ErrorBoundary>
                 <div className="product">
                     <div className="product__col-2-3">
@@ -153,7 +153,7 @@ class App extends React.Component{
                                                 
                         <h4 className="product__title product__title--noMargin product__title--customizePDP">Customize</h4>
                         <div className="product__swatchCol">
-                            <ul className="product__swatchList">
+                            <ul className="product__swatchList" id="customize">
                                 {this.props.context.product.options.map((item, index) => {
                                     return item.partial === "swatch" ?
                                         <Swatch 
@@ -179,6 +179,12 @@ class App extends React.Component{
                     </div>
                 </div>
 
+                <div className="product__row no-pad">
+                    <div className="product__col-1-1 pad-left">
+                        <h2 className="product__title no-margin">Build Your Custom {this.props.context.product.title}</h2>
+                    </div>
+                </div>
+
                 <div className="product__col-1-1 no-pad" id="collectionsCntr">
                     { this.state.collection ? 
                         this.state.collection.map((item, index) => {
@@ -199,7 +205,7 @@ class App extends React.Component{
                 <OptionDrawer toggle={this.state.toggleDrawer} options={this.state.drawerOptions} for={this.state.drawerControl} />
             
             </ErrorBoundary>
-            </AppContext.Provider>
+        </AppContext.Provider>
         )
     }
 }

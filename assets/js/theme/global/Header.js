@@ -25,9 +25,14 @@ export default class Header {
 
 		this._bindEvents();
 		this._adjustHeights();
+
+		
 		this._headerScroll();
+		
+		
 		this._headerPromoBanner();
 	}
+
 
 
 	// sets the header promo banner on the page when marketing_content JSON has a value
@@ -211,16 +216,23 @@ export default class Header {
 			}
 		});
 
+
+		if( document.getElementById("pdpCollectionsRoot") ){
+			this.$header.css("position", "static");
+			this.$header.siblings(".site-canvas").css("marginTop", 0);
+		}
+
+
 		$win.scroll(() => {
-			const st = $win.scrollTop();
-			var compressHeader = (st > threshold) ? true : false;
+			if( !document.getElementById("pdpCollectionsRoot") ){
+				const st = $win.scrollTop();
+				var compressHeader = (st > threshold) ? true : false;
 
-			currentNavBarHeight = $currentNavBar.outerHeight();
-			compressHeader = currentNavBarHeight > defaultNavbarHeight
-				? false
-				: compressHeader;
+				currentNavBarHeight = $currentNavBar.outerHeight();
+				compressHeader = currentNavBarHeight > defaultNavbarHeight ? false : compressHeader;
 
-			this.$header.toggleClass(scrollClass, compressHeader);
+				this.$header.toggleClass(scrollClass, compressHeader);
+			}
 		});
 	}
 
