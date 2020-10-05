@@ -32,15 +32,24 @@
 
     &__hero{
         margin-bottom: 20px;
-        // max-height: 970px;
+        max-height: 500px;
         height: auto;
         overflow: hidden;
         position: relative;
         // padding-top: calc(500 / 1920 * 100%) !important;
 
         @media only screen and (max-width: $screen-md) {
-            // max-height: 350px;
+            max-height: 350px;
             // padding-top: calc(350 / 480 * 100%) !important;
+        }
+
+
+        &--tall{
+            max-height: none;
+
+            @media only screen and (max-width: $screen-md) {
+                max-height: none;
+            }
         }
 
 
@@ -86,6 +95,12 @@
         @media only screen and (max-width: $screen-sm) {
         //    min-height: 350px;
            object-fit: cover;
+        }
+
+        &--tall{
+            @media only screen and (max-width: $screen-sm) {
+                min-height: none;
+            }        
         }
     }
 
