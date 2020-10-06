@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import AppContext from '../collection/AppContext';
 
 export default function Select(props){
@@ -32,6 +32,24 @@ export default function Select(props){
     };
 
 
+    useEffect(() => {
+
+        // trying to create some sort of normalcy to mitigate the brittleness of searching label strings for an object match
+        if(appHook.hasOwnProperty(props.displayName) && appHook[props.displayName].attributeValue && props.type === "remote"){
+            let hookId = appHook[props.displayName].label.toLowerCase().split(" ").join("").slice(0, 18);
+
+            props.values.forEach((element) => {
+                let labelId = element.node.label.toLowerCase().split(" ").join("").slice(0, 18);
+
+                if( labelId.includes(hookId) ){
+                    console.log(element.node)
+                }
+            });
+        }
+
+    }, [appHook[props.displayName]]);
+
+
     return(
         <>
         {appHook.hasOwnProperty(props.displayName) && props.type === "global" ?
@@ -41,14 +59,14 @@ export default function Select(props){
                         <p className="selectBox__optionText">
                             <span className="selectBox__name selectBox__name--labelLeft">{props.displayName}</span>
                             <span className={`selectBox__value ${appHook[props.displayName].attributeValue ? "selectBox__value--chosen" : "" }`}>
-                                { appHook[props.displayName].attributeValue ? appHook[props.displayName].label : "Select one"}
+                                { appHook[props.displayName].attributeValue ? appHook[props.displayName].label.split("--")[0] : "Select one"}
                             </span>
                         </p>
                     </div>
                     <select onChange={(e) => selectChange(e)} className="selectBox__select" name={`attribute[${props.id}]`} id={`attribute-${props.id}`} aria-required="true">
                         {props.values.map((item, index) => {
-                            return  <option value={`${item.id}`} label={item.label} key={index}>
-                                        {item.label}
+                            return  <option value={`${item.id}`} label={item.label.split("--")[0]} key={index}>
+                                        {item.label.split("--")[0]}
                                     </option>
                         })}
                     </select>
@@ -63,7 +81,7 @@ export default function Select(props){
                     <a href="#customize" className="selectBox__text--globalControl">
                         <span className="selectBox__optionText">
                             <span className={`selectBox__value selectBox__value--normal ${appHook[props.displayName].attributeValue ? "selectBox__value--chosen" : "" }`}>
-                                { appHook[props.displayName].attributeValue ? appHook[props.displayName].label : props.displayName }
+                                { appHook[props.displayName].attributeValue ? appHook[props.displayName].label.split("--")[0] : props.displayName }
                             </span>
                         </span>
                         <svg className="product__swatchLabelIcon product__swatchLabelIcon--45deg"><use xlinkHref="#icon-long-arrow-right" /></svg>
@@ -87,8 +105,8 @@ export default function Select(props){
                     <select onChange={(e) => selectChange(e)} className="selectBox__select" name={`attribute[${props.id}]`} id={`attribute-${props.id}`} aria-required="true">
                         {props.values.map((item, index) => {
                             if( item.hasOwnProperty("node") ){
-                                return  <option value={`${item.node.entityId}`} label={item.node.label} key={index}>
-                                            {item.node.label}
+                                return  <option value={`${item.node.entityId}`} label={item.node.label.split("--")[0]} key={index}>
+                                            {item.node.label.split("--")[0]}
                                         </option>
                             }
                         })}

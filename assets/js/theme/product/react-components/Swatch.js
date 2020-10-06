@@ -9,6 +9,41 @@ export default function Swatch(props){
         toggle(data);
     };
 
+
+
+    useEffect(() => {
+
+        if(appHook.hasOwnProperty(props.displayName) && appHook[props.displayName].attributeValue && props.type === "remote"){
+            let hookId = appHook[props.displayName].swatch.label.split("--")[0];
+            
+            hookId = hookId.toLowerCase().split("(+")[0];
+            hookId = hookId.split(" ").join("");
+
+            props.values.forEach((element) => {
+                let labelId = element.node.label.split("--")[0];
+
+                labelId = labelId.toLowerCase().split("(+")[0];
+                labelId = labelId.split(" ").join("");
+
+                if( labelId.includes(hookId) ){
+                    const { setOption } = props;
+
+                    setOption({
+                        display_name: props.displayName,
+                        id: props.id,
+                        value: {
+                            label: element.node.label,
+                            id: element.node.entityId
+                        }
+                    });
+                }
+            });
+        }
+
+    }, [appHook[props.displayName]]);
+
+
+
     return(
         <>
         {appHook.hasOwnProperty(props.displayName) && props.type === "global" ?
@@ -29,7 +64,7 @@ export default function Swatch(props){
                                 </span>
                             </span>
                             <span className={`product__swatchValue ${appHook[props.displayName].attributeValue ? "show" : ""}`}>
-                                { appHook[props.displayName].attributeValue ? appHook[props.displayName].swatch.label : "" }
+                                { appHook[props.displayName].attributeValue ? appHook[props.displayName].swatch.label.split("--")[0] : "" }
                             </span>
                         </p>
                     </div>
@@ -68,7 +103,7 @@ export default function Swatch(props){
                                 </span>
                             </span>
                             <span className={`product__swatchValue ${appHook[props.displayName].attributeValue ? "show" : ""}`}>
-                                { appHook[props.displayName].attributeValue ? appHook[props.displayName].swatch.label : "" }
+                                { appHook[props.displayName].attributeValue ? appHook[props.displayName].swatch.label.split("--")[0] : "" }
                             </span>
                         </p>
                     </div>

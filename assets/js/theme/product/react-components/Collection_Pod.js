@@ -8,11 +8,13 @@ import AppContext from '../collection/AppContext';
 
 export default function CollectionPod(props){
     const appHook = useContext(AppContext);
+    const graphQL = new GraphQL();
 
     const [ qty, setQty ] = useState(0);
     const [ options, setOptions ] = useState([]);
+    const [ swatches, setSwatch ] = useState({});
+    const [ dropdown, setDropdown ] = useState({});
 
-    const graphQL = new GraphQL();
 
     const toggleDrawer = (args) => {
         appHook.toggleDrawer("open")
@@ -27,9 +29,23 @@ export default function CollectionPod(props){
     };
 
 
-    const selectSwatch = () => {}
+    const selectSwatch = (data) => {
+        setSwatch((swatches) => {
+            let newSwatch = {...swatches};
+            
+            newSwatch[data.display_name] = {
+                attribute: data.id,
+                attributeValue: data.value
+            };
 
-    const selectSelect = () => {}
+            return newSwatch;
+        });
+    };
+
+
+    const selectSelect = (data) => {
+        setDropdown(data);
+    };
 
 
     useEffect(() => {
@@ -143,6 +159,7 @@ export default function CollectionPod(props){
                                                                 displayName={item.node.displayName} 
                                                                 id={item.node.entityId} 
                                                                 values={item.node.values.edges}
+                                                                setOption={selectSwatch}
                                                                 type="remote"
                                                             />;
                                                 }
@@ -151,18 +168,7 @@ export default function CollectionPod(props){
                                             <svg className="product__swatchLabelIcon product__swatchLabelIcon--45deg"><use xlinkHref="#icon-long-arrow-right" /></svg>
                                         </li>
 
-                                        {options.map((item, index) => {
-                                            if( item.node.displayStyle === "DropdownList" && appHook.hasOwnProperty(item.node.displayName) ){
-                                                return  <Select 
-                                                            key={index} 
-                                                            displayName={item.node.displayName} 
-                                                            id={item.node.entityId} 
-                                                            values={item.node.values.edges}
-                                                            type="remote"
-                                                        />;
-                                                        
-                                            }
-                                        })}
+                                       
 
 
                                         {options.map((item, index) => {
@@ -178,7 +184,7 @@ export default function CollectionPod(props){
                                                         />;
                                             }
 
-                                            if( item.node.displayStyle === "DropdownList" && !appHook.hasOwnProperty(item.node.displayName) ){
+                                            if( item.node.displayStyle === "DropdownList" ){
                                                 return <Select 
                                                             key={index} 
                                                             displayName={item.node.displayName} 

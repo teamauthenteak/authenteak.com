@@ -39,6 +39,7 @@ class App extends React.Component{
         this.collection = props.context.product.custom_fields.find(element => element.name === "collection").value.split(",");
 
         this.state = {
+            customizeThis: [],
             drawerState: "close",
             drawerOptions: [],
             drawerControl: {},
@@ -108,11 +109,18 @@ class App extends React.Component{
 
     componentDidMount(){
         this.props.context.product.options.forEach(element => {
-            this.setState({
-                [element.display_name]: {
+            console.log(element.partial)
+            this.setState((state) => {
+                let newState = {...state};
+
+                newState[element.display_name] = {
                     attribute: parseInt(element.id),
                     attributeValue: null
-                }
+                };
+
+                newState.customizeThis.push(element.partial === "swatch" ? element.display_name.split("Select ")[1] : "");
+
+                return newState;
             });
         });
 
@@ -151,28 +159,22 @@ class App extends React.Component{
                         <h1 className="product__title">Build Your {this.props.context.product.title}</h1>
                         <p className="product__desc product__desc--margin">{this.props.context.product.meta_description}</p>
                                                 
-                        <h4 className="product__title product__title--noMargin product__title--customizePDP">Customize</h4>
+                        <h4 className="product__title product__title--noMargin product__title--customizePDP">
+                            Customize {this.state.customizeThis.join("/")}
+                        </h4>
                         <div className="product__swatchCol">
                             <ul className="product__swatchList" id="customize">
                                 {this.props.context.product.options.map((item, index) => {
-                                    return item.partial === "swatch" ?
-                                        <Swatch 
-                                            key={index} 
-                                            toggle={this.toggleDrawer} 
-                                            displayName={item.display_name} 
-                                            id={item.id} 
-                                            values={item.values} 
-                                            type="global"
-                                        /> 
-                                            : 
-
-                                        <Select 
-                                            key={index} 
-                                            displayName={item.display_name} 
-                                            id={item.id}
-                                            values={item.values} 
-                                            type="global"
-                                        />;
+                                    if(item.partial === "swatch") {
+                                        return <Swatch 
+                                                key={index} 
+                                                toggle={this.toggleDrawer} 
+                                                displayName={item.display_name} 
+                                                id={item.id} 
+                                                values={item.values} 
+                                                type="global"
+                                            /> 
+                                    }
                                 })}
                             </ul>
                         </div>
