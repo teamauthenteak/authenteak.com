@@ -95,7 +95,8 @@
                   {{{value}}}
                 </a>
               {{else}}
-                {{> components/products/customizations/option-label value}}
+
+                <span class="cart-option-value" id="{{camelcase this}}">{{> components/products/customizations/option-label value}}</span>
               {{/if}}
             </div>
           {{/each}}
