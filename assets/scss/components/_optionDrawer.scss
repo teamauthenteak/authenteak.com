@@ -2,7 +2,7 @@
     font-size: calc( 11px + (13 - 11) * (100vw - 375px) / (1600 - 375) ) !important;
 }
 
-%heading-responsive{
+%drawer-heading-responsive{
     font-size: calc( 24px + (32 - 24) * (100vw - 375px) / (1600 - 375) );
 }
 
@@ -44,25 +44,27 @@
         @extend .fadeOut;
     }
 
+
     &__freezeBody{
         @extend %freeze-body;
     }
 
     &__overlay{
         @extend .animated;
-        position: fixed;
-        z-index: 9999;
-        background-color: rgba(0,0,0, 0.1);
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100vw;
-        height: 100vh;
+        @extend .modal__overlay;
 
         &--hide{
             visibility: hidden;
             @extend .fadeOut;
+        }
+
+        // used in react component
+        &--close{
+            @extend .drawer__overlay--hide
+        }
+
+        &--open{
+            @extend .fadeIn;
         }
     }
 
@@ -102,7 +104,7 @@
         line-height: 1;
         margin-top: 0;
         width: 100%;
-        @extend %heading-responsive;
+        @extend %drawer-heading-responsive;
     }
 
     &__figCntr{
@@ -114,6 +116,8 @@
         justify-content: center;
         flex-direction: column;
         position: relative;
+        background-position: center center;
+        background-size: inherit;
 
         & .swatch-pattern-image{
             @extend .drawer__img;
@@ -130,7 +134,8 @@
     &__img{
         width: 100%;
         height: 200px;
-        object-fit: contain;
+        object-fit: cover;
+        display: none;
     }
 
     &__selectedSwatchText{
@@ -163,11 +168,11 @@
         position: relative;
         float: left;
         flex: 1 0 auto;
-        overflow-y: auto;
         overflow-x: hidden;
         height: 100vh;
         padding: 10px 20px 20px 20px;
         @extend %scrolling-inner;
+        overflow-y: overlay;
     }
 
 
@@ -230,6 +235,14 @@
     &__displayFilterTextElem{
         display: block;
 
+        & span{
+            display: inline;
+            
+            @media only screen and (max-width: $screen-sm) {
+                display: none;
+            }
+        }
+
         @media only screen and (max-width: $screen-xs) {
             display: none;
         }
@@ -241,8 +254,7 @@
         justify-content: center;
         align-content: center;
         font-size: 1.2rem;
-
-        
+        line-height: 1;
 
         & .icon{
             width: 20px;
@@ -262,6 +274,13 @@
             }
         }
 
+        & .icon-filter{
+            position: static;
+            height: 20px;
+            margin: 0 10px 0 0;
+        }
+
+
         &--sm{
             display: none;
         }
@@ -273,14 +292,6 @@
         @media only screen and (max-width: $screen-sm) {
             &--sm{
                 display: flex;
-
-                // & .icon-chevron-down{
-                //     position: absolute;
-                //     right: 7px;
-                //     margin: 0;
-                //     top: 50%;
-                //     margin-top: -10px;
-                // }
             }
     
             &--lg{
@@ -296,11 +307,11 @@
 
 
     &__displayList{
-        margin: 0;
+        margin: 0 0 10px 0;
         padding: 15px 0 15px 0;
         list-style-type: none;
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-evenly;
         width: 100%;
     }
 
@@ -308,17 +319,14 @@
     &__displayItem{
         margin: 0 10px 0 0;
 
+        &:last-of-type{
+            margin: 0
+        }
+
         &--filters{
             align-self: flex-start;
             flex: 1 0 auto;
         }
-
-        // &--search{
-            
-        //     @media only screen and (min-width: $screen-lg) {
-        //         flex: 1 0 auto;
-        //     }
-        // }
     }
 
     &__displayFiltersBtn{
@@ -627,8 +635,8 @@
         height: auto;
         width: 100%;
         float: left;
-        padding: 10px 0 0 0;
-        overflow-y: auto;
+        padding: 0;
+        overflow-y: hidden;
         display: none;
     }
 
@@ -779,6 +787,10 @@
 
         @media only screen and (max-width: $screen-md) {
             width: 100vw;
+        }
+
+        &--show{
+            position: absolute;
         }
        
     }

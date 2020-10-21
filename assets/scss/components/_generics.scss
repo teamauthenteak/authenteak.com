@@ -43,6 +43,10 @@
     display: flex !important;
 }
 
+.round{
+    border-radius: 50%;
+}
+
 .async-hide { opacity: 0 !important}
 
 
@@ -100,6 +104,30 @@
 .lighter{font-weight: lighter;}
 .bold{font-weight: bold;}
 
+
+// Box Borders
+.box-line{
+    border: $standard-border;
+}
+.left-line{
+    border-left: $standard-border;
+}
+.right-line{
+    border-right: $standard-border;
+}
+.bottom-line{
+    border-bottom: $standard-border;
+}
+.top-line{
+    border-top: $standard-border;
+}
+
+.light-grey-line{
+    border-color: #eee;
+}
+.grey-line{
+    border-color: #ddd;
+}
 
 
 // Paddings

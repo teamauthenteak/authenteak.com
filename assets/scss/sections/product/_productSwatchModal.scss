@@ -1,0 +1,899 @@
+
+/*Product Detail Swatches*/
+.form-field-swatch {
+    .form-field-control-wrapper {
+        $swatch-wrapper-base: 238px;
+        $swatch-wrapper-inc: 55px;
+        
+        @extend %scrolling-inner;
+
+        clear: left;
+        max-height: 200px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+
+        @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+            overflow: hidden;
+        }
+
+        @media screen and (max-width: 915px){
+            max-height: none;
+        }
+    }
+
+    .form-field-control {
+        max-height: 175px;
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        flex: 1 0 auto;
+
+        .swatch-radio:checked + .swatch::after {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: 90%;
+            background-position: center center;
+            background-repeat: no-repeat;
+            transform: none;
+        }
+        .swatch-radio[data-label="No Thanks"]:checked + .swatch:after {
+            background: none;
+            border: 2px solid #666666;
+        }
+        .swatch img {
+            display: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+
+            @supports (object-fit: cover) {
+                display: inline;
+                object-fit: cover;
+            }
+        }
+
+        .swatch-wrap:hover .swatch-pattern-expanded { display: none; }
+    }
+}
+
+.swatch-img{
+    img{
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+}
+
+
+// Request a Swatch Button
+.form-field-swatch__request-button {
+    background: none;
+    border: none;
+    color: #6ea438;
+    text-decoration: underline;
+    // text-transform: uppercase;
+    font-size: 1rem;
+}
+
+// Request a Swatch Modal
+.swatchModal{
+    display: none;
+    position: fixed;
+    top: 5vmin;
+    left: 50%;
+    transform: translateX(-50%);
+    max-height: calc(100vh - 10vmin);
+    width: 90vw;
+    max-width: 1200px;
+    overflow: auto;
+    padding: 20px;
+    background: #fff;
+    z-index: 1100;
+    border-radius: $border-radius;
+    box-shadow: 20px 20px 50px 20px rgba(0, 0, 0, 0.47);
+
+    &.is-open { display: block; }
+
+    @media screen and (max-width: $screen-md) {
+        top: 1vh;
+        left: 50%;
+        margin-left: -(95vw/2);
+        transform: none;
+        height: 80vh;
+        width: 95vw;
+        overflow: scroll;
+    }
+
+    &__freezeBody{
+        @extend %freeze-body;
+    }
+
+    &__underlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0,0,0,0.75);
+        z-index: 1099;
+    
+        .swatchModal.is-open + & { display: block; }
+    }
+
+
+    &__close {
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        height: 2rem;
+        width: 2rem;
+        font-size: 2rem;
+        line-height: 1em;
+        text-align: center;
+        color: rgba(0,0,0,0.75);
+        cursor: pointer;
+        background-color: transparent;
+
+        & .icon{
+            width: 20px;
+            height: 20px;
+        }
+
+        &:hover, &:focus {
+            color: rgba(0,0,0,1);
+        }
+    }
+
+
+    &__title{
+        margin: 0;
+        font-size: 1.8rem;
+        font-weight: 800;
+
+        @media screen and (max-width: $screen-sm) {
+            font-size: 1.4rem;
+        }
+    }
+
+
+
+    &__text{
+        font-size: 1em;
+        line-height: 1.2;
+        margin: 20px 0;
+
+        &--highlight{
+            padding: 10px;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        @media screen and (max-width: $screen-xs) {
+            font-size: 0.9rem;
+            margin: 10px 0;
+        }
+    }
+
+    &__textPhone{
+        display: inline-block;
+    }
+
+    &__cntr {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        transition: transform 0.5s ease;
+
+        &--isActive{
+            position: relative;
+        }
+
+        &--isLeft{
+            transform: translateX(-110%);
+            position: absolute;
+            top: 0;
+        }
+
+        &--isRight{
+            transform: translateX(100%);
+            position: absolute;
+            top: 0;
+        }
+
+        @media screen and (max-width: $screen-md) {
+            flex-direction: row;
+        }
+
+        @media screen and (max-width: $screen-sm) {
+            flex-direction: column;
+            align-content: flex-start;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+    }
+
+    &__descCntr{
+        width: 50%;
+        padding: 20px;
+        order: 2;
+
+        @media screen and (max-width: $screen-sm) {
+            width: 100%;
+            order: 1;
+            padding: 0;
+        }
+    }
+
+    &__inner {
+        @extend %scrolling-inner;
+
+        margin: 0;
+        border: 1px solid transparent;
+        box-shadow: 0 0 0 1px $color-border inset;
+        order: 1;
+        clear: left;
+        height: 70vh;
+        margin: 0;
+        border-radius: 4px;
+        width: 50%;
+
+        @media screen and (max-width: $screen-sm) {
+            order: 2;
+            width: 100%;
+            height: 75vw;
+        }
+
+        @media screen and (max-width: $screen-xs) {
+            height: 85vw;
+        }
+
+    }
+
+
+    &__list {
+        padding: 0 10px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        height: 100%;
+        align-items: center;
+        align-content: flex-start;
+
+        &.has-max-selected > li:not(.is-selected){
+            opacity: 0.4;
+            cursor: default;
+        }
+
+        @media screen and (max-width: $screen-xs) {
+            padding: 5px;
+        }
+    }
+
+    &__itemControl{
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__listItem {
+        position: relative;
+        display: inline-block;
+        width: (100%/5);
+        height: auto;
+        overflow: hidden;
+        margin: 5px;
+        border: 1px solid transparent;
+        border-radius: 0;
+        cursor: pointer;
+        flex: 0 0 auto;
+
+        @media screen and (max-width: $screen-md) {
+            width: 72px !important;
+            height: 72px !important;
+        }
+
+        @media screen and (max-width: $screen-xs) {
+            width: 60px !important;
+            height: 60px !important;
+            margin: 2px;
+        }
+
+        // new way to show the check using a checkbox
+        & .swatchModal__checkBox:checked + .swatchModal__swatchImgCntr::after{
+            @include icon-thin-check-mark(#fff);
+            opacity: 0.85;
+            background-size: 70% !important;
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+        }
+
+        & .swatchModal__checkBox:checked + .swatchModal__swatchImgCntr::before{
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 70%;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border: 4px solid rgba(255, 255, 255, 0.85);
+            background-color: transparent;
+            box-shadow: 0 0 18px 5px rgba(0, 0, 0, 0.1) inset;
+            z-index: 1;
+            overflow: visible;
+            border-radius: 50%;
+        }
+
+
+        // legacy way to show the check
+        &.is-selected{
+
+            &::before{
+                position: absolute;
+                content: "";
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 70%;
+                @include icon-thin-check-mark(#fff);
+                opacity: 0.85;
+                background-size: 70% !important;
+                box-shadow: 0 0 18px 5px rgba(0, 0, 0, 0.1) inset;
+                border-radius: 50%;
+                border: 4px solid rgba(255, 255, 255, 0.85);
+
+                @media only screen and (max-width: $screen-lg) {
+                    height: 64%;
+                }
+
+                @media only screen and (max-width: $screen-md) {
+                    height: 100%;
+                }
+            }
+        
+            &::after {
+                position: absolute;
+                content: "";
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                transform: none;
+                z-index: 1;
+            }
+            
+            & .swatchModal__swatchImg{
+                background-color: transparent;
+                box-shadow: 0 0 18px 5px rgba(0, 0, 0, 0.1) inset;
+            }
+        }
+    }
+
+    &__checkBox{
+        position: absolute;
+        z-index: 1;
+        cursor: pointer;
+        opacity: 0;
+
+        &:disabled + .swatchModal__swatchImgCntr{
+            opacity: 0.25;
+        }
+    }
+
+
+
+    &__swatchImgCntr{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    &__swatchImg{
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+
+    &__swatchTitle{
+        display: block;
+        font-size: 0.7rem;
+        text-align: center;
+        line-height: 1.3;
+        margin-top: 3px;
+        height: 45px;
+    }
+
+
+    &__form {
+        display: block;
+        margin: 1.5rem 0 0;
+
+        button { 
+            width: 100%; 
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+    }
+
+    &__reqBtn{
+        @extend %button-rounded;
+        @extend .button-secondary;
+        @extend .button-secondary--darkTrans;
+        @extend .button--fullWidth;
+
+        &[disabled]{
+            opacity: 0.3;
+            cursor: not-allowed;
+
+            &:hover{
+                background-color: transparent;
+                color: #666;
+                border-color: #666;
+            }
+        }
+
+        box-sizing: border-box;
+        border-width: 1px;
+        border-style: solid;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        font-weight: 500;
+        padding: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        @media screen and (max-width: $screen-sm) {
+            display: none;
+        }
+
+        &--mobile{
+            order: 3;
+            display: none !important;
+            margin-top: 20px;
+
+            @media screen and (max-width: $screen-sm) {
+                display: block !important;
+            }
+        }
+    }
+
+
+    &__reqBtnText{
+        @extend .button-text;
+        display: block;
+        line-height: 1;
+        margin-right: 15px;
+    }
+
+    &__reqBtnIcon{
+        @extend .icon;
+        @extend .icon-arrow-right;
+        width: 20px;
+        height: 20px;
+    }
+    
+}
+
+
+
+.swatchCheckout{
+    display: flex;
+    width: $standard-width;
+    padding: 0 2vw;
+    flex-direction: column;
+    position: relative;
+
+    @media screen and (max-width: $screen-md) {
+        padding: 0;
+    }
+
+    &--rv{
+        float: left;
+    }
+
+    &--confirmation{
+        margin-bottom: 60px;
+    }
+
+
+    &__header{
+        width: 100%;
+        margin-bottom: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__title{
+        margin: 40px 0 0 0;
+        line-height: 1;
+        text-align: center;
+
+        &--lg{
+            font-size: 5rem;
+        }
+
+        &--2{
+            margin-top: 15px;
+        }
+    }
+
+    &__sub{
+        @extend .swatchModal__text--highlight;
+        line-height: 1.4;
+        font-size: 1.1rem;
+        text-align: center;
+        padding: 20px;
+
+        &--noHighlight{
+            background-color: transparent;
+        }
+    }
+
+    &__cntr{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+
+        &--narrow{
+            width: 850px;
+            margin: 0 auto;
+            justify-content: center;
+
+            @media screen and (max-width: $screen-md) {
+                width: 100%;
+                flex-direction: row;
+            }
+
+            @media screen and (max-width: $screen-sm) {
+                width: 100%;
+                flex-direction: column;
+            }
+        }
+
+        @media screen and (max-width: $screen-md) {
+            flex-direction: column;
+        }
+    }
+
+    &__col{
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+
+        &--5-10{
+            width: 50%;
+            align-items: center;
+            align-content: center;
+            flex: 1;
+
+            @media screen and (max-width: $screen-sm) {
+                width: 100%;
+            }
+        }
+
+        &--7-10{
+            padding-left: 0;
+            width: 70%;
+            border-right: 1px solid #ccc;
+
+            @media screen and (max-width: $screen-md) {
+                width: 100%;
+                padding: 20px;
+                border: none;
+            }
+        }
+
+        &--3-10{
+            padding-right: 0;
+            width: 30%;
+
+            @media screen and (max-width: $screen-md) {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+    }
+
+    &__colImg{
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+
+    &__colTxt{
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    &__itemEmpty{
+        @extend .swatchModal__text--highlight;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__itemEmptyLink{
+        text-decoration: underline;
+    }
+
+
+    &__itemHeader{
+        width: 100%;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 8px;
+        font-size: 1.2rem;
+        line-height: 1;
+    }
+
+    &__itemList{
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__item{
+        border-bottom: 1px solid #ddd;
+        padding: 20px 0;
+        width: 100%;
+    }
+
+    &__itemImgCntr{
+        display: flex;        
+    }
+
+    &__itemImg{
+        width: 125px;
+        height: 125px;
+        border-radius: 50%;
+    }
+
+    &__itemTitle{
+        padding-left: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    &__removeItem{
+        display: block;
+        text-align: right;
+        width: 100%;
+        font-size: 0.9rem;
+        align-self: end;
+        background-color: transparent;
+        outline: none;
+
+        svg{
+            fill: #ccc;
+        }
+    }
+
+    &__productName{
+        width: 100%;
+        display: block;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 5px;
+    }
+
+    &__swatchColor{
+        width: 100%;
+        display: block;
+        line-height: 1.2;
+    }
+
+    &__form{
+        width: 100%;
+
+        input[type="text"], input[type="email"], input[type="tel"], select {
+            width: 100%;
+        }
+
+        & .form-field-short{
+            width: 50%;
+            float: left;
+            padding-right: 10px;
+
+            &:nth-last-of-type(odd){
+                padding: 0;
+            }
+        }
+    }
+
+    &__submit{
+        @extend .button;
+        @extend .button--fullWidth;
+        @extend .button-primary;
+        @extend .button-primary--green;
+        justify-content: center;
+        height: 62px;
+
+        &--progress{
+            @extend .progress;
+        }
+    }
+
+    &__submitText{
+        display: block;
+    }
+}
+
+
+
+
+
+
+/*Product Swatch Hover Detail*/
+.product-swatch-hover-container {
+    position: relative;
+    z-index: 1;
+}
+
+.product-swatch-hover-close{
+    position: absolute;
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    line-height: 1;
+    padding: 5px;
+    background-color: #eff1f5;
+    border: none;
+    top: 0;
+    left: 0;
+}
+.product-swatch-hover-close-icon{
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    fill: #555;
+}
+
+.product-swatch-hover-detail {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 100vw;
+    width: 100%;
+    padding: 1rem;
+    overflow: hidden;
+    background: $color-background-secondary;
+    display: flex;
+    flex-direction: column;
+
+    &.is-visible { right: 0; }
+
+    &__image-wrapper {
+        flex: 1 0 auto;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            display: block;
+            width: 100%;
+            padding-top: 95%;
+        }
+    }
+    &__image {
+        position: absolute;
+        top:    0;
+        left:   0;
+        right:  0;
+        bottom: 0;
+        background-size: cover;
+        filter: blur(0);
+
+        &[data-swatch-size="thumb"] {
+            top:    -13px;
+            left:   -13px;
+            right:  -13px;
+            bottom: -13px;
+            filter: blur(8px);
+        }
+        &[data-loading] {
+            transition: filter 0.1s ease-in;
+        }
+    }
+
+    &__caption {
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        @media screen and (max-width: 1023px) {
+            -ms-flex-direction: column;
+             flex-direction: column;
+         }
+    }
+
+    &__label {
+        flex: 1 1 auto;
+        text-transform: uppercase;
+    }
+
+    &__attributes {
+        flex: 1 0 auto;
+        text-align: right;
+    }
+
+    &__preload {
+        position: absolute;
+        bottom: 100%;
+
+        img {
+            width: 10px;
+            height: 10px;
+        }
+    }
+
+}
+
+.form-field-swatch .swatch-wrap {
+    margin: 0 1% 1% 0;
+    display: flex;
+    // flex: 1 0 10%;
+    width: 4em;
+    float: left;
+    height: 4em;
+
+    @media only screen and (max-width: $screen-md) {
+        width: 3.5em;
+        height: 3.5em;
+    }
+
+
+    // @media only screen and (max-width: $screen-xl) {
+    //     width: 18%;
+    // }
+    // @media only screen and (max-width: $screen-lg) {
+    //     width: 10%;
+    // }
+    // @media only screen and (max-width: $screen-md) {
+    //     width: 10%;
+    // }
+    // @media only screen and (max-width: $screen-sm) {
+    //     width: 15.5%;
+    // }
+    // @media only screen and (max-width: $screen-xs) {
+    //     width: 15.5%;
+    //     height: 45px;
+    // }
+
+    // @media only screen and (max-width: 325px) {
+    //     height: 35px;
+    // }
+}
+
+.form-field-swatch .swatch {
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+}

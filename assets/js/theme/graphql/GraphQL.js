@@ -2,6 +2,8 @@
  * GraphQL Service
  * Fetches the BC GraphOL API Endpoint
  * - may move this into app.js - not sure if this is needed externally
+ * 
+ *  * GraphQL Token works on http://local.authenteak.com:3300 - to prevent CORS update your hosts file
  * ------------------------------------------------------------------------ */
 
 export default class GraphQL {
@@ -288,8 +290,8 @@ export default class GraphQL {
                                                                 entityId
                                                                 ...on SwatchOptionValue{
                                                                     label
-                                                                    hexColors
                                                                     isDefault
+                                                                    imageUrl(width: 500, height: 500)
                                                                 }
                                                             }
                                                         }

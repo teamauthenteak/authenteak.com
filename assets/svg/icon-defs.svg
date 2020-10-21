@@ -1,5 +1,26 @@
 <svg width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs>
+        <symbol id="icon-info_outline" viewBox="0 0 24 24">
+            <path d="M11.016 9v-2.016h1.969v2.016h-1.969zM12 20.016c4.406 0 8.016-3.609 8.016-8.016s-3.609-8.016-8.016-8.016-8.016 3.609-8.016 8.016 3.609 8.016 8.016 8.016zM12 2.016c5.531 0 9.984 4.453 9.984 9.984s-4.453 9.984-9.984 9.984-9.984-4.453-9.984-9.984 4.453-9.984 9.984-9.984zM11.016 17.016v-6h1.969v6h-1.969z"></path>
+        </symbol>
+        <symbol id="icon-layout-l-shaped" viewBox="0 0 134 126">
+            <g stroke="#fff" transform="matrix(0 1 -1 0 1926.666 -53)"><g transform="matrix(0 1 -1 0 94.828 1791.687)"><path stroke="none" d="M0 0h44.87v41.828H0z"/><path fill="none" d="M1 1h42.87v39.828H1z" stroke-width="2"/></g><g transform="matrix(0 1 -1 0 94.828 1836.796)"><path stroke="none" d="M0 0h44.87v41.828H0z"/><path fill="none" d="M1 1h42.87v39.828H1z" stroke-width="2"/></g><g transform="matrix(0 1 -1 0 94.828 1881.796)"><path stroke="none" d="M0 0h44.87v41.828H0z"/><path fill="none" d="M1 1h42.87v39.828H1z" stroke-width="2"/></g><g transform="matrix(0 1 -1 0 136.828 1881.796)"><path stroke="none" d="M0 0h44.87v41.828H0z"/><path fill="none" d="M1 1h42.87v39.828H1z" stroke-width="2"/></g><g transform="matrix(0 1 -1 0 178.828 1881.796)"><path stroke="none" d="M0 0h44.87v41.828H0z"/><path fill="none" d="M1 1h42.87v39.828H1z" stroke-width="2"/></g></g>
+        </symbol>
+        <symbol id="icon-layout-large-u" viewBox="0 0 184 126">
+            <style><![CDATA[.B{stroke:none}.C{fill:none}.D{stroke-width:2}]]></style><g stroke="#fff" transform="matrix(0 1 -1 0 180.869 0)"><g transform="matrix(0 -1 1 0 0 134.869)"><path d="M0 0h45v42H0z" class="B"/><path d="M1 1h43v40H1z" class="C D"/></g><g transform="matrix(0 -1 1 0 0 89.869)"><path d="M0 0h45v42H0z" class="B"/><path d="M1 1h43v40H1z" class="C D"/></g><g transform="matrix(0 -1 1 0 0 44.869)"><path d="M0 0h45v42H0z" class="B"/><path d="M1 1h43v40H1z" class="C D"/></g><g transform="matrix(0 -1 1 0 42 44.869)"><path d="M0 0h45v42H0z" class="B"/><path d="M1 1h43v40H1z" class="C D"/></g><g transform="matrix(0 -1 1 0 84 44.869)"><path d="M0 0h45v42H0z" class="B"/><path d="M1 1h43v40H1z" class="C D"/></g><g transform="matrix(0 -1 1 0 0 180.869)"><path d="M0 0h45v42H0z" class="B"/><path d="M1 1h43v40H1z" class="C D"/></g><g transform="matrix(0 -1 1 0 42 180.869)"><path d="M0 0h45v42H0z" class="B"/><path d="M1 1h43v40H1z" class="C D"/></g><g transform="matrix(0 -1 1 0 84 180.869)"><path d="M0 0h45v42H0z" class="B"/><path d="M1 1h43v40H1z" class="C D"/></g></g>
+        </symbol>
+        <symbol id="icon-layout-short-corner" viewBox="0 0 134 126">
+            <g stroke="#fff" transform="matrix(0 1 -1 0 1926.666 -53)"><g transform="matrix(0 1 -1 0 94.828 1791.795)"><path stroke="none" d="M0 0h44.87v41.828H0z"/><path fill="none" d="M1 1h42.87v39.828H1z" stroke-width="2"/></g><g transform="matrix(0 1 -1 0 94.828 1836.796)"><path stroke="none" d="M0 0h44.87v41.828H0z"/><path fill="none" d="M1 1h42.87v39.828H1z" stroke-width="2"/></g><g transform="matrix(0 1 -1 0 94.828 1881.796)"><path stroke="none" d="M0 0h44.87v41.828H0z"/><path fill="none" d="M1 1h42.87v39.828H1z" stroke-width="2"/></g><g transform="matrix(0 1 -1 0 136.828 1791.796)"><path stroke="none" d="M0 0h44.87v41.828H0z"/><path fill="none" d="M1 1h42.87v39.828H1z" stroke-width="2"/></g></g>
+        </symbol>
+        <symbol id="icon-layout-small-u" viewBox="0 0 134 126">
+            <g stroke="#fff" transform="matrix(0 1 -1 0 1926.666 -53)"><g transform="matrix(0 1 -1 0 94.828 1791.795)"><path stroke="none" d="M0 0h44.87v41.828H0z"/><path fill="none" d="M1 1h42.87v39.828H1z" stroke-width="2"/></g><g transform="matrix(0 1 -1 0 94.828 1836.796)"><path stroke="none" d="M0 0h44.87v41.828H0z"/><path fill="none" d="M1 1h42.87v39.828H1z" stroke-width="2"/></g><g transform="matrix(0 1 -1 0 94.828 1881.796)"><path stroke="none" d="M0 0h44.87v41.828H0z"/><path fill="none" d="M1 1h42.87v39.828H1z" stroke-width="2"/></g><g transform="matrix(0 1 -1 0 136.828 1791.796)"><path stroke="none" d="M0 0h44.87v41.828H0z"/><path fill="none" d="M1 1h42.87v39.828H1z" stroke-width="2"/></g><g transform="matrix(0 1 -1 0 136.828 1881.797)"><path stroke="none" d="M0 0h44.87v41.828H0z"/><path fill="none" d="M1 1h42.87v39.828H1z" stroke-width="2"/></g></g>
+        </symbol>
+        <symbol id="icon-refresh" viewBox="0 0 24 24">
+            <path d="M17.672 6.328l2.344-2.344v7.031h-7.031l3.234-3.234c-1.078-1.078-2.578-1.781-4.219-1.781-3.328 0-6 2.672-6 6s2.672 6 6 6c2.625 0 4.875-1.641 5.672-3.984h2.063c-0.891 3.469-3.984 6-7.734 6-4.406 0-7.969-3.609-7.969-8.016s3.563-8.016 7.969-8.016c2.203 0 4.219 0.891 5.672 2.344z"></path>
+        </symbol>
+        <symbol id="icon-style" viewBox="0 0 24 24">
+            <path d="M5.859 19.734v-6.328l3.469 8.344h-1.453c-1.078 0-2.016-0.938-2.016-2.016zM7.875 8.766c0.563 0 0.984-0.469 0.984-1.031s-0.422-0.984-0.984-0.984-0.984 0.422-0.984 0.984 0.422 1.031 0.984 1.031zM22.031 15.938c0.422 1.031-0.047 2.203-1.078 2.625l-7.359 3.047c-0.234 0.094-0.516 0.141-0.797 0.141-0.797 0-1.5-0.469-1.828-1.219l-4.969-12c-0.094-0.281-0.141-0.516-0.141-0.797 0-0.75 0.469-1.453 1.219-1.781l7.406-3.047c0.281-0.094 0.516-0.141 0.797-0.141 0.75 0 1.453 0.469 1.781 1.219zM2.531 19.641c-1.031-0.422-1.5-1.547-1.078-2.578l2.438-5.859v9z"></path>
+        </symbol>
         <symbol id="icon-circle-down" viewBox="0 0 32 32">
             <path d="M32 16c0-8.837-7.163-16-16-16s-16 7.163-16 16 7.163 16 16 16 16-7.163 16-16zM3 16c0-7.18 5.82-13 13-13s13 5.82 13 13-5.82 13-13 13-13-5.82-13-13z"></path>
             <path d="M9.914 11.086l-2.829 2.829 8.914 8.914 8.914-8.914-2.828-2.828-6.086 6.086z"></path>
@@ -100,6 +121,9 @@
         <symbol id="icon-arrow-down" viewBox="0 0 1024 1024">
             <title>arrow-down</title>
             <path class="path1" d="M208.453 199.435l303.599 307.118 303.599-307.118c47.721-47.721 124.932-47.721 172.654 0 47.465 48.233 47.721 126.212 0 174.445l-390.086 393.796c-47.465 47.721-124.932 47.721-172.654 0l-389.83-393.796c-47.657-48.233-47.657-126.212 0.064-174.445 47.721-47.721 124.932-47.721 172.654 0z"></path>
+        </symbol>
+        <symbol id="icon-chevron-up" viewBox="0 0 24 24">
+            <path d="M18.7 14.3l-6-6c-0.4-0.4-1-0.4-1.4 0l-6 6c-0.4 0.4-0.4 1 0 1.4s1 0.4 1.4 0l5.3-5.3 5.3 5.3c0.2 0.2 0.5 0.3 0.7 0.3s0.5-0.1 0.7-0.3c0.4-0.4 0.4-1 0-1.4z"></path>
         </symbol>
         <symbol id="icon-chevron-down" viewBox="0 0 24 24">
             <title>icon-chevron-down</title>

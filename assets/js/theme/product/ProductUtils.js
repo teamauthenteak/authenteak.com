@@ -173,7 +173,7 @@ export default class ProductUtils {
 
       this.pageAlerts.clear();
       this.productAlerts.clear();
-console.log($form.serialize())
+
       utils.api.productAttributes.optionChange(this.productId, $form.serialize(), (err, response) => {
         const viewModel = this._getViewModel(this.$el);
         const data = response ? response.data : {};

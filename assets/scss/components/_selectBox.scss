@@ -10,6 +10,10 @@
         flex-direction: column !important;
         position: relative;
 
+        &--error{
+            @extend .product__swatchLabel--error;
+        }
+
         &:after {
             @include icon-arrow-down(#333);
             position: absolute;

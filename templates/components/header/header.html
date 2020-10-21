@@ -83,7 +83,7 @@
         <!-- <a href="tel:1-866-350-8325">
           <span class="head-phone-number">1-866-350-8325</span>
         </a> -->
-        <a href="javascript:$zopim.livechat.window.show()"  class="customer__chat">
+        <a href="javascript:$zopim.livechat.window.show()" class="customer__chat" title="Chat with us today!">
           <span class="customer__chatMobile">
             <svg class="header__chatBtn chat__offline" width="23" height="20"><use xlink:href="#mobile-header-offline"/></svg>
             <svg class="header__chatBtn chat__online hide" width="23" height="20"><use xlink:href="#mobile-header-online"/></svg>
@@ -100,14 +100,14 @@
         <div class="customer-links">
           {{#if customer}}
             {{#contains page_type 'account'}}
-              <a class="top-bar-button" href="{{urls.auth.logout}}">
+              <a class="top-bar-button" href="{{urls.auth.logout}}" title="My Account">
                 {{> svg/account}}
                 <span class="button-text">
                   {{lang 'header.log_out'}}
                 </span>
               </a>
             {{else}}
-              <a class="top-bar-button" href="{{urls.account.index}}">
+              <a class="top-bar-button" href="{{urls.account.index}}" title="My Account">
                 <!--{{> svg/account}}-->
                 <span class="button-text">
                   <svg class="icon icon-person"><use xlink:href="#icon-person"/></svg>
@@ -116,7 +116,7 @@
               </a>
             {{/contains}}
           {{else}}
-            <a class="top-bar-button" href="{{urls.auth.login}}">
+            <a class="top-bar-button" href="{{urls.auth.login}}" title="Login">
               <!--{{> svg/account}}-->
               <span class="button-text">
                 <svg class="icon icon-person"><use xlink:href="#icon-person"/></svg>
@@ -129,7 +129,7 @@
       <!--End Testing - Right Aligned Account-->
 
         <div class="compare-wrap" data-compare-widget>
-          <button class="top-bar-button button-compare-toggle">
+          <button class="top-bar-button button-compare-toggle" name="compare">
             {{lang 'header.compare'}}
             <span class="compare-items-count"></span>
           </button>
@@ -138,7 +138,7 @@
               <div class="item-limit">
                 {{lang 'compare.compare_up_to_x_items' num=4}}
               </div>
-              <a href="#" class="clear-compare" data-compare-remove-all>
+              <a href="#" class="clear-compare" data-compare-remove-all title="Clear compare">
                 {{lang 'compare.clear_compare'}}
               </a>
             </div>
@@ -151,6 +151,7 @@
               class="button button-primary compare-submit"
               href="{{urls.compare}}"
               data-compare-link="{{urls.compare}}"
+              title="Compare products"
             >
               {{lang 'compare.compare_submit'}}
             </a>
@@ -161,12 +162,13 @@
           <a
             class="top-bar-button button-wishlist"
             href="{{urls.account.wishlists.all}}"
+            title="My Wishlist"
           >
             {{> svg/wishlist}}
           </a>
         {{/if}}
 
-        <a href="/cart.php" class="top-bar-button button-cart-toggle">
+        <a href="/cart.php" class="top-bar-button button-cart-toggle" title="View your cart">
             <span
               class="mini-cart-subtotal button-text"
               data-cart-quantity="{{cart.quantity}}"
@@ -192,7 +194,7 @@
           {{/if}}
         "
       >
-        <a href="{{urls.cart}}">
+        <a href="{{urls.cart}}" title="Your Cart">
           <span
           class="mini-cart-subtotal button-text mini-cart-quantity-mobile"
           data-cart-quantity="{{cart.quantity}}"
@@ -205,13 +207,13 @@
 
 
       <span class="button-mobile-nav-search">
-        <a href="#" class="button-mobile-nav-search--link">
+        <a href="#" class="button-mobile-nav-search--link" title="What are you looking for today?">
           {{> components/header/search-icon}}
         </a>
       </span>
 
 
-      <button class="button-mobile-nav-toggle {{#if cart.status_messages}}has-promo {{/if}}">
+      <button class="button-mobile-nav-toggle {{#if cart.status_messages}}has-promo {{/if}}" name="Main Nav">
         <svg class="burger" enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
             <path d="M21 11h-18c-0.6 0-1 0.4-1 1s0.4 1 1 1h18c0.6 0 1-0.4 1-1s-0.4-1-1-1z"></path>
             <path d="M3 7h18c0.6 0 1-0.4 1-1s-0.4-1-1-1h-18c-0.6 0-1 0.4-1 1s0.4 1 1 1z"></path>

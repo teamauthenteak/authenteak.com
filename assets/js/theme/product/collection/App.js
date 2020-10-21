@@ -1,19 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Spring, animated } from 'react-spring/renderprops';
+import Slider from 'react-slick';
+
 import AppContext from './AppContext';
 import GraphQL from '../../graphql/GraphQL';
 
-import Slider from 'react-slick';
 import Tabs from '../react-components/Tabs';
 import Swatch from '../react-components/Swatch';
-import Select from '../react-components/Select';
 import OptionDrawer from '../react-components/OptionDrawer';
-import CollectionPod from '../react-components/Collection_Pod';
-import CollectionPreloader from '../react-components/Collection__Preloader';
+import CollectionPod from '../react-components/Collection-Pod';
+import CollectionPreloader from '../react-components/Collection-Preloader';
 import ErrorBoundary from '../react-components/ErrorBoundary';
+import StickyCart from '../react-components/StickyCart';
+import RequestSwatch from '../react-components/RequestSwatch';
+import LazyImg from '../react-components/LazyImg';
+import { generateID, replaceSize } from '../react-components/Utils';
+import SuggestedProductLayouts from '../react-components/SuggestedProductLayouts';
+import PointOfPurchaseModal from '../react-components/Modal-PointOfPurchase';
 
-const replaceSize = (img, size) => {
-    return img.replace('{:size}', `${size}x${size}`);
-};
 
 const settings = {
     slider: {
@@ -36,27 +40,49 @@ class App extends React.Component{
 
         this.graphQL = new GraphQL();
 
-        this.collection = props.context.product.custom_fields.find(element => element.name === "collection").value.split(",");
+        this.collection = props.context.product.custom_fields.find(element => element.name === "collection_products").value.split(",");
 
         this.state = {
+            product: props.context.product,
             customizeThis: [],
-            drawerState: "close",
-            drawerOptions: [],
-            drawerControl: {},
-            product_id: parseInt(props.context.product.id),
-            toggleDrawer: (position) => {
-                this.setState({ drawerState: position })
+            showPointOfPurchase: false,
+            cart: {},
+            addToCart: (data) => {
+                this.setState((state) => {
+                    let newState = {...state};
+                    newState.cart[data.product_id] = (data);
+                    return newState;
+                })
             },
-            setOption: (args) => {
-                this.setState({
-                    [args.displayName]: args.optionData
-                });
+            drawerState: "close",
+            toggleDrawer: (position) => {
+                this.setState({ 
+                    drawerState: position 
+                })
             },
             setDrawer: (args) => {
                 this.setState({
                     drawerOptions: args.drawerOptions,
                     drawerControl: args.drawerControl
                 });
+            },
+            requestSwatchesState: "close",
+            toggleRequestSwatch: (position) => {
+                this.setState({ requestSwatchesState: position })
+            },
+            drawerOptions: [],
+            drawerControl: {},
+            product_id: parseInt(props.context.product.id),
+            setOption: (args) => {
+                this.setState({
+                    [args.displayName]: args.optionData
+                });
+            },
+            suggestedLayout: {},
+            displaySuggestedLayout: (data) => {
+                this.setState({
+                    suggestedLayout: data
+                })
             }
         };
 
@@ -76,24 +102,6 @@ class App extends React.Component{
     }
 
 
-    /*  
-        On option change send to BC string - utils.api.productAttributes.optionChange
-        "action=add&product_id=2864&attribute[82102]=2519353&attribute[82103]=2519358&attribute[82104]=2519487&qty[]=1"
-
-        action: add
-        attribute[82102]: 2519353
-        attribute[82103]: 2519358
-        attribute[82104]: 2519487
-        product_id: 2864
-        qty[]: 1
-
-        utils.api.productAttributes.optionChange() = optionChange(productId, params, template = null, callback)
-    */
-
-    optionChange(){
-
-    }
-
 
     toggleDrawer(args){
         this.setState({
@@ -107,108 +115,162 @@ class App extends React.Component{
     }
 
 
+    
     componentDidMount(){
         this.props.context.product.options.forEach(element => {
-            console.log(element.partial)
             this.setState((state) => {
                 let newState = {...state};
 
-                newState[element.display_name] = {
-                    attribute: parseInt(element.id),
-                    attributeValue: null
-                };
-
-                newState.customizeThis.push(element.partial === "swatch" ? element.display_name.split("Select ")[1] : "");
+                if( !element.display_name.toLowerCase().includes("protective cover") ){
+                    newState[element.display_name] = {
+                        attribute: parseInt(element.id),
+                        attributeValue: null
+                    };
+                }
+               
+                if(element.partial === "swatch"){
+                    newState.customizeThis.push(element.display_name.split("Select ")[1]);
+                }
 
                 return newState;
             });
         });
 
 
+
         // Fetch the collection's products
-        // test: 7965, 2881, 2879, 2883, 2877
-        this.collection = this.collection.map(element => parseInt(element) );
-        let collectionProducts = this.graphQL.getProductDetailInfo(this.collection);
+        // test: "7965, 2848, 2881, 2879, 2883, 2877, 2847"
+        let collection = this.collection.map(element => parseInt(element) );
+        let collectionProducts = this.graphQL.getProductDetailInfo(collection);
 
         this.graphQL.get(collectionProducts).then((response) => {
-            let arr = [];
+            let arr = [], orderedArr = [];
 
             response.site.products.edges.forEach(element => arr.push(element.node)); 
-            this.setState({ collection: arr });
+
+            // make sure our collection order matches the order in the backend
+            collection.forEach((item) => {
+                let tempObj = arr.find(element => element.entityId === item);
+                orderedArr.push(tempObj);
+            });
+
+            this.setState({ collection: orderedArr });
         });
-        
+
     }
 
 
+
+    cartUpdate = (status) => {
+        if( status === 202 ){
+            this.setState({ 
+                cart: {},
+                showPointOfPurchase: true
+            });
+        }
+    }
+
+
+
     render(){
+        const product = this.props.context.product;
+
         return(
-        <AppContext.Provider value={this.state}>
-            <ErrorBoundary>
-                <div className="product">
-                    <div className="product__col-2-3">
-                        <Slider {...this.sliderSettings} >
-                            {this.props.context.product.images.map((item, index) => {
-                                let imgSrc = replaceSize(item.data, 500);
-                                return <figure className="product__figure product__figure--full" key={index}>
-                                            <img src={imgSrc} className="product__figImg" alt={item.alt} />
-                                        </figure>
-                            })}
-                        </Slider>
-                    </div>
-                    <div className="product__col-1-3">
-                        <h1 className="product__title">Build Your {this.props.context.product.title}</h1>
-                        <p className="product__desc product__desc--margin">{this.props.context.product.meta_description}</p>
-                                                
-                        <h4 className="product__title product__title--noMargin product__title--customizePDP">
-                            Customize {this.state.customizeThis.join("/")}
-                        </h4>
-                        <div className="product__swatchCol">
-                            <ul className="product__swatchList" id="customize">
-                                {this.props.context.product.options.map((item, index) => {
-                                    if(item.partial === "swatch") {
-                                        return <Swatch 
-                                                key={index} 
-                                                toggle={this.toggleDrawer} 
-                                                displayName={item.display_name} 
-                                                id={item.id} 
-                                                values={item.values} 
-                                                type="global"
-                                            /> 
-                                    }
+            <AppContext.Provider value={this.state}>
+                <ErrorBoundary>
+
+                    <div className="product product__collections">
+                        <div className="product__collections--sliderCntr">
+                            <Slider {...this.sliderSettings} >
+                                {product.images.map((item) => {
+                                    let imgSrc = replaceSize(item.data, 500);
+
+                                    return  <figure className="product__figure product__figure--full" key={generateID()}>
+                                                <LazyImg src={imgSrc} className="product__figImg" alt={item.alt} />
+                                            </figure>
                                 })}
-                            </ul>
+                            </Slider>
+                        </div>
+                        <div className="product__collections--customizeCntr">
+                            <h1 className="product__title">Build Your Own {product.title}</h1>
+                            <p className="product__desc product__desc--margin">{product.meta_description}</p>
+                                                    
+                            <h4 className="product__title product__title--noMargin product__title--customizePDP">
+                                Customize {this.state.customizeThis.join("/")} Color
+                            </h4>
+                            <div className="product__swatchCol">
+                                <ul className="product__swatchList" id="customize">
+                                    {product.options.map((item) => {
+                                        if(item.partial === "swatch") {
+                                            return <Swatch 
+                                                    key={item.id} 
+                                                    toggle={this.toggleDrawer} 
+                                                    displayName={item.display_name} 
+                                                    id={item.id} 
+                                                    values={item.values} 
+                                                    type="global"
+                                                /> 
+                                        }
+                                    })}
+                                </ul>
+                            </div>
+                            <button type="button" className="product__swatchRequestBtn--collections" onClick={() => this.state.toggleRequestSwatch("open")}>
+                                <svg className="product__swatchRequestIcon--collections"><use xlinkHref="#icon-style" /></svg>
+                                <p className="product__swatchRequestText--collections">
+                                    <span>Order Free Swatches <svg className="icon"><use xlinkHref="#icon-long-arrow-right" /></svg></span>
+                                    <small>Free Ground Shipping on All Swatches</small>
+                                </p>
+                            </button>
                         </div>
                     </div>
-                </div>
 
-                <div className="product__row no-pad">
-                    <div className="product__col-1-1 pad-left">
-                        <h2 className="product__title no-margin">Build Your Custom {this.props.context.product.title}</h2>
+                    <SuggestedProductLayouts data={this.props.context.product.custom_fields} />
+
+                    <StickyCart cart={this.state.cart} cartStatus={this.cartUpdate} />
+                    
+                    <div className="product__collectionsCntr">
+                        { this.state.collection ? 
+                            this.state.collection.map((item) => {
+                                return <CollectionPod key={item.entityId.toString()} product={item} suggested={this.state.suggestedLayout} />
+                            })
+                            :
+                            <CollectionPreloader />
+                        }
                     </div>
-                </div>
 
-                <div className="product__col-1-1 no-pad" id="collectionsCntr">
-                    { this.state.collection ? 
-                        this.state.collection.map((item, index) => {
-                            return <CollectionPod product={item} key={index} />
-                        })
-                        :
-                        <CollectionPreloader />
-                    }
-                </div>
-
-
-                <div className="product__row" id="productMetaTabs">
-                    <div className="product__col-1-1">
-                        <Tabs data={this.props.context.product.description} warrantyTab={this.props.context.product.warranty} />
+                    <div className="product__row">
+                        <div className="product__col-1-1">
+                            <Tabs data={product.description} warrantyTab={product.warranty} />
+                        </div>
                     </div>
-                </div>
 
-                <OptionDrawer toggle={this.state.toggleDrawer} options={this.state.drawerOptions} for={this.state.drawerControl} />
-            
-            </ErrorBoundary>
-        </AppContext.Provider>
-        )
+                    <Spring native to={{ right: this.state.drawerState === "open" ? "0vw" : "-110vw" }}>
+                        { props =>  (<animated.aside className="drawer drawer--options" style={props}>
+                                        {this.state.drawerState === "open" ? 
+                                            <OptionDrawer 
+                                                mainImg={replaceSize(product.main_image.data, 200)} 
+                                                drawerState={this.state.drawerState}
+                                                toggle={this.state.toggleDrawer} 
+                                                options={this.state.drawerOptions} 
+                                                for={this.state.drawerControl} 
+                                            />
+                                        :null}
+                                    </animated.aside>)
+                        }
+                    </Spring>
+                    <div className={`drawer__overlay drawer__overlay--${this.state.drawerState}`} onClick={() => this.state.toggleDrawer("close")}></div>
+
+
+                    {this.state.requestSwatchesState === "open" ? 
+                        <RequestSwatch /> 
+                    :null }
+
+
+                    {this.state.showPointOfPurchase ? <PointOfPurchaseModal /> : null}
+                
+                </ErrorBoundary>
+            </AppContext.Provider>
+        );
     }
 }
 

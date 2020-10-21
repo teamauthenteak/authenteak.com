@@ -238,9 +238,8 @@ export default class GraphQL_Collection_TPL {
                                 <input class="form-input swatch-radio"  data-option-title="${swatch.displayName}" data-parent-id="${swatch.entityId}" id="attribute-${thisOption.entityId}" type="radio" name="attribute[${thisOption.entityId}]" value="${thisOption.entityId}" data-label="${thisOption.label}" ${thisOption.isDefault ? 'checked' : ''} ${swatch.isRequired ? ' required' : ''} aria-required="${swatch.isRequired}">
                                 <span class="swatch">
                                     <span class="swatch-color swatch-pattern" style="background-image: url('https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${thisOption.entityId}.preview.jpg');">
-                                        <img class="swatch-pattern-image" src="https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${thisOption.entityId}.preview.jpg" alt="${thisOption.label}">
+                                        <img class="swatch-pattern-image" src="${thisOption.imageUrl}" alt="${thisOption.label}">
                                     </span>
-                                ${thisOption.hexColors.length !== 0 ? '<span class="swatch-color" style="background-color: #'+thisOption.hexColors[0]+'"></span>' : '' }
                                 </span>
                                 <span class="form-label-text">${thisOption.label}</span>
                             </label>`}).join('')}

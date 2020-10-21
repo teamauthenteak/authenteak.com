@@ -38,6 +38,9 @@ window.TEAK.User = {};
  * TEAK Globals Config Model
  * Global Configuration object to hold general settings and globally used STATIC variables
  * Template rendered dynamic globals are in templates > components > common > TEAK-js.html
+ * 
+ * GraphQL Token works on http://local.authenteak.com:3300 - to prevent CORS update your hosts file
+ * https://developer.bigcommerce.com/api-reference/store-management/tokens/api-token/createtoken
  * ------------------------------------------------------------------------------------------ */
 
 window.TEAK.Globals = {
@@ -52,7 +55,7 @@ window.TEAK.Globals = {
             appId: "1:603457517921:web:aad9da00b949350031ed20"
           }
     },
-    graphQl_dev: "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJlYXQiOjE2MDIyODgwMDAsInN1Yl90eXBlIjoyLCJ0b2tlbl90eXBlIjoxLCJjb3JzIjpbImh0dHA6Ly9sb2NhbC5hdXRoZW50ZWFrLmNvbTozMzAwIl0sImNpZCI6MSwiaWF0IjoxNTg1MjQxNTQ0LCJzdWIiOiJhOTRjM2MzMDk0bzVpdThsdTduYWVpbms2eTUxMTQwIiwic2lkIjo5OTkyMzI0MzIsImlzcyI6IkJDIn0.Lq9Re5VLVYh56F6PXEumWHaWkT_z8UK2bB5dwlXilkGAmQYO0e8gmaW4K2NH23g3GEWszp6FwLi_Cs4vypqnAA",
+    graphQl_dev: "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJlYXQiOjE5MTc4MjA4MDAsInN1Yl90eXBlIjoyLCJ0b2tlbl90eXBlIjoxLCJjb3JzIjpbImh0dHA6Ly9sb2NhbC5hdXRoZW50ZWFrLmNvbTozMzAwIl0sImNpZCI6MSwiaWF0IjoxNjAzMTkwOTMzLCJzdWIiOiJtNGdyMTE5bHg5dGl6ejh6M2lzMGZnYzVrM2N2M3Z4Iiwic2lkIjo5OTkyMzI0MzIsImlzcyI6IkJDIn0.c3lJBt1KZ1GhZsUmFMBBJukjve3bXYxJaN9MyKlbDmx920jpJoMA7_bnSumI4a3Cw5Dm40Be5RosgUUdL1inEg",
     heroCarouselSettings: {
         infinite: true,
         slidesToShow: 1,

@@ -1,0 +1,150 @@
+.product{
+
+    // Questions
+    &__noQuestions{
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        background-color: #f9f9f9;
+        flex-direction: column;
+        border: 1px solid #eee;
+        margin: 10px 0;
+
+        @media only screen and (max-width: $screen-sm) {
+           text-align: center;
+
+           & .product__col--rightBorder{
+               border-right: none;
+               border-bottom: 1px solid #eee;
+               padding: 0 0 20px 0 !important;
+               margin-bottom: 20px;
+           }
+        }
+
+        &--row{
+            flex-direction: row;
+
+            @media only screen and (max-width: $screen-sm) {
+                flex-direction: column;
+            }
+        }
+    }
+
+    &__questions{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__questionBtn{
+        padding: 0;
+        background-color: transparent;
+
+        & .icon{
+            width: 30px;
+            height: 30px;
+            fill: $btn-color-green;
+        }
+    }
+
+    &__questionCol{
+       padding-right: 20px;
+
+        &--main{
+            width: 100%;
+
+            @media only screen and (max-width: $screen-sm) {
+                padding-right: 0;
+            }
+        }
+    }
+
+    &__questionItem{
+        padding: 20px 0;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        flex-direction: row;
+
+        &:last-of-type{
+            border: none;
+        }
+    }
+
+    &__questionHeading{
+        display: flex;
+        flex-direction: column;
+        margin: 0px;
+    }
+
+    &__questionText{
+        font-size: 1.2rem;
+        line-height: 1.4;
+        font-weight: 800;
+        display: flex;
+        align-items: flex-start;
+        align-content: center;
+        margin-bottom: 3px;
+    }
+
+    &__questionAnswerCount{
+        @extend .product__swatchOptionIconCntr;
+        font-size: 1.1rem;
+        align-items: center;
+        align-content: center;
+        color: $btn-color-green;
+
+        & .icon{
+            width: 15px;
+            height: 15px;
+            margin: 0 4px 0 2px;
+            fill: $btn-color-green;
+        }
+    }
+
+    &__questionMeta{
+        font-size: 0.85rem;
+        color: #aaa;
+        font-style: italic;
+    }
+
+    
+
+    // answers
+    &__answer{
+        display: flex;
+        flex-direction: column;
+        border-left: 5px solid rgba(110, 164, 56, 0.15);
+        padding-left: 20px;
+        margin-bottom: 24px;
+    }
+
+    &__answerText{
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
+    &__answerMeta{
+        @extend .product__questionMeta;
+    }
+
+
+
+
+    // reviews
+    &__noReviews{
+        @extend .product__noQuestions;
+    }
+
+    &__noReviewsHeading{
+        margin: 0 0 10px 0;
+        font-weight: 800;
+    }
+
+    &__noReviewsText{
+        line-height: 1.2;
+        margin: 0 0 10px 0;
+    }
+}

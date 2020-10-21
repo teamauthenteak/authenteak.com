@@ -1,43 +1,62 @@
 import React, { useContext, useEffect } from 'react';
 import AppContext from '../collection/AppContext';
+import LazyImg from './LazyImg';
 
 export default function Swatch(props){
     const appHook = useContext(AppContext);
 
     const toggleDrawer = (data) => {
         const { toggle } = props;
+
+        // parse and extract data from each option
+        data.values.forEach((element) => {
+            let labelObj = TEAK.Utils.parseOptionLabel(element.label);
+            element = Object.assign(element, labelObj);            
+        });
+
         toggle(data);
     };
 
 
+    const changeSwatch = (data) => {
+        const { selected } = props;
+        selected(data)
+    }   
+
 
     useEffect(() => {
-
-        if(appHook.hasOwnProperty(props.displayName) && appHook[props.displayName].attributeValue && props.type === "remote"){
-            let hookId = appHook[props.displayName].swatch.label.split("--")[0];
+        if( appHook.hasOwnProperty(props.displayName) && appHook[props.displayName].attributeValue && props.type === "remote" ){
             
+            // have to create some sort of "ID" from the globally set swatch context to do our matching
+            let hookId = appHook[props.displayName].swatch.label.split("--")[0];
+        
             hookId = hookId.toLowerCase().split("(+")[0];
             hookId = hookId.split(" ").join("");
 
-            props.values.forEach((element) => {
-                let labelId = element.node.label.split("--")[0];
+            // loop through all of the labels creating an id for matching
+            for (let i = 0; i < props.values.length; i++) {
+               let labelId = props.values[i].node.label.split("--")[0];
 
-                labelId = labelId.toLowerCase().split("(+")[0];
-                labelId = labelId.split(" ").join("");
+               labelId = labelId.toLowerCase().split("(+")[0];
+               labelId = labelId.split(" ").join("");
 
-                if( labelId.includes(hookId) ){
-                    const { setOption } = props;
+               if( labelId.includes(hookId) ){
+                    let { setOption } = props;
 
                     setOption({
                         display_name: props.displayName,
                         id: props.id,
                         value: {
-                            label: element.node.label,
-                            id: element.node.entityId
+                            label: props.values[i].node.label,
+                            id: props.values[i].node.entityId
                         }
                     });
-                }
-            });
+
+                   break;
+               }
+            }
+                
+            
         }
 
     }, [appHook[props.displayName]]);
@@ -48,11 +67,11 @@ export default function Swatch(props){
         <>
         {appHook.hasOwnProperty(props.displayName) && props.type === "global" ?
             <li className="product__swatchItem product__swatchItem--marginBottom form-field">
-                <label className="product__swatchLabel" htmlFor={`${props.id}`} onClick={() => toggleDrawer({id: props.id , displayName: props.displayName, values: props.values })}>
+                <label className={`product__swatchLabel ${props.isInvalid && props.isInvalid.includes(props.id) ? "product__swatchLabel--error" : ""}`} htmlFor={`${props.id}`} onClick={() => toggleDrawer({id: props.id , displayName: props.displayName, values: props.values })}>
                     <div className="product__swatch product__swatch--labelRight">
-                        <input className="product__swatchRadio form-input" id={`${props.id}`} type="radio" name={`attribute[{${props.id}}]`} />
+                        <input className="product__swatchRadio form-input" required={true} id={`${props.id}`} type="radio" name={`attribute[{${props.id}}]`} />
                         <div className="product__swatchColor">
-                            <img className="product__swatchImg" src={ appHook[props.displayName].attributeValue ? appHook[props.displayName].swatch.image : "https://dummyimage.com/256x256/cccccc/777777.png&text=select" } />
+                            <img className="product__swatchImg" src={ appHook[props.displayName].attributeValue ? appHook[props.displayName].swatch.image : `https://dummyimage.com/256x256/cccccc/555555.png&text=${props.displayName}` } />
                         </div>
                     </div>
                     <div className="product__swatchText">
@@ -75,10 +94,10 @@ export default function Swatch(props){
 
 
         {appHook.hasOwnProperty(props.displayName) && props.type === "remote" ?
-            <li className="product__swatchItem">
-                <a href="#customize" className="product__swatch">
+            <li className={`product__swatchItem ${props.isInvalid && props.isInvalid.includes(props.id) ? "product__swatchItem--error" : ""}`}>
+                <a href="#customize" className={`product__swatch`} required={true}>
                     <figure className="product__swatchLabel">
-                        <img className="product__swatchImg" src={ appHook[props.displayName].attributeValue ? appHook[props.displayName].swatch.image : "https://dummyimage.com/256x256/cccccc/777777.png&text=select" } />
+                        <img className="product__swatchImg" src={ appHook[props.displayName].attributeValue ? appHook[props.displayName].swatch.image : `https://dummyimage.com/256x256/cccccc/555555.png&text=${props.displayName}` } />
                     </figure>
                 </a>
             </li>
@@ -87,11 +106,11 @@ export default function Swatch(props){
 
         {props.type === "local" ?
             <li className="product__swatchItem product__swatchItem--marginBottom form-field">
-                <label className="product__swatchLabel" htmlFor={`${props.id}`} onClick={() => toggleDrawer({id: props.id , displayName: props.displayName, values: props.values })}>
+                <label className={`product__swatchLabel ${props.isInvalid && props.isInvalid.includes(props.id) ? "product__swatchLabel--error" : ""}`} htmlFor={`${props.id}`} onClick={() => toggleDrawer({id: props.id , displayName: props.displayName, values: props.values })}>
                     <div className="product__swatch product__swatch--labelRight">
-                        <input className="product__swatchRadio form-input" id={`${props.id}`} type="radio" name={`attribute[{${props.id}}]`} />
+                        <input className="product__swatchRadio form-input" required={true} id={`${props.id}`} type="radio" name={`attribute[{${props.id}}]`} />
                         <div className="product__swatchColor">
-                            <img className="product__swatchImg" src={ appHook[props.displayName].attributeValue ? appHook[props.displayName].swatch.image : "https://dummyimage.com/256x256/cccccc/777777.png&text=select" } />
+                            <img className="product__swatchImg" src={ appHook[props.displayName].attributeValue ? appHook[props.displayName].swatch.image : `https://dummyimage.com/256x256/cccccc/555555.png&text=${props.displayName}` } />
                         </div>
                     </div>
                     <div className="product__swatchText">
@@ -113,6 +132,56 @@ export default function Swatch(props){
         :null}
 
 
+
+        {props.type === "select" ?
+            <label className="swatch-wrap" htmlFor={`attribute-${props.id}`}>
+                <input 
+                    className="form-input swatch-radio" 
+                    checked={appHook[props.for].attributeValue === props.id} 
+                    onChange={() => changeSwatch(props.option)} 
+                    id={`attribute-${props.id}`} 
+                    type="radio" 
+                    name={`attribute[${props.id}]`} 
+                    value={`${props.id}`} 
+                    required 
+                    aria-required="true" 
+                />
+                <span className="swatch">
+                    <span className="swatch-color swatch-pattern" style={{backgroundImage: `url("${props.img}")` }}>
+                        <LazyImg className="swatch-pattern-image" src={props.img} />
+                    </span>
+                </span>
+                <span className="drawer__swatchLabelCntr">
+                    <OptionLabels label={props.label} />
+                </span>
+            </label>
+        :null}
+
+
+
+
+        {props.type === "pod" ?
+            <li className="product__podSwatchItem swatch-wrap" htmlFor={`attribute-${props.id}`}>
+                <span className="swatch-color swatch-pattern" style={{backgroundImage: `url("${props.img}")` }}></span>
+            </li>
+        :null}
+
+
+        </>
+    );
+}
+
+
+function OptionLabels(props){
+    const item = TEAK.Utils.parseOptionLabel(props.label);
+
+    return(
+        <>
+            <span className="drawer__swatchLabel drawer__swatchLabel--grade">{item.grade ? `Grade ${item.grade}` : ""}</span>
+            <span className="drawer__swatchLabel drawer__swatchLabel--brand">{item.brandName ? `${item.brandName}` : ""}</span>
+            <span className="drawer__swatchLabel drawer__swatchLabel--color">{item.color}</span>
+            <span className="drawer__swatchLabel drawer__swatchLabel--price">{item.priceAdjust ? `(${item.priceAdjust})` : ""}</span>
+            <span className="drawer__swatchLabel drawer__swatchLabel--ship">{item.ship ? `${item.ship}` : ""}</span>
         </>
     );
 }

@@ -655,7 +655,7 @@ td {
 
 /* Slider */
 .slick-loading .slick-list {
-  background: #fff url("./../../../assets/img/ajax-loader.gif") center center no-repeat; }
+  background-color: #fff; }
 
 /* Icons */
 @font-face {

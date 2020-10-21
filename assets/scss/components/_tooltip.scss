@@ -94,23 +94,9 @@
     }
 
     &__cntr{
-        left: 50%;
-        top: 50%;
-        position: fixed;
-        width: 75vw;
-        max-height: 600px;
-        white-space: normal;
-        z-index: 9999;
-        margin-left: (-75vw / 2);
-        background-color: #fff;
+        @extend .modal__wrapper;
         padding: 40px;
-        box-shadow: 20px 20px 50px 20px rgba(0, 0, 0, 0.47);
-        border-radius: $border-radius;
-        overflow: auto;
-        -webkit-overflow-scrolling: touch;
-        // display: block;
-        // @extend .animated;
-        transform: translate3d(0, 0, 0);
+        max-height: 600px;
 
         &--show{
             // @extend .zoomIn;

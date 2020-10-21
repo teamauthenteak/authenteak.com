@@ -14,7 +14,7 @@ export default class Page extends PageManager {
         });
 
         this.lazyLoadInstance = new LazyLoad({
-			elements_selector: ".replaced-image, .lazy-image"
+			elements_selector: ".replaced-image, .lazy-image, .landing__figImg"
 		});
 
         // add Personalization engine

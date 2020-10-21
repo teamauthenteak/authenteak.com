@@ -191,6 +191,11 @@ export default class ProductSwatchModal {
                 .end()
             .find(".drawer__imgCntr").html(swatchImg)
                 .end()
+            .find(".drawer__figCntr").css({
+                    backgroundImage:`url('${swatchImg.attr("src")}')`,
+                    backgroundRepeat: "repeat"
+                })
+                .end()
             .find(".drawer__saveBtn").prop("disabled", false);
 
         e.preventDefault();
@@ -285,7 +290,14 @@ export default class ProductSwatchModal {
             this.optionsProductRefferenceId = this.getProductID(e);
             this.optionSetRefferenceId = parseInt($(e.currentTarget).attr("rel"));
 
-            this.$optionModalSwatches.find(".drawer__imgCntr").find("img").attr("src", productImg)
+            this.$optionModalSwatches.find(".drawer__imgCntr").find("img").attr("src", productImg);
+
+            this.$optionModalSwatches.find(".drawer__figCntr").css({
+                backgroundImage: `url('${productImg}')`,
+                backgroundSize: 'contain',
+                backgroundRepeat: 'no-repeat'
+            });
+
             this.initOptions();
 
         }else{

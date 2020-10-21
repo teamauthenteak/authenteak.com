@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 
 export default function QuantityButton(props){
-    const [ count, setCount ] = useState(0);
+    const [ count, setCount ] = useState(null);
 
     const setQty = (value) => {
         value = value.hasOwnProperty("currentTarget") ? value.currentTarget.value : value;
@@ -11,6 +11,13 @@ export default function QuantityButton(props){
         const { qty } = props;
         qty(value);
     }
+
+    
+    useMemo(() => {
+        setCount(props.value);
+
+    }, [props.value]);
+
 
     return  <label className="product__qtyCntr">
                 <div className="product-quantity-toggle-wrapper">

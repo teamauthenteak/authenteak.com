@@ -132,10 +132,9 @@ export default class GraphQL_Swatch_TPL {
         return `<label class="swatch-wrap" for="attribute-${thisOption.entityId}" data-swatch-value="${thisOption.label}" data-product-attribute-value="${thisOption.entityId}" data-is-selected>
                     <input class="form-input swatch-radio"  data-option-title="${swatch.displayName}" data-parent-id="${swatch.entityId}" id="attribute-${thisOption.entityId}" type="radio" name="attribute[${swatch.entityId}]" value="${thisOption.entityId}" data-label="${thisOption.label}" ${thisOption.isDefault ? 'checked' : ''} ${swatch.isRequired ? ' required' : ''} aria-required="${swatch.isRequired}">
                     <span class="swatch">
-                        <span class="swatch-color swatch-pattern" style="background-image: url('${thisOption.label.includes("No ") ? "https://authenteak.s3.us-east-2.amazonaws.com/images/2098122.preview.png" : `https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${thisOption.entityId}.preview.jpg`}');">
-                            <img class="swatch-pattern-image" src="${thisOption.label.includes("No ") ? "https://authenteak.s3.us-east-2.amazonaws.com/images/2098122.preview.png" : `https://cdn11.bigcommerce.com/s-r14v4z7cjw/images/stencil/256x256/attribute_value_images/${thisOption.entityId}.preview.jpg`}" alt="${thisOption.label}">
+                        <span class="swatch-color swatch-pattern" style="background-image: url('${thisOption.label.includes("No ") ? "https://authenteak.s3.us-east-2.amazonaws.com/images/2098122.preview.png" : thisOption.imageUrl}');">
+                            <img class="swatch-pattern-image" src="${thisOption.label.includes("No ") ? "https://authenteak.s3.us-east-2.amazonaws.com/images/2098122.preview.png" : thisOption.imageUrl}" alt="${thisOption.label}">
                         </span>
-                        ${thisOption.hexColors.length !== 0 ? '<span class="swatch-color" style="background-color: #'+thisOption.hexColors[0]+'"></span>' : '' }
                     </span>
                     <span class="drawer__swatchLabelCntr">
                         <span class="drawer__swatchLabel drawer__swatchLabel--grade">${thisOption.grade ? `Grade ${thisOption.grade}` : ""}</span>

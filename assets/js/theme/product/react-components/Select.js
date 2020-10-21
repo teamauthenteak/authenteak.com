@@ -22,9 +22,11 @@ export default function Select(props){
             let { setOption } = props;
 
             setOption({
-                attribute: parseInt(props.id),
-                attributeValue: parseInt(e.currentTarget.value),
-                label: selected.label
+                [props.displayName]: {
+                    attribute: parseInt(props.id),
+                    attributeValue: parseInt(e.currentTarget.value),
+                    label: selected.label
+                }
             });
 
             setSelected(selected.label);
@@ -33,7 +35,6 @@ export default function Select(props){
 
 
     useEffect(() => {
-
         // trying to create some sort of normalcy to mitigate the brittleness of searching label strings for an object match
         if(appHook.hasOwnProperty(props.displayName) && appHook[props.displayName].attributeValue && props.type === "remote"){
             let hookId = appHook[props.displayName].label.toLowerCase().split(" ").join("").slice(0, 18);
@@ -54,7 +55,7 @@ export default function Select(props){
         <>
         {appHook.hasOwnProperty(props.displayName) && props.type === "global" ?
             <li className="product__swatchItem product__swatchItem--marginBottom product__swatchItem--select">
-                <label className="selectBox__label" htmlFor={`attribute-${props.id}`}>
+                <label className={`selectBox__label ${props.isInvalid && props.isInvalid.includes(props.id) ? "selectBox__label--error" : ""}`} htmlFor={`attribute-${props.id}`}>
                     <div className="selectBox__text selectBox__text--right">
                         <p className="selectBox__optionText">
                             <span className="selectBox__name selectBox__name--labelLeft">{props.displayName}</span>
@@ -63,12 +64,13 @@ export default function Select(props){
                             </span>
                         </p>
                     </div>
-                    <select onChange={(e) => selectChange(e)} className="selectBox__select" name={`attribute[${props.id}]`} id={`attribute-${props.id}`} aria-required="true">
-                        {props.values.map((item, index) => {
-                            return  <option value={`${item.id}`} label={item.label.split("--")[0]} key={index}>
-                                        {item.label.split("--")[0]}
-                                    </option>
-                        })}
+                    <select onChange={(e) => selectChange(e)} required={true} className="selectBox__select" name={`attribute[${props.id}]`} id={`attribute-${props.id}`} aria-required="true">
+                        <option value="">Choose...</option>
+            {props.values.map((item, index) => {
+                return  <option value={`${item.id}`} label={item.label.split("--")[0]} key={item.id}>
+                            {item.label.split("--")[0]}
+                        </option>
+            })}
                     </select>
                 </label>
             </li>
@@ -78,13 +80,13 @@ export default function Select(props){
 
         {appHook.hasOwnProperty(props.displayName) && props.type === "remote" ?
             <li className="product__swatchItem product__swatchItem--marginBottom product__swatchItem--select">
-                    <a href="#customize" className="selectBox__text--globalControl">
+                    <a href="#customize" className={`selectBox__text--globalControl ${props.isInvalid && props.isInvalid.includes(props.id) ? "selectBox__text--error" : ""}`}>
                         <span className="selectBox__optionText">
                             <span className={`selectBox__value selectBox__value--normal ${appHook[props.displayName].attributeValue ? "selectBox__value--chosen" : "" }`}>
                                 { appHook[props.displayName].attributeValue ? appHook[props.displayName].label.split("--")[0] : props.displayName }
                             </span>
                         </span>
-                        <svg className="product__swatchLabelIcon product__swatchLabelIcon--45deg"><use xlinkHref="#icon-long-arrow-right" /></svg>
+                        <svg className="product__swatchLabelIcon product__swatchLabelIcon--angle"><use xlinkHref="#icon-long-arrow-right" /></svg>
                     </a>                   
             </li>
         : null}
@@ -93,7 +95,7 @@ export default function Select(props){
 
         {props.type === "local" ?
             <li className="product__swatchItem product__swatchItem--marginBottom product__swatchItem--select">
-                <label className="selectBox__label" htmlFor={`attribute-${props.id}`}>
+                <label className={`selectBox__label ${props.isInvalid && props.isInvalid.includes(props.id) ? "selectBox__label--error" : ""}`} htmlFor={`attribute-${props.id}`}>
                     <div className="selectBox__text selectBox__text--right">
                         <p className="selectBox__optionText">
                             <span className="selectBox__name selectBox__name--labelLeft">{props.displayName}</span>
@@ -102,14 +104,15 @@ export default function Select(props){
                             </span>
                         </p>
                     </div>
-                    <select onChange={(e) => selectChange(e)} className="selectBox__select" name={`attribute[${props.id}]`} id={`attribute-${props.id}`} aria-required="true">
-                        {props.values.map((item, index) => {
-                            if( item.hasOwnProperty("node") ){
-                                return  <option value={`${item.node.entityId}`} label={item.node.label.split("--")[0]} key={index}>
-                                            {item.node.label.split("--")[0]}
-                                        </option>
-                            }
-                        })}
+                    <select onChange={(e) => selectChange(e)} required={true} className="selectBox__select" name={`attribute[${props.id}]`} id={`attribute-${props.id}`} aria-required="true">
+                        <option value="">Choose...</option>
+        {props.values.map((item, index) => {
+            if( item.hasOwnProperty("node") ){
+                return  <option value={`${item.node.entityId}`} label={item.node.label.split("--")[0]} key={item.node.entityId}>
+                            {item.node.label.split("--")[0]}
+                        </option>
+            }
+        })}
                     </select>
                 </label>
             </li>

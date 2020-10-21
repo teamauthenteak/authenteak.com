@@ -100,7 +100,7 @@
     background-color: #fff;
     border-color: #ccc;
     color: #878787;
-    box-shadow: none;
+    box-shadow: none !important;
 
     &:hover {
         border-color: #878787;
@@ -108,10 +108,11 @@
 
     &--darkTrans{
         background-color: transparent;
-        border-color: #666;
-        color: #666;
+        border-color: #444;
+        color: #444;
         padding-left: $standard-padding * 3;
         padding-right: $standard-padding * 3;
+        box-shadow: none !important;
 
         @media only screen and (max-width: $screen-sm) {
             padding-left: $standard-padding;

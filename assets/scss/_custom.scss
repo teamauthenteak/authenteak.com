@@ -28,6 +28,8 @@
 @import 'components/table';
 @import 'components/badge';
 @import 'components/alerts';
+@import 'components/ribbon';
+@import 'components/modal';
 
 /* Layout */
 @import 'layout/default';
@@ -42,13 +44,18 @@
 @import 'sections/product/productCategory';
 @import 'sections/product/productDetails';
 @import 'sections/product/productOptions';
+@import 'sections/product/productSwatchModal';
 @import 'sections/product/productSwatch';
 @import 'sections/product/productTabs';
+@import 'sections/product/productModal';
+@import 'sections/product/productQuestions';
+@import 'sections/product/productLayouts';
 
 // cart
 @import 'sections/cart/modalCart';
 @import 'sections/cart/miniCart';
 @import 'sections/cart/shoppingCart';
+@import 'sections/cart/stickyCart';
 
 // checkout
 @import 'sections/checkout/checkoutHeader';

@@ -1,0 +1,95 @@
+.modal{
+    margin: 0;
+    padding: 0;
+
+    &__freezeBody{
+        @extend %freeze-body;
+    }
+
+    &__wrapper{
+        left: 50%;
+        top: 50%;
+        position: fixed;
+        width: 75vw;
+        max-height: 90vh;
+        white-space: normal;
+        z-index: 9999;
+        margin-left: (-75vw / 2);
+        background-color: #fff;
+        box-shadow: 20px 20px 50px 20px rgba(0, 0, 0, 0.47);
+        border-radius: $border-radius;
+        transform: translate3d(0, 0, 0);
+        z-index: 99999;
+        overflow: hidden;
+    }
+
+    &__cntr{
+        overflow-x: hidden;
+        overflow-y: overlay;
+        padding: 40px;
+        width: 100%;
+        float: left;
+        max-height: 90vh;
+    }
+
+    &__overlay{
+        position: fixed;
+        z-index: 9999;
+        background-color: rgba(0,0,0, 0.3);
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    &__header{
+        display: flex;
+        flex: 1 0 auto;
+        align-content: center;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        width: 100%;
+        float: left;
+    }
+
+    &__heading{
+        font-size: 3rem;
+        font-weight: 400;
+        margin: 0;
+        line-height: 1;
+    }
+
+    &__headingDesc{
+        line-height: 1.2;
+        margin: 10px 0 0 0;
+        font-size: 1.1rem;
+    }
+
+    &__headingBtn{
+        @extend .button; 
+        @extend .button-secondary; 
+        @extend .button-secondary--trans; 
+        @extend .button-wide;
+        display: flex !important;
+        align-items: center;
+        align-content: center;
+
+        & .icon{
+            width: 25px;
+            height: 25px;
+            margin-left: 10px;
+        }
+    }
+
+
+    &__content{
+        float: left;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+    }
+
+}

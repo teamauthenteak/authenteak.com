@@ -1,844 +1,423 @@
-
-/*Product Detail Swatches*/
-.form-field-swatch {
-    .form-field-control-wrapper {
-        $swatch-wrapper-base: 238px;
-        $swatch-wrapper-inc: 55px;
-        
-        @extend %scrolling-inner;
-
-        clear: left;
-        max-height: 200px;
-        border: 1px solid transparent;
-        border-radius: 4px;
-
-        @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-            overflow: hidden;
-        }
-
-        @media screen and (max-width: 915px){
-            max-height: none;
-        }
-    }
-
-    .form-field-control {
-        max-height: 175px;
-        padding: 10px;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        flex: 1 0 auto;
-
-        .swatch-radio:checked + .swatch::after {
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: 90%;
-            background-position: center center;
-            background-repeat: no-repeat;
-            transform: none;
-        }
-        .swatch-radio[data-label="No Thanks"]:checked + .swatch:after {
-            background: none;
-            border: 2px solid #666666;
-        }
-        .swatch img {
-            display: none;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            width: 100%;
-
-            @supports (object-fit: cover) {
-                display: inline;
-                object-fit: cover;
-            }
-        }
-
-        .swatch-wrap:hover .swatch-pattern-expanded { display: none; }
-    }
-}
-
-.swatch-img{
-    img{
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-    }
-}
-
-
-// Request a Swatch Button
-.form-field-swatch__request-button {
-    background: none;
-    border: none;
-    color: #6ea438;
-    text-decoration: underline;
-    // text-transform: uppercase;
-    font-size: 1rem;
-}
-
-// Request a Swatch Modal
-.swatchModal{
-    display: none;
-    position: fixed;
-    top: 5vmin;
-    left: 50%;
-    transform: translateX(-50%);
-    max-height: calc(100vh - 10vmin);
-    width: 90vw;
-    max-width: 1000px;
-    overflow: auto;
-    padding: 20px;
-    background: #fff;
-    z-index: 1100;
-    border-radius: $border-radius;
-
-    &.is-open { display: block; }
-
-    @media screen and (max-width: $screen-md) {
-        top: 1vh;
-        left: 50%;
-        margin-left: -(95vw/2);
-        transform: none;
-        height: 80vh;
-        width: 95vw;
-        overflow: scroll;
-    }
-
-    &__freezeBody{
-        @extend %freeze-body;
-    }
-
-    &__underlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: rgba(0,0,0,0.75);
-        z-index: 1099;
-    
-        .swatchModal.is-open + & { display: block; }
-    }
-
-
-    &__close {
-        position: absolute;
-        top: 1px;
-        right: 1px;
-        height: 2rem;
-        width: 2rem;
-        font-size: 2rem;
-        line-height: 1em;
-        text-align: center;
-        color: rgba(0,0,0,0.75);
-        cursor: pointer;
-        background-color: transparent;
-
-        &:hover, &:focus {
-            color: rgba(0,0,0,1);
-        }
-    }
-
-
-    &__title{
-        margin: 0;
-        font-size: 1.8rem;
-        font-weight: 800;
-
-        @media screen and (max-width: $screen-sm) {
-            font-size: 1.4rem;
-        }
-    }
-
-    &__text{
-        font-size: 1em;
-        line-height: 1.2;
-        margin: 20px 0;
-
-        &--highlight{
-            padding: 10px;
-            background-color: #f2f2f2;
-            text-align: center;
-        }
-
-        @media screen and (max-width: $screen-xs) {
-            font-size: 0.9rem;
-            margin: 10px 0;
-        }
-    }
-
-    &__textPhone{
-        display: inline-block;
-    }
-
-    &__cntr {
-        display: flex;
-        flex-direction: row;
-        height: 100%;
-        transition: transform 0.5s ease;
-
-        &--isActive{
-            position: relative;
-        }
-
-        &--isLeft{
-            transform: translateX(-110%);
-            position: absolute;
-            top: 0;
-        }
-
-        &--isRight{
-            transform: translateX(100%);
-            position: absolute;
-            top: 0;
-        }
-
-        @media screen and (max-width: $screen-md) {
-            flex-direction: row;
-        }
-
-        @media screen and (max-width: $screen-sm) {
-            flex-direction: column;
-            align-content: flex-start;
-            align-items: flex-start;
-            justify-content: flex-start;
-        }
-    }
-
-    &__descCntr{
-        width: 50%;
-        padding: 20px;
-        order: 2;
-
-        @media screen and (max-width: $screen-sm) {
-            width: 100%;
-            order: 1;
-            padding: 0;
-        }
-    }
-
-    &__inner {
-        @extend %scrolling-inner;
-
-        margin: 0;
-        border: 1px solid transparent;
-        box-shadow: 0 0 0 1px $color-border inset;
-        order: 1;
-        clear: left;
-        height: 70vh;
-        margin: 0;
-        border-radius: 4px;
-        width: 50%;
-
-        @media screen and (max-width: $screen-sm) {
-            order: 2;
-            width: 100%;
-            height: 75vw;
-        }
-
-        @media screen and (max-width: $screen-xs) {
-            height: 85vw;
-        }
-
-    }
-
-
-    &__list {
-        padding: 0 10px;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-        height: 100%;
-        align-items: center;
-        align-content: flex-start;
-
-        &.has-max-selected > li:not(.is-selected) {
-            opacity: 0.4;
-            cursor: default;
-        }
-
-        @media screen and (max-width: $screen-xs) {
-            padding: 5px;
-        }
-    }
-
-    &__listItem {
-        position: relative;
-        display: inline-block;
-        width: (100%/5);
-        height: auto;
-        overflow: hidden;
-        margin: 5px;
-        border: 1px solid transparent;
-        border-radius: 0;
-        cursor: pointer;
-        flex: 0 0 auto;
-
-        @media screen and (max-width: $screen-md) {
-            width: 72px !important;
-            height: 72px !important;
-        }
-
-        @media screen and (max-width: $screen-xs) {
-            width: 60px !important;
-            height: 60px !important;
-            margin: 2px;
-        }
-
-        &.is-selected{
-
-            &::before{
-                position: absolute;
-                content: "";
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 65%;
-                @include icon-thin-check-mark(#fff);
-                opacity: 0.85;
-                background-size: 70% !important;
-                box-shadow: 0 0 18px 5px rgba(0, 0, 0, 0.1) inset;
-                border-radius: 50%;
-                border: 4px solid rgba(255, 255, 255, 0.85);
-
-                @media only screen and (max-width: $screen-lg) {
-                    height: 64%;
-                }
-
-                @media only screen and (max-width: $screen-md) {
-                    height: 100%;
-                }
-            }
-        
-            &::after {
-                position: absolute;
-                content: "";
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                // background-image: url("data:image/svg+xml,%3Csvg width='14' height='10' viewBox='0 0 14 10' xmlns='http://www.w3.org/2000/svg'%3E%3Ctitle%3E6269C699-FBB7-4109-B1F3-15F8609CEA35%3C/title%3E%3Cpath d='M5.72 9.6325l-.3995.3995L.082 4.7936l2.1064-2.1063L5.62 6.1187 11.7704-.032l2.1064 2.1064L6.0192 9.932 5.72 9.6324z' fill='%23fff' fill-rule='evenodd'/%3E%3C/svg%3E");
-                // background-size: 90%;
-                // background-position: 5px 22px;
-                // background-repeat: no-repeat;
-                transform: none;
-                z-index: 1;
-            }
-            
-            & .swatchModal__swatchImg{
-                background-color: transparent;
-                box-shadow: 0 0 18px 5px rgba(0, 0, 0, 0.1) inset;
-            }
-        }
-    }
-
-    &__swatchImgCntr{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    &__swatchImg{
-        display: block;
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-    }
-
-    &__swatchTitle{
-        display: block;
-        font-size: 0.7rem;
-        text-align: center;
-        line-height: 1.3;
-        margin-top: 3px;
-        height: 45px;
-    }
-
-
-    &__form {
-        display: block;
-        margin: 1.5rem 0 0;
-
-        button { 
-            width: 100%; 
-            text-transform: uppercase;
-            font-weight: 500;
-            font-size: 1rem;
-        }
-    }
-
-    &__reqBtn{
-        @extend %button-rounded;
-        @extend .button-secondary;
-        @extend .button-secondary--darkTrans;
-        @extend .button--fullWidth;
-
-        &[disabled]{
-            opacity: 0.3;
-            cursor: not-allowed;
-
-            &:hover{
-                background-color: transparent;
-                color: #666;
-                border-color: #666;
-            }
-        }
-
-        box-sizing: border-box;
-        border-width: 1px;
-        border-style: solid;
-        font-size: 1.1rem;
-        text-transform: uppercase;
-        font-weight: 500;
-        padding: 20px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-
-        @media screen and (max-width: $screen-sm) {
-            display: none;
-        }
-
-        &--mobile{
-            order: 3;
-            display: none !important;
-            margin-top: 20px;
-
-            @media screen and (max-width: $screen-sm) {
-                display: block !important;
-            }
-        }
-    }
-
-
-    &__reqBtnText{
-        @extend .button-text;
-        display: block;
-        line-height: 1;
-        margin-right: 15px;
-    }
-
-    &__reqBtnIcon{
-        @extend .icon;
-        @extend .icon-arrow-right;
-        width: 20px;
-        height: 20px;
-    }
-    
-}
-
-
-
-.swatchCheckout{
-    display: flex;
-    width: $standard-width;
-    padding: 0 2vw;
-    flex-direction: column;
-    position: relative;
-
-    @media screen and (max-width: $screen-md) {
-        padding: 0;
-    }
-
-    &--rv{
-        float: left;
-    }
-
-    &--confirmation{
-        margin-bottom: 60px;
-    }
-
-
-    &__header{
-        width: 100%;
-        margin-bottom: 40px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    &__title{
-        margin: 0;
-        line-height: 1;
-        text-align: center;
-
-        &--lg{
-            font-size: 5rem;
-        }
-
-        &--2{
-            margin-top: 15px;
-        }
-    }
-
-    &__sub{
-        @extend .swatchModal__text--highlight;
-        line-height: 1.4;
-        font-size: 1.1rem;
-        text-align: center;
-        padding: 20px;
-
-        &--noHighlight{
-            background-color: transparent;
-        }
-    }
-
-    &__cntr{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-
-        &--narrow{
-            width: 850px;
-            margin: 0 auto;
-            justify-content: center;
-
-            @media screen and (max-width: $screen-md) {
-                width: 100%;
-                flex-direction: row;
-            }
-
-            @media screen and (max-width: $screen-sm) {
-                width: 100%;
-                flex-direction: column;
-            }
-        }
-
-        @media screen and (max-width: $screen-md) {
-            flex-direction: column;
-        }
-    }
-
-    &__col{
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-
-        &--5-10{
-            width: 50%;
-            align-items: center;
-            align-content: center;
-            flex: 1;
-
-            @media screen and (max-width: $screen-sm) {
-                width: 100%;
-            }
-        }
-
-        &--7-10{
-            padding-left: 0;
-            width: 70%;
-            border-right: 1px solid #ccc;
-
-            @media screen and (max-width: $screen-md) {
-                width: 100%;
-                padding: 20px;
-                border: none;
-            }
-        }
-
-        &--3-10{
-            padding-right: 0;
-            width: 30%;
-
-            @media screen and (max-width: $screen-md) {
-                width: 100%;
-                padding: 20px;
-            }
-        }
-    }
-
-    &__colImg{
-        width: 100%;
-        height: 250px;
-        object-fit: cover;
-    }
-
-    &__colTxt{
-        text-align: center;
-        margin-bottom: 30px;
-    }
-
-    &__itemEmpty{
-        @extend .swatchModal__text--highlight;
-        height: 100px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    &__itemEmptyLink{
-        text-decoration: underline;
-    }
-
-
-    &__itemHeader{
-        width: 100%;
-        margin-bottom: 10px;
-        border-bottom: 1px solid #ccc;
-        padding-bottom: 8px;
-        font-size: 1.2rem;
-        line-height: 1;
-    }
-
-    &__itemList{
-        padding: 0;
-        margin: 0;
-        list-style-type: none;
-        display: flex;
-        flex-direction: column;
-    }
-
-    &__item{
-        border-bottom: 1px solid #ddd;
+.product{
+
+    // swatch
+    &__swatchCol{
+        @extend %span-1-1;
+        @extend %span;
         padding: 20px 0;
+    }
+
+    &__swatchList{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        height: 100%;
+        justify-content: center;
+    }
+
+    &__swatchItem{
+        margin: 0;
+        padding: 0;
         width: 100%;
-    }
-
-    &__itemImgCntr{
-        display: flex;        
-    }
-
-    &__itemImg{
-        width: 125px;
-        height: 125px;
-        border-radius: 50%;
-    }
-
-    &__itemTitle{
-        padding-left: 20px;
         display: flex;
         flex-direction: column;
+        justify-content: center;
         align-items: center;
         align-content: center;
-        justify-content: center;
-        width: 100%;
+        position: relative;
+
+        &--select{
+            width: 100%;
+        }
+
+        &--marginBottom{
+            margin-bottom: 15px;
+
+            &:last-of-type{
+                margin: 0;
+            }
+        }
+
+        &--list{
+            flex-direction: row;
+            justify-content: flex-start;
+            padding: 5px 15px;
+            border: 1px solid #eee;
+            height: 70px;
+            margin-bottom: 15px;
+        }
+
+        &--globalControl{
+            display: flex;
+        }
     }
 
-    &__removeItem{
-        display: block;
-        text-align: right;
-        width: 100%;
-        font-size: 0.9rem;
-        align-self: end;
-        background-color: transparent;
-        outline: none;
 
-        svg{
+    &__swatchItemList{
+        display: flex;
+        flex: 1 0 auto;
+
+        & .product__swatchItem{
+            margin-left: 10px;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex: 0 0 auto;
+            width: 59px;
+            height: 59px;
+
+            &--error{
+                @extend .product__swatchLabel--error;
+                border: 2px solid;
+                border-radius: 50%;
+            }
+        }
+
+        & .product__swatch{
+            width: 55px;
+        }
+    }
+
+
+    &__swatchLabel{
+        width: 100%;
+        border: 1px solid #ccc;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        padding: 8px 10px;
+        border-radius: $border-radius;
+        cursor: pointer;
+
+        &--error{
+            border-color: #FF5E5D;
+
+            & .product-quantity{
+                box-shadow: 0 0 0 1px #FF5E5D inset !important;
+            }
+
+            &:hover{
+                border-color: #FF5E5D !important;
+            }
+        }
+
+        &:hover{
+            border-color: $btn-color-green;
+        }
+
+        & .icon-long-arrow-right{
+            width: 10%;
+            height: 15px;
+            fill: #333;
+            margin-right: 4px;
+            margin-top: -4px;
+        }
+    }
+
+
+    
+    &__atcCollectionBtn{
+        @extend .button;
+        @extend .button-primary;
+        @extend .button-wide;
+        @extend .button-primary--green;
+        outline: none;
+        height: 51px;
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        position: relative;
+        margin-left: 20px;
+        padding: 10px 3em;
+        line-height: 1;
+
+        &--trans{
+            @extend .button-primary--greenTrans;
+        }
+
+        & .icon{
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+    }
+
+    &__clearSwatch{
+        @extend .blog__clearFilter;
+        position: absolute;
+        top: 0px;
+        right: -8px;
+        padding: 5px;
+        background-color: #e74c3c;
+        margin: 0;
+
+        & .icon{
+            width: 10px;
+            height: 10px;
+            fill: #fff;
+        }
+    }
+    
+    &__swatchColHeading{
+        margin: 10px 0 0 0;
+        line-height: 1;
+        font-size: 1rem;
+        text-transform: uppercase;
+    }
+
+    &__swatch{
+       width: 55px;
+       max-width: 55px;
+       height: 55px;
+       border-radius: 50%;
+       position: relative;
+       overflow: hidden;
+       flex: 0 0 auto;
+       width: 25%;
+
+       &--labelRight{
+            order: 2;
+       }
+    }
+
+
+    &__swatchLabelIcon{
+        @extend .icon;
+        @extend .icon-long-arrow-right;
+
+        width: 10%;
+        height: 15px;
+        fill: #333;
+        margin-right: 4px;
+        margin-top: -4px;
+
+        &--right{
+            order: 3;
+        }
+
+        &--angle{
+            transform: rotate(-40deg);
+            margin: 0;
             fill: #ccc;
         }
     }
 
-    &__productName{
-        width: 100%;
-        display: block;
-        font-weight: 800;
-        line-height: 1.2;
-        margin-bottom: 5px;
+
+    &__swatchControls{
+        margin: 10px 0;
+        padding: 5px 0;
+        border-top: 1px solid #eee;
+        @extend .form-field;
+        @extend .form-field-options;
+        @extend .form-field-swatch;
     }
+
 
     &__swatchColor{
-        width: 100%;
-        display: block;
-        line-height: 1.2;
+        background-color: #eee;
+        background-size: cover;
     }
 
-    &__form{
+    &__swatchImg{
+        position: absolute;
         width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        object-fit: cover;
+    }
 
-        input[type="text"], input[type="email"], input[type="tel"], select {
+    &__swatchText{
+        padding-left: 10px;
+        width: 75%;
+
+        &--right{
+            order: 1;
             width: 100%;
         }
+    }
 
-        & .form-field-short{
-            width: 50%;
-            float: left;
-            padding-right: 10px;
+    &__swatchOptionText{
+        margin: 0;
+        font-size: 0.75rem;
+    }
 
-            &:nth-last-of-type(odd){
-                padding: 0;
-            }
+    &__swatchName{
+        font-weight: 800;
+        display: flex;
+        line-height: 1;
+        text-align: left;
+        font-size: 1rem;
+    }
+
+    &__swatchOptionIconCntr{
+        display: flex;
+        font-weight: 400;
+        margin-left: 8px;
+        font-size: 0.9rem;
+        font-style: italic;
+        color: #999;
+        white-space: nowrap;
+        align-items: center;
+
+        @media only screen and (max-width: $screen-lg) {
+            margin: 0;
+        }
+
+        @media only screen and (max-width: $screen-sm) {
+           display: none;
         }
     }
 
-    &__submit{
-        @extend .button;
-        @extend .button--fullWidth;
-        @extend .button-primary;
-        @extend .button-primary--green;
-        justify-content: center;
-        height: 62px;
-
-        &--progress{
-            @extend .progress;
-        }
+    &__swatchOptionIcon{
+        width: 12px;
+        height: 12px;
+        margin: 0 4px 0 2px;
     }
 
-    &__submitText{
-        display: block;
-    }
-}
-
-
-
-
-
-
-/*Product Swatch Hover Detail*/
-.product-swatch-hover-container {
-    position: relative;
-    z-index: 1;
-}
-
-.product-swatch-hover-close{
-    position: absolute;
-    z-index: 99999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    line-height: 1;
-    padding: 5px;
-    background-color: #eff1f5;
-    border: none;
-    top: 0;
-    left: 0;
-}
-.product-swatch-hover-close-icon{
-    padding: 0;
-    width: 40px;
-    height: 40px;
-    fill: #555;
-}
-
-.product-swatch-hover-detail {
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 100vw;
-    width: 100%;
-    padding: 1rem;
-    overflow: hidden;
-    background: $color-background-secondary;
-    display: flex;
-    flex-direction: column;
-
-    &.is-visible { right: 0; }
-
-    &__image-wrapper {
-        flex: 1 0 auto;
+    &__swatchValue{
+        display: none;
+        line-height: 1;
+        text-align: left;
+        margin-top: 5px;
+        padding: 0 0 0 16px;
         position: relative;
         overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        height: 14px;
 
-        &::before {
-            content: '';
-            display: block;
+        &:before{
+            position: absolute;
+            content: "";
+            @include icon-check-mark($btn-color-green);
+            width: 12px;
+            height: 12px;
+            top: 50%;
+            left: 0;
+            margin-top: (-12px/2);
+        }
+    }
+
+    &__swatchRequestBtn{
+        display: none;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        line-height: 1;
+        padding: 0;
+        background-color: #fff;
+        outline: none;
+
+        &--collections{
+            padding: 15px 20px;
             width: 100%;
-            padding-top: 95%;
+            flex: 1 0 auto;
+            line-height: 1;
+            display: flex;
+            background-color: #f2f2f2;
+            justify-content: flex-start;
+            align-content: center;
+            align-items: center;
+            border-radius: 3px;
+            outline: none;
+
+            &:hover{
+                & *{
+                    color: #555;
+                    fill: #555;
+                }
+            }
         }
-    }
-    &__image {
-        position: absolute;
-        top:    0;
-        left:   0;
-        right:  0;
-        bottom: 0;
-        background-size: cover;
-        filter: blur(0);
 
-        &[data-swatch-size="thumb"] {
-            top:    -13px;
-            left:   -13px;
-            right:  -13px;
-            bottom: -13px;
-            filter: blur(8px);
-        }
-        &[data-loading] {
-            transition: filter 0.1s ease-in;
-        }
-    }
-
-    &__caption {
-        flex: 0 0 auto;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-
-        @media screen and (max-width: 1023px) {
-            -ms-flex-direction: column;
-             flex-direction: column;
-         }
-    }
-
-    &__label {
-        flex: 1 1 auto;
-        text-transform: uppercase;
-    }
-
-    &__attributes {
-        flex: 1 0 auto;
-        text-align: right;
-    }
-
-    &__preload {
-        position: absolute;
-        bottom: 100%;
-
-        img {
-            width: 10px;
-            height: 10px;
+        &--pdp{
+            display: none;
         }
     }
 
-}
 
-.form-field-swatch .swatch-wrap {
-    margin: 0 1% 1% 0;
-    display: flex;
-    // flex: 1 0 10%;
-    width: 4em;
-    float: left;
-    height: 4em;
+    &__swatchRequestIcon{
+        width: 15px;
+        height: 15px;
+        fill: #3498db;
 
-    @media only screen and (max-width: $screen-md) {
-        width: 3.5em;
-        height: 3.5em;
+        &--collections{
+            height: 55px;
+            width: 55px;
+            fill: #ccc;
+        }
+
+        &--pdp{
+            fill: $btn-color-green
+        }
     }
 
 
-    // @media only screen and (max-width: $screen-xl) {
-    //     width: 18%;
-    // }
-    // @media only screen and (max-width: $screen-lg) {
-    //     width: 10%;
-    // }
-    // @media only screen and (max-width: $screen-md) {
-    //     width: 10%;
-    // }
-    // @media only screen and (max-width: $screen-sm) {
-    //     width: 15.5%;
-    // }
-    // @media only screen and (max-width: $screen-xs) {
-    //     width: 15.5%;
-    //     height: 45px;
-    // }
+    &__swatchRequestText{
+        font-size: .95rem;
+        margin-left: 8px;
+        line-height: 1;
+        color: #3498db;
+        border-bottom: 1px solid #3498db;
 
-    // @media only screen and (max-width: 325px) {
-    //     height: 35px;
-    // }
-}
+        &--collections{
+            color: #777;
+            text-decoration: none;
+            border-bottom: none;
+            margin: 0 0 0 20px;
+            font-size: 1.3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
 
-.form-field-swatch .swatch {
-    border-radius: 50%;
-    height: 100%;
-    width: 100%;
+            @media only screen and (max-width: $screen-sm) {
+                line-height: 1.4;
+            }
+
+            & span{
+                text-align: left;
+                margin-bottom: 5px;
+                display: flex;
+                line-height: 1;
+                align-content: center;
+                align-items: center;
+                justify-content: space-between;
+
+                @media only screen and (max-width: $screen-sm) {
+                    font-size: 1.1rem;
+                }
+
+                & .icon{
+                    height: 15px;
+                    width: 30px;
+                }
+            }
+
+            & small{
+                font-size: 0.9rem;
+                flex: 1 0 auto;
+
+                @media only screen and (max-width: $screen-sm) {
+                    text-align: left;
+                    font-size: .7rem;
+                }
+            }
+        }
+
+        &--pdp{
+            color: $btn-color-green;
+            border-bottom: 1px solid $btn-color-green;
+        }
+    }
+
+
+    &__swatchSelect{
+        @extend .form-input;
+        @extend .form-select;
+        width: 100%;
+    }
 }

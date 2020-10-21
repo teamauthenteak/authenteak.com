@@ -12,6 +12,7 @@ var webpackConfig = {
     rules: [
       {
         test: /\.js$/,
+        exclude: /node_modules/,
         include: [
           path.resolve(__dirname, 'assets/js'),
           path.resolve(__dirname, 'node_modules/@bigcommerce/stencil-utils'),
@@ -27,7 +28,8 @@ var webpackConfig = {
               ['@babel/preset-react']
             ],
             plugins: [
-              "@babel/plugin-transform-spread"
+              "@babel/plugin-transform-spread",
+              "@babel/plugin-proposal-class-properties"
             ]
           }
         }
