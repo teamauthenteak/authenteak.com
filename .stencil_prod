@@ -1,8 +1,8 @@
 {
-  "normalStoreUrl": "https://authenteaksandbox3.mybigcommerce.com",
+  "normalStoreUrl": "https://authenteak.com",
   "port": "3300",
-  "clientId": "ijelag55xgkgn6hjjujxx873zku4tx9",
-  "accessToken": "rhohi1ca1ca7nrhpizjc8gz7ywc3gga",
+  "clientId": "mp6ud9o9iui7dwoigkclsz46520072u",
+  "accessToken": "l377p2w8d3ln6e1xgaaa3atuoluj0fg",
   "customLayouts": {
     "brand": {},
     "category": {
@@ -11,7 +11,7 @@
     },
     "page": {
       "_template_a.html" : "/",
-      "test.html" : "/test-page/",
+      "_template_b.html" : "/test-page/",
       "warranties.html": "/warranties",
       "_swatchcheckout.html": "/swatch-checkout/"
     },

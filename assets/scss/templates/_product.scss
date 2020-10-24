@@ -306,6 +306,29 @@
     &__priceDesc{
         margin: 0;
         line-height: 1.2;
+
+        @media only screen and (max-width: $screen-sm) {
+            font-size: 0.8rem;
+            padding-left: 20px;
+        }
+
+        &--name{
+            width: 100%;
+            display: block;
+
+            @media only screen and (max-width: $screen-sm) {
+                display: inline-block;
+            }
+        }
+
+        &--swatch{
+            width: 100%;
+            display: block;
+
+            @media only screen and (max-width: $screen-sm) {
+                display: inline-block;
+            }
+        }
     }
 
 
@@ -369,6 +392,10 @@
             @extend .product__col-2-3--lg;
             float: left;
 
+            @media only screen and (max-width: $screen-lg) {
+                width: 60%;
+            }
+
             @media only screen and (max-width: $screen-md) {
                 width: 100%;
             }
@@ -376,9 +403,12 @@
 
         &--customizeCntr{
             @extend .product__col-1-3--lg; 
-            
             padding: 20px;
             float: left;
+
+            @media only screen and (max-width: $screen-lg) {
+                width: 40%;
+            }
 
             @media only screen and (max-width: $screen-md) {
                 padding: 40px 0 20px 0;
@@ -450,6 +480,14 @@
             align-items: center;
             align-content: center;
             padding: 0;
+
+            @media only screen and (max-width: $screen-md){
+                justify-content: flex-end;
+            }
+
+            @media only screen and (max-width: $screen-sm) {
+                justify-content: space-between;
+            }
         }
     }
 
@@ -486,6 +524,13 @@
             border: $standard-border;
             border-radius: $border-radius;
             outline: none;
+            background-color: transparent;
+            width: 25%;
+
+            @media only screen and (max-width: $screen-sm) {
+                margin-bottom: 10px;
+                width: 50%;
+            }
 
             &:first-of-type{
                 padding-left: 10px;
@@ -526,6 +571,10 @@
             align-content: center;
             flex-direction: column;
 
+            @media only screen and (max-width: $screen-lg) {
+                width: 50%;
+            }
+
             @media only screen and (max-width: $screen-sm) {
                 padding: 0;
             }
@@ -535,6 +584,10 @@
             @extend .product__col-4-10--lg;
             @extend .product__col-1-1;
             padding: 0 0 0 20px;
+
+            @media only screen and (max-width: $screen-lg) {
+                width: 50%;
+            }
 
             @media only screen and (max-width: $screen-sm) {
                 padding: 20px 0 0 0;
@@ -547,18 +600,42 @@
 
         &--horz{
             padding: 40px 0;
+
+            @media only screen and (max-width: $screen-md) {
+                flex-direction: column;
+            }
+        }
+
+    }
+
+
+    &__podBtnCntr{
+        width: 100%;
+        padding: 20px;
+        display: flex;
+
+        @media only screen and (max-width: $screen-sm) {
+            flex-direction: row;
+            flex-wrap: wrap;
+            padding: 0;
         }
     }
+
 
     &__podSwatches{
         @extend .form-field-control;
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: start;
         width: 100%;
         flex: 1 0 auto;
         padding-top: 15px;
         flex-wrap: wrap;
+        align-items: flex-start;
+
+        &--center{
+            justify-content: center;
+        }
         
         & .swatch-radio{
             position: absolute;
@@ -573,6 +650,7 @@
     &__scrollCntr{
         max-height: 250px;
         overflow-y: scroll;
+        overflow-x: hidden;
         justify-content: start;
         padding-top: 0;
         @extend %scrolling-inner;
@@ -614,6 +692,10 @@
             width: 25%;
             margin-bottom: 10px;
 
+            @media only screen and (max-width: $screen-sm) {
+                width: 50%;
+            }
+
             & .swatch-wrap{
                 display: flex;
                 align-items: center;
@@ -640,6 +722,15 @@
                     width: 70%;
                     display: block;
                     padding-left: 10px;
+
+                    & .drawer__swatchLabel--grade{
+                        padding-right: 3px;
+                    }
+
+                    & span{
+                        display: inline-block;
+                        
+                    }
                 }
             }
         }
@@ -738,6 +829,10 @@
         flex-direction: row;
         max-height: 600px;
 
+        @media only screen and (max-width: $screen-lg) {
+            flex-direction: column;
+        }
+
         @media only screen and (max-width: $screen-md) {
             flex-direction: column;
         }
@@ -763,6 +858,14 @@
         order: 0;
         margin-right: 20px;
 
+        @media only screen and (max-width: $screen-lg) {
+            width: 100%;
+            order: 1;
+            display: flex !important;
+            flex-direction: row;
+            justify-content: center;
+        }
+
         @media only screen and (max-width: $screen-md) {
            display: flex !important;
            width: 100%;
@@ -771,7 +874,7 @@
         }
 
         & li{
-            margin-bottom: 5px;
+            margin: 0 5px 0 5px;
         }
 
         & img{

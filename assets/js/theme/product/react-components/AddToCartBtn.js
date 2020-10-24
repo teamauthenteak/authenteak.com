@@ -9,35 +9,35 @@ export default function AddToCartBtn(props){
 
     return(
         <button type="button" disabled={props.isDisabled || props.status === 102 } className="stickyCart__atcBtn" onClick={addToCart}>
-            
-            {props.status === 102 ?
-                <>
-                    <svg className="icon icon-spinner"><use xlinkHref="#icon-spinner" /></svg>
-                    Adding Items
-                </>
-            : null }
+            {
+                {
+                    102: <>
+                            <svg className="icon icon-spinner"><use xlinkHref="#icon-spinner" /></svg>
+                            <span className="stickyCart__atcBtnText">Adding Items</span>
+                         </>,
 
-            {props.status === 202 ?
-                <>
-                    <svg className="icon icon-check2"><use xlinkHref="#icon-check2" /></svg>
-                    Items Added
-                </>
-            : null }
+                    202: <>
+                            <svg className="icon icon-check2"><use xlinkHref="#icon-check2" /></svg>
+                            <span className="stickyCart__atcBtnText">Items Added</span>
+                         </>,
 
-            {props.status === 400 ?
-                <>
-                    <svg className="icon icon-info_outline"><use xlinkHref="#icon-info_outline" /></svg>
-                    Try Again
-                </>
-            : null }
+                    307: <>
+                            <span className="stickyCart__atcBtnText">View Cart</span>
+                            <svg className="icon icon-arrow-right"><use xlinkHref="#icon-arrow-right" /></svg>
+                         </>,
 
-            {props.status === null ?
-                <>
-                    <svg className="icon icon-cart"><use xlinkHref="#icon-cart" /></svg>
-                    Add To Cart
-                </>
-            : null }
-           
+                    400: <>
+                            <svg className="icon icon-info_outline"><use xlinkHref="#icon-info_outline" /></svg>
+                            <span className="stickyCart__atcBtnText">Try Again</span>
+                         </>,
+
+                    null: <>
+                            <svg className="icon icon-cart"><use xlinkHref="#icon-cart" /></svg>
+                            <span className="stickyCart__atcBtnText">Add To Cart</span>
+                          </>
+
+                }[props.status]
+            }
         </button>
     )
 }

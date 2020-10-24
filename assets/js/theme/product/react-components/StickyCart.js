@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext, useMemo } from 'react';
 import { useSpring, animated } from 'react-spring';
+import Async from 'async';
 
 import utils from '@bigcommerce/stencil-utils';
 import { formatPrice, replaceSize } from './Utils';
@@ -19,8 +20,15 @@ export default function StickyCart(props){
     const cartItems = Object.keys(props.cart);
     const hasCartItems = cartItems.length > 0;
 
+    let stickyBounds = null;
+
     const handleScroll = () => {
-        let canFix = window.pageYOffset < 966 + 330;
+        if( !stickyBounds ){
+            let stickyCart = document.querySelector(".stickyCart");
+            stickyBounds = stickyCart.offsetTop + stickyCart.offsetHeight;
+        }
+
+        let canFix = window.pageYOffset < stickyBounds;
         setFixed(canFix);
     };
 
@@ -53,7 +61,7 @@ export default function StickyCart(props){
 
 
     const addToCart = () => {
-        let cartObj = {...props.cart};
+        let cartObj = {...props.cart}, item = 0, cartItems = Object.values(cartObj);
 
         setStatus(102);
 
@@ -62,34 +70,41 @@ export default function StickyCart(props){
             delete cartObj[key].total;
         }
 
-        Object.values(cartObj).forEach((item) => {
-            let formData = new FormData();
+        Async.whilst(
+            () => { return item < cartItems.length;  },
+            (callback) => {
+                let formData = new FormData();
 
-            for (const key in item) {
-                formData.append(`${key}`, item[key]);
+                for (const key in cartItems[item]) {
+                    formData.append(`${key}`, cartItems[item][key]);
+                }
+
+                utils.api.cart.itemAdd(formData, (err, response) => {
+                    const { cartStatus } = props;
+
+                    if( response ){
+                        setStatus(202);
+                        cartStatus(202);
+                        callback(null, item);
+                    }
+
+                    if( err ){
+                        console.log(err)
+                        setStatus(400)
+                        cartStatus(404)
+                    }
+                });
+
+                item++;
+
+            }, (err) => {
+                setTimeout(() => {
+                    setStatus(null);
+                    setTotal(0);
+                    setTotalQty(0);
+                }, 3000);
             }
-
-            utils.api.cart.itemAdd(formData, (err, response) => {
-                const { cartStatus } = props;
-
-                if( response ){
-                    setStatus(202)
-                    cartStatus(202)
-
-                    setTimeout(() => {
-                        setStatus(null);
-                        setTotal(0);
-                        setTotalQty(0);
-                    }, 3000);
-                }
-
-                if( err ){
-                    console.log(err)
-                    setStatus(400)
-                    cartStatus(404)
-                }
-            });
-        });
+        );
     };
 
 

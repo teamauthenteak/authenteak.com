@@ -26,7 +26,7 @@ export default function PointOfPurchaseModal(props){
     const [ totalQty, setTotalQty ] = useState(1);
     const [ selected, setSelected ] = useState({});
 
-    const [ cart, setCart ] = useState();
+    const [ atcDisabled, setAtcDisabled ] = useState(false);
     const [ total, setTotal ] = useState(0);
     const [ status, setStatus ] = useState(null);
 
@@ -102,16 +102,40 @@ export default function PointOfPurchaseModal(props){
 
 
     const addToCart = () => {
-        /*
-        {
-            action: "add",
-            "qty[]": totalQty,
-            product_id: props.product.entityId,
+        let cart = {
+                action: "add",
+                "qty[]": totalQty,
+                product_id: selected.node.entityId,
+                [`attribute[${selectedOpt.attribute}]`]: selectedOpt.attributeValue
+            };
+
+        setStatus(102);
+        setAtcDisabled(true);
+
+        let formData = new FormData();
+
+        for (const key in cart) {
+            formData.append(`${key}`, cart[key]);
         }
 
-        params[`attribute[${swatches[key].attribute}]`] = swatches[key].attributeValue.id;
-        */
+        utils.api.cart.itemAdd(formData, (err, response) => {
+            if( response ){
+                setStatus(202);
+
+                setTimeout(() => {
+                    setStatus(307);
+                    window.location.href = "/cart.php";
+                }, 1000);
+            }
+
+            if( err ){
+                console.log(err)
+                setStatus(400);
+                setAtcDisabled(false);
+            }
+        });
     }
+
 
 
     // on swatch change
@@ -136,6 +160,8 @@ export default function PointOfPurchaseModal(props){
                 [`attribute[${selectedOpt.attribute}]`]: selectedOpt.attributeValue
             };
 
+        setAtcDisabled(true);
+
         let query = "";
 
         for (const key in params) {
@@ -144,6 +170,8 @@ export default function PointOfPurchaseModal(props){
 
         utils.api.productAttributes.optionChange(selected.node.entityId, encodeURI(query), (err, response) => {
             let updated = response.data;
+
+            setAtcDisabled(false);
 
             setTotal({
                 without_tax: formatPrice(updated.price.without_tax.value * totalQty),
@@ -166,13 +194,13 @@ export default function PointOfPurchaseModal(props){
     useMemo(() => {
         if( Object.keys(selectedOpt).length ){
 
-            // make our brittle label "ID" just like in Swatch.js to find our match
+            // make our brittle label "ID" just like in Swatch.js to find our match...  :/
             let prevSelect = selectedOpt.label.split("--")[0];
 
             prevSelect = prevSelect.toLowerCase().split("(+")[0];
             prevSelect = prevSelect.split(" ").join("");
 
-            // run through all the options values to find a brittle match
+            // run through all the options values to find a brittle match...  :/
             let selectedOptions = selected.options[0].node.values.edges;
 
             for (let i = 0; i < selectedOptions.length; i++) {
@@ -220,12 +248,12 @@ export default function PointOfPurchaseModal(props){
 
                         <form className="modal__content">                 
                             <div className="product__row product__row--podCntr">
-                                <div className="product__col-1-1 flex">
+                                <div className="product__podBtnCntr">
                             { productData.length !== 0 ?
                                 productData.map((item) => {
                                     return  <button type="button" 
                                                 name={item.node.name} 
-                                                className={`product__pod--btn product__pod--1-4 ${Object.keys(selected).length !== 0 && selected.node.entityId === item.node.entityId ? "product__pod--btn-active" : "" }`} 
+                                                className={`product__pod--btn ${Object.keys(selected).length !== 0 && selected.node.entityId === item.node.entityId ? "product__pod--btn-active" : "" }`} 
                                                 key={item.node.entityId} 
                                                 onClick={() => setSelected(item)}
                                             >
@@ -235,7 +263,7 @@ export default function PointOfPurchaseModal(props){
                                             </div>
                                             <h5 className="product__name product__name--pod">{item.node.name}</h5>
                                             <div className="product__price product__price--pod">{ formatPrice( TEAK.Utils.graphQL.determinePrice( item.node.prices)) }</div>
-                                            <ul className="product__podSwatches">
+                                            <ul className="product__podSwatches product__podSwatches--center">
                                     { item.hasOwnProperty("options") ?
                                         item.options[0].node.values.edges.map((optItem, index) => {
                                             if( index < 4 ){
@@ -250,7 +278,14 @@ export default function PointOfPurchaseModal(props){
                                             </ul>
                                         </button>
                                 })
-                            :null}
+                            :
+                                <ul className="preloader preloader--full preloader--tall preloader--background">
+                                    <li className="preloader__block preloader__block--1-4"></li>
+                                    <li className="preloader__block preloader__block--1-4"></li>
+                                    <li className="preloader__block preloader__block--1-4"></li>
+                                    <li className="preloader__block preloader__block--1-4"></li>
+                                </ul>
+                            }
                                 </div>
                             </div>
 
@@ -259,10 +294,10 @@ export default function PointOfPurchaseModal(props){
                     { Object.keys(selected).length !== 0 ?
                         selected.options.map((item) => {
                             return  <React.Fragment key={item.node.entityId}>
-                                        <div className="product__col product__col-1-3">
+                                        <div className="product__col product__col-1-3--lg product__col-1-1">
                                             <h5 className="product__name">{item.node.displayName}</h5>
 
-                                            <div className="product__col product__col-6-10 no-pad">
+                                            <div className="product__col product__col-6-10--lg product__col-5-10 no-pad">
                                                 { Object.keys(selectedOpt).length !== 0 ?
                                                 <figure className="product__figure">
                                                     <img className="product__figImg round" src={selectedOpt.image} alt={`Pillow Swatch ${selectedOpt.label}`} />
@@ -281,7 +316,7 @@ export default function PointOfPurchaseModal(props){
                                             </div>
                                         </div>
 
-                                        <div className="product__col product__col-2-3">
+                                        <div className="product__col product__col-2-3--lg product__col-1-1">
                                             <div className="product__scrollCntr">
                                                 <ul className="product__podSwatches">
                                     { item.node.displayStyle === "Swatch" ?
@@ -310,23 +345,23 @@ export default function PointOfPurchaseModal(props){
                             </div>
 
                             <div className={`product__row product__row--border product__row--podCntr ${Object.keys(selected).length === 0 ? "hide" : "flex"}`}>
-                                <div className="product__col product__col-6-10 pad-top flex">
+                                <div className="product__col product__col-6-10--lg product__col-1-1 pad-top flex">
                                     <div className="product__col--priceCntr">
                                         <div className="product__col-2-10 no-pad">
                                             <div className="product__price">{total.without_tax ? total.without_tax : "$0"}</div>
                                         </div>
-                                        <div className="product__col-8-10 no-pad">
+                                        <div className="product__col-8-10--md product__col-1-1 no-pad">
                                             <p className="product__priceDesc">
-                                                <strong>{Object.keys(selected).length ? selected.node.name : ""}</strong><br />
-                                                <span>{Object.keys(selectedOpt).length ? selectedOpt.label.split("--")[0] : ""}</span>
+                                                <strong className="product__priceDesc--name">{Object.keys(selected).length ? selected.node.name : ""}</strong>
+                                                <span className="product__priceDesc--swatch">{Object.keys(selectedOpt).length ? selectedOpt.label.split("--")[0] : ""}</span>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="product__col product__col-4-10 flex pad-top">
+                                <div className="product__col product__col-4-10--lg product__col-1-1 flex pad-top">
                                     <div className="product__col--priceCntr">
                                         <QuantityButton value={1} qty={updateQty} />
-                                        <AddToCartBtn isDisabled={false} addToCart={addToCart} status={status} />
+                                        <AddToCartBtn isDisabled={atcDisabled} addToCart={addToCart} status={status} />
                                     </div>
                                 </div>
                             </div>

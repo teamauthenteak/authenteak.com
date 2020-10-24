@@ -97,13 +97,11 @@ class App extends React.Component{
                         </a>;
             }
         };
-
-        this.toggleDrawer = this.toggleDrawer.bind(this);
     }
 
 
 
-    toggleDrawer(args){
+    toggleDrawer = (args) => {
         this.setState({
             drawerState: "open",
             drawerOptions: args.values,
@@ -264,7 +262,6 @@ class App extends React.Component{
                     {this.state.requestSwatchesState === "open" ? 
                         <RequestSwatch /> 
                     :null }
-
 
                     {this.state.showPointOfPurchase ? <PointOfPurchaseModal /> : null}
                 

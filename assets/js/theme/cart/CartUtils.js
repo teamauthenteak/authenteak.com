@@ -119,8 +119,8 @@ export default class CartUtils {
 		if( clydeProduct.attr("name").includes("Clyde Protection Plan") ){
 			coveredProductCode = $target.parents(".cell").siblings(".cart-item-options").find(".product-option[data-name='covered-product-code']").data("value");
 
-		// if its a product that has a clyde contract
-		}else if (removeCoveredProduct || removeCoveredProduct.coveredProductCode !== "" ){
+			// if its a product that has a clyde contract
+		}else if ( typeof removeCoveredProduct !== "undefined" ){
 			TEAK.Utils.storeData("clyde_delete", removeCoveredProduct.itemId);
 			coveredProductCode = removeCoveredProduct.coveredProductCode;
 		}

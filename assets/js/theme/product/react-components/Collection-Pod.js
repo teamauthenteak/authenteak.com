@@ -29,6 +29,7 @@ export default function CollectionPod(props){
     const [ invalidDropdown, setInvalidDropdown ] = useState([]);
 
     const [ shouldUpdate, update ] = useState(false);
+    const [ isUpdating, setUpdating ] = useState(false);
     const [ isSuggested, setSuggested ] = useState(false)
 
     const toggleDrawer = (args) => {
@@ -100,6 +101,8 @@ export default function CollectionPod(props){
     };
 
 
+
+
     // adds products to the collections pre-cart
     const addToCart = () => {
         // run a validation on options
@@ -152,6 +155,7 @@ export default function CollectionPod(props){
                 "qty[]": qty
             };
 
+
         let hasSwatches = Object.keys(swatches).length > 0;
         let hasDropdown = Object.keys(dropdown).length > 0;
         let hasProtectiveCover = Object.keys(dropdown).findIndex(item => item.toLowerCase().includes("protective cover"));
@@ -177,6 +181,7 @@ export default function CollectionPod(props){
             ( hasProtectiveCover === -1 && hasDropdown ) ||
             qty > 1 
         ){
+            setUpdating(true);
 
             let query = "";
 
@@ -195,6 +200,8 @@ export default function CollectionPod(props){
                 if( appHook.cart.hasOwnProperty(props.product.entityId.toString()) ){
                     update(true);
                 }
+
+                setUpdating(false);
             });
         }
 
@@ -205,7 +212,7 @@ export default function CollectionPod(props){
 
     const selectSwatch = (data) => {
         setSwatch((swatches) => {
-            let newSwatch = {...swatches};
+            let newSwatch = { ...swatches };
             
             newSwatch[data.display_name] = {
                 attribute: data.id,
@@ -219,14 +226,14 @@ export default function CollectionPod(props){
 
 
     const selectSelect = (data) => {
-        setDropdown(data);
+        setDropdown({ ...dropdown, ...data });
     };
 
 
     function setProtectiveCover(element){
         let noThanks = element.node.values.edges.find(ele => ele.node.label.includes("No Thanks"));
 
-        setDropdown({
+        selectSelect({
             [element.node.displayName]: {
                 attribute: element.node.entityId,
                 attributeValue: noThanks.node.entityId,
@@ -236,6 +243,7 @@ export default function CollectionPod(props){
     }
 
 
+
     useEffect(() => {
         if( options.length === 0 ){
             let options = graphQL.getProductOptions(props.product.entityId);
@@ -243,11 +251,11 @@ export default function CollectionPod(props){
             graphQL.get(options).then(response => {
                 if( response ){
                     let responseData = response.site.products.edges[0].node.productOptions.edges;
-                    
+
                     setOptions(responseData);
     
                     let protectiveCover = responseData.find(ele => ele.node.displayName.toLowerCase().includes("protective cover") );
-                    
+
                     if( protectiveCover ){ 
                         setProtectiveCover(protectiveCover); 
                     }
@@ -355,14 +363,18 @@ export default function CollectionPod(props){
                         
                             <div className="product__pod--controls">
                                 <div className="product__price">
-                                    <div className="product__priceLine">
-                                        <span className="product__priceValue">
-                                            {productPrice.without_tax}
-                                        </span>
-                                        {productPrice.rrp_without_tax !== null ? 
-                                            <span className="product__priceRrp">${productPrice.rrp_without_tax}</span>
-                                        : null}
-                                    </div>              
+                                    { isUpdating ?
+                                        <div className="product__priceLine">
+                                            <svg className="icon icon-spinner"><use xlinkHref="#icon-spinner" /></svg>
+                                        </div>
+                                    :
+                                        <div className="product__priceLine">
+                                            <span className="product__priceValue">
+                                                {productPrice.without_tax}
+                                            </span>
+                                            {productPrice.rrp_without_tax !== null ? <span className="product__priceRrp">${productPrice.rrp_without_tax}</span> : null}
+                                        </div>
+                                    }
                                 </div>
 
                                 <div className="product__swatchCol">
@@ -423,7 +435,7 @@ export default function CollectionPod(props){
                                         <QuantityButton qty={setQty} value={qty} />
                                     </div>
 
-                                    <AddButton addToCart={addToCart} id={props.product.entityId.toString()} update={shouldUpdate} />
+                                    <AddButton disabled={isUpdating} addToCart={addToCart} id={props.product.entityId.toString()} update={shouldUpdate} />
                                 </div>
                             </div>
                         </div>

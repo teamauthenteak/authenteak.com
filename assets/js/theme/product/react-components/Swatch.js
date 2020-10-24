@@ -27,13 +27,13 @@ export default function Swatch(props){
     useEffect(() => {
         if( appHook.hasOwnProperty(props.displayName) && appHook[props.displayName].attributeValue && props.type === "remote" ){
             
-            // have to create some sort of "ID" from the globally set swatch context to do our matching
+            // have to create some sort of "ID" from the globally set swatch context to do our matching..  :/
             let hookId = appHook[props.displayName].swatch.label.split("--")[0];
         
             hookId = hookId.toLowerCase().split("(+")[0];
             hookId = hookId.split(" ").join("");
 
-            // loop through all of the labels creating an id for matching
+            // loop through all of the labels creating an brittle id for matching... :(
             for (let i = 0; i < props.values.length; i++) {
                let labelId = props.values[i].node.label.split("--")[0];
 
@@ -55,8 +55,6 @@ export default function Swatch(props){
                    break;
                }
             }
-                
-            
         }
 
     }, [appHook[props.displayName]]);

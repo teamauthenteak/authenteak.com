@@ -23,6 +23,12 @@
         padding: 0 3vw 0 3vw;
         margin-bottom: 5px;
 
+        @media only screen and (max-width: $screen-sm) {
+            & .stickyCart__titleCntr{
+                display: none;
+            }
+        }
+
         &--contains{
             height: auto;
         }
@@ -31,6 +37,12 @@
             box-shadow: none;
             position: static;
             padding: 0;
+
+            @media only screen and (max-width: $screen-sm) {
+                & .stickyCart__titleCntr{
+                    display: block;
+                }
+            }
         }
     }
 
@@ -55,6 +67,7 @@
 
         @media only screen and (max-width: $screen-sm) {
             width: 25%;
+            text-align: center;
         }
     }
 
@@ -67,6 +80,11 @@
         @media only screen and (max-width: $screen-lg) {
             font-size: 1.3rem;
         }
+
+        @media only screen and (max-width: $screen-sm) {
+            width: 100%;
+            font-size: 1.1rem;
+        }
     }
 
     &__titleCntr{
@@ -74,7 +92,7 @@
         padding-left: 20px;
 
         @media only screen and (max-width: $screen-sm) {
-            display: none;
+            width: 100%;
         }
     }
 
@@ -120,6 +138,20 @@
             height: 20px;
             margin: 0 10px 0 0;
             position: static;
+
+            @media only screen and (max-width: $screen-sm) {
+                margin: 0;
+            }
+        }
+
+        & .icon-arrow-right{
+            margin: 0 0 0 10px;
+        }
+    }
+
+    &__atcBtnText{
+        @media only screen and (max-width: $screen-sm) {
+            display: none;
         }
     }
 
@@ -130,6 +162,10 @@
 
         @media only screen and (max-width: $screen-lg) {
             font-size: .8rem;
+        }
+
+        @media only screen and (max-width: $screen-sm) {
+            display: none;
         }
     }
 

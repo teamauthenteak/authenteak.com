@@ -21,6 +21,11 @@
         transform: translate3d(0, 0, 0);
         z-index: 99999;
         overflow: hidden;
+
+        @media only screen and (max-width: $screen-md) {
+            width: 95vw;
+            margin-left: (-95vw / 2);
+        }
     }
 
     &__cntr{
@@ -30,6 +35,10 @@
         width: 100%;
         float: left;
         max-height: 90vh;
+
+        @media only screen and (max-width: $screen-md) {
+            padding: 20px;
+        }
     }
 
     &__overlay{
@@ -44,6 +53,18 @@
         height: 100vh;
     }
 
+    &__headingCntr{
+        @media only screen and (max-width: $screen-md) {
+            padding-right: 20px;
+        }
+
+        @media only screen and (max-width: $screen-sm) {
+            width: 100%;
+            padding: 0 0 20px 0;
+            text-align: center;
+        }
+    }
+
     &__header{
         display: flex;
         flex: 1 0 auto;
@@ -53,13 +74,23 @@
         margin-bottom: 20px;
         width: 100%;
         float: left;
+
+        @media only screen and (max-width: $screen-sm) {
+           flex-direction: column;
+        }
     }
+
+    
 
     &__heading{
         font-size: 3rem;
         font-weight: 400;
         margin: 0;
         line-height: 1;
+
+        @media only screen and (max-width: $screen-sm) {
+            font-size: 2.1rem;
+        }
     }
 
     &__headingDesc{
@@ -76,6 +107,12 @@
         display: flex !important;
         align-items: center;
         align-content: center;
+
+        @media only screen and (max-width: $screen-md) {
+            padding: 15px 1em;
+            width: 250px;
+            justify-content: center;
+        }
 
         & .icon{
             width: 25px;

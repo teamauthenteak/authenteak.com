@@ -35,6 +35,10 @@
         flex-wrap: wrap;
     }
 
+    &--full{
+        width: 100%;
+    }
+
     &--tall{
         height: 50vh;
         max-height: 325px;
@@ -74,6 +78,22 @@
         background-color: #fff;
         position: absolute;
         left: 30%;
+    }
+
+    // basic block loader
+    &__block{
+        height: 100%;
+        float: left;
+        border-left: 1em solid #fff;
+        display: block;
+
+        &:first-of-type{
+            border-left: none;
+        }
+
+        &--1-4{
+            width: 25%;
+        }
     }
 
 
