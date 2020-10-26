@@ -82,7 +82,14 @@
 
 	{{{snippet 'footer'}}}
 	
-	<script src="{{cdn '/assets/js/bundle.js'}}?v={{theme_settings.version}}"></script>
+	{{#if page_type '===' 'product'}}
+	<script src="{{cdn '/assets/js/product.bundle.js'}}?v={{theme_settings.version}}"></script>
+	{{else if page_type '===' 'cart'}}
+	<script src="{{cdn '/assets/js/cart.bundle.js'}}?v={{theme_settings.version}}"></script>
+	{{else}}
+	<script src="{{cdn '/assets/js/global.bundle.js'}}?v={{theme_settings.version}}"></script>
+	{{/if}}
+
 	{{> components/common/TEAK-js}}
 	<script>window.stencilBootstrap( "{{template_file}}", {{ jsContext }} ).load();</script>
 	

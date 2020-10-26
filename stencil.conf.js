@@ -6,7 +6,9 @@ var webpackConfig = {
   context: __dirname,
   devtool: 'eval-cheap-module-source-map',
   entry: {
-    main: path.resolve(__dirname, 'assets/js/app.js')
+    global: path.resolve(__dirname, 'assets/js/app.js'),
+    product: path.resolve(__dirname, 'assets/js/app-product.js'),
+    cart: path.resolve(__dirname, 'assets/js/app-cart.js')
   },
   module: {
     rules: [
@@ -38,7 +40,7 @@ var webpackConfig = {
   },
   output: {
     path: path.resolve(__dirname, 'assets/js'),
-    filename: 'bundle.js'
+    filename: '[name].bundle.js'
   },
   plugins: [],
   watch: false
@@ -64,13 +66,6 @@ function development() {
  */
 function production() {
   webpackConfig.devtool = false;
-  webpackConfig.plugins.push(new webpack.optimize.UglifyJsPlugin({
-    comments: false,
-    compress: {
-        warnings: true,
-    },
-    sourceMap: false, // Toggle to turn on source maps.
-  }));
 
   webpack(webpackConfig).run(err => {
     if (err) {
@@ -104,6 +99,12 @@ if (process.send) {
  * @type {{files: string[], ignored: string[]}}
  */
 module.exports = {
+  mode: process.env.NODE_ENV || 'development',
+
+  optimization: {
+    minimize: true
+  },
+
   // If files in these directories change, reload the page.
   files: [
     '/templates',

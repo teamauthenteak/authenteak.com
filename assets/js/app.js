@@ -16,8 +16,6 @@ import auth from './theme/Auth';
 import blog from './theme/Blog';
 import blogPost from './theme/BlogPost';
 import brand from './theme/Brand';
-import brands from './theme/Brands';
-import cart from './theme/Cart';
 import Category from './theme/Category';
 import Collection from './theme/Collection';
 import compare from './theme/Compare';
@@ -27,14 +25,11 @@ import errors404 from './theme/404-error';
 import giftCertificate from './theme/core/GiftCertificate';
 import global from './theme/Global';
 import Home from './theme/Home';
-import orderComplete from './theme/OrderComplete';
 import page from './theme/Page';
-import product from './theme/Product';
 import search from './theme/Search';
 import sitemap from './theme/Sitemap';
 import subscribe from './theme/Subscribe';
 import wishlist from './theme/Wishlist';
-import PDPCollection from './theme/ProductCollection';
 
 let PageClasses = {
   mapping: {
@@ -59,9 +54,7 @@ let PageClasses = {
     'pages/blog-post': blogPost,
     'pages/brand': brand,
     'pages/brands': brand,
-    'pages/cart': cart,
     'pages/category': Category,
-    'pages/amp/category': Category,
     'pages/custom/category/collection': Collection,
     'pages/compare': compare,
     'pages/contact-us': contactUs,
@@ -72,11 +65,7 @@ let PageClasses = {
     'pages/gift-certificate/redeem': giftCertificate,
     'global': global,
     'pages/home': Home,
-    'pages/order-complete': orderComplete,
     'pages/page': page,
-    'pages/custom/product/collection': PDPCollection,
-    'pages/product': product,
-    'pages/amp/product': product,
     'pages/search': search,
     'pages/sitemap': sitemap,
     'pages/subscribed': subscribe,
