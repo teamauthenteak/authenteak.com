@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useReducer } from 'react';
+import React, { useContext, useEffect, useState, useMemo, useReducer } from 'react';
 import AppContext from '../collection/AppContext';
 import LazyImg from './LazyImg';
 import { setStorage } from './Utils';

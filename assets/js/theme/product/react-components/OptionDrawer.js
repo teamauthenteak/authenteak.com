@@ -4,7 +4,7 @@ import { Spring, animated } from 'react-spring/renderprops';
 import AppContext from '../collection/AppContext';
 import OptionDrawerFilters from './OptionDrawer-Filters';
 import DrawerContext from '../collection/DrawerContext';
-
+import _ from 'lodash';
 
 export default class OptionDrawer extends React.Component{
     constructor(props){

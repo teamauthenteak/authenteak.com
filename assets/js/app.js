@@ -10,12 +10,13 @@ import './DoubleTapToGo/jquery.doubletaptogo';
 
 import stencilUtils from '@bigcommerce/stencil-utils';
 import GlobalNamespace from './theme/utils/TEAK';
-import series from 'async/series';
+import async from 'async';
 import account from './theme/core/Account';
 import auth from './theme/Auth';
 import blog from './theme/Blog';
 import blogPost from './theme/BlogPost';
 import brand from './theme/Brand';
+import brands from './theme/Brands';
 import cart from './theme/Cart';
 import Category from './theme/Category';
 import Collection from './theme/Collection';
@@ -29,11 +30,11 @@ import Home from './theme/Home';
 import orderComplete from './theme/OrderComplete';
 import page from './theme/Page';
 import product from './theme/Product';
-import AmpProduct from './theme/AmpProduct';
 import search from './theme/Search';
 import sitemap from './theme/Sitemap';
 import subscribe from './theme/Subscribe';
 import wishlist from './theme/Wishlist';
+import PDPCollection from './theme/ProductCollection';
 
 let PageClasses = {
   mapping: {
@@ -73,14 +74,14 @@ let PageClasses = {
     'pages/home': Home,
     'pages/order-complete': orderComplete,
     'pages/page': page,
+    'pages/custom/product/collection': PDPCollection,
     'pages/product': product,
     'pages/amp/product': product,
     'pages/search': search,
     'pages/sitemap': sitemap,
     'pages/subscribed': subscribe,
     'pages/account/wishlist-details': wishlist,
-    'pages/account/wishlists': wishlist,
-    'pages/amp/product-options': AmpProduct
+    'pages/account/wishlists': wishlist
   },
   /**
    * Getter method to ensure a good page type is accessed.
@@ -99,8 +100,8 @@ let PageClasses = {
  *
  * @param {Object} pageObj
  */
-function asyncSeries(pageObj) {
-  series([
+function series(pageObj) {
+  async.series([
     pageObj.before.bind(pageObj), // Executed first after constructor()
     pageObj.loaded.bind(pageObj), // Main module logic
     pageObj.after.bind(pageObj) // Clean up method that can be overridden for cleanup.
@@ -133,9 +134,9 @@ function loader(pageFunc, pages) {
     let globalPageManager = loadGlobal(pages);
     globalPageManager.context = pageFunc.context;
 
-    asyncSeries(globalPageManager);
+    series(globalPageManager);
   }
-  asyncSeries(pageFunc);
+  series(pageFunc);
 }
 
 /**

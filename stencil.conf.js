@@ -6,8 +6,7 @@ var webpackConfig = {
   context: __dirname,
   devtool: 'eval-cheap-module-source-map',
   entry: {
-    global: path.resolve(__dirname, 'assets/js/app.js'),
-    product: path.resolve(__dirname, 'assets/js/app-product.js')
+    main: path.resolve(__dirname, 'assets/js/app.js')
   },
   module: {
     rules: [
@@ -30,9 +29,7 @@ var webpackConfig = {
             ],
             plugins: [
               "@babel/plugin-transform-spread",
-              "@babel/plugin-proposal-class-properties",
-              "@babel/plugin-transform-runtime",
-              "syntax-dynamic-import"
+              "@babel/plugin-proposal-class-properties"
             ]
           }
         }
@@ -41,7 +38,7 @@ var webpackConfig = {
   },
   output: {
     path: path.resolve(__dirname, 'assets/js'),
-    filename: '[name].bundle.js'
+    filename: 'bundle.js'
   },
   plugins: [],
   watch: false
@@ -107,13 +104,6 @@ if (process.send) {
  * @type {{files: string[], ignored: string[]}}
  */
 module.exports = {
-  mode: 'production',
-
-  optimization: {
-    minimize: true,
-    removeAvailableModules: true
-  },
-
   // If files in these directories change, reload the page.
   files: [
     '/templates',

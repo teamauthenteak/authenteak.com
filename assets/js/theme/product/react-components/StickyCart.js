@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext, useMemo } from 'react';
 import { useSpring, animated } from 'react-spring';
-import whilst from 'async/whilst';
+import Async from 'async';
 
 import utils from '@bigcommerce/stencil-utils';
 import { formatPrice, replaceSize } from './Utils';
@@ -65,12 +65,12 @@ export default function StickyCart(props){
 
         setStatus(102);
 
-
         // clean up the cart
-        for (const key in cartObj) { delete cartObj[key].total; }
+        for (const key in cartObj) {
+            delete cartObj[key].total;
+        }
 
-
-        whilst(
+        Async.whilst(
             () => { return item < cartItems.length;  },
             (callback) => {
                 let formData = new FormData();
