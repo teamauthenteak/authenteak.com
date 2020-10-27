@@ -264,9 +264,11 @@ export default function CollectionPod(props){
         }
 
         if( Object.keys(productPrice).length === 0 ){
+            let retailPrice = props.product.prices.retailPrice !== null ? props.product.prices.retailPrice.value : 0;
+            
             let price = {
                 without_tax: formatPrice( TEAK.Utils.graphQL.determinePrice( props.product.prices) ),
-                rrp_without_tax: formatPrice( props.product.prices.retailPrice.value )
+                rrp_without_tax: formatPrice( retailPrice )
             };
     
             setProductPrice(price);

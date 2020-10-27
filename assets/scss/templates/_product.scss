@@ -629,11 +629,11 @@
         justify-content: start;
         width: 100%;
         flex: 1 0 auto;
-        padding-top: 15px;
         flex-wrap: wrap;
         align-items: flex-start;
 
         &--center{
+            padding-top: 15px;
             justify-content: center;
         }
         

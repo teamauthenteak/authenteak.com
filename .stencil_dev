@@ -1,0 +1,22 @@
+{
+  "normalStoreUrl": "https://authenteak-new-add-edit-sandbox.mybigcommerce.com/",
+  "port": "3300",
+  "clientId": "j0df6cajefp8gu1iekrejakqh3uifkm",
+  "accessToken": "j4f3nqr06ks5k6szv1i4bfpuljbrxrz",
+  "customLayouts": {
+    "brand": {},
+    "category": {
+      "shop-all-brands.html": "/shop-all-brands/",
+      "collection.html": "/outdoor-furniture/shop-by-collection/kingsley-bate-sag-harbor-collection/"
+    },
+    "page": {
+      "_template_a.html" : "/",
+      "_template_b.html" : "/test-page/",
+      "warranties.html": "/warranties",
+      "_swatchcheckout.html": "/swatch-checkout/"
+    },
+    "product": {
+      "_collection.html" : "/kingsley-bate-sag-harbor-sectional"
+    }
+  }
+}

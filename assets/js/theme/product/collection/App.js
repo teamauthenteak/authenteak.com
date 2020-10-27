@@ -144,15 +144,18 @@ class App extends React.Component{
         this.graphQL.get(collectionProducts).then((response) => {
             let arr = [], orderedArr = [];
 
-            response.site.products.edges.forEach(element => arr.push(element.node)); 
+            if( response.site.products.edges.length ){
+                response.site.products.edges.forEach(element => arr.push(element.node)); 
+            
+                // make sure our collection order matches the order in the backend
+                collection.forEach((item) => {
+                    let tempObj = arr.find(element => element.entityId === item);
+                    orderedArr.push(tempObj);
+                });
 
-            // make sure our collection order matches the order in the backend
-            collection.forEach((item) => {
-                let tempObj = arr.find(element => element.entityId === item);
-                orderedArr.push(tempObj);
-            });
-
-            this.setState({ collection: orderedArr });
+                this.setState({ collection: orderedArr });
+            }
+            
         });
 
     }

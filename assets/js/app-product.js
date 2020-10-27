@@ -5,14 +5,12 @@ import './theme/global/jquery';
 import 'jquery-trend';
 import 'jquery-revealer';
 import 'validetta';
-// import './simplebar/simplebar';
 import './DoubleTapToGo/jquery.doubletaptogo';
 
 import stencilUtils from '@bigcommerce/stencil-utils';
 import GlobalNamespace from './theme/utils/TEAK';
 import async from 'async';
 import global from './theme/Global';
-import page from './theme/Page';
 import product from './theme/Product';
 import PDPCollection from './theme/ProductCollection';
 
@@ -20,7 +18,7 @@ let PageClasses = {
   mapping: {
     'global': global,
     'pages/custom/product/collection': PDPCollection,
-    'pages/product': product,
+    'pages/product': product
   },
   /**
    * Getter method to ensure a good page type is accessed.
@@ -71,8 +69,8 @@ function loadGlobal(pages) {
 function loader(pageFunc, pages) {
   if (pages.get('global')) {
     let globalPageManager = loadGlobal(pages);
-    globalPageManager.context = pageFunc.context;
 
+    globalPageManager.context = pageFunc.context;
     series(globalPageManager);
   }
   series(pageFunc);

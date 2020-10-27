@@ -5,6 +5,10 @@ import LazyImg from './LazyImg';
 export default function Swatch(props){
     const appHook = useContext(AppContext);
 
+    const optionExists = appHook.hasOwnProperty(props.displayName);
+    const hasSwatch = optionExists && appHook[props.displayName].swatch !== undefined;
+    const hasAttributes = optionExists && appHook[props.displayName].attributeValue !== undefined;
+
     const toggleDrawer = (data) => {
         const { toggle } = props;
 
@@ -25,35 +29,37 @@ export default function Swatch(props){
 
 
     useEffect(() => {
-        if( appHook.hasOwnProperty(props.displayName) && appHook[props.displayName].attributeValue && props.type === "remote" ){
+        if(optionExists && hasAttributes && props.type === "remote" ){
+
+            if( hasSwatch ){
+                // have to create some sort of "ID" from the globally set swatch context to do our matching..  :/
+                let hookId = appHook[props.displayName].swatch.label.split("--")[0];
             
-            // have to create some sort of "ID" from the globally set swatch context to do our matching..  :/
-            let hookId = appHook[props.displayName].swatch.label.split("--")[0];
-        
-            hookId = hookId.toLowerCase().split("(+")[0];
-            hookId = hookId.split(" ").join("");
+                hookId = hookId.toLowerCase().split("(+")[0];
+                hookId = hookId.split(" ").join("");
 
-            // loop through all of the labels creating an brittle id for matching... :(
-            for (let i = 0; i < props.values.length; i++) {
-               let labelId = props.values[i].node.label.split("--")[0];
+                // loop through all of the labels creating an brittle id for matching... :(
+                for (let i = 0; i < props.values.length; i++) {
+                    let labelId = props.values[i].node.label.split("--")[0];
 
-               labelId = labelId.toLowerCase().split("(+")[0];
-               labelId = labelId.split(" ").join("");
+                    labelId = labelId.toLowerCase().split("(+")[0];
+                    labelId = labelId.split(" ").join("");
 
-               if( labelId.includes(hookId) ){
-                    let { setOption } = props;
+                    if( labelId.includes(hookId) ){
+                            let { setOption } = props;
 
-                    setOption({
-                        display_name: props.displayName,
-                        id: props.id,
-                        value: {
-                            label: props.values[i].node.label,
-                            id: props.values[i].node.entityId
-                        }
-                    });
+                            setOption({
+                                display_name: props.displayName,
+                                id: props.id,
+                                value: {
+                                    label: props.values[i].node.label,
+                                    id: props.values[i].node.entityId
+                                }
+                            });
 
-                   break;
-               }
+                        break;
+                    }
+                }
             }
         }
 
@@ -61,15 +67,16 @@ export default function Swatch(props){
 
 
 
+
     return(
         <>
-        {appHook.hasOwnProperty(props.displayName) && props.type === "global" ?
+        {optionExists && props.type === "global" ?
             <li className="product__swatchItem product__swatchItem--marginBottom form-field">
                 <label className={`product__swatchLabel ${props.isInvalid && props.isInvalid.includes(props.id) ? "product__swatchLabel--error" : ""}`} htmlFor={`${props.id}`} onClick={() => toggleDrawer({id: props.id , displayName: props.displayName, values: props.values })}>
                     <div className="product__swatch product__swatch--labelRight">
                         <input className="product__swatchRadio form-input" required={true} id={`${props.id}`} type="radio" name={`attribute[{${props.id}}]`} />
                         <div className="product__swatchColor">
-                            <img className="product__swatchImg" src={ appHook[props.displayName].attributeValue ? appHook[props.displayName].swatch.image : `https://dummyimage.com/256x256/cccccc/555555.png&text=${props.displayName}` } />
+                            <img className="product__swatchImg" src={ hasSwatch ? appHook[props.displayName].swatch.image : `https://dummyimage.com/256x256/cccccc/555555.png&text=${props.displayName}` } />
                         </div>
                     </div>
                     <div className="product__swatchText">
@@ -80,8 +87,8 @@ export default function Swatch(props){
                                     &mdash; &nbsp; <svg className="product__swatchOptionIcon" viewBox="0 0 20 20"><use xlinkHref="#icon-swatch"/></svg> {props.values.length} options
                                 </span>
                             </span>
-                            <span className={`product__swatchValue ${appHook[props.displayName].attributeValue ? "show" : ""}`}>
-                                { appHook[props.displayName].attributeValue ? appHook[props.displayName].swatch.label.split("--")[0] : "" }
+                            <span className={`product__swatchValue ${ hasSwatch ? "show" : ""}`}>
+                                { hasSwatch ? appHook[props.displayName].swatch.label.split("--")[0] : "" }
                             </span>
                         </p>
                     </div>
@@ -91,11 +98,11 @@ export default function Swatch(props){
         :null}
 
 
-        {appHook.hasOwnProperty(props.displayName) && props.type === "remote" ?
+        {optionExists && props.type === "remote" ?
             <li className={`product__swatchItem ${props.isInvalid && props.isInvalid.includes(props.id) ? "product__swatchItem--error" : ""}`}>
                 <a href="#customize" className={`product__swatch`} required={true}>
                     <figure className="product__swatchLabel">
-                        <img className="product__swatchImg" src={ appHook[props.displayName].attributeValue ? appHook[props.displayName].swatch.image : `https://dummyimage.com/256x256/cccccc/555555.png&text=${props.displayName}` } />
+                        <img className="product__swatchImg" src={ hasSwatch ? appHook[props.displayName].swatch.image : `https://dummyimage.com/256x256/cccccc/555555.png&text=${props.displayName}` } />
                     </figure>
                 </a>
             </li>
@@ -108,7 +115,7 @@ export default function Swatch(props){
                     <div className="product__swatch product__swatch--labelRight">
                         <input className="product__swatchRadio form-input" required={true} id={`${props.id}`} type="radio" name={`attribute[{${props.id}}]`} />
                         <div className="product__swatchColor">
-                            <img className="product__swatchImg" src={ appHook[props.displayName].attributeValue ? appHook[props.displayName].swatch.image : `https://dummyimage.com/256x256/cccccc/555555.png&text=${props.displayName}` } />
+                            <img className="product__swatchImg" src={ hasSwatch ? appHook[props.displayName].swatch.image : `https://dummyimage.com/256x256/cccccc/555555.png&text=${props.displayName}` } />
                         </div>
                     </div>
                     <div className="product__swatchText">
@@ -119,8 +126,8 @@ export default function Swatch(props){
                                     &mdash; &nbsp; <svg className="product__swatchOptionIcon" viewBox="0 0 20 20"><use xlinkHref="#icon-swatch"/></svg> {props.values.length} options
                                 </span>
                             </span>
-                            <span className={`product__swatchValue ${appHook[props.displayName].attributeValue ? "show" : ""}`}>
-                                { appHook[props.displayName].attributeValue ? appHook[props.displayName].swatch.label.split("--")[0] : "" }
+                            <span className={`product__swatchValue ${hasSwatch ? "show" : ""}`}>
+                                { hasSwatch ? appHook[props.displayName].swatch.label.split("--")[0] : "" }
                             </span>
                         </p>
                     </div>

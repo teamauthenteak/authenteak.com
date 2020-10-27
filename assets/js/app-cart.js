@@ -5,23 +5,21 @@ import './theme/global/jquery';
 import 'jquery-trend';
 import 'jquery-revealer';
 import 'validetta';
-// import './simplebar/simplebar';
 import './DoubleTapToGo/jquery.doubletaptogo';
 
+import async from 'async';
 import stencilUtils from '@bigcommerce/stencil-utils';
 import GlobalNamespace from './theme/utils/TEAK';
 import cart from './theme/Cart';
 import global from './theme/Global';
 import orderComplete from './theme/OrderComplete';
-import page from './theme/Page';
 
 
 let PageClasses = {
   mapping: {
     'pages/cart': cart,
     'global': global,
-    'pages/order-complete': orderComplete,
-    'pages/page': page,
+    'pages/order-complete': orderComplete
   },
   /**
    * Getter method to ensure a good page type is accessed.

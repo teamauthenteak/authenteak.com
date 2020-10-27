@@ -94,15 +94,14 @@ if (process.send) {
   process.send('ready');
 }
 
+
 /**
  * Watch options for the core watcher
  * @type {{files: string[], ignored: string[]}}
  */
 module.exports = {
-  mode: process.env.NODE_ENV || 'development',
-
   optimization: {
-    minimize: true
+    minimize: false
   },
 
   // If files in these directories change, reload the page.

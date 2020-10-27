@@ -1,10 +1,8 @@
 import PageManager from '../PageManager';
 import ScrollLink from 'bc-scroll-link';
 import FormValidator from './utils/FormValidator';
-import { lazyLoad } from './utils/lazyLoad';
 import Dropdown from './global/Dropdown';
 import Header from './global/Header';
-import './global/Footer';
 import './global/Footer';
 import MiniCart from './global/MiniCart';
 import QuickShop from './product/QuickShop';

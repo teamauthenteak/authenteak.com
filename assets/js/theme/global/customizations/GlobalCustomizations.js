@@ -12,7 +12,7 @@ export default class GlobalCustomizations {
     this.$mobileRefinementsToggle = $('.listing-sidebar__mobile-toggle');
     this.$mobileRefinementsContainer = $('.listing-sidebar__mobile-collapse');
 
-    this.prepareHistoryPolyfill();
+    // this.prepareHistoryPolyfill();
     this.prepareMegaMenus();
     // this.prepareMobileMenu();
     this.prepareMobileRefinements();
