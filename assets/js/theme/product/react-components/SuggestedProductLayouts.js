@@ -62,6 +62,9 @@ export default function SuggestedProductLayouts(props){
                     {
                         layouts.map((item) => {
                             return <li className={`product__layoutItem ${active.icon_id === item.icon_id ? "product__layoutItem--active" : "" }`} key={item.icon_id}>
+                                        <button className="product__layoutClose" type="button" onClick={() => updateProductLayout({})}>
+                                            <svg className="icon icon-close"><use xlinkHref="#icon-close" /></svg>
+                                        </button>
                                         <button 
                                             className={`product__layoutBtn ${active.icon_id === item.icon_id ? "product__layoutBtn--active" : "" }`} 
                                             type="button" 

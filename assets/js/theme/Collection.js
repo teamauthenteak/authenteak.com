@@ -425,12 +425,12 @@ export default class Collection extends PageManager {
 
 
 
-    // udpates each product in the collection with a top swatch is clicked
+    // updates each product in the collection with a top swatch is clicked
     /*
     trackOptionRadioChange(e){
         let  that = this, radioObj = $(e.currentTarget).data();       
 
-        // find all of the coresponding products options with this same option title
+        // find all of the corresponding products options with this same option title
         $(this.collectionsCntr).find(`input[data-label*="${radioObj.optionTitle}"]`).each(function(){
             let $this = $(this),
                 optObj = Object.assign($this.data(), TEAK.Utils.parseOptionLabel(radioObj.label), {id: $this.attr("id")}, {value: $this.val()} ),

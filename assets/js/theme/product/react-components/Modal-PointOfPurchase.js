@@ -151,7 +151,7 @@ export default function PointOfPurchaseModal(props){
     }
 
 
-
+    // on select box change
     const selectSelect = (data) => {
         let key = Object.keys(data)[0];
 
@@ -345,6 +345,7 @@ export default function PointOfPurchaseModal(props){
                                                             img={optItem.node.imageUrl}
                                                             label={optItem.node.label}
                                                             option={optItem}
+                                                            isChecked={selectedOpt.attributeValue === optItem.node.entityId}
                                                             type="select" 
                                                             for={item.node.displayName} 
                                                             selected={(data) => changeSwatch({ [item.node.entityId]: data.node })}

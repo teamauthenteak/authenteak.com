@@ -1,5 +1,3 @@
-import 'babel-polyfill';
-
 // Load jQuery globally, and plugins
 import './theme/global/jquery';
 import 'jquery-trend';

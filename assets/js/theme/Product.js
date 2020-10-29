@@ -1,5 +1,4 @@
 import PageManager from '../PageManager';
-import Alert from './components/Alert';
 import ProductUtils from './product/ProductUtils';
 import ProductImages from './product/ProductImages';
 import ColorSwatch from './product/ColorSwatch';
@@ -34,10 +33,6 @@ export default class Product extends PageManager {
 		this.lazyLoadInstance = new LazyLoad({
 			elements_selector: ".swatch-color, .swatch-pattern-image, .swatchModal__swatchImg"
 		});
-
-
-		new Alert($('[data-alerts]'));
-
 
 		new ScrollLink({
 			selector: '.accordion-title a',
@@ -190,18 +185,7 @@ export default class Product extends PageManager {
 			$('[href="#product-reviews"]').parent('.accordion-title').addClass('is-open');
 		});
 
-		// Show all the reviews
-		$('.reviews-show-more-link').on('click', (event) => {
-			event.preventDefault();
 
-			$('.review-item.hidden').each((index, el) => {
-				setTimeout(() => {
-					$(el).revealer('show');
-				}, index * 250);
-			});
-
-			$(event.currentTarget).hide();
-		});
 
 		$('.accordion-title').on('click', (event) => {
 			event.preventDefault();

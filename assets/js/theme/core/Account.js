@@ -1,7 +1,8 @@
 import initAlertDismissable from './alertDismissable';
 import initDownloadGallery from './downloadGallery';
 import updateState from './updateState';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 export default class Account {
 	constructor() {

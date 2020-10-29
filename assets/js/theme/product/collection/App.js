@@ -4,17 +4,18 @@ import Slider from 'react-slick';
 
 import AppContext from './AppContext';
 import GraphQL from '../../graphql/GraphQL';
+import ErrorBoundary from '../react-components/ErrorBoundary';
+import { firebaseService } from '../react-components/services/Firebase/index';
+import { generateID, replaceSize } from '../react-components/Utils';
 
 import Tabs from '../react-components/Tabs';
 import Swatch from '../react-components/Swatch';
 import OptionDrawer from '../react-components/OptionDrawer';
 import CollectionPod from '../react-components/Collection-Pod';
 import CollectionPreloader from '../react-components/Collection-Preloader';
-import ErrorBoundary from '../react-components/ErrorBoundary';
 import StickyCart from '../react-components/StickyCart';
 import RequestSwatch from '../react-components/RequestSwatch';
 import LazyImg from '../react-components/LazyImg';
-import { generateID, replaceSize } from '../react-components/Utils';
 import SuggestedProductLayouts from '../react-components/SuggestedProductLayouts';
 import PointOfPurchaseModal from '../react-components/Modal-PointOfPurchase';
 
@@ -40,12 +41,16 @@ class App extends React.Component{
 
         this.graphQL = new GraphQL();
 
+        // get our initial firebase objects to use later in the app
+        this.props.firebase.pdpInit();
+
         this.collection = props.context.product.custom_fields.find(element => element.name === "collection_products").value.split(",");
 
         this.state = {
             product: props.context.product,
             customizeThis: [],
             showPointOfPurchase: false,
+            collection: [],
             cart: {},
             addToCart: (data) => {
                 this.setState((state) => {
@@ -78,11 +83,21 @@ class App extends React.Component{
                     [args.displayName]: args.optionData
                 });
             },
+            locallyDrawerSelectedOptions: {},
+            setLocalDrawerOption: (args) => {
+                this.setState((state) => {
+                    let newState = {...state};
+                    newState.locallyDrawerSelectedOptions[args.product_id] = {
+                        [args.displayName]: {...args}
+                    };
+                    return newState;
+                });
+            },
             suggestedLayout: {},
             displaySuggestedLayout: (data) => {
                 this.setState({
                     suggestedLayout: data
-                })
+                });
             }
         };
 
@@ -107,7 +122,8 @@ class App extends React.Component{
             drawerOptions: args.values,
             drawerControl: {
                 displayName: args.displayName,
-                id: args.id
+                id: args.id,
+                type: "global"
             }
         });
     }
@@ -138,28 +154,74 @@ class App extends React.Component{
 
         // Fetch the collection's products
         // test: "7965, 2848, 2881, 2879, 2883, 2877, 2847"
-        let collection = this.collection.map(element => parseInt(element) );
-        let collectionProducts = this.graphQL.getProductDetailInfo(collection);
+        this.requestedCollection = this.collection.map(element => parseInt(element));
 
-        this.graphQL.get(collectionProducts).then((response) => {
+        let requested = [...this.requestedCollection];
+        requested = requested.slice(0, 7);
+
+        const requestedQuery = this.graphQL.getProductDetailInfo({ arr: requested });
+
+        this.getRequestedProducts(requestedQuery);
+    }
+
+
+
+    componentDidUpdate(prevProps, prevState){
+        // set each collection with a tool tip flag if its available
+        if( prevState.collection !== this.state.collection && this.props.firebase.state.brands.brandNames !== undefined ){
+
+            this.state.collection.forEach((element) => {
+                element.hasTips = this.props.firebase.state.brands.brandNames.findIndex(item => item.name === element.brand.name ) !== -1 
+            });
+        }
+    }
+
+
+
+
+    getRequestedProducts = (query) => {
+        this.graphQL.get(query).then((response) => {
             let arr = [], orderedArr = [];
 
             if( response.site.products.edges.length ){
-                response.site.products.edges.forEach(element => arr.push(element.node)); 
-            
+
+                response.site.products.edges.forEach((element) => {
+                    arr.push(element.node);
+                }); 
+
                 // make sure our collection order matches the order in the backend
-                collection.forEach((item) => {
+                this.requestedCollection.forEach((item) => {
                     let tempObj = arr.find(element => element.entityId === item);
-                    orderedArr.push(tempObj);
+
+                    if( tempObj ){ 
+                        orderedArr.push(tempObj); 
+                    }
                 });
 
-                this.setState({ collection: orderedArr });
+                this.setState((state) => { 
+                    let newState = {...state};
+                    newState.collection = [...this.state.collection, ...orderedArr];
+                    return newState;
+
+                }, () => {
+                    const requestedLength = this.requestedCollection.length;
+                    const currentLength = this.state.collection.length;
+
+                    if( currentLength < requestedLength ){
+
+                        let remaining = [...this.requestedCollection];                   
+                        remaining = remaining.splice(currentLength, requestedLength -1);
+
+                        const remainingQuery = this.graphQL.getProductDetailInfo({ arr: remaining });
+
+                        this.getRequestedProducts(remainingQuery);
+                    }
+                });
+
             }
             
         });
-
     }
-
 
 
     cartUpdate = (status) => {
@@ -232,7 +294,12 @@ class App extends React.Component{
                     <div className="product__collectionsCntr">
                         { this.state.collection ? 
                             this.state.collection.map((item) => {
-                                return <CollectionPod key={item.entityId.toString()} product={item} suggested={this.state.suggestedLayout} />
+                                return  <CollectionPod 
+                                            key={item.entityId.toString()} 
+                                            product={item} 
+                                            suggested={this.state.suggestedLayout}
+                                            localDrawerOptions={this.state.locallyDrawerSelectedOptions[item.entityId]}
+                                        />
                             })
                             :
                             <CollectionPreloader />
@@ -274,4 +341,4 @@ class App extends React.Component{
     }
 }
 
-export default App;
+export default firebaseService(App);

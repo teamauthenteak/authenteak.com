@@ -11,13 +11,12 @@ import OptionFilterBtn from './OptionDrawer-FilterOptionBtn';
 import Swatch from './Swatch';
 
 export default function OptionDrawerFilters(props){
-    const appHook = useContext(AppContext);
     const drawerHook = useContext(DrawerContext);
 
     const [ bind, { height } ] = useMeasure();
 
     const changeSwatch = (swatchData) => {
-        appHook.setOption({
+        drawerHook.setOption({
             displayName: props.for.displayName,
             optionData: {
                 attribute: parseInt(props.for.id),
@@ -69,7 +68,9 @@ export default function OptionDrawerFilters(props){
                                             img={item.pattern}
                                             label={item.label}
                                             option={item}
+                                            drawerType={props.for.type}
                                             type="select" 
+                                            isChecked={drawerHook[props.for.displayName].attributeValue === item.id}
                                             for={props.for.displayName} 
                                             key={item.id.toString()} 
                                             selected={changeSwatch} 

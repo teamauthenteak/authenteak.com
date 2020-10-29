@@ -27,7 +27,6 @@ const filter = {
     };
 
 export default function FilterOptionControls(props){
-    const appHook = useContext(AppContext);
     const drawerHook = useContext(DrawerContext);
 
 
@@ -71,10 +70,9 @@ export default function FilterOptionControls(props){
     useMemo(() => {
         for (const key in filter) { filter[key].items = []; }
 
+        // set our filterable items in order to determine the controls to build
         if( props.for !== "" ){
-            let filterableOptions = appHook.product.options.find(ele => ele.display_name === props.for);
-
-            filterableOptions.values.forEach((element) => {
+            drawerHook[props.for].values.forEach((element) => {
                 let labelObj = TEAK.Utils.parseOptionLabel(element.label);
                 getFilteredItem(labelObj);
             });

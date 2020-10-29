@@ -1,4 +1,6 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+
 /**
  * Tool Tips
  * Auto runs for every product page
@@ -313,7 +315,7 @@ TEAK.Modules.freeShipping = {
 				"EL-OFS304"
 			],
 			isExcluded = excludedSkus.includes(args.sku),
-			freeShipping = '<p class="free-shipping-text" data-pricing-free-shipping>Free Shipping</p></p>',
+			freeShipping = '<p class="free-shipping-text" data-pricing-free-shipping>Free Shipping</p>',
 			shippingTabs = [
 					{
 						id: "free_white_glove_delivery",
@@ -325,7 +327,8 @@ TEAK.Modules.freeShipping = {
 					}
 				],
 
-			freeWhiteGlove = '<p class="free-shipping-text" data-pricing-free-shipping>Free Standard Shipping</p></p>',
+
+			freeWhiteGlove = '<p class="free-shipping-text" data-pricing-free-shipping>Free Standard Shipping</p>',
 				// `<p class="free-shipping-text" data-pricing-free-shipping>
 				// 	<a href="" class="free-shipping-text--link" data-tool-tip-open data-tool-tip-type="element" data-tool-tip-name="free_white_glove_delivery, threshold_delivery" data-tool-tip-id="free_delivery">
 				// 		<span>This item qualifies for free upgraded delivery</span> &nbsp;
@@ -353,12 +356,12 @@ TEAK.Modules.freeShipping = {
 TEAK.Modules.leadTime = {
 	setTip: function(element, isInline){
 		let tpl = [
-			'<a href="" class="shpping-range--tipLink" data-tool-tip-open data-tool-tip-type="element" data-tool-tip-name="next_bussiness_day" data-tool-tip-id="next_bussiness_day">',
+			'<button type="button" class="shipping-range--tipLink" data-tool-tip-open data-tool-tip-type="element" data-tool-tip-name="next_business_day" data-tool-tip-id="next_business_day">',
 				'<span class="toolTip__iconCntr toolTip__iconCntr--dark">',
 					'<svg class="toolTip__icon toolTip__icon--white"><use xlink:href="#icon-info"/></svg>',
 				'</span>',
-			'</a>',
-			'<span class="toolTip__cntr toolTip__cntr--hide" id="next_bussiness_day">',
+			'</button>',
+			'<span class="toolTip__cntr toolTip__cntr--hide" id="next_business_day">',
 				'<button type="button" class="toolTip__closeBtn" data-tool-tip-close><svg class="toolTip__closeIcon"><use xlink:href="#icon-close"/></svg></button>',
 				'<h2 class="toolTip__heading--2">Next Business Day Processing</h2>',
                 '<p class="toolTip__text">Transit time is determined by shipping method and destination. Orders placed by 12pm ET may be shipped same day. Orders placed after 2pm ET will be processed the next business day.</p>',

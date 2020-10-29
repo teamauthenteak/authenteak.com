@@ -1,5 +1,4 @@
 import utils from '@bigcommerce/stencil-utils';
-import Alert from '../components/Alert';
 import FormValidator from '../utils/FormValidator';
 import ProgressButton from '../utils/ProgressButton';
 
@@ -10,8 +9,7 @@ export default class ProductUtils {
       onImageSwitch: () => {},
     }, options);
     this.productId = this.$el.find('input[data-product-id][value]').val();
-    this.pageAlerts = new Alert($('[data-alerts]'));
-    this.productAlerts = new Alert($('[data-product-alerts]'));
+
     this.productTitle = $(el).data('product-title');
     this.$productContainer = $('[data-product-container]');
 
@@ -549,8 +547,6 @@ export default class ProductUtils {
     // Update message content
     $el.html(message).append($dismiss);
 
-    // Show alert message
-    $el.revealer('show').removeClass('dismissed error success').addClass(errorType);
   }
 
   /**
@@ -559,7 +555,6 @@ export default class ProductUtils {
    */
   _clearMessage($el) {
     $el
-      .revealer('hide')
       .addClass('dismissed')
       .removeClass('error success');
   }

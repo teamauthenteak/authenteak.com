@@ -2,29 +2,35 @@ import React, { useState, useEffect, useContext, useMemo } from 'react';
 
 import utils from '@bigcommerce/stencil-utils';
 import { generateID, formatPrice } from './Utils';
+import { usePrevious } from 'react-use';
 import GraphQL from '../../graphql/GraphQL';
+import AppContext from '../collection/AppContext';
+import { firebaseService } from './services/Firebase';
 
 import Swatch from './Swatch';
 import Select from './Select';
 import QuantityButton from './QuantityButton';
-import AppContext from '../collection/AppContext';
 import LazyImg from './LazyImg';
 import AddButton from './Collection-PodAddBtn';
 import ReviewStars from './ReviewStars';
 import Ribbon from './Ribbon';
+import ToolTips from './ToolTips';
 
 
-export default function CollectionPod(props){
+function CollectionPod(props){
     const appHook = useContext(AppContext);
     const graphQL = new GraphQL();
 
     const [ productPrice, setProductPrice ] = useState({});
     const [ qty, setQty ] = useState(1);
+    const prevQty = usePrevious(qty);
+
     const [ options, setOptions ] = useState([]);
+    const [ hasGlobalOptions, setGlobalOptFlag ] = useState(false);
 
     const [ swatches, setSwatch ] = useState({});
     const [ invalidSwatch, setInvalidSwatch ] = useState([]);
-
+    
     const [ dropdown, setDropdown ] = useState({});
     const [ invalidDropdown, setInvalidDropdown ] = useState([]);
 
@@ -33,18 +39,21 @@ export default function CollectionPod(props){
     const [ isSuggested, setSuggested ] = useState(false)
 
     const toggleDrawer = (args) => {
-        appHook.toggleDrawer("open")
+        appHook.toggleDrawer("open");
 
         appHook.setDrawer({
             drawerOptions: args.values,
             drawerControl: {
                 displayName: args.displayName,
-                id: args.id
+                id: args.id,
+                type: "local",
+                product_id: props.product.entityId
             }
         });
     };
 
 
+    // makes sure all required options are selected before adding to cart
     const areSelectionsValid = () => {
         let arr = [];
 
@@ -66,7 +75,6 @@ export default function CollectionPod(props){
                     
                     arr.push(isSwatchValid);
                     break;
-
 
                 case "DropdownList":
                     let isDropdownValid = Object.keys(dropdown).length !== 0 && dropdown.hasOwnProperty(element.node.displayName);
@@ -117,7 +125,7 @@ export default function CollectionPod(props){
             };
 
         for (const key in swatches) {
-            params[`attribute[${swatches[key].attribute}]`] = swatches[key].attributeValue.id;
+            params[`attribute[${swatches[key].attribute}]`] = swatches[key].attributeValue;
          }
 
          for (const key in dropdown) {
@@ -137,7 +145,6 @@ export default function CollectionPod(props){
 
     /*  
         On option change send to BC string - utils.api.productAttributes.optionChange
-        "action=add&product_id=2864&attribute[82102]=2519353&attribute[82103]=2519358&attribute[82104]=2519487&qty[]=1"
 
         action: add
         attribute[82102]: 2519353
@@ -163,7 +170,7 @@ export default function CollectionPod(props){
 
         if( hasSwatches ){
             for (const key in swatches) {
-                params[`attribute[${swatches[key].attribute}]`] = swatches[key].attributeValue.id;
+                params[`attribute[${swatches[key].attribute}]`] = swatches[key].attributeValue;
             }
         }
         
@@ -179,7 +186,7 @@ export default function CollectionPod(props){
             hasSwatches || 
             ( hasProtectiveCover !== -1 && Object.keys(dropdown).length > 1 ) || 
             ( hasProtectiveCover === -1 && hasDropdown ) ||
-            qty > 1 
+            prevQty !== undefined && prevQty !== qty 
         ){
             setUpdating(true);
 
@@ -213,10 +220,15 @@ export default function CollectionPod(props){
     const selectSwatch = (data) => {
         setSwatch((swatches) => {
             let newSwatch = { ...swatches };
-            
+
             newSwatch[data.display_name] = {
                 attribute: data.id,
-                attributeValue: data.value
+                attributeValue: data.swatch.id,
+                swatch: {
+                    label: data.swatch.label,
+                    image: data.swatch.image,
+                    price: data.swatch.price
+                }
             };
 
             return newSwatch;
@@ -230,6 +242,7 @@ export default function CollectionPod(props){
     };
 
 
+    // default: sets protective cover to state
     function setProtectiveCover(element){
         let noThanks = element.node.values.edges.find(ele => ele.node.label.includes("No Thanks"));
 
@@ -245,24 +258,43 @@ export default function CollectionPod(props){
 
 
     useEffect(() => {
+        console.log(props.product.hasTips)
+
+        if( props.product.hasTips ){
+            props.firebase.getBrandOptionTips(props.product.brand.name).then((response) => {
+                console.log(response)
+            });
+        }
+
+
+        // fetch the data for all options
         if( options.length === 0 ){
             let options = graphQL.getProductOptions(props.product.entityId);
 
             graphQL.get(options).then(response => {
                 if( response ){
+                    // set the options
                     let responseData = response.site.products.edges[0].node.productOptions.edges;
-
                     setOptions(responseData);
     
+                    // determine if it has a protective cover and set auto
                     let protectiveCover = responseData.find(ele => ele.node.displayName.toLowerCase().includes("protective cover") );
-
                     if( protectiveCover ){ 
                         setProtectiveCover(protectiveCover); 
                     }
+
+                    // determine if this fits our global swatch control
+                    for (let i = 0; i < responseData.length; i++) {        
+                        if( responseData[i].node.displayStyle === "Swatch" && appHook.hasOwnProperty(responseData[i].node.displayName) ){
+                            setGlobalOptFlag(true);
+                            break;
+                        }
+                    }  
                 }
             });
         }
 
+        // set the initial price for this pod
         if( Object.keys(productPrice).length === 0 ){
             let retailPrice = props.product.prices.retailPrice !== null ? props.product.prices.retailPrice.value : 0;
             
@@ -274,21 +306,57 @@ export default function CollectionPod(props){
             setProductPrice(price);
         }
 
+
     }, [props.product]);
 
 
 
+    // updates state when a person chooses to use the "Suggested..." (e.g. Layout) module
     useMemo(() => {
-        for (const key in props.suggested.product_n_values) {
-            if ( parseInt(key) === props.product.entityId ) {
-                setQty(props.suggested.product_n_values[key]);
-                setSuggested(true);
+
+        if( Object.keys(props.suggested).length ){
+            for (const key in props.suggested.product_n_values) {
+                if ( parseInt(key) === props.product.entityId ) {
+                    setQty(props.suggested.product_n_values[key]);
+                    setSuggested(true);
+                }
             }
+
+        }else{
+
+            // if suggested is deselected
+            setQty(1);
+            setSuggested(false);
         }
         
     }, [props.suggested]);
 
+
+
+    // when a drawer selection is updated update our state
+    useMemo(() => {
+        if( props.localDrawerOptions !== undefined ){
+            let key = Object.keys(props.localDrawerOptions);
+
+            if( props.localDrawerOptions[key].optionData.attributeValue !== null ){
+                let optData = props.localDrawerOptions[key].optionData;
+
+                selectSwatch({
+                    display_name: props.localDrawerOptions[key].displayName,
+                    id: optData.attribute,
+                    swatch: {
+                        id: optData.attributeValue,
+                        label: optData.swatch.label,
+                        image: optData.swatch.image
+                    }                    
+                });
+            }
+        }
+
+    }, [props.localDrawerOptions]);
+
     
+
     return(
         <>
         {props.product ? 
@@ -335,13 +403,12 @@ export default function CollectionPod(props){
 
 
                         {props.product.customFields.edges.map((item) => {
-
                             if(item.node.name === "Lead-Time"){
                                 let text = item.node.value.toLowerCase();
                                 let leadTimeTwoIndex = props.product.customFields.edges.findIndex(element => element.node.name === "Lead-Time 2");
 
                                 return  <p className="product__shippingInfo" key={generateID()}>
-                                            {text.includes("ships next business day") ? <span className="shipping-range--tip">{TEAK.Modules.leadTime.setTip("nextBussinessDay", true)}</span> : null}
+                                            {text.includes("ships next business day") ? <span className="shipping-range--tip"> <ToolTips type="nextBusinessDay" /> </span> : null}
                                             {item.node.value}
                                             {leadTimeTwoIndex !== -1 ? ` ${props.product.customFields.edges[leadTimeTwoIndex].node.value}` : null}
                                         </p>
@@ -354,8 +421,14 @@ export default function CollectionPod(props){
                             if(item.node.name === "Free Shipping Icon" && item.node.value === "Yes"){
                                 return <div id="freeShipping" key={generateID()}><p className="free-shipping-text" data-pricing-free-shipping>Free Shipping</p></div>
                             }
-
                         })}
+
+
+                            {productPrice.without_tax > 2998 ? 
+                                <ToolTips type="freeWhiteGlove" /> 
+                            :null}
+
+
                                 <p>
                                     <a href={props.product.path} title={`Learn more about ${props.product.name}`}>
                                         View more details &rsaquo;
@@ -374,34 +447,37 @@ export default function CollectionPod(props){
                                             <span className="product__priceValue">
                                                 {productPrice.without_tax}
                                             </span>
-                                            {productPrice.rrp_without_tax !== null ? <span className="product__priceRrp">${productPrice.rrp_without_tax}</span> : null}
+                                            {productPrice.rrp_without_tax !== null && productPrice.rrp_without_tax !== "$0" ? <span className="product__priceRrp">{productPrice.rrp_without_tax}</span> : null}
                                         </div>
                                     }
                                 </div>
 
-                                <div className="product__swatchCol">
+                                 
+                                <div className={`product__swatchCol ${hasGlobalOptions && options.length > 0 ? "" : "product__swatchCol--border"}`}>
                                     <ul className="product__swatchList">
+                                        {hasGlobalOptions ?
                                         <li className="product__swatchItem product__swatchItem--list">
-                                            {Object.keys(swatches).length > 0 ? "Selected Options" : "Select Options Above"}
+                                            <span>{Object.keys(swatches).length > 0 ? "Selected Options" : "Select Options Above"}</span>
 
                                             <ul className="product__swatchItemList">
                                             {options.map((item) => {
                                                 if( item.node.displayStyle === "Swatch" && appHook.hasOwnProperty(item.node.displayName) ){
                                                     return  <Swatch 
                                                                 key={item.node.entityId.toString()} 
-                                                                toggle={toggleDrawer} 
                                                                 displayName={item.node.displayName} 
                                                                 id={item.node.entityId} 
                                                                 values={item.node.values.edges}
                                                                 setOption={selectSwatch}
                                                                 type="remote"
                                                                 isInvalid={invalidSwatch}
+                                                                toolTipData={}
                                                             />;
                                                 }
                                             })}
                                             </ul>
                                             <svg className="product__swatchLabelIcon product__swatchLabelIcon--45deg"><use xlinkHref="#icon-long-arrow-right" /></svg>
                                         </li>
+                                        :null}
 
                                         {options.map((item) => {
                                             if(item.node.displayStyle === "Swatch" && !appHook.hasOwnProperty(item.node.displayName) ){
@@ -414,6 +490,8 @@ export default function CollectionPod(props){
                                                             setOption={selectSwatch}
                                                             type="local"
                                                             isInvalid={invalidSwatch}
+                                                            selectedSwatch={swatches}
+                                                            toolTipData={}
                                                         />;
                                             }
 
@@ -426,12 +504,14 @@ export default function CollectionPod(props){
                                                             setOption={selectSelect}
                                                             type="local"
                                                             isInvalid={invalidDropdown}
+                                                            toolTipData={}
                                                         />;
                                             }
                                         })}
                                     </ul>
                                 </div>
 
+                            
                                 <div className="product__col--priceCntr">
                                     <div className="form-field no-margin">
                                         <QuantityButton qty={setQty} value={qty} />
@@ -450,3 +530,5 @@ export default function CollectionPod(props){
         </>
     );
 }
+
+export default firebaseService(CollectionPod);

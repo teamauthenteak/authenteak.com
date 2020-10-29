@@ -95,6 +95,7 @@ export default function Select(props){
 
         {props.type === "local" ?
             <li className="product__swatchItem product__swatchItem--marginBottom product__swatchItem--select">
+                {Object.keys(props.toolTipData).length ? <ToolTips type="general" data={props.toolTipData} /> : null}
                 <label className={`selectBox__label ${props.isInvalid && props.isInvalid.includes(props.id) ? "selectBox__label--error" : ""}`} htmlFor={`attribute-${props.id}`}>
                     <div className="selectBox__text selectBox__text--right">
                         <p className="selectBox__optionText">

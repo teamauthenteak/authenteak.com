@@ -5,6 +5,12 @@
         @extend %span-1-1;
         @extend %span;
         padding: 20px 0;
+
+        &--border{
+            border-top: 1px solid #eee;
+            padding: 0 0 30px 0;
+            margin-top: 38px;
+        }
     }
 
     &__swatchList{
@@ -235,6 +241,21 @@
         padding-left: 10px;
         width: 75%;
 
+        &--label{
+            padding: 0;
+            width: 60px;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: -22px;
+            background-color: rgba(255, 255, 255, .9);
+            z-index: 9;
+            text-shadow: 3px 2px 1px #fff;
+            line-height: 1.4;
+            box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, .11);
+            border-radius: 3px;
+            margin-left: -2px;
+        }
+
         &--right{
             order: 1;
             width: 100%;
@@ -247,9 +268,16 @@
     }
 
     &__swatchName{
-        font-weight: 800;
         display: flex;
-        line-height: 1;
+        justify-content: flex-start;
+        align-items: center;
+        align-content: center;
+    }
+
+    &__swatchDisplayName{
+        width: auto;
+        font-weight: 800;
+        line-height: 1.2;
         text-align: left;
         font-size: 1rem;
     }
@@ -263,6 +291,7 @@
         color: #999;
         white-space: nowrap;
         align-items: center;
+        width: 33%;
 
         @media only screen and (max-width: $screen-lg) {
             margin: 0;

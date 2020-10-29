@@ -1,4 +1,13 @@
 
+.shipping-range--tipLink{
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    height: 17px;
+}
+
+
 .toolTip{
     margin-right: 10px;
     display: none;
@@ -69,6 +78,7 @@
         width: 17px;
         height: 17px;
         padding: 3px;
+        background-color: transparent;
 
         &--dark{
             background-color: #1c48bc;

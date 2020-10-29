@@ -1,5 +1,3 @@
-import 'babel-polyfill';
-
 // Load jQuery globally, and plugins
 import './theme/global/jquery';
 import 'jquery-trend';
@@ -15,22 +13,22 @@ import product from './theme/Product';
 import PDPCollection from './theme/ProductCollection';
 
 let PageClasses = {
-  mapping: {
-    'global': global,
-    'pages/custom/product/collection': PDPCollection,
-    'pages/product': product
-  },
-  /**
-   * Getter method to ensure a good page type is accessed.
-   * @param page
-   * @returns {*}
-   */
-  get: function(page) {
-    if (this.mapping[page]) {
-      return this.mapping[page];
-    }
-    return false;
-  }
+	mapping: {
+		'global': global,
+		'pages/custom/product/collection': PDPCollection,
+		'pages/product': product
+	},
+	/**
+	 * Getter method to ensure a good page type is accessed.
+	 * @param page
+	 * @returns {*}
+	 */
+	get: function (page) {
+		if (this.mapping[page]) {
+			return this.mapping[page];
+		}
+		return false;
+	}
 };
 
 /**
@@ -38,15 +36,15 @@ let PageClasses = {
  * @param {Object} pageObj
  */
 function series(pageObj) {
-  async.series([
-    pageObj.before.bind(pageObj), // Executed first after constructor()
-    pageObj.loaded.bind(pageObj), // Main module logic
-    pageObj.after.bind(pageObj) // Clean up method that can be overridden for cleanup.
-  ], function(err) {
-    if (err) {
-      throw new Error(err);
-    }
-  });
+	async.series([
+		pageObj.before.bind(pageObj), // Executed first after constructor()
+		pageObj.loaded.bind(pageObj), // Main module logic
+		pageObj.after.bind(pageObj) // Clean up method that can be overridden for cleanup.
+	], function (err) {
+		if (err) {
+			throw new Error(err);
+		}
+	});
 }
 
 /**
@@ -56,10 +54,10 @@ function series(pageObj) {
  * @returns {*}
  */
 function loadGlobal(pages) {
-  let Global = pages.get('global');
-
-  return new Global;
+	let Global = pages.get('global');
+	return new Global;
 }
+
 
 /**
  *
@@ -67,13 +65,13 @@ function loadGlobal(pages) {
  * @param {} pages
  */
 function loader(pageFunc, pages) {
-  if (pages.get('global')) {
-    let globalPageManager = loadGlobal(pages);
+	if (pages.get('global')) {
+		let globalPageManager = loadGlobal(pages);
 
-    globalPageManager.context = pageFunc.context;
-    series(globalPageManager);
-  }
-  series(pageFunc);
+		globalPageManager.context = pageFunc.context;
+		series(globalPageManager);
+	}
+	series(pageFunc);
 }
 
 /**
@@ -84,26 +82,26 @@ function loader(pageFunc, pages) {
  * @returns {*}
  */
 window.stencilBootstrap = function stencilBootstrap(templateFile, context) {
-  let pages = PageClasses;
+	let pages = PageClasses;
 
-  context = context || '{}';
-  context = JSON.parse(context);
+	context = context || '{}';
+	context = JSON.parse(context);
+console.log(context)
+	return {
+		load() {
+			$(() => {
+				let PageTypeFn = pages.get(templateFile); // Finds the appropriate module from the pageType object and store the result as a function.
 
-  return {
-    load() {
-      $(() => {
-        let PageTypeFn = pages.get(templateFile); // Finds the appropriate module from the pageType object and store the result as a function.
+				if (PageTypeFn) {
+					let pageType = new PageTypeFn();
 
-        if (PageTypeFn) {
-          let pageType = new PageTypeFn();
+					pageType.context = context;
 
-          pageType.context = context;
+					return loader(pageType, pages);
+				}
 
-          return loader(pageType, pages);
-        }
-
-        throw new Error(templateFile + ' Module not found');
-      });
-    }
-  };
+				throw new Error(templateFile + ' Module not found');
+			});
+		}
+	};
 };

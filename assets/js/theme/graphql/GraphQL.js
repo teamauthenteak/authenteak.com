@@ -126,12 +126,16 @@ export default class GraphQL {
     /**
      * Get detailed single product information
      * @param {Array} arr - Array of product ids 
+     * @param {string} args.after - endcursor from the previous response
      */
 
-    getProductDetailInfo(arr){
+    getProductDetailInfo(args){
         return `query getProductDetailInfo{
                     site{
-                        products(entityIds:[${arr}]){
+                        products(
+                            entityIds:[${args.arr}]
+                            ${args.hasOwnProperty("after") ? `, after: "${args.after}"` : '' }
+                        ){
                             pageInfo {
                                 startCursor
                                 endCursor

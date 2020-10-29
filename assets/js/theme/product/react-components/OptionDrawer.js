@@ -4,7 +4,7 @@ import { Spring, animated } from 'react-spring/renderprops';
 import AppContext from '../collection/AppContext';
 import OptionDrawerFilters from './OptionDrawer-Filters';
 import DrawerContext from '../collection/DrawerContext';
-import _ from 'lodash';
+import uniq from 'lodash/uniq';
 
 export default class OptionDrawer extends React.Component{
     constructor(props){
@@ -12,6 +12,11 @@ export default class OptionDrawer extends React.Component{
 
         this.state = {
             for: "",
+            setOption: (args) => {
+                this.setState({
+                    [args.displayName]: args.optionData
+                });
+            },
             listType: "list",
             changeList: (type) => {
                 this.setState({ listType: type });
@@ -55,6 +60,59 @@ export default class OptionDrawer extends React.Component{
                 this.setState({ filterOptionControlState: false });
             }
         }
+
+        if( prevState[this.props.for.displayName] !== this.state[this.props.for.displayName] ){
+            let swatchData = this.state[this.props.for.displayName];
+
+            if( swatchData.swatch !== undefined ){
+
+                // for our global swatch controls
+                if( this.props.for.type === "global" ){
+                    this.context.setOption({
+                        displayName: this.props.for.displayName,
+                        optionData: {
+                            attribute: swatchData.attribute,
+                            attributeValue: swatchData.attributeValue,
+                            swatch: {
+                                label: swatchData.swatch.label,
+                                image: swatchData.swatch.image
+                            }
+                        } 
+                    });
+                }
+
+                // for a local swatch in a collection pod that has no global ties 
+                if( this.props.for.type === "local" ){
+                    this.context.setLocalDrawerOption({
+                        product_id: this.props.for.product_id,
+                        displayName: this.props.for.displayName,
+                        optionData: {
+                            attribute: swatchData.attribute,
+                            attributeValue: swatchData.attributeValue,
+                            swatch: {
+                                label: swatchData.swatch.label,
+                                image: swatchData.swatch.image
+                            }
+                        } 
+                    });
+                }
+            }
+        }  
+    }
+
+
+    componentDidMount(){
+        this.setState((state) => {
+            let newState = {...state};
+
+            newState[this.props.for.displayName] = {
+                attribute: parseInt(this.props.for.id),
+                attributeValue: null,
+                values: this.props.options
+            };
+        
+            return newState;
+        });
     }
 
 
@@ -96,7 +154,7 @@ export default class OptionDrawer extends React.Component{
 
 
         // dup check and reduce
-        let filteredOpts = _.uniq(isIncluded);
+        let filteredOpts = uniq(isIncluded);
 
 
         // check and output the final results
@@ -104,22 +162,26 @@ export default class OptionDrawer extends React.Component{
             let shouldInclude = [];
 
 
-            // does this option match all of my choices
+            // so...does this option match all of my choices?
             for (let i = 0; i < this.state.filterBy.length; i++) {
                 let keyValue = this.state.filterBy[i].split("=");
+
                 shouldInclude.push( item[keyValue[0]] === keyValue[1] );
             }
 
-            // and does it have my searched keyword
+            // ...and does it have my searched keyword?
             if( key !== "" ){
                 shouldInclude.push( item.label.toLowerCase().includes(key) )
             }
 
-            // if the whole object passes the test add it to the filtered array
+            // Thus, if the whole object passes the test add it to the filtered array!
             return shouldInclude.every(testOpt => testOpt === true);
         });
 
+
+        const hasChosenSwatch = this.state[this.props.for.displayName] && this.state[this.props.for.displayName].swatch !== undefined;
     
+
         return(
             <DrawerContext.Provider value={this.state}>
                 { Object.keys(this.props.for).length > 0 ?
@@ -136,30 +198,31 @@ export default class OptionDrawer extends React.Component{
 
                                 <figure className="drawer__figCntr" 
                                     style={{ 
-                                        backgroundImage: `url("${appHook[this.props.for.displayName].attributeValue ? appHook[this.props.for.displayName].swatch.image : this.props.mainImg}")`,
-                                        backgroundRepeat: `${appHook[this.props.for.displayName].attributeValue ? "repeat" : "no-repeat"}` 
+                                        backgroundImage: `url("${hasChosenSwatch ? this.state[this.props.for.displayName].swatch.image : this.props.mainImg}")`,
+                                        backgroundRepeat: `${hasChosenSwatch ? "repeat" : "no-repeat"}` 
                                     }}>
                                     <span className="drawer__imgCntr">
-                                        <img src={appHook[this.props.for.displayName].attributeValue ? appHook[this.props.for.displayName].swatch.image : this.props.mainImg } className="drawer__img" />
+                                        <img src={hasChosenSwatch ? this.state[this.props.for.displayName].swatch.image : this.props.mainImg } className="drawer__img" />
                                     </span>
                                     <figcaption className="drawer__selectedSwatchText">
-                                        {appHook[this.props.for.displayName].attributeValue ? appHook[this.props.for.displayName].swatch.label : "" }
+                                        {hasChosenSwatch ? this.state[this.props.for.displayName].swatch.label : "" }
                                     </figcaption>
                                 </figure>
 
-                                <OptionDrawerFilters options={results} for={this.props.for} />
+                                { this.state[this.props.for.displayName] !== undefined ? 
+                                    <OptionDrawerFilters options={results} for={this.props.for} /> 
+                                : null }
+                               
                             </div>
                         </div>
 
-                        <Spring native to={{ bottom: appHook[this.props.for.displayName].attributeValue ? 0 : -90 }} config={{ duration: 150, mass: 5, tension: 500, friction: 0 }}>
-                            {props => (<animated.footer className="drawer__footer drawer__footer--show" style={props}>
+                        <Spring native to={{ bottom: hasChosenSwatch ? 0 : -90 }} config={{ duration: 150, mass: 5, tension: 500, friction: 0 }}>
+                            {props =>   (<animated.footer className="drawer__footer drawer__footer--show" style={props}>
                                             <button type="button" className="drawer__saveBtn" onClick={() => appHook.toggleDrawer("close")}>
                                                 <svg className="icon icon-long-arrow-left"><use xlinkHref="#icon-long-arrow-left" /></svg>
                                                 <span>Save &amp; Back</span>
                                             </button>
-                                        </animated.footer>
-
-                            )}
+                                        </animated.footer>)}
                         </Spring>
                         
                     </>

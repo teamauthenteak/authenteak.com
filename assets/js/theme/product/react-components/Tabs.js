@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 
 const tabs = [
     { id: "descTab", title: "Product Overview", text: "", isActive: true },
