@@ -4,7 +4,7 @@ import utils from '@bigcommerce/stencil-utils';
 import { generateID, formatPrice } from './Utils';
 import { usePrevious } from 'react-use';
 import GraphQL from '../../graphql/GraphQL';
-import AppContext from '../collection/AppContext';
+import AppContext from './context/AppContext';
 import { firebaseService } from './services/Firebase';
 
 import Swatch from './Swatch';
@@ -30,6 +30,8 @@ function CollectionPod(props){
 
     const [ swatches, setSwatch ] = useState({});
     const [ invalidSwatch, setInvalidSwatch ] = useState([]);
+
+    const [ toolTips, setToolTips ] = useState({})
     
     const [ dropdown, setDropdown ] = useState({});
     const [ invalidDropdown, setInvalidDropdown ] = useState([]);
@@ -257,12 +259,11 @@ function CollectionPod(props){
 
 
 
-    useEffect(() => {
-        console.log(props.product.hasTips)
 
+    useEffect(() => {
         if( props.product.hasTips ){
             props.firebase.getBrandOptionTips(props.product.brand.name).then((response) => {
-                console.log(response)
+                setToolTips(response)
             });
         }
 
@@ -294,6 +295,7 @@ function CollectionPod(props){
             });
         }
 
+
         // set the initial price for this pod
         if( Object.keys(productPrice).length === 0 ){
             let retailPrice = props.product.prices.retailPrice !== null ? props.product.prices.retailPrice.value : 0;
@@ -305,7 +307,6 @@ function CollectionPod(props){
     
             setProductPrice(price);
         }
-
 
     }, [props.product]);
 
@@ -453,7 +454,12 @@ function CollectionPod(props){
                                 </div>
 
                                  
-                                <div className={`product__swatchCol ${hasGlobalOptions && options.length > 0 ? "" : "product__swatchCol--border"}`}>
+                                <div className={`product__swatchCol ${ 
+                                    ( !hasGlobalOptions && options.length === 0 ) || 
+                                    ( !hasGlobalOptions && options.length === 1 && options[0].node.displayName.toLowerCase().includes("protective cover") ) 
+                                        ? "product__swatchCol--border" : ""
+                                    }`}>
+
                                     <ul className="product__swatchList">
                                         {hasGlobalOptions ?
                                         <li className="product__swatchItem product__swatchItem--list">
@@ -470,7 +476,7 @@ function CollectionPod(props){
                                                                 setOption={selectSwatch}
                                                                 type="remote"
                                                                 isInvalid={invalidSwatch}
-                                                                toolTipData={}
+                                                                toolTipData={toolTips[item.node.displayName] !== undefined ? toolTips[item.node.displayName] : null}
                                                             />;
                                                 }
                                             })}
@@ -491,7 +497,7 @@ function CollectionPod(props){
                                                             type="local"
                                                             isInvalid={invalidSwatch}
                                                             selectedSwatch={swatches}
-                                                            toolTipData={}
+                                                            toolTipData={toolTips[item.node.displayName] !== undefined ? toolTips[item.node.displayName] : null}
                                                         />;
                                             }
 
@@ -504,9 +510,10 @@ function CollectionPod(props){
                                                             setOption={selectSelect}
                                                             type="local"
                                                             isInvalid={invalidDropdown}
-                                                            toolTipData={}
+                                                            toolTipData={toolTips[item.node.displayName] !== undefined ? toolTips[item.node.displayName] : null}
                                                         />;
                                             }
+
                                         })}
                                     </ul>
                                 </div>

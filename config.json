@@ -1,8 +1,8 @@
 {
-  "name": "Authenteak.com - 1.20.32",
-  "version": "1.20.32",
+  "name": "Authenteak.com - 1.20.32.001",
+  "version": "1.20.32.001",
   "settings": {
-    "version": "1.20.32",
+    "version": "1.20.32.001",
     "store_logo": {
       "title": "Authenteak.com Outdoor Living"
     },
@@ -127,7 +127,7 @@
     "optimizedCheckout-headingPrimary-color": "#2d2d2d",
     "optimizedCheckout-headingPrimary-font": "Google_Karla_400",
     "optimizedCheckout-headingSecondary-color": "#2d2d2d",
-    "optimizedCheckout-headingSecondary-font": "Google_Karla_400",
+    "optimizedCheckout-headingSecondary-font": "",
     "optimizedCheckout-body-backgroundColor": "#ffffff",
     "optimizedCheckout-contentPrimary-color": "#4f4f4f",
     "optimizedCheckout-contentPrimary-font": "Google_Karla_400",

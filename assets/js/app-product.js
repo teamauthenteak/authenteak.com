@@ -10,13 +10,15 @@ import GlobalNamespace from './theme/utils/TEAK';
 import async from 'async';
 import global from './theme/Global';
 import product from './theme/Product';
-import PDPCollection from './theme/ProductCollection';
+import BuildAndBuy from './theme/BuildAndBuy';
+import ClickAndBuy from './theme/ClickAndBuy';
 
 let PageClasses = {
 	mapping: {
 		'global': global,
-		'pages/custom/product/collection': PDPCollection,
-		'pages/product': product
+		'pages/product': product,
+		'pages/custom/product/build-and-buy': BuildAndBuy,
+		'pages/custom/product/click-and-buy': ClickAndBuy
 	},
 	/**
 	 * Getter method to ensure a good page type is accessed.
@@ -86,7 +88,7 @@ window.stencilBootstrap = function stencilBootstrap(templateFile, context) {
 
 	context = context || '{}';
 	context = JSON.parse(context);
-console.log(context)
+
 	return {
 		load() {
 			$(() => {

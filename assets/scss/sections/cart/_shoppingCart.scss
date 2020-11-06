@@ -225,6 +225,11 @@ button.cart-item-edit {
         top: 10px;
         right: 6px;
     }
+
+    @media screen and (max-width: $screen-sm) {
+        top: 3px;
+        right: 40px;
+    }
 }
 
 
@@ -445,6 +450,10 @@ button.cart-item-edit {
 
     @media screen and (max-width: $screen-lg) {
         top: 0;
+    }
+
+    @media screen and (max-width: $screen-sm) {
+        top: 5px;
     }
 }
 

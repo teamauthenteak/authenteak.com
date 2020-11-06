@@ -5,7 +5,7 @@ import Async from 'async';
 import utils from '@bigcommerce/stencil-utils';
 import { formatPrice, replaceSize } from './Utils';
 
-import AppContext from '../collection/AppContext';
+import AppContext from './context/AppContext';
 import LazyImg from './LazyImg';
 import AddToCartBtn from './AddToCartBtn';
 
@@ -32,6 +32,8 @@ export default function StickyCart(props){
         setFixed(canFix);
     };
 
+    const headline = {};
+
 
     useMemo(() => {
         let subTotal = 0, totalItems = 0;
@@ -49,6 +51,8 @@ export default function StickyCart(props){
 
 
     useEffect(() => {
+        headline = appHook.custom_fields.find(element => element.name === "sticky_cart_headline");
+
         // scroll events
         window.addEventListener('scroll', handleScroll, true);
 
@@ -133,7 +137,10 @@ export default function StickyCart(props){
                     :null}
 
                         <div className="stickyCart__titleCntr">
-                            <h2 className="stickyCart__title">Build Your Own</h2>
+                            <strong className="product__title product__title--upper l">Step 3</strong>
+                            <h2 className="stickyCart__title">
+                                {headline ? headline.value : ""}
+                            </h2>
                             <p className="stickyCart__desc">{appHook.product.title}</p>
                         </div>
                     </div>
@@ -151,7 +158,7 @@ export default function StickyCart(props){
                 </header>
 
                 <animated.ul className="stickyCart__itemList" style={hasItems}>
-                    <li className="stickyCart__item stickyCart__item--total">{totalQty} {cartItems.length === 1 ? "Item" : "Total Items" }:</li>
+                    <li className="stickyCart__item stickyCart__item--total">{totalQty} {totalQty === 1 ? "Item" : "Total Items" }:</li>
                     {
                         cartItems.map((item) => {
                             return <li className="stickyCart__item" key={props.cart[item].product_id}>

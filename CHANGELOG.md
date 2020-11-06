@@ -2,6 +2,15 @@
 
 ## [1.20.32]
 - ReactJS Collections PDP
+- Cart delete link fix
+- pdp tabs not working fix
+- global javascript break out for various apps
+- fixed tool tip tabs issue with alignment and scroll
+- fixed android issue for options overflow for smaller screen sizes
+- added json-tdl to pdp collections
+- renamed pdp collections to build-n-buy and click-n-buy
+- refactored personalization to be more universal and self contained
+- adding step indicators to build and buy configuration app
 
 ## [1.20.31]
 - new cart layout and cart functionality

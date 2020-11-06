@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { useSpring, animated } from 'react-spring';
 import { useMeasure } from 'react-use'
 
-import AppContext from '../collection/AppContext';
-import DrawerContext from '../collection/DrawerContext';
+import AppContext from './context/AppContext';
+import DrawerContext from './context/DrawerContext';
 import OptionDisplayButton from './OptionDrawer-DisplayBtn';
 import OptionSearch from './OptionDrawer-Search';
 import OptionFilterControls from './OptionDrawer-FilterOptionControls';

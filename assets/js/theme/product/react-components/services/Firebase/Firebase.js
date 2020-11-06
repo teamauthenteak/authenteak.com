@@ -19,6 +19,19 @@ export default class Firebase{
     }
 
 
+    failure = (err) => {
+        let event = new CustomEvent("notify", {
+            detail: {
+                message: `Oops. Looks like something went wrong. ${err ? err : ""}`,
+                type: 'error'
+            }
+        });
+
+        window.dispatchEvent(event);
+    }
+
+
+
     pdpInit = () => {
         this.getOptionBrands().then((response) => { this.state.brands =response });
         this.getElementTips().then((response) => { this.state.elements = response });
@@ -29,7 +42,8 @@ export default class Firebase{
     getOptionBrands = () => {
         return this.productTips.doc("brands").get().then((doc) => {
             if( doc.exists ){
-                return doc.data();
+                let data = doc.data()
+                return data;
             }
         }).catch(this.failure);
     };
@@ -37,9 +51,20 @@ export default class Firebase{
 
 
     // get a specific brand with option tips
-    getBrandOptionTips = (collection) => {
-        return this.productTips.doc("brands").collection(collection).get()
-            .then((querySnapshot) => querySnapshot)
+    getBrandOptionTips = async (collection) => {
+        return await this.productTips.doc("brands").collection(collection).get()
+            .then((querySnapshot) => {
+                let obj = [];
+
+                querySnapshot.forEach(function(doc) {
+                    obj[`${doc.id}`] = {
+                        id: doc.id,
+                        data: doc.data()
+                    }
+                });
+
+                return obj;
+            })
             .catch(this.failure);
     };
 

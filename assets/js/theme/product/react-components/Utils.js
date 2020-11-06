@@ -30,7 +30,7 @@ const formatPrice = (price) => {
  * Full storage setting of storage
  * @param {String} key 
  * @param {Object} data 
- * @param {String} type - the type of storage operatoin
+ * @param {String} type - the type of storage operation
  */
 
 const setStorage = (key, data, type) => {

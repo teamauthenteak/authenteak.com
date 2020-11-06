@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import AppContext from '../collection/AppContext';
+import AppContext from './context/AppContext';
 
 
 export default function SuggestedProductLayouts(props){
@@ -57,7 +57,8 @@ export default function SuggestedProductLayouts(props){
         <>
         { layouts.length > 0 ?
             <div className="product__layouts">
-                <h2 className="product__title">{title}</h2>
+                <strong className="product__title product__title--upper">Step 2</strong>
+                <h2 className="product__title product__title--tight">{title}</h2>
                 <ul className="product__layoutList">
                     {
                         layouts.map((item) => {

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState, useMemo } from 'react';
-import AppContext from '../collection/AppContext';
+import AppContext from './context/AppContext';
 import { useSpring, animated } from 'react-spring';
 import { useMeasure } from 'react-use'
 
@@ -33,6 +33,8 @@ export default function PointOfPurchaseModal(props){
     const modalVerticalCenter = useSpring({ 
         marginTop: (-height / 2)
     });
+
+
 
     useEffect(() => {
         let modal = appHook.product.custom_fields.find( ele => ele.name.includes("modal=") );
@@ -101,6 +103,7 @@ export default function PointOfPurchaseModal(props){
     }
 
 
+    
     const addToCart = () => {
         let cart = {
                 action: "add",
@@ -349,6 +352,7 @@ export default function PointOfPurchaseModal(props){
                                                             type="select" 
                                                             for={item.node.displayName} 
                                                             selected={(data) => changeSwatch({ [item.node.entityId]: data.node })}
+                                                            toolTipData={null}
                                                         />
                                                     </li>
                                             })}
@@ -366,6 +370,7 @@ export default function PointOfPurchaseModal(props){
                                                 values={item.node.values.edges}
                                                 setOption={selectSelect}
                                                 type="local"
+                                                toolTipData={null}
                                             /> 
                                         </div>
                                     :null}
@@ -380,7 +385,15 @@ export default function PointOfPurchaseModal(props){
                                 <div className="product__col product__col-6-10--lg product__col-1-1 pad-top flex">
                                     <div className="product__col--priceCntr">
                                         <div className="product__col-2-10 no-pad">
-                                            <div className="product__price">{total.without_tax ? total.without_tax : "$0"}</div>
+                                            {atcDisabled && status === null ? 
+                                                <div className="product__price">
+                                                     <svg className="icon icon-spinner"><use xlinkHref="#icon-spinner" /></svg>
+                                                </div>
+                                            :
+                                                <div className="product__price">
+                                                    {total.without_tax ? total.without_tax : "$0"}
+                                                </div>
+                                            }
                                         </div>
                                         <div className="product__col-8-10--md product__col-1-1 no-pad">
                                             <p className="product__priceDesc">

@@ -3,7 +3,6 @@ import GraphQL from './graphql/GraphQL';
 import LazyLoad from 'vanilla-lazyload';
 import Yotpo from './thirdparty/Yotpo';
 
-
 /*
  * Personlaiation Module:
  *  Cutom personalization dispay and data interaction
@@ -30,6 +29,7 @@ export default class Personalization extends PageManager {
 
         // must be passed in settings
         this.type = settings.type;
+        this.settings = settings;
        
         this.savedLimit = 20;
         this.isSaved = false;
@@ -37,11 +37,60 @@ export default class Personalization extends PageManager {
         this.savedProducts = this.getViewed();
     }
 
+
+
+    init(){
+		let $rv = $(this.settings.selector),
+			recentProducts = this.savedProducts;
+
+		if(recentProducts){ 
+			recentProducts.forEach((element) => {
+				let tpl = this.buildPersonalizationSlider(element);
+				$(tpl).appendTo(this.settings.carousel_selector, $rv);
+			});
+
+			$rv.addClass("show");
+		}
+
+		this.saveViewedProduct();
+
+		this.initProductSlider({
+			dotObj: {appendDots: this.settings.carousel_selector},
+			selector: this.settings.carousel_selector,
+			context: this.settings.selector
+		});	
+    }
+
+
+
+    // saved this viewed product - include the yotpo rating
+	saveViewedProduct(){
+		try{			
+			this.yotpo.getProductReviews(this.settings.product.product_id)
+				.done((dataObj) => {
+					let totalScore = dataObj.response.bottomline.average_score;
+
+					totalScore = (totalScore === 0) ? 0 : totalScore.toFixed(1);
+
+					this.settings.product["rating"] = totalScore;
+					this.settings.product["total_review"] = dataObj.response.bottomline.total_review;
+
+					this.save(this.settings.product);
+				});
+
+		}catch(err){
+			console.log(err)
+		}
+    }
+    
+
+
+
     /**
      * Saves the viewed product object to localstorage
      * @param {Object} product as parsed json 
      */
-    saveViewed(product){
+    save(product){
         if( window.localStorage ){
 
             this.savedProducts = this.savedProducts === null ? [] : this.savedProducts;

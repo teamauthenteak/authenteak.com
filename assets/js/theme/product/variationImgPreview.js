@@ -3,7 +3,8 @@ import productViewTemplates from './productViewTemplates';
 import ProductImages from './ProductImages';
 import baguetteBox from 'baguettebox.js';
 import ImageZoom from '../components/ImageZoom';
-import imagesLoaded from 'imagesLoaded';
+import imagesLoaded from 'imagesloaded';
+
 
 function scrollToTop() {
   $('html, body').animate({

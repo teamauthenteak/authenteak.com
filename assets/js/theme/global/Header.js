@@ -29,6 +29,7 @@ export default class Header {
 		
 		this._headerScroll();
 		
+		this.notPDPCollections = !document.getElementById("buildAndBuyRoot") || !document.getElementById("clickAndBuyRoot");
 		
 		this._headerPromoBanner();
 	}
@@ -207,24 +208,26 @@ export default class Header {
 			this.$header.addClass(scrollClass);
 		}
 
-		$win.resize(() => {
-			const compressHeader = false;
-			currentNavBarHeight = $currentNavBar.outerHeight();
+		$win.on("resize", () => {
+			if( this.notPDPCollections ){
+				const compressHeader = false;
+				currentNavBarHeight = $currentNavBar.outerHeight();
 
-			if (currentNavBarHeight > defaultNavbarHeight) {
-				this.$header.toggleClass(scrollClass, compressHeader);
+				if (currentNavBarHeight > defaultNavbarHeight) {
+					this.$header.toggleClass(scrollClass, compressHeader);
+				}
 			}
 		});
 
 
-		if( document.getElementById("pdpCollectionsRoot") ){
+		if( !this.notPDPCollections ){
 			this.$header.css("position", "static");
 			this.$header.siblings(".site-canvas").css("marginTop", 0);
 		}
 
 
-		$win.scroll(() => {
-			if( !document.getElementById("pdpCollectionsRoot") ){
+		$win.on("scroll", () => {
+			if( this.notPDPCollections ){
 				const st = $win.scrollTop();
 				var compressHeader = (st > threshold) ? true : false;
 

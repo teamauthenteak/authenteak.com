@@ -148,7 +148,7 @@ export default class GraphQL_Collection_TPL {
                                                         <div class="product__swatchText">
                                                             <p class="product__swatchOptionText">
                                                                 <span class="product__swatchName">
-                                                                ${productOption.displayName} 
+                                                                    <span class="product__swatchDisplayName">${productOption.displayName}</span>
                                                                 
                                                                 ${productOption.values.edges.length > 1 ? `
                                                                     <span class="product__swatchOptionIconCntr">

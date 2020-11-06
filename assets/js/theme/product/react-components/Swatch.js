@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import AppContext from '../collection/AppContext';
+import AppContext from './context/AppContext';
 import LazyImg from './LazyImg';
 import ToolTips from './ToolTips';
 
@@ -140,7 +140,7 @@ export default function Swatch(props){
 
         {optionExists && props.type === "remote" ?
             <li className={`product__swatchItem ${props.isInvalid && props.isInvalid.includes(props.id) ? "product__swatchItem--error" : ""}`}>
-                {Object.keys(props.toolTipData).length ? <ToolTips type="general" data={props.toolTipData} /> : null}
+                {props.toolTipData !== null ? <ToolTips type={props.toolTipData.data.type} tip={props.toolTipData.data.tip} /> : null}
                 <a href="#customize" className={`product__swatch`} required={true}>
                     <figure className="product__swatchLabel">
                         <img className="product__swatchImg" src={ Object.keys(remoteSwatch).length ? remoteSwatch.swatch.image : `https://dummyimage.com/256x256/cccccc/555555.png&text=${props.displayName}` } />
@@ -156,7 +156,7 @@ export default function Swatch(props){
 
         {props.type === "local" ?
             <li className="product__swatchItem product__swatchItem--marginBottom form-field">
-                {Object.keys(props.toolTipData).length ? <ToolTips type="general" data={props.toolTipData} /> : null}
+                {props.toolTipData !== null ? <ToolTips  type={props.toolTipData.data.type} tip={props.toolTipData.data.tip} /> : null}
                 <label className={`product__swatchLabel ${props.isInvalid && props.isInvalid.includes(props.id) ? "product__swatchLabel--error" : ""}`} htmlFor={`${props.id}`} onClick={() => toggleDrawer({id: props.id , displayName: props.displayName, values: props.values })}>
                     <div className="product__swatch product__swatch--labelRight">
                         <input className="product__swatchRadio form-input" required={true} id={`${props.id}`} type="radio" name={`attribute[{${props.id}}]`} />

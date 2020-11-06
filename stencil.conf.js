@@ -1,12 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
-const CleanPlugin = require('clean-webpack-plugin');
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 
 const webpackConfig = {
 	bail: false,
 	context: __dirname,
-	devtool: 'eval-cheap-module-source-map',
+	devtool: 'none',
 	entry: {
 		global: path.resolve(__dirname, 'assets/js/app.js'),
 		product: path.resolve(__dirname, 'assets/js/app-product.js'),
@@ -26,19 +26,20 @@ const webpackConfig = {
 					options: {
 						compact: true,
 						cacheDirectory: true,
-						minified: true,
+						minified: false,
 						presets: [
 							["@babel/preset-env", { 
 								loose: true,
-                                modules: false,
-                                useBuiltIns: 'entry',
+								useBuiltIns: 'usage',
+								modules: false,
                                 corejs: '^3.6.5'
 							}],
 							['@babel/preset-react']
 						],
 						plugins: [
+							["@babel/plugin-proposal-object-rest-spread", { "loose": true, "useBuiltIns": true }],
 							"@babel/plugin-transform-spread",
-							"@babel/plugin-proposal-class-properties",
+							"@babel/plugin-proposal-class-properties"
 						]
 					}
 				}
@@ -49,29 +50,14 @@ const webpackConfig = {
 		path: path.resolve(__dirname, 'assets/js'),
 		filename: '[name].bundle.js'
 	},
-	plugins: [
-		new CleanPlugin(['assets/dist'], {
-			verbose: false,
-			watch: false,
-		}),
-		// new BundleAnalyzerPlugin({
-		// 	analyzerMode: 'static',
-		// 	openAnalyzer: false,
-		// })
-	],
-	watch: false,
-	
-	optimization: {
-		minimize: false
-	}
+	plugins: [],
+	watch: true
 };
 
 /**
  * Watch any custom files and trigger a rebuild
  */
 function development() {
-	webpackConfig.optimization.minimize = false;
-
 	// Rebuild the bundle once at boot-up
 	webpack(webpackConfig).watch({}, err => {
 		if (err) {
@@ -79,7 +65,7 @@ function development() {
 		}
 
 		// Interface with stencil-cli
-		process.send('reload');
+		// process.send('reload');
 	});
 }
 
@@ -87,9 +73,6 @@ function development() {
  * Hook into the `stencil bundle` command and build your files before they are packaged as a .zip
  */
 function production() {
-	webpackConfig.devtool = false;
-	webpackConfig.optimization.minimize = true;
-
 	webpack(webpackConfig).run(err => {
 		if (err) {
 			console.error(err.message, err.details);
@@ -100,6 +83,7 @@ function production() {
 		process.send('done');
 	});
 }
+
 
 if (process.send) {
 	// running as a forked worker

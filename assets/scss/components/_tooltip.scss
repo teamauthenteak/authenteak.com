@@ -106,7 +106,9 @@
     &__cntr{
         @extend .modal__wrapper;
         padding: 40px;
-        max-height: 600px;
+        max-height: 600px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
 
         &--show{
             // @extend .zoomIn;
@@ -127,18 +129,18 @@
         }
 
         &--withTabs{
-            overflow: hidden;
+            overflow: hidden !important;
             padding: 0;
             box-shadow: none;
             background-color: transparent;
             width: 100vw;
-            height: 100vh !important;
+            // height: 100vh !important;
             max-height: inherit;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            margin: 0 !important;
+            // margin: 0 !important;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -148,8 +150,12 @@
             animation-duration: 0.3s;
             animation-fill-mode: forwards;
 
+            @media only screen and (max-width: $screen-sm) {
+                padding: 0 !important;
+            }
+
             & .toolTip__closeIcon{
-                fill: #fff;
+                fill: #555;
             }
         }
 
@@ -171,6 +177,11 @@
         width: 40px;
         height: 40px;
         fill: #555;
+
+        @media only screen and (max-width: $screen-sm) {
+            width: 25px;
+            height: 25px;
+        }
     }
 
     &__closeBtn{
@@ -182,6 +193,7 @@
         padding: 0;
         margin: 0;
         background-color: transparent;
+        z-index: 9999;
 
         &--whiteBack{
             background-color: #fff;
@@ -190,7 +202,10 @@
         }
 
         @media only screen and (max-width: $screen-sm) {
-            top: 6px;
+            top: 5px;
+            right: 5px;
+            width: 25px;
+            height: 25px;
         }
     }
 
@@ -198,7 +213,7 @@
     &__tabsCntr{
         position: relative;
         clear: both;
-        height: 500px;
+        height: 100%;
         width: 75vw;
         max-height: 600px;
         display: flex;
@@ -217,6 +232,10 @@
 
         [type=radio]:checked ~ label ~ .toolTip__tabContent {
             z-index: 1;
+        }
+
+        @media only screen and (max-width: $screen-sm) {
+            width: 100%;
         }
     }
 
@@ -254,6 +273,13 @@
         z-index: 99;
         border-bottom: 3px solid #f9f9f9;
 
+        @media only screen and (max-width: $screen-sm) {
+            font-size: 1rem;
+            line-height: 1;
+            height: 80px;
+            align-items: flex-end;
+        }
+
         &:hover{
             background: rgba(110, 164, 56, 0.05);
         }
@@ -268,9 +294,12 @@
         right: 0;
         bottom: 0;
         padding: 40px 40px 10px 40px;
-        height: 410px;
         width: 100%;
         overflow: auto;
+
+        @media only screen and (max-width: $screen-sm) {
+            padding: 20px;
+        }
     }
 
 

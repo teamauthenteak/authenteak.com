@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import AppContext from '../collection/AppContext';
+import AppContext from './context/AppContext';
 
 export default function AddButton(props){
     const appHook = useContext(AppContext);

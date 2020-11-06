@@ -16,8 +16,8 @@ import ProductSwatchModal from './product/ProductSwatchModal';
 import LazyLoad from 'vanilla-lazyload';
 import Yotpo from './thirdparty/Yotpo';
 import Tooltips from './components/ToolTips';
+import { replaceSize } from './product/react-components/Utils';
 
-import PDPCollections from './ProductCollection';
 
 export default class Product extends PageManager {
 	constructor() {
@@ -109,16 +109,6 @@ export default class Product extends PageManager {
 
 			this.recommendedProducts = [];
 		}
-
-
-		if( document.getElementById("recentlyViewedProducts") ){
-			// Recently Viewed Module
-			this.recentlyViewed = new Personalization({
-				type: "recentlyViewed"
-			});
-
-			this._initRecentlyViewed();
-		}
 		
 
 		if( document.getElementById("yotpoRating") ){
@@ -129,9 +119,12 @@ export default class Product extends PageManager {
 
 		// Product UI
 		this._bindEvents();
+
+		// Print Mode (Tear Sheet)
+		new PrintMode();
 		
 
-		if( document.getElementById("descTab") ){
+		if( document.getElementById("desc") ){
 			// init custom PDP tabs
 			this.pdpTabs = new TabsModule({
 				id: "descTab",
@@ -144,19 +137,11 @@ export default class Product extends PageManager {
 		
 
 		this.initAnalytics();
-
-
-		// Print Mode (Tear Sheet)
-		new PrintMode();
 	}
 
 
 	
 	loaded(next) {
-		if( document.getElementById("pdpCollectionsRoot") ){
-			new PDPCollections(this.context);
-		}
-
 		if( document.querySelector(this.el) ){
 			// Product Utils
 			this.ProductUtils = new ProductUtils(this.el, {
@@ -171,7 +156,28 @@ export default class Product extends PageManager {
 
 			next();
 		}
-		
+
+
+		if( document.getElementById("recentlyViewedProducts") ){
+			// Recently Viewed Module
+			const recentlyViewed = new Personalization({ 
+					selector: "#recentlyViewedProducts",
+					carousel_selector: ".product-rv-carousel",
+					type: "recentlyViewed",
+					product: {
+						url: this.context.product.url,
+						title: this.context.product.title,
+						product_id: this.context.product.id,
+						brand: this.context.product.brand.name,
+						price: this.context.product.price.without_tax.value,
+						availability: "in stock",
+						image: replaceSize(this.context.product.main_image.data, 200),
+						sku: this.context.product.sku
+					}
+				});
+
+        	recentlyViewed.init()
+		}
 	}
 
 
@@ -243,7 +249,7 @@ export default class Product extends PageManager {
 
 	/**
 	 * Build Recommended Products
-	 * @param {Array} args.productIdArray arry of recomened product ids 
+	 * @param {Array} args.productIdArray arry of recommend product ids 
 	 */
 
 	initRecommendedProducts(args){
@@ -316,59 +322,6 @@ export default class Product extends PageManager {
 		$recomm.toggleClass("hide");
 	}
 
-
-
-
-
-
-	_initRecentlyViewed(){
-		let $rv = $("#recentlyViewedProducts"),
-			recentProducts = this.recentlyViewed.savedProducts;
-
-		if(recentProducts){ 
-			recentProducts.forEach((element) => {
-				let tpl = this.recentlyViewed.buildPersonalizationSlider(element);
-				$(tpl).appendTo(".product-rv-carousel", $rv);
-			});
-
-			$rv.addClass("show");
-		}
-
-		this.saveViewedProduct();
-
-		this.recentlyViewed.initProductSlider({
-			dotObj: {appendDots: '.product-rv-carousel'},
-			selector: '.product-rv-carousel',
-			context: '#recentlyViewedProducts'
-		});
-		
-	}
-
-	
-
-
-
-	// saved this viewed product - include the yotpo rating
-	saveViewedProduct(){
-		if( !this.productId ){ return; }
-		
-		try{			
-			this.yotpo.getProductReviews(this.productId)
-				.done((dataObj) => {
-					let totalScore = dataObj.response.bottomline.average_score;
-
-					totalScore = (totalScore === 0) ? 0 : totalScore.toFixed(1);
-
-					this.productInfo["rating"] = totalScore;
-					this.productInfo["total_review"] = dataObj.response.bottomline.total_review;
-
-					this.recentlyViewed.saveViewed(this.productInfo);
-				});
-
-		}catch(err){
-			console.log(err)
-		}
-	}
 
 
 

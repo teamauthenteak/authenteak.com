@@ -1,4 +1,5 @@
 import utils from '@bigcommerce/stencil-utils';
+// import Alert from '../components/Alert';
 import FormValidator from '../utils/FormValidator';
 import ProgressButton from '../utils/ProgressButton';
 
@@ -12,6 +13,9 @@ export default class ProductUtils {
 
     this.productTitle = $(el).data('product-title');
     this.$productContainer = $('[data-product-container]');
+
+    // this.pageAlerts = new Alert($('[data-alerts]'));
+    // this.productAlerts = new Alert($('[data-product-alerts]'));
 
     this.progressButton = new ProgressButton();
 
@@ -169,8 +173,8 @@ export default class ProductUtils {
         return;
       }
 
-      this.pageAlerts.clear();
-      this.productAlerts.clear();
+      // this.pageAlerts.clear();
+      // this.productAlerts.clear();
 
       utils.api.productAttributes.optionChange(this.productId, $form.serialize(), (err, response) => {
         const viewModel = this._getViewModel(this.$el);
@@ -431,8 +435,8 @@ export default class ProductUtils {
     this.progressButton.progress($button);
 
     // Remove old alerts
-    this.pageAlerts.clear();
-    this.productAlerts.clear();
+    // this.pageAlerts.clear();
+    // this.productAlerts.clear();
 
     // Ajax add item to cart
     utils.api.cart.itemAdd(this.filterEmptyFilesFromForm(formData), (err, response) => {
@@ -468,9 +472,9 @@ export default class ProductUtils {
           this.progressButton.complete($button);
         }, 10000);
 
-        setTimeout(() => {
-          this.pageAlerts.clear();
-        }, 100);
+        // setTimeout(() => {
+        //   this.pageAlerts.clear();
+        // }, 100);
 
       }
 

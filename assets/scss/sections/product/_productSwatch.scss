@@ -32,6 +32,13 @@
         align-content: center;
         position: relative;
 
+        & .toolTip{
+            margin: 0;
+            position: absolute;
+            top: -7px;
+            left: -7px;
+        }
+
         &--select{
             width: 100%;
         }
@@ -259,6 +266,11 @@
         &--right{
             order: 1;
             width: 100%;
+
+            @media only screen and (max-width: $screen-sm) {
+                width: 70%;
+                max-width: 70%;
+            }
         }
     }
 
@@ -280,6 +292,13 @@
         line-height: 1.2;
         text-align: left;
         font-size: 1rem;
+        flex: 1 0 auto;
+        max-width: 50%;
+
+        @media only screen and (max-width: $screen-sm) {
+            width: 100%;
+            max-width: 100%;
+        }
     }
 
     &__swatchOptionIconCntr{
@@ -291,7 +310,8 @@
         color: #999;
         white-space: nowrap;
         align-items: center;
-        width: 33%;
+        width: 66%;
+        flex: 1 0 auto;
 
         @media only screen and (max-width: $screen-lg) {
             margin: 0;

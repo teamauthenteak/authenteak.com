@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import DrawerContext from '../collection/DrawerContext';
+import DrawerContext from './context/DrawerContext';
 
 export default function OptionDisplayButton(props){
     const drawerHook = useContext(DrawerContext);

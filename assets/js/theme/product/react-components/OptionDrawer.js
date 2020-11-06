@@ -1,9 +1,9 @@
 import React from 'react';
 import { Spring, animated } from 'react-spring/renderprops';
 
-import AppContext from '../collection/AppContext';
+import AppContext from './context/AppContext';
 import OptionDrawerFilters from './OptionDrawer-Filters';
-import DrawerContext from '../collection/DrawerContext';
+import DrawerContext from './context/DrawerContext';
 import uniq from 'lodash/uniq';
 
 export default class OptionDrawer extends React.Component{

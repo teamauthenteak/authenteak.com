@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState, useMemo, useReducer } from 'react';
-import AppContext from '../collection/AppContext';
+import AppContext from './context/AppContext';
 import LazyImg from './LazyImg';
 import { setStorage } from './Utils';
 

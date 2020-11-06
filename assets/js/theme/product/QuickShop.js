@@ -1,6 +1,4 @@
-import imagesLoaded from 'imagesloaded';
 import utils from '@bigcommerce/stencil-utils';
-
 import ProductUtils from './ProductUtils';
 import ProductImages from './ProductImages';
 import productViewTemplates from './productViewTemplates';
