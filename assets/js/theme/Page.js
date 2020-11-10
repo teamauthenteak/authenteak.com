@@ -14,7 +14,7 @@ export default class Page extends PageManager {
         });
 
         this.lazyLoadInstance = new LazyLoad({
-			elements_selector: ".replaced-image, .lazy-image, .landing__figImg"
+			elements_selector: ".replaced-image, .lazy-image, .landing__figImg, .card__img"
 		});
 
         // add Personalization engine
@@ -33,6 +33,7 @@ export default class Page extends PageManager {
 
 
     bindEvents(){
+        console.log("home")
         $(document)
             .on("click", "[rel=fileAClaim]", (e) => {
                 this.warrantyModal.open();
@@ -63,17 +64,18 @@ export default class Page extends PageManager {
 		let arrow = document.getElementById("heroScrollLink");
 		let winHeight = window.innerHeight;
 
-		$(window).resize(() => { winHeight = window.innerHeight });
+        if( arrow ){
+            $(window).on("resize", () => { winHeight = window.innerHeight });
 
-		$(window).scroll(() => {
-			// subtract get window height from size of hero
-			let scrollAmount = hero.bottom - winHeight;
- 
-			// watch to see if that is how much we have scrolled by: window.scrollY
-            // when we have scrolled that much then change the arrow to a absolute position
-            arrow.classList.toggle("landing__heroScroll--static", scrollAmount < window.scrollY);
-            
-		})
+            $(window).on("scroll", () => {
+                // subtract get window height from size of hero
+                let scrollAmount = hero.bottom - winHeight;
+    
+                // watch to see if that is how much we have scrolled by: window.scrollY
+                // when we have scrolled that much then change the arrow to a absolute position
+                arrow.classList.toggle("landing__heroScroll--static", scrollAmount < window.scrollY);
+            })
+        }
     }
     
 

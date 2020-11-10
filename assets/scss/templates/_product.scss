@@ -77,6 +77,11 @@
             line-height: 1;
             display: block;
             color: #543f23;
+
+            @media only screen and (max-width: $screen-md) {
+                font-size: 0.9rem;
+                margin: 0;
+            }
         }
 
         &--tight{

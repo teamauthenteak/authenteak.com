@@ -103,15 +103,19 @@
         {{> components/products/price price=product.price show_savings=true save_block=true}}
       {{/if}}
   
+
       {{#if product.call_for_price}}
         {{#if product.call_for_price "!==" "showroom pricing"}}
         <p class="product-price-message">{{product.call_for_price}}</p>
         {{/if}}
       {{/if}}
 
-      {{#contains product.call_for_price "showroom pricing"}}
-        <p class="product-price-message-text">This manufacturer requests that we do not publish pricing for this item.  Please email <a href="mailto:customercare@authenteak.com">customercare@authenteak.com</a> for pricing and additional information.</p>
-      {{/contains}}
+
+      {{#if customer.customer_group_id '!=' '1' }}
+        {{#contains product.call_for_price "showroom pricing"}}
+          <p class="product-price-message-text">This manufacturer requests that we do not publish pricing for this item.  Please email <a href="mailto:customercare@authenteak.com">customercare@authenteak.com</a> for pricing and additional information.</p>
+        {{/contains}}
+      {{/if}}
 
 
       {{#if customer.customer_group_id '==' '1' }}
@@ -126,6 +130,7 @@
 			{{/if}}
   </div>
 
+  
   {{#if customer.customer_group_id '==' '1' }}
     {{#each product.custom_fields}}
       {{#if this.name '==' "Trade Discount"}}

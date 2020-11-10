@@ -178,6 +178,28 @@
 }
 
 
+
+// background
+.bg{
+    &--golden{
+        background-color: $bg-golden !important;
+    }
+
+    &--dark{
+        background-color: $bg-dark;
+    }
+}
+
+.text{
+    &--golden{
+        color: $text-golden !important;
+    }
+
+    &--green{
+        color: $text-green;
+    }
+}
+
 img.lazy-image {
     min-height: 1px;
     min-width: 1px;

@@ -89,12 +89,20 @@
             box-shadow: 0 2px 10px 2px rgba(0, 0, 0, .12);
 
             & svg{
-                fill: #66902E;
+                fill: #78aa36;                
+            }
+
+            & .layout-dark-line{
+                fill:#66902E !important;
             }
         }
 
         &:hover{
             @extend .product__layoutBtn--active;
+
+            & .layout-dark-line{
+                fill:#66902E !important;
+            }
         }
     }
 
@@ -105,7 +113,10 @@
     &__layoutIcon{
         width: 100%;
         height: 130px;
-        fill: #543F23
+        fill: #856439;
     }
-
 }
+
+// .layout-dark-line{
+//     fill:#543F23;
+// }

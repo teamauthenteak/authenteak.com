@@ -16,6 +16,7 @@ export default function StickyCart(props){
     const [ isFixed, setFixed ] = useState(true);
     const [ total, setTotal ] = useState(0);
     const [ totalQty, setTotalQty ] = useState(0);
+    const [ headline, setHeadline ] = useState({});
     
     const cartItems = Object.keys(props.cart);
     const hasCartItems = cartItems.length > 0;
@@ -31,8 +32,6 @@ export default function StickyCart(props){
         let canFix = window.pageYOffset < stickyBounds;
         setFixed(canFix);
     };
-
-    const headline = {};
 
 
     useMemo(() => {
@@ -51,7 +50,10 @@ export default function StickyCart(props){
 
 
     useEffect(() => {
-        headline = appHook.custom_fields.find(element => element.name === "sticky_cart_headline");
+        if( appHook.product.custom_fields !== undefined ){
+            let headlineData = appHook.product.custom_fields.find(element => element.name === "sticky_cart_headline");
+            setHeadline(headlineData)
+        }
 
         // scroll events
         window.addEventListener('scroll', handleScroll, true);
@@ -137,9 +139,9 @@ export default function StickyCart(props){
                     :null}
 
                         <div className="stickyCart__titleCntr">
-                            <strong className="product__title product__title--upper l">Step 3</strong>
+                            <strong className="product__title product__title--upper l no-margin">Step 3</strong>
                             <h2 className="stickyCart__title">
-                                {headline ? headline.value : ""}
+                                {headline.value !== undefined ? headline.value : ""}
                             </h2>
                             <p className="stickyCart__desc">{appHook.product.title}</p>
                         </div>

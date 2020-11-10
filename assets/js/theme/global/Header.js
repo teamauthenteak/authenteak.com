@@ -221,7 +221,7 @@ export default class Header {
 
 
 		if( !this.notPDPCollections ){
-			this.$header.css("position", "static");
+			this.$header.css({"position": "static", "box-shadow": "none"});
 			this.$header.siblings(".site-canvas").css("marginTop", 0);
 		}
 

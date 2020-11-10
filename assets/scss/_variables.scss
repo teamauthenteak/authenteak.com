@@ -9,6 +9,7 @@ $grid-columns: 10 !default;
 
 // $standard-width: 1500px;
 $standard-width: 100% !important;
+$text-block-width: 960px;
 $standard-padding: 20px;
 $standard-column-width: 100%;
 $standard-border: 1px solid transparent;
@@ -18,13 +19,24 @@ $screen-sm: 568px; // tablet portrate
 $screen-md: 770px; // tablet landscape
 $screen-lg: 1024px; // Desktop
 $screen-xl: 1200px; // Large Desktop & HD TV
+$screen-xxl: 1440px; // Retina
+
 
 $border-radius: 4px;
 $button-border-radius: 99em;
 
 $btn-color-orange: #ec9d08;
 $btn-color-green: #6ea438;
-$danger: #e74c3c;
+
+$bg-orange: #ec9d08;
+$bg-green: #6ea438;
+$bg-dark: #111;
+$bg-golden: #F1D896;
+
+$text-golden: #F1D896;
+$text-danger: #e74c3c;
+$text-green: #6ea438;
+
 $link-color: #0066c0;
 
 $color-background-pdp: stencilColor('product-details-bg');

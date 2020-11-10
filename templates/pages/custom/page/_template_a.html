@@ -1,79 +1,54 @@
 
 {{#partial "page"}}
+    <div class="alert alert--darkLux">
+        <p><strong>SOME LOREM IPSUM TITTLE</strong><br />
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium libero deserunt tempore in. <a href="" title="" class="text--golden">Link to content &rsaquo;</a></p>
+    </div>
+
     <div class="landing">
 
-        <div class="landing__hero landing__hero--tall" id="homeHero">
+        <div class="landing__hero" id="homeHero">
             <div class="landing__heroCarousel">
 
-                <div class="landing__heroSlide landing__heroSlide--tall">
+                <div class="landing__heroSlide">
                     <a href="" class="landing__heroSlideLink" title="">
-                        <div class="landing__heroCaption landing__heroCaption--top">
-                            <h2 class="landing__heroHeading landing__heroHeading--dark">Afternoon Delight</h2>
-                            <p class="landing__heroText">Dine alfresco in style</p>
-                            <span class="button button-primary button-primary--green button-wide">Shop Dining Sets</span>
-                        </div>
-
-                        <picture class="landing__heroImg landing__heroImg--tall">
-                            <source media="(max-width: 699px)" srcset="https://authenteak.s3.us-east-2.amazonaws.com/images/october_hero_mobile.jpg">
-                            <source media="(min-width: 700px)" srcset="https://authenteak.s3.us-east-2.amazonaws.com/images/october_hero.jpg">
-                            <img src="https://authenteak.s3.us-east-2.amazonaws.com/images/october_hero.jpg" alt="" class="landing__heroImg">
+                        <picture class="landing__heroImg">
+                            <source media="(max-width: 699px)" srcset="https://dummyimage.com/425x300/ccc/999">
+                            <source media="(min-width: 700px)" srcset="https://dummyimage.com/1920x685/ccc/999">
+                            <img src="https://dummyimage.com/1920x685/ccc/999" alt="" class="landing__heroImg">
                         </picture>
                     </a>
                 </div><!-- end slide -->
-
             </div>
-
-            <a href="#mainContent" class="landing__heroScroll" id="heroScrollLink">
-                <svg class="landing__heroScrollIcon"><use xlink:href="#icon-circle-down" /></svg>
-            </a>
         </div>
 
 
-        <header class="landing__headerCntr" id="mainContent">
-            <h1 class="landing__header landing__header--1 no-margin">Luxury Outdoor Furnishings</h1>
-        </header>
-
-
-        <div class="landing__section">
-            <div class="landing__row landing__row--wrapCenter">
-                <div class="landing__col-1-2">
-                    <a href="" class="landing__linkFull">
-                        <img data-src="https://dummyimage.com/425x300/ccc/999" alt="" class="landing__figImg">
-                    </a>
-                    <h2 class="landing__titleCaption landing__titleCaption--small">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h2>
-                    <a href="" class="button button--small button-secondary--darkTrans">Outdoor Furniture</a>
-                </div>
-    
-                <div class="landing__col-1-2">
-                    <a href="" class="landing__linkFull">
-                        <img data-src="https://dummyimage.com/425x300/ccc/999" alt="" class="landing__figImg">
-                    </a>
-                    <h2 class="landing__titleCaption landing__titleCaption--small">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h2>
-                    <a href="" class="button button--small button-secondary--darkTrans">Outdoor Furniture</a>
-                </div>
-            </div><!-- /landing row-->
-
-
-
             <!-- 33/33/33 -->
-            <div class="landing__row">
-                <div class="landing__col-1-3">
-                    <a href="" class="landing__linkFull">
-                        <img data-src="https://dummyimage.com/300x300/ccc/999" alt="" class="landing__figImg">
-                    </a>
-                    <p class="landing__titleCaption landing__titleCaption--small">Lorem ipsum dolor sit amet.</p>
-                </div>
-                <div class="landing__col-1-3">
-                    <a href="" class="landing__linkFull">
-                        <img data-src="https://dummyimage.com/300x300/ccc/999" alt="" class="landing__figImg">
-                    </a>
-                    <p class="landing__titleCaption landing__titleCaption--small">Lorem ipsum dolor sit amet.</p>
-                </div>
-                <div class="landing__col-1-3">
-                    <a href="" class="landing__linkFull">
-                        <img data-src="https://dummyimage.com/300x300/ccc/999" alt="" class="landing__figImg">
-                    </a>
-                    <p class="landing__titleCaption landing__titleCaption--small">Lorem ipsum dolor sit amet.</p>
+            <div class="landing__row landing__row--withBackground landing__row--wrapCenter">
+                <h1 class="landing__header landing__header--1 no-margin">Holiday Gift Essentials</h1>
+
+                <div class="landing__container">
+                    <div class="landing__col-1-3">
+                        <a href="" class="landing__linkFull">
+                            <img data-src="https://dummyimage.com/300x300/ccc/999" alt="" class="landing__figImg">
+                        </a>
+                        <p class="landing__titleCaption landing__titleCaption--small">Lorem ipsum dolor sit amet.</p>
+                        <a href="" class="button button--small button-secondary--darkTrans" title="">Shop Now</a>
+                    </div>
+                    <div class="landing__col-1-3">
+                        <a href="" class="landing__linkFull">
+                            <img data-src="https://dummyimage.com/300x300/ccc/999" alt="" class="landing__figImg">
+                        </a>
+                        <p class="landing__titleCaption landing__titleCaption--small">Lorem ipsum dolor sit amet.</p>
+                        <a href="" class="button button--small button-secondary--darkTrans" title="">Shop Now</a>
+                    </div>
+                    <div class="landing__col-1-3">
+                        <a href="" class="landing__linkFull">
+                            <img data-src="https://dummyimage.com/300x300/ccc/999" alt="" class="landing__figImg">
+                        </a>
+                        <p class="landing__titleCaption landing__titleCaption--small">Lorem ipsum dolor sit amet.</p>
+                        <a href="" class="button button--small button-secondary--darkTrans" title="">Shop Now</a>
+                    </div>
                 </div>
             </div>
 
@@ -81,74 +56,236 @@
 
 
             <!-- 75/25 column -->
-            <div class="landing__row">
-                <div class="landing__col-3-4">
-                    <a href="" class="landing__linkFull">
-                        <img data-src="https://dummyimage.com/1280x600/ccc/999" alt="" class="landing__figImg">
-                    </a>
-                </div>
-                <div class="landing__col-1-4 landing__col-1-4--sm">
-                    <h2 class="landing__header landing__header--1">SMALL SPACE <strong>BIG STYLE</strong></h2>
-                    <p class="landing__p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pellentesque sapien malesuada metus pulvinar malesuada. Nunc quis commodo dolor. Nam turpis diam, tempor sed egestas ac, semper non mauris.</p>
-                    <a href="" class="button button--small button-secondary--darkTrans">Shop All Outdoor Furniture</a>
+            <div class="landing__row landing__row--withBackground bg--golden landing__row--wrapCenter">
+                <div class="landing__container">
+                    <div class="landing__col-1-1">
+                        <h2 class="landing__header landing__header--2">Create Your Outdoor Retreat</h2>
+                        <p class="landing__p landing__p--block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pellentesque sapien malesuada metus pulvinar malesuada. Nunc quis commodo dolor. Nam turpis diam, tempor sed egestas ac, semper non mauris. Fusce eu tortor vel dui varius pharetra nec eu ligula. Quisque sodales elit et odio rhoncus, ut blandit eros feugiat. In at massa a odio porta malesuada. Quisque venenatis tincidunt arcu, id finibus lectus condimentum sed.</p>
+                        <p class="landing__p"><strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</strong></p>
+                    </div>
                 </div>
             </div>
+
+
+
+            <div class="landing__row landing__row--withBackground landing__row--wrapCenter" style="background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/images/review_background.jpg);">
+                <div class="landing__container">
+                    <h2 class="landing__header landing__header--2 text--golden">What Our Customers Say</h2>
+
+                    <div class="landing__col-1-3">
+                        <div class="card">
+                            <a href="" title="" class="card__topLink">
+                                <picture class="card__top card__top--pad">
+                                    <img data-src="https://dummyimage.com/395x263/ccc/999" alt="" class="card__img">
+                                </picture>
+                                <cite class="card__topText text--green">Some Product Link &rsaquo;</cite>
+                            </a>
+                            <div class="card__body card__body--center">
+                                <h3 class="card__title">Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing</h3>
+                                <p class="card__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam est non officiis neque incidunt porro! Harum eveniet exercitationem suscipit sequi eum, qui ex nihil inventore assumenda!</p>
+                                <div class="ratings">
+                                    <div class="ratings__stars" style="--rating:5;" aria-label="Rating of 5 out of 5."></div>
+                                </div>
+                                <em class="pad-top">Verified Buyer - Blah Blah</em>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="landing__col-1-3">
+                        <div class="card">
+                            <a href="" title="" class="card__topLink">
+                                <picture class="card__top card__top--pad">
+                                    <img data-src="https://dummyimage.com/395x263/ccc/999" alt="" class="card__img">
+                                </picture>
+                                <cite class="card__topText text--green">Some Product Link &rsaquo;</cite>
+                            </a>
+                            <div class="card__body card__body--center">
+                                <h3 class="card__title">Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing</h3>
+                                <p class="card__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam est non officiis neque incidunt porro! Harum eveniet exercitationem suscipit sequi eum, qui ex nihil inventore assumenda!</p>
+                                <div class="ratings">
+                                    <div class="ratings__stars" style="--rating:5;" aria-label="Rating of 5 out of 5."></div>
+                                </div>
+                                <em class="pad-top">Verified Buyer - Blah Blah</em>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="landing__col-1-3">
+                        <div class="card">
+                            <a href="" title="" class="card__topLink">
+                                <picture class="card__top card__top--pad">
+                                    <img data-src="https://dummyimage.com/395x263/ccc/999" alt="" class="card__img">
+                                </picture>
+                                <cite class="card__topText text--green">Some Product Link &rsaquo;</cite>
+                            </a>
+                            <div class="card__body card__body--center">
+                                <h3 class="card__title">Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing</h3>
+                                <p class="card__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam est non officiis neque incidunt porro! Harum eveniet exercitationem suscipit sequi eum, qui ex nihil inventore assumenda!</p>
+                                <div class="ratings">
+                                    <div class="ratings__stars" style="--rating:5;" aria-label="Rating of 5 out of 5."></div>
+                                </div>
+                                <em class="pad-top">Verified Buyer - Blah Blah</em>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- 50/50 column -->
+            <div class="landing__row landing__row--wrapCenter">
+                <div class="landing__container">
+                    <div class="landing__col-1-2">
+                        <figure class="landing__figure landing__figure--flexCenter">
+                            <a href="" class="landing__linkFull">
+                                <img data-src="https://dummyimage.com/800x400/ccc/999" alt="" class="landing__figImg">
+                                <figcaption class="landing__titleCaption landing__titleCaption--overlay landing__titleCaption--dark text--golden">Umbrellas</figcaption>
+                            </a>
+                        </figure>
+                        <p class="landing__p pad-top">
+                            <a href="" class="button button--small button-secondary--trans bg--golden">Shop All</a>
+                        </p>
+                    </div>
+            
+                    <div class="landing__col-1-2">
+                        <figure class="landing__figure landing__figure--flexCenter">
+                            <a href="" class="landing__linkFull">
+                                <img data-src="https://dummyimage.com/800x400/ccc/999" alt="" class="landing__figImg">
+                                <figcaption class="landing__titleCaption landing__titleCaption--overlay landing__titleCaption--dark text--golden">Umbrellas</figcaption>
+                            </a>
+                        </figure>
+                        <p class="landing__p pad-top">
+                            <a href="" class="button button--small button-secondary--trans bg--golden">Shop All</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            
+
+
+            <!-- 100 column -->
+            <div class="landing__row landing__row--wrapCenter">
+                <div class="landing__container">
+                    <div class="landing__col-1-1">
+                        <figure class="landing__figure landing__figure--flexCenter">
+                            <a href="" class="landing__linkFull">
+                                <img data-src="https://dummyimage.com/1200x400/ccc/999" alt="" class="landing__figImg">
+                                <figcaption class="landing__titleCaption landing__titleCaption--overlay landing__titleCaption--dark text--golden">Umbrellas</figcaption>
+                            </a>
+                        </figure>
+                        <p class="landing__p pad-top">
+                            <a href="" class="button button--small button-secondary--trans bg--golden">Shop All</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
 
 
 
 
             <!-- 50/50 column -->
-            <div class="landing__row">
-                <div class="landing__col-1-2 landing__col--left">
-                    <a href="" class="landing__linkFull">
-                        <img data-src="https://dummyimage.com/640x400/ccc/999" alt="" class="landing__figImg">
-                    </a>
-                    <h2 class="landing__header landing__header--4">Modernizing Your Patio</h2>
-                    <p class="landing__p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pellentesque sapien malesuada metus pulvinar malesuada. Nunc quis commodo dolor. Nam turpis diam, tempor sed egestas ac, semper non mauris. Fusce eu tortor vel dui varius pharetra nec eu ligula. Quisque sodales elit et odio rhoncus, ut blandit eros feugiat. In at massa a odio porta malesuada. Quisque venenatis tincidunt arcu, id finibus lectus condimentum sed.</p>
-                    <a href="" class="button button--small button-secondary--darkTrans">Shop All Outdoor Furniture</a>
+            <div class="landing__row landing__row--wrapCenter">
+                <div class="landing__container">
+                    <div class="landing__col-1-2">
+                        <figure class="landing__figure landing__figure--flexCenter">
+                            <a href="" class="landing__linkFull">
+                                <img data-src="https://dummyimage.com/800x400/ccc/999" alt="" class="landing__figImg">
+                                <figcaption class="landing__titleCaption landing__titleCaption--overlay landing__titleCaption--dark text--golden">Umbrellas</figcaption>
+                            </a>
+                        </figure>
+                        <p class="landing__p pad-top">
+                            <a href="" class="button button--small button-secondary--trans bg--golden">Shop All</a>
+                        </p>
+                    </div>
+            
+                    <div class="landing__col-1-2">
+                        <figure class="landing__figure landing__figure--flexCenter">
+                            <a href="" class="landing__linkFull">
+                                <img data-src="https://dummyimage.com/800x400/ccc/999" alt="" class="landing__figImg">
+                                <figcaption class="landing__titleCaption landing__titleCaption--overlay landing__titleCaption--dark text--golden">Umbrellas</figcaption>
+                            </a>
+                        </figure>
+                        <p class="landing__p pad-top">
+                            <a href="" class="button button--small button-secondary--trans bg--golden">Shop All</a>
+                        </p>
+                    </div>
                 </div>
-        
-                <div class="landing__col-1-2 landing__col--left">
-                    <a href="" class="landing__linkFull">
-                        <img data-src="https://dummyimage.com/640x400/ccc/999" alt="" class="landing__figImg">
-                    </a>
-                    <h2 class="landing__header landing__header--4">Modernizing Your Patio</h2>
-                    <p class="landing__p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pellentesque sapien malesuada metus pulvinar malesuada. Nunc quis commodo dolor. Nam turpis diam, tempor sed egestas ac, semper non mauris. Fusce eu tortor vel dui varius pharetra nec eu ligula. Quisque sodales elit et odio rhoncus, ut blandit eros feugiat. In at massa a odio porta malesuada. Quisque venenatis tincidunt arcu, id finibus lectus condimentum sed.</p>
-                    <a href="" class="button button--small button-secondary--darkTrans">Shop All Outdoor Furniture</a>
+            </div>
+
+
+
+
+            <div class="landing__row landing__row--withBackground landing__row--wrapCenter" style="background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/images/review_background.jpg);">
+                <div class="landing__container">
+                    <h2 class="landing__header landing__header--2 text--golden">Get Inspired On Our Blog</h2>
+
+                    <div class="landing__col-1-3">
+                        <div class="card">
+                            <a href="" title="" class="card__topLink">
+                                <picture class="card__top card__top--pad">
+                                    <img data-src="https://dummyimage.com/395x263/ccc/999" alt="" class="card__img">
+                                </picture>
+                            </a>
+                            <div class="card__body card__body--center">
+                                <h3 class="card__title">Lorem Ipsum</h3>
+                                <p class="card__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam est non officiis neque incidunt porro! Harum eveniet exercitationem suscipit sequi eum, qui ex nihil inventore assumenda!</p>
+                                <strong class="card__text">
+                                    <a href="" title="">Read More &rsaquo;</a>
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="landing__col-1-3">
+                        <div class="card">
+                            <a href="" title="" class="card__topLink">
+                                <picture class="card__top card__top--pad">
+                                    <img data-src="https://dummyimage.com/395x263/ccc/999" alt="" class="card__img">
+                                </picture>
+                            </a>
+                            <div class="card__body card__body--center">
+                                <h3 class="card__title">Lorem Ipsum</h3>
+                                <p class="card__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam est non officiis neque incidunt porro! Harum eveniet exercitationem suscipit sequi eum, qui ex nihil inventore assumenda!</p>
+                                <strong class="card__text">
+                                    <a href="" title="">Read More &rsaquo;</a>
+                                </strong>
+                            </div>
+                        </div>                    
+                    </div>
+                    
+
+                    <div class="landing__col-1-3">
+                        <div class="card">
+                            <a href="" title="" class="card__topLink">
+                                <picture class="card__top card__top--pad">
+                                    <img data-src="https://dummyimage.com/395x263/ccc/999" alt="" class="card__img">
+                                </picture>
+                            </a>
+                            <div class="card__body card__body--center">
+                                <h3 class="card__title">Lorem Ipsum</h3>
+                                <p class="card__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam est non officiis neque incidunt porro! Harum eveniet exercitationem suscipit sequi eum, qui ex nihil inventore assumenda!</p>
+                                <strong class="card__text">
+                                    <a href="" title="">Read More &rsaquo;</a>
+                                </strong>
+                            </div>
+                        </div>                    
+                    </div>
+
+
                 </div>
             </div>
 
 
 
 
-            <!-- 50/25/25 Column -->
-            <div class="landing__row">
-                <div class="landing__col-2-3">
-                    <a href="" class="landing__linkFull">
-                        <img data-src="https://dummyimage.com/640x400/ccc/999" alt="" class="landing__figImg">
-                    </a>
-                    <h2 class="landing__header landing__header--4">Modernizing Your Patio</h2>
-                    <p class="landing__p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pellentesque sapien malesuada metus pulvinar malesuada. Nunc quis commodo dolor. Nam turpis diam, tempor sed egestas ac, semper non mauris. Fusce eu tortor vel dui varius pharetra nec eu ligula. Quisque sodales elit et odio rhoncus, ut blandit eros feugiat. In at massa a odio porta malesuada. Quisque venenatis tincidunt arcu, id finibus lectus condimentum sed.</p>
-                    <a href="" class="button button--small button-secondary--darkTrans">Shop All Outdoor Furniture</a>
-                </div>
 
-                <div class="landing__col-1-3">
-                    <div class="landing__col-1-1 pad-bottom">
-                        <a href="" class="landing__linkFull">
-                            <img data-src="https://dummyimage.com/425x300/ccc/999" alt="" class="landing__figImg">
-                        </a>
-                        <div class="landing__titleCaption landing__titleCaption--small">Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>    
-                    </div>
-                    <div class="landing__col-1-1 no-pad">
-                        <a href="" class="landing__linkFull">
-                            <img data-src="https://dummyimage.com/425x300/ccc/999" alt="" class="landing__figImg">
-                        </a>
-                        <div class="landing__titleCaption landing__titleCaption--small">Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>
-                    </div>
-                </div>
-            </div>
         </div><!-- /landing section -->
     </div>
+
+    <!-- Nosto -->
+    <div class="nosto_element" id="frontpage-nosto-1"></div>
+
 
     <!-- Recently Viewed -->
     <section class="products-related products-recently-viewed section" id="recentlyViewedProducts">

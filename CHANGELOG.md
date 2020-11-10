@@ -11,6 +11,7 @@
 - renamed pdp collections to build-n-buy and click-n-buy
 - refactored personalization to be more universal and self contained
 - adding step indicators to build and buy configuration app
+- Added Nosto recommendations container divs
 
 ## [1.20.31]
 - new cart layout and cart functionality

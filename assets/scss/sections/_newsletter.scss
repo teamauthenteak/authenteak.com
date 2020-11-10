@@ -7,7 +7,7 @@ $newsletter-height: 45px;
     width: 100%;
     background-color: #fff;
     border-top: 1px solid rgba(25, 25, 25, 0.1);
-    padding: $standard-padding *2 $standard-padding;
+    padding: $standard-padding *5 $standard-padding;
 
     &__heading{
         font-size: 1.3rem;
@@ -15,6 +15,7 @@ $newsletter-height: 45px;
         line-height: 1;
         margin: 0;
         font-weight: 200;
+        color: #333;
     }
 
     &__text{
@@ -22,7 +23,7 @@ $newsletter-height: 45px;
         text-align: center;
         line-height: 1;
         margin-top: 10px;
-        color: #999;
+        color: #333;
     }
 
     &__label{
@@ -68,6 +69,7 @@ $newsletter-height: 45px;
         height: $newsletter-height;
         float: left;
         font-size: 1rem;
+        background-color: #333;
 
         &:hover{
             border-left: inherit;
@@ -79,7 +81,7 @@ $newsletter-height: 45px;
 
         &--error{
             font-weight: 800;
-            color: $danger;
+            color: $text-danger;
         }
 
         &--success{

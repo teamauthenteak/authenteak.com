@@ -32,6 +32,17 @@
         font-size: 1rem;
         line-height: 1.4;
     }
+
+    &--darkLux{
+        background-color: $bg-dark;
+        color: $text-golden;
+    }
+
+    &__blockLink{
+        display: block;
+        width: 100%;
+        text-decoration: none;
+    }
 }
 
 
