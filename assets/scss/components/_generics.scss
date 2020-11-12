@@ -178,7 +178,6 @@
 }
 
 
-
 // background
 .bg{
     &--golden{
@@ -188,7 +187,16 @@
     &--dark{
         background-color: $bg-dark;
     }
+
+    &--white{
+        background-color: $bg-white;
+    }
+
+    &--grey{
+        background-color: $bg-gray;
+    }
 }
+
 
 .text{
     &--golden{
@@ -198,7 +206,12 @@
     &--green{
         color: $text-green;
     }
+
+    &--white{
+        background-color: $text-white;
+    }
 }
+
 
 img.lazy-image {
     min-height: 1px;
