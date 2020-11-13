@@ -91,7 +91,8 @@
 	{{/if}}
 
 	{{> components/common/TEAK-js}}
-	<script>window.stencilBootstrap( "{{template}}", {{ jsContext }} ).load();</script>
+	<script>window.stencilBootstrap( "{{template_file}}", {{ jsContext }} ).load();</script>
+	<!-- <script>window.stencilBootstrap( "{{template}}", {{ jsContext }} ).load();</script> -->
 	
 	{{#if page_type '===' 'product'}}
 		{{> components/common/facebook-like}}

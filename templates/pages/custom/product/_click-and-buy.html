@@ -1,0 +1,57 @@
+---
+product:
+   related_products:
+       limit: 10
+---
+
+{{#partial "page"}}
+{{inject "product" product}}
+
+<div class="container">
+    {{#if theme_settings.category-breadcrumbs}}
+        {{> components/common/breadcrumbs breadcrumbs}}
+    {{/if}}
+
+    <div id="clickAndBuyRoot"></div>
+
+    <div class="nosto_element" id="nosto-page-product1"></div>
+
+    <section class="products-related products-recently-viewed section" id="recentlyViewedProducts">
+        <div class="container">
+            <h3 class="section-title">{{lang 'product.recently_viewed_products_heading'}}</h3>
+            <div class="product-grid product-rv-carousel"></div>
+        </div>
+    </section>
+</div>
+
+
+<script type="application/ld+json">
+    {
+      "provider_name": "AuthenTEAK",
+      "url": "{{product.url}}",
+      "title": "{{this.product.title}}",
+      "description": "{{json product.description}}",
+      "product_id": "{{product.id}}",
+      "brand": "{{product.brand.name}}",
+      "price": "{{#block "jsonPrice"}}{{/block}}",
+      "currency_code": "{{product.price.without_tax.currency}}",
+      "availability": "in stock",
+      "images": [{{#each product.images}}
+        "{{getImage this 'product'}}"{{#unless @last}},{{/unless}}{{/each}}
+      ],
+      "related_items": [{{#each product.related_products}}
+        "//authenteak.com{{url}}"{{#unless @last}},{{/unless}}{{/each}}
+      ],
+      "color": [{{#forEach product.options}}{{#inArray (split "Select Head Cushion Fabric||Select Canopy||Select Optional Cushions||Select Optional Cushion||Select Fabric||Select Cushion||Select Throw Pillows Fabric" "||") display_name }}{{#forEach values}}{{#unless (occurrences label "No Thanks") }}{{#unless (occurrences label "No Cushion") }}
+          {
+            "name": "{{ trim (first (split label ' (+' )) }}",
+            "{{getImage image 'core-swatch'}}",
+            "map": ""
+          }{{#unless isLast}},{{/unless}}{{/unless}}{{/unless}}{{/forEach}}{{/inArray}}{{/forEach}}
+      ],
+      "geographic_availability": "US"
+    }
+</script>
+
+{{/partial}}
+{{> layout/base}}

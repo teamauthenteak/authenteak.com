@@ -33,7 +33,6 @@ export default class Page extends PageManager {
 
 
     bindEvents(){
-        console.log("home")
         $(document)
             .on("click", "[rel=fileAClaim]", (e) => {
                 this.warrantyModal.open();

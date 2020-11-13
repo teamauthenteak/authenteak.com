@@ -1,8 +1,8 @@
-// glboal scrol car
+// global scroll bar
 %scrolling-inner{
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: #777 #f2f2f2;
+    scrollbar-color: #f2f2f2;
     -webkit-overflow-scrolling: touch;
 
     &::-webkit-scrollbar {
@@ -90,7 +90,7 @@
 }
 
 
-// Justiied Text
+// Justified Text
 .l{text-align: left}
 .r{text-align: right;}
 .c{text-align: center}
@@ -130,21 +130,23 @@
 
 
 // Paddings
-.pad, [class*='span-']:last-of-type.pad{
+[class*='span-']:last-of-type.pad{
     padding: $standard-padding;
 }
 
 .no-pad{
-    padding:0 !important;
+    padding: 0 !important;
 }
 
 .pad{
+    padding: $standard-padding !important;
+
     &-top{
         padding: $standard-padding 0 0 0 !important;
     }
 
     &-top-lg{
-        padding-top: $standard-padding * 4 !important;
+        padding-top: $standard-padding !important;
     }
     
     &-bottom{
@@ -152,7 +154,7 @@
     }
 
     &-bottom-lg{
-        padding-bottom: $standard-padding *4 !important;
+        padding-bottom: 100px !important;
     }
     
     &-top-bottom{
@@ -179,6 +181,8 @@
 }
 
 .margin{
+    margin: $standard-padding;
+
     &-top{
         margin-top: $standard-padding;
     }
@@ -188,11 +192,11 @@
     }
 
     &-top-lg{
-        margin-top: $standard-padding * 4;
+        margin-top: 100px;
     }
 
     &-bottom-lg{
-        margin-bottom: $standard-padding * 4;
+        margin-bottom: 100px;
     }
 }
 
@@ -210,6 +214,8 @@
 
 // background
 .bg{
+    background-color: transparent;
+
     &--golden{
         background-color: $bg-golden !important;
     }
@@ -229,6 +235,8 @@
 
 
 .text{
+    color: transparent;
+    
     &--golden{
         color: $text-golden !important;
     }
@@ -238,7 +246,11 @@
     }
 
     &--white{
-        background-color: $text-white;
+        color: $text-white;
+    }
+
+    &--dark{
+        color: $text-dark;
     }
 }
 

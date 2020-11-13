@@ -3737,14 +3737,16 @@ table.geotrust-ssl-seal-table {
     .alert-dismiss { @include icon-close(darken($color-info, 30%)); }
   }
 
-  a:not(.alert-dismiss) {
-    color: $color-alert-text;
-    text-decoration: underline;
+  // a:not(.alert-dismiss) {
+  //   color: $color-alert-text;
+  //   text-decoration: underline;
 
-    &:hover {
-      text-decoration: none;
-    }
-  }
+  //   &:hover {
+  //     text-decoration: none;
+  //   }
+  // }
+
+  
 }
 
 /* scss-combine:general/global */

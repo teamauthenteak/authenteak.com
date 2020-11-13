@@ -64,13 +64,13 @@
 
     &__headHeading{
         @extend %cell-style;
-        font-style: 600;
+        font-weight: 600;
         color: inherit;
         text-transform: capitalize;
     }
 
     &__headText{
-        font-style: 600;
+        font-weight: 600;
         color: inherit;
         text-transform: capitalize;
     }
