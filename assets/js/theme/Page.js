@@ -3,56 +3,57 @@ import Modal from 'bc-modal';
 import Personalization from './Personalization';
 import LazyLoad from 'vanilla-lazyload';
 
-const settings = [
+const countdownEvents = [
     {
-        text: "Early Black Friday Deal: Save 20% on Povl with Code <code class='alert__code'>POVL20</code>  &nbsp;|&nbsp; Ends 11/20",
+        text: "Early Black Friday Deal: Save 20% on Povl with code <code class='alert__code'>POVL20</code>",
         link: "https://authenteak.com/shop-all-brands/povl-outdoor/shop-all-povl-outdoor/",
         start_date: "13 Nov 2020",
         end_date: "20 Nov 2020"
     },
     {
-        text: "Early Black Friday Daily Deal: Save 10% on Umbrellas with Code <code class='alert__code'>SHADE10</code>  &nbsp;|&nbsp; Ends 11/21",
+        text: "Early Black Friday Daily Deal: Save 10% on Umbrellas with code <code class='alert__code'>SHADE10</code>",
         link: "https://authenteak.com/patio-umbrellas-accessories/shop-all-patio-umbrellas-accessories/#/filter:custom_category:Umbrellas",
         start_date: "21 Nov 2020",
         end_date: "21 Nov 2020"
     },
     {
-        text: "Early Black Friday Daily Deal: Save 15% on Planters with Code <code class='alert__code'>PLANT15</code>  &nbsp;|&nbsp; Ends 11/22",
+        text: "Early Black Friday Daily Deal: Save 15% on Planters with code <code class='alert__code'>PLANT15</code>",
         link: "https://authenteak.com/planters/shop-all-planters/",
         start_date: "22 Nov 2020",
         end_date: "22 Nov 2020"
     },
     {
-        text: "Early Black Friday Daily Deal: Save 15% on Adirondacks & Rocking Chairs with Code <code class='alert__code'>CHAIR15</code>  &nbsp;|&nbsp; Ends 11/23",
+        text: "Early Black Friday Daily Deal: Save 15% on Adirondacks & Rocking Chairs with code <code class='alert__code'>CHAIR15</code>",
         link: "https://authenteak.com/outdoor-furniture/lounging/adirondacks-rocking-chairs/",
         start_date: "23 Nov 2020",
         end_date: "23 Nov 2020"
     },
     {
-        text: "Early Black Friday Daily Deal: Save 10% on Protective Covers with Code <code class='alert__code'>COVER10</code>  &nbsp;|&nbsp; Ends 11/24",
+        text: "Early Black Friday Daily Deal: Save 10% on Protective Covers with code <code class='alert__code'>COVER10</code>",
         link: "https://authenteak.com/maintenance-care/protective-covers/",
         start_date: "24 Nov 2020",
         end_date: "24 Nov 2020"
     },
     {
-        text: "Early Black Friday Daily Deal: Save 10% on Enduraleaf with Code <code class='alert__code'>ENDURA10</code>  &nbsp;|&nbsp; Ends 11/25",
+        text: "Early Black Friday Daily Deal: Save 10% on Enduraleaf with code <code class='alert__code'>ENDURA10</code>",
         link: "https://authenteak.com/shop-all-brands/enduraleaf/shop-all-enduraleaf/",
         start_date: "25 Nov 2020",
         end_date: "25 Nov 2020"
     },
     {
-        text: " Black Friday Deal: Save 10% on Outdoor Furniture with Code <code class='alert__code'>BLACKFRIDAY</code>  &nbsp;|&nbsp; Ends 11/29",
+        text: " Black Friday Deal: Save 10% on Outdoor Furniture with code <code class='alert__code'>BLACKFRIDAY</code>",
         link: "https://authenteak.com/outdoor-furniture/shop-all-outdoor-furniture/",
         start_date: "26 Nov 2020",
         end_date: "29 Nov 2020"
     },
     {
-        text: "Cyber Monday Deal: Last Chance on Daily Deals + Save 10% on Outdoor TVs with Code <code class='alert__code'>CYBERMONDAY</code>  &nbsp;|&nbsp; Ends 12/1",
+        text: "Cyber Monday Deal: Last Chance on Daily Deals + Save 10% on Outdoor TVs with code <code class='alert__code'>CYBERMONDAY</code>",
         link: "https://authenteakl.com/black-friday-deals",
         start_date: "30 Nov 2020",
         end_date: "1 Dec 2020"
     }
 ];
+
 
 export default class Page extends PageManager {
     constructor() {
@@ -100,7 +101,67 @@ export default class Page extends PageManager {
 
     // count down alert
     initCountDown(){
+        let countDown = document.getElementById("countDownAlert")
+        let countDownText = countDown.querySelector(".countDown__text");
+        let countDownLink = countDown.querySelector(".alert__blockLink");
+        let countDownTimer = countDown.querySelector(".countDown__timer");
+
+        let timer = null;
         
+        function getTimeRemaining(endBy){
+            let remaining = Date.parse(endBy) - Date.parse(new Date());
+
+            return{
+                remaining: remaining,
+                days: Math.floor(remaining / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((remaining / (1000 * 60 * 60)) % 24),
+                minutes: Math.floor((remaining / 1000 / 60) % 60),
+                seconds: Math.floor((remaining / 1000) % 60)
+            }
+        }
+
+
+        function updateTimer(eventElement){
+            let time = getTimeRemaining(eventElement.end_date);
+
+            countDownText.innerHTML = eventElement.text;
+            countDownLink.setAttribute("href", eventElement.link);
+            countDownTimer.innerHTML = `Offer ends  
+                <ul class="countDown__clock">
+                    <li class="countDown__clockDigit">
+                        <span class="countDown__digit">${time.days}</span>
+                        <span class="countDown__digitLabel">Days</span>
+                    </li>
+                    <li class="countDown__clockDigit">
+                        <span class="countDown__digit">${time.hours}</span>
+                        <span class="countDown__digitLabel">Hours</span>
+                    </li>
+                    <li class="countDown__clockDigit">
+                        <span class="countDown__digit">${time.minutes}</span>
+                        <span class="countDown__digitLabel">Minutes</span>
+                    </li>
+                    <li class="countDown__clockDigit">
+                        <span class="countDown__digit">${time.seconds}</span>
+                        <span class="countDown__digitLabel">Seconds</span>
+                    </li>
+                </ul>`;
+
+            if( time.remaining <= 0 ){
+                clearInterval(timer);
+            }
+        }
+
+
+        countdownEvents.forEach((element) => {
+            let start = Date.parse(element.start_date)
+            let end = Date.parse(element.end_date)
+            let now = Date.parse(new Date());
+
+            if( end > now && start <= now ){
+                timer = setInterval(() => updateTimer(element), 1000);
+                countDown.classList.remove("alert--hide");
+            }
+        });
 
     }
 

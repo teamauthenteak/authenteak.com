@@ -1,0 +1,62 @@
+.countDown{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+
+    &__text{
+        line-height: 1.4;
+
+        & .icon-spinner{
+            width: 25px;
+            height: 25px;
+        }
+    }
+
+    &__timer{
+        margin-left: 15px;
+        padding-left: 15px;
+        border-left: 2px solid #d4be85;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @media only screen and (max-width: $screen-md ) {
+            border-top: 2px solid #d4be85;
+            border-left: none;
+            padding: 10px 0 0 0;
+            margin: 10px 0 0 0;
+            width: 100%;
+        }
+    }
+
+    &__clock{
+        display: flex;
+        width: 175px;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    &__clockDigit{
+        display: flex;
+        flex-wrap: wrap;
+        width: 25%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__digit{
+        line-height: 1;
+    }
+
+    &__digitLabel{
+        font-weight: 400;
+        font-size: .5rem;
+        text-transform: uppercase;
+        width: 100%;
+        flex: 1 0 auto;
+        color: #7d704e;
+    }
+}
