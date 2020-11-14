@@ -192,8 +192,8 @@
     }
   }
   
-  @mixin white-text($background) {
+@mixin white-text($background) {
     @if lightness($background) < 33 {
       color: contrast($background, 100%);
     }
-  }
+}

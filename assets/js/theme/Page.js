@@ -3,6 +3,57 @@ import Modal from 'bc-modal';
 import Personalization from './Personalization';
 import LazyLoad from 'vanilla-lazyload';
 
+const settings = [
+    {
+        text: "Early Black Friday Deal: Save 20% on Povl with Code <code class='alert__code'>POVL20</code>  &nbsp;|&nbsp; Ends 11/20",
+        link: "https://authenteak.com/shop-all-brands/povl-outdoor/shop-all-povl-outdoor/",
+        start_date: "13 Nov 2020",
+        end_date: "20 Nov 2020"
+    },
+    {
+        text: "Early Black Friday Daily Deal: Save 10% on Umbrellas with Code <code class='alert__code'>SHADE10</code>  &nbsp;|&nbsp; Ends 11/21",
+        link: "https://authenteak.com/patio-umbrellas-accessories/shop-all-patio-umbrellas-accessories/#/filter:custom_category:Umbrellas",
+        start_date: "21 Nov 2020",
+        end_date: "21 Nov 2020"
+    },
+    {
+        text: "Early Black Friday Daily Deal: Save 15% on Planters with Code <code class='alert__code'>PLANT15</code>  &nbsp;|&nbsp; Ends 11/22",
+        link: "https://authenteak.com/planters/shop-all-planters/",
+        start_date: "22 Nov 2020",
+        end_date: "22 Nov 2020"
+    },
+    {
+        text: "Early Black Friday Daily Deal: Save 15% on Adirondacks & Rocking Chairs with Code <code class='alert__code'>CHAIR15</code>  &nbsp;|&nbsp; Ends 11/23",
+        link: "https://authenteak.com/outdoor-furniture/lounging/adirondacks-rocking-chairs/",
+        start_date: "23 Nov 2020",
+        end_date: "23 Nov 2020"
+    },
+    {
+        text: "Early Black Friday Daily Deal: Save 10% on Protective Covers with Code <code class='alert__code'>COVER10</code>  &nbsp;|&nbsp; Ends 11/24",
+        link: "https://authenteak.com/maintenance-care/protective-covers/",
+        start_date: "24 Nov 2020",
+        end_date: "24 Nov 2020"
+    },
+    {
+        text: "Early Black Friday Daily Deal: Save 10% on Enduraleaf with Code <code class='alert__code'>ENDURA10</code>  &nbsp;|&nbsp; Ends 11/25",
+        link: "https://authenteak.com/shop-all-brands/enduraleaf/shop-all-enduraleaf/",
+        start_date: "25 Nov 2020",
+        end_date: "25 Nov 2020"
+    },
+    {
+        text: " Black Friday Deal: Save 10% on Outdoor Furniture with Code <code class='alert__code'>BLACKFRIDAY</code>  &nbsp;|&nbsp; Ends 11/29",
+        link: "https://authenteak.com/outdoor-furniture/shop-all-outdoor-furniture/",
+        start_date: "26 Nov 2020",
+        end_date: "29 Nov 2020"
+    },
+    {
+        text: "Cyber Monday Deal: Last Chance on Daily Deals + Save 10% on Outdoor TVs with Code <code class='alert__code'>CYBERMONDAY</code>  &nbsp;|&nbsp; Ends 12/1",
+        link: "https://authenteakl.com/black-friday-deals",
+        start_date: "30 Nov 2020",
+        end_date: "1 Dec 2020"
+    }
+];
+
 export default class Page extends PageManager {
     constructor() {
         super();
@@ -28,6 +79,10 @@ export default class Page extends PageManager {
         if(window.location.pathname === "/"){
             this.initHero();
             this.scrollArrow();
+
+            if( document.getElementById("countDownAlert") ){
+                this.initCountDown();
+            }
         }
     }
 
@@ -39,6 +94,16 @@ export default class Page extends PageManager {
                 e.preventDefault();
             });
     }
+
+
+
+
+    // count down alert
+    initCountDown(){
+        
+
+    }
+
 
 
 

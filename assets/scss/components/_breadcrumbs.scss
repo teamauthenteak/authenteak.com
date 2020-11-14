@@ -38,10 +38,6 @@
 }
 
 @media only screen and (max-width: $screen-md) {
-    .product-details .breadcrumbs{
-        // margin-bottom: 0 !important;
-    }
-
     .breadcrumb:nth-last-of-type(2){
         display: block;
 

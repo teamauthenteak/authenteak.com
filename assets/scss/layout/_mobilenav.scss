@@ -29,22 +29,34 @@
         text-align: center;
         display: flex;
         justify-content: center;
+        align-items: center;
+        align-content: center;
 
         @media screen and (min-width: $screen-lg){
             top: 60px;
         }
 
+        @media screen and (max-width: $screen-lg){
+            left: 53%;
+        }
+
+        @media screen and (max-width: $screen-md){
+            left: 85vw;
+        }
+
     
         & .burger{
-            background: #fff;
+            background: #111;
             width: 26px;
     
             &:before{
-                background: #fff;
+                background: #111;
                 width: 26px;
             }
-            
         }
+
+
+
     }
 
     & .button-mobile-nav-back{
@@ -76,10 +88,18 @@
     }
 }
 
-@media screen and (max-width: $screen-md + 5){
+@media screen and (max-width: $screen-md){
     .nav-mobile-open .navigation-mobile {
         display: block !important;
-        width: 80%;
+        width: 60%;
+    }
+}
+
+
+@media screen and (max-width: $screen-sm){
+    .nav-mobile-open .navigation-mobile {
+        display: block !important;
+        width: 100%;
     }
 }
 

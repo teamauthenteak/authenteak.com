@@ -1,7 +1,3 @@
-
-
-
-
 /*
     Styles for custom Landing pages
     - extends brands page properties
@@ -11,6 +7,14 @@
     @extend %span-1-1;
     @extend %span;
     @extend .no-pad;
+
+    &--topSpace{
+        margin-top: 0;
+        
+        @media only screen and (max-width: $screen-md) {
+            margin-top: 50px;
+        }
+    }
 
     &__button{
         @extend .button;
@@ -32,13 +36,13 @@
 
     &__hero{
         margin-bottom: 20px;
-        max-height: 500px;
+        max-height: 770px;
         height: auto;
         overflow: hidden;
         position: relative;
 
         @media only screen and (max-width: $screen-md) {
-            max-height: 350px;
+            max-height: 578px;
         }
 
 
@@ -133,7 +137,7 @@
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
-        padding-top: 685px / 1920px * 100%;
+        padding-top: 770px / 1920px * 100%;
 
         &--tall{
             padding-top: 963px / 1400px * 100%;
@@ -141,7 +145,7 @@
        
 
         @media only screen and (max-width: $screen-sm) {
-            padding-top: 300px / 425px * 100%;
+            padding-top: 578px / 425px * 100%;
 
             &--tall{
                 padding-top: 500px / 480px * 100%;
@@ -299,6 +303,12 @@
 
     &__container{
         max-width: $screen-xxl;
+
+        &--center{
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
     }
 
     &__section{
@@ -577,6 +587,9 @@
     }
 }
 
+.page-content {
+    float: left;
+}
 
 [class*='landing__col-']{
     @extend %span;
