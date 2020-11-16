@@ -134,12 +134,12 @@ export default function StickyCart(props){
                     <div className="stickyCart__headerCntr">
                     {!isFixed ? 
                         <figure className="stickyCart__figure">
-                            <LazyImg src={replaceSize(appHook.product.main_image.data, 90)} alt={appHook.product.title} className="stickyCart__figImg" />
+                            <LazyImg src={replaceSize(appHook.product.main_image.data, 90)} placeholder={replaceSize(appHook.product.main_image.data, 10)} alt={appHook.product.title} className="stickyCart__figImg" />
                         </figure>
                     :null}
 
                         <div className="stickyCart__titleCntr">
-                            <strong className="product__title product__title--upper l no-margin">Step 3</strong>
+                            <strong className="product__title product__title--upperBadge">Step 3</strong>
                             <h2 className="stickyCart__title">
                                 {headline.value !== undefined ? headline.value : ""}
                             </h2>

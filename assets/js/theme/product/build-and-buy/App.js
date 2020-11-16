@@ -119,10 +119,10 @@ class App extends React.Component{
             ...settings.slider,
             customPaging: (i) => {
                 let img = props.context.images[i];
-                let imgSrc = replaceSize(img.data, 100);
+                let imgSrc = replaceSize(img.data, 100), lowQuality = replaceSize(img.data, 10);
 
-                return  <a className="product__figSliderLink">
-                            <img src={imgSrc} alt={img.alt} />
+                return  <a className="product__figSliderLink" href="#">
+                            <LazyImg src={imgSrc} alt={img.alt} placeholder={lowQuality} className="product__figImg" />
                         </a>;
             }
         };
@@ -260,15 +260,16 @@ class App extends React.Component{
                         <div className="product__collections--sliderCntr">
                             <Slider {...this.sliderSettings} >
                                 {product.images.map((item) => {
-                                    let imgSrc = replaceSize(item.data, 500);
+                                    let imgSrc = replaceSize(item.data, 500), lowQuality = replaceSize(item.data, 10);
+                            
                                     return  <figure className="product__figure product__figure--full" key={generateID()}>
-                                                <LazyImg src={imgSrc} className="product__figImg" alt={item.alt} />
+                                                <LazyImg src={imgSrc} className="product__figImg" placeholder={lowQuality} alt={item.alt} />
                                             </figure>
                                 })}
                             </Slider>
                         </div>
                         <div className="product__collections--customizeCntr">
-                            <strong className="product__title product__title--upper">Step 1</strong>
+                            <strong className="product__title product__title--upperBadge">Step 1</strong>
 
                             <h1 className="product__title">Build Your Own {product.title}</h1>
                             <p className="product__desc product__desc--margin">{this.description}</p>

@@ -20,7 +20,8 @@
     &--hide{
         height: 0;
         min-height: 0;
-        padding: 0;
+        padding: 0 !important;
+        margin: 0;
         transition-timing-function: cubic-bezier(1,-0.03,.23,1);
         transition: all 1s;
     }
@@ -67,6 +68,8 @@
     &--goldenLux{
         background-color: $bg-golden;
         color: $text-dark;
+        margin: 0;
+        padding: 20px 10px;
     }
 
     
@@ -84,7 +87,7 @@
         }
 
         &--dark{
-            color: $text-dark;
+            color: #111 !important;
         }
 
         &--large{

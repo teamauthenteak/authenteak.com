@@ -1,0 +1,15 @@
+{{#partial "page"}}
+
+    <div class="container">
+        {{#if theme_settings.category-breadcrumbs}}
+            {{> components/common/breadcrumbs breadcrumbs}}
+        {{/if}}
+    </div>
+
+    {{#if category.description}}
+        {{{category.description}}}
+    {{/if}}
+
+{{/partial}}
+
+{{> layout/base}}

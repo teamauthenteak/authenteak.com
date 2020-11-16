@@ -57,7 +57,7 @@ export default function SuggestedProductLayouts(props){
         <>
         { layouts.length > 0 ?
             <div className="product__layouts">
-                <strong className="product__title product__title--upper">Step 2</strong>
+                <strong className="product__title product__title--upperBadge">Step 2</strong>
                 <h2 className="product__title product__title--tight">{title}</h2>
                 <ul className="product__layoutList">
                     {

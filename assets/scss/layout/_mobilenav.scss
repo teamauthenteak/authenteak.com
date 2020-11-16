@@ -41,6 +41,10 @@
         }
 
         @media screen and (max-width: $screen-md){
+            left: 53%;
+        }
+
+        @media screen and (max-width: $screen-sm){
             left: 85vw;
         }
 

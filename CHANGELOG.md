@@ -14,6 +14,10 @@
 - Added Nosto recommendations container divs
 - added additional generic classes
 - added countdown timer for home page
+- added switch for dynamic in base.html if template is custom or not
+- fixed ui issues in header and card for tablet
+- added placeholder lazyload option
+- changed countdown to only update ui for clock not all other items
 
 ## [1.20.31]
 - new cart layout and cart functionality

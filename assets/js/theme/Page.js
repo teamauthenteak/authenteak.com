@@ -105,8 +105,8 @@ export default class Page extends PageManager {
         let countDownText = countDown.querySelector(".countDown__text");
         let countDownLink = countDown.querySelector(".alert__blockLink");
         let countDownTimer = countDown.querySelector(".countDown__timer");
-
         let timer = null;
+        
         
         function getTimeRemaining(endBy){
             let remaining = Date.parse(endBy) - Date.parse(new Date());
@@ -124,8 +124,6 @@ export default class Page extends PageManager {
         function updateTimer(eventElement){
             let time = getTimeRemaining(eventElement.end_date);
 
-            countDownText.innerHTML = eventElement.text;
-            countDownLink.setAttribute("href", eventElement.link);
             countDownTimer.innerHTML = `Offer ends  
                 <ul class="countDown__clock">
                     <li class="countDown__clockDigit">
@@ -158,7 +156,14 @@ export default class Page extends PageManager {
             let now = Date.parse(new Date());
 
             if( end > now && start <= now ){
+                // update the alert HTML
+                countDownText.innerHTML = element.text;
+                countDownLink.setAttribute("href", element.link);
+
+                // start the timer
                 timer = setInterval(() => updateTimer(element), 1000);
+
+                // show the alert
                 countDown.classList.remove("alert--hide");
             }
         });

@@ -6,6 +6,14 @@ html{
     max-width: $standard-width;
 }
 
+.main-content{
+  margin: 0;
+  
+  @media only screen and (max-width: $screen-lg) {
+    margin-top: 50px;
+  }
+}
+
 .container, .product-tabs, .account-wrapper{
     padding: 0 2vw;
 }

@@ -90,6 +90,10 @@
     &__titleCntr{
         width: 70%;
         padding-left: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
 
         @media only screen and (max-width: $screen-sm) {
             width: 100%;
@@ -157,7 +161,7 @@
 
     &__desc{
         line-height: 1;
-        margin: 8px 0 0 0;
+        margin: 3px 0 0 0;
         text-align: left;
 
         @media only screen and (max-width: $screen-lg) {

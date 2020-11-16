@@ -69,14 +69,17 @@
         line-height: 1.4;
         @extend %heading-responsive;
 
-        &--upper{
+        &--upperBadge{
             text-transform: uppercase;
-            font-size: 1.1rem;
+            font-size: .7rem;
             font-weight: 800;
-            margin-top: 0;
             line-height: 1;
-            display: block;
-            color: #543f23;
+            color: #555;
+            background-color: #ccc;
+            padding: 5px 8px;
+            border-radius: 99em;
+            margin: 0 0 5px 0 !important;
+            display: flex;
 
             @media only screen and (max-width: $screen-md) {
                 font-size: 0.9rem;
@@ -424,6 +427,10 @@
             @extend .product__col-1-3--lg; 
             padding: 0 20px 20px 20px;
             float: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
 
             @media only screen and (max-width: $screen-lg) {
                 width: 40%;

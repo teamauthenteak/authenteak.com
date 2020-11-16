@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import LazyLoad from 'vanilla-lazyload';
 
 if ( !document.lazyLoadInstance ) {
@@ -8,7 +8,7 @@ if ( !document.lazyLoadInstance ) {
 }
 
 export default function LazyImg(props){
-    const { alt, src, srcset, sizes, width, height, className } = props;
+    const { alt, src, srcset, sizes, width, height, className, placeholder } = props;
 
     useEffect(() => {
         document.lazyLoadInstance.update();
@@ -17,6 +17,7 @@ export default function LazyImg(props){
     return(
         <img 
             alt={alt}
+            src={placeholder}
             className={`${className} lazy--img`}
             data-src={src}
             data-srcset={srcset}

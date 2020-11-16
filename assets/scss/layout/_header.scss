@@ -77,11 +77,12 @@ header{
     .site-branding-logo{
         height: 100%;
         object-fit: contain; 
-        max-width: 500px;
+        // max-width: 500px;
         margin-top: -5px;
 
         @media screen and (max-width: $screen-sm){
             max-width: 200px;
+            margin-top: -12px;
         }
 
         @media screen and (max-width: $screen-xs - 80){
@@ -116,9 +117,13 @@ header{
         @media screen and (max-width: $screen-md){
             position: absolute;
             top: 50%;
-            right: 55px;
+            right: 75px;
             height: 23px;
             margin: 6px 0 0 0;
+        }
+
+        @media screen and (max-width: $screen-sm){
+            right: 47px;
         }
 
         &Desktop{
