@@ -3,6 +3,16 @@
     - extends brands page properties
 */
 
+.container, .top-bar .container, .top-bar .product-tabs, .main-content .container{
+    max-width: $standard-width;
+}
+
+.container, .product-tabs, .account-wrapper{
+    padding: 0 2vw;
+}
+
+
+
 .blog{
     @extend %span-1-1;
     @extend %span;
