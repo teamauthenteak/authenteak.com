@@ -1,7 +1,7 @@
 {
   "name": "authenteak.com",
   "description": "Site files and templates for Authenteak.com",
-  "version": "1.20.32.009",
+  "version": "1.20.32.010",
   "private": true,
   "dependencies": {
     "@babel/preset-react": "^7.10.4",
