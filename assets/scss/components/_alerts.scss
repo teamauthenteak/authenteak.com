@@ -25,6 +25,10 @@
         transition-timing-function: cubic-bezier(1,-0.03,.23,1);
         transition: all 1s;
     }
+    
+    &--erase{
+        opacity:0;
+    }
 
     &--top{
         margin-top: 0;
@@ -68,6 +72,13 @@
     &--goldenLux{
         background-color: $bg-golden;
         color: $text-dark;
+        margin: 0;
+        padding: 20px 10px;
+    }
+    
+    &--redLux{
+        background-color: #800505;
+        color: white;
         margin: 0;
         padding: 20px 10px;
     }
