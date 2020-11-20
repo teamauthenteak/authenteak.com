@@ -128,19 +128,19 @@ export default class Page extends PageManager {
                 <ul class="countDown__clock">
                     <li class="countDown__clockDigit">
                         <span class="countDown__digit">${time.days}</span>
-                        <span class="countDown__digitLabel">Days</span>
+                        <span class="countDown__digitLabel">Day${time.days === 1 ? "" : "s"}</span>
                     </li>
                     <li class="countDown__clockDigit">
                         <span class="countDown__digit">${time.hours}</span>
-                        <span class="countDown__digitLabel">Hours</span>
+                        <span class="countDown__digitLabel">Hour${time.hours === 1 ? "" : "s"}</span>
                     </li>
                     <li class="countDown__clockDigit">
                         <span class="countDown__digit">${time.minutes}</span>
-                        <span class="countDown__digitLabel">Minutes</span>
+                        <span class="countDown__digitLabel">Minute${time.minutes === 1 ? "" : "s"}</span>
                     </li>
                     <li class="countDown__clockDigit">
                         <span class="countDown__digit">${time.seconds}</span>
-                        <span class="countDown__digitLabel">Seconds</span>
+                        <span class="countDown__digitLabel">Second${time.seconds === 1 ? "" : "s"}</span>
                     </li>
                 </ul>`;
 

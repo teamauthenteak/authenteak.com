@@ -19,6 +19,11 @@
 - added placeholder lazyload option
 - changed countdown to only update ui for clock not all other items
 - updated clock to end at midnight on the day of expiry
+- merge alert udpates
+- added checkout options back with css updates for mobile
+- updates plural labels for count down clock
+- updated white to #fff
+
 
 ## [1.20.31]
 - new cart layout and cart functionality
