@@ -156,7 +156,7 @@
 
 	let variantIds = [];
 
-	if( cart ){
+	if( cart.length > 0 ){
 
 		cart[0].lineItems.physicalItems.forEach(function(element){
 
@@ -392,11 +392,13 @@
 
 	// set product data to local storage so we can show it on the user's my account page
 	function getProductCartJSON() {
-		cartProductJson = document.getElementById("cartProductJson").innerHTML.trim();
-		cartProductJson = JSON.parse(cartProductJson);
-
-		storeCartItems();
-		brandShippingMessage();
+		if( document.getElementById("cartProductJson") ){
+			cartProductJson = document.getElementById("cartProductJson").innerHTML.trim();
+			cartProductJson = JSON.parse(cartProductJson);
+	
+			storeCartItems();
+			brandShippingMessage();
+		}
 	}
 
 

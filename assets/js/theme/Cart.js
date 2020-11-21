@@ -18,11 +18,11 @@ export default class Cart extends PageManager {
     this.$cartContent = $('[data-cart-content]');
 
     // add Personalization engine
-    this.recentlyViewed = new Personalization({
-      type: "recentlyViewed"
-	});
+    // this.recentlyViewed = new Personalization({
+    //     type: "recentlyViewed"
+    // });
 
-  this._initRecentlyViewed();
+    // this._initRecentlyViewed();
   
 
     // brute-force apple-pay bodyclass in local environment
@@ -114,24 +114,24 @@ export default class Cart extends PageManager {
   }
 
 
-	_initRecentlyViewed(){
-		let $rv = $("#recentlyViewedProducts"),
-			recentProducts = this.recentlyViewed.getViewed();
+	// _initRecentlyViewed(){
+	// 	let $rv = $("#recentlyViewedProducts"),
+	// 		recentProducts = this.recentlyViewed.getViewed();
 
-		if (recentProducts) {
-			recentProducts.forEach((element) => {
-				let tpl = this.recentlyViewed.buildPersonalizationSlider(element);
-				$(tpl).appendTo(".product-rv-carousel", $rv);
-			});
+	// 	if (recentProducts) {
+	// 		recentProducts.forEach((element) => {
+	// 			let tpl = this.recentlyViewed.buildPersonalizationSlider(element);
+	// 			$(tpl).appendTo(".product-rv-carousel", $rv);
+	// 		});
 
-      $rv.addClass("show");
-		}
+  //     $rv.addClass("show");
+	// 	}
 
-  	this.recentlyViewed.initProductSlider({
-      dotObj: {appendDots: '.product-rv-carousel'},
-      selector: '.product-rv-carousel',
-      context: '#recentlyViewedProducts'
-    });
-	}
+  // 	this.recentlyViewed.initProductSlider({
+  //     dotObj: {appendDots: '.product-rv-carousel'},
+  //     selector: '.product-rv-carousel',
+  //     context: '#recentlyViewedProducts'
+  //   });
+	// }
 
 }

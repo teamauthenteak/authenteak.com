@@ -53,10 +53,10 @@ export default class Collection extends PageManager {
         this.bindings();
 
         // add Personalization engine
-        this.recentlyViewed = new Personalization({
-            type: "recentlyViewed"
-        });
-        this.initRecentlyViewed();
+        // this.recentlyViewed = new Personalization({
+        //     type: "recentlyViewed"
+        // });
+        // this.initRecentlyViewed();
 
         // Events: heap, pinrest, facebook, etc.
         this.initAnalytics();
@@ -777,28 +777,28 @@ export default class Collection extends PageManager {
 
     
     // RV Personalization
-    initRecentlyViewed(){
-		let $rv = $("#recentlyViewedProducts"),
-			recentProducts = this.recentlyViewed.getViewed();
+    // initRecentlyViewed(){
+	// 	let $rv = $("#recentlyViewedProducts"),
+	// 		recentProducts = this.recentlyViewed.getViewed();
 
-		if (recentProducts) {
-			recentProducts.forEach((element) => {
-                let tpl = this.recentlyViewed.buildPersonalizationSlider(element);
+	// 	if (recentProducts) {
+	// 		recentProducts.forEach((element) => {
+    //             let tpl = this.recentlyViewed.buildPersonalizationSlider(element);
                 
-                if(document.querySelector(".product-grid")){
-                    $(tpl).appendTo(".product-rv-carousel", $rv);
-                }
-			});
+    //             if(document.querySelector(".product-grid")){
+    //                 $(tpl).appendTo(".product-rv-carousel", $rv);
+    //             }
+	// 		});
 
-            $rv.addClass("show");
+    //         $rv.addClass("show");
             
-            this.recentlyViewed.initProductSlider({
-                dotObj: {appendDots: '.product-rv-carousel'},
-                selector: '.product-rv-carousel',
-                context: '#recentlyViewedProducts'
-            });
-		}
-    }
+    //         this.recentlyViewed.initProductSlider({
+    //             dotObj: {appendDots: '.product-rv-carousel'},
+    //             selector: '.product-rv-carousel',
+    //             context: '#recentlyViewedProducts'
+    //         });
+	// 	}
+    // }
 
 
     

@@ -164,8 +164,12 @@ export default class AddToCartModal {
 
 
     try {
-      // bild out the recomendations 
-      this.buildRecomendations();
+      // build out the recommendations 
+      // this.buildRecommendations();
+
+      // nosto recommendations
+      $("#nosto-page-product3 .nosto_carousel").slick('reinit');
+
       
     } catch (error) {
         console.log(error)
@@ -189,14 +193,14 @@ export default class AddToCartModal {
   }
 
 
-  // builds out the recomendations in the atc modal footer
-  buildRecomendations(){
-    let recomendedProducts = document.getElementById("recommendedProducts").querySelectorAll('.product-grid-item');
+  // builds out the recommendations in the atc modal footer
+  buildRecommendations(){
+    let recommendedProducts = document.getElementById("recommendedProducts").querySelectorAll('.product-grid-item');
     let modalFooter = document.getElementById("modalCartFooter");
 
     $(modalFooter).html("");
 
-    recomendedProducts.forEach( (element, i) => {
+    recommendedProducts.forEach( (element, i) => {
       let limit = TEAK.Utils.isHandheld ? 2 : 4;
 
       element = element.cloneNode(true);

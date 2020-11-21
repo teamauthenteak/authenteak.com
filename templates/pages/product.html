@@ -15,7 +15,7 @@ brands: true
   }}
   {{> components/products/product-single-tabs-atmo}}
 
-  {{#if product.related_products.length}}
+  <!-- {{#if product.related_products.length}}
     <section class="products-related section hide" id="recommendedProducts">
       <div class="container">
         <h3 class="section-title">{{lang 'product.related_products_heading'}}</h3>
@@ -26,18 +26,17 @@ brands: true
     <script type="application/json" id="relatedProductIDs">
     [{{#each product.related_products}}{{id}}{{#unless @last}}, {{/unless}}{{/each}}]
     </script>
-  {{/if}}
+  {{/if}} -->
 
-  <div class="nosto_element" id="nosto-page-product1"></div>
 
   <div class="nosto_element" id="nosto-page-product2"></div>
 
-  <section class="products-related products-recently-viewed section" id="recentlyViewedProducts">
+  <!-- <section class="products-related products-recently-viewed section" id="recentlyViewedProducts">
     <div class="container">
       <h3 class="section-title">{{lang 'product.recently_viewed_products_heading'}}</h3>
       <div class="product-grid product-rv-carousel"></div>
     </div>
-  </section>
+  </section> -->
 
   {{> core/structured-data/product}}
   {{> core/structured-data/product-reviews}}

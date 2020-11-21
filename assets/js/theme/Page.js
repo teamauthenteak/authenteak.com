@@ -8,51 +8,84 @@ const countdownEvents = [
         text: "Early Black Friday Deal: Save 20% on Povl with code <code class='alert__code'>POVL20</code>",
         link: "https://authenteak.com/shop-all-brands/povl-outdoor/shop-all-povl-outdoor/",
         start_date: "13 Nov 2020",
-        end_date: "21 Nov 2020"
+        end_date: "21 Nov 2020",
+        hero_image: {
+            mobile: "https://authenteak.s3.us-east-2.amazonaws.com/images/november_home/mobile_hero.jpg",
+            desktop: "https://authenteak.s3.us-east-2.amazonaws.com/images/november_home/hero.jpg"
+        }
     },
     {
         text: "Early Black Friday Daily Deal: Save 10% on Umbrellas with code <code class='alert__code'>SHADE10</code>",
-        link: "https://authenteak.com/patio-umbrellas-accessories/shop-all-patio-umbrellas-accessories/#/filter:custom_category:Umbrellas",
+        link: "https://authenteak.com/patio-umbrellas-accessories/shop-all-patio-umbrellas-accessories/",
         start_date: "21 Nov 2020",
-        end_date: "23 Nov 2020"
+        end_date: "22 Nov 2020",
+        hero_image: {
+            mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-umbrellas.jpg",
+            desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-umbrellas.jpg"
+        }
     },
     {
         text: "Early Black Friday Daily Deal: Save 15% on Planters with code <code class='alert__code'>PLANT15</code>",
         link: "https://authenteak.com/planters/shop-all-planters/",
-        start_date: "23 Nov 2020",
-        end_date: "24 Nov 2020"
+        start_date: "22 Nov 2020",
+        end_date: "23 Nov 2020",
+        hero_image: {
+            mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-planters.jpg",
+            desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-planters.jpg"
+        }
     },
     {
         text: "Early Black Friday Daily Deal: Save 15% on Adirondacks & Rocking Chairs with code <code class='alert__code'>CHAIR15</code>",
         link: "https://authenteak.com/outdoor-furniture/lounging/adirondacks-rocking-chairs/",
-        start_date: "24 Nov 2020",
-        end_date: "25 Nov 2020"
+        start_date: "23 Nov 2020",
+        end_date: "24 Nov 2020",
+        hero_image: {
+            mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-adirondacks.jpg",
+            desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-adirondacks.jpg"
+        }
     },
     {
         text: "Early Black Friday Daily Deal: Save 10% on Protective Covers with code <code class='alert__code'>COVER10</code>",
         link: "https://authenteak.com/maintenance-care/protective-covers/",
-        start_date: "25 Nov 2020",
-        end_date: "26 Nov 2020"
+        start_date: "24 Nov 2020",
+        end_date: "25 Nov 2020",
+        hero_image: {
+            mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-covers.jpg",
+            desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-covers.jpg"
+        }
     },
     {
         text: "Early Black Friday Daily Deal: Save 10% on Enduraleaf with code <code class='alert__code'>ENDURA10</code>",
         link: "https://authenteak.com/shop-all-brands/enduraleaf/shop-all-enduraleaf/",
-        start_date: "26 Nov 2020",
-        end_date: "27 Nov 2020"
+        start_date: "25 Nov 2020",
+        end_date: "26 Nov 2020",
+        hero_image: {
+            mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-enduraleaf.jpg",
+            desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-enduraleaf.jpg"
+        }
     },
     {
         text: " Black Friday Deal: Save 10% on Outdoor Furniture with code <code class='alert__code'>BLACKFRIDAY</code>",
         link: "https://authenteak.com/outdoor-furniture/shop-all-outdoor-furniture/",
-        start_date: "27 Nov 2020",
-        end_date: "30 Nov 2020"
+        start_date: "26 Nov 2020",
+        end_date: "30 Nov 2020",
+        hero_image: {
+            mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-bf.jpg",
+            desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-bf.jpg"
+        }
     },
     {
         text: "Cyber Monday Deal: Last Chance on Daily Deals + Save 10% on Outdoor TVs with code <code class='alert__code'>CYBERMONDAY</code>",
         link: "https://authenteakl.com/black-friday-deals/",
-        start_date: "1 Dec 2020",
-        end_date: "2 Dec 2020"
+        start_date: "30 Nov 2020",
+        end_date: "2 Dec 2020",
+        hero_image: {
+            mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-cm.jpg",
+            desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-cm.jpg"
+        }
     }
 ];
+
 
 
 export default class Page extends PageManager {
@@ -70,10 +103,10 @@ export default class Page extends PageManager {
 		});
 
         // add Personalization engine
-        this.recentlyViewed = new Personalization({
-            type: "recentlyViewed"
-        });
-        this._initRecentlyViewed();
+        // this.recentlyViewed = new Personalization({
+        //     type: "recentlyViewed"
+        // });
+        // this._initRecentlyViewed();
 
         this.bindEvents();
 
@@ -105,6 +138,7 @@ export default class Page extends PageManager {
         let countDownText = countDown.querySelector(".countDown__text");
         let countDownLink = countDown.querySelector(".alert__blockLink");
         let countDownTimer = countDown.querySelector(".countDown__timer");
+
         let timer = null;
         
         
@@ -160,6 +194,11 @@ export default class Page extends PageManager {
                 countDownText.innerHTML = element.text;
                 countDownLink.setAttribute("href", element.link);
 
+                // update our hero
+                if( element.hero_image !== undefined ){
+                    this.dynamicHeroUpdate(element);
+                }
+                
                 // start the timer
                 timer = setInterval(() => updateTimer(element), 1000);
 
@@ -168,6 +207,22 @@ export default class Page extends PageManager {
             }
         });
 
+    }
+
+
+
+    // assumes that there is just a single non slick slide hero
+    dynamicHeroUpdate(element){
+        let hero = document.getElementById("homeHero");
+
+        hero.querySelector(".landing__heroImg--default").setAttribute("src", element.hero_image.desktop);
+        hero.querySelector(".landing__heroImg--desktop").setAttribute("srcset", element.hero_image.desktop);
+        hero.querySelector(".landing__heroImg--mobile").setAttribute("srcset", element.hero_image.mobile);
+
+        hero.querySelector(".landing__heroImg--default").classList.remove("landing__heroImg--blur")
+
+        hero.querySelector(".landing__heroSlideLink").setAttribute("href", element.link);
+        hero.querySelector(".landing__heroSlideLink").setAttribute("title", element.text.split("with")[0]);
     }
 
 
@@ -210,41 +265,41 @@ export default class Page extends PageManager {
     
 
 
-    _initRecentlyViewed(){
-		let $rv = $("#recentlyViewedProducts"),
-			recentProducts = this.recentlyViewed.getViewed();
+    // _initRecentlyViewed(){
+	// 	let $rv = $("#recentlyViewedProducts"),
+	// 		recentProducts = this.recentlyViewed.getViewed();
 
-		if (recentProducts) {
-            // only doing this because of shogun ~ delete once shogun is removed
-            if(window.location.pathname === "/"){
-                $(`<section class="products-related products-recently-viewed section show" id="recentlyViewedProducts">
-                        <div class="container">
-                            <h3 class="section-title">RECENTLY VIEWED ITEMS</h3>
-                            <div class="product-grid product-rv-carousel"></div>
-                        </div>
-                    </section>`).insertAfter(".page-content"); 
-            }
+	// 	if (recentProducts) {
+    //         // only doing this because of shogun ~ delete once shogun is removed
+    //         if(window.location.pathname === "/"){
+    //             $(`<section class="products-related products-recently-viewed section show" id="recentlyViewedProducts">
+    //                     <div class="container">
+    //                         <h3 class="section-title">RECENTLY VIEWED ITEMS</h3>
+    //                         <div class="product-grid product-rv-carousel"></div>
+    //                     </div>
+    //                 </section>`).insertAfter(".page-content"); 
+    //         }
 
 
-			recentProducts.forEach((element) => {
-                let tpl = this.recentlyViewed.buildPersonalizationSlider(element);
+	// 		recentProducts.forEach((element) => {
+    //             let tpl = this.recentlyViewed.buildPersonalizationSlider(element);
                 
-                if(document.querySelector(".product-grid")){
-                    $(tpl).appendTo(".product-rv-carousel", $rv);
-                }
-			});
+    //             if(document.querySelector(".product-grid")){
+    //                 $(tpl).appendTo(".product-rv-carousel", $rv);
+    //             }
+	// 		});
 
-            $rv.addClass("show");
+    //         $rv.addClass("show");
 
-            this.lazyLoadInstance.update();
+    //         this.lazyLoadInstance.update();
             
-            this.recentlyViewed.initProductSlider({
-                dotObj: { appendDots: '.product-rv-carousel' },
-                selector: '.product-rv-carousel',
-                context: '#recentlyViewedProducts'
-            });
-		}
-	}
+    //         this.recentlyViewed.initProductSlider({
+    //             dotObj: { appendDots: '.product-rv-carousel' },
+    //             selector: '.product-rv-carousel',
+    //             context: '#recentlyViewedProducts'
+    //         });
+	// 	}
+	// }
 
 
     

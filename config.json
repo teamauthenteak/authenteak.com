@@ -1,8 +1,8 @@
 {
-  "name": "Authenteak.com - 1.20.32.011",
-  "version": "1.20.32.011",
+  "name": "Authenteak.com - 1.20.32.014",
+  "version": "1.20.32.014",
   "settings": {
-    "version": "1.20.32.011",
+    "version": "1.20.32.014",
     "store_logo": {
       "title": "Authenteak.com Outdoor Living"
     },
@@ -159,8 +159,8 @@
   },
   "meta": {
     "price": 0,
-    "documentation_url": "http://support.pixelunion.net/category/147-peak",
-    "composed_image": "peak-composed.png",
+    "documentation_url": "https://authenteak.com/",
+    "composed_image": "authenteak-desktop.jpg",
     "features": [
       "fully_responsive",
       "mega_navigation",
@@ -186,7 +186,7 @@
       "pixel_pop"
     ],
     "author_name": "Authenteak.com",
-    "author_email": "marshall@authenteak.com.com",
+    "author_email": "marshall@authenteak.com",
     "author_support_url": "https://authenteak.com"
   },
   "css_compiler": "scss",
@@ -206,16 +206,15 @@
       }
     }
   },
-
   "variations": [
     {
       "name": "AuthenTEAK",
       "id": "authenteak",
       "meta": {
-        "desktop_screenshot": "peak-standard.png",
-        "mobile_screenshot": "peak-standard-mobile.png",
-        "description": "Customization of the Peak Standard theme variation. Designed specifically for AuthenTEAK, this variation provides all the standard functionality of the Peak theme, along with additional functionality and updated aesthetics.",
-        "demo_url": "http://peak-standard-demo.mybigcommerce.com/",
+        "desktop_screenshot": "authenteak-desktop.jpg",
+        "mobile_screenshot": "authenteak-mobile.png",
+        "description": "Authenteak Custom Theme",
+        "demo_url": "https://authenteak.com/",
         "optimized_for": [
           "multi_purpose",
           "chrome_firefox_safari_ie_10",

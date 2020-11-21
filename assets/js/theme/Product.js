@@ -96,19 +96,19 @@ export default class Product extends PageManager {
 		}
 		
 
-		if(document.getElementById("relatedProductIDs")){
-			// Recommend Products Yotpo Update
-			this.recommended = new Personalization({
-				type: "recommended"
-			});
+		// if(document.getElementById("relatedProductIDs")){
+		// 	// Recommend Products Yotpo Update
+		// 	this.recommended = new Personalization({
+		// 		type: "recommended"
+		// 	});
 
-			this.initRecommendedProducts({
-				// our recommended product id array built in pages > product.html
-				productIdArray: JSON.parse( document.getElementById("relatedProductIDs").innerHTML )
-			});
+		// 	this.initRecommendedProducts({
+		// 		// our recommended product id array built in pages > product.html
+		// 		productIdArray: JSON.parse( document.getElementById("relatedProductIDs").innerHTML )
+		// 	});
 
-			this.recommendedProducts = [];
-		}
+		// 	this.recommendedProducts = [];
+		// }
 		
 
 		if( document.getElementById("yotpoRating") ){
@@ -158,26 +158,26 @@ export default class Product extends PageManager {
 		}
 
 
-		if( document.getElementById("recentlyViewedProducts") ){
-			// Recently Viewed Module
-			const recentlyViewed = new Personalization({ 
-					selector: "#recentlyViewedProducts",
-					carousel_selector: ".product-rv-carousel",
-					type: "recentlyViewed",
-					product: {
-						url: this.context.product.url,
-						title: this.context.product.title,
-						product_id: this.context.product.id,
-						brand: this.context.product.brand.name,
-						price: this.context.product.price.without_tax.value,
-						availability: "in stock",
-						image: replaceSize(this.context.product.main_image.data, 200),
-						sku: this.context.product.sku
-					}
-				});
+		// if( document.getElementById("recentlyViewedProducts") ){
+		// 	// Recently Viewed Module
+		// 	const recentlyViewed = new Personalization({ 
+		// 			selector: "#recentlyViewedProducts",
+		// 			carousel_selector: ".product-rv-carousel",
+		// 			type: "recentlyViewed",
+		// 			product: {
+		// 				url: this.context.product.url,
+		// 				title: this.context.product.title,
+		// 				product_id: this.context.product.id,
+		// 				brand: this.context.product.brand.name,
+		// 				price: this.context.product.price.without_tax.value,
+		// 				availability: "in stock",
+		// 				image: replaceSize(this.context.product.main_image.data, 200),
+		// 				sku: this.context.product.sku
+		// 			}
+		// 		});
 
-        	recentlyViewed.init()
-		}
+        // 	recentlyViewed.init()
+		// }
 	}
 
 

@@ -19,10 +19,17 @@
 - added placeholder lazyload option
 - changed countdown to only update ui for clock not all other items
 - updated clock to end at midnight on the day of expiry
-- merge alert udpates
+- merge alert updates
 - added checkout options back with css updates for mobile
 - updates plural labels for count down clock
 - updated white to #fff
+- remove Recently Viewed due to Nosto Integration
+- fixed an empty cart JS bug when there is an empty cart array
+- fixed a bug when looking for an empty div on PDP 
+- updated nosto font size and and PDP spacing
+- added hero update for countdown clock
+- added nosto slick reInit for ATC Modal
+- updated 2020 bf countdown times
 
 
 ## [1.20.31]

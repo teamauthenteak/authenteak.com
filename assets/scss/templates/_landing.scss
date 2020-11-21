@@ -102,6 +102,10 @@
                 min-height: none;
             }        
         }
+
+        &--blur{
+            filter: blur(10px);
+        }
     }
 
     &__heroHeading{
