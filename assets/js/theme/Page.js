@@ -76,7 +76,7 @@ const countdownEvents = [
     },
     {
         text: "Cyber Monday Deal: Last Chance on Daily Deals + Save 10% on Outdoor TVs with code <code class='alert__code'>CYBERMONDAY</code>",
-        link: "https://authenteakl.com/black-friday-deals/",
+        link: "https://authenteak.com/black-friday-deals/",
         start_date: "30 Nov 2020",
         end_date: "2 Dec 2020",
         hero_image: {
@@ -180,6 +180,11 @@ export default class Page extends PageManager {
 
             if( time.remaining <= 0 ){
                 clearInterval(timer);
+                countDown.innerHTML =   `<span class="alert__blockLink alert__blockLink--large">
+                                            <span class="countDown">
+                                                <span class="countDown__text">This offer has now ended. Thank you!</span>
+                                            </span>
+                                        </div>`;
             }
         }
 
