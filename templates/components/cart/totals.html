@@ -1,9 +1,3 @@
-<script id="bolt-connect" src="https://connect.bolt.com/connect-bigcommerce.js"
-	data-publishable-key="3ximKwUWJJ6Q.SC4loucq5R6G.7c46996f8803dcf5a87ddc1ef5f9a9c866bbcb290f9c4ba450c92ef72081e578"
-	data-shopping-cart-id="BigCommerce">
-</script>
-
-
 <div class="cart-1-1 cart-totals-col">
 	<h2 class="cart-total-heading">Order Summary</h2>
 	
@@ -117,14 +111,14 @@
 		{{lang 'cart.keep_shopping'}}
 	</a> -->
 
-		<!-- <a class="button button-primary button-wide button-checkout" href="{{urls.checkout.single_address}}">
-		{{lang 'cart.checkout'}}
-	</a> -->
-
-		<div class="bolt-button-wrapper" style="display: contents;">
-			<div class="bolt-checkout-button large-width with-cards responsive bolt-multi-step-checkout"
-				style="--bolt-primary-action-color:#6ea438"></div>
+		<div class="cart__checkoutBtnCntr">
+			<a class="cart__checkoutBtn" href="{{urls.checkout.single_address}}" id="checkoutBtn">
+				<svg class="cart__checkoutBtnLock"><use xlink:href="#icon-lock1"/></svg>
+				<span>{{lang 'cart.checkout'}}</span>
+			</a>
+			<svg class="cart__checkoutBtnIcons"><use xlink:href="#icon-credit-cards"/></svg>
 		</div>
+		
 
 		{{#if cart.show_multiple_address_shipping}}
 		<a class="checkout-multiple" href="{{urls.checkout.multiple_address}}">

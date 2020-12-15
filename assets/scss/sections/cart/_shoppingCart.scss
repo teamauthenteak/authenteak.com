@@ -1,6 +1,35 @@
 
 
 .cart{
+    &__checkoutBtnCntr{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+    }
+
+    &__checkoutBtnLock{
+        height: 20px;
+        width: 20px;
+        margin-right: 10px;
+    }
+
+    &__checkoutBtnIcons{
+        height: 20px;
+    }
+
+    &__checkoutBtn{
+        @extend .button;
+        @extend .button-tertiary;
+        text-transform: capitalize;
+        font-size: 1.2rem;
+        display: flex !important;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+
     &--main{
         display: flex;
         flex-direction: row;

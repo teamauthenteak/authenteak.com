@@ -58,7 +58,6 @@ TEAK.Checkout = {
 
     /* 
       Injects the unsubscribe form into the pages
-      - Note: this is a work around because Bolt doesn't support Klaviyo  email signup from it's UI
     */
 	buildUI: function () {
 		try {

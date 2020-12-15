@@ -1,4 +1,9 @@
 # Change Log
+## [1.20.33]
+- Removed Bolt and added Custom checkout button
+- Added Signifyd support
+- added css to hide not_an_option
+- merged css from pull requests
 
 ## [1.20.32]
 - ReactJS Collections PDP

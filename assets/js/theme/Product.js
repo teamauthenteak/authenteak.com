@@ -16,7 +16,6 @@ import ProductSwatchModal from './product/ProductSwatchModal';
 import LazyLoad from 'vanilla-lazyload';
 import Yotpo from './thirdparty/Yotpo';
 import Tooltips from './components/ToolTips';
-import { replaceSize } from './product/react-components/Utils';
 
 
 export default class Product extends PageManager {

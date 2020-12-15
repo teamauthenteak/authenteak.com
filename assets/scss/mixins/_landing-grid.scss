@@ -17,7 +17,7 @@
 
 // loops each column to serve calculating each grid column
 @mixin loop-landing-grid-columns($columns, $class, $base) {
-	@each $j in 1, 2, 3, 4, 10{
+	@each $j in 1, 2, 3, 4, 5, 6, 10{
 		@for $i from 1 through $j {
 			@include calc-landing-grid-column($i, $class, $j, $base);
 		}

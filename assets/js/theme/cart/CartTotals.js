@@ -626,73 +626,20 @@
 
 
 
-/* -------------------------------
- Bolt 3rd Party Customizations
----------------------------------- */
-(function (window, document, TEAK) {
-	let originalCheckoutButton = document.querySelector(".cart-actions .button-primary");
-	let boltButtons = document.getElementsByClassName("bolt-button-wrapper");
 
-	if (true) {
-		for (let i = 0; i < boltButtons.length; i++) {
-			boltButtons[i].style.display = 'contents';
+(function (document, TEAK) {
+	let originalCheckoutButton = document.getElementById("checkoutBtn");
 
-			// Facebook Pixel track for Bolt - initiate checkout
-			// cannot track 'AddPaymentInfo' because bolt is in a iframe
-			boltButtons[i].addEventListener("click", function () {
-				let subTotal = TEAK.Data.cart.sub_total.replace(/\$|,/g, ''),
-					qty = TEAK.Data.cart.quantity;
+	// Facebook Pixel track - initiate checkout
+	originalCheckoutButton.addEventListener("click", function () {
+		let subTotal = TEAK.Data.cart.sub_total.replace(/\$|,/g, ''),
+			qty = TEAK.Data.cart.quantity;
 
-				subTotal = parseInt(subTotal);
-				qty = parseInt(qty);
+		subTotal = parseInt(subTotal);
+		qty = parseInt(qty);
 
-				// TEAK.Modules.fbPixel.checkoutStart(subTotal, qty);
-				TEAK.Modules.pintrest.checkOut(qty);
-			});
-		}
+		// TEAK.Modules.fbPixel.checkoutStart(subTotal, qty);
+		TEAK.Modules.pintrest.checkOut(qty);
+	});
 
-		if (originalCheckoutButton) {
-			originalCheckoutButton.style.display = 'none';
-		}
-	}
-
-	/*
-	let interval = setInterval(function () {
-		if (window.BoltCheckout) {
-			window.BoltCheckout.setClientCustomCallbacks({
-				success: function (trx) {
-					fbq('track', 'Purchase', {
-						value: trx.amount.amount / 100.0,
-						currency: 'USD',
-					});
-				}
-			});
-			clearInterval(interval);
-		}
-	}, 200);
-	*/
-
-	let config = { childList: true, subtree: true };
-	// Change totalClassName
-	let totalClassName = "grand-total";
-	let bigCommerceTotalPrice = "";
-
-	let callback = function (mutationsList) {
-		setTimeout(function () {
-			let elms = document.getElementsByClassName(totalClassName);
-
-			if (elms.length == 0) { return; }
-
-			let newPrice = elms[0].innerText || elms[0].innerHTML;
-
-			if (newPrice !== bigCommerceTotalPrice && window.BoltCheckout && window.BoltCheckout.reloadBigCommerceCart) {
-				window.BoltCheckout.reloadBigCommerceCart();
-			}
-
-			bigCommerceTotalPrice = newPrice;
-		}, 200);
-	};
-
-	new MutationObserver(callback).observe(document.body, config);
-
-}(window, document, window.TEAK));
+}(document, window.TEAK));
