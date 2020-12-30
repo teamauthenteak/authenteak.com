@@ -334,6 +334,10 @@
             flex-wrap: wrap;
             justify-content: center;
         }
+        
+        &--reverse{
+            flex-direction: row-reverse;
+        }
 
         &--noFlex{
             display: block;
