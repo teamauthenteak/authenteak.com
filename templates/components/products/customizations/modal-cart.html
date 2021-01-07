@@ -42,6 +42,7 @@
                   <a href="{{product.url}}" class="mini-cart-item-title">{{product.title}}</a>
                   <div class="mini-cart-item-options">
                     {{#each product.options}}
+                      {{#if display_name '==' 'not_an_option'}}{{else}}
                       <span class="option-value" data-name="{{display_name}}">
                         <span class="option-value-label-mc">
                             {{#replace "Select" display_name}}
@@ -50,6 +51,7 @@
                         </span>
                         <span class="option-value-wrapper" data-name="{{display_name}}" data-option-id="{{id}}"></span>
                       </span>
+                      {{/if}}
                     {{/each}}
                   </div>
                 </div>

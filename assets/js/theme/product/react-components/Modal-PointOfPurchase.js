@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState, useMemo } from 'react';
 import AppContext from './context/AppContext';
 import { useSpring, animated } from 'react-spring';
-import { useMeasure } from 'react-use'
+import { useMeasure } from 'react-use';
 
 import utils from '@bigcommerce/stencil-utils';
 import GraphQL from '../../graphql/GraphQL';

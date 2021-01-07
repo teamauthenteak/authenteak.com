@@ -36,8 +36,7 @@
 
     &__hero{
         margin-top: 30px;
-        margin-bottom: 20px;
-        max-height: 770px;
+        max-height: 1030px;
         height: auto;
         overflow: hidden;
         position: relative;
@@ -45,7 +44,6 @@
         @media only screen and (max-width: $screen-md) {
             max-height: 578px;
         }
-
 
         &--tall{
             max-height: none;
@@ -114,7 +112,7 @@
         font-size: 5rem;
         margin: 0 0 0 0;
         color: #fff;
-        font-weight: 400;
+        font-weight: 600;
         text-shadow: 0px 1px 1px rgba(0, 0, 0, .20);
 
         @media only screen and (max-width: $screen-lg) {
@@ -122,7 +120,7 @@
         }
 
         &--dark{
-            color: #555;
+            color: #222;
             text-shadow: none;
         }
     }
@@ -142,7 +140,7 @@
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
-        padding-top: 770px / 1920px * 100%;
+        padding-top: 630px / 1160px * 100%;
 
         &--tall{
             padding-top: 963px / 1400px * 100%;
@@ -321,7 +319,9 @@
     }
 
     &__row{
-        @extend .brands__row;
+        @extend %span;
+        @extend %span-1-1;
+        display: flex;
         text-align: center;
         padding: 0 0 20px 0;
         flex-wrap: wrap;
@@ -330,9 +330,13 @@
             flex-direction: row;
         }
 
+        &--noPad{
+            @extend .no-pad
+        }
+
         &--wrapCenter{
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: space-evenly;
         }
 
         &--noFlex{
@@ -361,7 +365,16 @@
 
     &__col{
         &--left{
-            text-align: left;
+            text-align: left !important;
+        }
+
+        &--flexCenter{
+            padding: 20px 40px;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            flex-direction: column;
         }
 
         &--brands{

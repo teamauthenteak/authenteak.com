@@ -106,9 +106,8 @@ export default class GraphQL_Swatch_TPL {
                             <span class="drawer__filterLabelText">${filterObj.name === "Grade" ? "Grade" : ''} ${filterObj.items[key].split("_").join(" ")}</spam>
                         </label>
                     </li>`}).join("")}
-            
+
                 </ul>`;
-            
     }
 
 
@@ -119,7 +118,11 @@ export default class GraphQL_Swatch_TPL {
 
                     ${Object.keys(swatch.values.edges).map((key) => {
                         let thisOption = swatch.values.edges[key].node;
-                        return this.getOptionSwatch(thisOption, swatch);
+
+                        if( thisOption.label !== "not_an_option" ){
+                            return this.getOptionSwatch(thisOption, swatch);
+                        }
+                        
                     }).join('')}
 
                     </div>

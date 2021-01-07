@@ -119,7 +119,7 @@ export default function Swatch(props){
                     <div className="product__swatchText">
                         <p className="product__swatchOptionText">
                             <span className="product__swatchName">
-                                <span className="product__swatchDisplayName">{props.displayName}</span>
+                                <span className="product__swatchDisplayName product__swatchDisplayName--flex">{props.displayName}</span>
                                 <span className="product__swatchOptionIconCntr">
                                     &mdash; &nbsp; <svg className="product__swatchOptionIcon" viewBox="0 0 20 20"><use xlinkHref="#icon-swatch"/></svg> {props.values.length} options
                                 </span>
@@ -167,7 +167,7 @@ export default function Swatch(props){
                     <div className="product__swatchText">
                         <p className="product__swatchOptionText">
                             <span className="product__swatchName">
-                                <span className="product__swatchDisplayName">{props.displayName}</span>
+                                <span className="product__swatchDisplayName product__swatchDisplayName--flex">{props.displayName}</span>
                                 <span className="product__swatchOptionIconCntr">
                                     &mdash; &nbsp; <svg className="product__swatchOptionIcon" viewBox="0 0 20 20"><use xlinkHref="#icon-swatch"/></svg> {props.values.length} options
                                 </span>

@@ -4,6 +4,9 @@
 - Added Signifyd support
 - added css to hide not_an_option
 - merged css from pull requests
+- removed hide from blog post pagination
+- fixed issue for not_an_option noValue that caused the price to not change
+- removed not_an_option from the UI for mini-cart, min-cart side, request a swatch, pdp, and cart
 
 ## [1.20.32]
 - ReactJS Collections PDP

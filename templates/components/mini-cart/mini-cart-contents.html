@@ -46,6 +46,8 @@
         {{/if}}
         <div class="mini-cart-item-options">
           {{#each options}}
+            {{#if name '==' 'not_an_option'}}
+            {{else}}
             <span class="option-value" data-raw-value="{{ value }}">
               <span class="option-value-label-mc">
                   {{#replace "Select" name}}
@@ -54,6 +56,7 @@
               </span>
               {{> components/products/customizations/option-label value}}
             </span>
+            {{/if}}
           {{/each}}
         </div>
         <div class="mini-cart-item-actions">

@@ -10,7 +10,9 @@
 		<select class="selectBox__select form-input selectBox__select--{{id}}" id="attribute-{{id}}" name="attribute[{{id}}]" {{#if required}}required{{/if}} aria-required="{{required}}">
 			<option value="" disabled selected>Select one</option>
 			{{#each values}}
-			<option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{label}}</option>
+				{{#if label '==' 'not_an_option'}}{{else}}
+				<option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{label}}</option>
+				{{/if}}
 			{{/each}}
 			{{#unless required}}
 			<option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{lang 'core.product.none'}}</option>
@@ -33,7 +35,9 @@
 			<select class="form-input form-select form-select--{{id}}" id="attribute-{{id}}" name="attribute[{{id}}]" {{#if required}}required{{/if}} aria-required="{{required}}">
 				<option value="" {{#any values selected=true}}{{else}}selected{{/any}} disabled>{{lang 'product.pick_one'}}</option>
 				{{#each values}}
-				<option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{label}}</option>
+					{{#if label '==' 'not_an_option'}}{{else}}
+					<option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{label}}</option>
+					{{/if}}				
 				{{/each}}
 				{{#unless required}}
 				<option value="{{id}}" {{#if selected}}selected{{/if}} data-product-attribute-value="{{id}}">{{lang 'core.product.none'}}</option>

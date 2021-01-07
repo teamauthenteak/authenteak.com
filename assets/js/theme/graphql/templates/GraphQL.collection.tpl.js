@@ -233,6 +233,8 @@ export default class GraphQL_Collection_TPL {
 
                 ${Object.keys(swatch.values.edges).map((key) => {
                     let thisOption = swatch.values.edges[key].node;
+
+                    if( thisOption.label === "not_an_option" ){ return; }
                    
                     return `<label class="swatch-wrap" for="attribute-${thisOption.entityId}" data-swatch-value="${thisOption.label}" data-product-attribute-value="${thisOption.entityId}">
                                 <input class="form-input swatch-radio"  data-option-title="${swatch.displayName}" data-parent-id="${swatch.entityId}" id="attribute-${thisOption.entityId}" type="radio" name="attribute[${thisOption.entityId}]" value="${thisOption.entityId}" data-label="${thisOption.label}" ${thisOption.isDefault ? 'checked' : ''} ${swatch.isRequired ? ' required' : ''} aria-required="${swatch.isRequired}">
@@ -251,10 +253,12 @@ export default class GraphQL_Collection_TPL {
 
 
 
-    // reqeust swatch form
+    // request swatch form
     swatchRequestSwatches(swatch){
         return Object.keys(swatch.values.edges).map((key) => {
                 let thisSwatch = swatch.values.edges[key].node;
+
+                if( thisSwatch.label === "not_an_option" ){ return; }
 
                 return `<li class="swatchModal__listItem" data-request-swatch data-swatch-title="${thisSwatch.label}">
                             <figure class="swatchModal__swatchImgCntr swatch-img">

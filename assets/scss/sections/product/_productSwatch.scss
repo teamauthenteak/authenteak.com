@@ -292,8 +292,13 @@
         line-height: 1.2;
         text-align: left;
         font-size: 1rem;
-        flex: 1 0 auto;
         max-width: 50%;
+        padding-right: 3px;
+        display: flex;
+
+        &--flex{
+            flex: 1 0 auto;
+        }
 
         @media only screen and (max-width: $screen-sm) {
             width: 100%;

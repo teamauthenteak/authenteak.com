@@ -20,15 +20,18 @@
                     {{#each this.options}}
                         {{#inArray (split "Select Head Cushion Fabric||Select Canopy||Select Optional Cushions||Select Optional Cushion||Select Fabric||Select Cushion||Select Throw Pillows Fabric" "||") display_name }}
                             {{#each values}}{{#unless (occurrences label "No Thanks") }}{{#unless (occurrences label "No Cushion") }}
-                                <li class="swatchModal__listItem" data-request-swatch data-swatch-title="{{> components/products/customizations/option-label label}}">
-                                    <figure class="swatchModal__swatchImgCntr swatch-img">
-                                        <img class="swatchModal__swatchImg" data-src="{{getImage image 'core-swatch'}}" alt="{{> components/products/customizations/option-label label}}" />
-                                        <figcaption class="swatchModal__swatchTitle">
-                                            {{> components/products/customizations/option-label label}}
-                                        </figcaption>
-                                    </figure>
-                                </li>
-                                {{/unless}}{{/unless}}{{/each}}
+                                {{#if label '==' 'not_an_option'}}{{else}}
+                                    <li class="swatchModal__listItem" data-request-swatch data-swatch-title="{{> components/products/customizations/option-label label}}">
+                                        <figure class="swatchModal__swatchImgCntr swatch-img">
+                                            <img class="swatchModal__swatchImg" data-src="{{getImage image 'core-swatch'}}" alt="{{> components/products/customizations/option-label label}}" />
+                                            <figcaption class="swatchModal__swatchTitle">
+                                                {{> components/products/customizations/option-label label}}
+                                            </figcaption>
+                                        </figure>
+                                    </li>
+                                    {{/if}}
+                                    {{/unless}}{{/unless}}
+                                {{/each}}
                         {{/inArray}}
                     {{/each}}
                 </ul>

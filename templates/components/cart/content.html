@@ -87,6 +87,8 @@
 
       
           {{#each options}}
+            {{#if name '==' 'not_an_option'}}
+            {{else}}
             <div class="product-option" data-name="{{name}}" data-value="{{value}}">
               <span class="cart-label" data-name="{{name}}">
                 {{#replace "Select " name}}Selected {{/replace}}: </span>
@@ -101,6 +103,7 @@
               </span>
               {{/if}}
             </div>
+            {{/if}}
           {{/each}}
 
           </div>

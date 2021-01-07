@@ -514,6 +514,10 @@ function CollectionPod(props){
                                                         />;
                                             }
 
+                                            if( item.node.displayName === "not_an_option" ){
+                                                return <input className="hide" id={item.node.entityId} type="checkbox" value="no" checked={true} />
+                                            }
+
                                         })}
                                     </ul>
                                 </div>

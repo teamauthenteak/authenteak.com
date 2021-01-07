@@ -21,6 +21,8 @@ export default class GraphQL_Legacy_Options {
 
 					swatch = Object.assign(swatch, parsedLabel);
 
+					if( swatch.label === "not_an_option" ){ return; }
+
 					return `<label class="swatch-wrap" for="attribute-${swatch.entityId}" data-swatch-value="${swatch.label}" data-product-attribute-value="${swatch.entityId}">
 								<input class="form-input swatch-radio" id="attribute-${swatch.entityId}" type="radio" name="attribute[${option.entityId}]" value="${swatch.entityId}" data-label="${swatch.label}" data-parsed-label="${swatch.text}" ${swatch.isDefault ? 'checked' : ''} required aria-required="true">
 								<span class="swatch">

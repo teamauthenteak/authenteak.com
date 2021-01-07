@@ -1,26 +1,37 @@
 
-<div class="form-field form-field-options form-field-checkbox{{#if required}} form-required{{/if}}"
-  data-product-attribute="input-checkbox">
-  <div class="form-field-title-cntr" data-option-title="{{display_name}}">
-    {{> core/forms/customizations/tooltip name=display_name type="checkbox"}}
+<div class="form-field form-field-options form-field-checkbox{{#if required}} form-required{{/if}}" data-product-attribute="input-checkbox">
+  {{#if display_name '==' 'not_an_option' }}
+    <input
+      class="form-input form-checkbox"
+      id="attribute-{{id}}"
+      name="attribute[{{id}}]"
+      type="checkbox"
+      value="{{noValue}}"
+      checked>
 
-    <span class="form-field-title">{{display_name}}:</span> &nbsp;
-    {{#if required}}<span class="required-text">{{lang 'common.required'}}</span>{{/if}}
+  {{else}}
+    <div class="form-field-title-cntr" data-option-title="{{display_name}}">
+      {{> core/forms/customizations/tooltip name=display_name type="checkbox"}}
 
-  </div>
+      <span class="form-field-title">{{display_name}}:</span> &nbsp;
+      {{#if required}}<span class="required-text">{{lang 'common.required'}}</span>{{/if}}
 
-  <div class="form-field-control">
-    <label class="form-label {{class}}">
-      <input
-        class="form-input form-checkbox"
-        id="attribute-{{id}}"
-        name="attribute[{{id}}]"
-        type="checkbox"
-        value="{{value}}"
-        {{#if checked}}checked{{/if}}
-        {{#if required}}required{{/if}}
-        aria-required="{{required}}">
-      <span class="form-label-text">{{label}}</span>
-    </label>
-  </div>
+    </div>
+
+    <div class="form-field-control">
+      <label class="form-label {{class}}">
+        <input
+          class="form-input form-checkbox"
+          id="attribute-{{id}}"
+          name="attribute[{{id}}]"
+          type="checkbox"
+          value="{{value}}"
+          {{#if checked}}checked{{/if}}
+          {{#if required}}required{{/if}}
+          aria-required="{{required}}">
+        <span class="form-label-text">{{label}}</span>
+      </label>
+    </div>
+  {{/if}}
+
 </div>

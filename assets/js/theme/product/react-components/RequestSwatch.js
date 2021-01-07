@@ -114,6 +114,8 @@ export default function RequestSwatch(props){
                             <ul className={`swatchModal__list`}>
                 { options.length > 0 ?
                     options.map((item, index) => {
+                        if( item.label === "not_an_option" ){ return; }
+                        
                         return  <li className={`swatchModal__listItem`} key={item.id}>
                                     <label htmlFor={`attribute-${item.id}`} className="swatchModal__itemControl">
                                         <input 
