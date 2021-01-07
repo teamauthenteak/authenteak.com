@@ -338,6 +338,10 @@
             flex-wrap: wrap;
             justify-content: space-evenly;
         }
+        
+        &--reverse{
+            flex-direction: row-reverse;
+        }
 
         &--noFlex{
             display: block;
