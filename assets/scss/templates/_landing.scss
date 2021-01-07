@@ -27,7 +27,7 @@
     }
 
     &__linkFull{
-        display: block !important;
+        display: flex !important;
     }
 
     p a{
@@ -36,7 +36,7 @@
 
     &__hero{
         margin-top: 30px;
-        max-height: 1030px;
+        max-height: 1050px;
         height: auto;
         overflow: hidden;
         position: relative;
@@ -80,7 +80,7 @@
         width: 100%;
         height: 100%;
         z-index: 99;
-        display: block !important;
+        display: flex !important;
     }
 
     &__heroCarousel{
@@ -140,7 +140,7 @@
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
-        padding-top: 630px / 1160px * 100%;
+        padding-top: 1048px / 1920px * 100%;
 
         &--tall{
             padding-top: 963px / 1400px * 100%;
@@ -255,6 +255,7 @@
 
         &--2{
             font-size: 2rem;
+            font-weight: 600;
 
             @media only screen and (max-width: $screen-sm) {
                 font-size: 1.4rem;
@@ -307,10 +308,20 @@
     &__container{
         max-width: $screen-xxl;
 
+        &--fluid{
+            max-width: none;
+        }
+
         &--center{
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
+        }
+
+        @media only screen and (max-width: $screen-sm) {
+            &--reverse-sm{
+                flex-direction: column-reverse
+            }
         }
     }
 
@@ -337,6 +348,7 @@
         &--wrapCenter{
             flex-wrap: wrap;
             justify-content: space-evenly;
+            align-items: center;
         }
         
         &--reverse{

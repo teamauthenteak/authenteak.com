@@ -279,8 +279,12 @@
 
 
 // image
-img.lazy-image {
+.lazy-image {
     min-height: 1px;
     min-width: 1px;
 }
 
+.flex-img{
+    width: 100%;
+    object-fit: contain;
+}

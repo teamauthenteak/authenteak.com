@@ -3,88 +3,88 @@ import Modal from 'bc-modal';
 import Personalization from './Personalization';
 import LazyLoad from 'vanilla-lazyload';
 
-const countdownEvents = [
-    {
-        text: "Early Black Friday Deal: Save 20% on Povl with code <code class='alert__code'>POVL20</code>",
-        link: "https://authenteak.com/shop-all-brands/povl-outdoor/shop-all-povl-outdoor/",
-        start_date: "13 Nov 2020",
-        end_date: "21 Nov 2020",
-        hero_image: {
-            mobile: "https://authenteak.s3.us-east-2.amazonaws.com/images/november_home/mobile_hero.jpg",
-            desktop: "https://authenteak.s3.us-east-2.amazonaws.com/images/november_home/hero.jpg"
-        }
-    },
-    {
-        text: "Early Black Friday Daily Deal: Save 10% on Umbrellas with code <code class='alert__code'>SHADE10</code>",
-        link: "https://authenteak.com/patio-umbrellas-accessories/shop-all-patio-umbrellas-accessories/",
-        start_date: "21 Nov 2020",
-        end_date: "22 Nov 2020",
-        hero_image: {
-            mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-umbrellas.jpg",
-            desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-umbrellas.jpg"
-        }
-    },
-    {
-        text: "Early Black Friday Daily Deal: Save 15% on Planters with code <code class='alert__code'>PLANT15</code>",
-        link: "https://authenteak.com/planters/shop-all-planters/",
-        start_date: "22 Nov 2020",
-        end_date: "23 Nov 2020",
-        hero_image: {
-            mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-planters.jpg",
-            desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-planters.jpg"
-        }
-    },
-    {
-        text: "Early Black Friday Daily Deal: Save 15% on Adirondacks & Rocking Chairs with code <code class='alert__code'>CHAIR15</code>",
-        link: "https://authenteak.com/outdoor-furniture/lounging/adirondacks-rocking-chairs/",
-        start_date: "23 Nov 2020",
-        end_date: "24 Nov 2020",
-        hero_image: {
-            mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-adirondacks.jpg",
-            desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-adirondacks.jpg"
-        }
-    },
-    {
-        text: "Early Black Friday Daily Deal: Save 10% on Protective Covers with code <code class='alert__code'>COVER10</code>",
-        link: "https://authenteak.com/maintenance-care/protective-covers/",
-        start_date: "24 Nov 2020",
-        end_date: "25 Nov 2020",
-        hero_image: {
-            mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-covers.jpg",
-            desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-covers.jpg"
-        }
-    },
-    {
-        text: "Early Black Friday Daily Deal: Save 10% on Enduraleaf with code <code class='alert__code'>ENDURA10</code>",
-        link: "https://authenteak.com/shop-all-brands/enduraleaf/shop-all-enduraleaf/",
-        start_date: "25 Nov 2020",
-        end_date: "26 Nov 2020",
-        hero_image: {
-            mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-enduraleaf.jpg",
-            desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-enduraleaf.jpg"
-        }
-    },
-    {
-        text: " Black Friday Deal: Save 10% on Outdoor Furniture with code <code class='alert__code'>BLACKFRIDAY</code>",
-        link: "https://authenteak.com/outdoor-furniture/shop-all-outdoor-furniture/",
-        start_date: "26 Nov 2020",
-        end_date: "30 Nov 2020",
-        hero_image: {
-            mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-bf.jpg",
-            desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-bf.jpg"
-        }
-    },
-    {
-        text: "Cyber Monday Deal: Last Chance on Daily Deals + Save 10% on Outdoor TVs with code <code class='alert__code'>CYBERMONDAY</code>",
-        link: "https://authenteak.com/black-friday-deals/",
-        start_date: "30 Nov 2020",
-        end_date: "2 Dec 2020",
-        hero_image: {
-            mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-cm.jpg",
-            desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-cm.jpg"
-        }
-    }
-];
+// const countdownEvents = [
+//     {
+//         text: "Early Black Friday Deal: Save 20% on Povl with code <code class='alert__code'>POVL20</code>",
+//         link: "https://authenteak.com/shop-all-brands/povl-outdoor/shop-all-povl-outdoor/",
+//         start_date: "13 Nov 2020",
+//         end_date: "21 Nov 2020",
+//         hero_image: {
+//             mobile: "https://authenteak.s3.us-east-2.amazonaws.com/images/november_home/mobile_hero.jpg",
+//             desktop: "https://authenteak.s3.us-east-2.amazonaws.com/images/november_home/hero.jpg"
+//         }
+//     },
+//     {
+//         text: "Early Black Friday Daily Deal: Save 10% on Umbrellas with code <code class='alert__code'>SHADE10</code>",
+//         link: "https://authenteak.com/patio-umbrellas-accessories/shop-all-patio-umbrellas-accessories/",
+//         start_date: "21 Nov 2020",
+//         end_date: "22 Nov 2020",
+//         hero_image: {
+//             mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-umbrellas.jpg",
+//             desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-umbrellas.jpg"
+//         }
+//     },
+//     {
+//         text: "Early Black Friday Daily Deal: Save 15% on Planters with code <code class='alert__code'>PLANT15</code>",
+//         link: "https://authenteak.com/planters/shop-all-planters/",
+//         start_date: "22 Nov 2020",
+//         end_date: "23 Nov 2020",
+//         hero_image: {
+//             mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-planters.jpg",
+//             desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-planters.jpg"
+//         }
+//     },
+//     {
+//         text: "Early Black Friday Daily Deal: Save 15% on Adirondacks & Rocking Chairs with code <code class='alert__code'>CHAIR15</code>",
+//         link: "https://authenteak.com/outdoor-furniture/lounging/adirondacks-rocking-chairs/",
+//         start_date: "23 Nov 2020",
+//         end_date: "24 Nov 2020",
+//         hero_image: {
+//             mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-adirondacks.jpg",
+//             desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-adirondacks.jpg"
+//         }
+//     },
+//     {
+//         text: "Early Black Friday Daily Deal: Save 10% on Protective Covers with code <code class='alert__code'>COVER10</code>",
+//         link: "https://authenteak.com/maintenance-care/protective-covers/",
+//         start_date: "24 Nov 2020",
+//         end_date: "25 Nov 2020",
+//         hero_image: {
+//             mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-covers.jpg",
+//             desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-covers.jpg"
+//         }
+//     },
+//     {
+//         text: "Early Black Friday Daily Deal: Save 10% on Enduraleaf with code <code class='alert__code'>ENDURA10</code>",
+//         link: "https://authenteak.com/shop-all-brands/enduraleaf/shop-all-enduraleaf/",
+//         start_date: "25 Nov 2020",
+//         end_date: "26 Nov 2020",
+//         hero_image: {
+//             mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-enduraleaf.jpg",
+//             desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-enduraleaf.jpg"
+//         }
+//     },
+//     {
+//         text: " Black Friday Deal: Save 10% on Outdoor Furniture with code <code class='alert__code'>BLACKFRIDAY</code>",
+//         link: "https://authenteak.com/outdoor-furniture/shop-all-outdoor-furniture/",
+//         start_date: "26 Nov 2020",
+//         end_date: "30 Nov 2020",
+//         hero_image: {
+//             mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-bf.jpg",
+//             desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-bf.jpg"
+//         }
+//     },
+//     {
+//         text: "Cyber Monday Deal: Last Chance on Daily Deals + Save 10% on Outdoor TVs with code <code class='alert__code'>CYBERMONDAY</code>",
+//         link: "https://authenteak.com/black-friday-deals/",
+//         start_date: "30 Nov 2020",
+//         end_date: "2 Dec 2020",
+//         hero_image: {
+//             mobile: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/mobile-cm.jpg",
+//             desktop: "https://authenteak.s3.us-east-2.amazonaws.com/2020-black-friday-deals/landing-page-heroes/hero-cm.jpg"
+//         }
+//     }
+// ];
 
 
 
@@ -99,7 +99,7 @@ export default class Page extends PageManager {
         });
 
         this.lazyLoadInstance = new LazyLoad({
-			elements_selector: ".replaced-image, .lazy-image, .landing__figImg, .card__img"
+			elements_selector: ".replaced-image, .lazy-image, .landing__figImg, .card__img, .flex-img, .landing__heroImg"
 		});
 
         // add Personalization engine
@@ -112,11 +112,11 @@ export default class Page extends PageManager {
 
         if(window.location.pathname === "/"){
             this.initHero();
-            this.scrollArrow();
+            // this.scrollArrow();
 
-            if( document.getElementById("countDownAlert") ){
-                this.initCountDown();
-            }
+            // if( document.getElementById("countDownAlert") ){
+            //     this.initCountDown();
+            // }
         }
     }
 
