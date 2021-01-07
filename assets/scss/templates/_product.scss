@@ -1,5 +1,5 @@
 %heading-responsive{
-    font-size: calc( 21px + (28 - 21) * (100vw - 375px) / (1600 - 375) );
+    @include dynamic-font(21, 28);
 }
 
 /*

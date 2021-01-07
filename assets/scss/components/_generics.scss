@@ -170,10 +170,9 @@
 
 
 // Paddings
-[class*='span-']:last-of-type.pad{
+[class*='span-']:last-of-type.pad, .pad{
     padding: $standard-padding;
 }
-
 .no-pad{
     padding: 0 !important;
 }
@@ -182,16 +181,8 @@
     padding: $standard-padding 0 0 0 !important;
 }
 
-.pad-top-lg{
-    padding-top: $standard-padding !important;
-}
-
 .pad-bottom{
     padding: 0 0 $standard-padding 0 !important;
-}
-
-.pad-bottom-lg{
-    padding-bottom: 100px !important;
 }
 
 .pad-top-bottom{
@@ -209,6 +200,44 @@
 .pad-left{
     padding: 0 0 0 $standard-padding !important;
 }
+
+@media only screen and (max-width: $screen-sm) {
+    .pad-top-sm{
+        padding: $standard-padding 0 0 0 !important;
+    }
+    
+    .pad-bottom-sm{
+        padding: 0 0 $standard-padding 0 !important;
+    }
+    
+    .pad-top-bottom-sm{
+        padding: $standard-padding 0 $standard-padding 0 !important;
+    }
+    
+    .pad-right-sm{
+        padding: 0 $standard-padding 0 0 !important;
+    }
+    
+    .pad-right-left-sm{
+        padding: 0 $standard-padding 0 $standard-padding !important;
+    }
+    
+    .pad-left-sm{
+        padding: 0 0 0 $standard-padding !important;
+    }
+}
+
+
+@media only screen and (max-width: $screen-lg) {
+    .pad-bottom-lg{
+        padding-bottom: 100px !important;
+    }
+
+    .pad-top-lg{
+        padding-top: $standard-padding !important;
+    }
+}
+
 
 // padding overrides
 .on-canvas {

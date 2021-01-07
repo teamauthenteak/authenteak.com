@@ -1,0 +1,3 @@
+@mixin dynamic-font($minSize, $maxSize) {
+    font-size: calc( #{$minSize}px + (#{$maxSize} - #{$minSize}) * (100vw - 375px) / (1600 - 375) ) !important;
+}

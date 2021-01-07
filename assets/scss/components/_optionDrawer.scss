@@ -1,9 +1,9 @@
 %swatch-font-size{
-    font-size: calc( 11px + (13 - 11) * (100vw - 375px) / (1600 - 375) ) !important;
+    @include dynamic-font(11, 13);
 }
 
 %drawer-heading-responsive{
-    font-size: calc( 24px + (32 - 24) * (100vw - 375px) / (1600 - 375) );
+    @include dynamic-font(24, 32);
 }
 
 .drawer{
