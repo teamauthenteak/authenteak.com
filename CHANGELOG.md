@@ -1,4 +1,9 @@
 # Change Log
+
+## [1.20.34]
+- added filter support for pdp swatch drawer
+- adding pdp collections click-n-buy application
+
 ## [1.20.33]
 - Removed Bolt and added Custom checkout button
 - Added Signifyd support
@@ -7,6 +12,13 @@
 - removed hide from blog post pagination
 - fixed issue for not_an_option noValue that caused the price to not change
 - removed not_an_option from the UI for mini-cart, min-cart side, request a swatch, pdp, and cart
+- Jan 2021 home page updates
+- order confirmation page fix for heap and other analytics
+- reverted site logo
+- added nosto search results div to search page in page.html
+- added dns-prefetch and preconnect to base.html for performance
+- added touchstart passive event for jquery
+- PDP Collections updates Click-N-Buy and Build-N-Buy
 
 ## [1.20.32]
 - ReactJS Collections PDP

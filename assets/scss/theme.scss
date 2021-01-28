@@ -7376,20 +7376,7 @@ table.geotrust-ssl-seal-table {
   }
 }
 
-// Breadcrumbs
-.breadcrumbs {
-  margin-top: rem-calc(40px);
-  margin-bottom: rem-calc(25px);
-  text-align: center;
 
-  .page-header &,
-  .product-listing & { margin-top: 0; }
-
-  @media only screen and (max-width: $sm-screen) {
-    display: inline-flex;
-  }
-
-}
 
 .breadcrumb {
   display: inline-block;
@@ -7413,15 +7400,6 @@ table.geotrust-ssl-seal-table {
   }
 }
 
-@media only screen and (max-width: $sm-screen) {
-  .breadcrumb:nth-last-child(2) {
-    display: inline-flex;
-    ::after {
-      content: "›" ;
-      padding: 0 4px;
-    }
-  }
-}
 
 .breadcrumb-label {
   color: $color-bold;

@@ -32,7 +32,7 @@ const webpackConfig = {
 								loose: true,
 								useBuiltIns: 'usage',
 								modules: false,
-                corejs: '^3.6.5'
+                				corejs: '^3.6.5'
 							}],
 							['@babel/preset-react']
 						],

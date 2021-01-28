@@ -19,7 +19,7 @@ export default function QuantityButton(props){
     }, [props.value]);
 
 
-    return  <label className="product__qtyCntr">
+    return  <label className={`product__qtyCntr ${props.class}`}>
                 <div className="product-quantity-toggle-wrapper">
                     <button type="button" className="product-quantity-toggle product-quantity-decrement no-margin" onClick={() => setQty(count - 1)} >
                         <svg className="icon icon-minus"><use xlinkHref="#icon-minus" /></svg>

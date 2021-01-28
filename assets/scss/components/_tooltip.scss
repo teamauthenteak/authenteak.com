@@ -79,6 +79,9 @@
         height: 17px;
         padding: 3px;
         background-color: transparent;
+        position: absolute;
+        top: -8px;
+        left: -9px;
 
         &--dark{
             background-color: #1c48bc;

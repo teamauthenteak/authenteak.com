@@ -20,21 +20,6 @@ import SuggestedProductLayouts from '../react-components/SuggestedProductLayouts
 import PointOfPurchaseModal from '../react-components/Modal-PointOfPurchase';
 
 
-const settings = {
-    slider: {
-        className: "product__figSlider",
-        dots: true,
-        arrows: false,
-        dotsClass: "product__figSliderThumbs",
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        lazyLoad: true   
-    }
-};
-
-
 class App extends React.Component{
     constructor(props){
         super(props);
@@ -116,7 +101,7 @@ class App extends React.Component{
         };
 
         this.sliderSettings = {
-            ...settings.slider,
+            ...TEAK.Globals.collections.pdpSlider,
             customPaging: (i) => {
                 let img = props.context.images[i];
                 let imgSrc = replaceSize(img.data, 100), lowQuality = replaceSize(img.data, 10);
@@ -303,7 +288,9 @@ class App extends React.Component{
                         </div>
                     </div>
 
-                    <SuggestedProductLayouts data={this.props.context.custom_fields} />
+                    <div className="product__layouts">
+                        <SuggestedProductLayouts data={this.props.context.custom_fields} type="static"/>
+                    </div>
 
                     <StickyCart cart={this.state.cart} cartStatus={this.cartUpdate} />
                     

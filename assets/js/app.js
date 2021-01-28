@@ -159,3 +159,11 @@ window.stencilBootstrap = function stencilBootstrap(templateFile, context) {
     }
   };
 };
+
+
+// plugin to make touchstart passive
+jQuery.event.special.touchstart = {
+  setup: function( _, ns, handle ){
+    this.addEventListener("touchstart", handle, { passive: true });
+  }
+};

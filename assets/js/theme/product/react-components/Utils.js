@@ -1,5 +1,6 @@
 import _ from "lodash";
 
+
 /** -------------------------------
  * Utility Helper Methods
  * Call upon then when needed
@@ -96,7 +97,76 @@ const generateID = () => Math.random().toString(36).substring(7);
 
 
 
+
+
+/**
+ * Validates that all required options are selected before adding to cart on a Collections page
+ * @param {array} args.options - all available option types to be selected
+ * @param {array} args.swatches  - all selected swatches
+ * @param {array} args.dropdown - all user selected dropdown
+ * @param {function} args.invalidSwatch - callback to notify of any invalid swatches
+ * @param {function} args.invalidDropdown - callback to notify of any invalid swatches
+ */
+
+const areSelectionsValid = (args) => {
+    let arr = [];
+
+    args.options.forEach(element => {
+        switch(element.node.displayStyle){
+            case "Swatch":
+                let isSwatchValid = Object.keys(args.swatches).length !== 0 && args.swatches.hasOwnProperty(element.node.displayName);
+                
+                if( !isSwatchValid ){ 
+                    if( !invalidSwatch.includes(element.node.entityId) ){
+                        args.invalidSwatch(invalidSwatch => [...invalidSwatch, element.node.entityId]);
+                    }
+
+                }else{
+                    args.invalidSwatch(invalidSwatch => {
+                        return invalidSwatch.filter(item => item !== element.node.entityId);;
+                    });
+                }
+                
+                arr.push(isSwatchValid);
+                break;
+
+            case "DropdownList":
+                let isDropdownValid = Object.keys(args.dropdown).length !== 0 && args.dropdown.hasOwnProperty(element.node.displayName);
+
+                // exclude "protective cover" validation
+                if( element.node.displayName.toLowerCase().includes("protective cover") ){
+                    arr.push(true);
+                    break;
+                }
+
+                if( !isDropdownValid ){ 
+                    if( !invalidDropdown.includes(element.node.entityId) ){
+                        args.invalidDropdown(invalidDropdown => [...invalidDropdown, element.node.entityId]) 
+                    }
+
+                }else{
+                    args.invalidDropdown(invalidDropdown => {
+                        return invalidDropdown.filter(item => item !== element.node.entityId);
+                    });
+                }
+
+                arr.push(isDropdownValid);
+                break;
+
+            default: 
+                arr.push(true);
+                break;
+        }
+    });
+
+    return arr.includes(true);
+};
+
+
+
+
 export { 
+    areSelectionsValid,
     replaceSize,
     addToStorage,
     generateID,

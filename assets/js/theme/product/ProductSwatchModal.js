@@ -508,7 +508,7 @@ export default class ProductSwatchModal {
     filterBrands(){
         this.optionsArray.values.edges.forEach((element) => {
             this.filter.brandName.values.forEach((filterElement) => {
-                if( filterElement === element.node.brandName ){
+                if( filterElement === element.node.brandName || (element.node.filter && filterElement === element.node.filter.brandName) ){
                     this.filteredBrands.push(element);
                 }
             });
@@ -519,7 +519,7 @@ export default class ProductSwatchModal {
     filterGrades(){
         this.optionsArray.values.edges.forEach((element) => {           
             this.filter.grade.values.forEach((filterElement) => {
-                if( filterElement === element.node.grade ){
+                if( filterElement === element.node.grade || (element.node.filter && filterElement === element.node.filter.grade) ){
                     this.filteredGrades.push(element);
                 }
             });
@@ -530,7 +530,7 @@ export default class ProductSwatchModal {
     filterShipping(){
         this.optionsArray.values.edges.forEach((element) => {           
             this.filter.ships.values.forEach((filterElement) => {
-                if( filterElement === element.node.ships ){
+                if( filterElement === element.node.ships || (element.node.filter && filterElement === element.node.filter.ships) ){
                     this.filteredShipping.push(element);
                 }
             });
@@ -646,7 +646,6 @@ export default class ProductSwatchModal {
         this.$preloader.addClass("hide");
         this.$optionModalSwatches.find(".drawer__main").removeClass("hide");
 
-
         this.fetchedOptionsArray.forEach((element) => {
 
             // if this option for this product is what we asked for
@@ -661,7 +660,6 @@ export default class ProductSwatchModal {
                 
                 // this.optionsArray = element.node;
                 this.optionsArray = this.filterOutDiscontinued(element.node);
-
 
                 this.constructSwatch(this.optionsArray);
                 this.constructFilterItem();
@@ -724,7 +722,11 @@ export default class ProductSwatchModal {
                 }else{
                     this.filter[obj].items.push( optionItem[this.filter[obj].key] );
                 }
-               
+            }
+            
+            if( optionItem.filter && optionItem.filter[this.filter[obj].key] ){
+                this.filter[obj].items.push( optionItem.filter[this.filter[obj].key] );
+                this.filter[obj].isCustom = optionItem.filter[this.filter[obj].key];
             }
         }
 
@@ -736,7 +738,7 @@ export default class ProductSwatchModal {
 
 
     // builds the custom filter controls based on what is filterable
-    // Need to work on a way to exclude the options filter when we have an option group that doesn require it
+    // Need to work on a way to exclude the options filter when we have an option group that doesn't require it
     constructFilterItem(){
         let tracker = [];
 

@@ -7,7 +7,6 @@ import variationImgPreview from './product/variationImgPreview';
 import Tabs from 'bc-tabs';
 import fitVids from 'fitvids';
 import ScrollLink from 'bc-scroll-link';
-import Personalization from './Personalization';
 import TabsModule from './components/TabsModule';
 import ProductOptions from './product/customizations/ProductOptions';
 import AddToCartModal from './product/customizations/AddToCartModal';

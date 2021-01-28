@@ -9,7 +9,7 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.js$/,
+				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
 				include: [
 					path.resolve(__dirname, 'assets/js'),
@@ -37,11 +37,25 @@ module.exports = {
 						]
 					}
 				}
+			},
+			{
+				test: /\.svg$/,
+				use: [
+					{
+						loader: '@svgr/webpack',
+						options: {
+							native: true
+						}
+					}
+				],
 			}
 		]
 	},
 	output: {
 		path: path.resolve(__dirname, 'assets/js'),
 		filename: '[name].bundle.js'
-	}
+	},
+	optimization: {
+        minimize: false
+    }
 }

@@ -56,6 +56,30 @@ window.TEAK.Globals = {
           }
     },
     graphQl_dev: "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJlYXQiOjE5MTc4MjA4MDAsInN1Yl90eXBlIjoyLCJ0b2tlbl90eXBlIjoxLCJjb3JzIjpbImh0dHA6Ly9sb2NhbC5hdXRoZW50ZWFrLmNvbTozMzAwIl0sImNpZCI6MSwiaWF0IjoxNjAzMTkwOTMzLCJzdWIiOiJtNGdyMTE5bHg5dGl6ejh6M2lzMGZnYzVrM2N2M3Z4Iiwic2lkIjo5OTkyMzI0MzIsImlzcyI6IkJDIn0.c3lJBt1KZ1GhZsUmFMBBJukjve3bXYxJaN9MyKlbDmx920jpJoMA7_bnSumI4a3Cw5Dm40Be5RosgUUdL1inEg",
+    collections:{
+        pdpSlider:{
+            className: "product__figSlider",
+            dots: true,
+            arrows: false,
+            dotsClass: "product__figSliderThumbs",
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            lazyLoad: true,
+        },
+        suggestedSlider: {
+            className: "product__layoutList",
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 5,
+            slidesToScroll: 5,
+            lazyLoad: true,
+            arrows: true,
+            easing: "linear"
+        },
+    },
     heroCarouselSettings: {
         infinite: true,
         slidesToShow: 1,
@@ -120,7 +144,7 @@ window.TEAK.Globals = {
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 2,
-                    autoplay: true
+                    autoplay: false
                 }
             },
             {
@@ -128,7 +152,7 @@ window.TEAK.Globals = {
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
-                    autoplay: true
+                    autoplay: false
                 }
             }
         ]
@@ -191,14 +215,14 @@ window.TEAK.Utils = {
 					data.priceAdjust = priceAdjust[1];
 				}
 
-
 				let priceAdjustNumeric = part.match(/\(([+-])\$([\d.]+)\)/);
 				if (priceAdjustNumeric) {
 					data.priceAdjustNumeric = Math.round(Number.parseFloat(priceAdjustNumeric[1] + priceAdjustNumeric[2]) * 100) / 100;
-				}
+                }
+                
 
-				data.text = part.replace(/Grade [^ ]+ /ig, '').replace(/\([+-][^ ]+/g, '').trim();
-
+                data.text = part.replace(/Grade [^ ]+ /ig, '').replace(/\([+-][^ ]+/g, '').trim();
+                
 
 				// brand name ~ We're making a bad assumption here but...have too
 				let brandName = data.text.split(" ")[0];
@@ -212,7 +236,7 @@ window.TEAK.Utils = {
                 }
 
 
-                // Sumbrella Rain Brand
+                // Sunbrella Rain Brand
 				let sunbrellaRain = data.text.toLowerCase().includes("sunbrella rain");
 				if(sunbrellaRain){
 					data.brandName = "Sunbrella Rain";
@@ -231,8 +255,7 @@ window.TEAK.Utils = {
 				if(ships){
 					data.ships = "Ships " + ships;
                 }
-
-
+                
 
 			} else if (part.match(/^LEAD:/)) {
 
@@ -273,6 +296,20 @@ window.TEAK.Utils = {
                 if( hasCustomFilter ){
                     let customFilter = part.split("-f");
                     data.customFilter = customFilter[1].trim().split(" ");
+                }
+
+
+                // custom filter object
+                if( label.includes("filter") ){
+                    data.filter = {};
+
+                    let filterBy = label.split(";filter")[1];
+
+                    // support for a unique filter object
+                    filterBy.match(/\{(.*?)\}/)[1].split(",").forEach((ele) => {
+                        let keyValue = ele.split(":");
+                        data.filter[keyValue[0]] = keyValue[1];
+                    })               
                 }
 
 			}
@@ -871,5 +908,5 @@ window.TEAK.ThirdParty = {
 TEAK.ThirdParty.IntelliSuggest.buildData();
 
 if( window.location.hostname !== "authenteak.com" ){
-    $(window).on("load", TEAK.ThirdParty.IntelliSuggest.fixLinks);
+    window.addEventListener('load', TEAK.ThirdParty.IntelliSuggest.fixLinks);
 }

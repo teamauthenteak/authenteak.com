@@ -64,23 +64,33 @@ export default class GraphQL_Collection_TPL {
                                     tpl = '',
                                     leadTimeTwoIndex = product.customFields.edges.findIndex(element => element.node.name === "Lead-Time 2");
 
-                                if(name === "Lead-Time"){
-                                    tpl += `<p class="product__shippingInfo">`;
+                                if( name === "Lead-Time" ){
+                                    tpl += `<div class="product__shippingInfo">`;
                                         
-                                    let text = product.customFields.edges[key].node.value.toLowerCase();
-                                    if( text.includes("ships next business day") ){
-                                        tpl += `<span id="nextBussinessDay" class="shipping-range--tip">
-                                                    ${TEAK.Modules.leadTime.setTip("nextBussinessDay", true)}
-                                                </span>`;
-                                    }
-
-                                    tpl += `${product.customFields.edges[key].node.value}`;
+                                    tpl += `<span>${product.customFields.edges[key].node.value}</span>`;
 
                                     if( leadTimeTwoIndex !== -1 ){
-                                        tpl += `  ${product.customFields.edges[leadTimeTwoIndex].node.value}`
+                                        tpl += `<span>${product.customFields.edges[leadTimeTwoIndex].node.value}</span>`
                                     }
 
-                                    tpl += `</p>`;
+                                    if( product.customFields.edges[key].node.value.toLowerCase().includes("ships next business day") ){
+                                        tpl += `<div class="shipping-range--tip">
+                                                    <button type="button" class="shipping-range--tipLink" data-tool-tip-open data-tool-tip-type="element" data-tool-tip-name="next_business_day" data-tool-tip-id="next_business_day">
+                                                        <span class="toolTip__iconCntr toolTip__iconCntr--dark">
+                                                            <svg class="toolTip__icon toolTip__icon--white"><use xlink:href="#icon-info"/></svg>
+                                                        </span>
+                                                    </button>
+                                                    <div class="toolTip__cntr toolTip__cntr--hide" id="next_business_day">
+                                                        <button type="button" class="toolTip__closeBtn" data-tool-tip-close>
+                                                            <svg class="toolTip__closeIcon"><use xlink:href="#icon-close"/></svg>
+                                                        </button>
+                                                        <h2 class="toolTip__heading--2">Next Business Day Processing</h2>
+                                                        <p class="toolTip__text">Transit time is determined by shipping method and destination. Orders placed by 12pm ET may be shipped same day. Orders placed after 2pm ET will be processed the next business day.</p>
+                                                    </div>
+                                                </div>`;
+                                    }
+
+                                    tpl += `</div>`;
                                 }
 
 

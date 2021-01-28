@@ -21,7 +21,7 @@ export default class Collection extends PageManager {
         this.yotpo = new Yotpo();
 
         new ProductSwatchModal();
-        new ToolTips();
+
         new AddToCartModal();
 
         // options
@@ -735,8 +735,8 @@ export default class Collection extends PageManager {
             this.initValidator(element);
         
             if(element.node.brand){
-                window.TEAK.Modules.toolTip.init({
-                    type: "brand",
+                new ToolTips({ 
+                    type: "brands",
                     key: element.node.brand.name,
                     id: element.node.brand.name
                 });
@@ -774,37 +774,6 @@ export default class Collection extends PageManager {
         });
     }
     
-
-    
-    // RV Personalization
-    // initRecentlyViewed(){
-	// 	let $rv = $("#recentlyViewedProducts"),
-	// 		recentProducts = this.recentlyViewed.getViewed();
-
-	// 	if (recentProducts) {
-	// 		recentProducts.forEach((element) => {
-    //             let tpl = this.recentlyViewed.buildPersonalizationSlider(element);
-                
-    //             if(document.querySelector(".product-grid")){
-    //                 $(tpl).appendTo(".product-rv-carousel", $rv);
-    //             }
-	// 		});
-
-    //         $rv.addClass("show");
-            
-    //         this.recentlyViewed.initProductSlider({
-    //             dotObj: {appendDots: '.product-rv-carousel'},
-    //             selector: '.product-rv-carousel',
-    //             context: '#recentlyViewedProducts'
-    //         });
-	// 	}
-    // }
-
-
-    
-    
-
-
 }
 
 

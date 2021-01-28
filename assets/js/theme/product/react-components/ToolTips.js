@@ -30,11 +30,7 @@ export default function ToolTips(props){
             {props.type === "tooltip" ? 
                 <>
                     <div className="toolTip toolTip--show">
-                        <button 
-                            type="button" 
-                            className="toolTip__iconCntr toolTip__iconCntr--dark"
-                            onClick={() => toggleGeneral(true)}
-                        >
+                        <button type="button" className="toolTip__iconCntr toolTip__iconCntr--dark" onClick={() => toggleGeneral(true)}>
                             <svg className="toolTip__icon toolTip__icon--white"><use xlinkHref="#icon-info"/></svg>
                         </button>  
                     </div>
@@ -50,11 +46,7 @@ export default function ToolTips(props){
             {props.type === "tooltip.tabs" ? 
                 <>
                     <div className="toolTip toolTip--show">
-                        <button 
-                            type="button" 
-                            className="toolTip__iconCntr toolTip__iconCntr--dark"
-                            onClick={() => toggleGeneral(true)}
-                        >
+                        <button type="button" className="toolTip__iconCntr toolTip__iconCntr--dark" onClick={() => toggleGeneral(true)}>
                             <svg className="toolTip__icon toolTip__icon--white"><use xlinkHref="#icon-info"/></svg>
                         </button>  
                     </div>
@@ -93,7 +85,6 @@ export default function ToolTips(props){
                     </animated.div>
                 </>
             :null}
-
 
 
             {props.type === "freeWhiteGlove" ? <p className="free-shipping-text">Free Standard Shipping</p> :null}

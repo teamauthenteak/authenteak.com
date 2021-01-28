@@ -1,31 +1,36 @@
 
 // to save product lead time data to firebase for cross device
 // work around until we can save customer data to actual database
-(function(window, document, firebase){
+document.addEventListener('DOMContentLoaded', function(){
 	let leadTimeData;
 
-	firebase.initializeApp(TEAK.Globals.firebase.config);
-	let db = firebase.firestore();
-
-	if( window.localStorage ){
-		leadTimeData = window.localStorage.getItem("TEAK_cartLeadTime");
-		leadTimeData = JSON.parse(leadTimeData);
-
-		window.localStorage.removeItem("TEAK_cartLeadTime");
+	if( TEAK.Globals !== undefined ){
+		firebase.initializeApp(TEAK.Globals.firebase.config);
+		let db = firebase.firestore();
+	
+		if( window.localStorage ){
+			leadTimeData = window.localStorage.getItem("TEAK_cartLeadTime");
+			leadTimeData = JSON.parse(leadTimeData);
+	
+			window.localStorage.removeItem("TEAK_cartLeadTime");
+		}
+	
+		let order = document.getElementById("orderID").innerHTML.trim();
+		order = JSON.parse(order.replace(/&quot;/g,'"'));
+	
+		let orderData = {};
+		orderData[`order_${order.id}`] = leadTimeData;
+	
+		
+		if( leadTimeData !== "" ){
+			db.collection("customer").doc(TEAK.User.uuid).set({
+				orders: firebase.firestore.FieldValue.arrayUnion(orderData)
+			});
+		}
+		
 	}
 
-	let order = document.getElementById("orderID").innerHTML.trim();
-	order = JSON.parse(order.replace(/&quot;/g,'"'));
-
-	let orderData = {};
-	orderData[`order_${order.id}`] = leadTimeData;
-
-
-	db.collection("customer").doc(TEAK.User.uuid).set({
-		orders: firebase.firestore.FieldValue.arrayUnion(orderData)
-	});
-
-}(window, document, firebase));
+});
 
 
 

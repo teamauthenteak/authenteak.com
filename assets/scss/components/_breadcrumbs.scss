@@ -52,11 +52,37 @@
         a{
             display: block;
             text-align: center;
-            // color:#6ea438;
         }
     }
 }
 
 .breadcrumbs{
     margin: 0;
+}
+
+
+
+@media only screen and (max-width: $screen-sm) {
+    .breadcrumb:nth-last-child(2) {
+      display: inline-flex;
+      ::after {
+        content: "›" ;
+        padding: 0 4px;
+      }
+    }
+}
+
+  // Breadcrumbs
+.breadcrumbs {
+    margin-top: rem-calc(40px);
+    margin-bottom: rem-calc(25px);
+    text-align: center;
+  
+    .page-header &,
+    .product-listing & { margin-top: 0; }
+  
+    @media only screen and (max-width: $screen-sm) {
+      display: inline-flex;
+    }
+  
 }

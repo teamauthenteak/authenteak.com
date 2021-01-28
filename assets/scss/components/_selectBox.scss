@@ -62,6 +62,7 @@
     &__name{
         @extend .product__swatchName;
         @extend .product__swatchDisplayName;
+        max-width: 75% !important;
 
         &--labelLeft{
             @extend .product__swatchName--labelLeft;

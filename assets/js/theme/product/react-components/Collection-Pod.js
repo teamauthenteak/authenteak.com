@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
 
 import utils from '@bigcommerce/stencil-utils';
-import { generateID, formatPrice } from './Utils';
+import { generateID, formatPrice, areSelectionsValid } from './Utils';
 import { usePrevious } from 'react-use';
 import GraphQL from '../../graphql/GraphQL';
 import AppContext from './context/AppContext';
@@ -15,6 +15,7 @@ import AddButton from './Collection-PodAddBtn';
 import ReviewStars from './ReviewStars';
 import Ribbon from './Ribbon';
 import ToolTips from './ToolTips';
+import ProductPrice from './ProductPrice';
 
 
 function CollectionPod(props){
@@ -56,69 +57,80 @@ function CollectionPod(props){
 
 
     // makes sure all required options are selected before adding to cart
-    const areSelectionsValid = () => {
-        let arr = [];
+    // const areSelectionsValid = () => {
+    //     let arr = [];
 
-        options.forEach(element => {
-            switch(element.node.displayStyle){
-                case "Swatch":
-                    let isSwatchValid = Object.keys(swatches).length !== 0 && swatches.hasOwnProperty(element.node.displayName);
+    //     options.forEach(element => {
+    //         switch(element.node.displayStyle){
+    //             case "Swatch":
+    //                 let isSwatchValid = Object.keys(swatches).length !== 0 && swatches.hasOwnProperty(element.node.displayName);
                     
-                    if( !isSwatchValid ){ 
-                        if( !invalidSwatch.includes(element.node.entityId) ){
-                            setInvalidSwatch(invalidSwatch => [...invalidSwatch, element.node.entityId]);
-                        }
+    //                 if( !isSwatchValid ){ 
+    //                     if( !invalidSwatch.includes(element.node.entityId) ){
+    //                         setInvalidSwatch(invalidSwatch => [...invalidSwatch, element.node.entityId]);
+    //                     }
 
-                    }else{
-                        setInvalidSwatch(invalidSwatch => {
-                            return invalidSwatch.filter(item => item !== element.node.entityId);;
-                        });
-                    }
+    //                 }else{
+    //                     setInvalidSwatch(invalidSwatch => {
+    //                         return invalidSwatch.filter(item => item !== element.node.entityId);;
+    //                     });
+    //                 }
                     
-                    arr.push(isSwatchValid);
-                    break;
+    //                 arr.push(isSwatchValid);
+    //                 break;
 
-                case "DropdownList":
-                    let isDropdownValid = Object.keys(dropdown).length !== 0 && dropdown.hasOwnProperty(element.node.displayName);
+    //             case "DropdownList":
+    //                 let isDropdownValid = Object.keys(dropdown).length !== 0 && dropdown.hasOwnProperty(element.node.displayName);
 
-                    // exclude "protective cover" validation
-                    if( element.node.displayName.toLowerCase().includes("protective cover") ){
-                        arr.push(true);
-                        break;
-                    }
+    //                 // exclude "protective cover" validation
+    //                 if( element.node.displayName.toLowerCase().includes("protective cover") ){
+    //                     arr.push(true);
+    //                     break;
+    //                 }
 
-                    if( !isDropdownValid ){ 
-                        if( !invalidDropdown.includes(element.node.entityId) ){
-                            setInvalidDropdown(invalidDropdown => [...invalidDropdown, element.node.entityId]) 
-                        }
+    //                 if( !isDropdownValid ){ 
+    //                     if( !invalidDropdown.includes(element.node.entityId) ){
+    //                         setInvalidDropdown(invalidDropdown => [...invalidDropdown, element.node.entityId]) 
+    //                     }
 
-                    }else{
-                        setInvalidDropdown(invalidDropdown => {
-                            return invalidDropdown.filter(item => item !== element.node.entityId);
-                        });
-                    }
+    //                 }else{
+    //                     setInvalidDropdown(invalidDropdown => {
+    //                         return invalidDropdown.filter(item => item !== element.node.entityId);
+    //                     });
+    //                 }
 
-                    arr.push(isDropdownValid);
-                    break;
+    //                 arr.push(isDropdownValid);
+    //                 break;
 
-                default: 
-                    arr.push(true);
-                    break;
-            }
-        });
+    //             default: 
+    //                 arr.push(true);
+    //                 break;
+    //         }
+    //     });
     
-        return arr;
-    };
+    //     return arr;
+    // };
 
 
 
 
     // adds products to the collections pre-cart
     const addToCart = () => {
-        // run a validation on options
-        let isValid = areSelectionsValid();
 
-        if( isValid.includes(false) ){ return; }
+        // run a validation on options
+        let isValid = areSelectionsValid({
+            options: options,
+            swatches: swatches,
+            dropdown: dropdown,
+            invalidSwatch: (swatchItem) => {
+                setInvalidSwatch(swatchItem);
+            },
+            invalidDropdown: (dropdownItem) => {
+                setInvalidDropdown(dropdownItem);
+            }
+        });
+
+        if( !isValid ){ return; }  
 
         let params = {
                 action: "add",
@@ -408,11 +420,13 @@ function CollectionPod(props){
                                 let text = item.node.value.toLowerCase();
                                 let leadTimeTwoIndex = props.product.customFields.edges.findIndex(element => element.node.name === "Lead-Time 2");
 
-                                return  <p className="product__shippingInfo" key={generateID()}>
-                                            {text.includes("ships next business day") ? <span className="shipping-range--tip"> <ToolTips type="nextBusinessDay" /> </span> : null}
-                                            {item.node.value}
-                                            {leadTimeTwoIndex !== -1 ? ` ${props.product.customFields.edges[leadTimeTwoIndex].node.value}` : null}
-                                        </p>
+                                if(item.node.value){
+                                    return  <div className="product__shippingInfo" key={generateID()}>
+                                                {text.includes("ships next business day") ? <span className="shipping-range--tip"> <ToolTips type="nextBusinessDay" /> </span> : null}
+                                                {item.node.value}
+                                                {leadTimeTwoIndex !== -1 ? ` ${props.product.customFields.edges[leadTimeTwoIndex].node.value}` : null}
+                                            </div>
+                                }
                             }
 
                             if(item.node.name === "Promo Text"){ 
@@ -438,21 +452,7 @@ function CollectionPod(props){
                             </div>
                         
                             <div className="product__pod--controls">
-                                <div className="product__price">
-                                    { isUpdating ?
-                                        <div className="product__priceLine">
-                                            <svg className="icon icon-spinner"><use xlinkHref="#icon-spinner" /></svg>
-                                        </div>
-                                    :
-                                        <div className="product__priceLine">
-                                            <span className="product__priceValue">
-                                                {productPrice.without_tax}
-                                            </span>
-                                            {productPrice.rrp_without_tax !== null && productPrice.rrp_without_tax !== "$0" ? <span className="product__priceRrp">{productPrice.rrp_without_tax}</span> : null}
-                                        </div>
-                                    }
-                                </div>
-
+                                <ProductPrice isUpdating={isUpdating} productPrice={productPrice} />
                                  
                                 <div className={`product__swatchCol ${ 
                                     ( !hasGlobalOptions && options.length === 0 ) || 

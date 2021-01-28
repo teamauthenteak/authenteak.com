@@ -280,7 +280,8 @@ window.addEventListener("load", function(){
     if (window.location.href.indexOf('checkout') > -1) {
         let k_counter = 0;
 
-        if ($('.customerView-body').html() === undefined) {
+        if( document.querySelector(".customerView-body")){
+            
             $(document).on('change', 'input', function() {
                 if (k_counter < 1) {
                     try {
