@@ -13,7 +13,7 @@ export default class EditOptions {
 
 		this.editButtonsSelector = 'button.cart-item-edit[data-cart-item-edit]';
 		this.$editButtons = $(this.editButtonsSelector);
-		this.editModalSelector = 'aside.modal-cart';
+		this.editModalSelector = 'aside.modalCart';
 		this.$editModal = $(this.editModalSelector);
 		this.swatchesSelector = '[data-swatch-selector]';
 		this.dropdownsSelector = '[data-product-attribute="set-select"]';
@@ -106,7 +106,7 @@ export default class EditOptions {
 				});
 			});
 
-			let $editModalOptions = self.$editModal.find('.modal-cart__edit-product');
+			let $editModalOptions = self.$editModal.find('.modalCart__edit-product');
 			
 			$editModalOptions.html(optionsContent);
 
@@ -151,7 +151,7 @@ export default class EditOptions {
 			}, 100);
 		});
 
-		this.$editModal.on('click', '.modal-cart__close', (e) => {
+		this.$editModal.on('click', '.modalCart__close', (e) => {
 			self.$editModal.removeClass('is-open');
 			history.replaceState({}, document.title, `${location.origin}${location.pathname}`);
 			$('body').off('click.closeRASModal');
@@ -167,7 +167,7 @@ export default class EditOptions {
 				.siblings(".icon").toggleClass("hide");
 		});
 
-		$(document).on('modal-cart-display', (e) => {
+		$(document).on('modalCart-display', (e) => {
 			self.$editModal.removeClass('is-open');
 			history.replaceState({}, document.title, `${location.origin}${location.pathname}`);
 			$('body').off('click.closeRASModal');

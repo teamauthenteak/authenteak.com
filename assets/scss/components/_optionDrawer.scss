@@ -511,6 +511,11 @@
         &--ship{
             @extend .drawer__swatchLabel--grade;
         }
+
+        &--upcharge{
+            margin-top: 5px;
+            font-size: 0.65rem;
+        }
     }
 
 

@@ -1,13 +1,13 @@
-<aside class="modal-cart">
-  <div class="modal-cart__inner">
-    <div class="modal-cart__top-bar">
-      <h2 class="modal-cart__title">Added to your Cart</h2>
-      <button class="modal-cart__close">{{> svg/close}}</button>
+<aside class="modalCart">
+  <div class="modalCart__inner">
+    <div class="modalCart__top-bar">
+      <h2 class="modalCart__title">Added to your Cart</h2>
+      <button class="modalCart__close">{{> svg/close}}</button>
     </div>
 
-    <div class="modal-cart__cntr">
-        <div class="modal-cart__contents">
-          <div class="modal-cart__item-list">
+    <div class="modalCart__cntr">
+        <div class="modalCart__contents">
+          <div class="modalCart__item-list">
             <div class="mini-cart-item" data-product-id="{{product.product_id}}">
               <div class="mini-cart-item-wrap">
                 {{#if type '==' 'GiftCertificate'}}
@@ -60,14 +60,14 @@
             </div>
           </div>
         </div>
-        <div class="modal-cart__summary">
-            <div class="modal-cart__subtotal">
-                <span class="modal-cart__subtotal-label">Order Subtotal</span>
-                <span class="modal-cart__subtotal-value" data-value="{{cart.grand_total.value}}">{{cart.grand_total.formatted}}</span>
+        <div class="modalCart__summary">
+            <div class="modalCart__subtotal">
+                <span class="modalCart__subtotal-label">Order Subtotal</span>
+                <span class="modalCart__subtotal-value" data-value="{{cart.grand_total.value}}">{{cart.grand_total.formatted}}</span>
             </div>
-            <div class="modal-cart__count">
-                <span class="modal-cart__count-value" data-quantity="{{cart.quantity}}">{{cart.quantity}}</span>
-                <span class="modal-cart__count-unit">{{#if cart.quantity "==" 1}}item{{else}}items{{/if}}</span>
+            <div class="modalCart__count">
+                <span class="modalCart__count-value" data-quantity="{{cart.quantity}}">{{cart.quantity}}</span>
+                <span class="modalCart__count-unit">{{#if cart.quantity "==" 1}}item{{else}}items{{/if}}</span>
             </div>
             <a class="button button-primary button-primary--green button-cart" href="{{urls.cart}}" onclick="TEAK.ThirdParty.heap.init({method: 'track', event:'proceed_to_cart', location: 'modal' })">
               <span class="button-text">
@@ -78,12 +78,12 @@
                 {{/if}}
               </span>
             </a>
-            <div class="modal-cart__additional-checkout-buttons"></div>
-            <div class="modal-cart__marketing modal-cart__marketing--summary"></div>
+            <div class="modalCart__additional-checkout-buttons"></div>
+            <div class="modalCart__marketing modalCart__marketing--summary"></div>
         </div>
     </div>
 
-    <div class="modal-cart__marketing modal-cart__marketing--footer"></div>
+    <div class="modalCart__marketing modalCart__marketing--footer"></div>
 </div>
-  <div class="modal-cart__underlay"></div>
+  <div class="modalCart__underlay"></div>
 </aside>

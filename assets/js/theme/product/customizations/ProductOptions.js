@@ -499,7 +499,7 @@ export default class ProductOptions {
 
 
 		// Request-a-Swatch form close to show modal
-		$(document).on('modal-cart-display', closeModal);
+		$(document).on('modalCart-display', closeModal);
 
 		$(document).on("click", ".swatchModal__reqBtn", (e) => {
 			this.submitSwatchRequest(e)
@@ -561,8 +561,8 @@ export default class ProductOptions {
 	updateRequestASwatchForm() {
 		let swatches = [];
 		let swatchImage = [];
-		let productName = this.$raqModal.find('[data-product-name]').first().data('product-name');
-		let productSKU = this.$raqModal.find('[data-product-sku]').first().data('product-sku');
+		// let productName = this.$raqModal.find('[data-product-name]').first().data('product-name');
+		// let productSKU = this.$raqModal.find('[data-product-sku]').first().data('product-sku');
 
 		this.$raqSwatches.find('li.is-selected').each(function() {
 			swatches.push( $(this).data('swatch-title') );

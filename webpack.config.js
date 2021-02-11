@@ -51,11 +51,11 @@ module.exports = {
 			}
 		]
 	},
+	optimization: {
+        minimize: false
+    },
 	output: {
 		path: path.resolve(__dirname, 'assets/js'),
 		filename: '[name].bundle.js'
-	},
-	optimization: {
-        minimize: false
-    }
+	}
 }

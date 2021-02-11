@@ -184,8 +184,6 @@ export default class ToolTips{
 	generalTip($optionSelector, tipObj){
 		tipObj = tipObj.join("");
 
-		console.log(tipObj)
-
 		$optionSelector
 			.find(".toolTip").addClass("toolTip--show")
 				.end()

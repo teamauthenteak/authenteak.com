@@ -25,3 +25,7 @@
 .slick-list .replaced-image{
     height: 250px;
 }
+
+.slick-dots li button:before{
+    content: "";
+}

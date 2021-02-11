@@ -10,14 +10,19 @@ export default function Select(props){
         let selected = e.currentTarget.options[e.currentTarget.options.selectedIndex];
 
         if( props.type === "global" ){
-            appHook.setOption({
+            let optionData = {
                 displayName: props.displayName,
                 optionData: {
                     attribute: parseInt(props.id),
                     attributeValue: parseInt(e.currentTarget.value),
                     label: selected.label
                 }
-            });
+            };
+
+            appHook.setOption(optionData);
+
+            const { callBack } = props;
+            callBack(optionData)
 
         }else{
             let { setOption } = props;

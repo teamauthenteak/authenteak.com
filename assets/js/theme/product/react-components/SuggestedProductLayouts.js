@@ -72,9 +72,11 @@ export default function SuggestedProductLayouts(props){
         <>
         { layouts.length > 0 ?
             <>
-                <strong className="product__title product__title--upperBadge">Step 2</strong>
-                <h2 className="product__title product__title--tight no-margin">Choose {title}</h2>
-
+                <div className="product__row product__row--left">
+                    <strong className="product__title product__title--upperBadge">Step {props.step}</strong>
+                    <h2 className="product__title product__title--tight no-margin">Choose A {title}</h2>
+                </div>
+                
                 {props.type === "slider" ?
                     <Slider {...TEAK.Globals.collections.suggestedSlider}>
                         {

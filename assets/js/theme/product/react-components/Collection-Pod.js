@@ -56,63 +56,6 @@ function CollectionPod(props){
     };
 
 
-    // makes sure all required options are selected before adding to cart
-    // const areSelectionsValid = () => {
-    //     let arr = [];
-
-    //     options.forEach(element => {
-    //         switch(element.node.displayStyle){
-    //             case "Swatch":
-    //                 let isSwatchValid = Object.keys(swatches).length !== 0 && swatches.hasOwnProperty(element.node.displayName);
-                    
-    //                 if( !isSwatchValid ){ 
-    //                     if( !invalidSwatch.includes(element.node.entityId) ){
-    //                         setInvalidSwatch(invalidSwatch => [...invalidSwatch, element.node.entityId]);
-    //                     }
-
-    //                 }else{
-    //                     setInvalidSwatch(invalidSwatch => {
-    //                         return invalidSwatch.filter(item => item !== element.node.entityId);;
-    //                     });
-    //                 }
-                    
-    //                 arr.push(isSwatchValid);
-    //                 break;
-
-    //             case "DropdownList":
-    //                 let isDropdownValid = Object.keys(dropdown).length !== 0 && dropdown.hasOwnProperty(element.node.displayName);
-
-    //                 // exclude "protective cover" validation
-    //                 if( element.node.displayName.toLowerCase().includes("protective cover") ){
-    //                     arr.push(true);
-    //                     break;
-    //                 }
-
-    //                 if( !isDropdownValid ){ 
-    //                     if( !invalidDropdown.includes(element.node.entityId) ){
-    //                         setInvalidDropdown(invalidDropdown => [...invalidDropdown, element.node.entityId]) 
-    //                     }
-
-    //                 }else{
-    //                     setInvalidDropdown(invalidDropdown => {
-    //                         return invalidDropdown.filter(item => item !== element.node.entityId);
-    //                     });
-    //                 }
-
-    //                 arr.push(isDropdownValid);
-    //                 break;
-
-    //             default: 
-    //                 arr.push(true);
-    //                 break;
-    //         }
-    //     });
-    
-    //     return arr;
-    // };
-
-
-
 
     // adds products to the collections pre-cart
     const addToCart = () => {
@@ -122,15 +65,18 @@ function CollectionPod(props){
             options: options,
             swatches: swatches,
             dropdown: dropdown,
-            invalidSwatch: (swatchItem) => {
+            invalidSwatch: invalidSwatch,
+            invalidDropdown: invalidDropdown,
+            setInvalidSwatch: (swatchItem) => {
                 setInvalidSwatch(swatchItem);
             },
-            invalidDropdown: (dropdownItem) => {
+            setInvalidDropdown: (dropdownItem) => {
                 setInvalidDropdown(dropdownItem);
             }
         });
 
         if( !isValid ){ return; }  
+
 
         let params = {
                 action: "add",
@@ -218,6 +164,19 @@ function CollectionPod(props){
                     rrp_without_tax: null
                 });
 
+
+                // updates the bundle pre cart for the pre-configuration
+                if( appHook.bundlePreCart ){
+                    appHook.setBundlePreCart({
+                        [props.product.entityId]: {
+                            priceWithOptions: updated.price.without_tax.value,
+                            cart: params,
+                            img: props.product.defaultImage.url,
+                            product_id: props.product.entityId
+                        }
+                    });
+                }
+                
                 if( appHook.cart.hasOwnProperty(props.product.entityId.toString()) ){
                     update(true);
                 }
@@ -336,7 +295,6 @@ function CollectionPod(props){
             }
 
         }else{
-
             // if suggested is deselected
             setQty(1);
             setSuggested(false);
@@ -375,7 +333,7 @@ function CollectionPod(props){
         {props.product ? 
         
             <section className="product__row product__row--border product__row--section">
-                {isSuggested ? <Ribbon suggested={props.suggested} id={props.product.entityId} /> : null}
+                {isSuggested && props.isRibbonShown ? <Ribbon suggested={props.suggested} id={props.product.entityId} /> : null}
 
                 <form className="form add-to-cart-form" name={`product_${props.product.entityId}`}>
                     <div className="product__pod--1-1 product__pod--horz">
@@ -477,7 +435,7 @@ function CollectionPod(props){
                                                                 type="remote"
                                                                 isInvalid={invalidSwatch}
                                                                 toolTipData={toolTips[item.node.displayName] !== undefined ? toolTips[item.node.displayName] : null}
-                                                            />;
+                                                            />
                                                 }
                                             })}
                                             </ul>

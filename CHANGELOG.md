@@ -3,6 +3,10 @@
 ## [1.20.34]
 - added filter support for pdp swatch drawer
 - adding pdp collections click-n-buy application
+- added nosto fix for atc modal defect
+- added fix for loader still spinning when atc modal is shown
+- added more preconnect and prefetch lookups to base.html
+- fixed duplicate options when the filter option remains checked when the option drawer is closed
 
 ## [1.20.33]
 - Removed Bolt and added Custom checkout button

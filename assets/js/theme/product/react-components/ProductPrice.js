@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function ProductPrice(props){
     return(
-        <div className="product__price">
+        <div className={`product__price ${props.class}`}>
             { props.isUpdating ?
                 <div className="product__priceLine">
                     <svg className="icon icon-spinner"><use xlinkHref="#icon-spinner" /></svg>

@@ -36,7 +36,7 @@ export default class AddToCartModal {
     });
 
     // Close modal cart on click of 'X' or outside modal
-    $(document).on('click', '.modal-cart__close, .modal-cart__underlay', (e) => {
+    $(document).on('click', '.modalCart__close, .modalCart__underlay', (e) => {
       this._hide();
     });
   }
@@ -83,7 +83,7 @@ export default class AddToCartModal {
     // this is to avoid shwoing incorrect data
     $(window).on("cartDataStored", () => {
       this._update(this._display);
-      $('.modal-cart__summary .button-cart').removeClass('button-disabled').off('click.update-cart');
+      $('.modalCart__summary .button-cart').removeClass('button-disabled').off('click.update-cart');
     });
     
   }
@@ -107,7 +107,7 @@ export default class AddToCartModal {
     
     unitPrice = `$${unitPrice}`.replace(/^(\$\d*)(\d\d)$/, "$1.$2").replace(/(\d)(\d\d\d)\./, "$1,$2.");
 
-    $('.modal-cart .option-value-wrapper').each(function() {
+    $('.modalCart .option-value-wrapper').each(function() {
       let value = $(document).find(`input[type="radio"][name="attribute[${$(this).data('optionId')}]"]:checked`).data('parsedLabel');
 
       if (!value) {
@@ -127,11 +127,11 @@ export default class AddToCartModal {
       window.TEAK.Modules.requestASwatch = {};
     }
 
-    $('.modal-cart [data-quantity]').text(qty);
-    $('.modal-cart [data-price]').text(unitPrice);
+    $('.modalCart [data-quantity]').text(qty);
+    $('.modalCart [data-price]').text(unitPrice);
 
-    //$('.modal-cart__summary').addClass('is-loading');
-    $('.modal-cart__summary .button-cart').addClass('button-disabled').on('click.update-cart', (e) => {
+    //$('.modalCart__summary').addClass('is-loading');
+    $('.modalCart__summary .button-cart').addClass('button-disabled').on('click.update-cart', (e) => {
       e.preventDefault();
     });
 
@@ -154,11 +154,11 @@ export default class AddToCartModal {
       pendingCartTotal = parseInt(pendingCartTotal, 10);
       pendingCartTotal = TEAK.Utils.formatPrice(pendingCartTotal);
 
-      let pendingCartQuantity = Number.parseInt($('.modal-cart__count-value').attr('data-quantity'));
+      let pendingCartQuantity = Number.parseInt($('.modalCart__count-value').attr('data-quantity'));
 
-      $('.modal-cart__subtotal-value').text(pendingCartTotal);
-      $('.modal-cart__count-value').text(pendingCartQuantity);
-      $('.modal-cart__count-unit').text(pendingCartQuantity === 1 ? ' item' : ' items');
+      $('.modalCart__subtotal-value').text(pendingCartTotal);
+      $('.modalCart__count-value').text(pendingCartQuantity);
+      $('.modalCart__count-unit').text(pendingCartQuantity === 1 ? ' item' : ' items');
     
     }catch(err){ console.log(err) }
 
@@ -167,8 +167,8 @@ export default class AddToCartModal {
       // build out the recommendations 
       // this.buildRecommendations();
 
-      // nosto recommendations
-      $("#nosto-page-product3 .nosto_carousel").slick('reinit');
+
+      
 
       
     } catch (error) {
@@ -180,10 +180,10 @@ export default class AddToCartModal {
 
     if (config && config.marketing_content && config.marketing_content.add_to_cart_modal) {
       if (config.marketing_content.add_to_cart_modal.summary) {
-        $('.modal-cart__marketing--summary').html(config.marketing_content.add_to_cart_modal.summary);
+        $('.modalCart__marketing--summary').html(config.marketing_content.add_to_cart_modal.summary);
       }
       if (config.marketing_content.add_to_cart_modal.footer) {
-        $('.modal-cart__marketing--footer').html(config.marketing_content.add_to_cart_modal.footer);
+        $('.modalCart__marketing--footer').html(config.marketing_content.add_to_cart_modal.footer);
       }
     }
 
@@ -236,7 +236,7 @@ export default class AddToCartModal {
    * Update the (reconciled) cart modal contents
    */
   _reconcile(callback) {
-    $('.modal-cart__summary .button-cart').removeClass('button-disabled').off('click.update-cart');
+    $('.modalCart__summary .button-cart').removeClass('button-disabled').off('click.update-cart');
 
     // Reconcile cart data
     utils.api.cart.getContent({ template: 'mini-cart/mini-cart-json' }, (err, response) => {
@@ -254,15 +254,15 @@ export default class AddToCartModal {
         cartJson = {};
       }
 
-      // $('.modal-cart__subtotal-value').text(cartJson.grand_total.formatted).attr('data-value', cartJson.grand_total.value);
-      $('.modal-cart__count-value').text(cartJson.quantity).attr('data-quantity', cartJson.quantity);
-      $('.modal-cart__count-unit').text(cartJson.quantity === 1 ? ' item' : ' items');
-      //$('.modal-cart__summary').removeClass('is-loading');
+      // $('.modalCart__subtotal-value').text(cartJson.grand_total.formatted).attr('data-value', cartJson.grand_total.value);
+      $('.modalCart__count-value').text(cartJson.quantity).attr('data-quantity', cartJson.quantity);
+      $('.modalCart__count-unit').text(cartJson.quantity === 1 ? ' item' : ' items');
+      //$('.modalCart__summary').removeClass('is-loading');
 
       // Additional Checkout Buttons
       if ( cartJson.hasOwnProperty("additional_checkout_buttons") ){
         if (cartJson.additional_checkout_buttons.length == 1) {
-          let $additionalCheckoutWrapper = $('.modal-cart__additional-checkout-buttons');
+          let $additionalCheckoutWrapper = $('.modalCart__additional-checkout-buttons');
           $additionalCheckoutWrapper.html('');
   
           for (var i in cartJson.additional_checkout_buttons) {
@@ -283,15 +283,15 @@ export default class AddToCartModal {
   }
 
   _display() {
-    $('.modal-cart').addClass('is-open');
+    $('.modalCart').addClass('is-open');
     $.event.trigger({
-      type: 'modal-cart-display',
+      type: 'modalCart-display',
       data: {}
     });
   }
 
   _hide() {
-    $('.modal-cart').removeClass('is-open');
+    $('.modalCart').removeClass('is-open');
   }
 
   getGlobalScriptConfig() {

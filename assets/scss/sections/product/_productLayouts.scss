@@ -17,7 +17,7 @@
         align-items: center;
 
         &--slider{
-            padding: 40px;
+            padding: 40px 20px;
             margin-bottom: 0;
 
             & .slick-slider, & .slick-list{
@@ -74,7 +74,7 @@
     }
 
     &__layoutList{
-        margin: 20px 0 0 0;
+        margin: 40px 0 0 0;
         display: flex;
         flex-direction: row;
         position: relative;
@@ -97,12 +97,12 @@
             margin: 0;
         }
 
-        @media only screen and (max-width: $screen-lg) {
-            width: 25%;
+
+        @media only screen and (max-width: $screen-md) {
+            width: 100%;
         }
 
         @media only screen and (max-width: $screen-sm) {
-            width: 50%;
             margin: 0;
         }
 

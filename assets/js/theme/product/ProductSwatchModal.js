@@ -394,7 +394,6 @@ export default class ProductSwatchModal {
         this.filteredShipping = [];
         this.filteredFeatures = [];
 
-
         if(arg.filter){
            
             // filter by keyword only
@@ -504,6 +503,7 @@ export default class ProductSwatchModal {
         });
     }
 
+
     // filter each option base on Brand name
     filterBrands(){
         this.optionsArray.values.edges.forEach((element) => {
@@ -514,6 +514,7 @@ export default class ProductSwatchModal {
             });
         });
     }
+
 
     // filter each option based on Grade
     filterGrades(){
@@ -526,6 +527,7 @@ export default class ProductSwatchModal {
         });
     }
 
+
     // filter each option based on Shipping
     filterShipping(){
         this.optionsArray.values.edges.forEach((element) => {           
@@ -536,6 +538,7 @@ export default class ProductSwatchModal {
             });
         });
     }
+
 
     // filter each option based on custom features
     filterFeatures(){
@@ -548,11 +551,15 @@ export default class ProductSwatchModal {
         });
     }
 
+
     // build the new UI after we have filtered the options
     buildFilteredSwatchList(){
         let labelCntr = $("#optionForm").find(".form-field-control");
-
         labelCntr.html("");
+
+        // check for duplicates
+        this.filteredArray = this.duplicateItemCheck(this.filteredArray);
+
 
         if( this.filteredArray.length === 0 ){       
             $("<h3 class='drawer__sorryMessage'>Sorry, but it looks like we don't have any swatches that match your filters.</h3>").appendTo(labelCntr);
@@ -563,6 +570,7 @@ export default class ProductSwatchModal {
             let tpl = this.graph_tpl.getOptionSwatch(element.node, this.filteredArray);
             $(tpl).appendTo(labelCntr);
         });
+
 
         // if there is a selected swatch when we filter make sure we show it in the results
         if( this.selectedSwatcHTML ){
@@ -724,7 +732,12 @@ export default class ProductSwatchModal {
                 }
             }
             
-            if( optionItem.filter && optionItem.filter[this.filter[obj].key] ){
+            // custom filter
+            if( 
+                optionItem.filter && 
+                optionItem.filter[this.filter[obj].key] && 
+                !this.filter[obj].items.includes(optionItem.filter[this.filter[obj].key]) 
+            ){
                 this.filter[obj].items.push( optionItem.filter[this.filter[obj].key] );
                 this.filter[obj].isCustom = optionItem.filter[this.filter[obj].key];
             }

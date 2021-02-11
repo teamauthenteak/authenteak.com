@@ -67,17 +67,45 @@ window.TEAK.Globals = {
             slidesToShow: 1,
             slidesToScroll: 1,
             lazyLoad: true,
+            autoplay: false,
         },
         suggestedSlider: {
             className: "product__layoutList",
             dots: true,
             infinite: true,
             speed: 500,
+            lazyLoad: true,
             slidesToShow: 5,
             slidesToScroll: 5,
-            lazyLoad: true,
             arrows: true,
-            easing: "linear"
+            easing: "linear",
+            autoplay: false,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 5,
+                        slidesToScroll: 5,
+                        autoplay: false,
+                    }
+                },
+                {
+                    breakpoint: 769,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        autoplay: false,
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                        autoplay: false,
+                    }
+                }
+            ]
         },
     },
     heroCarouselSettings: {

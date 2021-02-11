@@ -22,8 +22,8 @@ export default function AddToCartBtn(props){
                          </>,
 
                     307: <>
-                            <span className="stickyCart__atcBtnText">View Cart</span>
                             <svg className="icon icon-arrow-right"><use xlinkHref="#icon-arrow-right" /></svg>
+                            <span className="stickyCart__atcBtnText">View Cart</span>
                          </>,
 
                     400: <>

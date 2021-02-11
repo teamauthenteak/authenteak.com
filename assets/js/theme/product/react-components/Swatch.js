@@ -13,6 +13,18 @@ export default function Swatch(props){
     const hasAttributes = optionExists && appHook[props.displayName].attributeValue !== undefined;
 
 
+
+    // update the global callback
+    useMemo(() => {
+        if( props.type === "global" && hasSwatch ){ 
+            const { globalCallback } = props;
+            globalCallback({...appHook[props.displayName], display_name: props.displayName });
+        }
+
+    }, [appHook[props.displayName]]);
+
+
+
     const toggleDrawer = (data) => {
         const { toggle } = props;
 
@@ -45,10 +57,12 @@ export default function Swatch(props){
     };
 
 
+
     const changeSwatch = (data) => {
         const { selected } = props;
-        selected(data)
+        selected(data);
     }   
+
 
 
     useEffect(() => {
@@ -100,6 +114,7 @@ export default function Swatch(props){
         }
 
     }, [remoteSwatch]);
+
 
 
     const globalSwatchObj = hasSwatch ? TEAK.Utils.parseOptionLabel(appHook[props.displayName].swatch.label) : {};
@@ -233,6 +248,7 @@ function OptionLabels(props){
             <span className="drawer__swatchLabel drawer__swatchLabel--color">{item.color}</span>
             <span className={`drawer__swatchLabel drawer__swatchLabel--price ${props.drawerType === "global" ? "hide" : ""}`}>{item.priceAdjust ? `(${item.priceAdjust})` : ""}</span>
             <span className="drawer__swatchLabel drawer__swatchLabel--ship">{item.ship ? `${item.ship}` : ""}</span>
+            {props.drawerType === "global" ? <span className="drawer__swatchLabel drawer__swatchLabel--upcharge">{item.priceAdjust ? <em>(Premium Fabric Upcharge)</em> : ""}</span> : ""}
         </>
     );
 }

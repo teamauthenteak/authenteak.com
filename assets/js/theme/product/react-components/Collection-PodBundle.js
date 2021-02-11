@@ -3,50 +3,35 @@ import { usePrevious } from 'react-use';
 import AppContext from './context/AppContext';
 import utils from '@bigcommerce/stencil-utils';
 import GraphQL from '../../graphql/GraphQL';
-import { firebaseService } from './services/Firebase';
 
 import Swatch from '../react-components/Swatch';
 import ProductPrice from '../react-components/ProductPrice';
 import QuantityButton from '../react-components/QuantityButton';
 import AddButton from '../react-components/Collection-PodAddBtn';
-import LazyImg from '../react-components/LazyImg';
-import ReviewStars from '../react-components/ReviewStars';
-
-import { areSelectionsValid } from './Utils';
+import { areSelectionsValid, formatPrice } from './Utils';
 
 
 export default function CollectionPodBundle(){
     const appHook = useContext(AppContext);
+    const graphQL = new GraphQL();
 
     const [ productPrice, setProductPrice ] = useState({});
+    const [ basePrice, setBasePrice ] = useState({});
+    const [ productBundle, setProductBundle ] = useState([]);
+
     const [ qty, setQty ] = useState(1);
     const prevQty = usePrevious(qty);
 
+    // if options have changed thus a price change and the product prices need to update
     const [ shouldUpdate, update ] = useState(false);
     const [ isUpdating, setUpdating ] = useState(false);
 
+    const [ options, setOptions ] = useState([]);
     const [ swatches, setSwatch ] = useState({});
     const [ invalidSwatch, setInvalidSwatch ] = useState([]);
-
-    const [ toolTips, setToolTips ] = useState({})
     
     const [ dropdown, setDropdown ] = useState({});
     const [ invalidDropdown, setInvalidDropdown ] = useState([]);
-
-
-    const toggleDrawer = (args) => {
-        appHook.toggleDrawer("open");
-
-        appHook.setDrawer({
-            drawerOptions: args.values,
-            drawerControl: {
-                displayName: args.displayName,
-                id: args.id,
-                type: "local",
-                product_id: props.product.entityId
-            }
-        });
-    };
 
 
     // adds products to the collections pre-cart
@@ -54,114 +39,39 @@ export default function CollectionPodBundle(){
 
         // run a validation on options
         let isValid = areSelectionsValid({
-            options: options,
-            swatches: swatches,
-            dropdown: dropdown,
-            invalidSwatch: (swatchItem) => {
-                setInvalidSwatch(swatchItem);
-            },
-            invalidDropdown: (dropdownItem) => {
-                setInvalidDropdown(dropdownItem);
+                options: options,
+                swatches: swatches,
+                dropdown: dropdown,
+                invalidSwatch: invalidSwatch,
+                invalidDropdown: invalidDropdown,
+                setInvalidSwatch: (swatchItem) => {
+                    setInvalidSwatch(swatchItem);
+                },
+                setInvalidDropdown: (dropdownItem) => {
+                    setInvalidDropdown(dropdownItem);
+                }
+            });
+
+        if( !isValid ){ return; }
+
+
+        Object.values(productBundle).forEach(item => {
+            let match = appHook.bundlePreCart[item.entityId];
+
+            if( match ){
+                appHook.addToCart({
+                    ...match.cart,
+                    img: match.img,
+                    product_id: match.product_id,
+                    total: match.priceWithOptions * match.qty
+                });
             }
-        });
-
-        if( !isValid ){ return; }  
-
-        let params = {
-                action: "add",
-                "qty[]": qty,
-                img: props.product.defaultImage.url
-            };
-
-        for (const key in swatches) {
-            params[`attribute[${swatches[key].attribute}]`] = swatches[key].attributeValue;
-            }
-
-            for (const key in dropdown) {
-            params[`attribute[${dropdown[key].attribute}]`] = dropdown[key].attributeValue;
-        }
-
-        appHook.addToCart({
-            ...params,
-            product_id: props.product.entityId,
-            total: Number(productPrice.without_tax.replace(/[^0-9.-]+/g,""))
         });
 
         update(false);
+        appHook.cartShouldRefresh();
     }
     
-
-
-
-    /*  
-        On option change send to BC string - utils.api.productAttributes.optionChange
-
-        action: add
-        attribute[82102]: 2519353
-        attribute[82103]: 2519358
-        attribute[82104]: 2519487
-        product_id: 2864
-        qty[]: 1
-
-        utils.api.productAttributes.optionChange() = optionChange(productId, params, template = null, callback)
-    */
-
-    useMemo(() => {
-        let params = {
-                action: "add",
-                "qty[]": qty
-            };
-
-        let hasSwatches = Object.keys(swatches).length > 0;
-        let hasDropdown = Object.keys(dropdown).length > 0;
-        let hasProtectiveCover = Object.keys(dropdown).findIndex(item => item.toLowerCase().includes("protective cover"));
-
-
-        if( hasSwatches ){
-            for (const key in swatches) {
-                params[`attribute[${swatches[key].attribute}]`] = swatches[key].attributeValue;
-            }
-        }
-        
-
-        if( hasDropdown ){
-            for (const key in dropdown) {
-                params[`attribute[${dropdown[key].attribute}]`] = dropdown[key].attributeValue;
-            }
-        }
-
-        
-        if( 
-            hasSwatches || 
-            ( hasProtectiveCover !== -1 && Object.keys(dropdown).length > 1 ) || 
-            ( hasProtectiveCover === -1 && hasDropdown ) ||
-            prevQty !== undefined && prevQty !== qty 
-        ){
-            setUpdating(true);
-
-            let query = "";
-
-            for (const key in params) {
-                query += `&${key}=${params[key]}`;
-            }
-
-            utils.api.productAttributes.optionChange(props.product.entityId, encodeURI(query), (err, response) => {
-                let updated = response.data;
-
-                setProductPrice({
-                    without_tax: formatPrice(updated.price.without_tax.value * qty),
-                    rrp_without_tax: null
-                });
-
-                if( appHook.cart.hasOwnProperty(props.product.entityId.toString()) ){
-                    update(true);
-                }
-
-                setUpdating(false);
-            });
-        }
-
-    }, [swatches, dropdown, qty]);
 
 
     const selectSwatch = (data) => {
@@ -169,12 +79,11 @@ export default function CollectionPodBundle(){
             let newSwatch = { ...swatches };
 
             newSwatch[data.display_name] = {
-                attribute: data.id,
-                attributeValue: data.swatch.id,
+                attribute: data.attribute,
+                attributeValue: data.attributeValue,
                 swatch: {
                     label: data.swatch.label,
-                    image: data.swatch.image,
-                    price: data.swatch.price
+                    image: data.swatch.image
                 }
             };
 
@@ -208,7 +117,7 @@ export default function CollectionPodBundle(){
 
         // fetch the data for all options
         if( options.length === 0 ){
-            let options = graphQL.getProductOptions(appHook.product.entityId);
+            let options = graphQL.getProductOptions(appHook.product_id);
 
             graphQL.get(options).then(response => {
                 if( response ){
@@ -222,30 +131,21 @@ export default function CollectionPodBundle(){
 
                     if( protectiveCover ){ 
                         setProtectiveCover(protectiveCover); 
-                    }
-
-                    // determine if this fits our global swatch control
-                    for (let i = 0; i < responseData.length; i++) {        
-                        if( responseData[i].node.displayStyle === "Swatch" && appHook.hasOwnProperty(responseData[i].node.displayName) ){
-                            setGlobalOptFlag(true);
-                            break;
-                        }
-                    }  
+                    } 
                 }
             });
         }
 
-
-        // set the initial price for this pod
+        // set the price for this product bundle
         if( Object.keys(productPrice).length === 0 ){
-            let retailPrice = appHook.product.prices.retailPrice !== null ? appHook.product.prices.retailPrice.value : 0;
             
             let price = {
-                without_tax: formatPrice( TEAK.Utils.graphQL.determinePrice( appHook.product.prices) ),
-                rrp_without_tax: formatPrice( retailPrice )
+                without_tax: formatPrice( appHook.product.price.without_tax.value ),
+                rrp_without_tax: formatPrice( appHook.product.price.rrp_without_tax.value ),
+                value: appHook.product.price.rrp_without_tax.value
             };
     
-            setProductPrice(price);
+            setProductPrice(price)
         }
 
     }, [appHook.product]);
@@ -253,42 +153,149 @@ export default function CollectionPodBundle(){
 
 
 
+    function getBundlePrice(){
+        let bundle = [];
+        let total = 0;
+
+        Object.keys(appHook.suggestedLayout.product_n_values).forEach((key) => {
+            let match = appHook.collection.find(ele => ele.entityId === parseInt(key));
+
+            match.qty = appHook.suggestedLayout.product_n_values[key];
+            total =+ total + (match.priceWithOptions * match.qty);
+
+            bundle.push(match);
+        });
+       
+        return {
+            total: total,
+            bundle: bundle
+        }
+    }
+
+
+
+    // build the initial price of the suggested layout
+    useMemo(() => {
+        let suggested = getBundlePrice();
+
+        setProductBundle(suggested.bundle);
+
+        setBasePrice({
+            without_tax: formatPrice(suggested.total),
+            value: suggested.total
+        });
+
+        setProductPrice({
+            without_tax: formatPrice(suggested.total),
+            value: suggested.total
+        });
+
+    }, [appHook.suggestedLayout]);
+
+
+
+
+    // when a product in the pre config list is updated via qty or options update the price
+    useMemo(() => {
+        let total = 0, preCart = [];
+
+        Object.keys(appHook.suggestedLayout.product_n_values).forEach((key) => {
+            let match = appHook.bundlePreCart[key];
+
+            if( match ){
+                match.qty = appHook.suggestedLayout.product_n_values[key];
+                preCart.push(match);
+            }
+        });
+
+
+        // includes all of the option upgrades
+        if( preCart.length ){
+            preCart.forEach(ele => total =+ total + (ele.priceWithOptions * ele.qty) );
+            total = total * qty;
+
+            setProductPrice({
+                without_tax: formatPrice(total),
+                value: total
+            });
+
+        // if just changing qty
+        }else if(productPrice.without_tax){
+            let chosenSuggested = getBundlePrice();
+
+            setProductPrice({
+                without_tax: formatPrice(chosenSuggested.total * qty),
+                value: chosenSuggested.total * qty
+            });
+        }
+
+        // if we have items in cart and updated the price notify that we need to update
+        if( Object.keys(appHook.cart).length ){
+            update(true);
+            appHook.cartShouldRefresh();
+        }
+
+    }, [qty, appHook.bundlePreCart]);
+
+
+
+
+
+
     return(
         <>
-            <div className="product__row product__row--left pad-left">
-                <strong className="product__title product__title--upperBadge">Step 3</strong>
+            <div className="product__row product__row--border product__row--left pad">
+                <strong className="product__title product__title--upperBadge">Step 2</strong>
                 <h2 className="product__title product__title--tight">Customize Your Selection</h2>
             </div>
             
             <div className="product__collectionSelection">
-                <div className="product__col-1-2">
+                <div className="product__col-4-10--xl product__col-1-1">
                     <figure className="product__collectionsFigure">
-                        <img className="product__figImg" src="https://dummyimage.com/720x360/fff/777.jpg" />
+                        <img className="product__figImg product__figImg--border" src="https://dummyimage.com/600x360/fff/777.jpg" />
                     </figure>
                 </div>
 
                 <div className="product__collectionSelectedControls">
-                    <div className="product__col-1-2 pad-right">
-                        <h2 className="product__header---2 product__header--top">{appHook.suggestedLayout.name}</h2>
+                    <div className="product__col-1-2--md product__col-1-1 pad-right-left">
+                        <h2 className="product__header---2 product__header--top">{appHook.product.brand.name} {appHook.suggestedLayout.name}</h2>
 
-                        <p><strong>Includes {appHook.suggestedLayout.totalPieces} pieces</strong> &mdash; blah name of piece</p>
-                        <p>Overall Size = {appHook.suggestedLayout.dim} &mdash; <em>{appHook.suggestedLayout.text}</em></p>
+                        <p><strong>Includes {(appHook.suggestedLayout.totalPieces * qty)} pieces:</strong></p>
+                        <ul className="product__highlights">
+                            {productBundle.map(item => <li key={item.entityId}>{(item.qty * qty)}x {item.name.split(appHook.product.brand.name)[1]}</li>)}
+                        </ul>
+                        <p>Size: {appHook.suggestedLayout.dim} &mdash; <em>{appHook.suggestedLayout.text}</em></p>
 
-                        <ProductPrice isUpdating={isUpdating} productPrice={productPrice} />
+                        <div className="product__priceCntr product__priceCntr--full">
+                            <ProductPrice isUpdating={isUpdating} productPrice={productPrice} class="product__price--left" />
+                            <small className="product__priceLineItem">
+                            (
+                                Base: {formatPrice(basePrice.value * qty)} 
+                                &nbsp; + &nbsp; 
+                                Fabric Upcharge: &nbsp; 
+                                {((productPrice.value ? productPrice.value : 0) - (basePrice.value * qty)) < 0 ? 
+                                    formatPrice(0) 
+                                        : 
+                                    formatPrice((productPrice.value ? productPrice.value : 0) - (basePrice.value * qty)) 
+                                } )
+                            </small>
+                        </div>
                     </div>
 
-                    <div className="product__col-1-2 no-pad">
+                    <div className="product__col-1-2--md product__col-1-1 no-pad">
                         <div className="product__swatchCol">
                             <ul className="product__swatchList" id="customize">
                                 {appHook.product.options.map((item) => {
                                     if(item.partial === "swatch") {
                                         return <Swatch 
                                                 key={item.id} 
-                                                toggle={(data) => appHook.toggleDrawer(data) } 
+                                                toggle={(data) => appHook.openDrawer(data) } 
                                                 displayName={item.display_name} 
                                                 id={item.id} 
                                                 values={item.values} 
                                                 type="global"
+                                                isInvalid={invalidSwatch}
+                                                globalCallback={selectSwatch}
                                             />
                                     }
                                 })}
@@ -296,8 +303,8 @@ export default function CollectionPodBundle(){
                         </div>
 
                         <div className="product__collectionCartControls">
-                            <QuantityButton qty={setQty} value={qty} class="no-margin" />
-                            <AddButton disabled={true} addToCart={(item) => appHook.addToCart(item)} id={0} />
+                            <QuantityButton qty={(value) => setQty(value)} value={qty} class="no-margin" />
+                            <AddButton disabled={isUpdating} addToCart={(item) => addToCart(item)} id={0} update={shouldUpdate} />
                         </div>
                     </div>
 

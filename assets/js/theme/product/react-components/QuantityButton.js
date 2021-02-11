@@ -6,10 +6,16 @@ export default function QuantityButton(props){
     const setQty = (value) => {
         value = value.hasOwnProperty("currentTarget") ? value.currentTarget.value : value;
 
-        setCount(value);
+        if( value >= 1 ){
+            setCount(value);
 
-        const { qty } = props;
-        qty(value);
+            const { qty } = props;
+            qty(value);
+
+        }else{
+            setCount(1);
+        }
+        
     }
 
     

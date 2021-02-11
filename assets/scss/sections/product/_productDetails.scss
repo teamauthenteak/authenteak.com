@@ -54,7 +54,8 @@
     overflow: hidden;
 
     & .slick-slide{
-        max-height: 800px;
+        max-height: 730px;
+        overflow: hidden;
     }
 }
 

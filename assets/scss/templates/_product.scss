@@ -68,6 +68,7 @@
         margin: 0 0 16px 0;
         line-height: 1.4;
         @extend %heading-responsive;
+        font-weight: 400;
 
         &--upperBadge{
             text-transform: uppercase;
@@ -78,7 +79,7 @@
             background-color: #ccc;
             padding: 5px 8px;
             border-radius: 99em;
-            margin: 0 0 5px 0 !important;
+            margin: 0 0 10px 0 !important;
             display: flex;
 
             @media only screen and (max-width: $screen-md) {
@@ -89,6 +90,7 @@
 
         &--tight{
             line-height: 1;
+            margin: 0;
         }
 
         &--flex{
@@ -127,6 +129,12 @@
 
         &--noMargin{
             margin: 0;
+        }
+
+        &--borderBottom{
+            width: 100%;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
         }
     }
 
@@ -289,6 +297,12 @@
         float: left;
         width: 50%;
         padding: 20px 0;
+
+        &--full{
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+        }
     }
 
     &__price{
@@ -308,6 +322,7 @@
         &--left{
             justify-content: start;
             text-align: left;
+            flex: 0;
         }
     }
 
@@ -316,13 +331,21 @@
         align-items: baseline;
     }
 
+    &__priceLineItem{
+        display: flex;
+        flex: 1 0 auto;
+        align-content: flex-end;
+        align-items: flex-end;
+    }
+
     &__priceValue{
         order: 0;
+        margin: 0 10px 0 0;
     }
 
     &__priceRrp{
         @extend .highlight;
-        @extend .price-rrp;
+        order: 1;
         opacity: 0.5;
         font-size: 1.1rem;
     }
@@ -373,7 +396,7 @@
         @extend .brands__header;
 
         &--top{
-            margin-top: 0
+            margin: 0
         }
 
         &--2{
@@ -424,6 +447,10 @@
 
         &--left{
             align-items: flex-start;
+
+            @media only screen and (max-width: $screen-sm) {
+                flex-direction: column !important;
+            }
         }
 
         &--section{
@@ -431,7 +458,11 @@
         }
         
         &--border{
-            border-top: 1px solid #eee;
+            border-top: 1px solid #ddd;
+        }
+
+        &--bottomBorder{
+            border-bottom: 1px solid #ccc;
         }
 
         @media only screen and (max-width: $screen-sm) {
@@ -808,6 +839,10 @@
         max-height: 600px;
         object-position: 50% 50%;
         object-fit: cover;
+
+        &--border{
+            border: 1px solid #ccc
+        }
     }
 
     &__figSlider{

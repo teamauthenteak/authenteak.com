@@ -6,6 +6,10 @@
 
     &--contains{
         height: 132px;
+
+        @media only screen and (max-width: $screen-sm) {
+            height: auto !important;
+        }
     }
 
     &__row{
@@ -20,14 +24,8 @@
         background-color: #fff;
         box-shadow: 0 0 15px 1px rgba(0, 0, 0, .29);
         height: 90px;
-        padding: 0 3vw 0 3vw;
+        padding: 0 2vw 0 2vw;
         margin-bottom: 5px;
-
-        @media only screen and (max-width: $screen-sm) {
-            & .stickyCart__titleCntr{
-                display: none;
-            }
-        }
 
         &--contains{
             height: auto;
@@ -72,7 +70,7 @@
     }
 
     &__title{
-        font-size: 1.8rem;
+        font-size: 1.4rem;
         margin: 0;
         line-height: 1;
         text-align: left;
@@ -135,6 +133,7 @@
         @media only screen and (max-width: $screen-sm) {
             // padding: 0;
             font-size: .8rem;
+            width: 100px;
         }
 
         & .icon{
@@ -163,6 +162,7 @@
         line-height: 1;
         margin: 3px 0 0 0;
         text-align: left;
+        font-size: .8rem;
 
         @media only screen and (max-width: $screen-lg) {
             font-size: .8rem;
@@ -234,6 +234,12 @@
         padding: 8px 0 8px 20px;
         height: auto;
         border-top: 1px solid #eee;
+
+        @media only screen and (max-width: $screen-sm) {
+            height: auto !important;
+            padding-left: 0;
+            justify-content: flex-start;
+        }
     }
 
     &__itemQty{
@@ -241,11 +247,48 @@
         color: #777;
     }
 
+    &__itemButton{
+        display: flex;
+        background-color: transparent;
+        justify-content: center;
+        align-content: center;
+        position: relative;
+        outline: transparent;
+
+        &:hover{
+            &:before{
+                position: absolute;
+                content: "×";
+                font-size: 2rem;
+                line-height: 1;
+                top: -14px;
+                right: 5px;
+                color: #e74c3c;
+                z-index: 2;
+            }
+        }
+
+        @media only screen and (max-width: $screen-sm) {
+            padding: 0;
+        }
+    }
+
     &__item{
         @extend .toaster__item;
         justify-content: center;
         align-content: center;
-        margin-right: 10px;
+
+        &--label{
+            margin: 0 10px;
+
+            &:after{
+                display: none;
+            }
+
+            @media only screen and (max-width: $screen-sm) {
+                display: none;
+            }
+        }
 
         &--total{
             color: #555;
@@ -255,6 +298,16 @@
                 content: "";
                 display: none;
             }
+
+            @media only screen and (max-width: $screen-sm) {
+                display: none;
+            }
+        }
+
+        &:last-of-type{
+            &:after{
+                display: none;
+            }
         }
     }
 
@@ -262,6 +315,10 @@
         @extend .toaster__itemImg;
         height: 25px;
         margin-right: 5px;
+
+        &--rounded{
+            border-radius: 50%;
+        }
     }
 
 }

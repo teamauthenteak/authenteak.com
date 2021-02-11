@@ -71,7 +71,7 @@
 
 
 	{{#if customer.customer_group_id '==' '1' }}
-	
+
 	{{#partial "tradeShippingPrice"}}
 	{{#if cart.sub_total.value '<' '3000' }}
 	{{ trim (toFixed (multiply cart.sub_total.value '0.12') 2) }}
@@ -84,7 +84,7 @@
 	{{/if}}
 	
 	{{#if cart.sub_total.value '>' '6001' }}
-	{{ trim (toFixed (multiply cart.sub_total.value '0.07s') 2) }}
+	{{ trim (toFixed (multiply cart.sub_total.value '0.07') 2) }}
 	{{/if}}
 	{{/partial}}
 
@@ -97,7 +97,7 @@
 		<span class="cart-total-label">{{lang 'cart.grand_total'}}</span>
 		<span class="cart-total-item grand-total" id="grandTotal" data-total="{{> 'tradeShippingPrice' }}"></span>
 	</div>
-
+	
 	{{/if}}
 
 

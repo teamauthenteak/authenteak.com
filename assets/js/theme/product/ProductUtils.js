@@ -467,14 +467,17 @@ export default class ProductUtils {
           data: {}
         });
 
-        setTimeout(() => {  
-          // Reset the button state
-          this.progressButton.complete($button);
-        }, 10000);
 
-        // setTimeout(() => {
-        //   this.pageAlerts.clear();
-        // }, 100);
+        // on open of the atc modal confirmation
+        $(document).on("modalCart-display", () => {
+
+          // hide loader on atc button
+          this.progressButton.complete($button);
+
+          // nosto recommendations
+          $("#nosto-page-product3 .nosto_carousel").slick('reinit');
+          window.dispatchEvent(new Event('resize'));
+        });
 
       }
 

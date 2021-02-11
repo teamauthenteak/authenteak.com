@@ -171,7 +171,7 @@
 
 // Paddings
 [class*='span-']:last-of-type.pad, .pad{
-    padding: $standard-padding;
+    padding: $standard-padding !important;
 }
 .no-pad{
     padding: 0 !important;

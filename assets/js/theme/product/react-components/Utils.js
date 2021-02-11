@@ -104,8 +104,10 @@ const generateID = () => Math.random().toString(36).substring(7);
  * @param {array} args.options - all available option types to be selected
  * @param {array} args.swatches  - all selected swatches
  * @param {array} args.dropdown - all user selected dropdown
- * @param {function} args.invalidSwatch - callback to notify of any invalid swatches
- * @param {function} args.invalidDropdown - callback to notify of any invalid swatches
+ * @param {array} args.invalidSwatch - all bad swatches
+ * @param {array} args.invalidDropdown - all bad dropdown
+ * @param {function} args.setInvalidSwatch - callback to notify of any invalid swatches
+ * @param {function} args.setInvalidDropdown - callback to notify of any invalid swatches
  */
 
 const areSelectionsValid = (args) => {
@@ -115,14 +117,14 @@ const areSelectionsValid = (args) => {
         switch(element.node.displayStyle){
             case "Swatch":
                 let isSwatchValid = Object.keys(args.swatches).length !== 0 && args.swatches.hasOwnProperty(element.node.displayName);
-                
+
                 if( !isSwatchValid ){ 
-                    if( !invalidSwatch.includes(element.node.entityId) ){
-                        args.invalidSwatch(invalidSwatch => [...invalidSwatch, element.node.entityId]);
+                    if( !args.invalidSwatch.includes(element.node.entityId) ){
+                        args.setInvalidSwatch(invalidSwatch => [...invalidSwatch, element.node.entityId]);
                     }
 
                 }else{
-                    args.invalidSwatch(invalidSwatch => {
+                    args.setInvalidSwatch(invalidSwatch => {
                         return invalidSwatch.filter(item => item !== element.node.entityId);;
                     });
                 }
@@ -140,12 +142,12 @@ const areSelectionsValid = (args) => {
                 }
 
                 if( !isDropdownValid ){ 
-                    if( !invalidDropdown.includes(element.node.entityId) ){
-                        args.invalidDropdown(invalidDropdown => [...invalidDropdown, element.node.entityId]) 
+                    if( !args.invalidDropdown.includes(element.node.entityId) ){
+                        args.setInvalidDropdown(invalidDropdown => [...invalidDropdown, element.node.entityId]) 
                     }
 
                 }else{
-                    args.invalidDropdown(invalidDropdown => {
+                    args.setInvalidDropdown(invalidDropdown => {
                         return invalidDropdown.filter(item => item !== element.node.entityId);
                     });
                 }
@@ -159,8 +161,65 @@ const areSelectionsValid = (args) => {
         }
     });
 
-    return arr.includes(true);
+    return !arr.includes(false);
 };
+
+
+
+    // Legacy: makes sure all required options are selected before adding to cart
+    // const areSelectionsValid = () => {
+    //     let arr = [];
+
+    //     options.forEach(element => {
+    //         switch(element.node.displayStyle){
+    //             case "Swatch":
+    //                 let isSwatchValid = Object.keys(swatches).length !== 0 && swatches.hasOwnProperty(element.node.displayName);
+                    
+    //                 if( !isSwatchValid ){ 
+    //                     if( !invalidSwatch.includes(element.node.entityId) ){
+    //                         setInvalidSwatch(invalidSwatch => [...invalidSwatch, element.node.entityId]);
+    //                     }
+
+    //                 }else{
+    //                     setInvalidSwatch(invalidSwatch => {
+    //                         return invalidSwatch.filter(item => item !== element.node.entityId);;
+    //                     });
+    //                 }
+                    
+    //                 arr.push(isSwatchValid);
+    //                 break;
+
+    //             case "DropdownList":
+    //                 let isDropdownValid = Object.keys(dropdown).length !== 0 && dropdown.hasOwnProperty(element.node.displayName);
+
+    //                 // exclude "protective cover" validation
+    //                 if( element.node.displayName.toLowerCase().includes("protective cover") ){
+    //                     arr.push(true);
+    //                     break;
+    //                 }
+
+    //                 if( !isDropdownValid ){ 
+    //                     if( !invalidDropdown.includes(element.node.entityId) ){
+    //                         setInvalidDropdown(invalidDropdown => [...invalidDropdown, element.node.entityId]) 
+    //                     }
+
+    //                 }else{
+    //                     setInvalidDropdown(invalidDropdown => {
+    //                         return invalidDropdown.filter(item => item !== element.node.entityId);
+    //                     });
+    //                 }
+
+    //                 arr.push(isDropdownValid);
+    //                 break;
+
+    //             default: 
+    //                 arr.push(true);
+    //                 break;
+    //         }
+    //     });
+    
+    //     return arr;
+    // };
 
 
 

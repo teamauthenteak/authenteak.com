@@ -16,6 +16,7 @@ import Tabs from '../react-components/Tabs';
 import CollectionPodBundle from '../react-components/Collection-PodBundle';
 import CollectionPreloader from '../react-components/Collection-Preloader';
 import CollectionPod from '../react-components/Collection-Pod';
+import Cart from '../react-components/Cart';
 
 
 class App extends React.Component{
@@ -42,12 +43,38 @@ class App extends React.Component{
             }
         });
 
+
         this.state = {
             product: props.context,
             customizeThis: [],
             showPointOfPurchase: false,
             collection: [],
+            updateCollectionItem: (item) => {
+                this.setState(state => {
+                    let newState = {...state};
+                    let index = newState.collection.findIndex(ele => ele.entityId === item.entityId);
+
+                    if( index !== -1 ){
+                        newState.collection[index] = {...newState.collection[index], ...item};
+                    }
+
+                    return newState
+                })
+            },
+            cartShouldBeRefreshed: false,
+            cartShouldRefresh: () => {
+                this.setState({ cartShouldBeRefreshed: !this.state.cartShouldBeRefreshed })
+            },
             cart: {},
+            bundlePreCart: {},
+            setBundlePreCart: (data) => {
+                this.setState(state => {
+                    let newState = {...state};
+
+                    newState.bundlePreCart = {...newState.bundlePreCart, ...data};
+                    return newState;
+                })
+            },
             addToCart: (data) => {
                 this.setState((state) => {
                     let newState = {...state};
@@ -56,11 +83,29 @@ class App extends React.Component{
                     return newState;
                 })
             },
+            removeFromCart: (product_id) => {
+                this.setState((state) => {
+                    let newState = {...state};
+                    delete newState.cart[product_id];
+                    return newState;
+                })
+            },
             drawerState: "close",
             toggleDrawer: (position) => {
                 this.setState({ 
                     drawerState: position 
                 })
+            },
+            openDrawer: (args) => {
+                this.setState({
+                    drawerState: "open",
+                    drawerOptions: args.values,
+                    drawerControl: {
+                        displayName: args.displayName,
+                        id: args.id,
+                        type: "global"
+                    }
+                });
             },
             setDrawer: (args) => {
                 this.setState({
@@ -88,6 +133,7 @@ class App extends React.Component{
                     newState.locallyDrawerSelectedOptions[args.product_id] = {
                         [args.displayName]: {...args}
                     };
+
                     return newState;
                 });
             },
@@ -126,7 +172,7 @@ class App extends React.Component{
                 }
                
                 if(element.partial === "swatch"){
-                    newState.customizeThis.push(element.display_name.split("Select ")[1]);
+                    newState.customizeThis.push(element.display_name);
                 }
 
                 return newState;
@@ -168,6 +214,7 @@ class App extends React.Component{
             if( response.site.products.edges.length ){
 
                 response.site.products.edges.forEach((element) => {
+                    element.node.priceWithOptions = TEAK.Utils.graphQL.determinePrice(element.node.prices);
                     arr.push(element.node);
                 }); 
 
@@ -239,25 +286,55 @@ class App extends React.Component{
                         </div>
 
                         <div className="product__collections--customizeCntr">
-                            <strong className="product__title product__title--upperBadge">Step 1</strong>
-
                             <h1 className="product__title">Build Your Own {product.title}</h1>
                             <p className="product__desc product__desc--margin">{this.description}</p>
                                                     
-                            <button type="button" className="product__swatchRequestBtn--collections" onClick={() => this.state.toggleRequestSwatch("open")}>
-                                <svg className="product__swatchRequestIcon--collections"><use xlinkHref="#icon-style" /></svg>
-                                <p className="product__swatchRequestText--collections">
-                                    <span>Order Free Swatches <svg className="icon"><use xlinkHref="#icon-long-arrow-right" /></svg></span>
-                                    <small>Free Ground Shipping on All Swatches</small>
-                                </p>
-                            </button>
+                            <div className="product__requestBtnCntr">
+                                <button type="button" className="product__requestBtn product__requestBtn--collections" onClick={() => this.state.toggleRequestSwatch("open")}>
+                                    <svg className="product__swatchRequestIcon--collections"><use xlinkHref="#icon-style" /></svg>
+                                    <p className="product__swatchRequestText--collections">
+                                        <span className="product__requestBtn-titleText">Order Free Swatches</span>
+                                        <small className="product__requestBtn-smallText">Free Ground Shipping on All Swatches. <br/><strong>Learn more &rsaquo;</strong></small>
+                                    </p>
+                                </button>
+
+                                <button type="button" className="product__requestBtn product__requestBtn--collections" onClick={() => window.location.href = "tel:1-833-257-7070" }>
+                                    <svg className="product__swatchRequestIcon--collections"><use xlinkHref="#icon-phone20" /></svg>
+                                    <p className="product__swatchRequestText--collections">
+                                        <span className="product__requestBtn-titleText">Free Design Consultation</span>
+                                        <small className="product__requestBtn-smallText">Order by phone call: <u>1-833-257-7070</u></small>
+                                    </p>
+                                </button>
+
+                                <button type="button" className="product__requestBtn product__requestBtn--collections" onClick={() => window.location.href = "/to-the-trade"}>
+                                    <svg className="product__swatchRequestIcon--collections"><use xlinkHref="#icon-event_seat" /></svg>
+                                    <p className="product__swatchRequestText--collections">
+                                        <span className="product__requestBtn-titleText">Trade Application</span>
+                                        <small className="product__requestBtn-smallText">Apply for our residential and hospitality trade program. <strong>Learn more &rsaquo;</strong></small>
+                                    </p>
+                                </button>
+
+                                {/* <button type="button" className="product__requestBtn product__requestBtn--collections" onClick={() => $zopim.livechat.window.show()}>
+                                    <svg className="product__swatchRequestIcon--collections"><use xlinkHref="#icon-touch_app" /></svg>
+                                    <p className="product__swatchRequestText--collections">
+                                        <span className="product__requestBtn-titleText">Live Chat</span>
+                                        <small className="product__requestBtn-smallText">Get details on product lead times and more. <strong>Launch chat &rsaquo;</strong></small>
+                                    </p>
+                                </button> */}
+                            </div>
+                        
                         </div>
                     </div>
 
 
+                    {Object.keys(this.state.cart).length ? 
+                        <Cart cart={this.state.cart} cartStatus={this.cartUpdate} type="sticky" cartShouldBeRefreshed={this.state.cartShouldBeRefreshed} />
+                    :null}
+
+
                     <div className="product__layoutSelections">
                         <div className="product__layouts product__layouts--slider">
-                            <SuggestedProductLayouts data={this.props.context.custom_fields} type="slider" />
+                            <SuggestedProductLayouts data={this.props.context.custom_fields} type="slider" step="1" />
                         </div>
 
                         {Object.keys(this.state.suggestedLayout).length ? 
@@ -266,11 +343,13 @@ class App extends React.Component{
                     </div>
 
 
-
+                {Object.keys(this.state.suggestedLayout).length ? 
                     <div className="product__collectionsCntr product__collectionsCntr--topSpace">
-                        <div className="product__row product__row--left pad-left">
-                            <strong className="product__title product__title--upperBadge">Step 4</strong>
-                            <h2 className="product__title product__title--tight">Add Additional Optional Pieces</h2>
+                        <div className="product__row product__row--left pad">
+                            <strong className="product__title product__title--upperBadge">Step 3</strong>
+                            <h2 className="product__title product__title--tight">
+                                <em>Optional</em> &mdash; Add Additional Pieces
+                            </h2>
                         </div>
 
                         {this.state.collection ? 
@@ -280,12 +359,14 @@ class App extends React.Component{
                                             product={item} 
                                             suggested={this.state.suggestedLayout}
                                             localDrawerOptions={this.state.locallyDrawerSelectedOptions[item.entityId]}
+                                            isRibbonShown={false}
                                         />
                             })
                             :
                             <CollectionPreloader />
                         }
                     </div>
+                :null}
 
 
 
@@ -295,6 +376,23 @@ class App extends React.Component{
                         </div>
                     </div>
 
+
+
+                    <Spring native to={{ right: this.state.drawerState === "open" ? "0vw" : "-110vw" }}>
+                        { props =>  (<animated.aside className="drawer drawer--options" style={props}>
+                                        {this.state.drawerState === "open" ? 
+                                            <OptionDrawer 
+                                                mainImg={replaceSize(product.main_image.data, 200)} 
+                                                drawerState={this.state.drawerState}
+                                                toggle={this.state.toggleDrawer} 
+                                                options={this.state.drawerOptions} 
+                                                for={this.state.drawerControl} 
+                                            />
+                                        :null}
+                                    </animated.aside>)
+                        }
+                    </Spring>
+                    <div className={`drawer__overlay drawer__overlay--${this.state.drawerState}`} onClick={() => this.state.toggleDrawer("close")}></div>
 
 
                     {this.state.requestSwatchesState === "open" ? 

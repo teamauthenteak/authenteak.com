@@ -13,7 +13,7 @@ import Swatch from '../react-components/Swatch';
 import OptionDrawer from '../react-components/OptionDrawer';
 import CollectionPod from '../react-components/Collection-Pod';
 import CollectionPreloader from '../react-components/Collection-Preloader';
-import StickyCart from '../react-components/StickyCart';
+import Cart from '../react-components/Cart';
 import RequestSwatch from '../react-components/RequestSwatch';
 import LazyImg from '../react-components/LazyImg';
 import SuggestedProductLayouts from '../react-components/SuggestedProductLayouts';
@@ -278,7 +278,7 @@ class App extends React.Component{
                                     })}
                                 </ul>
                             </div>
-                            <button type="button" className="product__swatchRequestBtn--collections" onClick={() => this.state.toggleRequestSwatch("open")}>
+                            <button type="button" className="product__requestBtn product__requestBtn--collections" onClick={() => this.state.toggleRequestSwatch("open")}>
                                 <svg className="product__swatchRequestIcon--collections"><use xlinkHref="#icon-style" /></svg>
                                 <p className="product__swatchRequestText--collections">
                                     <span>Order Free Swatches <svg className="icon"><use xlinkHref="#icon-long-arrow-right" /></svg></span>
@@ -289,10 +289,10 @@ class App extends React.Component{
                     </div>
 
                     <div className="product__layouts">
-                        <SuggestedProductLayouts data={this.props.context.custom_fields} type="static"/>
+                        <SuggestedProductLayouts data={this.props.context.custom_fields} type="static" step="2"/>
                     </div>
 
-                    <StickyCart cart={this.state.cart} cartStatus={this.cartUpdate} />
+                    <Cart cart={this.state.cart} cartStatus={this.cartUpdate} type="sticky"/>
                     
                     <div className="product__collectionsCntr">
                         { this.state.collection ? 
@@ -302,6 +302,7 @@ class App extends React.Component{
                                             product={item} 
                                             suggested={this.state.suggestedLayout}
                                             localDrawerOptions={this.state.locallyDrawerSelectedOptions[item.entityId]}
+                                            isRibbonShown={true}
                                         />
                             })
                             :
