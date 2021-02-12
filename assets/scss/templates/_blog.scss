@@ -46,6 +46,7 @@
 
     &__hero{
         @extend .brands__hero;
+        height: auto !important;
     }
 
     &__heroImg{
