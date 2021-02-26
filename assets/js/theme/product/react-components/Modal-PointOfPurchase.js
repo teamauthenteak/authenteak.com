@@ -252,7 +252,7 @@ export default function PointOfPurchaseModal(props){
                     <div className="modal__cntr">
                         <div className="modal__header">
                             <div className="modal__headingCntr">
-                                <h4 className="modal__heading">{modalData.modal}</h4>
+                                <h4 className="modal__heading">All Done! {modalData.modal}</h4>
                                 <p className="modal__headingDesc">{modalData.desc}</p>
                             </div>
                             <a href="/cart.php" className="modal__headingBtn">

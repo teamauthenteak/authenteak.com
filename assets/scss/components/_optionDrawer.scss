@@ -1,5 +1,5 @@
 %swatch-font-size{
-    @include dynamic-font(11, 13);
+    @include dynamic-font(11, 16);
 }
 
 %drawer-heading-responsive{
@@ -497,11 +497,12 @@
 
         &--grade{
             line-height: 1;
-            font-size: 0.75rem;
+            font-size: 0.55rem;
         }
 
         &--brand{
             @extend .drawer__swatchLabel--grade;
+            font-size: 0.55rem;
         }
 
         &--price{
@@ -562,7 +563,7 @@
             }
 
             & .drawer__swatchLabel--brand{
-                padding-left: 5px;
+                padding-left: 3px;
             }
         }
 

@@ -27,6 +27,8 @@ export default function CollectionPodBundle(){
     const [ isUpdating, setUpdating ] = useState(false);
 
     const [ options, setOptions ] = useState([]);
+
+    const [ swatchMeta, setSwatchMeta ] = useState({});
     const [ swatches, setSwatch ] = useState({});
     const [ invalidSwatch, setInvalidSwatch ] = useState([]);
     
@@ -68,7 +70,10 @@ export default function CollectionPodBundle(){
             }
         });
 
-        update(false);
+        if( shouldUpdate ){
+            update(false);
+        }
+
         appHook.cartShouldRefresh();
     }
     
@@ -152,8 +157,8 @@ export default function CollectionPodBundle(){
 
 
 
-
-    function getBundlePrice(){
+    // calculates the total bundle price including fabric options
+    const getBundlePrice = () => {
         let bundle = [];
         let total = 0;
 
@@ -195,6 +200,22 @@ export default function CollectionPodBundle(){
 
 
 
+    useMemo(() => {
+
+        // get selected swatch meta data
+        Object.values(swatches).forEach((element) => {
+            let swatchData = TEAK.Utils.parseOptionLabel(element.swatch.label);
+
+            if( swatchData.grade !== undefined ){
+                setSwatchMeta(swatchData)
+            }
+        });
+
+    }, [swatches]);
+
+
+
+
     // when a product in the pre config list is updated via qty or options update the price
     useMemo(() => {
         let total = 0, preCart = [];
@@ -208,7 +229,6 @@ export default function CollectionPodBundle(){
             }
         });
 
-
         // includes all of the option upgrades
         if( preCart.length ){
             preCart.forEach(ele => total =+ total + (ele.priceWithOptions * ele.qty) );
@@ -218,6 +238,7 @@ export default function CollectionPodBundle(){
                 without_tax: formatPrice(total),
                 value: total
             });
+
 
         // if just changing qty
         }else if(productPrice.without_tax){
@@ -229,13 +250,14 @@ export default function CollectionPodBundle(){
             });
         }
 
+
         // if we have items in cart and updated the price notify that we need to update
-        if( Object.keys(appHook.cart).length ){
-            update(true);
+        if( Object.keys(appHook.cart).length && !shouldUpdate ){
             appHook.cartShouldRefresh();
+            update(true);
         }
 
-    }, [qty, appHook.bundlePreCart]);
+    }, [qty, appHook.bundlePreCart, appHook.suggestedLayout]);
 
 
 
@@ -252,7 +274,10 @@ export default function CollectionPodBundle(){
             <div className="product__collectionSelection">
                 <div className="product__col-4-10--xl product__col-1-1">
                     <figure className="product__collectionsFigure">
-                        <img className="product__figImg product__figImg--border" src="https://dummyimage.com/600x360/fff/777.jpg" />
+                        <img 
+                            className="product__figImg product__figImg--border" 
+                            src={appHook.suggestedLayout.sketch ? appHook.suggestedLayout.sketch.value : "https://dummyimage.com/600x360/fff/777.jpg"} 
+                        />
                     </figure>
                 </div>
 
@@ -262,22 +287,23 @@ export default function CollectionPodBundle(){
 
                         <p><strong>Includes {(appHook.suggestedLayout.totalPieces * qty)} pieces:</strong></p>
                         <ul className="product__highlights">
-                            {productBundle.map(item => <li key={item.entityId}>{(item.qty * qty)}x {item.name.split(appHook.product.brand.name)[1]}</li>)}
+                            {productBundle.map(item => <li key={item.entityId}>{(item.qty * qty)}x {item.name.split(appHook.product.brand.name)[1]} - {item.entityId}</li>)}
                         </ul>
-                        <p>Size: {appHook.suggestedLayout.dim} &mdash; <em>{appHook.suggestedLayout.text}</em></p>
+                        <p>Approx. Size: {appHook.suggestedLayout.dim} &mdash; <em>{appHook.suggestedLayout.text}</em></p>
 
                         <div className="product__priceCntr product__priceCntr--full">
                             <ProductPrice isUpdating={isUpdating} productPrice={productPrice} class="product__price--left" />
+                            
                             <small className="product__priceLineItem">
-                            (
-                                Base: {formatPrice(basePrice.value * qty)} 
-                                &nbsp; + &nbsp; 
-                                Fabric Upcharge: &nbsp; 
+                            (Base: {formatPrice(basePrice.value * qty)} {swatchMeta.grade ? `plus Grade ${swatchMeta.grade} Fabric` : ""}
+
+                                <strong className="hide"> &nbsp;
                                 {((productPrice.value ? productPrice.value : 0) - (basePrice.value * qty)) < 0 ? 
                                     formatPrice(0) 
                                         : 
                                     formatPrice((productPrice.value ? productPrice.value : 0) - (basePrice.value * qty)) 
-                                } )
+                                }
+                                </strong>)
                             </small>
                         </div>
                     </div>

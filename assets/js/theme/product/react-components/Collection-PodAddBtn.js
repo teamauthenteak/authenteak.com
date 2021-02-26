@@ -19,7 +19,12 @@ export default function AddButton(props){
 
 
     return(
-        <button disabled={props.disabled} type="button" className={`product__atcCollectionBtn ${cartHasItem ? "product__atcCollectionBtn--trans" : "" }`} onClick={() => addToCart()}>
+        <button 
+            disabled={props.disabled} 
+            type="button" 
+            className={`product__atcCollectionBtn ${cartHasItem ? "product__atcCollectionBtn--trans" : "" }`} 
+            onClick={() => addToCart()}
+        >
             {
                 props.update ? 
                 <>

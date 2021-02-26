@@ -98,14 +98,17 @@ export default function Tabs(props){
                                 </h2>
 
                                 <div className={`product__col-1-1 pad-top ${item.isActive ? "" : "product__col--hide"}`}>
-                                    <div className={`product__col-1-1 pad-right ${item.id === "descTab" ? "product__col-2-3--lg" : "" }`} dangerouslySetInnerHTML={{ __html: item.text }}></div>
+                                    <div 
+                                        className={`product__col-1-1 pad-right ${item.id === "descTab" ? "product__col-2-3--lg" : "" }`} 
+                                        dangerouslySetInnerHTML={{ __html: item.text }} 
+                                    />
 
                                     {item.id === "descTab" ?
                                         <div className="product__col-1-3--lg product__col-1-1 product__col--allBorder">
                                             <h3 className="product__title product__title--2 pad-bottom">Resources</h3>
                                                 {tabData.map((element, index) => {
                                                     if( element.id === "pdfTab"){
-                                                        return <div className="product__col-1-1 no-pad" key={index} dangerouslySetInnerHTML={{ __html: element.text }}></div>;
+                                                        return <div className="product__col-1-1 no-pad" key={index} dangerouslySetInnerHTML={{ __html: element.text }} />;
                                                     }
                                                 })} 
                                         </div>

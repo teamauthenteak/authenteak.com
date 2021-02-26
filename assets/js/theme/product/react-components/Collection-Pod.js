@@ -16,9 +16,12 @@ import ReviewStars from './ReviewStars';
 import Ribbon from './Ribbon';
 import ToolTips from './ToolTips';
 import ProductPrice from './ProductPrice';
+import ApiService from '../../utils/ApiService';
 
 
 function CollectionPod(props){
+    const apiService = new ApiService();
+
     const appHook = useContext(AppContext);
     const graphQL = new GraphQL();
 
@@ -36,6 +39,8 @@ function CollectionPod(props){
     
     const [ dropdown, setDropdown ] = useState({});
     const [ invalidDropdown, setInvalidDropdown ] = useState([]);
+
+    const [ checkbox, setCheckbox ] = useState({});
 
     const [ shouldUpdate, update ] = useState(false);
     const [ isUpdating, setUpdating ] = useState(false);
@@ -119,25 +124,23 @@ function CollectionPod(props){
     useMemo(() => {
         let params = {
                 action: "add",
+                product_id: props.product.entityId,
                 "qty[]": qty
             };
-
 
         let hasSwatches = Object.keys(swatches).length > 0;
         let hasDropdown = Object.keys(dropdown).length > 0;
         let hasProtectiveCover = Object.keys(dropdown).findIndex(item => item.toLowerCase().includes("protective cover"));
+        let hasCheckbox = Object.keys(checkbox).length > 0;
+
+        if( hasCheckbox ){ setParams(checkbox) }
+        if( hasSwatches ){ setParams(swatches) }
+        if( hasDropdown ){ setParams(dropdown) }
 
 
-        if( hasSwatches ){
-            for (const key in swatches) {
-                params[`attribute[${swatches[key].attribute}]`] = swatches[key].attributeValue;
-            }
-        }
-        
-
-        if( hasDropdown ){
-            for (const key in dropdown) {
-                params[`attribute[${dropdown[key].attribute}]`] = dropdown[key].attributeValue;
+        function setParams(customization){
+            for (const key in customization) {
+                params[`attribute[${customization[key].attribute}]`] = customization[key].attributeValue;
             }
         }
 
@@ -229,6 +232,25 @@ function CollectionPod(props){
     }
 
 
+    // sets the "not_an_option" modifier value for BC V3 API imported products ~ BC Hack - see app.authenteak.com repo for more
+    async function setNotAnOption(element){
+        let modifierValue = await apiService.get("getProductModifierValues", {
+                product_id: props.product.entityId,
+                modifier_id: element.node.entityId
+            });
+
+        let noValue = modifierValue.data.find(ele => ele.label.includes("No"))
+
+        setCheckbox({
+            ...checkbox,
+            [element.node.displayName]: {
+                attribute: noValue.option_id,
+                attributeValue: noValue.id
+            }
+        });
+    }
+
+
 
 
     useEffect(() => {
@@ -245,15 +267,24 @@ function CollectionPod(props){
 
             graphQL.get(options).then(response => {
                 if( response ){
+
                     // set the options
                     let responseData = response.site.products.edges[0].node.productOptions.edges;
                     setOptions(responseData);
     
+
                     // determine if it has a protective cover and set auto
                     let protectiveCover = responseData.find(ele => ele.node.displayName.toLowerCase().includes("protective cover") );
                     if( protectiveCover ){ 
                         setProtectiveCover(protectiveCover); 
                     }
+
+
+                    let hasNotAnOption = responseData.find(ele => ele.node.displayName.includes("not_an_option") );
+                    if( hasNotAnOption ){
+                        setNotAnOption(hasNotAnOption)
+                    }
+
 
                     // determine if this fits our global swatch control
                     for (let i = 0; i < responseData.length; i++) {        

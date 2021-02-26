@@ -284,23 +284,27 @@ export default class GraphQL {
                                             node{
                                                 displayName
                                                 entityId
+                                                    ... on CheckboxOption{
+                                                        checkedByDefault
+                                                        entityId
+                                                    }
                                                     ... on MultipleChoiceOption{
-                                                    isRequired
-                                                    displayStyle
-                                                    values{
-                                                        edges{
-                                                            node{
-                                                                label
-                                                                entityId
-                                                                ...on SwatchOptionValue{
+                                                        isRequired
+                                                        displayStyle
+                                                        values{
+                                                            edges{
+                                                                node{
                                                                     label
-                                                                    isDefault
-                                                                    imageUrl(width: 500, height: 500)
+                                                                    entityId
+                                                                    ...on SwatchOptionValue{
+                                                                        label
+                                                                        isDefault
+                                                                        imageUrl(width: 500, height: 500)
+                                                                    }
                                                                 }
                                                             }
                                                         }
                                                     }
-                                                }
                                             }
                                         }
                                     }

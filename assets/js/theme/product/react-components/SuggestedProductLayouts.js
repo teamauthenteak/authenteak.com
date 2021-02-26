@@ -18,33 +18,35 @@ export default function SuggestedProductLayouts(props){
 
 
     useEffect(() => {
+        let sketches = props.data.filter(element => element.name.includes("sketch="));
+        let suggested = props.data.filter(element => element.name.includes("layout="));
 
-        props.data.forEach(element => {
-            if( element.name.includes("layout=") ){
-                let obj = {};
 
-                obj.totalPieces = 0;
+        suggested.forEach(element => {
+            let obj = {};
 
-                if( !title ){
-                    let title = element.name.split("=")[1];
+            obj.totalPieces = 0;
 
-                    setTitle(title);
-                }
-
-                let layout = element.value.split(",");
-
-                layout.forEach(ele => {
-                    let item = ele.split("=");
-
-                    obj[item[0]] = item[0] === "product_n_values" ? parseLayoutValues(item[1]) : item[1];
-                });
-
-                Object.values(obj.product_n_values).forEach((num) => {
-                    obj.totalPieces = obj.totalPieces + (Number.isNaN(num) ? 0 : num);
-                });
-
-                setLayouts(layouts => [...layouts, obj]);
+            if( !title ){
+                let title = element.name.split("=")[1];
+                setTitle(title);
             }
+
+            let layout = element.value.split(",");
+
+            layout.forEach(ele => {
+                let item = ele.split("=");
+                obj[item[0]] = item[0] === "product_n_values" ? parseLayoutValues(item[1]) : item[1];
+            });
+
+            Object.values(obj.product_n_values).forEach((num) => {
+                obj.totalPieces = obj.totalPieces + (Number.isNaN(num) ? 0 : num);
+            });
+
+            obj.sketch = sketches.find(ele => ele.name.split("=")[1] === obj.short_name)
+
+            setLayouts(layouts => [...layouts, obj]);
+            
         });
 
 

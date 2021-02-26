@@ -17,6 +17,8 @@ import CollectionPodBundle from '../react-components/Collection-PodBundle';
 import CollectionPreloader from '../react-components/Collection-Preloader';
 import CollectionPod from '../react-components/Collection-Pod';
 import Cart from '../react-components/Cart';
+import MarketingBtn from '../react-components/MarketingBtn';
+import PointOfPurchaseModal from '../react-components/Modal-PointOfPurchase';
 
 
 class App extends React.Component{
@@ -33,7 +35,7 @@ class App extends React.Component{
         props.context.custom_fields.forEach(element => {
             switch(element.name){
                 case "collection_products":
-                    this.collection = element.value.split(",");
+                    this.collection = element.value.split(",").map(item => item.trim());
                     break;
 
                 case "configurator_description":
@@ -218,6 +220,7 @@ class App extends React.Component{
                     arr.push(element.node);
                 }); 
 
+                
                 // make sure our collection order matches the order in the backend
                 this.requestedCollection.forEach((item) => {
                     let tempObj = arr.find(element => element.entityId === item);
@@ -226,6 +229,7 @@ class App extends React.Component{
                         orderedArr.push(tempObj); 
                     }
                 });
+
 
                 this.setState((state) => { 
                     let newState = {...state};
@@ -241,8 +245,7 @@ class App extends React.Component{
                         let remaining = [...this.requestedCollection];                   
                         remaining = remaining.splice(currentLength, requestedLength -1);
 
-                        const remainingQuery = this.graphQL.getProductDetailInfo({ arr: remaining });
-
+                        let remainingQuery = this.graphQL.getProductDetailInfo({ arr: remaining });
                         this.getRequestedProducts(remainingQuery);
                     }
                 });
@@ -278,9 +281,9 @@ class App extends React.Component{
                                 {product.images.map((item) => {
                                     let imgSrc = replaceSize(item.data, 500), lowQuality = replaceSize(item.data, 10);
                             
-                                    return  <figure className="product__figure product__figure--full" key={generateID()}>
+                                    return  (<figure className="product__figure product__figure--full" key={generateID()}>
                                                 <LazyImg src={imgSrc} className="product__figImg" placeholder={lowQuality} alt={item.alt} />
-                                            </figure>
+                                            </figure>)
                                 })}
                             </Slider>
                         </div>
@@ -290,39 +293,28 @@ class App extends React.Component{
                             <p className="product__desc product__desc--margin">{this.description}</p>
                                                     
                             <div className="product__requestBtnCntr">
-                                <button type="button" className="product__requestBtn product__requestBtn--collections" onClick={() => this.state.toggleRequestSwatch("open")}>
-                                    <svg className="product__swatchRequestIcon--collections"><use xlinkHref="#icon-style" /></svg>
-                                    <p className="product__swatchRequestText--collections">
-                                        <span className="product__requestBtn-titleText">Order Free Swatches</span>
-                                        <small className="product__requestBtn-smallText">Free Ground Shipping on All Swatches. <br/><strong>Learn more &rsaquo;</strong></small>
-                                    </p>
-                                </button>
+                                <MarketingBtn 
+                                    title="Order Free Swatches" 
+                                    text={`Free Ground Shipping on All Swatches. <br/><strong>Learn more &rsaquo;</strong>`} 
+                                    icon="#icon-style" 
+                                    onclick={() => this.state.toggleRequestSwatch("open")} 
+                                />
 
-                                <button type="button" className="product__requestBtn product__requestBtn--collections" onClick={() => window.location.href = "tel:1-833-257-7070" }>
-                                    <svg className="product__swatchRequestIcon--collections"><use xlinkHref="#icon-phone20" /></svg>
-                                    <p className="product__swatchRequestText--collections">
-                                        <span className="product__requestBtn-titleText">Free Design Consultation</span>
-                                        <small className="product__requestBtn-smallText">Order by phone call: <u>1-833-257-7070</u></small>
-                                    </p>
-                                </button>
+                                <MarketingBtn 
+                                    title="Free Design Consultation" 
+                                    text={`Order by phone call: <u>1-833-257-7070</u>`} 
+                                    icon="#icon-phone20" 
+                                    onclick={() => window.location.href = "tel:1-833-257-7070"} 
+                                />
 
-                                <button type="button" className="product__requestBtn product__requestBtn--collections" onClick={() => window.location.href = "/to-the-trade"}>
-                                    <svg className="product__swatchRequestIcon--collections"><use xlinkHref="#icon-event_seat" /></svg>
-                                    <p className="product__swatchRequestText--collections">
-                                        <span className="product__requestBtn-titleText">Trade Application</span>
-                                        <small className="product__requestBtn-smallText">Apply for our residential and hospitality trade program. <strong>Learn more &rsaquo;</strong></small>
-                                    </p>
-                                </button>
 
-                                {/* <button type="button" className="product__requestBtn product__requestBtn--collections" onClick={() => $zopim.livechat.window.show()}>
-                                    <svg className="product__swatchRequestIcon--collections"><use xlinkHref="#icon-touch_app" /></svg>
-                                    <p className="product__swatchRequestText--collections">
-                                        <span className="product__requestBtn-titleText">Live Chat</span>
-                                        <small className="product__requestBtn-smallText">Get details on product lead times and more. <strong>Launch chat &rsaquo;</strong></small>
-                                    </p>
-                                </button> */}
+                                <MarketingBtn 
+                                    title="Trade Application" 
+                                    text={`Apply for our residential and hospitality trade program. <strong>Learn more &rsaquo;</strong>`} 
+                                    icon="#icon-event_seat" 
+                                    onclick={() => window.location.href = "/to-the-trade"} 
+                                />
                             </div>
-                        
                         </div>
                     </div>
 
@@ -399,6 +391,9 @@ class App extends React.Component{
                         <RequestSwatch /> 
                     :null }
 
+
+                    {this.state.showPointOfPurchase ? <PointOfPurchaseModal /> : null}
+
                 </div>
             </AppContext.Provider>
         )
@@ -406,3 +401,4 @@ class App extends React.Component{
 }
 
 export default firebaseService(App);
+

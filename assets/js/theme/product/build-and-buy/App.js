@@ -18,6 +18,7 @@ import RequestSwatch from '../react-components/RequestSwatch';
 import LazyImg from '../react-components/LazyImg';
 import SuggestedProductLayouts from '../react-components/SuggestedProductLayouts';
 import PointOfPurchaseModal from '../react-components/Modal-PointOfPurchase';
+import MarketingBtn from '../react-components/MarketingBtn';
 
 
 class App extends React.Component{
@@ -247,9 +248,9 @@ class App extends React.Component{
                                 {product.images.map((item) => {
                                     let imgSrc = replaceSize(item.data, 500), lowQuality = replaceSize(item.data, 10);
                             
-                                    return  <figure className="product__figure product__figure--full" key={generateID()}>
+                                    return  (<figure className="product__figure product__figure--full" key={generateID()}>
                                                 <LazyImg src={imgSrc} className="product__figImg" placeholder={lowQuality} alt={item.alt} />
-                                            </figure>
+                                            </figure>)
                                 })}
                             </Slider>
                         </div>
@@ -278,13 +279,14 @@ class App extends React.Component{
                                     })}
                                 </ul>
                             </div>
-                            <button type="button" className="product__requestBtn product__requestBtn--collections" onClick={() => this.state.toggleRequestSwatch("open")}>
-                                <svg className="product__swatchRequestIcon--collections"><use xlinkHref="#icon-style" /></svg>
-                                <p className="product__swatchRequestText--collections">
-                                    <span>Order Free Swatches <svg className="icon"><use xlinkHref="#icon-long-arrow-right" /></svg></span>
-                                    <small>Free Ground Shipping on All Swatches</small>
-                                </p>
-                            </button>
+
+                            <MarketingBtn 
+                                title="Order Free Swatches" 
+                                text={`Free Ground Shipping on All Swatches. <br/><strong>Learn more &rsaquo;</strong>`} 
+                                icon="#icon-style" 
+                                onclick={() => this.state.toggleRequestSwatch("open")} 
+                            />
+    
                         </div>
                     </div>
 

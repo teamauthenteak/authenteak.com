@@ -1,7 +1,7 @@
 {
   "name": "authenteak.com",
   "description": "Site files and templates for Authenteak.com",
-  "version": "1.20.34.003",
+  "version": "1.20.34.006",
   "private": true,
   "dependencies": {
     "@babel/preset-react": "^7.10.4",
@@ -9,6 +9,7 @@
     "@bigcommerce/stencil-cli": "^3.0.3",
     "@bigcommerce/stencil-utils": "^1.0.9",
     "async": "^0.9.2",
+    "axios": "^0.21.1",
     "baguettebox.js": "1.4.2",
     "bc-baseline": "github:pixelunion/bc-baseline",
     "bc-compare": "github:pixelunion/bc-compare",

@@ -76,6 +76,8 @@ export default function StickyCart(props){
 
 
     const addToCart = () => {
+        const { cartStatus } = props;
+
         let cartObj = {...props.cart}, item = 0, cartItems = Object.values(cartObj);
 
         setStatus(102);
@@ -95,11 +97,7 @@ export default function StickyCart(props){
                 }
 
                 utils.api.cart.itemAdd(formData, (err, response) => {
-                    const { cartStatus } = props;
-
                     if( response ){
-                        setStatus(202);
-                        cartStatus(202);
                         callback(null, item);
                     }
 
@@ -114,10 +112,12 @@ export default function StickyCart(props){
 
             }, (err) => {
                 setTimeout(() => {
-                    setStatus(null);
+                    cartStatus(202);
+                    setStatus(202);
+
                     setTotal(0);
                     setTotalQty(0);
-                }, 3000);
+                }, 2000);
             }
         );
     };
@@ -222,11 +222,7 @@ export default function StickyCart(props){
                         </div>
 
                         <div class="modalCart__cntr">
-                            <div class="modalCart__contents">
-                                
-                               
-
-                            </div>
+                            <div class="modalCart__contents"></div>
                             <div class="modalCart__summary">
                                 <div class="modalCart__subtotal">
                                     <span class="modalCart__subtotal-label">Order Subtotal</span>
@@ -237,7 +233,7 @@ export default function StickyCart(props){
                                     {totalQty} {totalQty === 1 ? "Item" : "Total Items" }                       
                                 </div>
 
-                                <AddToCartBtn isDisabled={total === 0 || !appHook.cartShouldBeRefreshed } addToCart={addToCart} status={status} />
+                                <AddToCartBtn isDisabled={total === 0} addToCart={addToCart} status={status} />
                             </div>
                         </div>
                     </div>
