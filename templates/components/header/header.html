@@ -1,248 +1,112 @@
-<header class=" site-header logo-align-{{theme_settings.global-header-logo-alignment}}" role="banner">
-  {{#if customer.customer_group_id '!=' '1' }}
-  <div class="promoBanner" id="topHeaderPromo">
-    <button class="promoBanner__closeBtn"><span class="promoBanner__closeBtnIcon">⨯</span></button>
-  </div>
-  {{/if}}
+<header class="header__cntr" id="globalHeader">
+    <div class="header__auxCntr">
+        <ul class="header__aux">
+            <li class="header__auxItem">
+                <a href="" title="" class="header__auxLink">Interior Designers</a>
+            </li>
+            <li class="header__auxItem">
+                <a href="" title="" class="header__auxLink">Hospitality</a>
+            </li>
+            <li class="header__auxItem">
+                <a href="" title="" class="header__auxLink">Financing</a>
+            </li>
+            <li class="header__auxItem">
+                <a href="" title="" class="header__auxLink">Track Order</a>
+            </li>
+            <li class="header__auxItem">
+                <a href="" title="" class="header__auxLink">COVID-19</a>
+            </li>
+            <li class="header__auxItem">
+                <a href="" title="" class="header__auxLink">Help</a>
+            </li>
+        </ul>
+    </div>
 
+    <div class="header__bodyWrapper">
+        <div class="header__bodyCntr">
+            <div class="header__body">
+                <button type="button" class="header__mainNavBtn">
+                    <svg width="30" height="30"><use xlink:href="#icon-hamburger" /></svg>
+                </button>
 
-  {{#if customer.customer_group_id '==' '1' }}
-  <div class="promoBanner promoBanner--green show" id="topHeaderPromoTrade">
-   <span class="promoBanner__text">Hey there, {{customer.name}}! &nbsp; You are logged in as a trade customer.</span>
-  </div>
-  {{/if}}
+                <div class="header__logoCntr">
+                    <a href="" class="header__logoLink">
+                        <img class="header__logo" src="https://authenteak.s3.us-east-2.amazonaws.com/logo/Authenteak-logo.svg" alt="{{settings.store_logo.title}}">
+                    </a>
+                </div>
 
+                <div class="header__chat">
+                    <button type="button" onclick="javascript:$zopim.livechat.window.show()" class="customer__chat" title="Chat with us today!">
+                        <svg class="header__chatBtn chat__offline" width="168" height="19"><use xlink:href="#desktop-header-offline"/></svg>
+                        <svg class="header__chatBtn chat__online hide" width="168" height="19"><use xlink:href="#desktop-header-online"/></svg>
+                    </button>
+                </div>
 
-  <div data-alerts>
-    {{#each product.reviews.messages}}
-      {{#if error}}
-        {{> core/alerts/alert-error
-          message=error
-          dismissable=true
-        }}
-      {{/if}}
-      {{#if success}}
-        {{> core/alerts/alert-success
-          message=success
-          dismissable=true
-        }}
-      {{/if}}
-    {{/each}}
+                <form class="header__searchGroup">
+                    <input type="search" class="header__searchControl" placeholder="What are you looking for today?" />
+                    <button type="button" class="header__searchBtn">
+                        <svg class="header__iconSearch" width="20" height="20"><use xlink:href="#icon-search2" /></svg>
+                    </button>
+                </form>
 
-    {{#if cart.status_messages}}
-      {{#each cart.status_messages}}
-        {{#if type '==' 0}}
-          {{> core/alerts/alert-error
-            message=message
-            dismissable=true
-          }}
-        {{/if}}
+                <div class="header__utilityBar">
+                    <button class="header__utilityBtn header__utilityBtn--chat" type="button" onclick="javascript:$zopim.livechat.window.show()">
+                        <svg class="header__utilityIcon" width="23" height="20"><use xlink:href="#mobile-header-offline"/></svg>
+                        <svg class="header__utilityIcon hide" width="23" height="20"><use xlink:href="#mobile-header-online"/></svg>
+                    </button>
 
-        {{#if type '==' 1}}
-          {{> core/alerts/alert-success
-            message=message
-            dismissable=true
-          }}
-        {{/if}}
-
-        {{#if type '==' 3}}
-          {{> core/alerts/alert-error
-            message=message
-            dismissable=true
-          }}
-        {{/if}}
-      {{/each}}
-    {{/if}}
-  </div>
-
-  <section class="top-bar">
-    <div class="container site-header--container">
-      <div class="top-bar-left {{#if currency_selector.currencies.length '===' 1}} no-currency-selector{{/if}}">
-      <!-- Testing Logo -->
-      {{> components/header/site-branding}}
-      <!-- End Logo Testing -->
-      {{> components/header/currency-selector}}
-      </div>
-
-      <div class="top-bar-center">
-        
-        <!-- Adding the Search Button into the Header -->
-        <!-- <div class="search-button-wrap">
-          <button class="button-search-toggle">
-            {{> svg/search}}
-          </button>
-        </div> -->
-        {{> components/common/search-form label='desktop'}}
-        <!-- End Search Button -->
-        {{> components/header/site-branding-centered}}
-      </div>
-
-      <div class="top-bar-right customer-utils">
-        
-        <!--Testing Right Aligned Account-->
-        <!-- <a href="tel:1-866-350-8325">
-          <span class="head-phone-number">1-866-350-8325</span>
-        </a> -->
-        <a href="javascript:$zopim.livechat.window.show()" class="customer__chat" title="Chat with us today!">
-          <span class="customer__chatMobile">
-            <svg class="header__chatBtn chat__offline" width="23" height="20"><use xlink:href="#mobile-header-offline"/></svg>
-            <svg class="header__chatBtn chat__online hide" width="23" height="20"><use xlink:href="#mobile-header-online"/></svg>
-          </span>
-
-          <span class="customer__chatDesktop">
-            <svg class="header__chatBtn chat__offline" width="168" height="19"><use xlink:href="#desktop-header-offline"/></svg>
-            <svg class="header__chatBtn chat__online hide" width="168" height="19"><use xlink:href="#desktop-header-online"/></svg>
-          </span>
-        </a>
-
-
-        {{#if settings.account_creation_enabled}}
-        <div class="customer-links">
-          {{#if customer}}
-            {{#contains page_type 'account'}}
-              <a class="top-bar-button" href="{{urls.auth.logout}}" title="My Account">
-                {{> svg/account}}
-                <span class="button-text">
-                  {{lang 'header.log_out'}}
-                </span>
-              </a>
-            {{else}}
-              <a class="top-bar-button" href="{{urls.account.index}}" title="My Account">
-                <!--{{> svg/account}}-->
-                <span class="button-text">
-                  <svg class="icon icon-person"><use xlink:href="#icon-person"/></svg>
-                  {{lang 'header.account'}}
-                </span>
-              </a>
-            {{/contains}}
-          {{else}}
-            <a class="top-bar-button" href="{{urls.auth.login}}" title="Login">
-              <!--{{> svg/account}}-->
-              <span class="button-text">
-                <svg class="icon icon-person"><use xlink:href="#icon-person"/></svg>
-                {{lang 'header.account'}}
-              </span>
-            </a>
-          {{/if}}
-        </div>
-      {{/if}}
-      <!--End Testing - Right Aligned Account-->
-
-        <div class="compare-wrap" data-compare-widget>
-          <button class="top-bar-button button-compare-toggle" name="compare">
-            {{lang 'header.compare'}}
-            <span class="compare-items-count"></span>
-          </button>
-          <div class="compare-tab" id="compare-tab">
-            <div class="compare-tab-upper">
-              <div class="item-limit">
-                {{lang 'compare.compare_up_to_x_items' num=4}}
-              </div>
-              <a href="#" class="clear-compare" data-compare-remove-all title="Clear compare">
-                {{lang 'compare.clear_compare'}}
-              </a>
+                    <button class="header__utilityBtn" type="button">
+                        <svg class="header__utilityIcon" width="24" height="24"><use xlink:href="#icon-person" /></svg>
+                        <span class="header__utilityText">Account</span>
+                    </button>
+                
+                    <button class="header__utilityBtn" type="button">
+                        <svg class="header__utilityIcon" width="20" height="20"><use xlink:href="#icon-heart11" /></svg>
+                        <span class="header__utilityText">Lists</span>
+                    </button>
+                
+                    <button class="header__utilityBtn" type="button">
+                        <svg class="header__utilityIcon" width="24" height="24"><use xlink:href="#icon-shopping_cart" /></svg>
+                        <span class="header__utilityText">Items</span>
+                    </button>
+                </div>
             </div>
-            <ul
-              class="compare-items-list"
-              id="compare-items-wrapper"
-              data-compare-items
-            ></ul>
-            <a
-              class="button button-primary compare-submit"
-              href="{{urls.compare}}"
-              data-compare-link="{{urls.compare}}"
-              title="Compare products"
-            >
-              {{lang 'compare.compare_submit'}}
-            </a>
-          </div>
+
+            <nav class="header__mainNav">
+                <ul class="header__navList">
+                    <li class="header__navItem" value="2480">
+                        <a href="" title="" class="header__navLink">Furniture</a>
+                        <div class="flyout"></div>
+                    </li>
+                    <li class="header__navItem" value="787">
+                        <a href="" title="" class="header__navLink">Grills &amp; Kitchens</a>
+                        <div class="flyout"></div>
+                    </li>
+                    <li class="header__navItem" value="798">
+                        <a href="" title="" class="header__navLink">Umbrellas</a>
+                        <div class="flyout"></div>
+                    </li>
+                    <li class="header__navItem" value="906">
+                        <a href="" title="" class="header__navLink">Heating</a>
+                        <div class="flyout"></div>
+                    </li>
+                    <li class="header__navItem" value="">
+                        <a href="" title="" class="header__navLink">Accessories</a>
+                        <div class="flyout"></div>
+                    </li>
+                    <li class="header__navItem" value="1196">
+                        <a href="" title="" class="header__navLink">Brands</a>
+                        <div class="flyout"></div>
+                    </li>
+                    <li class="header__navItem" value="2509">
+                        <a href="/featured-offers/" title="" class="header__navLink header__navLink--noFlyout">Offers</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-
-        {{#if settings.show_wishlist}}
-          <a
-            class="top-bar-button button-wishlist"
-            href="{{urls.account.wishlists.all}}"
-            title="My Wishlist"
-          >
-            {{> svg/wishlist}}
-          </a>
-        {{/if}}
-
-        <a href="/cart.php" class="top-bar-button button-cart-toggle" title="View your cart">
-            <span
-              class="mini-cart-subtotal button-text"
-              data-cart-quantity="{{cart.quantity}}"
-            >
-                {{cart.quantity}}
-            </span>
-            {{> components/header/cart-icon}}
-        </a>
-
-        {{#if customer.customer_group_id '!=' '1' }}
-        <span class="global-header-text-promo hide" id="globalHeaderPromo"></span>
-        {{/if}}
-      </div>
-
-     
-
-
-      <span
-        class="
-          button-mobile-nav-cart
-          {{#if cart.status_messages}}
-            has-promo
-          {{/if}}
-        "
-      >
-        <a href="{{urls.cart}}" title="Your Cart">
-          <span
-          class="mini-cart-subtotal button-text mini-cart-quantity-mobile"
-          data-cart-quantity="{{cart.quantity}}"
-        >
-            {{cart.quantity}}
-        </span>
-          {{> components/header/cart-icon}}
-        </a>
-      </span>
-
-
-      <span class="button-mobile-nav-search">
-        <a href="#" class="button-mobile-nav-search--link" title="What are you looking for today?">
-          {{> components/header/search-icon}}
-        </a>
-      </span>
-
-
-      <button class="button-mobile-nav-toggle {{#if cart.status_messages}}has-promo {{/if}}" name="Main Nav">
-        <svg class="burger" enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 11h-18c-0.6 0-1 0.4-1 1s0.4 1 1 1h18c0.6 0 1-0.4 1-1s-0.4-1-1-1z"></path>
-            <path d="M3 7h18c0.6 0 1-0.4 1-1s-0.4-1-1-1h-18c-0.6 0-1 0.4-1 1s0.4 1 1 1z"></path>
-            <path d="M21 17h-18c-0.6 0-1 0.4-1 1s0.4 1 1 1h18c0.6 0 1-0.4 1-1s-0.4-1-1-1z"></path>            
-        </svg>
-      </button>
-
-      <div class="mobile-search-wrapper">
-        {{> components/common/search-form label='mobile'}}
-      </div>
     </div>
-  </section>
 
-  <section class="main-nav-bar" id="mainNavBar">
-    <div class="container nav-container-wide">
-      
-      {{#if theme_settings.global-header-logo-alignment '===' 'left'}}
-        {{> components/header/site-navigation-center-align}}
-      {{/if}}
-      
-      {{#if theme_settings.global-header-logo-alignment '===' 'center'}}
-        {{> components/header/site-navigation-center-align}}
-      {{/if}}
-      
-      {{#if theme_settings.global-header-logo-alignment '===' 'right'}}
-        {{> components/header/site-navigation-right-align}}
-      {{/if}}
-      
-    </div>
-  </section>
-
+    <div class="flyout__overlay"></div>
 </header>
+
+<div class="promo promo--header" id="topHeaderPromo"></div>

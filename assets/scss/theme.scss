@@ -6570,7 +6570,7 @@ table.geotrust-ssl-seal-table {
 
 .site-canvas {
   position: relative;
-  padding-top: $topbar-height;
+  // padding-top: $topbar-height;
   transition: transform .3s ease, padding 0.2s linear;
 
   @include media($min: $breakpoint-s) {

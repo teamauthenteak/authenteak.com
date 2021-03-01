@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { usePrevious } from 'react-use';
 import AppContext from './context/AppContext';
-import utils from '@bigcommerce/stencil-utils';
 import GraphQL from '../../graphql/GraphQL';
 
 import Swatch from '../react-components/Swatch';

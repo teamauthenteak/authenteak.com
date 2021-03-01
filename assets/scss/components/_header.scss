@@ -1,0 +1,274 @@
+%flex-full-width{
+    display: flex;
+    width: 100vw;
+}
+
+
+.header{
+
+    &__cntr{
+        @extend %flex-full-width;
+        flex-direction: column;
+        padding: 10px 0 0 0;
+        position: relative;
+
+        @media screen and (max-width: $screen-md){
+            padding: 0;
+        }
+    }
+
+    // aux items
+    &__auxCntr{
+        @extend %flex-full-width;
+        flex-direction: row;
+        padding: 0 2vw;
+
+        @media screen and (max-width: $screen-md){
+            display: none;
+            padding: 0 3vw;
+        }
+    }
+
+    &__aux{
+        @extend %flex-full-width;
+        justify-content: flex-end;
+    }
+
+    &__auxItem{
+        margin-left: 2rem;
+        
+        &:first-of-type{
+            margin: 0
+        }
+    }
+
+    &__auxLink{
+        font-size: 0.8rem;
+        display: block;
+        line-height: 1;
+    }
+
+
+    // center main body
+    &__bodyWrapper{
+        @extend %flex-full-width;
+        flex-direction: column;
+        height: 137.78px;
+        justify-content: flex-end;
+
+        @media screen and (max-width: $screen-xl){
+            height: auto;
+        }
+    }
+
+    &__bodyCntr{
+        @extend %flex-full-width;
+        flex-direction: column;
+
+        @media screen and (max-width: $screen-md){
+            flex: 1 0 auto;
+
+        }
+    }
+
+    &__body{
+        @extend %flex-full-width;
+        flex-direction: row;
+        align-items: center;
+        align-content: center;
+        padding: 15px 2vw 20px 2vw;
+
+        @media screen and (max-width: $screen-md){
+            flex-wrap: wrap;
+            padding: 15px 3vw 20px 3vw;
+        }
+    }
+
+    // logo
+    &__logoCntr{
+        width: 20%;
+
+        @media screen and (max-width: $screen-xl){
+            flex: 1 0 auto;
+        }
+    }
+
+    &__logoLink{
+        display: block;
+
+        @media screen and (max-width: $screen-md){
+            display: flex;
+        }
+    }
+
+    &__logo{
+        width: 100%;
+        object-fit: contain;    
+        
+        @media screen and (max-width: $screen-md){
+            max-height: 35px;
+        }
+    }
+
+    &__chat{
+        width: 18%;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex: 1 0 auto;
+
+        @media screen and (max-width: $screen-xl){
+            display: none;
+        }
+    }
+
+    // search
+    &__searchGroup{
+        width: 34%;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        padding: 0;
+        border: 1px solid #ccc;
+        border-radius: 99rem;
+
+        @media screen and (max-width: $screen-xl){
+            margin-left: 1.5em;
+        }
+
+        @media screen and (max-width: $screen-sm){
+            margin: .75em 0 0 0;
+            order: 5;
+            width: 100%;
+            flex: 1 1 auto;
+        }
+    }
+
+    &__searchControl{
+        flex: 1 1 auto;
+        height: 34px;
+        border: none;
+        border-radius: .99rem;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        padding: 0 20px;
+    }
+
+    &__searchBtn{
+        border-radius: .99rem;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        width: 50px;
+        background-color: $btn-color-green;
+    }
+
+    &__iconSearch{
+        fill: #fff
+    }
+
+
+    // utils
+    &__utilityBar{
+        display: flex;
+        width: 25%;
+        align-self: center;
+        justify-content: space-between;
+        flex: 1 0 auto;
+    }
+
+    &__utilityBtn{
+        display: flex;
+        align-content: center;
+        justify-content: flex-end;
+        align-items: center;
+        align-self: left;
+        background-color: transparent;
+        padding: 0;
+        width: 33.3%;
+        margin: 0;
+
+        &--chat{
+            background: transparent;
+            align-content: center;
+            align-items: center;
+            display: none;
+
+            @media screen and (max-width: $screen-xl){
+                display: flex;
+            }
+        }
+    }
+
+    &__utilityText{
+        margin-left: .6rem;
+        font-size: .95rem;
+        line-height: 1;
+
+        @media screen and (max-width: $screen-xl){
+            display: none;
+        }
+    }
+
+
+    // main nav items
+    &__mainNav{
+        width: 100%;
+        border-top: 1px solid #dee2e6;
+        border-bottom: 1px solid #dee2e6;
+
+        @media screen and (max-width: $screen-sm){
+            position: fixed;
+            width: 100vw;
+            height: 100vw;
+            display: none;
+        }
+    }
+
+    &__mainNavBtn{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+        line-height: 1;
+
+        @media screen and (min-width: $screen-md){
+            display: none;
+        }
+    }
+
+    &__navList{
+        @extend %flex-full-width;
+        justify-content: center;
+        position: relative;
+    }
+
+    &__navItem{
+        display: flex;
+        border-bottom: 3px solid transparent;
+
+        &:hover{
+            border-bottom-color: #444;
+
+            & .flyout{
+                display: flex;
+            }
+        }
+    }
+
+    &__navLink{
+        display: flex;
+        padding: 15px 2.5em 12px 2.5em;
+        font-size: 1.1rem;
+        justify-content: center;
+        line-height: 1;
+        
+
+        &:hover{
+            color: inherit;
+        }
+    }
+}
