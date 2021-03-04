@@ -1,95 +1,143 @@
-.flyout{
-    position: absolute;
-    width: 100vw;
-    display: none;
-    background-color: #fff;
-    top: 48px;
-    left: 0vw;
-    z-index: 9999;
-    background-color: #f6f6f6;
-    box-shadow: 3px 9px 11px 0px rgba(0, 0, 0, .25);
-    height: 400px;
-    justify-content: flex-start;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: stretch;
-    align-content: stretch;
-    padding: 1vh 2vw;
+$flyout-width: 100vw;
+$flyout-height: 470px;
+$flyout-item-width: 275px;
 
-    &__overlay{
-        display: none;
-        position: fixed;
-        content: "";
-        top: 160px;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, .45);
-        z-index: 99;
-        animation-name: remodal-overlay-closing-keyframes;
-        animation-duration: 0.3s;
-        animation-fill-mode: forwards;
+.flyout {
+	position: absolute;
+	width: $flyout-width;
+	top: 48px;
+	left: 0vw;
+	z-index: 9999;
+	height: $flyout-height;
+	display: none;
 
-        &--show{
-            display: flex;
-            animation-duration: 0.3s;
-            animation-fill-mode: forwards;
-            animation-name: remodal-overlay-opening-keyframes;
-        }
-    }
+	&__underlay{
+		position: fixed;
+		content: "";
+		top: 160px;
+		left: 0;
+		width: $flyout-width;
+		height: 100vh;
+		background: rgba(102, 102, 102, 0.45);
 
-    &__list{
-        padding: .5em;
-        margin: 0;
+// 		background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 19%); /* FF3.6-15 */
+// background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 19%); /* Chrome10-25,Safari5.1-6 */
+// background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 19%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 
-        &--feature{
-            background-color: #dddddd ;
-            padding: 1.5em 2.5em;
-        }
-    }
 
-    &__item{
-        padding: .35em 0;
-        line-height: 1;
+		z-index: 99;
+		display: flex;
+		animation-duration: 300ms;
+		animation-fill-mode: forwards;
+		animation-name: remodal-overlay-opening-keyframes;
+	}
 
-        &--noSpace{
-            padding: 0;
-        }
-    }
+	
 
-    &__listHeading{
-        margin: 0;
-        font-weight: 800;
-        font-size: 1.1rem;
-        line-height: 1;
-    }
+	&__content{
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 999;
+		display: flex;
+		width: $flyout-width;
+		box-shadow: 3px 9px 11px 0px rgba(0, 0, 0, 0.25);
+		height: $flyout-height;
+		justify-content: flex-start;
+		flex-direction: column;
+		flex-wrap: wrap;
+		align-items: stretch;
+		align-content: stretch;
+		// padding: 1vh 2vw;
+		background-color: #f6f6f6;
 
-    &__listLink{
-        font-size: 1rem;
+		&::after{
+			position: absolute;
+			content: "";
+			width: $flyout-item-width;
+			right: 0;
+			top: 0;
+			height: 100%;
+			background-color: #dddddd;
+			z-index: -1;
+		}
+		
 
-        &:hover{
-            text-decoration: underline !important;
-        }
-    }
+		&--short{
+			padding-bottom: 10rem;
+		}
+
+		&--Accessories{
+			flex-direction: row;
+		}
+
+		&--Brands{
+			&::after{
+				display: none;
+			}
+
+			& .flyout__list{
+				padding: .5rem .5rem;
+			}
+		}
+	}
+
+
+	&__list {
+		padding: 1.5rem;
+		margin: 0;
+		flex: 1 0 auto;
+		max-width: $flyout-item-width;
+
+		&--feature {
+			background-color: #dddddd;
+			padding: 1rem 1.5rem;
+			order: 10;
+			align-self: flex-end;
+			height: 100%;
+		}
+	}
+
+	&__item {
+		padding: 0.35em 0;
+		line-height: 1;
+
+		&--noSpace {
+			padding: 0;
+		}
+	}
+
+	&__listHeading {
+		margin: 0;
+		font-weight: 800;
+		font-size: 1.1rem;
+		line-height: 1;
+	}
+
+	&__listLink {
+		font-size: 1rem;
+		line-height: 1.1;
+
+		&:hover {
+			text-decoration: underline !important;
+		}
+	}
 }
 
-
-
 @keyframes remodal-overlay-opening-keyframes {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  
-  @keyframes remodal-overlay-closing-keyframes {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
-  }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
 
+@keyframes remodal-overlay-closing-keyframes {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}

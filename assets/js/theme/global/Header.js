@@ -2,12 +2,8 @@ import HeaderFlyout from './HeaderFlyout';
 import GraphQL from '../graphql/GraphQL';
 
 export default class Header {
-	constructor(el) {
-		this.$el = $(el);
-		this.$body = $('body');
-		// this.$wrapper = $('.site-wrapper');
-		this.$searchWrap = $('.search-wrap');
-		// this.$header = $('.site-header');
+	constructor() {		
+		this.$header = $("#globalHeader", ".header__bodyCntr");
 
 		this.graphQL = new GraphQL();
 
@@ -16,25 +12,16 @@ export default class Header {
 			this.flyoutData = data;
 		});
 
-		// this.$topBar = this.$header.find('.top-bar');
-		// this.$navBar = this.$header.find('.main-nav-bar');
-
-		this.cartOpenClass = 'mini-cart-open';
-		// this.searchOpenClass = 'search-open';
-		// this.navOpenClass = 'nav-mobile-open scroll-locked';
-		// this.$loginRegister = $('.login-register-block');
-		// this.$forgotPassword = $('.forgot-password-block');
-
 		this.headerFlyout = new HeaderFlyout();
 
 		this._bindEvents();
-		// this._adjustHeights();
-		// this._headerScroll();
 		
 		this.notPDPCollections = !document.getElementById("buildAndBuyRoot") || !document.getElementById("clickAndBuyRoot");
 
 		this.promoBanner = document.getElementById('topHeaderPromo');
 		this._headerPromoBanner();
+
+		this.timeoutFlyout = null;
 	}
 
 
@@ -89,36 +76,85 @@ export default class Header {
 
 
 
-	createFlyout = (parent) => {
-		let data = this.flyoutData.site.categoryTree.find(ele => ele.entityId === parent);
-		let supplementalData = this.headerFlyout.data[`category_${parent}`];
-		let tpl = [];
-		
+	parseFlyoutData = (parent) => {
+		let flyoutList = {
+			tpl: "",
+			total: 0
+		};
+		let parentId = parent.split(",");
 
-		if( data && data.children !== undefined ){
-			data.children.forEach(child => {
+		parentId.forEach(id => {
+			let data = this.flyoutData.site.categoryTree.find(ele => ele.entityId === parseInt(id));
+			let supplementalData = this.headerFlyout.data[`category_${id}`];
+			let gotKids = [], aintGotKids = [];
+
+			if( data ){
+				data.children.forEach(kid => {
+					if( kid.children.length < 2 && parseInt(id) !== 1196 ){
+						aintGotKids.push(kid);
+	
+					}else{
+						gotKids.push(kid);
+					}
+				});	
+			}
+
+			let flyoutData = this.createFlyout(gotKids, supplementalData, aintGotKids);
+
+			flyoutList.tpl += flyoutData.tpl;
+			flyoutList.total = flyoutList.total + flyoutData.total
+		});
+		
+		return flyoutList;
+	}
+
+
+
+	createFlyout = (data, supplementalData, singletonData) => {
+		let tpl = [];
+
+		if( data.length ){
+			data.forEach(child => {
 				let tplData = this.flyoutTemplate(child);
 				tpl.push(tplData)
 			});
 		}
 
-		console.log(supplementalData)
-
 		if( supplementalData ){
-			let { pages, shop_by_brand, shop_by_collection } = supplementalData
+			let { pages, shop_by_brand, shop_by_collection } = supplementalData;
 
-			let brand = shop_by_brand !== undefined ? this.flyoutSupplemental(shop_by_brand) : "";
-			let collection = shop_by_collection !== undefined ? this.flyoutSupplemental(shop_by_collection) : "";
+			let brand = shop_by_brand && shop_by_brand.items.length  ? this.flyoutSupplemental(shop_by_brand) : "";
+			let collection = shop_by_collection && shop_by_collection.items.length ? this.flyoutSupplemental(shop_by_collection) : "";
 
-			tpl.push(brand, collection)
+			tpl.push(brand, collection);
+
+			if( pages ){
+				let newPages = pages.map((ele) => {
+						return{
+							name: ele.title,
+							path: ele.url
+						}
+					});
+
+				singletonData = [...newPages, ...singletonData];
+			}
+		}
+
+		if( singletonData.length ){
+			let tplData = this.flyoutSingle(singletonData);
+			tpl.push(tplData)
 		}
 		
-		return tpl.join("");
+		return {
+			tpl: tpl.join(""),
+			total: data.length + 2
+		}
 	}
 
 
+
+
 	flyoutTemplate(child){
-		// flyout__list--feature
 		child = this.mutateChildren(child);
 
 		if(child.isHidden){ return; }
@@ -126,14 +162,18 @@ export default class Header {
 		return `<ul class="flyout__list">
 					<li class="flyout__item ${child.children.length < 2 ? "flyout__item--noSpace" : ""}">
 						<h3 class="flyout__listHeading">
-							<a href="${child.path}" class="flyout__listLink" title="Visit ${child.name} category">${child.name}</a>
+							<a href="${child.path}" class="flyout__listLink" title="Visit ${child.name} category">
+								${child.name}
+							</a>
 						</h3>
 					</li>
 					${child.children.map(kid => {
 						if(kid.isHidden || child.children.length < 2){ return; }
 
 						return	`<li class="flyout__item">
-									<a href="${kid.path}" class="flyout__listLink">${kid.name}</a>
+									<a href="${kid.path}" class="flyout__listLink" title="Visit ${kid.name} category">
+										${kid.name}
+									</a>
 								</li>`;
 					}).join("")}
 				</ul>`;
@@ -145,15 +185,35 @@ export default class Header {
 		return `<ul class="flyout__list">
 					<li class="flyout__item ${child.items.length < 2 ? "flyout__item--noSpace" : ""}">
 						<h3 class="flyout__listHeading">
-							<a href="${child.url}" class="flyout__listLink" title="Visit ${child.title} category">${child.title}</a>
+							<a href="${child.url}" class="flyout__listLink" title="Visit ${child.title} category">
+								${child.title}
+							</a>
 						</h3>
 					</li>
 					${child.items ? child.items.map(kid => {
 						return	`<li class="flyout__item">
-									<a href="${kid.url}" class="flyout__listLink">${kid.title}</a>
+									<a href="${kid.url}" class="flyout__listLink" title="Visit ${kid.name} category">
+										${kid.title}
+									</a>
 								</li>`;
 					}).join("")
 					:null}
+				</ul>`;
+	}
+
+
+
+	flyoutSingle(child){
+		return `<ul class="flyout__list flyout__list--feature">
+					${child.map((kid) => {
+						return `<li class="flyout__item">
+									<h3 class="flyout__listHeading">
+										<a href="${kid.path}" class="flyout__listLink" title="Visit ${kid.name} category">
+											${kid.name}
+										</a>
+									</h3>
+								</li>`;
+					}).join("")}
 				</ul>`;
 	}
 
@@ -176,203 +236,129 @@ export default class Header {
 
 
 	navHover = (e) => {
-		if( !$(e.target).hasClass("header__navLink--noFlyout") ){
-			$(".flyout__overlay").toggleClass("flyout__overlay--show", e.type === "mouseover");
-			$(document.body).toggleClass("scroll-locked",  e.type === "mouseover")
+		if( $(e.target).hasClass("header__navLink--noFlyout") ){ 
+			this.resetFlyoutUnderlay();
+			return; 
 		}
 
-		let flyoutContent = this.createFlyout( $(e.target).parent("li").val() )
-		$(e.target).siblings(".flyout").html(flyoutContent)
+		if( e.type === "mouseout" ){
+			this.timeoutFlyout = setTimeout(() => { 
+				$(e.target).children(".flyout").remove();
+				this.resetFlyoutUnderlay();
+			}, 500);
+
+			return;
+		}
+
+
+		$(e.target)
+			.parents("ul.header__navList").find(".header__navItem--active")
+				.find(".flyout").remove()
+					.end()
+				.removeClass("header__navItem--active");
+
+
+		$(e.target).parents("li.header__navItem").addClass("header__navItem--active")
+
+
+		let category_id = $(e.target).attr("rel");
+		let flyoutContent = this.parseFlyoutData(category_id);
+
+		$(e.target)
+			.parents("li.header__navItem")
+			.append('<div class="flyout"><svg className="icon icon-spinner"><use xlinkHref="#icon-spinner" /></svg></div>')
+		
+		$(e.target)
+			.siblings("div.flyout")
+				.html(
+					`<div class="flyout__content ${flyoutContent.total < 7 ? "flyout__content--short" : ""} flyout__content--${$(e.target).text()}">
+						${flyoutContent.tpl}
+					</div>`
+				)
+				
+		if( $("#globalHeader").nextUntil("div.flyout__underlay").length ){
+			$("#globalHeader").after("<div class='flyout__underlay'></div>")
+		}
 	}
 
 
-	
+
+	resetFlyoutUnderlay = () => {
+		if( !$(".flyout:visible").length ){
+			$("#globalHeader").siblings("div.flyout__underlay").remove();
+		}
+	}
+
+
+
+	lockBody = (e) => {
+		$(document.body).toggleClass("scroll-locked",  e.type === "mouseover");
+	}
 
 
 	_bindEvents() {
 
-		$("#globalHeader")
-			.on("mouseout", ".header__navItem", _.debounce(this.navHover.bind(this), 200))
-			.on("mouseover", ".header__navItem", _.debounce(this.navHover.bind(this), 200))
-
-
-		// Toggle mini cart panel
-		// this.$el.find('.button-cart-toggle').on('click', (event) => {
-		// 	this._toggleMiniCart();
-		// 	event.preventDefault();
-		// });
-
-		// // Close mini cart panel
-		// $('.button-cart-close').on('click', () => {
-		// 	this._toggleMiniCart(false);
-		// });
-
-		// $('.on-canvas').on('click', () => {
-		// 	if ($('.mini-cart-open').length) {
-		// 		this._toggleMiniCart(false);
-		// 	}
-		// });
-
-
-		// Close UI elements with esc key
-		// $(document)
-		// 	.on('keyup', (e) => {
-		// 		// Mini cart
-		// 		if (e.keyCode === 27 && this.$body.hasClass(this.cartOpenClass)) {
-		// 			this._toggleMiniCart(false);
-		// 		}
-
-		// 		// Search
-		// 		if (e.keyCode === 27 && this.$searchWrap.hasClass(this.searchOpenClass)) {
-		// 			this._toggleSearch(false);
-		// 		}
-		// 	})
-		// 	.on("click", ".promoBanner__closeBtn", (e) => {
-		// 		this._dismissHeaderPromoBanner(e);
-		// 	});
-
-
-
-		// Toggle search
-		// $('.button-search-toggle').on('click', () => {
-		// 	this._toggleSearch();
-
-		// 	// Close cart
-		// 	if (this.$wrapper.hasClass(this.cartOpenClass)) {
-		// 		this._toggleMiniCart(false);
-		// 	}
-		// });
-
-		// // Close Search
-		// $('.button-search-close').on('click', () => {
-		// 	this._toggleSearch(false);
-		// });
-
-		// // Toggle mobile nav
-		// $('.button-mobile-nav-toggle').on('click', () => {
-		// 	this._toggleMobileNav();
-		// });
-
-		// Handle resize events and provide debounce to prevent too much
-		// this._handleResize = _.debounce(this._handleResize.bind(this), 200);
-
-		// $(window).resize(this._handleResize);
+		$(document.body)
+			.on("mouseover", "a.header__navLink", this.navHover)
+			.on("mouseout", "a.header__navLink", this.navHover)
+			.on("mouseover", "div.flyout__underlay", this.resetFlyoutUnderlay)
+			.on("mouseover", "div.header__bodyCntr", this.resetFlyoutUnderlay)
+		
+		this._headerScroll();
 	}
 
 
 
-	_handleResize() {
-		// Reset the mobile panel if window is made larger
-		// this._adjustHeights();
+	_headerScroll() {		
+		const el = document.querySelector("#globalHeader");
+		const headerBody = el.querySelector(".header__bodyCntr");
+		let headerBodyHeight = headerBody.offsetHeight;
 
-		// Check header height on resize for class application
-		// this._headerScroll();
-	}
-
-	_toggleMiniCart(open) {
-		// Pass "false" to remove the class / close cart
-		this.$body.toggleClass(this.cartOpenClass, open);
-	}
-
-
-	_toggleSearch(open) {
-		this.$searchWrap.toggleClass(this.searchOpenClass, open);
-
-		if (this.$searchWrap.hasClass(this.searchOpenClass)) {
-			this.$searchWrap.find('.search-input').focus();
-		}
-	}
-
-	_toggleMobileNav(open) {
-		this.$body.toggleClass(this.navOpenClass, open);
-
-		if (open === false) {
-			$('.navigation-mobile').revealer('hide');
-		} else {
-			$('.navigation-mobile').revealer('toggle');
-		}
-	}
-
-	_headerScroll() {
-		// determine whether the navigtion has a second row, and disallow "compressed" state if true
-		const defaultNavbarHeight = 56;
-		const $currentNavBar = this.$navBar.find('.navigation').find('ul:first-child');
-		var currentNavBarHeight = $currentNavBar.outerHeight();
-
-		if (currentNavBarHeight > defaultNavbarHeight) {
-			this.$navBar.addClass('multi-row');
-			$currentNavBar.addClass('enforce-max-width');
-			return false;
-		} else {
-			this.$navBar.removeClass('multi-row');
-			$currentNavBar.removeClass('enforce-max-width');
+		// when our window changes shape
+		window.onresize = () => { 
+			headerBodyHeight = headerBody.offsetHeight;
 		}
 
-		const $win = $(window);
-		const threshold = 50;
-		const scrollClass = 'compressed';
 
-		// if we load the page part way down
-		if ($win.scrollTop() > threshold) {
-			this.$header.addClass(scrollClass);
-		}
+		const handelScroll = () => {
+			let growHeight = -headerBodyHeight + (window.scrollY - 200)
 
-		$win.on("resize", () => {
-			if( this.notPDPCollections ){
-				const compressHeader = false;
-				currentNavBarHeight = $currentNavBar.outerHeight();
+			if( growHeight < 0){
+				headerBody.style.top = `${growHeight}px`;
 
-				if (currentNavBarHeight > defaultNavbarHeight) {
-					this.$header.toggleClass(scrollClass, compressHeader);
-				}
+			// force to 0px if page loads far down on the page or if we scroll fast
+			}else if( window.scrollY > headerBodyHeight ){
+				headerBody.style.top = "0px";
 			}
-		});
-
-
-		if( !this.notPDPCollections ){
-			this.$header.css({"position": "static", "box-shadow": "none"});
-			// this.$header.siblings(".site-canvas").css("marginTop", 0);
 		}
 
 
-		$win.on("scroll", () => {
-			if( this.notPDPCollections ){
-				const st = $win.scrollTop();
-				var compressHeader = (st > threshold) ? true : false;
+		let observer = new IntersectionObserver((entries, observer) => {
+				entries.forEach((entry) => {
+					if( entry.isIntersecting ){
+						headerBody.style.position = "static";
+						headerBody.classList.remove("header__bodyCntr--fixed");
 
-				currentNavBarHeight = $currentNavBar.outerHeight();
-				compressHeader = currentNavBarHeight > defaultNavbarHeight ? false : compressHeader;
+						window.removeEventListener('scroll', handelScroll);
 
-				this.$header.toggleClass(scrollClass, compressHeader);
-			}
-		});
+					}else{
+						headerBody.classList.add("header__bodyCntr--fixed");
+						headerBody.style.position = "fixed";
+
+						window.addEventListener('scroll', handelScroll);
+					}
+				})
+
+			}, {
+				root: null,
+				rootMargin: "200px",
+				threshold: 1.0
+			});
+
+		observer.observe(el);
 	}
 
-	_adjustHeights() {
-		// const $canvas = this.$body.find('.site-canvas');
-		// const defaultTopBarHeight = window.TEAK.Utils.isHandheld ? 150 : 90;
-		// const topBarHeight = this.$topBar.outerHeight();
-		// const defaultFullHeaderHeight = 170;
-		// const currentFullHeaderHeight = this.$header.outerHeight();
 
-		// if (this.$navBar.is(':hidden')) {
-		// 	if (topBarHeight > defaultTopBarHeight) {
-		// 		$canvas.css('padding-top', topBarHeight + 'px');
-		// 	} else {
-		// 		$canvas.css('padding-top', defaultTopBarHeight + 'px');
-		// 	}
-		// } else {
-		// 	if (currentFullHeaderHeight > defaultFullHeaderHeight) {
-		// 		$canvas.css('padding-top', currentFullHeaderHeight + 'px');
-		// 	} else {
-		// 		$canvas.css('padding-top', defaultFullHeaderHeight + 'px');
-		// 	}
-		// }
 
-		// if (topBarHeight > defaultTopBarHeight) {
-		// 	const $mobileNav = this.$body.find('.navigation-mobile');
 
-		// 	$mobileNav.css({ 'top': topBarHeight + 'px' });
-		// }
-	}
 }
