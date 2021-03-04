@@ -50,7 +50,7 @@ export default class Yotpo {
 
             this.createBody = {
                 appkey: this.settings.key,
-                sku: this.settings.product.sku,
+                sku: this.settings.product.product_id,
                 product_title: this.settings.product.title,
                 product_url: (TEAK.Utils.isLocal() ? window.location.origin : '') + this.settings.product.url,
                 product_image_url: this.settings.product.image,
