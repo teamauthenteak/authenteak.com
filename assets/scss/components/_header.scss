@@ -32,6 +32,7 @@
     &__aux{
         @extend %flex-full-width;
         justify-content: flex-end;
+        height: 15px;
     }
 
     &__auxItem{
@@ -78,12 +79,12 @@
             box-shadow: 3px 9px 11px 0px rgba(0, 0, 0, 0.10);
 
             @media screen and (max-width: $screen-md){
-                & .header__utilityBtn--more{
+                & .header__utilityBtnCntr--more{
                     display: flex;
                 }
                 
                 & .header__logoCntr, 
-                & .header__utilityBtn--myAccount, 
+                & .header__utilityBtnCntr--myAccount, 
                 & .header__utilityBtn--myList, 
                 & .header__utilityBtn--chat{
                     display: none;
@@ -228,6 +229,8 @@
         align-self: center;
         justify-content: space-between;
         flex: 1 0 auto;
+        padding-left: 2rem;
+        height: 100%;
 
         @media screen and (max-width: $screen-md){
             justify-content: space-evenly;
@@ -243,12 +246,12 @@
         align-self: left;
         background-color: transparent;
         padding: 0;
-        width: 33.3%;
+        position: relative;
         margin: 0;
         outline: none;
 
-        &--more{
-            display: none;
+        &:hover{
+            color: initial;
         }
 
         &--chat{
@@ -272,6 +275,89 @@
             display: none;
         }
     }
+
+    // utility menu
+    &__utilityBtnCntr{
+        display: flex;
+        align-content: center;
+
+        &--more{
+            display: none;
+        }
+    }
+
+    &__utilityBtnItem{
+        position: relative;
+        display: flex;
+        align-content: center;
+
+        &:hover{
+            & .header__utilMenu{
+                display: flex;
+            }
+        }
+    }
+
+
+    &__utilMenu{
+        padding: 10px 0 0 0;
+        position: absolute;
+        display: none;
+        background: #ffffff;
+        flex-direction: column;
+        border: 1px solid #ddd;
+        z-index: 999;
+        top: 46px;
+        right: -25px;
+        width: 300px;
+        border-radius: 4px;
+        box-shadow: 3px 9px 11px 0px rgba(0, 0, 0, 0.10);
+    }
+
+
+    &__utilMenuItem{
+        border-bottom: 1px solid #eee;
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    &__utilMenuLink{
+        font-size: 1rem;
+        padding: 20px 35px;
+        line-height: 1;
+        display: flex;
+
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+
+    &__utilMenuBtn{
+        @extend .button;
+        @extend .button--small;
+        margin: 15px !important;
+
+        &:last-of-type{
+            margin-top: 0 !important;
+            margin-bottom: 20px !important;
+        }
+
+        &--green{
+            @extend .button-primary--green;
+
+            &:hover{
+                color: #fff !important;
+            }
+        }
+
+        &--darkTrans{
+            @extend .button-secondary--darkTrans;
+        }
+    }
+
+
+
 
 
     // main nav items

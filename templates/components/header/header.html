@@ -2,16 +2,16 @@
     <div class="header__auxCntr">
         <ul class="header__aux">
             <li class="header__auxItem">
-                <a href="https://authenteak.com/design-services/" title="designing for a client?" class="header__auxLink">Interior Designers</a>
+                <a href="/design-services/" title="designing for a client?" class="header__auxLink">Interior Designers</a>
             </li>
             <li class="header__auxItem">
-                <a href="https://authenteak.com/commercial-and-hospitality-design/" title="about our hospitality program" class="header__auxLink">Hospitality</a>
+                <a href="/commercial-and-hospitality-design/" title="about our hospitality program" class="header__auxLink">Hospitality</a>
             </li>
             <li class="header__auxItem">
-                <a href="https://authenteak.com/affirm" class="header__auxLink" title="finance your next purchase">Financing</a>
+                <a href="/affirm/" class="header__auxLink" title="finance your next purchase">Financing</a>
             </li>
             <li class="header__auxItem">
-                <a href="https://authenteak.com/account.php?action=order_status" title="track your order" class="header__auxLink">Track Order</a>
+                <a href="/account.php?action=order_status/" title="track your order" class="header__auxLink">Track Order</a>
             </li>
             <li class="header__auxItem">
                 <a href="/covid19-update/" title="covid 19 update" class="header__auxLink">COVID-19</a>
@@ -55,27 +55,70 @@
                         <svg class="header__utilityIcon hide" width="23" height="20"><use xlink:href="#mobile-header-online"/></svg>
                     </button>
 
-                    <button class="header__utilityBtn header__utilityBtn--more" type="button">
-                        <svg class="header__utilityIcon" width="24" height="24">
-                            <title>More</title>
-                            <use xlink:href="#icon-more_vert" />
-                        </svg>
-                    </button>
+                    <ul class="header__utilityBtnCntr header__utilityBtnCntr--more">
+                        <li class="header__utilityBtnItem">
+                            <button class="header__utilityBtn header__utilityBtn--more" type="button">
+                                <svg class="header__utilityIcon" width="24" height="24">
+                                    <title>More</title>
+                                    <use xlink:href="#icon-more_vert" />
+                                </svg>
+                            </button>
+                        </li>
+                        <ul class="header__utilMenu">
+                            <li class="header__utilMenuItem">
+                                <a href="/account.php" title="View order status" class="header__utilMenuLink">My Account</a>
+                            </li>
+                        </ul>
+                    </ul>
 
-                    <button class="header__utilityBtn header__utilityBtn--myAccount" type="button">
-                        <svg class="header__utilityIcon" width="24" height="24"><use xlink:href="#icon-person" /></svg>
-                        <span class="header__utilityText">Account</span>
-                    </button>
-                
-                    <button class="header__utilityBtn header__utilityBtn--myList" type="button">
+
+                    <ul class="header__utilityBtnCntr header__utilityBtnCntr--myAccount">
+                        <li class="header__utilityBtnItem">
+                            <a title="Your account" href="/account.php" class="header__utilityBtn header__utilityBtn--myAccount" type="button">
+                                <svg class="header__utilityIcon" width="24" height="24"><use xlink:href="#icon-person" /></svg>
+                                <span class="header__utilityText">Account</span>
+                            </a>
+
+                            <ul class="header__utilMenu">
+                                <li class="header__utilMenuItem">
+                                    <a href="/account.php?action=order_status" title="View order status" class="header__utilMenuLink">My Orders</a>
+                                </li>
+                                <li class="header__utilMenuItem">
+                                    <a href="/account.php?action=inbox" title="Update your account" class="header__utilMenuLink">My Profile</a>
+                                </li>
+                                <li class="header__utilMenuItem">
+                                    <a href="/wishlist.php" title="Your saved product" class="header__utilMenuLink">My List</a>
+                                </li>
+                                <li class="header__utilMenuItem">
+                                    <a href="/account.php?action=inbox" title="Customer service messaging" class="header__utilMenuLink">Messages</a>
+                                </li>
+                                <li class="header__utilMenuItem">
+                                    <a href="/account.php?action=address_book" title="Update your address book" class="header__utilMenuLink">Address</a>
+                                </li>
+                                <li class="header__utilMenuItem">
+                                    <a href="/account.php?action=recent_items" title="Recently viewed products" class="header__utilMenuLink">Recently Viewed</a>
+                                </li>
+                                <li class="header__utilMenuItem">
+                                    <a href="/login.php" title="login to your account" class="header__utilMenuBtn header__utilMenuBtn--green">Sign In</a>
+                                    <a href="/login.php?action=create_account" title="create an account" class="header__utilMenuBtn header__utilMenuBtn--darkTrans">Register</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <!-- Logout -->
+                    <!-- https://authenteak.com/login.php?action=logout -->
+
+                    <a href="/wishlist.php" class="header__utilityBtn header__utilityBtn--myList" type="button">
                         <svg class="header__utilityIcon" width="20" height="20"><use xlink:href="#icon-heart11" /></svg>
                         <span class="header__utilityText">Lists</span>
-                    </button>
+                    </a>
                 
-                    <button class="header__utilityBtn header__utilityBtn--cart" type="button">
+                    <a href="/cart.php" class="header__utilityBtn header__utilityBtn--cart" type="button">
+                        <span class="badge__cartQty">1</span>
                         <svg class="header__utilityIcon" width="24" height="24"><use xlink:href="#icon-shopping_cart" /></svg>
                         <span class="header__utilityText">Items</span>
-                    </button>
+                    </a>
                 </div>
             </div>
 

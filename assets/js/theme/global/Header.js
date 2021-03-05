@@ -245,12 +245,12 @@ export default class Header {
 			this.timeoutFlyout = setTimeout(() => { 
 				$(e.target).children(".flyout").remove();
 				this.resetFlyoutUnderlay();
-			}, 500);
+			}, 100);
 
 			return;
 		}
 
-
+		// remove and reset the previously initialized flyout
 		$(e.target)
 			.parents("ul.header__navList").find(".header__navItem--active")
 				.find(".flyout").remove()
@@ -258,7 +258,7 @@ export default class Header {
 				.removeClass("header__navItem--active");
 
 
-		$(e.target).parents("li.header__navItem").addClass("header__navItem--active")
+		$(e.target).parents("li.header__navItem").addClass("header__navItem--active");
 
 
 		let category_id = $(e.target).attr("rel");
@@ -276,6 +276,12 @@ export default class Header {
 					</div>`
 				)
 				
+		this.showOverlay();
+	}
+
+
+
+	showOverlay = () => {
 		if( $("#globalHeader").nextUntil("div.flyout__underlay").length ){
 			$("#globalHeader").after("<div class='flyout__underlay'></div>")
 		}
@@ -284,7 +290,7 @@ export default class Header {
 
 
 	resetFlyoutUnderlay = () => {
-		if( !$(".flyout:visible").length ){
+		if( $("div.flyout:visible").length === 0 && $("ul.header__utilMenu:visible").length === 0 ){
 			$("#globalHeader").siblings("div.flyout__underlay").remove();
 		}
 	}
@@ -296,13 +302,16 @@ export default class Header {
 	}
 
 
+
 	_bindEvents() {
 
 		$(document.body)
 			.on("mouseover", "a.header__navLink", this.navHover)
 			.on("mouseout", "a.header__navLink", this.navHover)
 			.on("mouseover", "div.flyout__underlay", this.resetFlyoutUnderlay)
-			.on("mouseover", "div.header__bodyCntr", this.resetFlyoutUnderlay)
+			// .on("mouseover", "div.header__bodyCntr", this.resetFlyoutUnderlay)
+			.on("mouseover", "a.header__utilityBtn--myAccount",this.showOverlay)
+			.on("mouseout", "a.header__utilityBtn--myAccount", this.resetFlyoutUnderlay)
 		
 		this._headerScroll();
 	}

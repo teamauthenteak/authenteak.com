@@ -11,20 +11,15 @@ $flyout-item-width: 275px;
 	height: $flyout-height;
 	display: none;
 
+	
 	&__underlay{
 		position: fixed;
 		content: "";
-		top: 160px;
+		top: 149px;
 		left: 0;
 		width: $flyout-width;
 		height: 100vh;
 		background: rgba(102, 102, 102, 0.45);
-
-// 		background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 19%); /* FF3.6-15 */
-// background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 19%); /* Chrome10-25,Safari5.1-6 */
-// background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 19%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-
-
 		z-index: 99;
 		display: flex;
 		animation-duration: 300ms;

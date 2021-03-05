@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.20.35]
+- New Header Footer App
+- fixed yotpo error for reviews and questions when sending sku instead of product id
+- removed prop 65 from cart
+
 ## [1.20.34]
 - added filter support for pdp swatch drawer
 - adding pdp collections click-n-buy application
