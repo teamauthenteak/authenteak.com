@@ -8,6 +8,8 @@
 - added more preconnect and prefetch lookups to base.html
 - fixed duplicate options when the filter option remains checked when the option drawer is closed
 - collections PDP complete
+- added pintrest rich pins
+- added prop 65 on pdp
 
 ## [1.20.33]
 - Removed Bolt and added Custom checkout button
