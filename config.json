@@ -1,8 +1,9 @@
 {
-  "name": "Authenteak.com - 1.20.34.006",
-  "version": "1.20.34.006",
+  "name": "Authenteak.com - 1.20.35",
+  "version": "1.20.35",
   "settings": {
-    "version": "1.20.34.006",
+    "version": "1.20.35",
+    "base_url": "https://authenteak.com",
     "store_logo": {
       "title": "Authenteak.com Outdoor Living"
     },

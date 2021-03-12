@@ -22,11 +22,11 @@
 				<div class="mobileHide mobileHide--lg">
 					{{> components/common/breadcrumbs breadcrumbs}}
 				</div>
+
 				<p class="item-number item-number-mobile mobileShow">Item #: {{product.sku}} &nbsp;&nbsp;&nbsp; Internet
 					#: <span id="productID">{{product.id}}</span></p>
 
 				{{> components/products/customizations/swatch-hover-detail}}
-
 				{{> components/products/product-single-images videos=product.videos images=product.images default_image=theme_settings.default_image }}
 
 				<!--moved from add-to-cart-form.html-->
@@ -77,6 +77,31 @@
 							<span class="yotpo-questions-num">0</span><span class="yotpo-questions-text"></span></span>
 						</a>
 					</div>
+
+
+					{{#if settings.show_wishlist}}
+					<div class="wishlist-form" data-wishlist-dropdown>
+						{{#if customer.wishlists.length}}
+						<button type="button" class="add-to-wishlist" data-wishlist-toggle>
+							<svg class="icon icon-heart" width="20" height="20" fill="#70a33f"><use xlink:href="#icon-heart11" /></svg>
+						</button>
+						<ul class="add-to-wishlists" data-wishlist-panel>
+							{{#each customer.wishlists}}
+							<li class="wishlist__item">
+								<a class="wishlist__link" href="{{../product.add_to_wishlist_url}}&wishlistid={{id}}" data-wishlist="{{view_url}}">
+								{{name}}
+								</a>
+							</li>
+							{{/each}}
+						</ul>
+						{{else}}
+						<a class="add-to-wishlist" href="{{product.add_to_wishlist_url}}" title="add to your list">
+							<svg class="icon icon-heart" width="20" height="20"><use xlink:href="#icon-heart11" /></svg>
+						</a>
+						{{/if}}
+					</div>
+					{{/if}}
+
 				</div>
 
 

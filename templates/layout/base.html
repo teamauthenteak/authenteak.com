@@ -34,9 +34,13 @@
 {{/if}}
 <script src="//cdn.searchspring.net/intellisuggest/is.min.js" async></script>
 
+<!-- head scripts -->
 {{{head.scripts}}}
+<!-- theme settings -->
 {{inject 'themeImageSizes' theme_settings._images}}
+<!-- global injects -->
 {{> components/common/global-injects}}
+<!-- snippet html_head -->
 {{{snippet 'html_head'}}}
 </head>
 
@@ -144,5 +148,15 @@
 	{{> core/structured-data/website}}
 	{{> core/structured-data/breadcrumbs}}
 
+	<script type="application/ld+json" id="wishLists">
+	[{{#each customer.wishlists}}{
+		"id": "{{this.id}}",
+		"name": "{{this.name}}",
+		"path": "{{this.view_url}}",
+		"add": "{{this.add_url}}"
+	}{{#unless @last}},{{/unless}}
+	{{/each}}]
+	</script>
+	
 </body>
 </html>

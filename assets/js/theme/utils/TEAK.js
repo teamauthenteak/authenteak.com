@@ -530,7 +530,7 @@ window.TEAK.Utils = {
             name: "cartDataStored",
             data: response[0]
         });
-    
+
         return this;
     },
 
@@ -630,7 +630,7 @@ window.TEAK.Utils = {
     },
 
 
-    // get cart quantiy from local storage object
+    // get cart quantity from local storage object
     getCartQnty: function(cart){
         let count = 0;
 

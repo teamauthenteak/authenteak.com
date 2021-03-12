@@ -21,8 +21,14 @@
         border-radius: 50rem !important;
         background-color: $btn-color-green;
         position: absolute;
-        top: 0;
-        left: -15px;
+        top: -8px;
+        right: -8px;
+
+        @media screen and (min-width: $screen-xl) {
+            right: auto;
+            left: 13px;
+            top: 3px;
+        }
     }
 
     &--pdp{

@@ -72,11 +72,25 @@
         background: #ffff;
 
         &--fixed{
-            z-index: 999999;
+            z-index: 999;
             top: 0;
             left: 0;
             width: 100vw;
             box-shadow: 3px 9px 11px 0px rgba(0, 0, 0, 0.10);
+
+            @media screen and (min-width: $screen-xl){
+                & .badge__cartQty{
+                    top: -8px;
+                }
+
+                & .header__utilityBar{
+                    height: 35px;
+                }
+
+                & .header__utilMenu{
+                    top: 34px;
+                }
+            }
 
             @media screen and (max-width: $screen-md){
                 & .header__utilityBtnCntr--more{
@@ -107,8 +121,36 @@
                 & .header__searchControl{
                     padding: 0;
                 }
+
+                & .header__utilMenu{
+                    top: 34px;
+                }
             }
 
+            @media screen and (max-width: 340px){
+                & .header__searchGroup{
+                    width: 100%;
+                    flex: 1 0 auto;
+                    order: 5;
+                }
+
+                & .header__logoCntr{
+                    display: block;
+                }
+
+                & .header__utilityBar{
+                    order: 1;
+                    flex: 1;
+                    align-content: end;
+                    align-items: end;
+                    justify-content: flex-end;
+                    padding-right: 10px;
+
+                    & .header__utilityBtn--cart{
+                        padding-left: 20px;
+                    }
+                }
+            }
            
         }
 
@@ -178,6 +220,7 @@
         padding: 0;
         border: 1px solid #ccc;
         border-radius: 99rem;
+        position: relative;
 
         @media screen and (max-width: $screen-xl){
             margin-left: 1.5em;
@@ -199,9 +242,23 @@
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
         padding: 0 20px;
+        outline: none;
 
         @media screen and (max-width: $screen-sm){
             padding: 0 15px;
+
+            &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                color: #fff
+            }
+            &::-moz-placeholder { /* Firefox 19+ */
+                color: #fff
+            }
+            &:-ms-input-placeholder { /* IE 10+ */
+                color: #fff
+            }
+            &:-moz-placeholder { /* Firefox 18- */
+                color: #fff
+            }
         }
     }
 
@@ -235,6 +292,8 @@
         @media screen and (max-width: $screen-md){
             justify-content: space-evenly;
             width: auto;
+            height: auto;
+            padding: 0;
         }
     }
 
@@ -300,7 +359,7 @@
 
 
     &__utilMenu{
-        padding: 10px 0 0 0;
+        padding: 10px 0 10px 0;
         position: absolute;
         display: none;
         background: #ffffff;
@@ -312,6 +371,10 @@
         width: 300px;
         border-radius: 4px;
         box-shadow: 3px 9px 11px 0px rgba(0, 0, 0, 0.10);
+
+        & .header__utilityBtn--chat{
+            display: block !important
+        }
     }
 
 
@@ -319,29 +382,44 @@
         border-bottom: 1px solid #eee;
         display: flex;
         flex-direction: column;
+        
+        &:last-of-type{
+            border-bottom: none
+        }
+
+        &--image{
+            padding: 5px 15px 15px 15px;
+        }
     }
 
 
     &__utilMenuLink{
         font-size: 1rem;
-        padding: 20px 35px;
+        padding: 20px;
         line-height: 1;
         display: flex;
+        align-items: center;
+        align-content: center;
+        text-transform: capitalize;
 
         &:hover{
             text-decoration: underline;
+        }
+
+        & .header__utilityIcon{
+            margin-right: 10px
         }
     }
 
     &__utilMenuBtn{
         @extend .button;
         @extend .button--small;
-        margin: 15px !important;
+        margin: 15px 15px 0 15px !important;
 
-        &:last-of-type{
-            margin-top: 0 !important;
-            margin-bottom: 20px !important;
-        }
+        // &:last-of-type{
+        //     margin-top: 0 !important;
+        //     margin-bottom: 20px !important;
+        // }
 
         &--green{
             @extend .button-primary--green;
@@ -353,6 +431,7 @@
 
         &--darkTrans{
             @extend .button-secondary--darkTrans;
+            margin-bottom: 15px !important;
         }
     }
 
@@ -383,6 +462,10 @@
 
         @media screen and (min-width: $screen-md){
             display: none;
+        }
+
+        @media screen and (max-width: $screen-sm){
+            padding-right: 20px;
         }
     }
 

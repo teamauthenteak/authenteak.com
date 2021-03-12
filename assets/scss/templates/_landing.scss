@@ -317,6 +317,8 @@
         @extend .brands__heroImg;
     }
 
+
+
     &__container{
         max-width: $screen-xxl;
 
@@ -336,6 +338,8 @@
             }
         }
     }
+
+    
 
     &__section{
         @extend .brands__container;

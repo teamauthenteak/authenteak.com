@@ -43,7 +43,7 @@
                 </div>
 
                 <form class="header__searchGroup">
-                    <input type="search" class="header__searchControl" placeholder="What are you looking for today?" />
+                    <input type="search" class="header__searchControl search-input" placeholder="What are you looking for today?" />
                     <button type="button" class="header__searchBtn">
                         <svg class="header__iconSearch" width="20" height="20"><use xlink:href="#icon-search2" /></svg>
                     </button>
@@ -63,6 +63,27 @@
                                     <use xlink:href="#icon-more_vert" />
                                 </svg>
                             </button>
+
+                            <ul class="header__utilMenu">
+                                <li class="header__utilMenuItem">
+                                    <a href="/account.php" title="View order status" class="header__utilMenuLink">
+                                        <svg class="header__utilityIcon" width="24" height="24"><use xlink:href="#icon-person" /></svg>
+                                        My Account
+                                    </a>
+                                </li>
+                                <li class="header__utilMenuItem">
+                                    <a href="/wishlist.php" title="Update your account" class="header__utilMenuLink">
+                                        <svg class="header__utilityIcon" width="20" height="20"><use xlink:href="#icon-heart11" /></svg>
+                                        My List
+                                    </a>
+                                </li>
+                                <li class="header__utilMenuItem">
+                                    <button class="header__utilityBtn header__utilityBtn--chat" type="button" onclick="javascript:$zopim.livechat.window.show()" title="Chat with us today">
+                                        <svg class="chat__offline" viewBox="0 0 260 93" width="260" height="93" id="footerChatOffline"><use xlink:href="#desktop-footer-offline"/></svg>
+                                        <svg class="chat__online hide" viewBox="0 0 260 93" width="260" height="93" id="footerChatOnline"><use xlink:href="#desktop-footer-online"/></svg>
+                                    </button>
+                                </li>
+                            </ul>
                         </li>
                         <ul class="header__utilMenu">
                             <li class="header__utilMenuItem">
@@ -98,26 +119,43 @@
                                 <li class="header__utilMenuItem">
                                     <a href="/account.php?action=recent_items" title="Recently viewed products" class="header__utilMenuLink">Recently Viewed</a>
                                 </li>
-                                <li class="header__utilMenuItem">
+                                <li class="header__utilMenuItem" id="{{customer.id}}">
+                                    {{#if customer.id}}
+                                    <a href="/login.php?action=logout" title="create an account" class="header__utilMenuBtn header__utilMenuBtn--darkTrans">Logout</a>
+                                    {{else}}
                                     <a href="/login.php" title="login to your account" class="header__utilMenuBtn header__utilMenuBtn--green">Sign In</a>
                                     <a href="/login.php?action=create_account" title="create an account" class="header__utilMenuBtn header__utilMenuBtn--darkTrans">Register</a>
+                                    {{/if}}
+                                </li>
+                            </ul>
+                        </li>                        
+                    </ul>
+
+                    <ul class="header__utilityBtnCntr header__utilityBtnCntr--myList">
+                        <li class="header__utilityBtnItem">
+                            <a href="/wishlist.php" class="header__utilityBtn header__utilityBtn--myList" type="button">
+                                <svg class="header__utilityIcon" width="20" height="20"><use xlink:href="#icon-heart11" /></svg>
+                                <span class="header__utilityText">Lists</span>
+                            </a>
+
+                            <ul class="header__utilMenu" id="myListMenu">
+                                <li class="header__utilMenuItem header__utilMenuItem--image">
+                                    <img src="https://dummyimage.com/300x250/cccccc/444444.png&text=My+List+CTA" />
+                                </li>
+                                <li class="header__utilMenuItem">
+                                    <a href="/wishlist.php?action=addwishlist" title="create an account" class="header__utilMenuBtn header__utilMenuBtn--green">Create A List</a>
                                 </li>
                             </ul>
                         </li>
                     </ul>
 
-                    <!-- Logout -->
-                    <!-- https://authenteak.com/login.php?action=logout -->
+                    <!-- /wishlist.php?action=add&wishlistid=100 -->
 
-                    <a href="/wishlist.php" class="header__utilityBtn header__utilityBtn--myList" type="button">
-                        <svg class="header__utilityIcon" width="20" height="20"><use xlink:href="#icon-heart11" /></svg>
-                        <span class="header__utilityText">Lists</span>
-                    </a>
                 
                     <a href="/cart.php" class="header__utilityBtn header__utilityBtn--cart" type="button">
-                        <span class="badge__cartQty">1</span>
+                        <span class="badge__cartQty hide">0</span>
                         <svg class="header__utilityIcon" width="24" height="24"><use xlink:href="#icon-shopping_cart" /></svg>
-                        <span class="header__utilityText">Items</span>
+                        <span class="header__utilityText">Cart</span>
                     </a>
                 </div>
             </div>
@@ -137,7 +175,7 @@
                         <a href="" title="" class="header__navLink" rel="906">Heating</a>
                     </li>
                     <li class="header__navItem">
-                        <a href="" title="" class="header__navLink" rel="1099,911,930">Accessories</a>
+                        <a href="" title="" class="header__navLink" rel="1099911930">Accessories</a>
                     </li>
                     <li class="header__navItem">
                         <a href="" title="" class="header__navLink" rel="1196">Brands</a>
@@ -151,5 +189,7 @@
         </div>
     </div>
 </header>
+
+<div class="mobileFlyout" id="mobileFlyout"></div>
 
 <div class="promo promo--header" id="topHeaderPromo"></div>

@@ -1,5 +1,5 @@
 $flyout-width: 100vw;
-$flyout-height: 470px;
+$flyout-height: 500px;
 $flyout-item-width: 275px;
 
 .flyout {
@@ -26,8 +26,6 @@ $flyout-item-width: 275px;
 		animation-fill-mode: forwards;
 		animation-name: remodal-overlay-opening-keyframes;
 	}
-
-	
 
 	&__content{
 		position: absolute;
@@ -57,29 +55,20 @@ $flyout-item-width: 275px;
 			z-index: -1;
 		}
 		
-
 		&--short{
 			padding-bottom: 10rem;
-		}
-
-		&--Accessories{
-			flex-direction: row;
 		}
 
 		&--Brands{
 			&::after{
 				display: none;
 			}
-
-			& .flyout__list{
-				padding: .5rem .5rem;
-			}
 		}
 	}
 
 
 	&__list {
-		padding: 1.5rem;
+		padding: 1.5rem 1.5rem 0 1.5rem;
 		margin: 0;
 		flex: 1 0 auto;
 		max-width: $flyout-item-width;
@@ -111,7 +100,7 @@ $flyout-item-width: 275px;
 
 	&__listLink {
 		font-size: 1rem;
-		line-height: 1.1;
+		line-height: 1.3;
 
 		&:hover {
 			text-decoration: underline !important;

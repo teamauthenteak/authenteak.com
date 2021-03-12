@@ -1,0 +1,50 @@
+.wishlist{
+    &__item{
+        border-bottom: 1px solid #eee;
+    }
+
+    &__link{
+        display: block;
+        padding: 10px;
+        text-transform: capitalize;
+    }
+}
+
+
+.wishlist-form{
+    padding: 0
+}
+
+.add-to-wishlist{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border-radius: 99em;
+    line-height: 1;
+    background-color: #eee;
+
+    & .icon{
+        fill: #70a33f;
+    }
+}
+
+.add-to-wishlists{
+    width: 200px;
+    margin-left: -150px;
+    padding: 10px 20px;
+    top: 115%;
+    left: 50%;
+    box-shadow: 3px 9px 20px 0px rgba(0, 0, 0, 0.10);
+    flex-direction: column;
+    border-radius: 4px;
+
+    &::before{
+        left: 75%;
+    }
+
+    &.visible{
+        display: flex;
+        z-index: 99;
+    }
+}
