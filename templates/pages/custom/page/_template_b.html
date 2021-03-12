@@ -11,8 +11,8 @@
                     </div>
 
                     <picture class="landing__heroImg">    
-                        <source media="(max-width: 400px)" data-srcset="https://authenteak.s3.us-east-2.amazonaws.com/mar-homepage/march_mobile_hero.jpg" class="landing__heroImg landing__heroImg--mobile">
-                            <source media="(min-width: 700px)" data-srcset="https://authenteak.s3.us-east-2.amazonaws.com/mar-homepage/march_hero_umbrellas.jpg" class="landing__heroImg landing__heroImg--desktop">
+                        <source media="(max-width: 766px)" data-srcset="https://authenteak.s3.us-east-2.amazonaws.com/mar-homepage/march_mobile_hero.jpg" class="landing__heroImg landing__heroImg--mobile">
+                            <source media="(min-width: 767px)" data-srcset="https://authenteak.s3.us-east-2.amazonaws.com/mar-homepage/march_hero_umbrellas.jpg" class="landing__heroImg landing__heroImg--desktop">
                             <img data-src="https://authenteak.s3.us-east-2.amazonaws.com/mar-homepage/march_hero_umbrellas.jpg" alt="A" class="landing__heroImg landing__heroImg--default">  
                             <p class="landing__p landing__p--left" style="color: #fff; z-index: 100; position: absolute; bottom: 8px; left: 16px;">#ChooseAuthenTEAK</p>                   
                     </picture>
@@ -98,8 +98,10 @@
         <div class="landing__row landing__row--wrapCenter landing__row--noPad">
             <ul class="landing__list landing__list--inline landing__list--spaceEven bg--sand">
                 <li class="landing__listItem landing__listItem--spaceBetween pad">
-                    <!--<span class="landing__listItem pad pad-top-bottom-sm"><svg class="" width="50" height="50"><use xlink:href="#trade-icon" /></svg></span>-->
-                    <span class="margin-bottom c"><strong>Shopping for a client?</strong><br>Apply for our trade program to unlock special pricing!</span>
+                    <span class="margin-bottom c flex">
+                        <svg width="50" height="50"><use xlink:href="#trade-icon" /></svg>
+                        <span class="pad-left l"><strong>Shopping for a client?</strong><br>Apply for our trade program to unlock special pricing!</span>
+                    </span>
                     <span class="button button-secondary--whiteTrans button--small" style="margin: 0 30px;">Apply Now</span>
                 </li>
             </ul>
