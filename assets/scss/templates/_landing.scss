@@ -43,7 +43,7 @@
 
     &__hero{
         margin-top: 30px;
-        max-height: 1394px;
+        max-height: 1050px;
         height: auto;
         overflow: hidden;
         position: relative;
@@ -147,7 +147,7 @@
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
-        padding-top: 1392px / 1920px * 100%;
+        padding-top: 1048px / 1920px * 100%;
 
         &--tall{
             padding-top: 963px / 1400px * 100%;
@@ -155,7 +155,7 @@
        
 
         @media only screen and (max-width: $screen-md) {
-            padding-top: 470px / 425px * 100%;
+            padding-top: 578px / 425px * 100%;
 
             &--tall{
                 padding-top: 500px / 480px * 100%;
