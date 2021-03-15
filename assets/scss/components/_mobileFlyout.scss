@@ -6,7 +6,7 @@
     right: 0;
     bottom: 0;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     background: #fff;
     flex-direction: column;
     z-index: 999;
@@ -14,12 +14,14 @@
 
     &--show{
         display: flex;
+        flex: 1 0 auto;
     }
 
     &__close{
         display: flex;
         padding: .5rem;
         background-color: #fff;
+        flex: 1 0 auto;
     }
 
     &__affirm{
@@ -31,6 +33,7 @@
         align-content: center;
         justify-content: space-between;
         border-top: 1px solid #eee;
+        flex: 1 0 auto;
     }
 
     &__affirmText{
@@ -41,6 +44,10 @@
         small{
             font-weight: 400;
         }
+    }
+
+    & .promo{
+        flex: 1 0 auto;
     }
 
     & .flyout{
@@ -139,16 +146,25 @@
         overflow: auto;
         box-shadow: none;
         background-color: #fff;
+        flex: 1 0 auto;
 
         &::after{
             display: none;
         }
     }
 
+    & .header__navList{
+        display: flex;
+        flex-direction: column;
+        flex: 1 0 auto;
+    }
+
     & .header__navItem{
         background-color: #cdc8c4;
         border-bottom: 2px solid #fff;
         flex-direction: column;
+        display: flex;
+        flex: 1 0 auto;
 
         &--active{
             & .header__navLink{
@@ -187,7 +203,7 @@
 
     & .header__utilityBtnCntr{
         flex-direction: column;
-
+        flex: 1 0 auto;
     }
 
     & .header__utilityBtnItem{

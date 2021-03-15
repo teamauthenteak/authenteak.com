@@ -19,7 +19,9 @@ export default class MobileFlyout{
                 <span class="mobileFlyout__affirmText">Pay over time, on your terms<br /><small>With as low as 0% APR. Terms & Conditions apply.</small></span>
                 <svg class="icon icon-chevron-with-circle-right" width="24" height="24"><use xlink:href="#icon-chevron-with-circle-right" /></svg>
             </a>
-            ${mainNav}
+            <ul class="header__navList">
+                ${mainNav}
+            </ul>
             <ul class="header__utilityBtnCntr">
                 <li class="header__utilityBtnItem">
                     <a title="Your account" href="tel:18332577070" class="header__utilityBtn" type="button">
@@ -58,14 +60,14 @@ export default class MobileFlyout{
         $(this.MobileFlyout).doubleTapToGo()
 
         $(this.MobileFlyout)
-            .on("touchend", "a.header__navLink", this.navExpand)
-            .on("touchend", "a.header__navLink--active", this.navCollapse)
-            .on("touchend", "a.flyout__listLink--heading", this.subNavExpand)
-            .on("touchend", "a.flyout__listLink--headingActive", this.subNavContract)
+            .on("click", "a.header__navLink", this.navExpand)
+            .on("click", "a.header__navLink--active", this.navCollapse)
+            .on("click", "a.flyout__listLink--heading", this.subNavExpand)
+            .on("click", "a.flyout__listLink--headingActive", this.subNavContract)
 
         $(document.body)
-            .on("touchend", "button.header__mainNavBtn", this.toggleFlyout)
-            .on("touchend", "button.mobileFlyout__close", this.toggleFlyout)
+            .on("click", "button.header__mainNavBtn", this.toggleFlyout)
+            .on("click", "button.mobileFlyout__close", this.toggleFlyout)
     }
 
 

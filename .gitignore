@@ -1,3 +1,6 @@
 node_modules
 *.zip
 *.scssc
+assets/js/cart.bundle.js
+assets/js/product.bundle.js
+assets/js/cart.bundle.js
