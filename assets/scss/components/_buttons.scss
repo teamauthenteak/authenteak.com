@@ -57,6 +57,16 @@
         }
     }
 
+    &--brown{
+        border-color: #9B9188;
+        background-color: #9B9188;
+
+        &:hover{
+            border-color: #fff;
+            color: #fff;
+        }
+    }
+
     &--green{
         border-color: $btn-color-green;
         background-color: $btn-color-green;

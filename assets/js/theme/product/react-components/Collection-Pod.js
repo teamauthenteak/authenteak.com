@@ -287,7 +287,8 @@ function CollectionPod(props){
 
 
                     // determine if this fits our global swatch control
-                    for (let i = 0; i < responseData.length; i++) {        
+                    for (let i = 0; i < responseData.length; i++) {      
+                        console.log(responseData)  
                         if( responseData[i].node.displayStyle === "Swatch" && appHook.hasOwnProperty(responseData[i].node.displayName) ){
                             setGlobalOptFlag(true);
                             break;

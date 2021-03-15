@@ -2,7 +2,6 @@
   "normalStoreUrl": "https://authenteak.com",
   "port": "3300",
   "clientId": "mp6ud9o9iui7dwoigkclsz46520072u",
-  "accessToken": "l377p2w8d3ln6e1xgaaa3atuoluj0fg",
   "customLayouts": {
     "brand": {},
     "category": {
@@ -10,13 +9,13 @@
       "collection.html": "/outdoor-furniture/shop-by-collection/kingsley-bate-sag-harbor-collection/"
     },
     "page": {
-      "_template_a.html" : "/",
-      "_template_b.html" : "/test-page/",
+      "_template_a.html": "/",
+      "_template_b.html": "/test-page/",
       "warranties.html": "/warranties",
       "_swatchcheckout.html": "/swatch-checkout/"
     },
     "product": {
-      "click-and-buy.html" : "/customizable-kingsley-bate-sag-harbor-sectional/"
+      "click-and-buy.html": "/kingsley-bate-sag-harbor-sectional-configurator/"
     }
   }
 }

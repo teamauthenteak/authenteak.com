@@ -9131,7 +9131,6 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
 }
 
 /*Import AuthenTEAK Custom CSS*/
-/* Add all site style customizations in this file */
 
 /* Variables */
 @import 'variables';
@@ -9221,6 +9220,7 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
 // @import 'plugins/simplebar/simplebar';
 @import 'plugins/slick';
 @import 'plugins/animate';
+
 
 /* Third Party */
 @import 'thirdparty/affirm';

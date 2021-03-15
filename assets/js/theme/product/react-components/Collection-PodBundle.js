@@ -113,6 +113,7 @@ export default function CollectionPodBundle(){
                 label: noThanks.node.label
             }
         });
+
     }
 
 

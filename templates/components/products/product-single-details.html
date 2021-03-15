@@ -280,6 +280,13 @@
 				<div class="product__col-2-3--lg product__col-1-1 pad-right">
 					{{{product.description}}}
 					<br>
+
+					{{#each product.custom_fields}}
+						{{#if this.name '==' "prop65"}}
+							<p>{{value}}</p><br />
+						{{/if}}
+					{{/each}}
+
 					<p>
 						<a href="{{product.brand.url}}" title="More {{product.brand.name}} products" class="button button-secondary--darkTrans">
 							Shop all {{product.brand.name}}

@@ -256,6 +256,14 @@
     margin-top: $standard-padding;
 }
 
+.margin-left{
+    margin-left: $standard-padding;
+}
+
+.margin-right{
+    margin-right: $standard-padding;
+}
+
 .margin-bottom{
     margin-bottom: $standard-padding;
 }
@@ -268,6 +276,13 @@
     margin-bottom: 100px;
 }
 
+.margin-top-desktop{
+    margin-top: 100px;
+
+    @media only screen and (max-width: $screen-lg) {
+        margin-top: 0;        
+    }
+}
 
 
 
@@ -287,6 +302,16 @@
 .bg--grey{
     background-color: $bg-gray;
 }
+
+.bg--sand{
+    background-color: #F1EFEC;
+}
+
+.bg--brown{
+    background-color: #9B9188;
+}
+
+
 
 
 // text
