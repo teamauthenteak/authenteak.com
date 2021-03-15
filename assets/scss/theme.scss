@@ -6557,7 +6557,7 @@ table.geotrust-ssl-seal-table {
 /* scss-combine:layout/layout */
 .site-wrapper {
   width: 100%;
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .mini-cart-open {
@@ -6570,7 +6570,7 @@ table.geotrust-ssl-seal-table {
 
 .site-canvas {
   position: relative;
-  padding-top: $topbar-height;
+  // padding-top: $topbar-height;
   transition: transform .3s ease, padding 0.2s linear;
 
   @include media($min: $breakpoint-s) {
@@ -9131,9 +9131,6 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
 }
 
 /*Import AuthenTEAK Custom CSS*/
-// @import "custom";
-
-/* Add all site style customizations in this file */
 
 /* Variables */
 @import 'variables';
@@ -9145,8 +9142,11 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
 @import 'mixins/placeholder';
 @import 'mixins/font';
 
-
 /* Components */
+@import 'components/header';
+@import 'components/flyout';
+@import 'components/mobileFlyout';
+@import 'components/mylist';
 @import 'components/defaults';
 @import 'components/icons';
 @import 'components/generics';
@@ -9222,7 +9222,6 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
 @import 'plugins/animate';
 
 
-
 /* Third Party */
 @import 'thirdparty/affirm';
 @import 'thirdparty/amazon';
@@ -9239,3 +9238,4 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
 
 /* Print */
 @import 'print';
+

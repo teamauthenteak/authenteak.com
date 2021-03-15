@@ -1,0 +1,246 @@
+.mobileFlyout{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    min-height: 100vh;
+    background: #fff;
+    flex-direction: column;
+    z-index: 999;
+    overflow: auto;
+
+    &--show{
+        display: flex;
+        flex: 1 0 auto;
+    }
+
+    &__close{
+        display: flex;
+        padding: .5rem;
+        background-color: #fff;
+        flex: 1 0 auto;
+    }
+
+    &__affirm{
+        display: flex;
+        width: 100%;
+        padding: 1rem;
+        flex-direction: row;
+        align-items: center;
+        align-content: center;
+        justify-content: space-between;
+        border-top: 1px solid #eee;
+        flex: 1 0 auto;
+    }
+
+    &__affirmText{
+        line-height: 1.2;
+        margin: 0;
+        font-weight: 800;
+        
+        small{
+            font-weight: 400;
+        }
+    }
+
+    & .promo{
+        flex: 1 0 auto;
+    }
+
+    & .flyout{
+        position: inherit;
+        height: auto;
+        box-shadow: none;
+        display: block;
+    }
+
+    & .flyout__content--short{
+        padding: 0;
+    }
+
+    & .flyout__item{
+        padding: 0;
+
+        & .flyout__listLink{
+            display: flex;
+            justify-content: space-between;
+            align-content: center;
+            align-items: center;
+            border-bottom: 2px solid #eee;
+
+            &::after{
+                content: "";
+                width: 20px;
+                height: 20px;
+                display: block;
+                background-repeat: no-repeat;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ctitle%3Echevron-right2%3C/title%3E%3Cpath d='M9.984 6l6 6-6 6-1.406-1.406 4.594-4.594-4.594-4.594z'%3E%3C/path%3E%3C/svg%3E ");            }
+        }
+    }
+
+    & .flyout__list{
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+
+        &--feature{
+            height: auto;
+        }
+    }
+
+    & .flyout__listLink{
+        padding: 1rem  1.5rem;; 
+        display: block;
+    }
+
+    & .flyout__listHeading{
+        line-height: 1;
+
+        & .flyout__listLink--heading{
+            display: flex;
+            justify-content: space-between;
+            align-content: center;
+            align-items: center;
+
+            &::after{
+                content: "";
+                width: 20px;
+                height: 20px;
+                display: block;
+                background-repeat: no-repeat;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23333' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M19 11h-6v-6c0-0.6-0.4-1-1-1s-1 0.4-1 1v6h-6c-0.6 0-1 0.4-1 1s0.4 1 1 1h6v6c0 0.6 0.4 1 1 1s1-0.4 1-1v-6h6c0.6 0 1-0.4 1-1s-0.4-1-1-1z'%3E%3C/path%3E%3C/svg%3E");            
+            }
+        }
+    }
+
+
+    & .flyout__item--heading{
+        border-bottom: 2px solid #fff;
+        background-color: #f0efed;
+
+        & ~ .flyout__item{
+            display: none;
+        }
+    }
+
+
+    & .flyout__item--headingActive{
+        & .flyout__listLink--heading{
+            &::after{
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23333' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M18.984 12.984h-13.969v-1.969h13.969v1.969z'%3E%3C/path%3E%3C/svg%3E%0A");
+            }
+        }
+
+        & ~ .flyout__item{
+            display: block;
+        }
+    }
+
+    & .flyout__content{
+        position: inherit;
+        height: auto;
+        flex-direction: row;
+        overflow: auto;
+        box-shadow: none;
+        background-color: #fff;
+        flex: 1 0 auto;
+
+        &::after{
+            display: none;
+        }
+    }
+
+    & .header__navList{
+        display: flex;
+        flex-direction: column;
+        flex: 1 0 auto;
+    }
+
+    & .header__navItem{
+        background-color: #cdc8c4;
+        border-bottom: 2px solid #fff;
+        flex-direction: column;
+        display: flex;
+        flex: 1 0 auto;
+
+        &--active{
+            & .header__navLink{
+                &::after{
+                    display: block;
+                    content: "";
+                    background-repeat: no-repeat;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23333' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M18.984 12.984h-13.969v-1.969h13.969v1.969z'%3E%3C/path%3E%3C/svg%3E%0A");
+                }
+            }
+        }
+    }
+
+    & .header__navLink{
+        width: 100%;
+        text-align: left;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        display: flex;
+        justify-content: start;
+        align-content: center;
+        align-items: center;
+        font-size: 1.4rem;
+        line-height: 1;
+
+        &::after{
+            content: "";
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23333' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M19 11h-6v-6c0-0.6-0.4-1-1-1s-1 0.4-1 1v6h-6c-0.6 0-1 0.4-1 1s0.4 1 1 1h6v6c0 0.6 0.4 1 1 1s1-0.4 1-1v-6h6c0.6 0 1-0.4 1-1s-0.4-1-1-1z'%3E%3C/path%3E%3C/svg%3E");            
+            width: 24px;
+            height: 24px;
+            display: block;
+            margin-left: 10px;
+        }
+    }
+
+
+    & .header__utilityBtnCntr{
+        flex-direction: column;
+        flex: 1 0 auto;
+    }
+
+    & .header__utilityBtnItem{
+        width: 100%;
+        border-bottom: 2px solid #eee;
+    }
+
+    & .header__utilityBtn{
+        padding: 1rem;
+        width: 100%;
+        justify-content: start;
+    }
+
+    & .header__utilityBtn--cart{
+        justify-content: space-between;
+
+        & .badge__cartQty{
+            position: static;
+            order: 5;
+            font-size: 1.1em;
+        }
+    }
+
+    & .header__utilityBtnContent{
+        display: flex;
+        flex: 1 0 auto;
+        flex-direction: row;
+    }
+
+    & .header__utilityText{
+        display: block;
+        font-size: 1.3rem;
+    }
+
+    & .header__utilityBtn--chat{
+        padding: 0;
+    }
+
+}
+

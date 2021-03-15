@@ -7,8 +7,8 @@
  * ------------------------------------------------------------------------ */
 
 export default class GraphQL {
-    constructor(){
-        this.graphEndpoint = `${window.location.hostname === "authenteak.com" || window.location.hostname === "local.authenteak.com" ? "https://authenteak.com/" : "/" }graphql`;
+    constructor() {
+        this.graphEndpoint = `${window.location.hostname === "authenteak.com" || window.location.hostname === "local.authenteak.com" ? "https://authenteak.com/" : "/"}graphql`;
 
         this.settings = {
             method: 'POST',
@@ -16,7 +16,7 @@ export default class GraphQL {
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${ TEAK.Utils.isLocal() ? TEAK.Globals.graphQl_dev : TEAK.Globals.graphQl }`
+                'Authorization': `Bearer ${TEAK.Utils.isLocal() ? TEAK.Globals.graphQl_dev : TEAK.Globals.graphQl}`
             }
         };
 
@@ -28,15 +28,15 @@ export default class GraphQL {
      * @param {Object} queryObj - custom graphql contract 
      */
 
-    get(queryObj){
+    get(queryObj) {
         return fetch(this.graphEndpoint, Object.assign(this.settings, {
-                body: JSON.stringify({
-                    query: queryObj
-                })
-            }))
+            body: JSON.stringify({
+                query: queryObj
+            })
+        }))
             .then(res => res.json())
             .then(res => res.data);
-    } 
+    }
 
 
 
@@ -46,7 +46,7 @@ export default class GraphQL {
      * @param {Array} arr - Array of product ids 
      */
 
-    getProductPrice(arr){
+    getProductPrice(arr) {
         return `query getProductPrice{
                     site{
                         products(entityIds:[${arr}]){
@@ -85,7 +85,7 @@ export default class GraphQL {
      * @param {Array} arr - Array of product ids 
      */
 
-    getProductInfo(arr){
+    getProductInfo(arr) {
         return `query getProductInfo{
                     site{
                         products(entityIds:[${arr}]){
@@ -129,12 +129,12 @@ export default class GraphQL {
      * @param {string} args.after - endcursor from the previous response
      */
 
-    getProductDetailInfo(args){
+    getProductDetailInfo(args) {
         return `query getProductDetailInfo{
                     site{
                         products(
                             entityIds:[${args.arr}]
-                            ${args.hasOwnProperty("after") ? `, after: "${args.after}"` : '' }
+                            ${args.hasOwnProperty("after") ? `, after: "${args.after}"` : ''}
                         ){
                             pageInfo {
                                 startCursor
@@ -199,14 +199,14 @@ export default class GraphQL {
      * @param {string} args.after - endcursor from the previous response
      */
 
-    getCategoryByUrl(args){
+    getCategoryByUrl(args) {
         return `query getCategoryByUrl{
                     site{
                         route(path: "${args.path}" ){
                             node{
                                 ... on Category{
                                     name
-                                    products (first: ${args.qty} ${args.hasOwnProperty("after") ? `, after: "${args.after}"` : '' }){
+                                    products (first: ${args.qty} ${args.hasOwnProperty("after") ? `, after: "${args.after}"` : ''}){
                                         pageInfo {
                                             startCursor
                                             endCursor
@@ -272,7 +272,7 @@ export default class GraphQL {
      * @param {Number} productid - product id array 
      */
 
-    getProductOptions(productid){
+    getProductOptions(productid) {
         return `query getProductOptions{
                     site{
                         products(entityIds:[${productid}]){
@@ -317,7 +317,7 @@ export default class GraphQL {
 
 
 
-    getVariantData(productId){
+    getVariantData(productId) {
         return `query VariantData {
                 site {
                     product(entityId: 124) {
@@ -353,6 +353,32 @@ export default class GraphQL {
                     }
                 }
             }`
+    }
+
+
+
+
+
+    getCategoryData() {
+        return `query CategoryTree3LevelsDeep {
+                    site {
+                        categoryTree {
+                        ...CategoryFields
+                            children {
+                        ...CategoryFields
+                                children {
+                            ...CategoryFields
+                                }
+                            }
+                        }
+                    }
+                }
+
+                fragment CategoryFields on CategoryTreeItem {
+                    name
+                    path
+                    entityId
+                } `
     }
 
 

@@ -1,5 +1,7 @@
 {
     "cSpell.words": [
         "Ipsam"
-    ]
+    ],
+    "prettier.useTabs": true,
+    "prettier.tabWidth": 4
 }

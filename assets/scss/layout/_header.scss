@@ -111,33 +111,17 @@ header{
 
 
     .customer__chat{
-        margin-right: 40px;
-
-
-        @media screen and (max-width: $screen-md){
-            position: absolute;
-            top: 50%;
-            right: 75px;
-            height: 23px;
-            margin: 6px 0 0 0;
-        }
+        // margin-right: 40px;
+        background: transparent;
+        display: flex;
+        align-content: center;
+        align-items: center;
+        height: 36px;
+        justify-content: center;
 
         @media screen and (max-width: $screen-sm){
-            right: 47px;
+            display: none;
         }
-
-        &Desktop{
-            @media screen and (max-width: $screen-md){
-                display: none;
-            }
-        }
-
-        &Mobile{
-            @media screen and (min-width: $screen-md){
-                display: none;
-            }
-        }
-
     }
 
 

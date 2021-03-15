@@ -1,0 +1,508 @@
+%flex-full-width{
+    display: flex;
+    width: 100vw;
+}
+
+
+.header{
+
+    &__cntr{
+        @extend %flex-full-width;
+        flex-direction: column;
+        padding: 10px 0 0 0;
+        position: relative;
+
+        @media screen and (max-width: $screen-md){
+            padding: 0;
+        }
+    }
+
+    // aux items
+    &__auxCntr{
+        @extend %flex-full-width;
+        flex-direction: row;
+        padding: 0 2vw;
+
+        @media screen and (max-width: $screen-md){
+            display: none;
+            padding: 0 3vw;
+        }
+    }
+
+    &__aux{
+        @extend %flex-full-width;
+        justify-content: flex-end;
+        height: 15px;
+    }
+
+    &__auxItem{
+        margin-left: 2rem;
+        
+        &:first-of-type{
+            margin: 0
+        }
+    }
+
+    &__auxLink{
+        font-size: 0.8rem;
+        display: block;
+        line-height: 1;
+    }
+
+
+    // center main body
+    &__bodyWrapper{
+        @extend %flex-full-width;
+        flex-direction: column;
+        height: 124px;
+        justify-content: flex-end;
+
+        @media screen and (max-width: $screen-xl){
+            height: auto;
+        }
+
+        @media screen and (max-width: $screen-sm){
+            height: 114px;
+        }
+    }
+
+    &__bodyCntr{
+        @extend %flex-full-width;
+        flex-direction: column;
+        background: #ffff;
+
+        &--fixed{
+            z-index: 999;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            box-shadow: 3px 9px 11px 0px rgba(0, 0, 0, 0.10);
+
+            @media screen and (min-width: $screen-xl){
+                & .badge__cartQty{
+                    top: -8px;
+                }
+
+                & .header__utilityBar{
+                    height: 35px;
+                }
+
+                & .header__utilMenu{
+                    top: 34px;
+                }
+            }
+
+            @media screen and (max-width: $screen-md){
+                & .header__utilityBtnCntr--more{
+                    display: flex;
+                }
+                
+                & .header__logoCntr, 
+                & .header__utilityBtnCntr--myAccount, 
+                & .header__utilityBtn--myList, 
+                & .header__utilityBtn--chat{
+                    display: none;
+                }
+
+                & .header__searchGroup{
+                    margin: 0;
+                    order: inherit;
+                    width: 65%;
+                    flex: 1 0 auto;
+                }
+            }
+
+            @media screen and (max-width: $screen-sm){
+                & .header__searchGroup{
+                    width: 100%;
+                    flex: 0;
+                }
+
+                & .header__searchControl{
+                    padding: 0;
+                }
+
+                & .header__utilMenu{
+                    top: 34px;
+                }
+            }
+
+            @media screen and (max-width: 340px){
+                & .header__searchGroup{
+                    width: 100%;
+                    flex: 1 0 auto;
+                    order: 5;
+                }
+
+                & .header__logoCntr{
+                    display: block;
+                }
+
+                & .header__utilityBar{
+                    order: 1;
+                    flex: 1;
+                    align-content: end;
+                    align-items: end;
+                    justify-content: flex-end;
+                    padding-right: 10px;
+
+                    & .header__utilityBtn--cart{
+                        padding-left: 20px;
+                    }
+                }
+            }
+           
+        }
+
+        @media screen and (max-width: $screen-md){
+            flex: 1 0 auto;
+        }
+    }
+
+    &__body{
+        @extend %flex-full-width;
+        flex-direction: row;
+        align-items: center;
+        align-content: center;
+        padding: 10px 2vw;
+
+        @media screen and (max-width: $screen-md){
+            flex-wrap: wrap;
+        }
+    }
+
+
+
+    // logo
+    &__logoCntr{
+        width: 20%;
+
+        @media screen and (max-width: $screen-xl){
+            flex: 1 0 auto;
+        }
+    }
+
+    &__logoLink{
+        display: block;
+
+        @media screen and (max-width: $screen-md){
+            display: flex;
+        }
+    }
+
+    &__logo{
+        width: 100%;
+        object-fit: contain;    
+        
+        @media screen and (max-width: $screen-md){
+            max-height: 35px;
+        }
+    }
+
+    &__chat{
+        width: 18%;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex: 1 0 auto;
+
+        @media screen and (max-width: $screen-xl){
+            display: none;
+        }
+    }
+
+    // search
+    &__searchGroup{
+        width: 34%;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        padding: 0;
+        border: 1px solid #ccc;
+        border-radius: 99rem;
+        position: relative;
+
+        @media screen and (max-width: $screen-xl){
+            margin-left: 1.5em;
+        }
+
+        @media screen and (max-width: $screen-sm){
+            margin: .75em 0 0 0;
+            order: 5;
+            width: 100%;
+            flex: 1 1 auto;
+        }
+    }
+
+    &__searchControl{
+        flex: 1 1 auto;
+        height: 34px;
+        border: none;
+        border-radius: .99rem;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        padding: 0 20px;
+        outline: none;
+
+        @media screen and (max-width: $screen-sm){
+            padding: 0 15px;
+
+            &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                color: #fff
+            }
+            &::-moz-placeholder { /* Firefox 19+ */
+                color: #fff
+            }
+            &:-ms-input-placeholder { /* IE 10+ */
+                color: #fff
+            }
+            &:-moz-placeholder { /* Firefox 18- */
+                color: #fff
+            }
+        }
+    }
+
+    &__searchBtn{
+        border-radius: .99rem;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        width: 50px;
+        background-color: $btn-color-green;
+    }
+
+    &__iconSearch{
+        fill: #fff
+    }
+
+
+    // utils
+    &__utilityBar{
+        display: flex;
+        width: 25%;
+        align-self: center;
+        justify-content: space-between;
+        flex: 1 0 auto;
+        padding-left: 2rem;
+        height: 100%;
+
+        @media screen and (max-width: $screen-md){
+            justify-content: space-evenly;
+            width: auto;
+            height: auto;
+            padding: 0;
+        }
+    }
+
+    &__utilityBtn{
+        display: flex;
+        align-content: center;
+        justify-content: flex-end;
+        align-items: center;
+        align-self: left;
+        background-color: transparent;
+        padding: 0;
+        position: relative;
+        margin: 0;
+        outline: none;
+
+        &:hover{
+            color: initial;
+        }
+
+        &--chat{
+            background: transparent;
+            align-content: center;
+            align-items: center;
+            display: none;
+
+            @media screen and (max-width: $screen-xl){
+                display: flex;
+            }
+        }
+    }
+
+    &__utilityText{
+        margin-left: .6rem;
+        font-size: .95rem;
+        line-height: 1;
+
+        @media screen and (max-width: $screen-xl){
+            display: none;
+        }
+    }
+
+    // utility menu
+    &__utilityBtnCntr{
+        display: flex;
+        align-content: center;
+
+        &--more{
+            display: none;
+        }
+    }
+
+    &__utilityBtnItem{
+        position: relative;
+        display: flex;
+        align-content: center;
+
+        &:hover{
+            & .header__utilMenu{
+                display: flex;
+            }
+        }
+    }
+
+
+    &__utilMenu{
+        padding: 10px 0 10px 0;
+        position: absolute;
+        display: none;
+        background: #ffffff;
+        flex-direction: column;
+        border: 1px solid #ddd;
+        z-index: 999;
+        top: 46px;
+        right: -25px;
+        width: 300px;
+        border-radius: 4px;
+        box-shadow: 3px 9px 11px 0px rgba(0, 0, 0, 0.10);
+
+        & .header__utilityBtn--chat{
+            display: block !important
+        }
+    }
+
+
+    &__utilMenuItem{
+        border-bottom: 1px solid #eee;
+        display: flex;
+        flex-direction: column;
+        
+        &:last-of-type{
+            border-bottom: none
+        }
+
+        &--image{
+            padding: 5px 15px 15px 15px;
+        }
+    }
+
+
+    &__utilMenuLink{
+        font-size: 1rem;
+        padding: 20px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        text-transform: capitalize;
+
+        &:hover{
+            text-decoration: underline;
+        }
+
+        & .header__utilityIcon{
+            margin-right: 10px
+        }
+    }
+
+    &__utilMenuBtn{
+        @extend .button;
+        @extend .button--small;
+        margin: 15px 15px 0 15px !important;
+
+        // &:last-of-type{
+        //     margin-top: 0 !important;
+        //     margin-bottom: 20px !important;
+        // }
+
+        &--green{
+            @extend .button-primary--green;
+
+            &:hover{
+                color: #fff !important;
+            }
+        }
+
+        &--darkTrans{
+            @extend .button-secondary--darkTrans;
+            margin-bottom: 15px !important;
+        }
+    }
+
+
+
+
+
+    // main nav items
+    &__mainNav{
+        width: 100%;
+        border-top: 1px solid #dee2e6;
+        border-bottom: 1px solid #dee2e6;
+
+        @media screen and (max-width: $screen-md){
+            position: fixed;
+            width: 100vw;
+            height: 100vw;
+            display: none;
+        }
+    }
+
+    &__mainNavBtn{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+        line-height: 1;
+
+        @media screen and (min-width: $screen-md){
+            display: none;
+        }
+
+        @media screen and (max-width: $screen-sm){
+            padding-right: 20px;
+        }
+    }
+
+    &__navList{
+        @extend %flex-full-width;
+        justify-content: center;
+        position: relative;
+    }
+
+    &__navItem{
+        display: flex;
+        border-bottom: 3px solid transparent;
+
+        &:hover{
+            border-bottom-color: #444;
+
+            & .flyout{
+                display: flex;
+            }
+        }
+    }
+
+    &__navLink{
+        // display: flex;
+        padding: 15px 2.5em 12px 2.5em;
+        font-size: 1.1rem;
+        justify-content: center;
+        line-height: 1;
+
+        @media screen and (max-width: $screen-xl){
+            padding: 15px 1.5em 12px 1.5em;
+            text-align: center;
+        }
+        
+
+        &:hover{
+            color: inherit;
+        }
+    }
+}

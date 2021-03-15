@@ -1,7 +1,35 @@
 // Badges that highlight content or features
+%badge{
+    display: inline-block;
+    padding: .25rem .5rem;
+    font-size: .75em;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+}
+
 
 .badge{
     display: flex;
+
+    &__cartQty{
+        @extend %badge;
+        border-radius: 50rem !important;
+        background-color: $btn-color-green;
+        position: absolute;
+        top: -8px;
+        right: -8px;
+
+        @media screen and (min-width: $screen-xl) {
+            right: auto;
+            left: 13px;
+            top: 3px;
+        }
+    }
 
     &--pdp{
         width: auto;
@@ -144,3 +172,5 @@
         }
     }
 }
+
+

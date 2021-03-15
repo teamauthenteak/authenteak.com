@@ -268,39 +268,7 @@
     <p class="product-trade"><a href="/to-the-trade" title="Learn more about trade benifits">Shopping for a Client? Apply for Trade benefits.</a></p>
     {{/if}}
 
-    
-    {{#if settings.show_wishlist}}
-      <div class="wishlist-form" data-wishlist-dropdown>
-        {{#if customer.wishlists.length}}
-          <a
-            class="button button-secondary button-wide add-to-wishlist"
-            href="#"
-            data-wishlist-toggle
-          >
-            {{lang 'product.add_to_wishlist'}}
-          </a>
-          <ul class="add-to-wishlists" data-wishlist-panel>
-            {{#each customer.wishlists}}
-              <li>
-                <a
-                  href="{{../product.add_to_wishlist_url}}&wishlistid={{id}}"
-                  data-wishlist="{{view_url}}"
-                >
-                  {{name}} ({{num_items}})
-                </a>
-              </li>
-            {{/each}}
-          </ul>
-        {{else}}
-          <a
-            class="button button-secondary button-wide add-to-wishlist"
-            href="{{product.add_to_wishlist_url}}"
-          >
-            {{lang 'product.add_to_wishlist'}}
-          </a>
-        {{/if}}
-      </div>
-    {{/if}}
+
   </div>
 
   {{else}}
@@ -357,29 +325,6 @@
       </button>
     {{/if}}
 
-    
-    {{#if settings.show_wishlist}}
-      <div class="wishlist-form" data-wishlist-dropdown>
-        {{#if customer.wishlists.length}}
-          <a class="button button-secondary button-wide add-to-wishlist" href="#" data-wishlist-toggle>
-            {{lang 'product.add_to_wishlist'}}
-          </a>
-          <ul class="add-to-wishlists" data-wishlist-panel>
-            {{#each customer.wishlists}}
-              <li>
-                <a href="{{../product.add_to_wishlist_url}}&wishlistid={{id}}" data-wishlist="{{view_url}}">
-                  {{name}} ({{num_items}})
-                </a>
-              </li>
-            {{/each}}
-          </ul>
-        {{else}}
-          <a class="button button-secondary button-wide add-to-wishlist" href="{{product.add_to_wishlist_url}}">
-            {{lang 'product.add_to_wishlist'}}
-          </a>
-        {{/if}}
-      </div>
-    {{/if}}
   </div>
 
     {{/if}}

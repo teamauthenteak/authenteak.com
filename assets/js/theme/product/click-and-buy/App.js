@@ -198,11 +198,15 @@ class App extends React.Component{
 
     componentDidUpdate(prevProps, prevState){
         // set each collection with a tool tip flag if its available
-        if( prevState.collection !== this.state.collection && this.props.firebase.state.brands.brandNames !== undefined ){
+        if( prevState.collection !== this.state.collection ){
 
-            this.state.collection.forEach((element) => {
-                element.hasTips = this.props.firebase.state.brands.brandNames.findIndex(item => item.name === element.brand.name ) !== -1 
-            });
+            try{
+                this.state.collection.forEach((element) => {
+                    element.hasTips = this.props.firebase.state.brands.brandNames.findIndex(item => item.name === element.brand.name ) !== -1 
+                });
+
+            }catch(err){}
+            
         }
     }
 

@@ -8,7 +8,7 @@ import MiniCart from './global/MiniCart';
 import QuickShop from './product/QuickShop';
 import wishlistDropdown from './product/wishlistDropdown';
 import MegaNav from './global/MegaNav';
-import MobileNav from './global/MobileNav';
+// import MobileNav from './global/MobileNav';
 import MobileSearchToggle from './global/MobileSearchToggle';
 import Footer from './global/Footer';
 import './core/selectOption';
@@ -25,7 +25,7 @@ export default class Global extends PageManager {
         selector: '.button-top'
       });
       new MegaNav($('.mega-nav-variant-container'));
-      new MobileNav();
+      // new MobileNav();
       new MiniCart();
       new wishlistDropdown();
       
