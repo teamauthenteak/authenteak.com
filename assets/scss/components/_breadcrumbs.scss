@@ -10,6 +10,10 @@
     .breadcrumb-label {
         color: #999;
         display: inline-block;
+
+        @media only screen and (max-width: $screen-sm) {
+            display: none;
+        }
     }
 
     &__mobileLabel{
@@ -60,18 +64,6 @@
     margin: 0;
 }
 
-
-
-@media only screen and (max-width: $screen-sm) {
-    .breadcrumb:nth-last-child(2) {
-      display: inline-flex;
-      ::after {
-        content: "›" ;
-        padding: 0 4px;
-      }
-    }
-}
-
   // Breadcrumbs
 .breadcrumbs {
     margin-top: rem-calc(40px);
@@ -82,7 +74,8 @@
     .product-listing & { margin-top: 0; }
   
     @media only screen and (max-width: $screen-sm) {
-      display: inline-flex;
+      display: block;
+      text-align: center;
     }
   
 }
