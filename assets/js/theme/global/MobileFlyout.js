@@ -11,7 +11,7 @@ export default class MobileFlyout{
 
         this.MobileFlyout.innerHTML = `
             ${promo}
-            <button type="button" class="mobileFlyout__close">
+            <button type="button" class="mobileFlyout__close" aria-label="Close">
                 <svg class="icon icon-close" width="30" height="30"><use xlink:href="#icon-close"/></svg>
             </button>
             <a href="/affirm" class="mobileFlyout__affirm">
@@ -45,7 +45,7 @@ export default class MobileFlyout{
                     </a>
                 </li>
                 <li class="header__utilityBtnItem">
-                    <button class="header__utilityBtn header__utilityBtn--chat" type="button" onclick="javascript:$zopim.livechat.window.show()" title="Chat with us today">
+                    <button aria-label="Online Chat" class="header__utilityBtn header__utilityBtn--chat" type="button" onclick="javascript:$zopim.livechat.window.show()" title="Chat with us today">
                         <svg class="footer__chatBtn chat__offline" viewBox="0 0 260 93" width="260" height="93" id="footerChatOffline"><use xlink:href="#desktop-footer-offline"/></svg>
                         <svg class="footer__chatBtn chat__online hide" viewBox="0 0 260 93" width="260" height="93" id="footerChatOnline"><use xlink:href="#desktop-footer-online"/></svg>
                     </button>

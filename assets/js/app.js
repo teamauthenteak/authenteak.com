@@ -55,6 +55,7 @@ let PageClasses = {
     'pages/category': Category,
     'pages/custom/category/shop-all-brands': Category,
     'pages/custom/category/collection': Collection,
+    'pages/custom/category/_blank': Category,
     'pages/compare': compare,
     'pages/contact-us': contactUs,
     'pages/errors': errors,

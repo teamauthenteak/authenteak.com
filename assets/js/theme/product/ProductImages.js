@@ -70,7 +70,7 @@ export default class ProductImages {
 
       this.$pagination
         .slick({
-          infinite: false,
+          infinite: true,
           centerMode: false,
           dots: false,
           arrows: true,

@@ -1,9 +1,13 @@
 # Change Log
 
 ## [1.20.35]
-- New Header Footer App
+- New Header App (Desktop, Mobile, Tablet)
 - fixed yotpo error for reviews and questions when sending sku instead of product id
 - removed prop 65 from cart
+- March Homepage updates
+- fixed header aux nav cut off issue
+- added outdoor back to the furniture main nav.
+- added outdoor decor to accessories tab
 
 ## [1.20.34]
 - added filter support for pdp swatch drawer

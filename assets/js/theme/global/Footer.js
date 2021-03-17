@@ -49,7 +49,7 @@ export default class Footer {
 
 
     _initKlavio(){
-        // fetch 3rd party klavio ONLY when the newsletter input recieves focus
+        // fetch 3rd party klavio ONLY when the newsletter input receives focus
         if( !window.KlaviyoSubscribe && document.emailSignup){
             document.querySelector(".newsletter__input").addEventListener('focusin', getKlavioScript, true);
 
@@ -59,7 +59,7 @@ export default class Footer {
             }
         }
 
-        // refference form to klavio instance
+        // reference form to klavio instance
         function init(data, textStatus, jqxhr){
             if( jqxhr.status === 200 ){
                 try{

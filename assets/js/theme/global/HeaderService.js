@@ -49,9 +49,10 @@ export default class HeaderService{
 				name: "Get Project Help",
 				path: "/blog/",
 				children: [
-					{ name: "FOO", path: "" },
-					{ name: "FOO", path: "" },
-					{ name: "FOO", path: "" },
+					{ name: "Helpful Tips for Teak Furniture Care", path: "/blog/helpful-tips-for-teak-furniture-care/" },
+					{ name: "How to Protect your Patio Furniture During all Seasons", path: "/blog/how-to-protect-your-patio-furniture-during-all-seasons/" },
+					{ name: "How to Use Patio Furniture Covers and Expert Tips To Protect Outdoor Furniture", path: "/blog/how-to-use-patio-furniture-covers-and-expert-tips-to-protect-outdoor-furniture/" },
+					{ name: "Use Outdoor Planters to Define Your Outdoor Space", path: "/blog/use-outdoor-planters-to-define-your-outdoor-space/" },
 				]
 			}]
 		};
@@ -68,11 +69,13 @@ export default class HeaderService{
 
 			switch (ele.entityId) {
 				case 1099: maintenanceCare(ele); break;
+				case 2530: decor(ele); break;
 				case 911: planters(ele); break;
-				case 930: outdoorEntertainment(ele); break;
+				case 930: entertainment(ele); break;
 				case 1196: brands(index); break;
 				case 906: heating(ele); break;
 				case 787: grillsKitchens(ele); break;
+				case 798: umbrellas(ele); break;
 
 				case 2425: removeCategory(index);break;
 				case 2299: removeCategory(index);break;
@@ -136,7 +139,7 @@ export default class HeaderService{
 
 
 			// outdoor entertainment
-			function outdoorEntertainment(ele){
+			function entertainment(ele){
 				let outdoor = {
 					entityId: 930,
 					name: "Outdoor Entertainment",
@@ -160,6 +163,32 @@ export default class HeaderService{
 			}
 
 
+
+			// Outdoor Decor
+			function decor(ele){
+				let decor = {
+					entityId: 930,
+					name: "Outdoor Decor",
+					path: "/outdoor-decor/",
+					children: []
+				}
+
+				ele.children.forEach(entertain => {
+					if( entertain.name.includes("New!") || 
+						entertain.name.includes("Shop All")
+					){
+						accessories.children.push(entertain);
+
+					}else{
+						decor.children.push(entertain);
+					}
+				});
+
+				hasSupplemental(ele.entityId)
+				accessories.children.unshift(decor);
+			}
+
+
 			// brands
 			function brands(index){
 				categoryData.splice(index, 1);
@@ -172,10 +201,10 @@ export default class HeaderService{
 							name: "Outdoor Furniture",
 							path: "/outdoor-furniture/",
 							children: [
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
+								{ name: "Kingsley Bate", path: "https://authenteak.com/shop-all-brands/kingsley-bate/" },
+								{ name: "Lane Venture", path: "https://authenteak.com/shop-all-brands/lane-venture/" },
+								{ name: "Talenti", path: "https://authenteak.com/shop-all-brands/talenti/" },
+								{ name: "All Outdoor Furniture Brands", path: "https://authenteak.com/shop-all-brands#Patio Furniture" },
 								{ name: "Shop All Outdoor Furniture", path: "/outdoor-furniture/shop-all-outdoor-furniture/" },
 							]
 						},
@@ -183,10 +212,10 @@ export default class HeaderService{
 							name: "Patio Umbrellas",
 							path: "/patio-umbrellas-accessories/",
 							children: [
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
+								{ name: "Treasure Garden", path: "https://authenteak.com/shop-all-brands/treasure-garden/" },
+								{ name: "Jardinico", path: "https://authenteak.com/shop-all-brands/jardinico-umbrellas/" },
+								{ name: "Gloster", path: "https://authenteak.com/shop-all-brands/gloster/#/filter:custom_category:Cantilevers/filter:custom_category:Market$2520Umbrellas" },
+								{ name: "All Patio Umbrella Brands", path: "https://authenteak.com/shop-all-brands#Patio Umbrellas" },
 								{ name: "Shop All Patio Umbrellas & Accessories", path: "/patio-umbrellas-accessories/shop-all-patio-umbrellas-accessories/" },
 							]
 						},
@@ -194,10 +223,10 @@ export default class HeaderService{
 							name: "Grills & Outdoor Kitchens",
 							path: "/grills-outdoor-kitchens/",
 							children: [
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
+								{ name: "Alfresco", path: "https://authenteak.com/shop-all-brands/alfresco-grills/" },
+								{ name: "Saber Grills", path: "https://authenteak.com/shop-all-brands/saber-grills/" },
+								{ name: "Kamando Joe", path: "https://authenteak.com/shop-all-brands/kamado-joe/" },
+								{ name: "All Grill & Kitchen Brands", path: "https://authenteak.com/shop-all-brands#Grills & Outdoor Kitchens" },
 								{ name: "Shop All Outdoor Kitchen Equipment", path: "/grills-outdoor-kitchens/outdoor-kitchen-equipment/shop-all-outdoor-kitchen-equipment/" },
 							]
 						},
@@ -205,10 +234,10 @@ export default class HeaderService{
 							name: "Outdoor Heating",
 							path: "/outdoor-heating/",
 							children: [
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
+								{ name: "American Fireglass", path: "https://authenteak.com/shop-all-brands/american-fireglass/" },
+								{ name: "Elementi", path: "https://authenteak.com/shop-all-brands/elementi/" },
+								{ name: "Travis Industries", path: "https://authenteak.com/shop-all-brands/travis-industries/" },
+								{ name: "All Outdoor Heating Brands", path: "https://authenteak.com/shop-all-brands#Outdoor Heating" },
 								{ name: "Shop All Outdoor Heating", path: "/outdoor-heating/shop-all-outdoor-heating/" },
 							]
 						},
@@ -216,10 +245,10 @@ export default class HeaderService{
 							name: "Planters",
 							path: "/planters/",
 							children: [
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
+								{ name: "Talenti", path: "https://authenteak.com/planters/shop-all-planters/#/filter:brand:Talenti" },
+								{ name: "Bentintoshape", path: "https://authenteak.com/shop-all-brands/bentintoshape/#/filter:custom_category:Planters" },
+								{ name: "Pottery Pots", path: "https://authenteak.com/shop-all-brands/pottery-pots/" },
+								{ name: "All Planter Brands", path: "https://authenteak.com/shop-all-brands#Planters" },
 								{ name: "Shop All Planters", path: "/planters/shop-all-planters/" },
 							]
 						},
@@ -227,10 +256,10 @@ export default class HeaderService{
 							name: "Outdoor Decor",
 							path: "/outdoor-decor/",
 							children: [
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
+								{ name: "Enduraleaf", path: "https://authenteak.com/shop-all-brands/enduraleaf/" },
+								{ name: "Sunbrella Fabrics", path: "https://authenteak.com/outdoor-decor/shop-all-outdoor-decor/#/filter:brand:Sunbrella$2520Fabrics" },
+								{ name: "Elaine Smith Pillows", path: "https://authenteak.com/outdoor-decor/shop-all-outdoor-decor/#/filter:brand:Elaine$2520Smith$2520Pillows" },
+								{ name: "All Outdoor Decor Brands", path: "https://authenteak.com/shop-all-brands#Outdoor Decor" },
 								{ name: "Shop All Outdoor Decor", path: "/outdoor-decor/shop-all-outdoor-decor/" },
 							]
 						},
@@ -238,10 +267,10 @@ export default class HeaderService{
 							name: "Maintenance & Care",
 							path: "/maintenance-care/",
 							children: [
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
+								{ name: "303 Products", path: "https://authenteak.com/maintenance-care/shop-all-maintenance-care/#/filter:brand:303$2520Products" },
+								{ name: "Golden Care", path: "https://authenteak.com/maintenance-care/shop-all-maintenance-care/#/filter:brand:Golden$2520Care" },
+								{ name: "Saber", path: "https://authenteak.com/maintenance-care/shop-all-maintenance-care/#/filter:brand:Saber$2520Grills" },
+								{ name: "All Maintenance & Care Brands", path: "https://authenteak.com/shop-all-brands#Maintenance & Care" },
 								{ name: "Shop All Maintenance & Care", path: "/maintenance-care/shop-all-maintenance-care/" },
 							]
 						},
@@ -249,10 +278,10 @@ export default class HeaderService{
 							name: "Outdoor Entertainment",
 							path: "/outdoor-entertainment/",
 							children: [
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
-								{ name: "FOO", path: "" },
+								{ name: "Sunbrite TV", path: "https://authenteak.com/shop-all-brands/sunbritetv/" },
+								{ name: "Ecojet", path: "https://authenteak.com/shop-all-brands/ecojet/" },
+								{ name: "Kooduu", path: "https://authenteak.com/shop-all-brands/kooduu/" },
+								{ name: "All Outdoor Entertainment Brands", path: "https://authenteak.com/shop-all-brands#Outdoor Entertainment" },
 								{ name: "Shop All Outdoor Entertainment", path: "/outdoor-entertainment/" },
 							]
 						}
@@ -269,9 +298,10 @@ export default class HeaderService{
 					name: "Get Project Help",
 					path: "/blog/",
 					children: [
-						{ name: "FOO", path: "" },
-						{ name: "FOO", path: "" },
-						{ name: "FOO", path: "" },
+						{ name: "Outdoor Header Buyer's Guide", path: "/blog/outdoor-heater-buyers-guide/" },
+						{ name: "How to Buy A Patio Heater for Your Space", path: "/blog/how-to-buy-a-patio-heater-for-your-space/" },
+						{ name: "Infrared Patio Heater Buying Guide", path: "/infrared-patio-heater-buying-guide" },
+						{ name: "How to use Your Outdoor Living Space Year-Round", path: "/blog/how-to-use-your-outdoor-living-space-yearround/" }
 					]
 				});
 			}
@@ -283,9 +313,24 @@ export default class HeaderService{
 					name: "Get Project Help",
 					path: "/blog/",
 					children: [
-						{ name: "FOO", path: "" },
-						{ name: "FOO", path: "" },
-						{ name: "FOO", path: "" },
+						{ name: "Guide to Planning Your Outdoor Kitchen", path: "/blog/a-guide-to-planning-your-outdoor-kitchen/" },
+						{ name: "How to Cook a Turkey", path: "/blog/how-to-cook-a-turkey-smoked-turkey-on-a-kamado-grill-recipe/" },
+						{ name: "Choose A Built-In Grill For Your Outdoor Space", path: "/choose-a-built-in-grill-for-your-outdoor-kitchen" }
+					]
+				});
+			}
+
+
+			// umbrellas
+			function umbrellas(ele){
+				ele.children.push({
+					name: "Get Project Help",
+					path: "/blog/",
+					children: [
+						{ name: "Umbrella Buying Guide: Tips for Buying a Perfect Patio Umbrella", path: "/blog/umbrella-buying-guide-tips-for-buying-a-perfect-patio-umbrella/" },
+						{ name: "Outdoor Inspiration: Upscale Roof Deck in Downtown Atlanta", path: "/blog/outdoor-inspiration-upscale-roof-deck-in-downtown-atlanta/" },
+						{ name: "Hosting the Holidays Outdoors", path: "/blog/hosting-the-holidays-outdoors/" },
+						{ name: "Treasure Garden Fabric Grade Resource Guide", path: "/treasure-garden-fabric-grades/" }
 					]
 				});
 			}

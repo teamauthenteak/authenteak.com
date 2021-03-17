@@ -15,6 +15,7 @@ export default class HeaderFlyout {
 		$("#globalHeader")
 			.on("mouseover", "a.header__navLink", this.navHover)
 			.on("mouseout", "a.header__navLink", this.navHover)
+			.on("mouseout", "div.flyout", this.navHover)
 			.on("mouseover", "a.header__utilityBtn--myAccount, a.header__utilityBtn--myList",this.showOverlay)
 			.on("mouseout", "a.header__utilityBtn--myAccount, a.header__utilityBtn--myList", this.resetFlyoutUnderlay)
     }
@@ -62,7 +63,7 @@ export default class HeaderFlyout {
 					</div>`
 				)
 				
-		this.showOverlay();
+		this.showOverlay(e);
 	}
 
 
@@ -74,6 +75,7 @@ export default class HeaderFlyout {
 			$("#globalHeader").after(`<div class='flyout__underlay' ${window.scrollY > 200 ? "style='top:115px'" : ""}></div>`)
 		}
 
+		$(document.body).addClass("scroll-locked");
 
 		if( $(e.currentTarget).hasClass("header__utilityBtn--myList") && TEAK.User.uuid && Array.isArray(this.headerService.myList) ){
 			let tpl = [`<li class="header__utilMenuItem">
@@ -101,6 +103,7 @@ export default class HeaderFlyout {
 	resetFlyoutUnderlay = () => {
 		if( $("div.flyout:visible").length === 0 && $("ul.header__utilMenu:visible").length === 0 ){
 			$("#globalHeader").siblings("div.flyout__underlay").remove();
+			$(document.body).removeClass("scroll-locked")
 		}
 	}
 

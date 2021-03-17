@@ -592,24 +592,29 @@ export default class ProductUtils {
 
         this.progressButton.progress($button);
 
-        $.ajax({
-          type: 'POST',
-          url: addUrl,
-          success: () => {
-            this.cartAddAlert.success(this.context.messagesWishlistAddSuccess.replace('*product*', title).replace('*url*', viewUrl), true);
-          },
-          error: () => {
-            this.cartAddAlert.error(this.context.messagesWishlistAddError.replace('*product*', title), true);
-          },
-          complete: () => {
-            this.progressButton.complete($button);
-
-            $button
+        $button
               .closest('[data-wishlist-dropdown]')
               .find('[data-wishlist-toggle]')
               .trigger('click');
-          },
-        });
+
+        // $.ajax({
+        //   type: 'POST',
+        //   url: addUrl,
+        //   success: () => {
+        //     this.cartAddAlert.success(this.context.messagesWishlistAddSuccess.replace('*product*', title).replace('*url*', viewUrl), true);
+        //   },
+        //   error: () => {
+        //     this.cartAddAlert.error(this.context.messagesWishlistAddError.replace('*product*', title), true);
+        //   },
+        //   complete: () => {
+        //     this.progressButton.complete($button);
+
+            
+        //   },
+        // });
+
+
+
       }
     });
   }

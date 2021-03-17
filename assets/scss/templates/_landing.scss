@@ -42,7 +42,6 @@
     }
 
     &__hero{
-        margin-top: 30px;
         max-height: 1050px;
         height: auto;
         overflow: hidden;
@@ -249,9 +248,9 @@
         @extend %span-1-1;
         @extend %span;
         padding: 0;
+        margin-top: 0 !important;
 
         @media only screen and (max-width: $screen-sm) {
-            margin-top: 0;
             line-height: 1;
         }
 

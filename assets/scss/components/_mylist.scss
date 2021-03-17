@@ -1,12 +1,23 @@
 .wishlist{
     &__item{
         border-bottom: 1px solid #eee;
+
+        &:last-of-type{
+            border: none;   
+        }
     }
 
     &__link{
-        display: block;
+        display: flex;
+        justify-content: space-between;
         padding: 10px;
         text-transform: capitalize;
+
+        & svg{
+            width: 10px;
+            height: 10px;
+            background: #eee;
+        }
     }
 }
 
@@ -32,7 +43,7 @@
 .add-to-wishlists{
     width: 200px;
     margin-left: -150px;
-    padding: 10px 20px;
+    padding: 10px;
     top: 115%;
     left: 50%;
     box-shadow: 3px 9px 20px 0px rgba(0, 0, 0, 0.10);

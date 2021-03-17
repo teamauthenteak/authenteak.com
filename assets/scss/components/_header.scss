@@ -1,6 +1,6 @@
 %flex-full-width{
     display: flex;
-    width: 100vw;
+    width: 100%;
 }
 
 
@@ -32,11 +32,14 @@
     &__aux{
         @extend %flex-full-width;
         justify-content: flex-end;
-        height: 15px;
+        align-content: center;
+        align-items: center;
+        flex: 1 0 auto;
     }
 
     &__auxItem{
         margin-left: 2rem;
+        height: 15px;
         
         &:first-of-type{
             margin: 0

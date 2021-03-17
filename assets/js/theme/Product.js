@@ -198,8 +198,34 @@ export default class Product extends PageManager {
 
 		$(document.body)
 			.on("click", "[product-dialog-close]", (e) => { this.closeDialog(e); })
-			.on("click", "[product-dialog-open]", (e) => { this.openDialog(e) });
+			.on("click", "[product-dialog-open]", (e) => { this.openDialog(e) })
+			.on("click", "a.wishlist__link" ,this.addToWishList)
 
+	}
+
+
+	addToWishList(e){
+		e.preventDefault();
+
+		let $target = $(e.target);
+		let url = $target.attr("href")
+
+		$target.find("svg.icon").removeClass("hide");
+
+		$.post(url).then(response => {
+			if(response){
+				$(` <div class="modal modal__mini modal__mini--toggle">
+						<svg class="icon" width="24" height="24"><use xlink:href="#icon-check2" /></svg>
+						<span>Added to My Product List</span>
+					</div>`).appendTo(document.body)
+
+				$target.find("svg.icon").addClass("hide");
+
+				setTimeout(()=> {
+					$("div.modal__mini").remove()
+				}, 6000)
+			}
+		});
 	}
 
 

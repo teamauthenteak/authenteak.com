@@ -2,6 +2,43 @@
     margin: 0;
     padding: 0;
 
+    &__mini{
+        position: fixed;
+        width: 300px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        border-radius: 3px;
+        bottom: 50%;
+        background-color: rgba(0, 0, 0, .75);
+        margin-left: -150px;
+        left: 50%;
+        animation-duration: 1ms;
+		// animation-fill-mode: forwards;
+		animation-name: modal_opening;
+        // opacity: 1;
+
+
+        &--toggle{
+            animation-delay: 5s;
+            animation-duration: 1s;
+            // animation-fill-mode: forwards;
+            animation-name: modal_closing;
+        }
+
+        & span{
+            color: #fff;
+            margin-left: 10px;
+        }
+
+        & svg{
+            fill: #fff
+        }
+    }
+
+
     &__freezeBody{
         @extend %freeze-body;
     }
@@ -128,4 +165,30 @@
         height: auto;
         overflow: hidden;
     }
+}
+
+
+
+@keyframes modal_opening {
+	0% {
+		opacity: 0;
+        bottom: 0%;
+	}
+    50% {
+		opacity: .5;
+        bottom: 25%;
+	}
+	100% {
+		opacity: 1;
+        bottom: 50%;
+	}
+}
+
+@keyframes modal_closing {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
 }
