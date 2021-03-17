@@ -334,3 +334,12 @@
     width: 100%;
     object-fit: contain;
 }
+
+//svg container
+.svg-container {
+    width: 75%;
+
+    @media only screen and (max-width: $screen-sm) {
+        width: 100%;
+    }
+}
