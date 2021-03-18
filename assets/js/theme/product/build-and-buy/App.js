@@ -323,7 +323,7 @@ class App extends React.Component{
 
                     <Spring native to={{ right: this.state.drawerState === "open" ? "0vw" : "-110vw" }}>
                         { props =>  (<animated.aside className="drawer drawer--options" style={props}>
-                                        {this.state.drawerState === "open" ? 
+                                        {this.state.drawerState === "open" && 
                                             <OptionDrawer 
                                                 mainImg={replaceSize(product.main_image.data, 200)} 
                                                 drawerState={this.state.drawerState}
@@ -331,18 +331,15 @@ class App extends React.Component{
                                                 options={this.state.drawerOptions} 
                                                 for={this.state.drawerControl} 
                                             />
-                                        :null}
+                                        }
                                     </animated.aside>)
                         }
                     </Spring>
                     <div className={`drawer__overlay drawer__overlay--${this.state.drawerState}`} onClick={() => this.state.toggleDrawer("close")}></div>
 
+                    {this.state.requestSwatchesState === "open" && <RequestSwatch /> }
 
-                    {this.state.requestSwatchesState === "open" ? 
-                        <RequestSwatch /> 
-                    :null }
-
-                    {this.state.showPointOfPurchase ? <PointOfPurchaseModal /> : null}
+                    {this.state.showPointOfPurchase && <PointOfPurchaseModal /> }
                 
                 </ErrorBoundary>
             </AppContext.Provider>

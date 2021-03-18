@@ -1,6 +1,6 @@
 $flyout-width: 100%;
 $flyout-height: 520px;
-$flyout-item-width: 100%/4.5;
+$flyout-item-width: 19%;
 
 .flyout {
 	position: absolute;
@@ -15,7 +15,7 @@ $flyout-item-width: 100%/4.5;
 	&__underlay{
 		position: fixed;
 		content: "";
-		top: 149px;
+		top: 154px;
 		left: 0;
 		width: $flyout-width;
 		height: 100vh;
@@ -53,6 +53,13 @@ $flyout-item-width: 100%/4.5;
 				display: none;
 			}
 		}
+
+		&--Outdoor{
+			& .flyout__list{
+				max-width: 15%;
+				padding: 1.5rem 0 0 1.5rem;
+			}
+		}
 	}
 
 
@@ -61,6 +68,11 @@ $flyout-item-width: 100%/4.5;
 		margin: 0;
 		max-width: $flyout-item-width;
 		flex: 1 0 auto;
+
+		@media only screen and (max-width: $screen-xl) {
+			padding: 1.5rem 1rem 0 1rem;
+			max-width: 19%
+		}
 
 		&--feature {
 			background-color: #dddddd;
@@ -102,6 +114,14 @@ $flyout-item-width: 100%/4.5;
 	&__listLink {
 		font-size: 1rem;
 		line-height: 1.4;
+
+		@media only screen and (max-width: $screen-xl) {
+			font-size: 0.8rem;
+		}
+
+		@media only screen and (max-width: $screen-md) {
+			font-size: 1rem;
+		}
 
 		&:hover {
 			text-decoration: underline !important;

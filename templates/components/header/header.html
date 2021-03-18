@@ -31,7 +31,7 @@
 
                 <div class="header__logoCntr">
                     <a href="/" class="header__logoLink">
-                        <img class="header__logo" src="https://authenteak.s3.us-east-2.amazonaws.com/logo/Authenteak-logo.svg" alt="{{settings.store_logo.title}}">
+                        <img class="header__logo" src="https://authenteak.s3.us-east-2.amazonaws.com/Logo_Grey_Green.svg" alt="{{settings.store_logo.title}}">
                     </a>
                 </div>
 
@@ -42,7 +42,7 @@
                     </button>
                 </div>
 
-                <form class="header__searchGroup">
+                <form class="header__searchGroup" action="/search">
                     <input type="search" class="header__searchControl search-input" placeholder="What are you looking for today?" />
                     <button type="button" class="header__searchBtn" aria-label="Search">
                         <svg class="header__iconSearch" width="20" height="20"><use xlink:href="#icon-search2" /></svg>
@@ -163,10 +163,10 @@
                         <a href="/outdoor-furniture/" title="Shop Outdoor Furniture" class="header__navLink" rel="2480">Outdoor Furniture</a>
                     </li>
                     <li class="header__navItem">
-                        <a href="/grills-outdoor-kitchens/" title="Shop Kitchens and Grills" class="header__navLink" rel="787">Grills &amp; Kitchens</a>
+                        <a href="/patio-umbrellas-accessories/" title="Shop Umbrellas" class="header__navLink" rel="798">Umbrellas</a>
                     </li>
                     <li class="header__navItem">
-                        <a href="/patio-umbrellas-accessories/" title="Shop Umbrellas" class="header__navLink" rel="798">Umbrellas</a>
+                        <a href="/grills-outdoor-kitchens/" title="Shop Kitchens and Grills" class="header__navLink" rel="787">Grills &amp; Kitchens</a>
                     </li>
                     <li class="header__navItem">
                         <a href="/outdoor-heating/" title="Shop Heating" class="header__navLink" rel="906">Heating</a>
@@ -188,4 +188,13 @@
 
 <div class="mobileFlyout" id="mobileFlyout"></div>
 
-<div class="promo promo--header" id="topHeaderPromo"></div>
+{{#if customer.customer_group_id '!=' '1' }}
+<div class="promo promo--header"></div>
+{{/if}}
+
+{{#if customer.customer_group_id '==' '1' }}
+<div class="promoBanner promoBanner--green show" id="topHeaderPromoTrade">
+    <span class="promoBanner__text">Hey there, {{customer.name}}! &nbsp; You are logged in as a trade customer.</span>
+</div>
+{{/if}}
+

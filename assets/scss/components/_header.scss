@@ -35,11 +35,11 @@
         align-content: center;
         align-items: center;
         flex: 1 0 auto;
+        margin-bottom: 5px;
     }
 
     &__auxItem{
         margin-left: 2rem;
-        height: 15px;
         
         &:first-of-type{
             margin: 0
@@ -48,6 +48,7 @@
 
     &__auxLink{
         font-size: 0.8rem;
+        height: 15px;
         display: block;
         line-height: 1;
     }
@@ -59,13 +60,14 @@
         flex-direction: column;
         height: 124px;
         justify-content: flex-end;
+        flex: 1 0 auto;
 
         @media screen and (max-width: $screen-xl){
             height: auto;
         }
 
         @media screen and (max-width: $screen-sm){
-            height: 114px;
+            height: 99px;
         }
     }
 

@@ -28,19 +28,19 @@
                 margin-bottom: 20px;
             }
 
-            & .slick-dots{
-                display: block !important;
+            // & .slick-dots{
+            //     display: none !important;
 
-                & li{
-                    border: none;
-                    background-color: #ccc;
+            //     & li{
+            //         border: none;
+            //         background-color: #ccc;
 
-                    &.slick-active{
-                        border-color: transparent;
-                        background-color: #555;
-                    }
-                }
-            }
+            //         &.slick-active{
+            //             border-color: transparent;
+            //             background-color: #555;
+            //         }
+            //     }
+            // }
 
             & .slick-prev{
                 left: -30px;

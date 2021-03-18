@@ -151,9 +151,10 @@ window.TEAK.Globals = {
     carouselSettings: {
         infinite: true,
         slidesToShow: 4,
+        arrows: true,
         slidesToScroll: 4,
         autoplaySpeed: 4000,
-        dots: true,
+        dots: false,
         speed: 800,
         lazyLoad: "progressive",
         prevArrow: '<span class="carousel-navigation-item previous"><svg class="icon icon-arrow-left"><use xlink:href="#icon-arrow-left" /></svg></span>',

@@ -1,4 +1,6 @@
 .nosto_element{
+    overflow: visible;
+
     & .product-details .product-price {
         font-size: inherit !important;
     }
@@ -6,4 +8,16 @@
 
 .nosto_page_product_1{
     margin-bottom: 60px;
+}
+
+.products-related .carousel-navigation-item.previous {
+    left: -30px;
+    margin-top: -45px;
+    z-index: 9999;
+}
+
+.products-related .carousel-navigation-item.next {
+    right: -30px;
+    margin-top: -45px;
+    z-index: 9999;
 }

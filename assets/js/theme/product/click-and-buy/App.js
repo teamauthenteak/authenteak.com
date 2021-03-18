@@ -311,7 +311,6 @@ class App extends React.Component{
                                     onclick={() => window.location.href = "tel:1-833-257-7070"} 
                                 />
 
-
                                 <MarketingBtn 
                                     title="Trade Application" 
                                     text={`Apply for our residential and hospitality trade program. <strong>Learn more &rsaquo;</strong>`} 
@@ -323,9 +322,7 @@ class App extends React.Component{
                     </div>
 
 
-                    {Object.keys(this.state.cart).length ? 
-                        <Cart cart={this.state.cart} cartStatus={this.cartUpdate} type="sticky" cartShouldBeRefreshed={this.state.cartShouldBeRefreshed} />
-                    :null}
+                    { !!Object.keys(this.state.cart).length && <Cart cart={this.state.cart} cartStatus={this.cartUpdate} type="sticky" cartShouldBeRefreshed={this.state.cartShouldBeRefreshed} />}
 
 
                     <div className="product__layoutSelections">
@@ -333,13 +330,11 @@ class App extends React.Component{
                             <SuggestedProductLayouts data={this.props.context.custom_fields} type="slider" step="1" />
                         </div>
 
-                        {Object.keys(this.state.suggestedLayout).length ? 
-                            <CollectionPodBundle />
-                        :null}
+                        { !!Object.keys(this.state.suggestedLayout).length && <CollectionPodBundle />}
                     </div>
 
 
-                {Object.keys(this.state.suggestedLayout).length ? 
+                { !!Object.keys(this.state.suggestedLayout).length && 
                     <div className="product__collectionsCntr product__collectionsCntr--topSpace">
                         <div className="product__row product__row--left pad">
                             <strong className="product__title product__title--upperBadge">Step 3</strong>
@@ -362,9 +357,7 @@ class App extends React.Component{
                             <CollectionPreloader />
                         }
                     </div>
-                :null}
-
-
+                }
 
                     <div className="product__row">
                         <div className="product__col-1-1">
@@ -373,10 +366,9 @@ class App extends React.Component{
                     </div>
 
 
-
                     <Spring native to={{ right: this.state.drawerState === "open" ? "0vw" : "-110vw" }}>
                         { props =>  (<animated.aside className="drawer drawer--options" style={props}>
-                                        {this.state.drawerState === "open" ? 
+                                        {this.state.drawerState === "open" && 
                                             <OptionDrawer 
                                                 mainImg={replaceSize(product.main_image.data, 200)} 
                                                 drawerState={this.state.drawerState}
@@ -384,20 +376,15 @@ class App extends React.Component{
                                                 options={this.state.drawerOptions} 
                                                 for={this.state.drawerControl} 
                                             />
-                                        :null}
+                                        }
                                     </animated.aside>)
                         }
                     </Spring>
                     <div className={`drawer__overlay drawer__overlay--${this.state.drawerState}`} onClick={() => this.state.toggleDrawer("close")}></div>
 
+                    {this.state.requestSwatchesState === "open" && <RequestSwatch /> }
 
-                    {this.state.requestSwatchesState === "open" ? 
-                        <RequestSwatch /> 
-                    :null }
-
-
-                    {this.state.showPointOfPurchase ? <PointOfPurchaseModal /> : null}
-
+                    {this.state.showPointOfPurchase && <PointOfPurchaseModal /> }
                 </div>
             </AppContext.Provider>
         )

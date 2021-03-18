@@ -132,7 +132,7 @@ export default function PointOfPurchaseModal(props){
             }
 
             if( err ){
-                console.log(err)
+                // console.log(err)
                 setStatus(400);
                 setAtcDisabled(false);
             }
@@ -279,19 +279,20 @@ export default function PointOfPurchaseModal(props){
                                             <h5 className="product__name product__name--pod">{item.node.name}</h5>
                                             <div className="product__price product__price--pod">{ formatPrice( TEAK.Utils.graphQL.determinePrice( item.node.prices)) }</div>
                                             
-                                            {item.hasOwnProperty("options") && item.options[0].node.displayStyle === "Swatch" ?
-                                            <ul className={`product__podSwatches product__podSwatches--center`}>
-                                        {item.options[0].node.values.edges.map((optItem, index) => {
-                                            if( index < 4 ){ 
-                                                return <Swatch id={optItem.node.entityId} img={optItem.node.imageUrl} type="pod" key={optItem.node.entityId} />          
+                                            {item.hasOwnProperty("options") && item.options[0].node.displayStyle === "Swatch" &&
+                                                <ul className={`product__podSwatches product__podSwatches--center`}>
+                                                    {item.options[0].node.values.edges.map((optItem, index) => {
+                                                        if( index < 4 ){ 
+                                                            return <Swatch id={optItem.node.entityId} img={optItem.node.imageUrl} type="pod" key={optItem.node.entityId} />          
+                                                        }
+                                                    })}
+                                                    
+                                                    <li className="product__podSwatchItem product__podSwatchItem--text">
+                                                        <svg className="icon icon-plus"><use xlinkHref="#icon-plus" /></svg> &nbsp;
+                                                        <i>{item.options[0].node.values.edges.length} Fabric Options</i>
+                                                    </li>
+                                                </ul>
                                             }
-                                        })}
-                                                <li className="product__podSwatchItem product__podSwatchItem--text">
-                                                    <svg className="icon icon-plus"><use xlinkHref="#icon-plus" /></svg> &nbsp;
-                                                    <i>{item.options[0].node.values.edges.length} Fabric Options</i>
-                                                </li>
-                                            </ul>
-                                            :null}
 
                                         </button>
                                 })
@@ -309,35 +310,37 @@ export default function PointOfPurchaseModal(props){
                             <div className={`product__row product__row--border product__row--podCntr ${Object.keys(selected).length === 0 ? "hide" : "show"}`}>
                                 <div className="product__col-1-1 pad-top-bottom">
                                     
-                    {Object.keys(selected).length !== 0 ?
+                    { Object.keys(selected).length !== 0 &&
                         selected.options.map((item) => {
-                            let isSwatch= item.node.displayStyle === "Swatch";
+                            let isSwatch = item.node.displayStyle === "Swatch";
+
+                            if(item.node.displayName === "not_an_option"){ return }
 
                             return  <React.Fragment key={item.node.entityId}>
                                         <div className={`product__col product__col-1-${isSwatch ? "3" : "2"}--lg product__col-1-1`}>
                                             <h5 className="product__name">{item.node.displayName}</h5>
 
                                             <div className="product__col product__col-6-10--lg product__col-5-10 no-pad">
-                                                {Object.keys(selectedOpt).length !== 0 && isSwatch ?
-                                                <figure className="product__figure">
-                                                    <img className="product__figImg round" src={selectedOpt.image} alt={`Pillow Swatch ${selectedOpt.label}`} />
-                                                    {
-                                                        mainProductSwatches.map((item) => {
-                                                            if( item.hasOwnProperty("swatch") ){
-                                                                return <span className="product__figure--auxSwatch" key={item.attribute.toString()}>
-                                                                            <img className="product__figImg round" src={item.swatch.image} alt={item.name} />
-                                                                            <span className="product__figImgName">{item.name.split("Select")[1]}</span>
-                                                                        </span>
-                                                            }
-                                                        })
-                                                    }
-                                                </figure>
-                                                :null}
+                                                { (Object.keys(selectedOpt).length !== 0 && isSwatch) &&
+                                                    <figure className="product__figure">
+                                                        <img className="product__figImg round" src={selectedOpt.image} alt={`Pillow Swatch ${selectedOpt.label}`} />
+                                                        {
+                                                            mainProductSwatches.map((item) => {
+                                                                if( item.hasOwnProperty("swatch") ){
+                                                                    return <span className="product__figure--auxSwatch" key={item.attribute.toString()}>
+                                                                                <img className="product__figImg round" src={item.swatch.image} alt={item.name} />
+                                                                                <span className="product__figImgName">{item.name.split("Select")[1]}</span>
+                                                                            </span>
+                                                                }
+                                                            })
+                                                        }
+                                                    </figure>
+                                                }
                                             </div>
                                         </div>
 
 
-                                        {isSwatch ?
+                                    {isSwatch &&
                                         <div className="product__col product__col-2-3--lg product__col-1-1">
                                             <div className="product__scrollCntr">
                                                 <ul className="product__podSwatches">
@@ -359,10 +362,10 @@ export default function PointOfPurchaseModal(props){
                                                 </ul>  
                                             </div>
                                         </div>
-                                    :null}
+                                    }
 
 
-                                    {item.node.displayStyle === "DropdownList" ? 
+                                    {item.node.displayStyle === "DropdownList" && 
                                         <div className="product__col product__col-1-2--lg product__col-1-1">
                                             <Select 
                                                 displayName={item.node.displayName} 
@@ -373,11 +376,11 @@ export default function PointOfPurchaseModal(props){
                                                 toolTipData={null}
                                             /> 
                                         </div>
-                                    :null}
+                                    }
 
                                     </React.Fragment>
                         })
-                    :null}
+                    }
                                 </div>
                             </div>
 

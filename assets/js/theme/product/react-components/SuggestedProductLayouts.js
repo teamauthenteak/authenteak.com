@@ -72,14 +72,14 @@ export default function SuggestedProductLayouts(props){
 
     return(
         <>
-        { layouts.length > 0 ?
+        { layouts.length > 0 &&
             <>
                 <div className="product__row product__row--left">
                     <strong className="product__title product__title--upperBadge">Step {props.step}</strong>
                     <h2 className="product__title product__title--tight no-margin">Choose A {title}</h2>
                 </div>
                 
-                {props.type === "slider" ?
+                {props.type === "slider" &&
                     <Slider {...TEAK.Globals.collections.suggestedSlider}>
                         {
                             layouts.map((item) => {
@@ -87,15 +87,15 @@ export default function SuggestedProductLayouts(props){
                             })
                         }
                     </Slider>   
-                :null}
+                }
                 
-                {props.type === "static" ?
+                {props.type === "static" &&
                     layouts.map((item) => {
                         return <LayoutListItems key={item.icon_id} item={item} active={active} setActiveData={(data) => setActive(data)} />
                     })
-                :null}
+                }
             </>
-        :null}
+        }
         </>
     );
 }

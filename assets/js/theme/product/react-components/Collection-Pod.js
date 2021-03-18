@@ -288,7 +288,6 @@ function CollectionPod(props){
 
                     // determine if this fits our global swatch control
                     for (let i = 0; i < responseData.length; i++) {      
-                        console.log(responseData)  
                         if( responseData[i].node.displayStyle === "Swatch" && appHook.hasOwnProperty(responseData[i].node.displayName) ){
                             setGlobalOptFlag(true);
                             break;
@@ -362,8 +361,7 @@ function CollectionPod(props){
 
     return(
         <>
-        {props.product ? 
-        
+        {props.product && 
             <section className="product__row product__row--border product__row--section">
                 {isSuggested && props.isRibbonShown ? <Ribbon suggested={props.suggested} id={props.product.entityId} /> : null}
 
@@ -429,10 +427,7 @@ function CollectionPod(props){
                         })}
 
 
-                            {productPrice.without_tax > 2998 ? 
-                                <ToolTips type="freeWhiteGlove" /> 
-                            :null}
-
+                            {productPrice.without_tax > 2998 && <ToolTips type="freeWhiteGlove" /> }
 
                                 <p>
                                     <a href={props.product.path} title={`Learn more about ${props.product.name}`}>
@@ -451,29 +446,29 @@ function CollectionPod(props){
                                     }`}>
 
                                     <ul className="product__swatchList">
-                                        {hasGlobalOptions ?
-                                        <li className="product__swatchItem product__swatchItem--list">
-                                            <span>{Object.keys(swatches).length > 0 ? "Selected Options" : "Select Options Above"}</span>
+                                        {hasGlobalOptions &&
+                                            <li className="product__swatchItem product__swatchItem--list">
+                                                <span>{Object.keys(swatches).length > 0 ? "Selected Options" : "Select Options Above"}</span>
 
-                                            <ul className="product__swatchItemList">
-                                            {options.map((item) => {
-                                                if( item.node.displayStyle === "Swatch" && appHook.hasOwnProperty(item.node.displayName) ){
-                                                    return  <Swatch 
-                                                                key={item.node.entityId.toString()} 
-                                                                displayName={item.node.displayName} 
-                                                                id={item.node.entityId} 
-                                                                values={item.node.values.edges}
-                                                                setOption={selectSwatch}
-                                                                type="remote"
-                                                                isInvalid={invalidSwatch}
-                                                                toolTipData={toolTips[item.node.displayName] !== undefined ? toolTips[item.node.displayName] : null}
-                                                            />
-                                                }
-                                            })}
-                                            </ul>
-                                            <svg className="product__swatchLabelIcon product__swatchLabelIcon--45deg"><use xlinkHref="#icon-long-arrow-right" /></svg>
-                                        </li>
-                                        :null}
+                                                <ul className="product__swatchItemList">
+                                                {options.map((item) => {
+                                                    if( item.node.displayStyle === "Swatch" && appHook.hasOwnProperty(item.node.displayName) ){
+                                                        return  <Swatch 
+                                                                    key={item.node.entityId.toString()} 
+                                                                    displayName={item.node.displayName} 
+                                                                    id={item.node.entityId} 
+                                                                    values={item.node.values.edges}
+                                                                    setOption={selectSwatch}
+                                                                    type="remote"
+                                                                    isInvalid={invalidSwatch}
+                                                                    toolTipData={toolTips[item.node.displayName] !== undefined ? toolTips[item.node.displayName] : null}
+                                                                />
+                                                    }
+                                                })}
+                                                </ul>
+                                                <svg className="product__swatchLabelIcon product__swatchLabelIcon--45deg"><use xlinkHref="#icon-long-arrow-right" /></svg>
+                                            </li>
+                                        }
 
                                         {options.map((item) => {
                                             if(item.node.displayStyle === "Swatch" && !appHook.hasOwnProperty(item.node.displayName) ){
@@ -526,8 +521,7 @@ function CollectionPod(props){
 
                 </form>
             </section>
-
-        :null}
+        }
         </>
     );
 }

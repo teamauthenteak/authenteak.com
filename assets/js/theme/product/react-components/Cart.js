@@ -102,7 +102,7 @@ export default function StickyCart(props){
                     }
 
                     if( err ){
-                        console.log(err)
+                        // console.log(err)
                         setStatus(400)
                         cartStatus(404)
                     }
@@ -150,11 +150,11 @@ export default function StickyCart(props){
                         <header className={`stickyCart__cntr`}>
 
                             <div className="stickyCart__headerCntr">
-                            {/* {!isFixed ? 
+                            {/* {!isFixed && 
                                 <figure className="stickyCart__figure">
                                     <LazyImg src={replaceSize(appHook.product.main_image.data, 90)} placeholder={replaceSize(appHook.product.main_image.data, 10)} alt={appHook.product.title} className="stickyCart__figImg" />
                                 </figure>
-                            :null} */}
+                                } */}
 
                                 <div className="stickyCart__titleCntr">
                                     <h2 className="stickyCart__title">

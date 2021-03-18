@@ -122,7 +122,7 @@ export default function Swatch(props){
 
     return(
         <>
-        {optionExists && props.type === "global" ?
+        {optionExists && props.type === "global" &&
             <li className="product__swatchItem product__swatchItem--marginBottom form-field">
                 <label className={`product__swatchLabel ${props.isInvalid && props.isInvalid.includes(props.id) ? "product__swatchLabel--error" : ""}`} htmlFor={`${props.id}`} onClick={() => toggleDrawer({id: props.id , displayName: props.displayName, values: props.values })}>
                     <div className="product__swatch product__swatch--labelRight">
@@ -140,20 +140,20 @@ export default function Swatch(props){
                                 </span>
                             </span>
                             <span className={`product__swatchValue ${ hasSwatch ? "show" : ""}`}>
-                                { hasSwatch ? 
+                                { hasSwatch && 
                                     `${globalSwatchObj.grade ? `Grade ${globalSwatchObj.grade} ` : ""}${globalSwatchObj.brandName ? `${globalSwatchObj.brandName} ` : ""}${globalSwatchObj.color} ${globalSwatchObj.ship ? globalSwatchObj.ship : ""}` 
-                                :null}
+                                }
                             </span>
                         </p>
                     </div>
                     <svg className="product__swatchLabelIcon product__swatchLabelIcon--right"><use xlinkHref="#icon-long-arrow-right" /></svg>
                 </label>
             </li>
-        :null}
+        }
 
 
 
-        {optionExists && props.type === "remote" ?
+        {optionExists && props.type === "remote" &&
             <li className={`product__swatchItem ${props.isInvalid && props.isInvalid.includes(props.id) ? "product__swatchItem--error" : ""}`}>
                 {props.toolTipData !== null ? <ToolTips type={props.toolTipData.data.type} tip={props.toolTipData.data.tip} /> : null}
                 <a href="#customize" className={`product__swatch`} required={true}>
@@ -165,11 +165,11 @@ export default function Swatch(props){
                     { Object.keys(remoteSwatch).length ? remoteSwatch.swatch.price : "" }
                 </span>
             </li>
-        :null}
+        }
 
 
 
-        {props.type === "local" ?
+        {props.type === "local" &&
             <li className="product__swatchItem product__swatchItem--marginBottom form-field">
                 {props.toolTipData !== null ? <ToolTips  type={props.toolTipData.data.type} tip={props.toolTipData.data.tip} /> : null}
                 <label className={`product__swatchLabel ${props.isInvalid && props.isInvalid.includes(props.id) ? "product__swatchLabel--error" : ""}`} htmlFor={`${props.id}`} onClick={() => toggleDrawer({id: props.id , displayName: props.displayName, values: props.values })}>
@@ -195,11 +195,11 @@ export default function Swatch(props){
                     <svg className="product__swatchLabelIcon product__swatchLabelIcon--right"><use xlinkHref="#icon-long-arrow-right" /></svg>
                 </label>
             </li>
-        :null}
+        }
 
 
 
-        {props.type === "select" ?
+        {props.type === "select" &&
             <label className="swatch-wrap" htmlFor={`attribute-${props.id}`}>
                 <input 
                     className="form-input swatch-radio" 
@@ -221,16 +221,16 @@ export default function Swatch(props){
                     <OptionLabels label={props.label} drawerType={props.drawerType} />
                 </span>
             </label>
-        :null}
+        }
 
 
 
 
-        {props.type === "pod" ?
+        {props.type === "pod" &&
             <li className="product__podSwatchItem swatch-wrap" htmlFor={`attribute-${props.id}`}>
                 <span className="swatch-color swatch-pattern" style={{backgroundImage: `url("${props.img}")` }}></span>
             </li>
-        :null}
+        }
 
 
         </>

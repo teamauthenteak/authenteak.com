@@ -5,12 +5,10 @@ export default class MobileFlyout{
         this.headerService = new HeaderService()
 
         this.MobileFlyout = document.getElementById("mobileFlyout");
-        
+
         const mainNav = document.getElementById("globalHeader").querySelector(".header__navList").innerHTML;
-        const promo = document.getElementById("topHeaderPromo").outerHTML;
 
         this.MobileFlyout.innerHTML = `
-            ${promo}
             <button type="button" class="mobileFlyout__close" aria-label="Close">
                 <svg class="icon icon-close" width="30" height="30"><use xlink:href="#icon-close"/></svg>
             </button>
@@ -71,9 +69,14 @@ export default class MobileFlyout{
     }
 
 
-    toggleFlyout = () => {
+    toggleFlyout = (e) => {
+        if( !$("#mobileFlyout").find(".promo--header").length ){
+            let promo = document.querySelector(".promo--header").outerHTML;
+            $(promo).prependTo("#mobileFlyout")
+        }
+       
         $("#mobileFlyout").toggleClass("mobileFlyout--show");
-        this.headerService.lockBody();
+        this.headerService.lockBody(e);
     }
 
 

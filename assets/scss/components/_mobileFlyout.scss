@@ -94,6 +94,11 @@
     & .flyout__listLink{
         padding: 1rem  1.5rem;; 
         display: block;
+
+        &:hover{
+            color: inherit;
+            text-decoration: none !important;
+        }
     }
 
     & .flyout__listHeading{
@@ -119,7 +124,7 @@
 
     & .flyout__item--heading{
         border-bottom: 2px solid #fff;
-        background-color: #f0efed;
+        background-color: #F0F0F0;
 
         & ~ .flyout__item{
             display: none;
@@ -160,7 +165,7 @@
     }
 
     & .header__navItem{
-        background-color: #cdc8c4;
+        background-color: #ddd;
         border-bottom: 2px solid #fff;
         flex-direction: column;
         display: flex;
@@ -181,6 +186,7 @@
     & .header__navLink{
         width: 100%;
         text-align: left;
+        padding-left: 1.5rem;
         padding-top: 1em;
         padding-bottom: 1em;
         display: flex;

@@ -15,12 +15,12 @@ export default function ReviewStars(props){
 
     return(
         <>
-        { rating ? 
+        { rating && 
             <>
                 <span className="yotpo-stars-rating" style={{"--rating": rating.average_score}} aria-label={`Rating of ${rating.average_score} out of 5.`}></span>
                 (<span className="yotpo-reviews-num">{rating.total}</span>)
             </>
-        :null}
+        }
         </>
     );
 }

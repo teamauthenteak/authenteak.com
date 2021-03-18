@@ -4,10 +4,20 @@
 - New Header App (Desktop, Mobile, Tablet)
 - fixed yotpo error for reviews and questions when sending sku instead of product id
 - removed prop 65 from cart
-- March Homepage updates
+- March Homepage updates (merges)
 - fixed header aux nav cut off issue
 - added outdoor back to the furniture main nav.
 - added outdoor decor to accessories tab
+- fixed search bar issue in header
+- added my list ajax post call on PDP
+- fixed header/content spacing issues
+- fixed issue were the flyout text was to large, thus being cutoff for 1020 devices
+- fixed issue where promo banner was not showing up on mobile devices
+- Refactored component conditions in Collections PDP App
+- fixed a slider bug where the slick dots showed on mobile
+- fixed scroll lock issue causing the browser page to reflow when we lock the page for main nav
+- added promo banner back for trade users
+- updated logo on cart/checkout, main header
 
 ## [1.20.34]
 - added filter support for pdp swatch drawer

@@ -59,7 +59,7 @@ export default function Select(props){
 
     return(
         <>
-        {appHook.hasOwnProperty(props.displayName) && props.type === "global" ?
+        {appHook.hasOwnProperty(props.displayName) && props.type === "global" &&
             <li className="product__swatchItem product__swatchItem--marginBottom product__swatchItem--select">
                 <label className={`selectBox__label ${props.isInvalid && props.isInvalid.includes(props.id) ? "selectBox__label--error" : ""}`} htmlFor={`attribute-${props.id}`}>
                     <div className="selectBox__text selectBox__text--right">
@@ -72,19 +72,19 @@ export default function Select(props){
                     </div>
                     <select onChange={(e) => selectChange(e)} required={true} className="selectBox__select" name={`attribute[${props.id}]`} id={`attribute-${props.id}`} aria-required="true">
                         <option value="">Choose...</option>
-            {props.values.map((item, index) => {
-                return  <option value={`${item.id}`} label={item.label.split("--")[0]} key={item.id}>
-                            {item.label.split("--")[0]}
-                        </option>
-            })}
+                            {props.values.map((item, index) => {
+                                return  <option value={`${item.id}`} label={item.label.split("--")[0]} key={item.id}>
+                                            {item.label.split("--")[0]}
+                                        </option>
+                            })}
                     </select>
                 </label>
             </li>
-        : null}
+        }
 
 
 
-        {appHook.hasOwnProperty(props.displayName) && props.type === "remote" ?
+        {appHook.hasOwnProperty(props.displayName) && props.type === "remote" &&
             <li className="product__swatchItem product__swatchItem--marginBottom product__swatchItem--select">
                     <a href="#customize" className={`selectBox__text--globalControl ${props.isInvalid && props.isInvalid.includes(props.id) ? "selectBox__text--error" : ""}`}>
                         <span className="selectBox__optionText">
@@ -95,11 +95,11 @@ export default function Select(props){
                         <svg className="product__swatchLabelIcon product__swatchLabelIcon--angle"><use xlinkHref="#icon-long-arrow-right" /></svg>
                     </a>                   
             </li>
-        : null}
+        }
 
 
 
-        {props.type === "local" ?
+        {props.type === "local" &&
             <li className="product__swatchItem product__swatchItem--marginBottom product__swatchItem--select">
                 {props.toolTipData !== null ? <ToolTips type={props.toolTipData.data.type} tip={props.toolTipData.data.tip} /> : null}
                 <label className={`selectBox__label ${props.isInvalid && props.isInvalid.includes(props.id) ? "selectBox__label--error" : ""}`} htmlFor={`attribute-${props.id}`}>
@@ -113,17 +113,17 @@ export default function Select(props){
                     </div>
                     <select onChange={(e) => selectChange(e)} required={true} className="selectBox__select" name={`attribute[${props.id}]`} id={`attribute-${props.id}`} aria-required="true">
                         <option value="">Choose...</option>
-        {props.values.map((item, index) => {
-            if( item.hasOwnProperty("node") ){
-                return  <option value={`${item.node.entityId}`} label={item.node.label.split("--")[0]} key={item.node.entityId}>
-                            {item.node.label.split("--")[0]}
-                        </option>
-            }
-        })}
+                        {props.values.map((item, index) => {
+                            if( item.hasOwnProperty("node") ){
+                                return  <option value={`${item.node.entityId}`} label={item.node.label.split("--")[0]} key={item.node.entityId}>
+                                            {item.node.label.split("--")[0]}
+                                        </option>
+                            }
+                        })}
                     </select>
                 </label>
             </li>
-        :null}
+        }
         </>
     );
 }

@@ -17,7 +17,7 @@ export default class Header {
 		// if we are on the pdp collections
 		this.notPDPCollections = !document.getElementById("buildAndBuyRoot") || !document.getElementById("clickAndBuyRoot");
 
-		this.promoBanner = document.getElementById('topHeaderPromo');
+		this.promoBanner = document.querySelectorAll('.promo--header');
 		this.headerPromoBanner();
 
 		this.cartCount = null;
@@ -58,36 +58,40 @@ export default class Header {
 			promoLink = document.createElement("a");
 
 			
-		if( !this.promoBanner ){ return; }
-		
-		if(window.sessionStorage.getItem("TEAK__dismissPromoBanner")){
-			let isDismissed = window.sessionStorage.getItem("TEAK__dismissPromoBanner");
-			this.promoBanner.style.display = isDismissed ? "none" : "flex";
-			return;
-		}
+		if( !this.promoBanner.length ){ return; }
 
-		if( typeof headerMarketing === "undefined" || Object.keys(headerMarketing).length === 0 ){ return; }
-
-		if ( headerMarketing.hasOwnProperty("banner") ) {
-			let promo = headerMarketing.banner;
-
-			if( promo.header_promo_link !== ""){
-				promoLink.setAttribute("href", promo.header_promo_link);
+		this.promoBanner.forEach(promoElement => {
+			if(window.sessionStorage.getItem("TEAK__dismissPromoBanner")){
+				let isDismissed = window.sessionStorage.getItem("TEAK__dismissPromoBanner");
+				promoElement.style.display = isDismissed ? "none" : "flex";
+				return;
 			}
-			
-			promoLink.setAttribute("class", "promoBanner__link " + ( promo.hasOwnProperty("header_custom_class") ? promo.header_custom_class : "" ) );
-			promoLink.innerHTML = promo.header_promo;
-
-			this.promoBanner.classList.add("promoBanner--" + promo.header_promo_color);
-			this.promoBanner.appendChild(promoLink);
-			this.promoBanner.style.display = promo.isVisable ? "flex" : "none";
-		}
+	
+			if( typeof headerMarketing === "undefined" || Object.keys(headerMarketing).length === 0 ){ return; }
+	
+			if ( headerMarketing.hasOwnProperty("banner") ) {
+				let promo = headerMarketing.banner;
+	
+				if( promo.header_promo_link !== ""){
+					promoLink.setAttribute("href", promo.header_promo_link);
+				}
+				
+				promoLink.setAttribute("class", "promoBanner__link " + ( promo.hasOwnProperty("header_custom_class") ? promo.header_custom_class : "" ) );
+				promoLink.innerHTML = promo.header_promo;
+	
+				promoElement.classList.add("promoBanner--" + promo.header_promo_color);
+				promoElement.appendChild(promoLink);
+				promoElement.style.display = promo.isVisable ? "flex" : "none";
+			}
+		})
+		
+		
 	}
 
 
 	dismissHeaderPromoBanner(e){
 		window.sessionStorage.setItem("TEAK__dismissPromoBanner", true);
-		this.promoBanner.style.display = "none";
+		this.promoBanner.forEach(ele => ele.style.display = "none")
 
 		e.preventDefault();
 	}

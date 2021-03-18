@@ -112,7 +112,7 @@ export default function RequestSwatch(props){
 
                         <div className="swatchModal__inner">
                             <ul className={`swatchModal__list`}>
-                { options.length > 0 ?
+                { options.length > 0 &&
                     options.map((item, index) => {
                         if( item.label === "not_an_option" ){ return; }
                         
@@ -137,7 +137,7 @@ export default function RequestSwatch(props){
                                     </label>
                                 </li>
                     })
-                :null}
+                }
                             </ul>
                         </div>
 

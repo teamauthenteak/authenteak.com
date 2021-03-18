@@ -53,6 +53,9 @@ export default class HeaderService{
 					{ name: "How to Protect your Patio Furniture During all Seasons", path: "/blog/how-to-protect-your-patio-furniture-during-all-seasons/" },
 					{ name: "How to Use Patio Furniture Covers and Expert Tips To Protect Outdoor Furniture", path: "/blog/how-to-use-patio-furniture-covers-and-expert-tips-to-protect-outdoor-furniture/" },
 					{ name: "Use Outdoor Planters to Define Your Outdoor Space", path: "/blog/use-outdoor-planters-to-define-your-outdoor-space/" },
+					{ name: "All-Weather Outdoor Rugs: Define your Outdoor Living Space", path: "/blog/allweather-outdoor-rugs-define-your-outdoor-living-space/" },
+					{ name: "Sunbrella Rain Fabrics", path: "/blog/sunbrella-rain-fabrics/" },
+					{ name: "Choosing the Best Outdoor TV for Your Space", path: "/blog/choosing-the-best-outdoor-tv-for-your-space/" }
 				]
 			}]
 		};
@@ -66,8 +69,9 @@ export default class HeaderService{
 
 
 		categoryData.forEach((ele, index) => {
-
+		
 			switch (ele.entityId) {
+				case 2480: furniture(ele); break;
 				case 1099: maintenanceCare(ele); break;
 				case 2530: decor(ele); break;
 				case 911: planters(ele); break;
@@ -82,6 +86,7 @@ export default class HeaderService{
 				case 2508: removeCategory(index);break;
 				default: break;
 			}
+
 
 			// remove unnecessary categories
 			function removeCategory(i){
@@ -161,7 +166,6 @@ export default class HeaderService{
 				hasSupplemental(ele.entityId)
 				accessories.children.unshift(outdoor);
 			}
-
 
 
 			// Outdoor Decor
@@ -292,12 +296,29 @@ export default class HeaderService{
 			}
 
 
+
+			// Outdoor Furniture
+			function furniture(ele){
+				ele.children.push({
+					name: "Get Project Help",
+					path: "/blog/",
+					children: [
+						{ name: "Choosing Furniture for Your Outdoor Space", path: "/blog/choosing-furniture-for-your-outdoor-space-/" },
+						{ name: "Tablescape Ideas for an Outdoor Dinner Party", path: "/blog/tablescape-ideas-for-an-outdoor-dinner-party/" }
+					]
+				});
+			}
+
+
+
 			// heating
 			function heating(ele){
 				ele.children.push({
 					name: "Get Project Help",
 					path: "/blog/",
 					children: [
+						{ name: "Choosing a Fire Pit for your Backyard or Patio", path: "/blog/choosing-a-fire-pit-for-your-backyard-or-patio/" },
+						{ name: "How to Enjoy Safe Outdoor Fire Pits", path: "/blog/how-to-enjoy-safe-outdoor-fire-pits/" },
 						{ name: "Outdoor Header Buyer's Guide", path: "/blog/outdoor-heater-buyers-guide/" },
 						{ name: "How to Buy A Patio Heater for Your Space", path: "/blog/how-to-buy-a-patio-heater-for-your-space/" },
 						{ name: "Infrared Patio Heater Buying Guide", path: "/infrared-patio-heater-buying-guide" },
@@ -314,8 +335,12 @@ export default class HeaderService{
 					path: "/blog/",
 					children: [
 						{ name: "Guide to Planning Your Outdoor Kitchen", path: "/blog/a-guide-to-planning-your-outdoor-kitchen/" },
-						{ name: "How to Cook a Turkey", path: "/blog/how-to-cook-a-turkey-smoked-turkey-on-a-kamado-grill-recipe/" },
-						{ name: "Choose A Built-In Grill For Your Outdoor Space", path: "/choose-a-built-in-grill-for-your-outdoor-kitchen" }
+						{ name: "Choose A Built-In Grill For Your Outdoor Space", path: "/choose-a-built-in-grill-for-your-outdoor-kitchen" },
+						{ name: "Liven Up Your Backyard BBQ: 3 Tips to Elevate Your Cookout", path: "/liven-up-your-backyard-barbeque-3-tips-for-elevating-your-next-cookout" },
+						{ name: "Gift Ideas for the Grill Master", path: "/blog/gift-ideas-for-the-grill-master/" },
+						{ name: "How to Choose a Grill for Your Space", path: "/blog/how-to-choose-a-grill-for-your-space/" },
+						{ name: "3 Things To Consider When Creating Your Own Outdoor Bar", path: "/3-things-to-consider-when-creating-your-own-outdoor-bar" },
+						{ name: "Create Your Outdoor Kitchen With AuthenTEAK", path: "/create-your-outdoor-kitchen-with-authenteak" }
 					]
 				});
 			}
@@ -458,14 +483,14 @@ export default class HeaderService{
 							</a>
 						</h3>
 					</li>
-					${child.items ? child.items.map(kid => {
+					${child.items && child.items.map(kid => {
 						return	`<li class="flyout__item">
 									<a href="${kid.url}" class="flyout__listLink ${kid.title.includes("Shop All") ? 'em' : ''}" title="Visit ${kid.name} category">
 										${kid.title}
 									</a>
 								</li>`;
-					}).join("")
-					:null}
+						}).join("")
+					}
 				</ul>`;
 	}
 

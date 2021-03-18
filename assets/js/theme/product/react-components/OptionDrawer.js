@@ -184,7 +184,7 @@ export default class OptionDrawer extends React.Component{
 
         return(
             <DrawerContext.Provider value={this.state}>
-                { Object.keys(this.props.for).length > 0 ?
+                { Object.keys(this.props.for).length > 0 &&
                     <>
                         <div className="drawer__content">
                             <div className={`drawer__main drawer__main--${appHook.drawerState}`}>
@@ -226,7 +226,7 @@ export default class OptionDrawer extends React.Component{
                         </Spring>
                         
                     </>
-                :null}
+                }
             </DrawerContext.Provider>
         );
     }

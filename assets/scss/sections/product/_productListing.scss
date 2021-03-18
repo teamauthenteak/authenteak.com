@@ -19,6 +19,10 @@
     }
 }
 
+// .product-listing-wrapper{
+//     padding-top: 40px;
+// }
+
 .product-listing--category-landing {
     .listing-header {
         display: block;
@@ -315,4 +319,8 @@ section.product-listing {
     }
 }
 
+.product-listing .breadcrumbs{
+    margin-top: 1.5rem;
+    margin-bottom: 0
+}
 

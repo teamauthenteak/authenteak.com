@@ -27,7 +27,7 @@ export default function ToolTips(props){
 
     return(
         <>
-            {props.type === "tooltip" ? 
+            {props.type === "tooltip" && 
                 <>
                     <div className="toolTip toolTip--show">
                         <button type="button" className="toolTip__iconCntr toolTip__iconCntr--dark" onClick={() => toggleGeneral(true)}>
@@ -39,11 +39,11 @@ export default function ToolTips(props){
                         <div dangerouslySetInnerHTML={{ __html: props.tip.join("") }}></div>
                     </animated.div>
                 </>
-            :null}
+            }
 
 
 
-            {props.type === "tooltip.tabs" ? 
+            {props.type === "tooltip.tabs" && 
                 <>
                     <div className="toolTip toolTip--show">
                         <button type="button" className="toolTip__iconCntr toolTip__iconCntr--dark" onClick={() => toggleGeneral(true)}>
@@ -67,11 +67,11 @@ export default function ToolTips(props){
                         </div>
                     </animated.div>
                 </>
-            :null}
+            }
 
 
 
-            {props.type === "nextBusinessDay" ? 
+            {props.type === "nextBusinessDay" && 
                 <>
                     <button type="button" className="shipping-range--tipLink" onClick={() => toggleNextBusinessDay(true)}>
                         <span className="toolTip__iconCntr toolTip__iconCntr--dark">
@@ -84,10 +84,10 @@ export default function ToolTips(props){
                         <p className="toolTip__text">Transit time is determined by shipping method and destination. Orders placed by 12pm ET may be shipped same day. Orders placed after 2pm ET will be processed the next business day.</p>
                     </animated.div>
                 </>
-            :null}
+            }
 
 
-            {props.type === "freeWhiteGlove" ? <p className="free-shipping-text">Free Standard Shipping</p> :null}
+            {props.type === "freeWhiteGlove" && <p className="free-shipping-text">Free Standard Shipping</p> }
         </>
     )
 }
