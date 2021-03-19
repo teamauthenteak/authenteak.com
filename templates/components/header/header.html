@@ -43,8 +43,8 @@
                 </div>
 
                 <form class="header__searchGroup" action="/search">
-                    <input type="search" class="header__searchControl search-input" placeholder="What are you looking for today?" />
-                    <button type="button" class="header__searchBtn" aria-label="Search">
+                    <input type="search" name="search_query" class="header__searchControl search-input" placeholder="What are you looking for today?" />
+                    <button type="submit" class="header__searchBtn" aria-label="Search">
                         <svg class="header__iconSearch" width="20" height="20"><use xlink:href="#icon-search2" /></svg>
                     </button>
                 </form>
@@ -97,7 +97,11 @@
                         <li class="header__utilityBtnItem">
                             <a title="Your account" href="/account.php" class="header__utilityBtn header__utilityBtn--myAccount" type="button">
                                 <svg class="header__utilityIcon" width="24" height="24"><use xlink:href="#icon-person" /></svg>
+                                {{#if customer.name }}
+                                <span class="header__utilityText">Hi, {{customer.name}}</span>
+                                {{else}}
                                 <span class="header__utilityText">Account</span>
+                                {{/if}}
                             </a>
 
                             <ul class="header__utilMenu">

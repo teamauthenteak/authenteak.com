@@ -18,6 +18,7 @@
 - fixed scroll lock issue causing the browser page to reflow when we lock the page for main nav
 - added promo banner back for trade users
 - updated logo on cart/checkout, main header
+- fixed issue causing the search not to work correctly.
 
 ## [1.20.34]
 - added filter support for pdp swatch drawer
