@@ -9144,9 +9144,7 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
 @import 'mixins/font';
 
 /* Components */
-@import 'components/header';
-@import 'components/flyout';
-@import 'components/mobileFlyout';
+
 @import 'components/mylist';
 @import 'components/defaults';
 @import 'components/icons';
@@ -9175,8 +9173,10 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
 @import 'layout/default';
 @import 'layout/header';
 @import 'layout/footer';
-@import 'layout/meganav';
-@import 'layout/mobilenav';
+@import 'layout/flyout';
+@import 'layout/mobileFlyout';
+
+
 
 /* Sections */
 // products
@@ -9194,7 +9194,7 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
 
 // cart
 @import 'sections/cart/modalCart';
-@import 'sections/cart/miniCart';
+// @import 'sections/cart/miniCart';
 @import 'sections/cart/shoppingCart';
 @import 'sections/cart/stickyCart';
 
@@ -9233,7 +9233,7 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
 @import 'thirdparty/nxt';
 @import 'thirdparty/searchspring';
 @import 'thirdparty/klaviyo';
-@import 'thirdparty/shogun';
+// @import 'thirdparty/shogun';
 @import 'thirdparty/clyde';
 @import 'thirdparty/nosto';
 
