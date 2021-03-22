@@ -52,12 +52,13 @@ export default class Header {
 	}
 
 
+	//
+
 	// sets the header promo banner on the page when marketing_content JSON has a value
 	async headerPromoBanner() {
 		var headerMarketing = await this.headerService.getHeaderMarketingData(),
 			promoLink = document.createElement("a");
 
-			
 		if( !this.promoBanner.length ){ return; }
 
 		this.promoBanner.forEach(promoElement => {
@@ -67,8 +68,13 @@ export default class Header {
 				return;
 			}
 	
-			if( typeof headerMarketing === "undefined" || Object.keys(headerMarketing).length === 0 ){ return; }
+			
+			if( typeof headerMarketing === "undefined" || Object.keys(headerMarketing).length === 0 ){ 
+				this.setFallback(promoElement)
+				return; 
+			}
 	
+
 			if ( headerMarketing.hasOwnProperty("banner") ) {
 				let promo = headerMarketing.banner;
 	
@@ -84,16 +90,24 @@ export default class Header {
 				promoElement.style.display = promo.isVisable ? "flex" : "none";
 			}
 		})
-		
-		
 	}
 
+	
 
 	dismissHeaderPromoBanner(e){
 		window.sessionStorage.setItem("TEAK__dismissPromoBanner", true);
 		this.promoBanner.forEach(ele => ele.style.display = "none")
 
 		e.preventDefault();
+	}
+
+
+
+	// <div class="promo promo--header promoBanner--grey" style="display: flex;"></div>
+	setFallback(promoElement){
+		promoElement.classList.add("promoBanner--grey");
+		promoElement.innerHTML = '<a href="https://authenteak.com/to-the-trade" class="promoBanner__link">Are you a trade or hospitality client? Apply for an account &raquo;</a>';
+		promoElement.style.display = "flex";
 	}
 
 

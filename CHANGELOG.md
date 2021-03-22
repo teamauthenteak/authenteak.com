@@ -19,6 +19,7 @@
 - added promo banner back for trade users
 - updated logo on cart/checkout, main header
 - fixed issue causing the search not to work correctly.
+- added fall back for pencil banner when firebase is down
 
 ## [1.20.34]
 - added filter support for pdp swatch drawer

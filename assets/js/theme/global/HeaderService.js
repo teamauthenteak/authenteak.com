@@ -573,15 +573,20 @@ export default class HeaderService{
     async getFirebaseHeaderData(collection, storageKey){
         let data = {};
 
-        return this.header.collection(collection).get().then((querySnapshot) => {
-                querySnapshot.forEach(doc => Object.assign(data, {[doc.id]: doc.data()} ));
-                
-                data = Object.assign(data, {expiry: this.now.getTime() + 86400000} );
-                
-                TEAK.Utils.storeData(storageKey, data);
+		return this.header.collection(collection).get().then((querySnapshot) => {
+			querySnapshot.forEach(doc => Object.assign(data, {[doc.id]: doc.data()} ));
+			
+			data = Object.assign(data, {expiry: this.now.getTime() + 86400000} );
+			
+			TEAK.Utils.storeData(storageKey, data);
 
-                return data;
-            });
+			return data;
+
+		}).catch(err => {
+			console.log(err)
+			return data;
+		});
+
     }
 
 
