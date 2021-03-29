@@ -27,7 +27,11 @@
         @media screen and (min-width: $screen-xl) {
             right: auto;
             left: 13px;
-            top: 3px;
+        }
+
+        @media screen and (min-width: $screen-sm) {
+            top: 5px;
+            right: -13px;
         }
     }
 

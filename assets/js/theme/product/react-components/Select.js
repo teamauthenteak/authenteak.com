@@ -48,9 +48,9 @@ export default function Select(props){
             props.values.forEach((element) => {
                 let labelId = element.node.label.toLowerCase().split(" ").join("").slice(0, 18);
 
-                if( labelId.includes(hookId) ){
-                    console.log(element.node)
-                }
+                // if( labelId.includes(hookId) ){
+                //     console.log(element.node)
+                // }
             });
         }
 

@@ -1,5 +1,7 @@
 # Change Log
 
+## [1.20.36]
+
 ## [1.20.35]
 - New Header App (Desktop, Mobile, Tablet)
 - fixed yotpo error for reviews and questions when sending sku instead of product id
