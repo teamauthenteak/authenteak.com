@@ -205,10 +205,10 @@ export default class HeaderService{
 							name: "Outdoor Furniture",
 							path: "/outdoor-furniture/",
 							children: [
-								{ name: "Kingsley Bate", path: "https://authenteak.com/shop-all-brands/kingsley-bate/" },
-								{ name: "Lane Venture", path: "https://authenteak.com/shop-all-brands/lane-venture/" },
-								{ name: "Talenti", path: "https://authenteak.com/shop-all-brands/talenti/" },
-								{ name: "All Outdoor Furniture Brands", path: "https://authenteak.com/shop-all-brands#Patio Furniture" },
+								{ name: "Lane Venture", path: "/shop-all-brands/lane-venture/" },
+								{ name: "Kingsley Bate", path: "/shop-all-brands/kingsley-bate/" },
+								{ name: "Cane-Line", path: "/shop-all-brands/cane-line/" },
+								{ name: "All Outdoor Furniture Brands", path: "/shop-all-brands#Patio Furniture" },
 								{ name: "Shop All Outdoor Furniture", path: "/outdoor-furniture/shop-all-outdoor-furniture/" },
 							]
 						},
@@ -216,10 +216,10 @@ export default class HeaderService{
 							name: "Patio Umbrellas",
 							path: "/patio-umbrellas-accessories/",
 							children: [
-								{ name: "Treasure Garden", path: "https://authenteak.com/shop-all-brands/treasure-garden/" },
-								{ name: "Jardinico", path: "https://authenteak.com/shop-all-brands/jardinico-umbrellas/" },
-								{ name: "Gloster", path: "https://authenteak.com/shop-all-brands/gloster/#/filter:custom_category:Cantilevers/filter:custom_category:Market$2520Umbrellas" },
-								{ name: "All Patio Umbrella Brands", path: "https://authenteak.com/shop-all-brands#Patio Umbrellas" },
+								{ name: "Treasure Garden", path: "/shop-all-brands/treasure-garden/" },
+								{ name: "Barlow Tyrie", path: "/shop-all-brands/barlow-tyrie/#/filter:custom_category:Market$2520Umbrellas/filter:custom_category:Umbrella$2520Bases/filter:custom_category:Umbrella$2520Covers/filter:custom_category:Umbrellas/filter:custom_category:Cantilevers" },
+								{ name: "Bambrella", path: "/shop-all-brands/bambrella/" },
+								{ name: "All Patio Umbrella Brands", path: "/shop-all-brands#Patio Umbrellas" },
 								{ name: "Shop All Patio Umbrellas & Accessories", path: "/patio-umbrellas-accessories/shop-all-patio-umbrellas-accessories/" },
 							]
 						},
@@ -227,10 +227,10 @@ export default class HeaderService{
 							name: "Grills & Outdoor Kitchens",
 							path: "/grills-outdoor-kitchens/",
 							children: [
-								{ name: "Alfresco", path: "https://authenteak.com/shop-all-brands/alfresco-grills/" },
-								{ name: "Saber Grills", path: "https://authenteak.com/shop-all-brands/saber-grills/" },
-								{ name: "Kamando Joe", path: "https://authenteak.com/shop-all-brands/kamado-joe/" },
-								{ name: "All Grill & Kitchen Brands", path: "https://authenteak.com/shop-all-brands#Grills & Outdoor Kitchens" },
+								{ name: "Hestan", path: "/shop-all-brands/hestan/" },
+								{ name: "Saber Grills", path: "/shop-all-brands/saber-grills/" },
+								{ name: "Alfresco", path: "/shop-all-brands/alfresco-grills/" },
+								{ name: "All Grill & Kitchen Brands", path: "/shop-all-brands#Grills & Outdoor Kitchens" },
 								{ name: "Shop All Outdoor Kitchen Equipment", path: "/grills-outdoor-kitchens/outdoor-kitchen-equipment/shop-all-outdoor-kitchen-equipment/" },
 							]
 						},
@@ -238,10 +238,10 @@ export default class HeaderService{
 							name: "Outdoor Heating",
 							path: "/outdoor-heating/",
 							children: [
-								{ name: "American Fireglass", path: "https://authenteak.com/shop-all-brands/american-fireglass/" },
-								{ name: "Elementi", path: "https://authenteak.com/shop-all-brands/elementi/" },
-								{ name: "Travis Industries", path: "https://authenteak.com/shop-all-brands/travis-industries/" },
-								{ name: "All Outdoor Heating Brands", path: "https://authenteak.com/shop-all-brands#Outdoor Heating" },
+								{ name: "Aura Heaters", path: "/shop-all-brands/american-fireglass/" },
+								{ name: "DEKKO", path: "/shop-all-brands/aura-heaters/" },
+								{ name: "Elementi", path: "/shop-all-brands/elementi/" },
+								{ name: "All Outdoor Heating Brands", path: "/shop-all-brands#Outdoor Heating" },
 								{ name: "Shop All Outdoor Heating", path: "/outdoor-heating/shop-all-outdoor-heating/" },
 							]
 						},
@@ -249,10 +249,10 @@ export default class HeaderService{
 							name: "Planters",
 							path: "/planters/",
 							children: [
-								{ name: "Talenti", path: "https://authenteak.com/planters/shop-all-planters/#/filter:brand:Talenti" },
-								{ name: "Bentintoshape", path: "https://authenteak.com/shop-all-brands/bentintoshape/#/filter:custom_category:Planters" },
-								{ name: "Pottery Pots", path: "https://authenteak.com/shop-all-brands/pottery-pots/" },
-								{ name: "All Planter Brands", path: "https://authenteak.com/shop-all-brands#Planters" },
+								{ name: "Capi", path: "/shop-all-brands/capi/" },
+								{ name: "Pottery Pots", path: "/shop-all-brands/pottery-pots/" },
+								{ name: "Gloster", path: "/shop-all-brands/gloster/#/filter:custom_category:Planters" },
+								{ name: "All Planter Brands", path: "/shop-all-brands#Planters" },
 								{ name: "Shop All Planters", path: "/planters/shop-all-planters/" },
 							]
 						},
@@ -260,10 +260,10 @@ export default class HeaderService{
 							name: "Outdoor Decor",
 							path: "/outdoor-decor/",
 							children: [
-								{ name: "Enduraleaf", path: "https://authenteak.com/shop-all-brands/enduraleaf/" },
-								{ name: "Sunbrella Fabrics", path: "https://authenteak.com/outdoor-decor/shop-all-outdoor-decor/#/filter:brand:Sunbrella$2520Fabrics" },
-								{ name: "Elaine Smith Pillows", path: "https://authenteak.com/outdoor-decor/shop-all-outdoor-decor/#/filter:brand:Elaine$2520Smith$2520Pillows" },
-								{ name: "All Outdoor Decor Brands", path: "https://authenteak.com/shop-all-brands#Outdoor Decor" },
+								{ name: "Elaine Smith Pillows", path: "/outdoor-decor/shop-all-outdoor-decor/#/filter:brand:Elaine$2520Smith$2520Pillows" },
+								{ name: "Enduraleaf", path: "/shop-all-brands/enduraleaf/" },
+								{ name: "Capel Rugs", path: "/outdoor-decor/shop-all-outdoor-decor/#/filter:brand:Capel" },
+								{ name: "All Outdoor Decor Brands", path: "/shop-all-brands#Outdoor Decor" },
 								{ name: "Shop All Outdoor Decor", path: "/outdoor-decor/shop-all-outdoor-decor/" },
 							]
 						},
@@ -271,10 +271,10 @@ export default class HeaderService{
 							name: "Maintenance & Care",
 							path: "/maintenance-care/",
 							children: [
-								{ name: "303 Products", path: "https://authenteak.com/maintenance-care/shop-all-maintenance-care/#/filter:brand:303$2520Products" },
-								{ name: "Golden Care", path: "https://authenteak.com/maintenance-care/shop-all-maintenance-care/#/filter:brand:Golden$2520Care" },
-								{ name: "Saber", path: "https://authenteak.com/maintenance-care/shop-all-maintenance-care/#/filter:brand:Saber$2520Grills" },
-								{ name: "All Maintenance & Care Brands", path: "https://authenteak.com/shop-all-brands#Maintenance & Care" },
+								{ name: "Golden Care", path: "/maintenance-care/shop-all-maintenance-care/#/filter:brand:Golden$2520Care" },
+								{ name: "KoverRoos", path: "/maintenance-care/shop-all-maintenance-care/#/filter:brand:KoverRoos" },
+								{ name: "Classic Cushions", path: "/maintenance-care/shop-all-maintenance-care/#/filter:brand:Classic$2520Cushions" },
+								{ name: "All Maintenance & Care Brands", path: "/shop-all-brands#Maintenance & Care" },
 								{ name: "Shop All Maintenance & Care", path: "/maintenance-care/shop-all-maintenance-care/" },
 							]
 						},
@@ -282,10 +282,10 @@ export default class HeaderService{
 							name: "Outdoor Entertainment",
 							path: "/outdoor-entertainment/",
 							children: [
-								{ name: "Sunbrite TV", path: "https://authenteak.com/shop-all-brands/sunbritetv/" },
-								{ name: "Ecojet", path: "https://authenteak.com/shop-all-brands/ecojet/" },
-								{ name: "Kooduu", path: "https://authenteak.com/shop-all-brands/kooduu/" },
-								{ name: "All Outdoor Entertainment Brands", path: "https://authenteak.com/shop-all-brands#Outdoor Entertainment" },
+								{ name: "Sunbrite TV", path: "/shop-all-brands/sunbritetv/" },
+								{ name: "Ecojet", path: "/shop-all-brands/ecojet/" },
+								{ name: "Floating Luxuries", path: "/shop-all-brands/floating-luxuries/" },
+								{ name: "All Outdoor Entertainment Brands", path: "/shop-all-brands#Outdoor Entertainment" },
 								{ name: "Shop All Outdoor Entertainment", path: "/outdoor-entertainment/" },
 							]
 						}

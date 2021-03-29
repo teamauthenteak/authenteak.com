@@ -28,6 +28,11 @@
             right: auto;
             left: 13px;
         }
+
+        @media screen and (min-width: $screen-sm) {
+            top: 5px;
+            right: -13px;
+        }
     }
 
     &--pdp{

@@ -12,12 +12,27 @@
     // top
     &__upper{
         @extend %flex-full-width-footer;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid #ddd;
         padding: 20px 3vw;
         justify-content: space-between;
         align-content: center;
         align-items: center;
+
+        @media screen and (max-width: $screen-md){
+            flex-wrap: wrap;
+        }
     }
+
+
+    &__logoCntr{
+        @media screen and (max-width: $screen-md){
+            width: 100%;
+            flex: 1 0 auto;
+            margin-bottom: 20px;
+        }
+    }
+
+    
 
     &__callOut{
         display: flex;
@@ -26,11 +41,35 @@
 
     &__callText{
         margin-left: 10px;
-        line-height: 1.2;   
+        line-height: 1.1;   
         align-content: flex-start; 
         align-items: flex-start;
         display: flex;
-        flex-direction: column
+        flex-direction: column;
+
+        @media screen and (max-width: $screen-sm){
+            display: none;
+
+            &--chat{
+                display: block;
+            }
+        }
+    }
+
+    &__statusDot{
+        position: relative;
+        display: flex;
+        align-items: center;
+        align-content: center;
+
+        &::before{
+            content: "·";
+            font-size: 4.5rem;
+            height: 11px;
+            width: 18px;
+            line-height: 0;
+            display: flex;
+        }
     }
 
 
@@ -39,12 +78,64 @@
     &__main{
         @extend %flex-full-width-footer;
         padding: 40px 2vw;
-        justify-content: space-between
+        justify-content: space-between;
+
+        @media screen and (max-width: $screen-sm){
+            flex-wrap: wrap;
+        }
+
+        @media screen and (max-width: $screen-xs){
+            padding-top: 0;
+            padding-bottom: 20px;
+        }
     }
 
     &__list{
-        @extend .flyout__list;
-        width: 20%;
+        padding: 1.5rem 1rem 0 1rem;
+        flex: 1 0 auto;
+        max-width: 20%;
+
+        @media screen and (max-width: $screen-sm){
+            max-width: 50%;
+        }
+
+        @media screen and (max-width: $screen-xs){
+            width: 100%;
+            max-width: 100%;
+            padding-top: 0;
+            padding-bottom: 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        &--active{
+            padding-bottom: 20px;
+            
+            & .footer__item--heading{
+                &::after{
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23333' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M18.984 12.984h-13.969v-1.969h13.969v1.969z'%3E%3C/path%3E%3C/svg%3E%0A");
+                }
+
+                & ~ .footer__item{
+                    display: flex;
+                }
+            }
+        }
+
+        &--contact{
+            @media screen and (max-width: $screen-xs){
+                border-bottom: none;
+
+                & .footer__item--heading{
+                    &::after{
+                        display: none;
+                    }
+
+                    & ~ .footer__item{
+                        display: flex;
+                    }
+                }
+            }
+        }
     }
 
     &__item{
@@ -58,12 +149,39 @@
 
         &--socialLinks{
             justify-content: space-between;
+            align-items: flex-start;
+            align-content: flex-start;
             display: flex;
             flex: 1 0 auto;
+            width: 175px;
         }
 
         &--heading{
-            @extend .flyout__item--heading;
+            padding: 0.35em 0;
+            line-height: 1;
+
+            @media screen and (max-width: $screen-xs){
+                display: flex;
+                align-content: center;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                flex: 1 0 auto;
+                padding: 20px 0 !important;
+
+                &::after{
+                    content: "";
+                    width: 20px;
+                    height: 20px;
+                    display: block;
+                    background-repeat: no-repeat;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23333' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M19 11h-6v-6c0-0.6-0.4-1-1-1s-1 0.4-1 1v6h-6c-0.6 0-1 0.4-1 1s0.4 1 1 1h6v6c0 0.6 0.4 1 1 1s1-0.4 1-1v-6h6c0.6 0 1-0.4 1-1s-0.4-1-1-1z'%3E%3C/path%3E%3C/svg%3E");            
+                }
+
+                & ~ .footer__item{
+                    display: none;
+                }
+            }
         }
     }
 
@@ -89,10 +207,25 @@
 
     &__seal{
         margin-right: 40px;
+
+        @media screen and (max-width: $screen-xs){
+            margin-right: 20px;
+        }
     }
 
     &__legal{
         display: flex;
         flex-direction: column;
+
+        @media screen and (max-width: $screen-xs){
+           padding: 20px 0;
+           width: 50%;
+        }
+    }
+
+    &__legalCopy{
+        @media screen and (max-width: $screen-xs){
+            font-size: .65rem;
+         }
     }
 }
