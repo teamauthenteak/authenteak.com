@@ -23,6 +23,7 @@
         position: absolute;
         top: -8px;
         right: -8px;
+        max-width: 30px;
 
         @media screen and (min-width: $screen-xl) {
             right: auto;

@@ -37,6 +37,7 @@
     &__callOut{
         display: flex;
         background-color: transparent;
+        outline: none;
     }
 
     &__callText{
@@ -61,6 +62,10 @@
         display: flex;
         align-items: center;
         align-content: center;
+
+        &--green{
+            color: $text-green
+        }
 
         &::before{
             content: "·";
