@@ -94,8 +94,9 @@ export default class ProductUtils {
 
     utils.hooks.on('cart-item-add', this.boundCartCallback);
 
-    // Trigger a change event so the values are correct for pre-selected options
-    $('[data-cart-item-add]').find('input[type="radio"], input[type="checkbox"], select').first().change();
+    // Trigger a change event so the values are correct for pre-selected options 
+    //  ~ we have nothing preselected that needs to be updated this is useless. MG ~
+    // $('[data-cart-item-add]').find('input[type="radio"], input[type="checkbox"], select').first().change();
 
     // Trigger initial attribute update on quickshop
     if (!this.$el.hasClass('product-single')) {
@@ -343,7 +344,6 @@ export default class ProductUtils {
     }
 
     $quantity.val(newQuantity);
-
     utils.hooks.emit('product-option-change', null, $quantity[0]);
   }
 

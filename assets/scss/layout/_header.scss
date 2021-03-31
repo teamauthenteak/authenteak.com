@@ -224,7 +224,7 @@
         flex-direction: row;
         padding: 0;
         border: 1px solid #ccc;
-        border-radius: 99rem;
+        border-radius: $button-border-radius;
         position: relative;
 
         @media screen and (max-width: $screen-xl){
@@ -243,7 +243,7 @@
         flex: 1 1 auto;
         height: 34px;
         border: none;
-        border-radius: .99rem;
+        border-radius: $button-border-radius;
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
         padding: 0 20px;
@@ -268,7 +268,7 @@
     }
 
     &__searchBtn{
-        border-radius: .99rem;
+        border-radius: $button-border-radius;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
         display: flex;
@@ -276,11 +276,11 @@
         align-content: center;
         justify-content: center;
         width: 50px;
-        background-color: $btn-color-green;
+        background-color: transparent;
     }
 
     &__iconSearch{
-        fill: #fff
+        fill: #ccc
     }
 
 
@@ -373,7 +373,7 @@
         top: 42px;
         right: -25px;
         width: 300px;
-        border-radius: 4px;
+        border-radius: $border-radius;
         box-shadow: 3px 9px 11px 0px rgba(0, 0, 0, 0.10);
 
         & .header__utilityBtn--chat{

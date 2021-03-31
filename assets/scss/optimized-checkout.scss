@@ -229,7 +229,7 @@ a {
   background-color: #fff;
   border: 1px solid #ddd;
   box-shadow: 0px 1px 50px 7px rgba(0, 0, 0, 0.34);
-  border-radius: 5px;
+  border-radius: $border-radius;
   display: none;
   flex: 1;
   justify-content: center;

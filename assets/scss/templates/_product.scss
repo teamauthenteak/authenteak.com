@@ -78,7 +78,7 @@
             color: #555;
             background-color: #ccc;
             padding: 5px 8px;
-            border-radius: 99em;
+            border-radius: $button-border-radius;
             margin: 0 0 10px 0 !important;
             display: flex;
 
@@ -386,6 +386,7 @@
     &__highlights{
         @extend .highlight-group;
         margin-bottom: 20px;
+        border-radius: $border-radius;
     }
 
     &__headerCntr{
@@ -491,6 +492,7 @@
 
         &--allBorder{
             border: 1px solid #ccc;
+            border-radius: $border-radius;
         }
 
         &--topBorder{
@@ -710,7 +712,7 @@
         }
 
         & .swatch-color{
-            border-radius: 50%;
+            @extend .round;
             padding-bottom: 100%;
             display: block;
             background-size: contain;

@@ -7,7 +7,7 @@
 
     &::-webkit-scrollbar {
         width: 8px;
-        border-radius: 5px;
+        border-radius: $border-radius;
         cursor: pointer;
     }
 
@@ -17,7 +17,7 @@
 
     &::-webkit-scrollbar-thumb {
         background-color: #777 ;
-        border-radius: 5px;
+        border-radius: $border-radius;
     }
 }
 

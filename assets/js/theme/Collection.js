@@ -304,7 +304,6 @@ export default class Collection extends PageManager {
         }
     
         $quantity.val(newQuantity);
-    
         utils.hooks.emit('product-option-change', null, $quantity[0]);
     }
 
@@ -417,7 +416,7 @@ export default class Collection extends PageManager {
         selectObj["value"] = $target.val();
 
         Object.assign(selectObj, TEAK.Utils.parseOptionLabel(e.currentTarget.selectedOptions[0].label));
-
+        console.log("collections.js")
         $target.parents(".selectBox__label").find(".selectBox__value").text(selectObj.text).addClass("selectBox__value--chosen");
         utils.hooks.emit('product-option-change', null, $target);
     }

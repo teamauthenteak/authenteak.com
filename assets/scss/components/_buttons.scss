@@ -7,7 +7,7 @@
     border-width: 1px;
     border-style: solid;
     font-size: 1.1rem;
-    text-transform: uppercase;
+    text-transform: capitalize !important;    
     font-weight: 500;
     @extend %button-rounded;
     text-decoration: none !important;
@@ -326,7 +326,7 @@
     background-color: #C5C4C48F;
     width: 35px;
     height: 35px;
-    border-radius: 44px;
+    border-radius: $button-border-radius;
     right: 5px;
 
     &:hover{

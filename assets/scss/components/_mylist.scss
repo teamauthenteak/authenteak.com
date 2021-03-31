@@ -31,7 +31,7 @@
     justify-content: center;
     align-items: center;
     padding: 5px;
-    border-radius: 99em;
+    @extend .round;
     line-height: 1;
     background-color: #eee;
 
@@ -48,7 +48,7 @@
     left: 50%;
     box-shadow: 3px 9px 20px 0px rgba(0, 0, 0, 0.10);
     flex-direction: column;
-    border-radius: 4px;
+    border-radius: $border-radius;
 
     &::before{
         left: 75%;

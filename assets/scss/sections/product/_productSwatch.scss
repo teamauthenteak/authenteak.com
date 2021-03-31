@@ -85,7 +85,7 @@
             &--error{
                 @extend .product__swatchLabel--error;
                 border: 2px solid;
-                border-radius: 50%;
+                @extend .round;
             }
         }
 
@@ -189,7 +189,7 @@
        width: 55px;
        max-width: 55px;
        height: 55px;
-       border-radius: 50%;
+       @extend .round;
        position: relative;
        overflow: hidden;
        flex: 0 0 auto;
@@ -264,7 +264,7 @@
             text-shadow: 3px 2px 1px #fff;
             line-height: 1.4;
             box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, .11);
-            border-radius: 3px;
+            border-radius: $border-radius;
             margin-left: -2px;
         }
 
@@ -408,7 +408,7 @@
             justify-content: flex-start;
             align-content: center;
             align-items: center;
-            border-radius: 3px;
+            border-radius: $border-radius;
             outline: none;
 
             &:hover{

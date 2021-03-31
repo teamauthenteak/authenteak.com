@@ -253,7 +253,6 @@ export default class EditOptions {
 				delete window.TEAK.currentSelections[$optionText.data('option-title')];
 				$swatchText.data('swatch-value', '');
 				utils.hooks.emit('product-option-change', null, $el.find('input[type="radio"]')[0]);
-
 			} else {
 				$el.closest('.form-field-swatch').find('label[data-is-selected]').removeAttr('data-is-selected');
 				$el.attr('data-is-selected', true);

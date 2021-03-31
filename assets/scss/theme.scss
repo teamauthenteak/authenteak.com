@@ -959,7 +959,7 @@ $max-width: 1230px;
 $font-size: 15px;
 $gutter: 15px;
 $double-gutter: $gutter * 2;
-$border-radius: 4px;
+$border-radius: 2px;
 
 $susy: (
   columns: 12,
@@ -3308,19 +3308,19 @@ button {
 }
 
 .button {
-  padding: 1.0625em;
+  padding: 15px 20px;
   font-family: $button-font;
   font-size: 16px;
   font-weight: $button-weight;
   line-height: 1.3125; // 21/16
   color: $color-button;
   background-color: $color-button-background;
-  border-radius: 4px;
+  border-radius: 2px;
   box-shadow: 0 0 0 $border-size transparent inset;
   transition: all 0.2s $ease-out-quad;
 
   &:hover {
-    color: $color-button;
+    color: #2E303B;
     background-color: $color-button-background-hover;
   }
 
