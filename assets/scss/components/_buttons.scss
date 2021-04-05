@@ -41,34 +41,15 @@
 
 
 .button-primary{
-    border-color: $btn-color-orange;
-    background-color: $btn-color-orange;
+    border-color: transparent;
+    background-color: $bg-charcoal;
     color: #fff;
 
+
     &:hover{
-        border-color: $btn-color-orange;
+        border-color: $bg-charcoal;
         background-color: #fff;
-        color: $btn-color-orange;
-    }
-
-    &--orange{
-        border-color: $btn-color-orange;
-        background-color: $btn-color-orange;
-
-        &:hover{
-            border-color: $btn-color-orange;
-            color: $btn-color-orange;
-        }
-    }
-
-    &--brown{
-        border-color: #9B9188;
-        background-color: #9B9188;
-
-        &:hover{
-            border-color: #fff;
-            color: #fff;
-        }
+        color: $bg-charcoal;
     }
 
     &--green{
