@@ -50,6 +50,8 @@ export default class CouponCodes {
 		}
 
 		utils.api.cart.applyCode(code, (err, response) => {
+			if(response === undefined){ return; }
+
 			if (response.data.status === 'success') {
 				refreshContent(this.callbacks.didUpdate);
 
@@ -75,6 +77,8 @@ export default class CouponCodes {
 		$("#couponCodeForm").addClass("hide");
 
 		utils.api.cart.applyCode(code, (err, response) => {
+			if(response === undefined){ return; }
+			
 			if (response.data.status === 'success') {
 				console.log(response)
 

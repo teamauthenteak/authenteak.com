@@ -1,6 +1,22 @@
 # Change Log
 
+## [1.20.37]
+- changed button border radius
+- changed default button to new color standards
+- removed unused javascript from builds
+- removed unused CSS from theme.scss
+- added fail safe to cart js for undefined response
+- made all button text capital case
+
 ## [1.20.36]
+- New Footer
+- Fixed issue with header that cause it to jump to top when engaging flyout
+- removed legacy css
+- updated brands in flyout
+- added new VDS variables 
+- fixed issue with badge
+- update footer list id for newsletter signup form
+- removed search panel, mini-cart and mobile nav embeds
 
 ## [1.20.35]
 - New Header App (Desktop, Mobile, Tablet)

@@ -93,7 +93,7 @@
                 }
 
                 & .header__utilMenu{
-                    top: 34px;
+                    top: 30px;
                 }
             }
 
@@ -422,10 +422,6 @@
 
         &--green{
             @extend .button-primary--green;
-
-            &:hover{
-                color: #fff !important;
-            }
         }
 
         &--darkTrans{

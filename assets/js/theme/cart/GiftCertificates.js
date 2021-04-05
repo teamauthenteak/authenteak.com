@@ -49,6 +49,8 @@ export default class GiftCertificates {
     }
 
     utils.api.cart.applyGiftCertificate(code, (err, response) => {
+      if(response === undefined){ return; }
+      
       if (response.data.status === 'success') {
         refreshContent(this.callbacks.didUpdate);
       } else {

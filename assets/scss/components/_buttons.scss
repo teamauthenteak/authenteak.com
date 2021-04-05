@@ -77,7 +77,7 @@
 
         &:hover{
             border-color: $btn-color-green;
-            color: $btn-color-green;
+            color: $btn-color-green !important;
         }
     }
 
@@ -286,7 +286,6 @@
 }
 
 .button-cart{
-    text-transform: uppercase;
     position: relative;
     height: 62px;
     outline: none;
