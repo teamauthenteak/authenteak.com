@@ -71,6 +71,8 @@ export default class CartUtils {
 			const newQuantity = this.productData[itemId].newQuantity;
 
 			utils.api.cart.itemUpdate(itemId, newQuantity, (err, response) => {
+				if(response === undefined){ return; }
+
 				if (response.data.status === 'succeed') {
 					const remove = (newQuantity === 0);
 
@@ -145,6 +147,8 @@ export default class CartUtils {
 		 */
 
 		utils.api.cart.itemRemove(itemId, (err, response) => {
+			if(response === undefined){ return; }
+			
 			if (response.data.status === 'succeed') {
 				refreshContent(this.callbacks.didUpdate, true);
 

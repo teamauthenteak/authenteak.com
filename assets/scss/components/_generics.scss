@@ -277,7 +277,7 @@
 }
 
 .margin-top-desktop{
-    margin-top: 100px;
+    margin-top: 165px;
 
     @media only screen and (max-width: $screen-lg) {
         margin-top: 0;        
@@ -304,13 +304,34 @@
 }
 
 .bg--sand{
-    background-color: #F1EFEC;
+    background-color: $bg-sand;
 }
 
 .bg--brown{
-    background-color: #9B9188;
+    background-color: $bg-brown;
 }
 
+.bg-img {
+    background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00010_AprilHomepage_Images/WEBP/WS00010_TradeBanner_BGTexture_Desktop.webp);
+    background-repeat: no-repeat;
+
+    @media only screen and (max-width: $screen-sm) {
+        background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00010_AprilHomepage_Images/WEBP/WS00010_TradeBanner_BGTexture_Mobile.webp);
+        height: 280px;
+        
+    }
+}
+
+.bg-heroImg {
+    background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00010_AprilHomepage_Images/WEBP/WS00010_HeroImageDesktop.webp);
+    background-repeat: no-repeat;
+
+    @media only screen and (max-width: $screen-sm) {
+        background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00010_AprilHomepage_Images/WEBP/WS00010_HeroImageMobile.webp);
+        z-index: 10;        
+        
+    }
+}
 
 
 
@@ -331,6 +352,10 @@
     color: $text-dark;
 }
 
+.text--navy{
+    color: $bg-navy;
+}
+
 
 
 // image
@@ -344,9 +369,9 @@
     object-fit: contain;
 }
 
-//svg container
+//containers
 .svg-container {
-    width: 60%;
+    width: 100%;
 
     @media only screen and (max-width: $screen-sm) {
         width: 80%;
@@ -358,5 +383,45 @@
 
     @media only screen and (max-width: 1199px) {
         max-width: 100%;
+    }
+}
+
+.txt-container {
+
+    text-align: left;
+    font-size: 20px;
+
+    @media only screen and (max-width:$screen-md) {               
+        text-align: center;        
+    }
+}
+
+.txt-container h3 {
+
+    margin: 0;
+    padding-top: 20px; 
+    font-size: 35px;   
+
+    @media only screen and (max-width:$screen-md) {               
+        margin: 0 66px 20px;
+        padding: 0;
+        font-size: 25px;
+    }
+}
+
+.txt-container p {
+    font-size: 24px;
+
+    @media only screen and (max-width: $screen-md) {
+        font-size: 18px;
+    }
+}
+
+.banner-container {
+
+    height: 225px;
+
+    @media only screen and (max-width:$screen-sm) {               
+        height: 280px;        
     }
 }

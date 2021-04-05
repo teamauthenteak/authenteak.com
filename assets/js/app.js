@@ -16,7 +16,7 @@ import blogPost from './theme/BlogPost';
 import brand from './theme/Brand';
 import Category from './theme/Category';
 import Collection from './theme/Collection';
-import compare from './theme/Compare';
+// import compare from './theme/Compare';
 import contactUs from './theme/ContactUs';
 import errors from './theme/Errors';
 import errors404 from './theme/404-error';
@@ -56,7 +56,7 @@ let PageClasses = {
     'pages/custom/category/shop-all-brands': Category,
     'pages/custom/category/collection': Collection,
     'pages/custom/category/_blank': Category,
-    'pages/compare': compare,
+    // 'pages/compare': compare,
     'pages/contact-us': contactUs,
     'pages/errors': errors,
     'pages/errors/404': errors404,

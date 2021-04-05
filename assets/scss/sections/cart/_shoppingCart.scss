@@ -21,7 +21,6 @@
     &__checkoutBtn{
         @extend .button;
         @extend .button-tertiary;
-        text-transform: capitalize;
         font-size: 1.2rem;
         display: flex !important;
         flex-direction: row;

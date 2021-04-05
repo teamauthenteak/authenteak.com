@@ -4,12 +4,12 @@ import FormValidator from './utils/FormValidator';
 import Dropdown from './global/Dropdown';
 import Header from './global/Header';
 import './global/Footer';
-import MiniCart from './global/MiniCart';
+// import MiniCart from './global/MiniCart';
 import QuickShop from './product/QuickShop';
 import wishlistDropdown from './product/wishlistDropdown';
-import MegaNav from './global/MegaNav';
+// import MegaNav from './global/MegaNav';
 // import MobileNav from './global/MobileNav';
-import MobileSearchToggle from './global/MobileSearchToggle';
+// import MobileSearchToggle from './global/MobileSearchToggle';
 import Footer from './global/Footer';
 import './core/selectOption';
 
@@ -24,12 +24,12 @@ export default class Global extends PageManager {
       new ScrollLink({
         selector: '.button-top'
       });
-      new MegaNav($('.mega-nav-variant-container'));
+      // new MegaNav($('.mega-nav-variant-container'));
       // new MobileNav();
-      new MiniCart();
+      // new MiniCart();
       new wishlistDropdown();
       
-      new MobileSearchToggle($('header'));
+      // new MobileSearchToggle($('header'));
       new Footer($('footer'));
 
       new GlobalCustomizations();
