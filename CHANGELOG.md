@@ -3,10 +3,14 @@
 ## [1.20.37]
 - changed button border radius
 - changed default button to new color standards
+- changed default border radius for form controls
 - removed unused javascript from builds
 - removed unused CSS from theme.scss
 - added fail safe to cart js for undefined response
 - made all button text capital case
+- homepage css updates
+- Updated footer icons
+- fixed strike through price bug where it would disappear on page load
 
 ## [1.20.36]
 - New Footer
