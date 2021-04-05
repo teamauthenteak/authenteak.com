@@ -110,7 +110,9 @@
     &--white {
         background-color:#F0F0F0;
         border-color: #F0F0F0;
-        color: #353E5D;        
+        color: #353E5D;
+        padding: 15px 70px;
+        font-size: 1.1rem;
     }
 
     &--darkGray {
@@ -118,11 +120,10 @@
         border-color: #2E303B;
         color: #FFF;
         padding: 15px 70px;
-        font-size: 32px;
+        font-size: 1.1rem;
 
         @media only screen and (max-width: $screen-md) {
-            padding: 10px 50px;
-            font-size: 24px;
+            padding: 10px 50px;            
         }
     }
 
