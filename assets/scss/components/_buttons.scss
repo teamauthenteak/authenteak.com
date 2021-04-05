@@ -27,6 +27,10 @@
         width: 100%;
     }
 
+    &--long {
+        padding: 6px 50px;
+    }
+
     &.button-wide{
         @media screen and (max-width: $screen-sm){
             padding-left: 20px !important;
@@ -100,6 +104,52 @@
             background-color: transparent;
             border-color: #666;
             color: #666;
+        }
+    }
+
+    &--white {
+        background-color:#F0F0F0;
+        border-color: #F0F0F0;
+        color: #353E5D;        
+    }
+
+    &--darkGray {
+        background-color:#2E303B;
+        border-color: #2E303B;
+        color: #FFF;
+        padding: 15px 70px;
+        font-size: 32px;
+
+        @media only screen and (max-width: $screen-md) {
+            padding: 10px 50px;
+            font-size: 24px;
+        }
+    }
+
+    &--transparent {
+        background-color: transparent;
+        border: 2px solid #353E5D;
+        color: #353E5D;
+        font-size: 35px;
+        padding: 15px 78px;
+        margin-top: 175px;
+
+        @media only screen and (max-width: $screen-lg) {
+            margin-top: 60px;
+            font-size: 24px;
+            padding: 10px 50px;
+        }
+
+        @media only screen and (max-width: $screen-md) {
+            margin-top: 55px;
+            font-size: 20px;
+            padding: 10px 40px;
+        }
+
+        @media only screen and (max-width: $screen-sm) {
+            margin-top: 130px;
+            font-size: 24px;
+            padding: 10px 60px;            
         }
     }
 }
