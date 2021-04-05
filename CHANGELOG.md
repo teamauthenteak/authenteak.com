@@ -11,6 +11,8 @@
 - homepage css updates
 - Updated footer icons
 - fixed strike through price bug where it would disappear on page load
+- home page updates
+- removed orange button from buttons.scss
 
 ## [1.20.36]
 - New Footer
