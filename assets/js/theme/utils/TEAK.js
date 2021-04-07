@@ -278,7 +278,6 @@ window.TEAK.Utils = {
                     data.color = data.color.indexOf("-") !== -1 ? data.color.split("-")[0] : data.color;
                 }
 
-
 				// ships by 
 				let ships = data.text.split("Ships")[1];
 				if(ships){
@@ -319,13 +318,16 @@ window.TEAK.Utils = {
 			} else {
                 additional.push(part);
 
-                // custom filters
+                // custom filters ~ not really doing this anymore
                 let hasCustomFilter = part.includes("-f");
-                
                 if( hasCustomFilter ){
                     let customFilter = part.split("-f");
                     data.customFilter = customFilter[1].trim().split(" ");
                 }
+
+
+                // Kinda Color Code - the actual color code is really just the "longer" number part (e.g. 123456) of xxx-123456, or 00-123456, or xx00-123456, etc patterns. smh.
+                data.colorCode = part;
 
 
                 // custom filter object

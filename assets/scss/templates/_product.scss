@@ -674,7 +674,14 @@
 
         & .swatch-pattern-image{
             display: none;
+
+            &.swatch-disabled{
+                opacity: 0.10;
+                cursor: not-allowed !important;
+            }
         }
+
+        
     }
 
     &__scrollCntr{

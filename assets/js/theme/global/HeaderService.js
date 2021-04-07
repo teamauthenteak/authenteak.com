@@ -238,8 +238,8 @@ export default class HeaderService{
 							name: "Outdoor Heating",
 							path: "/outdoor-heating/",
 							children: [
-								{ name: "Aura Heaters", path: "/shop-all-brands/american-fireglass/" },
-								{ name: "DEKKO", path: "/shop-all-brands/aura-heaters/" },
+								{ name: "Aura Heaters", path: "/shop-all-brands/aura-heaters/" },
+								{ name: "DEKKO", path: "/shop-all-brands/dekko-fire-pits/" },
 								{ name: "Elementi", path: "/shop-all-brands/elementi/" },
 								{ name: "All Outdoor Heating Brands", path: "/shop-all-brands#Outdoor Heating" },
 								{ name: "Shop All Outdoor Heating", path: "/outdoor-heating/shop-all-outdoor-heating/" },

@@ -499,7 +499,8 @@
   "price": "{{#block "jsonPrice"}}{{/block}}",
   "availability": "in stock",
   "image": "{{getImage product.main_image 'product'}}",
-  "sku": "{{product.sku}}"
+  "sku": "{{product.sku}}",
+  "disabledSwatches": "{{#each product.custom_fields}}{{#if this.name '===' "hideswatch"}}{{this.value}}{{/if}}{{/each}}" 
 }
 </script>
 

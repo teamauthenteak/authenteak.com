@@ -279,13 +279,13 @@ export default class ProductOptions {
 		let self = this;
 
 		if( document.getElementById("CategoryCollection") && event ){
-			$(event.currentTarget).parents(".product__row").find("select.selectBox__select").each(udpateLabels);
+			$(event.currentTarget).parents(".product__row").find("select.selectBox__select").each(updateLabels);
 
 		}else{
-			this.$dropdowns.each(udpateLabels);
+			this.$dropdowns.each(updateLabels);
 		}
 
-		function udpateLabels(){
+		function updateLabels(){
 			let $el = $(this);
 			let $optionText = $el.parents(".selectBox");
 			let currentSelection = window.TEAK.currentSelections[$optionText.data('option-title')] || false;

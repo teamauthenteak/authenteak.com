@@ -12,106 +12,108 @@ import Personalization from './Personalization';
 import EditOptions from './cart/customizations/EditOptions';
 
 export default class Cart extends PageManager {
-  constructor() {
-    super();
+	constructor() {
+		super();
 
-    this.$cartContent = $('[data-cart-content]');
+		this.$cartContent = $('[data-cart-content]');
 
-    // add Personalization engine
-    // this.recentlyViewed = new Personalization({
-    //     type: "recentlyViewed"
-    // });
+		// add Personalization engine
+		// this.recentlyViewed = new Personalization({
+		//     type: "recentlyViewed"
+		// });
 
-    // this._initRecentlyViewed();
-  
+		// this._initRecentlyViewed();
 
-    // brute-force apple-pay bodyclass in local environment
-    if (window.ApplePaySession && $('.dev-environment').length) {
-      $(document.body).addClass('apple-pay-supported');
-    }
-  }
 
-  loaded(next) {
-    const context = this.context;
+		// brute-force apple-pay bodyclass in local environment
+		if (window.ApplePaySession && $('.dev-environment').length) {
+			$(document.body).addClass('apple-pay-supported');
+		}
+	}
 
-    new QuantityWidget({ scope: '[data-cart-content]' });
+	loaded(next) {
+		const context = this.context;
 
-    // Custom Options
-    new EditOptions();
+		new QuantityWidget({ scope: '[data-cart-content]' });
 
-    const loadingOptions = {
-      loadingMarkup: `<div class="loading-overlay">${svgIcon('spinner')}</div>`,
-    };
+		// Custom Options
+		new EditOptions();
 
-    new GiftWrapping({ scope: '[data-cart-content]', context });
-    const cartContentOverlay = new Loading(loadingOptions, true, '.product-listing');
-    const cartTotalsOverlay = new Loading(loadingOptions, true, '[data-cart-totals]');
+		const loadingOptions = {
+			loadingMarkup: `<div class="loading-overlay">${svgIcon('spinner')}</div>`,
+		};
 
-    this.ShippingCalculator = new ShippingCalculator('[data-shipping-calculator]', {
-      context,
-      visibleClass: 'visible',
-      callbacks: {
-        willUpdate: () => cartTotalsOverlay.show(),
-        didUpdate: () => cartTotalsOverlay.hide(),
-      },
-    });
+		new GiftWrapping({ scope: '[data-cart-content]', context });
+		const cartContentOverlay = new Loading(loadingOptions, true, '.product-listing');
+		const cartTotalsOverlay = new Loading(loadingOptions, true, '[data-cart-totals]');
 
-    this.CouponCodes = new CouponCodes('[data-coupon-codes]', {
-      context,
-      visibleClass: 'visible',
-      callbacks: {
-        willUpdate: () => cartTotalsOverlay.show(),
-        didUpdate: () => cartTotalsOverlay.hide(),
-      },
-    });
+		this.ShippingCalculator = new ShippingCalculator('[data-shipping-calculator]', {
+			context,
+			visibleClass: 'visible',
+			callbacks: {
+				willUpdate: () => cartTotalsOverlay.show(),
+				didUpdate: () => cartTotalsOverlay.hide(),
+			},
+		});
 
-    this.GiftCertificates = new GiftCertificates('[data-gift-certificates]', {
-      context,
-      visibleClass: 'visible',
-      callbacks: {
-        willUpdate: () => cartTotalsOverlay.show(),
-        didUpdate: () => cartTotalsOverlay.hide(),
-      },
-    });
+		this.CouponCodes = new CouponCodes('[data-coupon-codes]', {
+			context,
+			visibleClass: 'visible',
+			callbacks: {
+				willUpdate: () => cartTotalsOverlay.show(),
+				didUpdate: () => cartTotalsOverlay.hide(),
+			},
+		});
 
-    this.CartUtils = new CartUtils({
-      ShippingCalculator: this.ShippingCalculator,
-      CouponCodes: this.CouponCodes,
-      GiftCertificates: this.GiftCertificates,
-    }, {
-      callbacks: {
-        willUpdate: () => cartContentOverlay.show(),
-        didUpdate: () => cartContentOverlay.hide(),
-      },
-    }).init();
+		this.GiftCertificates = new GiftCertificates('[data-gift-certificates]', {
+			context,
+			visibleClass: 'visible',
+			callbacks: {
+				willUpdate: () => cartTotalsOverlay.show(),
+				didUpdate: () => cartTotalsOverlay.hide(),
+			},
+		});
 
-    next();
+		this.CartUtils = new CartUtils({
+			ShippingCalculator: this.ShippingCalculator,
+			CouponCodes: this.CouponCodes,
+			GiftCertificates: this.GiftCertificates,
+		}, {
+			callbacks: {
+				willUpdate: () => cartContentOverlay.show(),
+				didUpdate: () => cartContentOverlay.hide(),
+			},
+		}).init();
 
-    // Cart Page Prop 65 Toggle
-    if(document.querySelector('.prop-link')){
-      let propBtnEl = document.querySelector('.prop-link');
-      let propWrapEl = document.querySelector('.prop-wrapper');
-      let propActive = false;
+		next();
 
-      propBtnEl.addEventListener('click', togglePropEl);
+		// Cart Page Prop 65 Toggle
+		if (document.querySelector('.prop-link')) {
+			let propBtnEl = document.querySelector('.prop-link');
+			let propWrapEl = document.querySelector('.prop-wrapper');
+			let propActive = false;
 
-      function togglePropEl() {
-        propActive = !propActive;
-        propWrapEl.classList.toggle('open');
-        updatePropBtn();
-        console.log(propActive);
-      }
+			propBtnEl.addEventListener('click', togglePropEl);
 
-      function updatePropBtn() {
-        if (propActive) {
-          propBtnEl.innerHTML = "Close Information";
-        } else {
-          propBtnEl.innerHTML = "California's Residents see Proposition 65 Information";
-        }
-      }
-    }
-    
-  }
+			function togglePropEl() {
+				propActive = !propActive;
+				propWrapEl.classList.toggle('open');
+				updatePropBtn();
+				console.log(propActive);
+			}
+
+			function updatePropBtn() {
+				if (propActive) {
+					propBtnEl.innerHTML = "Close Information";
+				} else {
+					propBtnEl.innerHTML = "California's Residents see Proposition 65 Information";
+				}
+			}
+		}
+		
+
+
+	}
 
 
 	// _initRecentlyViewed(){
@@ -124,14 +126,16 @@ export default class Cart extends PageManager {
 	// 			$(tpl).appendTo(".product-rv-carousel", $rv);
 	// 		});
 
-  //     $rv.addClass("show");
+	//     $rv.addClass("show");
 	// 	}
 
-  // 	this.recentlyViewed.initProductSlider({
-  //     dotObj: {appendDots: '.product-rv-carousel'},
-  //     selector: '.product-rv-carousel',
-  //     context: '#recentlyViewedProducts'
-  //   });
+	// 	this.recentlyViewed.initProductSlider({
+	//     dotObj: {appendDots: '.product-rv-carousel'},
+	//     selector: '.product-rv-carousel',
+	//     context: '#recentlyViewedProducts'
+	//   });
 	// }
+
+
 
 }

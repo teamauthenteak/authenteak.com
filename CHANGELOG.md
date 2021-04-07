@@ -1,5 +1,15 @@
 # Change Log
 
+## [1.20.38]
+- cart qty position fix
+- added ability to disable out of stock swatches
+- added "disabledSwatches" field to product info
+- added "colorCode" field to parsed swatch data
+- fixed outdoor heating brand URLs in navigation
+- updated fire glass image in fire pit calculator
+- fixed atc modal image issue
+- added phone number formatting for checkout
+
 ## [1.20.37]
 - changed button border radius
 - changed default button to new color standards

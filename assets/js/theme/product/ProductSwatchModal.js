@@ -3,7 +3,7 @@ import GraphQL_Swatch_TPL from '../graphql/templates/GraphQL.swatch.tpl';
 import utils from '@bigcommerce/stencil-utils';
 
 /**
- * Product Swatch Modal
+ * Product Swatch Modal / Drawer
  * Module for product swatch modal interactions
  */
 
@@ -708,7 +708,7 @@ export default class ProductSwatchModal {
      * @param {'Array'} swatchArr - passed in swatch array
      */
     constructSwatch(swatchArr){
-        let tpl = this.graph_tpl.buildSwatch(swatchArr);
+        let tpl = this.graph_tpl.buildSwatch(swatchArr, this.productInfo.disabledSwatches);
         $(tpl).appendTo(".drawer__contentCntr", this.$optionModalSwatches);
     }
 
