@@ -196,15 +196,11 @@ export default class OptionDrawer extends React.Component{
                                     {this.props.for.displayName}
                                 </h2>
 
-                                <figure className="drawer__figCntr" 
-                                    style={{ 
-                                        backgroundImage: `url("${hasChosenSwatch ? this.state[this.props.for.displayName].swatch.image : this.props.mainImg}")`,
-                                        backgroundRepeat: `${hasChosenSwatch ? "repeat" : "no-repeat"}` 
-                                    }}>
+                                <figure className="drawer__figCntr">
                                     <span className="drawer__imgCntr">
-                                        <img src={hasChosenSwatch ? this.state[this.props.for.displayName].swatch.image : this.props.mainImg } className="drawer__img" />
+                                        <img src={hasChosenSwatch ? this.state[this.props.for.displayName].swatch.image : "" } className="drawer__img" />
                                     </span>
-                                    <figcaption className="drawer__selectedSwatchText">
+                                    <figcaption className="drawer__selectedSwatchText" style={{display: hasChosenSwatch ? "block" : "none"}}>
                                         {hasChosenSwatch ? this.state[this.props.for.displayName].swatch.label : "" }
                                     </figcaption>
                                 </figure>

@@ -406,13 +406,26 @@ function CollectionPod(props){
                         {props.product.customFields.edges.map((item) => {
                             if(item.node.name === "Lead-Time"){
                                 let text = item.node.value.toLowerCase();
+                                let isQuickShip = text.includes("ships next business day");
                                 let leadTimeTwoIndex = props.product.customFields.edges.findIndex(element => element.node.name === "Lead-Time 2");
 
                                 if(item.node.value){
                                     return  <div className="product__shippingInfo" key={generateID()}>
-                                                {text.includes("ships next business day") ? <span className="shipping-range--tip"> <ToolTips type="nextBusinessDay" /> </span> : null}
-                                                {item.node.value}
-                                                {leadTimeTwoIndex !== -1 ? ` ${props.product.customFields.edges[leadTimeTwoIndex].node.value}` : null}
+                                                {isQuickShip && <span className="shipping-range--tip"> <ToolTips type="nextBusinessDay" /> </span>}
+
+                                                {isQuickShip ? 
+                                                    <svg class="icon icon-quick-ship" width="50" height="50"><use xlinkHref="#icon-quick-ship" /></svg>
+                                                    :
+                                                    <svg class="icon icon-regular-ship" width="50" height="50"><use xlinkHref="#icon-regular-ship" /></svg>
+                                                }
+
+                                                <span class="product__shippingInfoCntr">
+                                                    <strong class="product__shippingInfoTitle">{isQuickShip ? "Quick Ship" : "Shipping Time Frame"}</strong>
+                                                    <span>
+                                                        {item.node.value}
+                                                        {leadTimeTwoIndex !== -1 ? ` ${props.product.customFields.edges[leadTimeTwoIndex].node.value}` : null}
+                                                    </span>
+                                                </span>
                                             </div>
                                 }
                             }

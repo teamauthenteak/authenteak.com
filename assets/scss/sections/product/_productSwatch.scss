@@ -85,7 +85,8 @@
             &--error{
                 @extend .product__swatchLabel--error;
                 border: 2px solid;
-                @extend .round;
+                // @extend .round;
+                border-radius: $border-radius;
             }
         }
 
@@ -189,11 +190,12 @@
        width: 55px;
        max-width: 55px;
        height: 55px;
-       @extend .round;
+    //    @extend .round;
        position: relative;
        overflow: hidden;
        flex: 0 0 auto;
        width: 25%;
+       border-radius: $border-radius;
 
        &--labelRight{
             order: 2;

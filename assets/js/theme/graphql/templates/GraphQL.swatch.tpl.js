@@ -35,14 +35,14 @@ export default class GraphQL_Swatch_TPL {
                             <h2 class="drawer__contentHeading"></h2>
                 
                             <figure class="drawer__figCntr">
-                                <span class="drawer__imgCntr"><img src="https://dummyimage.com/600x400/cccccc/fff.gif&text=" class="drawer__img" /></span>
+                                <span class="drawer__imgCntr"></span>
                                 <figcaption class="drawer__selectedSwatchText"></figcaption>
                             </figure>
                 
                             <form class="drawer__filtersForm" id="optionForm"> 
                                 <div class="drawer__topCntr">
                                     <ul class="drawer__displayList">
-                                        <li class="drawer__displayItem drawer__displayItem--search">
+                                        <li class="drawer__displayItem drawer__displayItem--search hide">
                                             <fieldset class="drawer__controlSet">
                                                 <div class="drawer__control--searchIcon"></div>
                                                 <input type="text" autocomplete="off" id="drawerSearchInput" class="drawer__control drawer__control--input" placeholder="Search">

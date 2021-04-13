@@ -166,35 +166,35 @@
 				{{#each product.custom_fields}}
 
 					{{#if this.name '==' "Lead-Time"}}
-					{{#if this.value '===' "Ships next business day"}}
-					<span id="nextBussinessDay" class="shipping-range--tip">
-						<script>
-							document.addEventListener('DOMContentLoaded', function () {
-								TEAK.Modules.leadTime.setTip("nextBussinessDay");
-							});
-						</script>
-					</span>
+						{{#contains (toLowerCase this.value) "ships next business day"}}
+							<svg class="icon icon-quick-ship" width="50" height="50"><use xlink:href="#icon-quick-ship" /></svg>
+						{{else}}
+							<svg class="icon icon-regular-ship" width="50" height="50"><use xlink:href="#icon-regular-ship" /></svg>
+						{{/contains}}
 					{{/if}}
 
-					{{#contains this.value "ships next business day"}}
-					<span id="nextBussinessDay" class="shipping-range--tip">
-						<script>
-							document.addEventListener('DOMContentLoaded', function () {
-								TEAK.Modules.leadTime.setTip("nextBussinessDay");
-							});
-						</script>
-					</span>
-					{{/contains}}
+						
+					{{#if this.name '==' "Lead-Time"}}
+						<span class="shipping-range-cntr">
+						{{#contains (toLowerCase this.value) "ships next business day"}}
+							<span id="nextBussinessDay" class="shipping-range--tip">
+								<script>document.addEventListener('DOMContentLoaded', function () {TEAK.Modules.leadTime.setTip("nextBussinessDay");});</script>
+							</span>
 
-					{{this.value}}
-
+							<strong class="shipping-range-title">Quick Ship</strong>
+							<span class="shipping-range-text">{{this.value}}</span>
+						{{else}}
+							<strong class="shipping-range-title">Shipping Time Frame</strong>
+							<span class="shipping-range-text">{{this.value}}</span>
+						{{/contains}}
 					{{/if}}
 
-					{{#if this.name '==' "Lead-Time 2"}}
-					{{this.value}}
-					{{/if}}
-
+						{{#if this.name '==' "Lead-Time 2"}}
+							<span class="shipping-range-text">{{this.value}}</span>
+						{{/if}}
 				{{/each}}
+
+						</span>
 				</p>
 
 

@@ -47,8 +47,12 @@ export default class Account {
 				.find(".account-receipt-lead-time-cntr").text(product.lead_time)
 					.end()
 				.find(".account-receipt-lead-time").removeClass("hide");
+
+			let shippingTitle = product.lead_time.toLowerCase().includes("ships next business day") ? "Quick Ship" : "Shipping Time Frame";
+			$(`#${product.id}`).find(".shipping-range-title").text(shippingTitle)
 		});
 	}
+
 
 
 

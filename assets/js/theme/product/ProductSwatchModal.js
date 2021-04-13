@@ -154,8 +154,12 @@ export default class ProductSwatchModal {
     selectSwatchColor(e){
         let $this = $(e.currentTarget).parents("label");
 
-        $this.parents(".form-field-control").find("input:checked").prop("checked", false).attr("checked", false);
+        $this.parents(".form-field-control")
+            .find("input:checked").prop("checked", false).attr("checked", false)
+                .end()
+            .find("label[data-is-selected]").removeAttr("data-is-selected");
     
+
         if ( $this.attr('data-is-selected') && $this.find("input[type=radio]").is(":checked")) {
             $this.find('input[type=radio]').prop('checked', false).attr('checked', false);
 
@@ -191,22 +195,19 @@ export default class ProductSwatchModal {
                 .end()
             .find(".drawer__imgCntr").html(swatchImg)
                 .end()
-            .find(".drawer__figCntr").css({
-                    backgroundImage:`url('${swatchImg.attr("src")}')`,
-                    backgroundRepeat: "repeat"
-                })
+            .find(".drawer__figCntr").addClass("drawer__figCntr--active")
                 .end()
             .find(".drawer__saveBtn").prop("disabled", false);
+            
 
         e.preventDefault();
     }
 
 
     // update the parent or remote swatch
-    // feel like this should be a type of directive or seperate module...
+    // feel like this should be a type of directive or separate module...
     updateSwatchButton(e, $this){
-        let that = this,
-            labelData = $this.data(),
+        let labelData = $this.data(),
             inputData =  $(e.currentTarget).data(),
             parsedLabel = TEAK.Utils.parseOptionLabel(labelData.swatchValue.toString());
 
@@ -273,7 +274,9 @@ export default class ProductSwatchModal {
         e.preventDefault();
 
         this.$optionForm.find("button.drawer__displayFiltersBtn--open").click();
+
         $(document.body).toggleClass("drawer__freezeBody");
+        
         this.$optionModalSwatches.find(".drawer__contentCntr, .drawer__contentHeading").html("");
         
         this.$optionsDrawer.toggleClass("drawer--close drawer--open")
@@ -290,13 +293,16 @@ export default class ProductSwatchModal {
             this.optionsProductRefferenceId = this.getProductID(e);
             this.optionSetRefferenceId = parseInt($(e.currentTarget).attr("rel"));
 
-            this.$optionModalSwatches.find(".drawer__imgCntr").find("img").attr("src", productImg);
+            this.$optionModalSwatches
+                .find(".drawer__figCntr").removeClass("drawer__figCntr--active")
+                    .end()
+                .find(".drawer__imgCntr").find("img").attr({src: "", alt: ""});
 
-            this.$optionModalSwatches.find(".drawer__figCntr").css({
-                backgroundImage: `url('${productImg}')`,
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat'
-            });
+            // this.$optionModalSwatches.find(".drawer__figCntr").css({
+            //     backgroundImage: `url('${productImg}')`,
+            //     backgroundSize: 'contain',
+            //     backgroundRepeat: 'no-repeat'
+            // });
 
             this.initOptions();
 
@@ -703,10 +709,12 @@ export default class ProductSwatchModal {
     }
 
 
+
     /**
      * Construct each swatch from the passed in swatch array
      * @param {'Array'} swatchArr - passed in swatch array
      */
+
     constructSwatch(swatchArr){
         let tpl = this.graph_tpl.buildSwatch(swatchArr, this.productInfo.disabledSwatches);
         $(tpl).appendTo(".drawer__contentCntr", this.$optionModalSwatches);

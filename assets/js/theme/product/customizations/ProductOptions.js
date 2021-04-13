@@ -185,7 +185,7 @@ export default class ProductOptions {
 
 				// console.trace()
 				// console.log($el.data())
-
+				$el.attr('data-is-selected', false)
 				$el.find('input:radio').prop('checked', false).attr('checked', false);
 
 				e.preventDefault();
@@ -209,7 +209,7 @@ export default class ProductOptions {
 					});
 				}
 
-				$el.closest('.form-field-swatch').find('label[data-is-selected]').removeAttr('data-is-selected');
+				// $el.closest('.form-field-swatch').find('label[data-is-selected]').removeAttr('data-is-selected');
 
 			} else {
 

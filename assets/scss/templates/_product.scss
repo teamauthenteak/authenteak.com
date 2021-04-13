@@ -284,14 +284,18 @@
         align-items: center;
         line-height: 1.4;
         margin-bottom: 16px;
-        flex-wrap: wrap;
-
-        @extend .alert--notify;
-        padding: 5px;
-        color: #084d80;
         text-align: left;
-        border-bottom: 3px solid #d6e4ef;
+        @extend .shipping-range--static;
     }
+
+    &__shippingInfoTitle{
+        @extend .shipping-range-title;
+    }
+
+    &__shippingInfoCntr{
+        @extend .shipping-range-cntr;
+    }
+
 
     &__priceCntr{
         float: left;
@@ -719,10 +723,11 @@
         }
 
         & .swatch-color{
-            @extend .round;
+            // @extend .round;
             padding-bottom: 100%;
             display: block;
             background-size: contain;
+            border-radius: $border-radius;
         }
 
         &--row{

@@ -45,8 +45,11 @@
             {{/if}}
 
             <p class="account-receipt-lead-time hide">
-              <strong>We anticipate your order shipping in: </strong>
-              <span class="account-receipt-lead-time-cntr"></span>
+              <svg class="icon icon-regular-ship" width="50" height="50"><use xlink:href="#icon-regular-ship" /></svg>
+              <span class="shipping-range-cntr">
+                <strong class="shipping-range-title">Shipping Time Frame</strong>
+                <strong>We anticipate your order shipping in: </strong><span class="account-receipt-lead-time-cntr"></span>
+              </span>
             </p>
 
             {{#if customizations}}

@@ -9,6 +9,8 @@
 - updated fire glass image in fire pit calculator
 - fixed atc modal image issue
 - added phone number formatting for checkout
+- added new shipping time indicators to cart, pdp and my account
+- updated option drawer with new UX - square swatch, removed product image, moved text, show selected swatch unrepeated at top
 
 ## [1.20.37]
 - changed button border radius

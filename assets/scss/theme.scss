@@ -6109,7 +6109,7 @@ table.geotrust-ssl-seal-table {
     height: 45px;
     overflow: hidden;
     border: 1px solid transparent;
-    border-radius: 50%;
+    border-radius: $border-radius;
   }
 
   .swatch-disabled{
