@@ -508,6 +508,8 @@
             margin: 0;
             width: 100%;
             display: block;
+            text-overflow: ellipsis;
+            overflow: hidden;
     
             @media only screen and (max-width: $screen-md) {
                 font-size: 0.85rem !important;

@@ -11,11 +11,26 @@
 
   {{#if product.options}}
   <h2 class="product__title product__title--2 product__title--customizePDP">
-    Customize Your Product
-    <button class="product__swatchRequestBtn product__swatchRequestBtn--pdp" swatch-request-button>
-        <svg class="product__swatchRequestIcon product__swatchRequestIcon--pdp"><use xlink:href="#icon-swatch"/></svg>
-        <span class="product__swatchRequestText product__swatchRequestText--pdp">Request A Free Swatch</span>
-    </button>
+    {{#if product.options.length '==' '1' }}
+      {{#each product.options}}
+        {{#if display_name '==' 'not_an_option'}}
+        {{else}}
+          Customize Your Product
+        {{/if}}
+      {{/each}}
+    {{else}}
+      Customize Your Product
+    {{/if}}
+
+    {{#each product.options}}
+      {{#inArray (split "Select Head Cushion Fabric||Select Canopy||Select Optional Cushions||Select Optional Cushion||Select Fabric||Select Cushion||Select Throw Pillows Fabric" "||") display_name }}
+      <button class="product__swatchRequestBtn product__swatchRequestBtn--pdp" swatch-request-button>
+          <svg class="product__swatchRequestIcon product__swatchRequestIcon--pdp"><use xlink:href="#icon-swatch"/></svg>
+          <span class="product__swatchRequestText product__swatchRequestText--pdp">Request A Free Swatch</span>
+      </button>
+      {{/inArray}}
+    {{/each}}
+
   </h2>
  {{/if}}
 

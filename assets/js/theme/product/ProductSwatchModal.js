@@ -573,8 +573,9 @@ export default class ProductSwatchModal {
         }
  
         this.filteredArray.forEach((element) => {
-            let tpl = this.graph_tpl.getOptionSwatch(element.node, this.filteredArray);
+            let tpl = this.graph_tpl.getOptionSwatch(element.node, this.filteredArray, this.productInfo.disabledSwatches);
             $(tpl).appendTo(labelCntr);
+
         });
 
 
