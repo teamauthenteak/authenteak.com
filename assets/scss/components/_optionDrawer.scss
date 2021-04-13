@@ -109,8 +109,8 @@
 
     &__figCntr{
         width: 100%;
-        height: 200px;
-        flex: 1 0 auto;
+        height: auto;
+        flex: 0 0 auto;
         // margin-bottom: 20px;
         display: flex;
         justify-content: center;
@@ -118,13 +118,27 @@
         position: relative;
         background-position: center center;
         background-size: inherit;
+        height: 0px;
+        opacity: 0;
+        transition: all .35s ease;
 
         & .swatch-pattern-image{
             @extend .drawer__img;
-            @extend .round;
             width: 200px !important;
             margin: 0 auto;
+            transition: all .75s ease;
+
+            &[src=""]{
+                display: none;
+            }
         }
+
+        &--active{
+            height: 250px;
+            opacity: 1;
+        }
+
+
     }
 
     &__imgCntr{
@@ -132,20 +146,22 @@
     }
 
     &__img{
-        width: 100%;
+        width: 200px;
         height: 200px;
         object-fit: cover;
-        display: none;
+
+        &[src=""]{
+            display: none;
+        }
     }
 
     &__selectedSwatchText{
         width: 100%;
         text-align: center;
-        background-color: rgba(255,255,255,.75);
-        line-height: 1;
-        border-radius: $border-radius;
+        line-height: 1.4;
         display: none;
-        font-size: .7rem;
+        font-size: 1.1rem;
+        padding: 10px;
 
         @media only screen and (max-width: $screen-xs) {
             width: 100%;
@@ -409,8 +425,13 @@
         & .swatch-wrap{
             width: (100%/6) !important;
             height: auto !important;
-            padding: 3px !important;
+            padding: 5px !important;
             margin: 0 !important;
+
+            &[data-is-selected="true"]{
+                background-color: $bg-dove;
+                border-radius: $border-radius;
+            }
         }
 
         & .swatch{
@@ -422,8 +443,7 @@
         & .form-field-control{
             overflow: auto;
             flex: 1 0 auto;
-            // max-height: inherit !important;
-            max-height: 54vh !important;
+            max-height: 100% !important;
             @extend %scrolling-inner;
             justify-content: flex-start;
             overflow-x: hidden;
@@ -452,12 +472,11 @@
             bottom: 0;
             left: 0;
             right: 0;
-            border: 4px solid rgba(255, 255, 255, 0.85);
             background-color: transparent;
             box-shadow: 0 0 18px 5px rgba(0, 0, 0, 0.1) inset;
             z-index: 1;
             overflow: visible;
-            @extend .round;
+            border-radius: $border-radius;
         }
     }
 
@@ -497,12 +516,12 @@
 
         &--grade{
             line-height: 1;
-            font-size: 0.55rem;
+            font-size: 0.75rem;
         }
 
         &--brand{
             @extend .drawer__swatchLabel--grade;
-            font-size: 0.55rem;
+            font-size: 0.75rem;
         }
 
         &--price{
@@ -524,7 +543,7 @@
     &__controls{
 
         &--list{
-            padding: 10px 10px 10px 0 !important;
+            padding: 10px 10px 90px 0 !important;
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: center;

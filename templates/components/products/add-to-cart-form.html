@@ -73,12 +73,12 @@
       
     
       {{#if product.options}}
-      <p class="shipping-range shipping-range--dynamic">
+      <p class="shipping-range shipping-range--dynamic"> 
         {{#each product.custom_fields}}
           {{#if this.name '==' "Lead-Time"}}
               {{this.value}}
 
-              {{#if this.value '===' "Ships next business day"}}
+              {{#contains (toLowerCase this.value) "ships next business day"}}
                 <span id="nextBussinessDay" class="shipping-range--tip">
                   <script>
                     document.addEventListener('DOMContentLoaded', function(){
@@ -86,7 +86,7 @@
                     });
                   </script>
                 </span>
-              {{/if}}
+              {{/contains}}
           {{/if}}
 
           {{#if this.name '==' "Lead-Time 2"}}   

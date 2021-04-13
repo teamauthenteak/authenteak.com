@@ -114,16 +114,14 @@
         color: #353E5D;
         font-size: 35px;
         padding: 15px 78px;
-        margin-top: 175px;
+        margin-top: 10%;
 
         @media only screen and (max-width: $screen-lg) {
-            margin-top: 60px;
             font-size: 24px;
             padding: 10px 50px;
         }
 
         @media only screen and (max-width: $screen-md) {
-            margin-top: 55px;
             font-size: 20px;
             padding: 10px 40px;
         }
@@ -379,4 +377,15 @@
         align-content: center;
         padding: 0;
     }
+}
+
+
+.button--text{
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    margin: 0;
+    text-decoration: underline;
+    text-align: left;
+    line-height: 1;
 }

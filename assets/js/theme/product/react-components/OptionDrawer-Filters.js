@@ -2,10 +2,9 @@ import React, { useContext } from 'react';
 import { useSpring, animated } from 'react-spring';
 import { useMeasure } from 'react-use'
 
-import AppContext from './context/AppContext';
 import DrawerContext from './context/DrawerContext';
 import OptionDisplayButton from './OptionDrawer-DisplayBtn';
-import OptionSearch from './OptionDrawer-Search';
+// import OptionSearch from './OptionDrawer-Search';
 import OptionFilterControls from './OptionDrawer-FilterOptionControls';
 import OptionFilterBtn from './OptionDrawer-FilterOptionBtn';
 import Swatch from './Swatch';
@@ -37,9 +36,9 @@ export default function OptionDrawerFilters(props){
         <form className="drawer__filtersForm">
             <div className="drawer__topCntr">
                 <ul className="drawer__displayList">
-                    <li className="drawer__displayItem drawer__displayItem--search">
+                    {/* <li className="drawer__displayItem drawer__displayItem--search">
                         <OptionSearch />
-                    </li>
+                    </li> */}
                     <li className="drawer__displayItem drawer__displayItem--filters">
                         <OptionFilterBtn />
                     </li>

@@ -21,17 +21,13 @@
         border-radius: 50rem !important;
         background-color: $btn-color-green;
         position: absolute;
-        top: -8px;
-        right: -8px;
+        top: -2px;
+        left: 12px;
         max-width: 30px;
 
-        @media screen and (min-width: $screen-xl) {
-            right: auto;
-            left: 13px;
-        }
-
-        @media screen and (min-width: $screen-sm) {
-            top: 5px;
+        @media screen and (max-width: $screen-sm) {
+            top: 3px;
+            left: auto;
             right: -13px;
         }
     }

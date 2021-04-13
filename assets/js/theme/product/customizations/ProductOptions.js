@@ -185,7 +185,7 @@ export default class ProductOptions {
 
 				// console.trace()
 				// console.log($el.data())
-
+				$el.attr('data-is-selected', false)
 				$el.find('input:radio').prop('checked', false).attr('checked', false);
 
 				e.preventDefault();
@@ -209,7 +209,7 @@ export default class ProductOptions {
 					});
 				}
 
-				$el.closest('.form-field-swatch').find('label[data-is-selected]').removeAttr('data-is-selected');
+				// $el.closest('.form-field-swatch').find('label[data-is-selected]').removeAttr('data-is-selected');
 
 			} else {
 
@@ -279,13 +279,13 @@ export default class ProductOptions {
 		let self = this;
 
 		if( document.getElementById("CategoryCollection") && event ){
-			$(event.currentTarget).parents(".product__row").find("select.selectBox__select").each(udpateLabels);
+			$(event.currentTarget).parents(".product__row").find("select.selectBox__select").each(updateLabels);
 
 		}else{
-			this.$dropdowns.each(udpateLabels);
+			this.$dropdowns.each(updateLabels);
 		}
 
-		function udpateLabels(){
+		function updateLabels(){
 			let $el = $(this);
 			let $optionText = $el.parents(".selectBox");
 			let currentSelection = window.TEAK.currentSelections[$optionText.data('option-title')] || false;

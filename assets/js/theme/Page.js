@@ -1,6 +1,5 @@
 import PageManager from '../PageManager';
 import Modal from 'bc-modal';
-import Personalization from './Personalization';
 import LazyLoad from 'vanilla-lazyload';
 
 // const countdownEvents = [
@@ -395,12 +394,12 @@ TEAK.Modules.calculator = {
     materials: [
         {   
             id: "fireGlass",
-            img: "//cdn11.bigcommerce.com/s-r14v4z7cjw/products/351/images/44655/AFF-BRZRF12__00623.1495733246.270.270.jpg?c=2",
+            img: "//authenteak.s3.us-east-2.amazonaws.com/fireglass-calculator/Fireglass-image.jpg",
             name: "Fireglass"
         },
         {   
             id: "lavaRocks",
-            img: "//cdn11.bigcommerce.com/s-r14v4z7cjw/products/6514/images/56805/ATH-NL-3050__86806.1533818236.270.270.jpg?c=2",
+            img: "//authenteak.s3.us-east-2.amazonaws.com/fireglass-calculator/Lava-rocks-image.jpg",
             name: "Lava Rocks"
         }
     ],

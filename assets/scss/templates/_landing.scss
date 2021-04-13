@@ -42,7 +42,7 @@
     }
 
     &__hero{
-        max-height: 1050px;
+        // max-height: 1050px;
         height: auto;
         overflow: hidden;
         position: relative;
@@ -156,6 +156,10 @@
             padding-top: 963px / 1400px * 100%;
         }
        
+        &--noPad{
+            padding: 0;
+            display: flex !important;
+        }
 
         @media only screen and (max-width: $screen-md) {
             padding-top: 425px / 425px * 100%;

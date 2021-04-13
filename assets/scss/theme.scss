@@ -4192,52 +4192,53 @@ table.geotrust-ssl-seal-table {
 //   }
 // }
 
-// .mini-cart-item-thumb {
-//   width: 75px;
-//   padding-bottom: 75px;
-//   background-position: center center;
-//   background-size: contain;
-//   background-repeat: no-repeat;
+.mini-cart-item-thumb {
+  width: 75px;
+  padding-bottom: 75px;
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
 
-//   .thumbnail-cover & {
-//     background-size: cover;
-//   }
+  .thumbnail-cover & {
+    background-size: cover;
+  }
 
-//   &.no-image {
-//     background-color: $color-background;
+  &.no-image {
+    background-color: $color-background;
 
-//     @if ($color-mini-cart-background == $color-background) {
-//       box-shadow: 1px 0 0 0 $color-border inset;
-//     }
-//   }
-// }
+    @if ($color-mini-cart-background == $color-background) {
+      box-shadow: 1px 0 0 0 $color-border inset;
+    }
+  }
+}
 
-// .mini-cart-item-title {
-//   font-family: $font-secondary, sans-serif;
-//   font-weight: bold;
-//   font-size: 17px;
-//   text-transform: uppercase;
-// }
+.mini-cart-item-title {
+  font-family: $font-secondary, sans-serif;
+  font-weight: bold;
+  font-size: 17px;
+  text-transform: uppercase;
+}
 
-// .mini-cart-item-options {
-//   padding-top: 2px;
-//   padding-bottom: 2px;
+.mini-cart-item-options {
+  padding-top: 10px;
 
-//   .option-value {
-//     margin-right: 4px;
-//     color: $color-body;
+  .option-value {
+    margin-right: 4px;
+    color: $color-body;
+    font-size: 11px;
+    line-height: 1.4;
 
-//     &:not(:last-child):after {
-//       content: ",";
-//     }
-//   }
-// }
+    &:not(:last-child):after {
+      content: ",";
+    }
+  }
+}
 
-// .mini-cart-item-description {
-//   vertical-align: middle;
-//   padding-left: 20px;
-//   width: 90%;
-// }
+.mini-cart-item-description {
+  vertical-align: middle;
+  padding-left: 20px;
+  width: 90%;
+}
 
 // .mini-cart-item-actions {
 //   font-size: 12px;
@@ -6108,7 +6109,25 @@ table.geotrust-ssl-seal-table {
     height: 45px;
     overflow: hidden;
     border: 1px solid transparent;
-    border-radius: 50%;
+    border-radius: $border-radius;
+  }
+
+  .swatch-disabled{
+    cursor: not-allowed !important;
+    opacity: 0.15;
+
+    &::before{
+      content: "SOLD OUT";
+      position: absolute;
+      font-weight: 800;
+      color: #000;
+      z-index: 99;
+      width: 100%;
+      left: 0;
+      text-align: center;
+      font-size: 2.6rem;
+      line-height: 1.2
+    }
   }
 
   .swatch-color {

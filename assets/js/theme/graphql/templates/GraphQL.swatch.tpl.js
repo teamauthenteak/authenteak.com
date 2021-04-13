@@ -35,14 +35,14 @@ export default class GraphQL_Swatch_TPL {
                             <h2 class="drawer__contentHeading"></h2>
                 
                             <figure class="drawer__figCntr">
-                                <span class="drawer__imgCntr"><img src="https://dummyimage.com/600x400/cccccc/fff.gif&text=" class="drawer__img" /></span>
+                                <span class="drawer__imgCntr"></span>
                                 <figcaption class="drawer__selectedSwatchText"></figcaption>
                             </figure>
                 
                             <form class="drawer__filtersForm" id="optionForm"> 
                                 <div class="drawer__topCntr">
                                     <ul class="drawer__displayList">
-                                        <li class="drawer__displayItem drawer__displayItem--search">
+                                        <li class="drawer__displayItem drawer__displayItem--search hide">
                                             <fieldset class="drawer__controlSet">
                                                 <div class="drawer__control--searchIcon"></div>
                                                 <input type="text" autocomplete="off" id="drawerSearchInput" class="drawer__control drawer__control--input" placeholder="Search">
@@ -112,7 +112,7 @@ export default class GraphQL_Swatch_TPL {
 
 
     // swatch container
-    buildSwatch(swatch){        
+    buildSwatch(swatch, disabledSwatches){        
         return `<div class="drawer__swatchControls ${swatch.isRequired ? 'form-required' : ''}" data-swatch-selector data-product-attribute="swatch">
                     <div class="form-field-control drawer__controls--list">
 
@@ -120,7 +120,7 @@ export default class GraphQL_Swatch_TPL {
                         let thisOption = swatch.values.edges[key].node;
 
                         if( thisOption.label !== "not_an_option" ){
-                            return this.getOptionSwatch(thisOption, swatch);
+                            return this.getOptionSwatch(thisOption, swatch, disabledSwatches);
                         }
                         
                     }).join('')}
@@ -131,9 +131,11 @@ export default class GraphQL_Swatch_TPL {
 
 
     // swatches
-    getOptionSwatch(thisOption, swatch){
-        return `<label class="swatch-wrap" for="attribute-${thisOption.entityId}" data-swatch-value="${thisOption.label}" data-product-attribute-value="${thisOption.entityId}" data-is-selected>
-                    <input class="form-input swatch-radio"  data-option-title="${swatch.displayName}" data-parent-id="${swatch.entityId}" id="attribute-${thisOption.entityId}" type="radio" name="attribute[${swatch.entityId}]" value="${thisOption.entityId}" data-label="${thisOption.label}" ${thisOption.isDefault ? 'checked' : ''} ${swatch.isRequired ? ' required' : ''} aria-required="${swatch.isRequired}">
+    getOptionSwatch(thisOption, swatch, disabledSwatches){
+        var isDisabled = disabledSwatches ? disabledSwatches.split(",").find(item => thisOption.colorCode.includes(item.trim())) : null;
+   
+        return `<label class="swatch-wrap ${isDisabled && 'swatch-disabled'}" for="attribute-${thisOption.entityId}" data-swatch-value="${thisOption.label}" data-product-attribute-value="${thisOption.entityId}" data-is-selected>
+                    <input ${isDisabled && 'disabled="true"'} class="form-input swatch-radio" data-option-title="${swatch.displayName}" data-parent-id="${swatch.entityId}" id="attribute-${thisOption.entityId}" type="radio" name="attribute[${swatch.entityId}]" value="${thisOption.entityId}" data-label="${thisOption.label}" ${thisOption.isDefault && 'checked'} ${swatch.isRequired && ' required'} aria-required="${swatch.isRequired}">
                     <span class="swatch">
                         <span class="swatch-color swatch-pattern" style="background-image: url('${thisOption.label.includes("No ") ? "https://authenteak.s3.us-east-2.amazonaws.com/images/2098122.preview.png" : thisOption.imageUrl}');">
                             <img class="swatch-pattern-image" src="${thisOption.label.includes("No ") ? "https://authenteak.s3.us-east-2.amazonaws.com/images/2098122.preview.png" : thisOption.imageUrl}" alt="${thisOption.label}">

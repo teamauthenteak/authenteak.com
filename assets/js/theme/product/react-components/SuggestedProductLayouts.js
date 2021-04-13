@@ -10,11 +10,9 @@ export default function SuggestedProductLayouts(props){
     const [ title, setTitle ] = useState();
     const [ active, setActive ] = useState({});
 
-
     useMemo(() => {
         setActive(appHook.suggestedLayout)
     }, [appHook.suggestedLayout]);
-
 
 
     useEffect(() => {
@@ -46,7 +44,6 @@ export default function SuggestedProductLayouts(props){
             obj.sketch = sketches.find(ele => ele.name.split("=")[1] === obj.short_name)
 
             setLayouts(layouts => [...layouts, obj]);
-            
         });
 
 
@@ -113,6 +110,16 @@ function LayoutListItems(props){
     const updateProductLayout = (data) => {
         appHook.displaySuggestedLayout(data);
     };
+
+    useMemo(() => {
+
+        // sets the short corner sectional as the default selection
+        if( props.item.short_name === 'short_corner_sectional' && appHook.collection.length ){
+            updateProductLayout(props.item)
+        }
+
+    }, [appHook.collection]);
+
 
     return( <li className={`product__layoutItem ${props.active.icon_id === props.item.icon_id ? "product__layoutItem--active" : "" }`} key={props.item.icon_id}>
                 <button className="product__layoutClose" type="button" onClick={() => updateProductLayout({})}>

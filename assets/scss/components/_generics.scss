@@ -314,6 +314,7 @@
 .bg-img {
     background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00010_AprilHomepage_Images/WEBP/WS00010_TradeBanner_BGTexture_Desktop.webp);
     background-repeat: no-repeat;
+    background-size: cover;
 
     @media only screen and (max-width: $screen-sm) {
         background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00010_AprilHomepage_Images/WEBP/WS00010_TradeBanner_BGTexture_Mobile.webp);

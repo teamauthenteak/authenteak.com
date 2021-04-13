@@ -165,10 +165,13 @@ export default function CollectionPodBundle(){
         Object.keys(appHook.suggestedLayout.product_n_values).forEach((key) => {
             let match = appHook.collection.find(ele => ele.entityId === parseInt(key));
 
-            match.qty = appHook.suggestedLayout.product_n_values[key];
-            total =+ total + (match.priceWithOptions * match.qty);
-
-            bundle.push(match);
+            if( match ){
+                match.qty = appHook.suggestedLayout.product_n_values[key];
+                total =+ total + (match.priceWithOptions * match.qty);
+    
+                bundle.push(match);
+            }
+            
         });
        
         return {
