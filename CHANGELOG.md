@@ -11,6 +11,11 @@
 - added phone number formatting for checkout
 - added new shipping time indicators to cart, pdp and my account
 - updated option drawer with new UX - square swatch, removed product image, moved text, show selected swatch unrepeated at top
+- fixed issue with checkout page going to 500 by merging down 1.20.37 to this branch
+- updated UI for hide swatch feature
+- added swatch search back to PDP option drawer
+- fixed issue where disabled swatches were not disabled during filtering or searching
+- added logic to hide "Customize" messaging on PDP when there are no options to show
 
 ## [1.20.37]
 - changed button border radius

@@ -36,9 +36,9 @@ export default function OptionDrawerFilters(props){
         <form className="drawer__filtersForm">
             <div className="drawer__topCntr">
                 <ul className="drawer__displayList">
-                    {/* <li className="drawer__displayItem drawer__displayItem--search">
+                    <li className="drawer__displayItem drawer__displayItem--search">
                         <OptionSearch />
-                    </li> */}
+                    </li>
                     <li className="drawer__displayItem drawer__displayItem--filters">
                         <OptionFilterBtn />
                     </li>
