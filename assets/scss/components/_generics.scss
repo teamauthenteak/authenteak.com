@@ -312,11 +312,11 @@
 }
 
 .bg-img {
-    background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00010_AprilHomepage_Images/WEBP/WS00010_TradeBanner_BGTexture_Desktop.webp);
+    background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00010_AprilHomepage_Images/WEBP/WS00010_TradeBanner_BGTexture_Desktop.webp), url(https://authenteak.s3.us-east-2.amazonaws.com/WS00010_AprilHomepage_Images/jpgs/WS00010_TradeBanner_BGTexture_Desktop.jpg) ;
     background-repeat: no-repeat;
 
     @media only screen and (max-width: $screen-sm) {
-        background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00010_AprilHomepage_Images/WEBP/WS00010_TradeBanner_BGTexture_Mobile.webp);
+        background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00010_AprilHomepage_Images/WEBP/WS00010_TradeBanner_BGTexture_Mobile.webp), url(https://authenteak.s3.us-east-2.amazonaws.com/WS00010_AprilHomepage_Images/jpgs/WS00010_TradeBanner_BGTexture_Mobile.jpg);
         height: 280px;
         
     }
@@ -403,7 +403,7 @@
     font-size: 35px;   
 
     @media only screen and (max-width:$screen-md) {               
-        margin: 0 66px 10px;
+        margin: 0 66px 5px;
         padding: 0;
         font-size: 25px;
     }
