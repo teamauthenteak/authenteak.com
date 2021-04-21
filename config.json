@@ -1,8 +1,8 @@
 {
-  "name": "Authenteak.com - 1.20.38.002",
-  "version": "1.20.38.002",
+  "name": "Authenteak.com - 1.20.38.004",
+  "version": "1.20.38.004",
   "settings": {
-    "version": "1.20.38.002",
+    "version": "1.20.38.004",
     "store_logo": {
       "title": "Authenteak.com Outdoor Living"
     },
@@ -403,7 +403,7 @@
         "geotrust-ssl-common-name": "authenteak.com",
         "geotrust-ssl-seal-size": "M",
         "primary-font": "Google_Karla_700,400,400i,300",
-        "secondary-font": "",
+        "secondary-font": "DidotW01-DisplayRegular",
         "header-use-primary-font": "false",
         "color-message-bar": "#0a2e46",
         "color-message-text": "#ffffff",

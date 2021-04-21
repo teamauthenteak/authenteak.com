@@ -132,7 +132,7 @@ export default class GraphQL_Swatch_TPL {
 
     // swatches
     getOptionSwatch(thisOption, swatch, disabledSwatches){
-        var isDisabled = disabledSwatches ? disabledSwatches.split(",").find(item => thisOption.colorCode.includes(item.trim())) : null;
+        var isDisabled = disabledSwatches ? disabledSwatches.split(",").find(item => thisOption.colorCode && thisOption.colorCode.includes(item.trim())) : null;
    
         return `<label class="swatch-wrap ${isDisabled && 'swatch-disabled'}" for="attribute-${thisOption.entityId}" data-swatch-value="${thisOption.label}" data-product-attribute-value="${thisOption.entityId}" data-is-selected>
                     <input ${isDisabled && 'disabled="true"'} class="form-input swatch-radio" data-option-title="${swatch.displayName}" data-parent-id="${swatch.entityId}" id="attribute-${thisOption.entityId}" type="radio" name="attribute[${swatch.entityId}]" value="${thisOption.entityId}" data-label="${thisOption.label}" ${thisOption.isDefault && 'checked'} ${swatch.isRequired && ' required'} aria-required="${swatch.isRequired}">

@@ -140,6 +140,11 @@
 .bold{font-weight: bold;}
 .em{font-style: italic}
 
+// Type
+.serif{
+    font-family: "DidotW01-DisplayRegular" !important;
+}
+
 // Box & Borders
 .box-line{
     border: $standard-border;
