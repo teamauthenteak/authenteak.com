@@ -17,6 +17,10 @@
 - fixed issue where disabled swatches were not disabled during filtering or searching
 - added logic to hide "Customize" messaging on PDP when there are no options to show
 - fixed issue in swatch tpl that caused exception when colorCode wasn't in swatch data
+- Added White Glove Delivery Messaging on PDP and Cart
+- Added White Glove Icons
+- added feature on cart page that will: A regular non special order – lead time 1 is showing and lead time 2 is hidden. A special order – lead time 1 is hidden and lead time 2 is showing.
+- added way to hide white glove messaging for certain product ids
 
 ## [1.20.37]
 - changed button border radius
