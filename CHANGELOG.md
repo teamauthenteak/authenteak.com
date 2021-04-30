@@ -16,6 +16,7 @@
 - added swatch search back to PDP option drawer
 - fixed issue where disabled swatches were not disabled during filtering or searching
 - added logic to hide "Customize" messaging on PDP when there are no options to show
+- fixed issue in swatch tpl that caused exception when colorCode wasn't in swatch data
 
 ## [1.20.37]
 - changed button border radius
