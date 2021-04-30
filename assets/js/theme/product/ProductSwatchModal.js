@@ -418,7 +418,7 @@ export default class ProductSwatchModal {
                 this.filteredArray = this.filteredGrades;
 
             // filter by shipping only
-            } else if( hasShipping && !hasGrades && !hasKeywords && !hasBrandNames ){ 
+            } else if( hasShipping && !hasGrades && !hasKeywords && !hasBrandNames && !hasFeatures ){ 
                 this.filterShipping();
                 this.filteredArray = this.filteredShipping;
 
@@ -435,7 +435,7 @@ export default class ProductSwatchModal {
                 this.filterShipping();
                 this.filterFeatures();
 
-                this.filteredArray = this.filterAll( hasKeywords, hasBrandNames, hasGrades, hasShipping );
+                this.filteredArray = this.filterAll( hasKeywords, hasBrandNames, hasGrades, hasShipping, hasFeatures );
             }
 
         }else{
@@ -448,7 +448,7 @@ export default class ProductSwatchModal {
 
 
     // WITH this keyword RETURN all the options that have this brand OR this brand AND this grade OR this grade
-    filterAll( hasKeywords, hasBrandNames, hasGrades, hasShipping ){
+    filterAll( hasKeywords, hasBrandNames, hasGrades, hasShipping, hasFeatures ){
         let fetchedResults = [];
 
         // get all of the objects that match our initial filters
@@ -456,14 +456,14 @@ export default class ProductSwatchModal {
             hasBrandNames ? this.filteredBrands : [], 
             hasGrades ? this.filteredGrades : [], 
             hasShipping ? this.filteredShipping : [],
+            hasFeatures ? this.filteredFeatures : [],
             hasKeywords ? this.filteredKeywords : []
         );
-
 
         // check for duplicates
         let results = this.duplicateItemCheck(fetchedResults);
 
-        
+
         // filter our checked results
         results = results.filter((item) => {
             let isIncluded = [];
@@ -471,9 +471,15 @@ export default class ProductSwatchModal {
             // check all of the multi option values
             for ( const obj in this.filter ) {
                 let filterKey = this.filter[obj].key;
-                
+
                 if( this.filter[obj].values.length > 0 ){
-                    isIncluded.push(this.filter[obj].values.includes( item.node[filterKey] ));
+
+                    if( filterKey === "ships" && item.node.filter !== undefined ){
+                        isIncluded.push(this.filter[obj].values.includes(  item.node.filter[filterKey] ))
+
+                    }else{
+                        isIncluded.push(this.filter[obj].values.includes(  item.node[filterKey] ))
+                    }
                 }
             }
 
