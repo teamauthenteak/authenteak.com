@@ -77,6 +77,14 @@
             display: none !important;
         }
     }
+
+    @media only screen and (max-width: $screen-lg) {
+        &--lgMax{
+            display: none;
+            visibility: hidden;
+            width: 0;
+        }
+    }
 }
 
 .mobileShow{
@@ -124,6 +132,14 @@
     float:none !important;
 }
 
+@media only screen and (max-width: $screen-md) {
+    .mobileAlign {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
 
 // Justified Text
 .l{text-align: left}
@@ -144,6 +160,7 @@
 .serif{
     font-family: "DidotW01-DisplayRegular" !important;
 }
+
 
 // Box & Borders
 .box-line{
@@ -199,6 +216,7 @@
     padding: 0 $standard-padding 0 0 !important;
 }
 
+
 .pad-right-left{
     padding: 0 $standard-padding 0 $standard-padding !important;
 }
@@ -231,6 +249,7 @@
     .pad-left-sm{
         padding: 0 0 0 $standard-padding !important;
     }
+   
 }
 
 
@@ -242,6 +261,7 @@
     .pad-top-lg{
         padding-top: $standard-padding !important;
     }
+    
 }
 
 
@@ -275,11 +295,35 @@
 
 .margin-top-lg{
     margin-top: 100px;
+
+    @media only screen and (max-width: $screen-lg) {
+        margin-top: 20px;
+    }
 }
 
 .margin-bottom-lg{
     margin-bottom: 100px;
+
+    @media only screen and (max-width: $screen-lg) {
+        margin-bottom: 20px;
+    }
 }
+
+.margin-left-lg {
+    margin-left: 100px;
+}
+
+.margin-right-lg {
+    margin-right: 100px;
+   
+}
+
+@media only screen and (max-width: $screen-md) {
+    .no-margin-sm {
+        margin: 0 !important;
+    }    
+}
+
 
 .margin-top-desktop{
     margin-top: 165px;
@@ -317,12 +361,12 @@
 }
 
 .bg-img {
-    background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00010_AprilHomepage_Images/WEBP/WS00010_TradeBanner_BGTexture_Desktop.webp);
+    background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00035_042321_MayHomepageWireframe_Images/JPG/WS00035_TradeBanner_Full_Desktop.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 
     @media only screen and (max-width: $screen-sm) {
-        background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00010_AprilHomepage_Images/WEBP/WS00010_TradeBanner_BGTexture_Mobile.webp);
+        background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00035_042321_MayHomepageWireframe_Images/JPG/WS00035_TradeBanner_Full_Mobile.jpg);
         height: 280px;
         
     }
@@ -362,6 +406,10 @@
     color: $bg-navy;
 }
 
+.text--charcoal{
+    color: $text-charcoal;
+}
+
 
 
 // image
@@ -377,10 +425,10 @@
 
 //containers
 .svg-container {
-    width: 90%;
+    width: 75%;
 
-    @media only screen and (max-width: $screen-sm) {
-        width: 100%;
+    @media only screen and (max-width: $screen-md) {
+        margin: auto;
     }
 }
 
@@ -395,10 +443,11 @@
 .txt-container {
 
     text-align: left;
-    font-size: 20px;
+    font-size: 24px;
 
-    @media only screen and (max-width:$screen-md) {               
+    @media only screen and (max-width:$screen-md) {
         text-align: center;
+        font-size: 18px;
     }
 }
 
@@ -408,8 +457,8 @@
     padding-top: 20px; 
     font-size: 35px;   
 
-    @media only screen and (max-width:$screen-md) {               
-        margin: 0 66px 10px;
+    @media only screen and (max-width:$screen-md) {
+        margin: 0 0 10px;
         padding: 0;
         font-size: 25px;
     }
@@ -419,7 +468,18 @@
 
     height: 200px;
 
-    @media only screen and (max-width:$screen-sm) {               
+    @media only screen and (max-width:$screen-sm) {
         height: 235px;        
     }
+}
+
+.stroke {
+    border-top: 10px solid #353E5D;
+    border-bottom: 10px solid #353E5D;
+}
+
+.stroke::after {
+    content: '';
+    
+
 }
