@@ -197,10 +197,41 @@ export default class Product extends PageManager {
 		});
 
 		$(document.body)
-			.on("click", "[product-dialog-close]", (e) => { this.closeDialog(e); })
+			.on("click", "[product-dialog-close], div.product__modalOverlay", (e) => { this.closeDialog(e); })
 			.on("click", "[product-dialog-open]", (e) => { this.openDialog(e) })
 			.on("click", "a.wishlist__link" ,this.addToWishList)
+			.on("click", "button[whiteGloveBtn]", (e) => { this.openDialog(e) })
+	}
 
+
+	whiteGloveDelivery(){
+		return `<div class="product__col-1-1">
+					<h2 class="product__title c pad-bottom">How Does White Glove Delivery Work?</h2>
+
+					<div class="product__row product__row--center product__row--podCntr">
+						<div class="product__pod--1-4 product__pod--center">
+							<svg class="icon icon-scheduled-delivery" width="150" height="150"><use xlink:href="#icon-scheduled-delivery" /></svg>
+							<h3 class="c">Scheduled Delivery Appointment</h3>
+							<p class="l">We first ship your oder to a delivery company in your local area and they will work with you to schedule your White Glove service.</p>
+						</div>
+
+						<div class="product__pod--1-4 product__pod--center">
+							<svg class="icon icon-delivery-assembly" width="150" height="150"><use xlink:href="#icon-delivery-assembly" /></svg>
+							<h3 class="c">Unpacking & Assembly</h3>
+							<p class="l">The local service provider will carefully unpack, inspect and assemble each item in your order, and place the item(s) where you want.</p>
+						</div>
+
+						<div class="product__pod--1-4 product__pod--center">
+							<svg class="icon icon-packaging-removal" width="150" height="150"><use xlink:href="#icon-packaging-removal" /></svg>
+							<h3 class="c">Packaging Removal & Disposal</h3>
+							<p class="l">All packaging like boxes, plastic, and shipping insulation will be removed and discarded for you.</p>
+						</div>
+					</div>
+
+					<div class="product__row product__row--center margin-top">
+						<p class="c">For more details click to visit our <a href="/shipping/" target="_blank">shipping policies &rsaquo;</a></p>
+					</div>
+				</div>`;
 	}
 
 
@@ -238,6 +269,7 @@ export default class Product extends PageManager {
 	}
 
 
+
 	openDialog(e){
 		let thisDialog = $(e.currentTarget).attr("rel"), tpl;
 
@@ -249,7 +281,12 @@ export default class Product extends PageManager {
 			case "askQuestion":
 				tpl = this.yotpo.buildQuestionModal();
 				break;
+
+			case "whiteGloveBtn":
+				tpl = this.whiteGloveDelivery();
+				break;
 		}
+
 
 		$("#productModal")
 			.removeClass("hide")
@@ -261,6 +298,7 @@ export default class Product extends PageManager {
 
 		e.preventDefault();
 	}
+
 
 
 	closeDialog(e){

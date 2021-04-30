@@ -64,37 +64,22 @@
 							<use xlink:href="#icon-quick-ship" />
 						</svg>
 						<span class="shipping-range-cntr">
-							<strong class="shipping-range-title">Quick Ship</strong>
+							<strong class="shipping-range-title">Quick Ship</strong><br />
 							{{else}}
-							<svg class="icon icon-regular-ship" width="50" height="50">
-								<use xlink:href="#icon-regular-ship" />
-							</svg>
+							<svg class="icon icon-regular-ship" width="50" height="50"><use xlink:href="#icon-regular-ship" /></svg>
 							<span class="shipping-range-cntr">
 								<strong class="shipping-range-title">Shipping Time Frame</strong>
 								{{/contains}}
-								{{/if}}
 
-								{{#if this.name '==' "Lead-Time"}}
-								<span id="shippingTime__{{../this.id}}" class="hide">
-									{{this.value}}
-									{{/if}}
+								<time class="lead-time lead-time--one">{{this.value}}</time>
+							{{/if}}
 
-									{{#if this.name '==' "Lead-Time 2"}}
-									{{this.value}}
-									{{/if}}
+							{{#if this.name '==' "Lead-Time 2"}}
+							&nbsp; <time class="lead-time lead-time--two hide">{{this.value}}</time>
+							{{/if}}
+						{{/each}}
 
-									{{#if this.name '==' "Lead-Time"}}
-								</span>
-								
-								<button type="button" class="button--text"
-									onclick="document.getElementById('shippingTime__{{../this.id}}').classList.toggle('hide')">
-									Click for details
-								</button>
-								{{/if}}
-
-								{{/each}}
-
-							</span>
+						</span>
 					</div>
 
 				</div>

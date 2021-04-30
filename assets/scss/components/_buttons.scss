@@ -12,6 +12,23 @@
     @extend %button-rounded;
     text-decoration: none !important;
 
+    &.add-to-cart{
+        color: #fff !important;
+
+        &:hover{
+            color: $text-green;
+
+            .button-text{
+                color: $text-green !important;
+            }
+        }
+
+        .button-text{
+            color: #fff !important;
+        }
+    }
+    
+
     &.progress{
         &:before, &:after{
             display: none !important;
@@ -265,6 +282,7 @@
     }
 }
 
+
 .button-cart{
     position: relative;
     height: 62px;
@@ -388,4 +406,13 @@
     text-decoration: underline;
     text-align: left;
     line-height: 1;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+
+    &:hover{
+        background-color: transparent;
+        color: $text-green;
+        border-bottom-color: $text-green;
+    }
 }
