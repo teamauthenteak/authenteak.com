@@ -509,7 +509,15 @@
         
         @media only screen and (max-width: $screen-sm) {
             width: 100%;
-        }        
+        }
+    }
+
+    &__col-1-6{
+        @extend %span-1-6;
+
+        @media only screen and (max-width: $screen-sm) {
+            width: 100%;
+        }
     }
 
     &__figImg{
