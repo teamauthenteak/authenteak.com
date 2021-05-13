@@ -22,9 +22,8 @@
 }
 
 %freeze-body{
+    height: 100%;
     overflow: hidden;
-    position: relative;
-    max-height: 100vh;
 }
 
 .scroll-locked{

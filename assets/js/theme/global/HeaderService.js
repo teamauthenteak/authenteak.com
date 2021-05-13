@@ -205,9 +205,9 @@ export default class HeaderService{
 							name: "Outdoor Furniture",
 							path: "/outdoor-furniture/",
 							children: [
-								{ name: "Lane Venture", path: "/shop-all-brands/lane-venture/" },
+								{ name: "Gloster", path: "/shop-all-brands/gloster/" },
 								{ name: "Kingsley Bate", path: "/shop-all-brands/kingsley-bate/" },
-								{ name: "Cane-Line", path: "/shop-all-brands/cane-line/" },
+								{ name: "POVL", path: "/shop-all-brands/povl-outdoor/" },
 								{ name: "All Outdoor Furniture Brands", path: "/shop-all-brands#Patio Furniture" },
 								{ name: "Shop All Outdoor Furniture", path: "/outdoor-furniture/shop-all-outdoor-furniture/" },
 							]
@@ -217,7 +217,7 @@ export default class HeaderService{
 							path: "/patio-umbrellas-accessories/",
 							children: [
 								{ name: "Treasure Garden", path: "/shop-all-brands/treasure-garden/" },
-								{ name: "Barlow Tyrie", path: "/shop-all-brands/barlow-tyrie/#/filter:custom_category:Market$2520Umbrellas/filter:custom_category:Umbrella$2520Bases/filter:custom_category:Umbrella$2520Covers/filter:custom_category:Umbrellas/filter:custom_category:Cantilevers" },
+								{ name: "Jardinico", path: "/shop-all-brands/jardinico-umbrellas/" },
 								{ name: "Bambrella", path: "/shop-all-brands/bambrella/" },
 								{ name: "All Patio Umbrella Brands", path: "/shop-all-brands#Patio Umbrellas" },
 								{ name: "Shop All Patio Umbrellas & Accessories", path: "/patio-umbrellas-accessories/shop-all-patio-umbrellas-accessories/" },
@@ -238,7 +238,7 @@ export default class HeaderService{
 							name: "Outdoor Heating",
 							path: "/outdoor-heating/",
 							children: [
-								{ name: "Aura Heaters", path: "/shop-all-brands/aura-heaters/" },
+								{ name: "Infratech", path: "/shop-all-brands/infratech" },
 								{ name: "DEKKO", path: "/shop-all-brands/dekko-fire-pits/" },
 								{ name: "Elementi", path: "/shop-all-brands/elementi/" },
 								{ name: "All Outdoor Heating Brands", path: "/shop-all-brands#Outdoor Heating" },
@@ -251,7 +251,7 @@ export default class HeaderService{
 							children: [
 								{ name: "Capi", path: "/shop-all-brands/capi/" },
 								{ name: "Pottery Pots", path: "/shop-all-brands/pottery-pots/" },
-								{ name: "Gloster", path: "/shop-all-brands/gloster/#/filter:custom_category:Planters" },
+								{ name: "Capital Gardens", path: "/shop-all-brands/capital-garden/" },
 								{ name: "All Planter Brands", path: "/shop-all-brands#Planters" },
 								{ name: "Shop All Planters", path: "/planters/shop-all-planters/" },
 							]

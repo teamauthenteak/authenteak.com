@@ -75,7 +75,7 @@ export default class HeaderFlyout {
 			$("#globalHeader").after(`<div class='flyout__underlay' ${window.scrollY > 200 ? "style='top:115px'" : ""}></div>`)
 		}
 
-		this.disableScroll()
+		// TEAK.Utils.scroll().disableScroll()
 
 		if( $(e.currentTarget).hasClass("header__utilityBtn--myList") && TEAK.User.uuid && Array.isArray(this.headerService.myList) ){
 			let tpl = [`<li class="header__utilMenuItem">
@@ -104,24 +104,10 @@ export default class HeaderFlyout {
 		if( $("div.flyout:visible").length === 0 && $("ul.header__utilMenu:visible").length === 0 ){
 			$("#globalHeader").siblings("div.flyout__underlay").remove();
 			
-			this.enableScroll()
+			// TEAK.Utils.scroll().enableScroll();
 		}
 	}
 
 
-	disableScroll = () => {
-		// Get the current page scroll position
-		let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-		let scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-	  
-		// if any scroll is attempted, set this to the previous value
-		window.onscroll = function() {
-			window.scrollTo(scrollLeft, scrollTop);
-		};
-	}
-		
-	enableScroll = () => {
-		window.onscroll = function() {};
-	}
 
 }

@@ -22,6 +22,7 @@
 - added feature on cart page that will: A regular non special order – lead time 1 is showing and lead time 2 is hidden. A special order – lead time 1 is hidden and lead time 2 is showing.
 - added way to hide white glove messaging for certain product ids
 - fixed pdp swatch filter issue where TGEX filters and a grade wouldn't return swatch results
+- added module not found fix for flyout not showing on category landing pages
 
 ## [1.20.37]
 - changed button border radius

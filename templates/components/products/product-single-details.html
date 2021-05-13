@@ -297,7 +297,11 @@
 
 	</div>
 
+	<hr />
+	<div class="nosto_element" id="nosto-page-product2"></div>
 
+	<hr />
+	<div class="nosto_element nosto_page_product_1" id="nosto-page-product1"></div>
 
 
 <div class="product__row" id="productMetaTabs">
@@ -411,9 +415,6 @@
 				  </script>
 			</div>
 		</div> <!-- end returns -->
-
-
-		<div class="nosto_element nosto_page_product_1" id="nosto-page-product1"></div>
 
 
 		<div class="product__tabSection product__tabSection--active" id="questions">
@@ -549,8 +550,8 @@
     "contentCntr": "care"
   },
   {
-    "id": "shipTab",{{#each product.custom_fields}}{{#if this.name '==' "Assembly Required"}}
-    "customContent": "No assembly required.",{{/if}}{{/each}}
+    "id": "shipTab",{{#each product.custom_fields}}{{#if this.name '==' "Assembly Required"}}{{#if this.value '==' 'no' }}
+    "customContent": "No assembly required.",{{/if}}{{/if}}{{/each}}
     "contentCntr": "ship"
   },
   {

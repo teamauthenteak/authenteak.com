@@ -275,7 +275,10 @@ export default class ProductSwatchModal {
 
         this.$optionForm.find("button.drawer__displayFiltersBtn--open").click();
 
-        $(document.body).toggleClass("drawer__freezeBody");
+        // disable scroll
+        // $(document.body).toggleClass("drawer__freezeBody");
+        // window.onscroll = function () { window.scrollTo(0, 0); };
+
         
         this.$optionModalSwatches.find(".drawer__contentCntr, .drawer__contentHeading").html("");
         
@@ -298,11 +301,8 @@ export default class ProductSwatchModal {
                     .end()
                 .find(".drawer__imgCntr").find("img").attr({src: "", alt: ""});
 
-            // this.$optionModalSwatches.find(".drawer__figCntr").css({
-            //     backgroundImage: `url('${productImg}')`,
-            //     backgroundSize: 'contain',
-            //     backgroundRepeat: 'no-repeat'
-            // });
+
+            // TEAK.Utils.scroll().disableScroll()
 
             this.initOptions();
 
@@ -310,7 +310,12 @@ export default class ProductSwatchModal {
             this.$preloader.removeClass("hide");
             this.$optionModalSwatches.find(".drawer__main").addClass("hide");
             this.$optionsDrawer.find(".drawer__saveBtn").prop("disabled", true);
+
+            // TEAK.Utils.scroll().enableScroll();
         }
+
+
+
     }
 
 
