@@ -178,9 +178,11 @@
                     <li class="header__navItem">
                         <a href="/shop-all-brands/" title="Shop by Brand" class="header__navLink" rel="1196">Brands</a>
                     </li>
+                    {{#if customer.customer_group_id '!=' '1' }}
                     <li class="header__navItem">
                         <a href="/featured-offers/" title="" rel="2509" class="header__navLink header__navLink--noFlyout">Offers</a>
                     </li>
+                    {{/if}}
                 </ul>
             </nav>
         </div>
