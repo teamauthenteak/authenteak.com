@@ -14,7 +14,7 @@ export default class HeaderService{
 			this.flyoutData = this.flyoutScheme(data.site.categoryTree);
 
             // save to local storage
-            TEAK.Utils.storeData("TEAK_headerData", {categories: this.flyoutData, expiry: this.now.getTime() + 86400000} );
+            TEAK.Utils.storeData("TEAK_headerData", {categories: this.flyoutData, expiry: this.now.getTime() + 43200000} );
 		});
 
 

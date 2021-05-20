@@ -5,8 +5,7 @@
         <tbody>
             <tr>
                 <td class="email__header" style="width: 100%; text-align: center; height: 100px;" height="100">
-                    <a
-                        style="color: #222;" href="%%GLOBAL_ShopPathSSL%%" target="_blank"> 
+                    <a style="color: #222;" href="{{store.ssl_path}}" target="_blank"> 
                         <img class="email__logo"
                             style="width: 800px; margin-top: 0; margin-bottom: 0; margin-right: auto; margin-left: auto;"
                             src="https://authenteak.s3.us-east-2.amazonaws.com/transactional-emails/Header_AT_Logo.png"
@@ -25,27 +24,27 @@
                                     style="display: inline; margin-top: 0; margin-bottom: 0; margin-right: 20px; margin-left: 20px;">
                                     <a class="email__listLink"
                                         style="color: #222; font-size: 1.3rem; text-decoration: none;"
-                                        href="%%GLOBAL_ShopPathSSL%%/outdoor-furniture/" target="_blank">FURNITURE</a>
+                                        href="{{store.ssl_path}}/outdoor-furniture/" target="_blank">FURNITURE</a>
                                 </td>
                                 <td
                                     style="display: inline; margin-top: 0; margin-bottom: 0; margin-right: 20px; margin-left: 20px;">
                                     <a class="email__listLink"
                                         style="color: #222; font-size: 1.3rem; text-decoration: none;"
-                                        href="%%GLOBAL_ShopPathSSL%%/patio-umbrellas-accessories/"
+                                        href="{{store.ssl_path}}/patio-umbrellas-accessories/"
                                         target="_blank">UMBRELLAS</a>
                                 </td>
                                 <td
                                     style="display: inline; margin-top: 0; margin-bottom: 0; margin-right: 20px; margin-left: 20px;">
                                     <a class="email__listLink"
                                         style="color: #222; font-size: 1.3rem; text-decoration: none;"
-                                        href="%%GLOBAL_ShopPathSSL%%/grills-outdoor-kitchens/"
+                                        href="{{store.ssl_path}}/grills-outdoor-kitchens/"
                                         target="_blank">GRILLS</a>
                                 </td>
                                 <td
                                     style="display: inline; margin-top: 0; margin-bottom: 0; margin-right: 20px; margin-left: 20px;">
                                     <a class="email__listLink"
                                         style="color: #222; font-size: 1.3rem; text-decoration: none;"
-                                        href="%%GLOBAL_ShopPathSSL%%/outdoor-decor/" target="_blank">DECOR</a>
+                                        href="{{store.ssl_path}}/outdoor-decor/" target="_blank">DECOR</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -59,13 +58,15 @@
         cellspacing="0" cellpadding="0">
         <tbody>
             <tr>
-                <td>%%SNIPPET_ShipmentTracking%%</td>
+                <td>
+                    {{> Snippets/ShipmentTrackingDetails}}
+                </td>
             </tr>
             <tr>
                 <td><br /> <br /> <br /> <br />
                     <p style="font-size: 1.2rem; line-height: 1.4; margin: 0;">
                         <a style="color: #222;"
-                            href="%%GLOBAL_ShopPathSSL%%/" target="_blank"> 
+                            href="{{store.ssl_path}}/" target="_blank"> 
                             <img class="email__promoImg"
                                 style="width: 100%; height: auto; object-fit: contain;"
                                 src="https://authenteak.s3.us-east-2.amazonaws.com/transactional-emails/Foot-AT-Banner.png"
@@ -86,14 +87,14 @@
                     style="display: block; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #ccc; margin: 0;">
                     <a class="email__listLink"
                         style="color: #222; text-decoration: none; display: block; font-size: 1.1rem; padding: 20px;"
-                        href="%%GLOBAL_ShopPathSSL%%/account.php" target="_blank">MY ACCOUNT</a></td>
+                        href="{{store.ssl_path}}/account.php" target="_blank">MY ACCOUNT</a></td>
             </tr>
             <tr>
                 <td
                     style="display: block; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #ccc; margin: 0;">
                     <a class="email__listLink"
                         style="color: #222; text-decoration: none; display: block; font-size: 1.1rem; padding: 20px;"
-                        href="%%GLOBAL_ShopPathSSL%%/contact-us" target="_blank">CONTACT US</a></td>
+                        href="{{store.ssl_path}}/contact-us" target="_blank">CONTACT US</a></td>
             </tr>
             <tr>
                 <td
@@ -107,14 +108,14 @@
                     style="display: block; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #ccc; margin: 0;">
                     <a class="email__listLink"
                         style="color: #222; text-decoration: none; display: block; font-size: 1.1rem; padding: 20px;"
-                        href="%%GLOBAL_ShopPathSSL%%/policies" target="_blank">RETURN POLICY</a></td>
+                        href="{{store.ssl_path}}/policies" target="_blank">RETURN POLICY</a></td>
             </tr>
             <tr>
                 <td
                     style="display: block; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #ccc; margin: 0;">
                     <a class="email__listLink"
                         style="color: #222; text-decoration: none; display: block; font-size: 1.1rem; padding: 20px;"
-                        href="%%GLOBAL_ShopPathSSL%%/shipping" target="_blank">SHIPPING</a></td>
+                        href="{{store.ssl_path}}/shipping" target="_blank">SHIPPING</a></td>
             </tr>
         </tbody>
     </table>

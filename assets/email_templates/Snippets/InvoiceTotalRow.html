@@ -1,7 +1,13 @@
-<table id="CheckoutCartGrid" style="width: 100%; clear: both; border-bottom: 1px solid #cccccc;" cellspacing="0" cellpadding="5" align="right">
-<tbody>
-<tr>
-<td style="font-family: sans-serif; font-size: 12px;" align="left" width="300"><strong>%%GLOBAL_label%%:</strong> &nbsp; %%GLOBAL_value%%</td>
-</tr>
-</tbody>
+<table id="CheckoutCartGrid" style="width: 100%; clear: both; border-bottom: 1px solid #cccccc;" cellspacing="0"
+	cellpadding="5" align="right">
+	<tbody>
+		<tr>
+			<td style="font-family: sans-serif; font-size: 12px;" align="left" width="300">
+				<strong>
+					{{translations.en.total_cost}}
+				</strong> &nbsp; 
+				{{order.total_cost.formatted}}
+			</td>
+		</tr>
+	</tbody>
 </table>

@@ -11,7 +11,7 @@
                                       <table bgcolor="#ffffff" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #dddddd; border-radius:3px 3px 0 0; width:100%;">
                                           <tr>
                                               <td style="padding:23px 7px 20px 23px;">
-                                                  <a style="display: block;" href="%%GLOBAL_ShopPath%%">
+                                                  <a style="display: block;" href="{{store.ssl_path}}">
                                                       <img style="display:block;" src="https://cdn3.bigcommerce.com/s-r14v4z7cjw/product_images/uploaded_images/email-logo.png" alt="authenteak" border="0" />
                                                   </a>
                                               </td>
@@ -25,7 +25,9 @@
                                             <tr>
                                                 <td style="padding:20px;">
 
-                                                    <h2 style="font-size:28px; color:#000000; font-family: verdana; font-weight:normal; margin:0 0 15px 0;">%%GLOBAL_EmailHeader%%</h2>
+                                                    <h2 style="font-size:28px; color:#000000; font-family: verdana; font-weight:normal; margin:0 0 15px 0;">
+                                                        %%GLOBAL_EmailHeader%%
+                                                    </h2>
 
                                                     <p style="font-size:14px; color:#666666; font-family: verdana; font-weight:normal;">%%GLOBAL_Ebay_Listing_Abort_Email_Message_1%%</p>
 
@@ -33,11 +35,7 @@
                                                 </td>
                                             </tr>
                                         </table>
-
-                                        %%GLOBAL_EmailFooter%%
-
-
-
+                                        {{> Snippets/EmailFooter}}
                                     </td>
                                 </tr>
                             </table>

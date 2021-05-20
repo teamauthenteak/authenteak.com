@@ -1,16 +1,33 @@
-<table style="width: 100%; font-size: 1.1rem;" cellspacing="0" cellpadding="0">
-<tbody>
-<tr>
-<td style="padding: 5px  font-size: 1.1rem; ; font-weight: bold;" nowrap="nowrap" width="350">%%LNG_ProductShipProductName%%</td>
-<td style="padding: 5px  font-size: 1.1rem; ; font-weight: bold;" align="left" nowrap="nowrap" width="100">%%LNG_ProductShipProductSKU%%</td>
-<td style="padding: 5px  font-size: 1.1rem; ; font-weight: bold;" align="left" nowrap="nowrap" width="50">%%LNG_ProductShipProductQuantity%%</td>
-</tr>
-</tbody>
-</table>
 <table style="width: 100%;" cellspacing="0" cellpadding="0">
-<tbody>
-<tr>
-<td>%%GLOBAL_ProductShipProductRows%%</td>
-</tr>
-</tbody>
+	<thead>
+		<tr>
+			<td style="padding: 5px;  font-size: 1.1rem;font-weight: bold;" nowrap="nowrap" width="350">
+				Name
+			</td>
+			<td style="padding: 5px;  font-size: 1.1rem; font-weight: bold;" align="left" nowrap="nowrap" width="100">
+				SKU
+			</td>
+			<td style="padding: 5px;  font-size: 1.1rem;font-weight: bold;" align="left" nowrap="nowrap" width="50">
+				{{translations.en.quantity}}
+			</td>
+		</tr>
+	</thead>
+
+	<tbody>
+		
+		{{#each order.products}}
+		<tr>
+			<td style="padding: 5px;  font-size: 1.1rem;" nowrap="nowrap" width="350">
+				{{name}}
+			</td>
+			<td style="padding: 5px;  font-size: 1.1rem;" align="left" nowrap="nowrap" width="100">
+				{{sku}}
+			</td>
+			<td style="padding: 5px;  font-size: 1.1rem;" align="left" nowrap="nowrap" width="50">
+				{{quantity}}
+			</td>
+		</tr>
+		{{/each}}
+
+	</tbody>
 </table>

@@ -9,9 +9,9 @@
 
         <p>%%GLOBAL_OrderMessageForMerchant%%</p>
 
-        <p>%%LNG_MerchantMessage1%%<a href="%%GLOBAL_ShopPathSSL%%/manage/orders/%%GLOBAL_MessageOrderNumber%%/messages">
+        <p>%%LNG_MerchantMessage1%%<a href="{{store.ssl_path}}/manage/orders/%%GLOBAL_MessageOrderNumber%%/messages">
             %%LNG_MerchantMessageViewInCP%%</a></p>
 
-        %%GLOBAL_EmailFooter%%
+        {{> Snippets/EmailFooter}}
     </div>
 </body></html>

@@ -11,7 +11,7 @@
                                       <table bgcolor="#ffffff" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #dddddd; border-radius:3px 3px 0 0; width:100%;">
                                           <tr>
                                               <td style="padding:23px 7px 23px 20px;">
-                                                  <a style="display: block;" href="%%GLOBAL_ShopPath%%">
+                                                  <a style="display: block;" href="{{store.ssl_path}}">
                                                       <img style="display:block;" src="https://cdn3.bigcommerce.com/s-r14v4z7cjw/product_images/uploaded_images/email-logo.png" alt="authenteak" border="0" />
                                                   </a>
                                               </td>
@@ -33,9 +33,9 @@
 			%%GLOBAL_OOSInventoryWarningCurrentStock%%
 		</p>
 
-		<p style="font-size:14px; color:#666666; font-family: verdana; font-weight:normal; line-height:22px;"><a style="font-size:14px; color:#666; font-family: arial; text-decoration:none;" href="%%GLOBAL_ShopPath%%/admin/index.php?ToDo=editProduct&amp;productId=%%GLOBAL_ProductId%%">%%LNG_OOSInventoryWarningAdjust%%</a></p>
+		<p style="font-size:14px; color:#666666; font-family: verdana; font-weight:normal; line-height:22px;"><a style="font-size:14px; color:#666; font-family: arial; text-decoration:none;" href="{{store.ssl_path}}/admin/index.php?ToDo=editProduct&amp;productId=%%GLOBAL_ProductId%%">%%LNG_OOSInventoryWarningAdjust%%</a></p>
 
-		<p style="font-size:14px; color:#666666; font-family: verdana; font-weight:normal; line-height:22px;"><a style="font-size:14px; color:#666; font-family: arial; text-decoration:none;" href="%%GLOBAL_ShopPath%%/admin/index.php?ToDo=viewProducts&amp;outOfStock=1">%%LNG_OOSInventoryWarningAll%%</a></p>
+		<p style="font-size:14px; color:#666666; font-family: verdana; font-weight:normal; line-height:22px;"><a style="font-size:14px; color:#666; font-family: arial; text-decoration:none;" href="{{store.ssl_path}}/admin/index.php?ToDo=viewProducts&amp;outOfStock=1">%%LNG_OOSInventoryWarningAll%%</a></p>
 
 		<p style="font-size:14px; color:#666666; font-family: verdana; font-weight:normal; line-height:22px;">%%GLOBAL_OOSInventoryWarningNotice%%</p>
 
@@ -47,7 +47,7 @@
                                         </table>
 
 
-												 %%GLOBAL_EmailFooter%%
+												 {{> Snippets/EmailFooter}}
 												 <br/>
         <p style="font-size:14px; color:#000; font-family: verdana;"><a href="%%GLOBAL_ProductReviewEmailUnsubscribeLink%%" style="font-size:14px; color:#000; font-family: verdana; text-decoration:none;">%%LNG_ProductReviewEmailUnsubscribe%%</a>%%LNG_ProductReviewEmailUnsubscribeSuffix%%</p>
 
