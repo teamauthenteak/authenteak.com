@@ -32,7 +32,7 @@
 
 
 
-// show/hide 
+// show/hide
 
 .show{
     display: block !important;
@@ -100,7 +100,7 @@
     .mobileHide{
         display: none !important;
     }
-    
+
     .mobileShow{
         display: block !important;
     }
@@ -234,27 +234,27 @@
     .pad-top-sm{
         padding: $standard-padding 0 0 0 !important;
     }
-    
+
     .pad-bottom-sm{
         padding: 0 0 $standard-padding 0 !important;
     }
-    
+
     .pad-top-bottom-sm{
         padding: $standard-padding 0 $standard-padding 0 !important;
     }
-    
+
     .pad-right-sm{
         padding: 0 $standard-padding 0 0 !important;
     }
-    
+
     .pad-right-left-sm{
         padding: 0 $standard-padding 0 $standard-padding !important;
     }
-    
+
     .pad-left-sm{
         padding: 0 0 0 $standard-padding !important;
     }
-   
+
 }
 
 
@@ -266,7 +266,7 @@
     .pad-top-lg{
         padding-top: $standard-padding !important;
     }
-    
+
 }
 
 
@@ -320,13 +320,13 @@
 
 .margin-right-lg {
     margin-right: 100px;
-   
+
 }
 
 @media only screen and (max-width: $screen-md) {
     .no-margin-sm {
         margin: 0 !important;
-    }    
+    }
 }
 
 
@@ -334,7 +334,7 @@
     margin-top: 165px;
 
     @media only screen and (max-width: $screen-lg) {
-        margin-top: 0;        
+        margin-top: 0;
     }
 }
 
@@ -374,7 +374,7 @@
     @media only screen and (max-width: $screen-sm) {
         background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00035_042321_MayHomepageWireframe_Images/JPG/WS00035_TradeBanner_Full_Mobile.jpg);
         height: 280px;
-        
+
     }
 }
 
@@ -384,8 +384,8 @@
 
     @media only screen and (max-width: $screen-sm) {
         background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00010_AprilHomepage_Images/WEBP/WS00010_HeroImageMobile.webp);
-        z-index: 10;        
-        
+        z-index: 10;
+
     }
 }
 
@@ -458,8 +458,8 @@
 
 .txt-container h3 {
     margin: 0;
-    padding-top: 20px; 
-    font-size: 35px;   
+    padding-top: 20px;
+    font-size: 35px;
 
     @media only screen and (max-width:$screen-md) {
         margin: 0 0 10px;
@@ -473,7 +473,7 @@
     height: 200px;
 
     @media only screen and (max-width:$screen-sm) {
-        height: 235px;        
+        height: 235px;
     }
 }
 
@@ -484,6 +484,89 @@
 
 .stroke::after {
     content: '';
-    
+
 
 }
+
+//Hover
+
+.hoverContainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: inline-block;
+}
+
+.hoverContainer .img-top {
+    display: inline;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    background-color: rgba($color: #2E303B, $alpha: 0.50);    
+}
+
+.hoverContainer:hover .img-top {
+    visibility: visible;
+}
+
+//Carousel
+.carousel-img-card{
+    position: absolute;
+    width: 60%;
+    height: auto;
+    left: 0;
+    right: 0;
+    margin: auto;
+    transition: transform .4s ease;
+    cursor: pointer;
+}
+
+.carousel-container{
+    width: 100%;
+    max-width: 800px;
+    max-height: 600px;
+    height: 100%;
+    transform-style: preserve-3d;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.carousel-cards{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 20px;
+}
+
+.carousel-img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+#item-1:checked ~ .carousel-cards #img-3, #item-2:checked ~ .carousel-cards #img-1, #item-3:checked ~ .carousel-cards #img-2 {
+    transform: translatex(-40%) scale(.8);
+    opacity: .3;
+    z-index: 0;
+  }
+  
+  #item-1:checked ~ .carousel-cards #img-2, #item-2:checked ~ .carousel-cards #img-3, #item-3:checked ~ .carousel-cards #img-1 {
+    transform: translatex(40%) scale(.8);
+    opacity: .3;
+    z-index: 0;
+  }
+  
+  #item-1:checked ~ .carousel-cards #img-1, #item-2:checked ~ .carousel-cards #img-2, #item-3:checked ~ .carousel-cards #img-3 {
+    transform: translatex(0) scale(1);
+    opacity: 1;
+    z-index: 1;
+
+    img{
+        box-shadow: 0px 0px 5px 0px rgba(81, 81, 81, 0.47);
+    }
+  }
