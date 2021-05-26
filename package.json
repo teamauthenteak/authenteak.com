@@ -29,7 +29,7 @@
     "jquery": "^3.5.1",
     "jquery-revealer": "github:pixelunion/jquery.revealer",
     "jquery-trend": "github:pixelunion/jquery.trend",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "normalize.scss": "^0.1.0",
     "npm": "^6.14.8",
     "react": "^16.13.1",
