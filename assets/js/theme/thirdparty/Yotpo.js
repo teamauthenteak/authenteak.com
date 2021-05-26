@@ -486,7 +486,7 @@ export default class Yotpo {
 
 
     // product reviews widget
-    buildProductReviews(reviewData){
+    buildProductReviews(reviewData){        
         return `<div class="ratings">
                     <div class="ratings__overView">
                         <div class="ratings__highlights">
@@ -499,17 +499,24 @@ export default class Yotpo {
                         </div>
                         <form class="ratings__distroCntr">
                             <ul class="ratings__distroList">
-                    ${ Object.keys(reviewData.bottomline.star_distribution).reverse().map(key => {
-                        return `<li class="ratings__distroData">
-                                    <button type="button" class="ratings__distroButton" value="${key}">
-                                        <span class="ratings__distroLabel">${key}</span>
-                                        <ul class="ratings__distro">
-                                            <li class="ratings__distroBar ratings__distroBar--${this.getDistributionPercentage(reviewData.bottomline.total_review, reviewData.bottomline.star_distribution[key])}"></li>
-                                        </ul>
-                                        <span class="ratings__distroValue">(${reviewData.bottomline.star_distribution[key]})</span>
-                                    </button>
-                                </li>`;
-                    }).join("")}
+                        ${ 
+                            reviewData.bottomline.star_distribution ? 
+                                Object.keys(reviewData.bottomline.star_distribution).reverse().map(key => {
+                                    return `<li class="ratings__distroData">
+                                            <button type="button" class="ratings__distroButton" value="${key}">
+                                                <span class="ratings__distroLabel">${key}</span>
+                                                <ul class="ratings__distro">
+                                                    <li class="ratings__distroBar ratings__distroBar--${this.getDistributionPercentage(reviewData.bottomline.total_review, reviewData.bottomline.star_distribution[key])}"></li>
+                                                </ul>
+                                                <span class="ratings__distroValue">(${reviewData.bottomline.star_distribution[key]})</span>
+                                            </button>
+                                        </li>`;
+                                    }
+                                ).join("")
+
+                        : "" }
+                        
+                    
                             </ul>
                         </form>
                     </div>

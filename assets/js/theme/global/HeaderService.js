@@ -319,7 +319,7 @@ export default class HeaderService{
 					children: [
 						{ name: "Choosing a Fire Pit for your Backyard or Patio", path: "/blog/choosing-a-fire-pit-for-your-backyard-or-patio/" },
 						{ name: "How to Enjoy Safe Outdoor Fire Pits", path: "/blog/how-to-enjoy-safe-outdoor-fire-pits/" },
-						{ name: "Outdoor Header Buyer's Guide", path: "/blog/outdoor-heater-buyers-guide/" },
+						{ name: "Outdoor Heater Buyer's Guide", path: "/blog/outdoor-heater-buyers-guide/" },
 						{ name: "How to Buy A Patio Heater for Your Space", path: "/blog/how-to-buy-a-patio-heater-for-your-space/" },
 						{ name: "Infrared Patio Heater Buying Guide", path: "/infrared-patio-heater-buying-guide" },
 						{ name: "How to use Your Outdoor Living Space Year-Round", path: "/blog/how-to-use-your-outdoor-living-space-yearround/" }
