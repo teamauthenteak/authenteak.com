@@ -7,7 +7,7 @@
     border-width: 1px;
     border-style: solid;
     font-size: 1.1rem;
-    text-transform: capitalize !important;    
+    //text-transform: capitalize !important;
     font-weight: 500;
     @extend %button-rounded;
     text-decoration: none !important;
@@ -28,13 +28,27 @@
     }
 
     &--long {
-        padding: 6px 50px;
+        padding: 17px 50px;
     }
 
     &.button-wide{
         @media screen and (max-width: $screen-sm){
             padding-left: 20px !important;
             padding-right: 20px !important;
+        }
+    }
+
+    &--left{
+        float: left;
+    }
+
+    &--right{
+        float: right;
+    }
+
+    &--center--sm{
+        @media only screen and (max-width: $screen-sm){
+            float: none !important;
         }
     }
 }
@@ -89,11 +103,9 @@
     }
 
     &--white {
-        background-color:#F0F0F0;
-        border-color: #F0F0F0;
-        color: #353E5D;
-        padding: 15px 70px;
-        font-size: 1.1rem;
+        background-color:#fff;
+        border-color: #4D5060;
+        color: #4D5060;
     }
 
     &--darkGray {
@@ -110,27 +122,8 @@
 
     &--transparent {
         background-color: transparent;
-        border: 2px solid #353E5D;
-        color: #353E5D;
-        font-size: 35px;
-        padding: 15px 78px;
-        margin-top: 10%;
-
-        @media only screen and (max-width: $screen-lg) {
-            font-size: 24px;
-            padding: 10px 50px;
-        }
-
-        @media only screen and (max-width: $screen-md) {
-            font-size: 20px;
-            padding: 10px 40px;
-        }
-
-        @media only screen and (max-width: $screen-sm) {
-            margin-top: 130px;
-            font-size: 24px;
-            padding: 10px 60px;            
-        }
+        border: 2px solid #fff;
+        color: #fff;
     }
 }
 
