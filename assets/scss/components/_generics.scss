@@ -1,3 +1,4 @@
+
 // global scroll bar
 %scrolling-inner{
     overflow-y: auto;
@@ -365,7 +366,9 @@
     background-color: $bg-brown;
 }
 
-.bg-img {
+
+//Banners
+.hp-bannerImg-1 {
     background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00035_042321_MayHomepageWireframe_Images/JPG/WS00035_TradeBanner_Full_Desktop.jpg);
 
     background-repeat: no-repeat;
@@ -378,17 +381,41 @@
     }
 }
 
-.bg-heroImg {
-    background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00010_AprilHomepage_Images/WEBP/WS00010_HeroImageDesktop.webp);
+.hp-bannerImg-2 {
+    background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00070_060121_JuneHomepageWireframe_images/JPG/WS00070_FirePitsBanner_Desktop.jpg);
     background-repeat: no-repeat;
+    background-size: cover;
 
     @media only screen and (max-width: $screen-sm) {
-        background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00010_AprilHomepage_Images/WEBP/WS00010_HeroImageMobile.webp);
-        z-index: 10;
+        background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00070_060121_JuneHomepageWireframe_images/JPG/WS00070_FirePitsBanner_Mobile.jpg);
+        height: 280px;
 
     }
 }
 
+.hestan-bannerImg{
+    background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00078_052121_GrillingRebatePages_Images/Hestan/JPG/WS00078_HestanWarranty_Desktop.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    @media only screen and (max-width: $screen-sm) {
+        background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00078_052121_GrillingRebatePages_Images/Hestan/JPG/WS00078_HestanWarranty_Mobile.jpg);
+        height: 280px;
+
+    }
+}
+
+.alfresco-bannerImg{
+    background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00078_052121_GrillingRebatePages_Images/Alfresco/JPG/WS00078_AlfrescoWarranty_Desktop.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    @media only screen and (max-width: $screen-sm) {
+        background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00078_052121_GrillingRebatePages_Images/Alfresco/JPG/WS00078_AlfrescoWarranty_Mobile.jpg);
+        height: 280px;
+
+    }
+}
 
 
 // text
@@ -488,6 +515,10 @@
 
 }
 
+.topStroke{
+    background: linear-gradient(#fff 0%, #fff 10%, #DFE9EF 10%, #DFE9EF 100%);
+}
+
 //Hover
 
 .hoverContainer {
@@ -512,6 +543,15 @@
 }
 
 //Carousel
+
+.col-spacing{
+    height: 375px;
+
+    @media only screen and (max-width:$screen-sm){
+        height: 150px;
+    }
+}
+
 .carousel-img-card{
     position: absolute;
     width: 60%;
@@ -553,12 +593,20 @@
     transform: translatex(-40%) scale(.8);
     opacity: .3;
     z-index: 0;
+
+    @media only screen and (max-width: $screen-sm){
+        opacity: .1;
+    }
   }
   
   #item-1:checked ~ .carousel-cards #img-2, #item-2:checked ~ .carousel-cards #img-3, #item-3:checked ~ .carousel-cards #img-1 {
     transform: translatex(40%) scale(.8);
     opacity: .3;
     z-index: 0;
+
+    @media only screen and (max-width: $screen-sm){
+        opacity: .1;
+    }
   }
   
   #item-1:checked ~ .carousel-cards #img-1, #item-2:checked ~ .carousel-cards #img-2, #item-3:checked ~ .carousel-cards #img-3 {
