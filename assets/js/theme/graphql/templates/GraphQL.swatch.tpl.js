@@ -137,8 +137,8 @@ export default class GraphQL_Swatch_TPL {
         return `<label class="swatch-wrap ${isDisabled && 'swatch-disabled'}" for="attribute-${thisOption.entityId}" data-swatch-value="${thisOption.label}" data-product-attribute-value="${thisOption.entityId}" data-is-selected>
                     <input ${isDisabled && 'disabled="true"'} class="form-input swatch-radio" data-option-title="${swatch.displayName}" data-parent-id="${swatch.entityId}" id="attribute-${thisOption.entityId}" type="radio" name="attribute[${swatch.entityId}]" value="${thisOption.entityId}" data-label="${thisOption.label}" ${thisOption.isDefault && 'checked'} ${swatch.isRequired && ' required'} aria-required="${swatch.isRequired}">
                     <span class="swatch">
-                        <span class="swatch-color swatch-pattern" style="background-image: url('${thisOption.label.includes("No ") ? "https://authenteak.s3.us-east-2.amazonaws.com/images/2098122.preview.png" : thisOption.imageUrl}');">
-                            <img class="swatch-pattern-image" src="${thisOption.label.includes("No ") ? "https://authenteak.s3.us-east-2.amazonaws.com/images/2098122.preview.png" : thisOption.imageUrl}" alt="${thisOption.label}">
+                        <span class="swatch-color swatch-pattern" style="background-image: url('${thisOption.label.includes("No ") ? "https://authenteak.s3.us-east-2.amazonaws.com/images/2098122.preview.png" : decodeURIComponent(thisOption.imageUrl)}');">
+                            <img class="swatch-pattern-image" src="${thisOption.label.includes("No ") ? "https://authenteak.s3.us-east-2.amazonaws.com/images/2098122.preview.png" : decodeURIComponent(thisOption.imageUrl)}" alt="${thisOption.label}">
                         </span>
                     </span>
                     <span class="drawer__swatchLabelCntr">

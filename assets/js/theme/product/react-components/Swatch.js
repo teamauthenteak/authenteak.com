@@ -39,10 +39,10 @@ export default function Swatch(props){
                     ...labelObj,
                     label: element.node.label,
                     id: element.node.entityId,
-                    pattern: element.node.imageUrl,
+                    pattern: decodeURIComponent(element.node.imageUrl),
                     selected: false,
                     image: {
-                        data: element.node.imageUrl,
+                        data: decodeURIComponent(element.node.imageUrl),
                         alt: element.node.label
                     }
                 }

@@ -23,6 +23,9 @@
 - added way to hide white glove messaging for certain product ids
 - fixed pdp swatch filter issue where TGEX filters and a grade wouldn't return swatch results
 - added module not found fix for flyout not showing on category landing pages
+- updated heating spelling
+- merge for JUNE page updates
+- decodeURIComponent fix for all swatch images in graphql
 
 ## [1.20.37]
 - changed button border radius

@@ -148,7 +148,7 @@ export default function PointOfPurchaseModal(props){
         setSelectedOpt({
             attribute: key,
             attributeValue: swatchObj[key].entityId,
-            image: swatchObj[key].imageUrl,
+            image: decodeURIComponent(swatchObj[key].imageUrl),
             label: swatchObj[key].label.split("--")[0]
         });   
     }
@@ -228,7 +228,7 @@ export default function PointOfPurchaseModal(props){
                     setSelectedOpt({
                         attribute: selected.options[0].node.entityId,
                         attributeValue: selectedOptions[i].node.entityId,
-                        image: selectedOptions[i].node.imageUrl,
+                        image: decodeURIComponent(selectedOptions[i].node.imageUrl),
                         label: selectedOptions[i].node.label
                     });  
 
@@ -283,7 +283,7 @@ export default function PointOfPurchaseModal(props){
                                                 <ul className={`product__podSwatches product__podSwatches--center`}>
                                                     {item.options[0].node.values.edges.map((optItem, index) => {
                                                         if( index < 4 ){ 
-                                                            return <Swatch id={optItem.node.entityId} img={optItem.node.imageUrl} type="pod" key={optItem.node.entityId} />          
+                                                            return <Swatch id={optItem.node.entityId} img={decodeURIComponent(optItem.node.imageUrl)} type="pod" key={optItem.node.entityId} />          
                                                         }
                                                     })}
                                                     
@@ -348,7 +348,7 @@ export default function PointOfPurchaseModal(props){
                                             return  <li key={optItem.node.entityId.toString()} className="product__podSwatchItem product__podSwatchItem--row swatch-wrap">
                                                         <Swatch 
                                                             id={optItem.node.entityId}
-                                                            img={optItem.node.imageUrl}
+                                                            img={decodeURIComponent(optItem.node.imageUrl)}
                                                             label={optItem.node.label}
                                                             option={optItem}
                                                             isChecked={selectedOpt.attributeValue === optItem.node.entityId}
