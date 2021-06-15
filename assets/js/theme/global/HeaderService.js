@@ -262,7 +262,7 @@ export default class HeaderService{
 							children: [
 								{ name: "Elaine Smith Pillows", path: "/outdoor-decor/shop-all-outdoor-decor/#/filter:brand:Elaine$2520Smith$2520Pillows" },
 								{ name: "Enduraleaf", path: "/shop-all-brands/enduraleaf/" },
-								{ name: "Capel Rugs", path: "/outdoor-decor/shop-all-outdoor-decor/#/filter:brand:Capel" },
+								{ name: "Jaipur", path: "/shop-all-brands/jaipur-living/" },
 								{ name: "All Outdoor Decor Brands", path: "/shop-all-brands#Outdoor Decor" },
 								{ name: "Shop All Outdoor Decor", path: "/outdoor-decor/shop-all-outdoor-decor/" },
 							]
@@ -384,7 +384,13 @@ export default class HeaderService{
 			if( data ){
 				data.children.forEach(kid => {
 					if( kid.children.length < 2 && parseInt(id) !== 1196 ){
-						aintGotKids.push(kid);
+
+						if(  kid.entityId !== 1045 ){
+							aintGotKids.push(kid);
+						}else{
+							// this really doesn't have kids, but treating it in the UI as if it does
+							gotKids.push(kid);
+						}
 	
 					}else{
 						gotKids.push(kid);
