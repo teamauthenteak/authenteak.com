@@ -138,8 +138,8 @@
 
     &__headingBtn{
         @extend .button; 
-        @extend .button-secondary; 
-        @extend .button-secondary--trans; 
+        @extend .button-primary; 
+        // @extend .button-primary--reverse;
         @extend .button-wide;
         display: flex !important;
         align-items: center;

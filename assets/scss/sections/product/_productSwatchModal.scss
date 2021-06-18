@@ -433,8 +433,8 @@
 
     &__reqBtn{
         @extend %button-rounded;
-        @extend .button-secondary;
-        @extend .button-secondary--darkTrans;
+        @extend .button-primary;
+        // @extend .button-primary--reverse;
         @extend .button--fullWidth;
 
         &[disabled]{
@@ -731,7 +731,7 @@
         @extend .button;
         @extend .button--fullWidth;
         @extend .button-primary;
-        @extend .button-primary--green;
+        @extend .button-primary--ocean;
         justify-content: center;
         height: 62px;
 
