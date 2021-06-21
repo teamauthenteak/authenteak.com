@@ -6,8 +6,7 @@
     box-sizing: border-box;
     border-width: 1px;
     border-style: solid;
-    font-size: 22px;
-    padding: 17px 65px;
+    font-size: 1.1rem;
     //text-transform: capitalize !important;
     font-weight: 500;
     @extend %button-rounded;
@@ -45,9 +44,9 @@
         width: 100%;
     }
 
-    // &--long {
-    //     padding: 17px 50px;
-    // }
+    &--long {
+        padding: 17px 50px;
+    }
 
     &.button-wide{
         @media screen and (max-width: $screen-sm){
@@ -73,15 +72,15 @@
 
 
 .button-primary{
-    border-color: $clr-charcoal;
-    background-color: $clr-charcoal;
+    border-color: transparent;
+    background-color: $bg-charcoal;
     color: #fff;
 
 
     &:hover{
-        border-color: #4C7B9A;
-        background-color: #4C7B9A;
-        color: #fff;
+        border-color: $bg-charcoal;
+        background-color: #fff;
+        color: $bg-charcoal;
     }
 
     &--green{
