@@ -112,7 +112,13 @@ export default class MobileFlyout{
 
 
     navExpand = (e) => {
-        e.preventDefault();
+        if( $(e.target).hasClass("header__navLink--noFlyout") ){
+            window.href = $(e.target).attr("href")
+            
+        }else{
+            e.preventDefault();
+        }
+
 
         $(e.target)
             .addClass("header__navLink--active")

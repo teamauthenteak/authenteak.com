@@ -23,9 +23,8 @@
 }
 
 %freeze-body{
+    height: 100%;
     overflow: hidden;
-    position: relative;
-    max-height: 100vh;
 }
 
 .scroll-locked{
@@ -238,7 +237,13 @@
     padding: 0 0 0 $standard-padding !important;
 }
 
+
+
 @media only screen and (max-width: $screen-sm) {
+    .no-pad-sm{
+        padding: 0;
+    }
+
     .pad-top-sm{
         padding: $standard-padding 0 0 0 !important;
     }
@@ -381,6 +386,7 @@
 //Banners
 .hp-bannerImg-1 {
     background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00035_042321_MayHomepageWireframe_Images/JPG/WS00035_TradeBanner_Full_Desktop.jpg);
+
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -484,7 +490,6 @@
 }
 
 .txt-container {
-
     text-align: left;
     font-size: 24px;
 
@@ -495,7 +500,6 @@
 }
 
 .txt-container h3 {
-
     margin: 0;
     padding-top: 20px;
     font-size: 35px;

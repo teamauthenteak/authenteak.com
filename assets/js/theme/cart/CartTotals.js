@@ -477,11 +477,25 @@
 
 
 
+	function toggleLeadTime(){
+		$(".cart-item--cntr").find(".cart-option-value").each(function(){
+			if( $(this).text().toLowerCase().includes("special order") ){
+				$(this).parents(".cart-item--cntr")
+					.find(".lead-time--one").addClass("hide")
+						.end()
+					.find(".lead-time--two").removeClass("hide")
+			}
+		})
+	}
+
+
+
 	document.addEventListener('DOMContentLoaded', function () {
 		getProductCartJSON();
 		updateGrandTotal();
 		setAnalytics();
 		fixCartCharacters();
+		toggleLeadTime()
 	});
 
 

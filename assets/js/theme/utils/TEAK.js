@@ -196,8 +196,64 @@ window.TEAK.Globals = {
  * ------------------------------------------ */
 window.TEAK.Utils = {
 
+    // Taken from: https://stackoverflow.com/questions/4770025/how-to-disable-scrolling-temporarily
+    scroll: () => {
+
+        // left: 37, up: 38, right: 39, down: 40, spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
+        const keys = {37: 1, 38: 1, 39: 1, 40: 1};
+
+        const preventDefault = (e) => {
+            e.preventDefault();
+        }
+
+        const preventDefaultForScrollKeys = (e) => {
+            if (keys[e.keyCode]) {
+                preventDefault(e);
+                return false;
+            }
+        }
+
+        // modern Chrome requires { passive: false } when adding event
+        var supportsPassive = false;
+
+        try {
+            window.addEventListener("test", null, Object.defineProperty({}, 'passive', {
+                get: function () { 
+                    supportsPassive = true;
+                } 
+            }));
+        } catch(e) {}
+
+
+        let wheelOpt = supportsPassive ? { passive: false } : false;
+        let wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
+
+
+        const disableScroll = () => {
+            window.addEventListener('DOMMouseScroll', preventDefault); // older FF
+            window.addEventListener(wheelEvent, preventDefault, wheelOpt); // modern desktop
+            window.addEventListener('touchmove', preventDefault, wheelOpt); // mobile
+            window.addEventListener('keydown', preventDefaultForScrollKeys);
+        }
+
+        const enableScroll = () => {
+            window.removeEventListener('DOMMouseScroll', preventDefault);
+            window.removeEventListener(wheelEvent, preventDefault, wheelOpt); 
+            window.removeEventListener('touchmove', preventDefault, wheelOpt);
+            window.removeEventListener('keydown', preventDefaultForScrollKeys);
+        }
+
+
+        return{
+            enableScroll: enableScroll,
+            disableScroll: disableScroll
+        }
+        
+    },
+
+
     // test if we are on localhost
-    isLocal(){
+    isLocal: function (){
         return (window.location.hostname === "localhost" || window.location.hostname === "local.authenteak.com");
     },
 
