@@ -382,6 +382,9 @@
     background-color: $clr-ocean;
 }
 
+.bg--dove{
+    background-color: $clr-dove;
+}
 
 //Banners
 .hp-bannerImg-1 {
@@ -535,14 +538,22 @@
     background: linear-gradient(#fff 0%, #fff 10%, #DFE9EF 10%, #DFE9EF 100%);
 }
 
-//Sticky
 
+//Sticky Menu
 .sticky{
     position: sticky;
     position: -webkit-sticky;
     top: 130px;
 }
 
+
+.navHeight{
+    height: 7500px;
+
+    @media only screen and (max-width: $screen-xl) {
+        height: 8500px;
+    }
+}
 
 //Hover
 

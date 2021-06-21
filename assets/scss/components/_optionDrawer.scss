@@ -757,8 +757,8 @@
         text-decoration: none !important;
         padding: 15px;
         @extend .button--fullWidth;
-        @extend .button-primary;
-        @extend .button-primary--dark;
+        @extend .button-primary--ocean;
+        // @extend .button-primary--reverse;
         opacity: 1;
         margin: 10px 0;
         display: flex !important;
@@ -767,7 +767,7 @@
         align-items: center;
 
         &[disabled]{
-            @extend .button-secondary--darkTrans;
+            @extend .button-primary--reverse;
             opacity: 0.25;
 
             &:hover{

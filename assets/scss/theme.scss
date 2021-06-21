@@ -8581,7 +8581,7 @@ $color-footer-background-contrast: contrast($color-footer-background, 90%);
     .account-sub-heading { color: contrast($color-modal-background, 100%); }
 
     .button {
-      @extend .button-secondary;
+      @extend .button-primary;
       @extend %center-x;
       color: contrast($color-modal-background, 100%);
       border-color: contrast($color-modal-background, 100%);

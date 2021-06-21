@@ -20,7 +20,7 @@
 
     &__checkoutBtn{
         @extend .button;
-        @extend .button-tertiary;
+        @extend .button-primary--ocean;
         font-size: 1.2rem;
         display: flex !important;
         flex-direction: row;

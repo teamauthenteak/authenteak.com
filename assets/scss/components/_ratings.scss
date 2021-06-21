@@ -117,7 +117,7 @@
     &__btn{
         @extend .button;
         @extend .button-primary;
-        @extend .button-primary--green;
+        @extend .button-primary--ocean;
         padding: 8px 30px;
         align-self: flex-end;
     }
