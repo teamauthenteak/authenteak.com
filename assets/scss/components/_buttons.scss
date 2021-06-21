@@ -7,31 +7,26 @@
     border-width: 1px;
     border-style: solid;
     font-size: 22px;
-    padding: 17px 65px;    
+    padding: 17px 65px;
+    //text-transform: capitalize !important;
     font-weight: 500;
     @extend %button-rounded;
     text-decoration: none !important;
-
-        @media only screen and (max-width: $screen-sm){
-            font-size: 18px;
-        }
 
     &.add-to-cart{
         color: #fff !important;
 
         &:hover{
-            color: $clr-navy;
+            color: $text-green;
 
             .button-text{
-                color: $clr-white !important;
+                color: $text-green !important;
             }
         }
 
         .button-text{
             color: #fff !important;
         }
-
-        
     }
     
 
@@ -50,6 +45,9 @@
         width: 100%;
     }
 
+    // &--long {
+    //     padding: 17px 50px;
+    // }
 
     &.button-wide{
         @media screen and (max-width: $screen-sm){
@@ -81,8 +79,8 @@
 
 
     &:hover{
-        border-color: $clr-ocean;
-        background-color: $clr-ocean;
+        border-color: #4C7B9A;
+        background-color: #4C7B9A;
         color: #fff;
     }
 
@@ -140,45 +138,10 @@
         }
     }
 
-    &--reverse {
-        background-color: $clr-dove;
-        border-color: $clr-dove;
-        color: $clr-charcoal;
-
-        &:hover{
-            background-color: $clr-ice;
-            border-color: $clr-ice;
-            color: $clr-charcoal;
-        }
-    }
-
     &--transparent {
         background-color: transparent;
-        border: 2px solid $clr-charcoal;
-        color: $clr-charcoal;
-
-        &:hover{
-            background-color: $clr-charcoal;
-            color: $clr-white;
-        }
-    }
-
-    &--transparentWhite {
-        background-color: transparent;
-        border: 2px solid $clr-white;
-        color: $clr-white;
-    }
-
-    &--ocean {
-        background-color: $clr-ocean;
-        border-color: $clr-ocean;
-        color: $clr-white;
-
-            &:hover {
-                background-color: $clr-navy;
-                border-color: $clr-navy;
-                color: $clr-white;
-            }
+        border: 2px solid #fff;
+        color: #fff;
     }
 }
 
@@ -251,17 +214,15 @@
 
 
 .button.button-tertiary {
-    background: $clr-dove;
-    border: 1px solid $clr-dove;
-    color: $clr-charcoal;
+    background: #6ea438;
+    border: 1px solid #6ea438;
     box-sizing: border-box;
     padding: 15px;
 
     &:hover{
         box-shadow: none;
-        border: 1px solid #DFE9EF;
-        background-color: #DFE9EF;
-        color: $clr-charcoal;
+        border: 1px solid #6ea438;
+        color: #6ea438;
     }
 }
 
@@ -445,30 +406,7 @@
 
     &:hover{
         background-color: transparent;
-        color: $clr-green;
-        border-bottom-color: $clr-green;
-    }
-}
-
-.ctaLink{
-    border-bottom: 1px solid $clr-charcoal;
-    text-decoration: none !important;
-    position: relative;
-    margin: 0 20px 0 0;
-    font-family: $font-stack-bold;
-
-    &--arrow {
-        &::after{
-            content: "▸";
-            border-bottom: 0 !important;
-            text-decoration: none !important;
-            position: absolute;
-            padding-left: 10px;
-        }
-    }
-
-    &--tertiary {
-        color: $clr-ocean;
-        border-bottom: 1px solid $clr-ocean;
+        color: $text-green;
+        border-bottom-color: $text-green;
     }
 }
