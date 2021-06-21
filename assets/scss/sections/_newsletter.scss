@@ -56,7 +56,7 @@ $newsletter-height: 45px;
     &__button{
         @extend .button;
         @extend .button-primary;
-        // @extend .button-primary--reverse;
+        @extend .button-primary--dark;
         border: none;
         border-radius: 0 !important;
         margin: 0;
@@ -84,7 +84,7 @@ $newsletter-height: 45px;
         }
 
         &--success{
-            color: $clr-ocean;
+            color: $btn-color-green
         }
     }
 }

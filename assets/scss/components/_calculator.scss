@@ -305,7 +305,7 @@
         outline: none;
        
         &--trans{
-            @extend .button-primary--ocean;
+            @extend .button-secondary--darkTrans;
 
             &.slick-arrow{
                 display: block !important;

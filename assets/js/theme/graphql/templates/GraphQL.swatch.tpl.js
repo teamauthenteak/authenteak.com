@@ -83,7 +83,7 @@ export default class GraphQL_Swatch_TPL {
                     
                     <footer class="drawer__footer">
                         <button type="button" class="drawer__saveBtn" drawer--close>
-                            <svg className="icon icon-long-arrow-left"><use xlinkHref="#icon-long-arrow-left" /></svg>
+                            <svg class="icon icon-long-arrow-left"><use xlink:href="#icon-long-arrow-left" /></svg>
                             <span>Save &amp; Back</span>
                         </button>
                     </footer>

@@ -122,7 +122,7 @@
         }
 
         &:hover{
-            border-color: $clr-navy;
+            border-color: $btn-color-green;
         }
 
         & .icon-long-arrow-right{
@@ -140,7 +140,7 @@
         @extend .button;
         @extend .button-primary;
         @extend .button-wide;
-        @extend .button-primary--ocean;
+        @extend .button-primary--green;
         outline: none;
         height: 51px;
         display: flex !important;
@@ -153,7 +153,7 @@
         line-height: 1;
 
         &--trans{
-            @extend .button-primary--ocean;
+            @extend .button-primary--greenTrans;
         }
 
         & .icon{

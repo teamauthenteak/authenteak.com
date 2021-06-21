@@ -408,7 +408,6 @@
 
         &:hover{
             text-decoration: underline;
-            color: $clr-ocean;
         }
 
         & .header__utilityIcon{
@@ -422,11 +421,11 @@
         margin: 15px 15px 0 15px !important;
 
         &--green{
-            @extend .button-primary--ocean;
+            @extend .button-primary--green;
         }
 
         &--darkTrans{
-            @extend .button-primary--transparent;
+            @extend .button-secondary--darkTrans;
             margin-bottom: 15px !important;
         }
     }
