@@ -76,7 +76,7 @@
 .form-field-swatch__request-button {
     background: none;
     border: none;
-    color: #6ea438;
+    color: $clr-ocean;
     text-decoration: underline;
     // text-transform: uppercase;
     font-size: 1rem;
@@ -433,8 +433,7 @@
 
     &__reqBtn{
         @extend %button-rounded;
-        @extend .button-secondary;
-        @extend .button-secondary--darkTrans;
+        @extend .button-primary;
         @extend .button--fullWidth;
 
         &[disabled]{
@@ -731,7 +730,7 @@
         @extend .button;
         @extend .button--fullWidth;
         @extend .button-primary;
-        @extend .button-primary--green;
+        @extend .button-primary--ocean;
         justify-content: center;
         height: 62px;
 

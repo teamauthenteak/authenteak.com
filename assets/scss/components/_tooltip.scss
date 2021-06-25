@@ -229,8 +229,8 @@
         & [type=radio]:checked ~ label {
             background: rgba(110, 164, 56, 0.09);
             z-index: 2;
-            color: $btn-color-green;
-            border-bottom-color: $btn-color-green;
+            color: $clr-ocean;
+            border-bottom-color: $clr-ocean;
         }
 
         [type=radio]:checked ~ label ~ .toolTip__tabContent {

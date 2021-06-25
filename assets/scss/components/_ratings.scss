@@ -117,7 +117,7 @@
     &__btn{
         @extend .button;
         @extend .button-primary;
-        @extend .button-primary--green;
+        @extend .button-primary--ocean;
         padding: 8px 30px;
         align-self: flex-end;
     }
@@ -391,7 +391,7 @@
     &__customerVerified{
         font-size: 0.6rem;
         font-style: italic;
-        color: $btn-color-green;
+        color: $clr-ocean;
     }
 
     &__customerRateDate{

@@ -56,7 +56,6 @@ $newsletter-height: 45px;
     &__button{
         @extend .button;
         @extend .button-primary;
-        @extend .button-primary--dark;
         border: none;
         border-radius: 0 !important;
         margin: 0;
@@ -80,11 +79,11 @@ $newsletter-height: 45px;
 
         &--error{
             font-weight: 800;
-            color: $text-danger;
+            color: $clr-danger;
         }
 
         &--success{
-            color: $btn-color-green
+            color: $clr-ocean;
         }
     }
 }

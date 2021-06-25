@@ -73,7 +73,7 @@
 					<span class="modalCart__count-value" data-quantity="{{cart.quantity}}">{{cart.quantity}}</span>
 					<span class="modalCart__count-unit">{{#if cart.quantity "==" 1}}item{{else}}items{{/if}}</span>
 				</div>
-				<a class="button button-primary button-primary--green button-cart" href="{{urls.cart}}"
+				<a class="button button-primary button-primary--ocean button-cart" href="{{urls.cart}}"
 					onclick="TEAK.ThirdParty.heap.init({method: 'track', event:'proceed_to_cart', location: 'modal' })">
 					<span class="button-text">
 						{{#if theme_settings.cart_icon '==' 'bag'}}

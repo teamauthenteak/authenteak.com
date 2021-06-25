@@ -248,7 +248,7 @@
         class="
           button
           button-primary
-          button-primary--green
+          button-primary--ocean
           button-wide
           add-to-cart
           button-progress
@@ -325,7 +325,7 @@
     </div>
   
     {{#if product.can_purchase}}
-      <button type="submit" class="button button-primary button-primary--green button-wide add-to-cart button-progress spinner" data-button-purchase onclick="TEAK.ThirdParty.heap.init({method: 'track', event:'add_to_cart', location: 'pdp' })">
+      <button type="submit" class="button button-primary button-primary--ocean button-wide add-to-cart button-progress spinner" data-button-purchase onclick="TEAK.ThirdParty.heap.init({method: 'track', event:'add_to_cart', location: 'pdp' })">
         <span class="button-text">
           {{#if product.pre_order}}
             {{lang 'product.pre_order'}}

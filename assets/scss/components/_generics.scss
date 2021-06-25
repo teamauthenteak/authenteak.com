@@ -85,6 +85,18 @@
             width: 0;
         }
     }
+
+    @media only screen and (min-width: $screen-md) {
+        &--md{
+            display: none;
+        }
+    }
+
+    @media only screen and (max-width: $screen-md) {
+        &--mdMax{
+            display: none;
+        }
+    }
 }
 
 .mobileShow{
@@ -343,29 +355,40 @@
 
 // background
 .bg--golden{
-    background-color: $bg-golden;
+    background-color: $clr-golden;
 }
 
 .bg--dark{
-    background-color: $bg-dark;
+    background-color: $clr-dark;
 }
 
 .bg--white{
-    background-color: $bg-white;
+    background-color: $clr-white;
 }
 
 .bg--grey{
-    background-color: $bg-gray;
+    background-color: $clr-gray;
 }
 
 .bg--sand{
-    background-color: $bg-sand;
+    background-color: $clr-sand;
 }
 
 .bg--brown{
-    background-color: $bg-brown;
+    background-color: $clr-brown;
 }
 
+.bg--ocean{
+    background-color: $clr-ocean;
+}
+
+.bg--dove{
+    background-color: $clr-dove;
+}
+
+.bg--charcoal{
+    background-color: $clr-charcoal;
+}
 
 //Banners
 .hp-bannerImg-1 {
@@ -420,27 +443,27 @@
 
 // text
 .text--golden{
-    color: $text-golden;
+    color: $clr-golden;
 }
 
 .text--green{
-    color: $text-green;
+    color: $clr-green;
 }
 
 .text--white{
-    color: $text-white;
+    color: $clr-white;
 }
 
 .text--dark{
-    color: $text-dark;
+    color: $clr-dark;
 }
 
 .text--navy{
-    color: $bg-navy;
+    color: $clr-navy;
 }
 
 .text--charcoal{
-    color: $text-charcoal;
+    color: $clr-charcoal;
 }
 
 
@@ -517,6 +540,22 @@
 
 .topStroke{
     background: linear-gradient(#fff 0%, #fff 10%, #DFE9EF 10%, #DFE9EF 100%);
+}
+
+//Sticky Menu
+
+.sticky{
+    position: sticky;
+    position: -webkit-sticky;
+    top: 130px;
+}
+
+.navHeight{
+    height: 7500px;
+
+    @media only screen and (max-width: $screen-xl) {
+        height: 8500px;
+    }
 }
 
 //Hover
