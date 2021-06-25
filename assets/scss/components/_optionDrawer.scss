@@ -429,7 +429,7 @@
             margin: 0 !important;
 
             &[data-is-selected="true"]{
-                background-color: $clr-dove;
+                background-color: $bg-dove;
                 border-radius: $border-radius;
             }
         }
@@ -757,8 +757,8 @@
         text-decoration: none !important;
         padding: 15px;
         @extend .button--fullWidth;
-        @extend .button-primary--ocean;
-        // @extend .button-primary--reverse;
+        @extend .button-primary;
+        @extend .button-primary--dark;
         opacity: 1;
         margin: 10px 0;
         display: flex !important;
@@ -767,7 +767,7 @@
         align-items: center;
 
         &[disabled]{
-            @extend .button-primary--reverse;
+            @extend .button-secondary--darkTrans;
             opacity: 0.25;
 
             &:hover{

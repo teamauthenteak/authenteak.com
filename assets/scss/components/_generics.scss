@@ -70,7 +70,7 @@
 
 
 .mobileHide{
-    display: flex !important;    
+    display: flex !important;
 
     @media only screen and (min-width: $screen-lg) {
         &--lg{
@@ -83,18 +83,6 @@
             display: none;
             visibility: hidden;
             width: 0;
-        }
-    }
-
-    @media only screen and (min-width: $screen-md) {
-        &--md{
-            display: none;
-        }
-    }
-
-    @media only screen and (max-width: $screen-md) {
-        &--mdMax{
-            display: none;
         }
     }
 }
@@ -355,36 +343,29 @@
 
 // background
 .bg--golden{
-    background-color: $clr-golden;
+    background-color: $bg-golden;
 }
 
 .bg--dark{
-    background-color: $clr-dark;
+    background-color: $bg-dark;
 }
 
 .bg--white{
-    background-color: $clr-white;
+    background-color: $bg-white;
 }
 
 .bg--grey{
-    background-color: $clr-gray;
+    background-color: $bg-gray;
 }
 
 .bg--sand{
-    background-color: $clr-sand;
+    background-color: $bg-sand;
 }
 
 .bg--brown{
-    background-color: $clr-brown;
+    background-color: $bg-brown;
 }
 
-.bg--ocean{
-    background-color: $clr-ocean;
-}
-
-.bg--dove{
-    background-color: $clr-dove;
-}
 
 .bg--charcoal{
     background-color: $clr-charcoal;
@@ -443,27 +424,27 @@
 
 // text
 .text--golden{
-    color: $clr-golden;
+    color: $text-golden;
 }
 
 .text--green{
-    color: $clr-green;
+    color: $text-green;
 }
 
 .text--white{
-    color: $clr-white;
+    color: $text-white;
 }
 
 .text--dark{
-    color: $clr-dark;
+    color: $text-dark;
 }
 
 .text--navy{
-    color: $clr-navy;
+    color: $bg-navy;
 }
 
 .text--charcoal{
-    color: $clr-charcoal;
+    color: $text-charcoal;
 }
 
 
@@ -541,23 +522,6 @@
 .topStroke{
     background: linear-gradient(#fff 0%, #fff 10%, #DFE9EF 10%, #DFE9EF 100%);
 }
-
-//Sticky Menu
-
-.sticky{
-    position: sticky;
-    position: -webkit-sticky;
-    top: 130px;
-}
-
-.navHeight{
-    height: 7500px;
-
-    @media only screen and (max-width: $screen-xl) {
-        height: 8500px;
-    }
-}
-
 
 //Hover
 

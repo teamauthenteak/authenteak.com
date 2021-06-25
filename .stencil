@@ -1,0 +1,23 @@
+{
+  "normalStoreUrl": "https://authenteak.com",
+  "port": "3300",
+  "clientId": "mp6ud9o9iui7dwoigkclsz46520072u",
+  "accessToken": "l377p2w8d3ln6e1xgaaa3atuoluj0fg",
+  "customLayouts": {
+    "brand": {},
+    "category": {
+      "shop-all-brands.html": "/shop-all-brands/",
+      "collection.html": "/outdoor-furniture/shop-by-collection/kingsley-bate-sag-harbor-collection/",
+      "category-landing.html": "/grills-outdoor-kitchens/outdoor-kitchen-equipment/"
+    },
+    "page": {
+      "_template_a.html" : "/",
+      "_template_b.html" : "/test-page/",
+      "warranties.html": "/warranties",
+      "_swatchcheckout.html": "/swatch-checkout/"
+    },
+    "product": {
+      "click-and-buy.html" : "/customizable-kingsley-bate-sag-harbor-sectional/"
+    }
+  }
+}

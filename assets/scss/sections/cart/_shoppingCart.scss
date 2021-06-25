@@ -20,7 +20,7 @@
 
     &__checkoutBtn{
         @extend .button;
-        @extend .button-primary--ocean;
+        @extend .button-tertiary;
         font-size: 1.2rem;
         display: flex !important;
         flex-direction: row;
@@ -386,7 +386,7 @@ button.cart-item-edit {
     
     @media screen and (max-width: $screen-lg) {
         margin: 10px 0;
-        background-color: $clr-gray;
+        background-color: $bg-gray;
     }
 }
 

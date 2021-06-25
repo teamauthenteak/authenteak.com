@@ -6,8 +6,7 @@
     "brand": {},
     "category": {
       "shop-all-brands.html": "/shop-all-brands/",
-      "collection.html": "/outdoor-furniture/shop-by-collection/kingsley-bate-sag-harbor-collection/",
-      "category-landing.html": "/grills-outdoor-kitchens/outdoor-kitchen-equipment/"
+      "collection.html": "/outdoor-furniture/shop-by-collection/kingsley-bate-sag-harbor-collection/"
     },
     "page": {
       "_template_a.html": "/",
@@ -16,7 +15,7 @@
       "_swatchcheckout.html": "/swatch-checkout/"
     },
     "product": {
-      "click-and-buy.html": "/customizable-kingsley-bate-sag-harbor-sectional/"
+      "click-and-buy.html": "/kingsley-bate-sag-harbor-sectional-configurator/"
     }
   }
 }
