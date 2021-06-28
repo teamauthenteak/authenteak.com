@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.20.39]
+- VDS Updates
+- PDP Fix
+
 ## [1.20.38]
 - cart qty position fix
 - added ability to disable out of stock swatches
