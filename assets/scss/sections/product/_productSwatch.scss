@@ -122,7 +122,7 @@
         }
 
         &:hover{
-            border-color: $btn-color-green;
+            border-color: $clr-navy;
         }
 
         & .icon-long-arrow-right{
@@ -140,7 +140,7 @@
         @extend .button;
         @extend .button-primary;
         @extend .button-wide;
-        @extend .button-primary--green;
+        @extend .button-primary--ocean;
         outline: none;
         height: 51px;
         display: flex !important;
@@ -153,7 +153,7 @@
         line-height: 1;
 
         &--trans{
-            @extend .button-primary--greenTrans;
+            @extend .button-primary--ocean;
         }
 
         & .icon{
@@ -359,7 +359,7 @@
         &:before{
             position: absolute;
             content: "";
-            @include icon-check-mark($btn-color-green);
+            @include icon-check-mark($clr-ocean);
             width: 12px;
             height: 12px;
             top: 50%;
@@ -469,7 +469,7 @@
         }
 
         &--pdp{
-            fill: $btn-color-green
+            fill: $clr-ocean
         }
     }
 
@@ -501,8 +501,8 @@
         }
 
         &--pdp{
-            color: $btn-color-green;
-            border-bottom: 1px solid $btn-color-green;
+            color: $clr-ocean;
+            border-bottom: 1px solid $clr-ocean;
         }
     }
 

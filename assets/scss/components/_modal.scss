@@ -138,8 +138,7 @@
 
     &__headingBtn{
         @extend .button; 
-        @extend .button-secondary; 
-        @extend .button-secondary--trans; 
+        @extend .button-primary;
         @extend .button-wide;
         display: flex !important;
         align-items: center;

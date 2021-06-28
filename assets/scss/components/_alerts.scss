@@ -65,13 +65,13 @@
     }
 
     &--darkLux{
-        background-color: $bg-dark;
-        color: $text-golden;
+        background-color: $clr-dark;
+        color: $clr-golden;
     }
 
     &--goldenLux{
-        background-color: $bg-golden;
-        color: $text-dark;
+        background-color: $clr-golden;
+        color: $clr-dark;
         margin: 0;
         padding: 20px 10px;
     }
@@ -113,7 +113,7 @@
         border: 1px dashed #d4be85;
         font-style: normal;
         line-height: 1;
-        color: $text-golden;
+        color: $clr-golden;
     }
     
 }

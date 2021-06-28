@@ -364,7 +364,7 @@ export default class GraphQL_Collection_TPL {
                             </span>
                         </div>
                         
-                        <a class="button button-primary button-primary--greenTrans button-cart" href="/cart.php" onclick="TEAK.ThirdParty.heap.init({method: 'track', event:'proceed_to_cart', location: 'collections_modal' })">
+                        <a class="button button-primary button-primary--transparent button-cart" href="/cart.php" onclick="TEAK.ThirdParty.heap.init({method: 'track', event:'proceed_to_cart', location: 'collections_modal' })">
                             <span class="button-text">View Cart</span>
                         </a>
                         <div class="modal-cart__marketing modal-cart__marketing--summary"></div>

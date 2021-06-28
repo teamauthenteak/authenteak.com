@@ -92,7 +92,7 @@
             &:after{
                 position: absolute;
                 content: "";
-                @include icon-check-mark($btn-color-green);
+                @include icon-check-mark($clr-ocean);
                 width: 12px;
                 height: 12px;
                 top: 50%;

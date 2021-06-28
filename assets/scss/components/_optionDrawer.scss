@@ -389,11 +389,11 @@
         }
 
         &:hover{
-            border-color: $btn-color-green;
-            color: $btn-color-green;
+            border-color: $clr-ocean;
+            color: $clr-ocean;
 
             & .icon{
-                fill: $btn-color-green;
+                fill: $clr-ocean;
             }
         }
 
@@ -429,7 +429,7 @@
             margin: 0 !important;
 
             &[data-is-selected="true"]{
-                background-color: $bg-dove;
+                background-color: $clr-dove;
                 border-radius: $border-radius;
             }
         }
@@ -757,8 +757,7 @@
         text-decoration: none !important;
         padding: 15px;
         @extend .button--fullWidth;
-        @extend .button-primary;
-        @extend .button-primary--dark;
+        @extend .button-primary--ocean;
         opacity: 1;
         margin: 10px 0;
         display: flex !important;
@@ -767,7 +766,7 @@
         align-items: center;
 
         &[disabled]{
-            @extend .button-secondary--darkTrans;
+            @extend .button-primary--reverse;
             opacity: 0.25;
 
             &:hover{

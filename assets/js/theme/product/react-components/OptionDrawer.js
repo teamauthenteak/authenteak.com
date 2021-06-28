@@ -214,8 +214,7 @@ export default class OptionDrawer extends React.Component{
 
                         <Spring native to={{ bottom: hasChosenSwatch ? 0 : -90 }} config={{ duration: 150, mass: 5, tension: 500, friction: 0 }}>
                             {props =>   (<animated.footer className="drawer__footer drawer__footer--show" style={props}>
-                                            <button type="button" className="drawer__saveBtn" onClick={() => appHook.toggleDrawer("close")}>
-                                                <svg className="icon icon-long-arrow-left"><use xlinkHref="#icon-long-arrow-left" /></svg>
+                                            <button type="button" className="drawer__saveBtn" onClick={() => appHook.toggleDrawer("close")}>                                                
                                                 <span>Save &amp; Back</span>
                                             </button>
                                         </animated.footer>)}
