@@ -29,7 +29,7 @@ const webpackConfig = {
 						minified: false,
 						presets: [
 							["@babel/preset-env", { 
-								loose: true,
+								loose: false,
 								useBuiltIns: 'usage',
 								modules: false,
                 				corejs: '^3.6.5'

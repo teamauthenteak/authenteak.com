@@ -1,5 +1,5 @@
 import PageManager from '../PageManager';
-import utils from '@bigcommerce/stencil-utils';
+import CartApp from './cart/CartApp';
 import CartUtils from './cart/CartUtils';
 import ShippingCalculator from './cart/ShippingCalculator';
 import CouponCodes from './cart/CouponCodes';
@@ -8,7 +8,6 @@ import GiftWrapping from './cart/GiftWrapping';
 import Loading from 'bc-loading';
 import QuantityWidget from './components/QuantityWidget';
 import svgIcon from './global/svgIcon';
-import Personalization from './Personalization';
 import EditOptions from './cart/customizations/EditOptions';
 
 export default class Cart extends PageManager {
@@ -16,6 +15,8 @@ export default class Cart extends PageManager {
 		super();
 
 		this.$cartContent = $('[data-cart-content]');
+
+		new CartApp();
 
 		// add Personalization engine
 		// this.recentlyViewed = new Personalization({
@@ -33,6 +34,8 @@ export default class Cart extends PageManager {
 
 	loaded(next) {
 		const context = this.context;
+
+
 
 		new QuantityWidget({ scope: '[data-cart-content]' });
 
@@ -110,10 +113,8 @@ export default class Cart extends PageManager {
 				}
 			}
 		}
-		
-
-
 	}
+
 
 
 	// _initRecentlyViewed(){

@@ -33,7 +33,8 @@ module.exports = {
 						plugins: [
 							["@babel/plugin-proposal-object-rest-spread", { "loose": true, "useBuiltIns": true }],
 							"@babel/plugin-transform-spread",
-							"@babel/plugin-proposal-class-properties"
+							"@babel/plugin-proposal-class-properties",
+							["@babel/plugin-proposal-private-methods", { "loose": false }]
 						]
 					}
 				}
