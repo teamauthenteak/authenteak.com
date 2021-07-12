@@ -125,10 +125,22 @@
 // Position
 .align-right, [class*='col-']:last-of-type.align-right {
     float:right
+
+    &--sm {
+        @media only screen and (max-width: $screen-sm) {
+            float: none;
+        }
+    }
 }
 
 .align-left, [class*='col-']:last-of-type.align-left {
     float:left
+
+    &--sm {
+        @media only screen and (max-width: $screen-sm) {
+            float: none;
+        }
+    }
 }
 
 .align-center{
@@ -154,7 +166,14 @@
 
 
 // Justified Text
-.l{text-align: left}
+.l{
+    text-align: left;
+    &--center-md {
+        @media only screen and (max-width: $screen-md){
+            text-align: center;
+        }
+    }
+}
 .r{text-align: right;}
 .c{text-align: center}
 .j{text-align: justify;}
@@ -390,6 +409,18 @@
     background-color: $clr-charcoal;
 }
 
+.bg--teak{
+    background-color: $clr-teak;
+}
+
+.bg--navy{
+    background-color: $clr-navy;
+}
+
+.bg--mist{
+    background-color: $clr-mist;
+}
+
 //Banners
 .hp-bannerImg-1 {
     background-image: url(https://authenteak.s3.us-east-2.amazonaws.com/WS00035_042321_MayHomepageWireframe_Images/JPG/WS00035_TradeBanner_Full_Desktop.jpg);
@@ -464,6 +495,10 @@
 
 .text--charcoal{
     color: $clr-charcoal;
+}
+
+.text--ocean{
+    color: $clr-ocean;
 }
 
 
@@ -636,9 +671,9 @@
     @media only screen and (max-width: $screen-sm){
         opacity: .1;
     }
-  }
+}
   
-  #item-1:checked ~ .carousel-cards #img-2, #item-2:checked ~ .carousel-cards #img-3, #item-3:checked ~ .carousel-cards #img-1 {
+#item-1:checked ~ .carousel-cards #img-2, #item-2:checked ~ .carousel-cards #img-3, #item-3:checked ~ .carousel-cards #img-1 {
     transform: translatex(40%) scale(.8);
     opacity: .3;
     z-index: 0;
@@ -646,14 +681,83 @@
     @media only screen and (max-width: $screen-sm){
         opacity: .1;
     }
-  }
+}
   
-  #item-1:checked ~ .carousel-cards #img-1, #item-2:checked ~ .carousel-cards #img-2, #item-3:checked ~ .carousel-cards #img-3 {
+#item-1:checked ~ .carousel-cards #img-1, #item-2:checked ~ .carousel-cards #img-2, #item-3:checked ~ .carousel-cards #img-3 {
     transform: translatex(0) scale(1);
     opacity: 1;
     z-index: 1;
 
     img{
         box-shadow: 0px 0px 5px 0px rgba(81, 81, 81, 0.47);
+    }
+}
+
+  //Accordion
+
+.input-btn{
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+}
+
+.accordion{
+    flex:1;
+    &:last-child {
+        margin-left: 1em;
+    }
+}
+
+.tabs{
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 4px 4px -2px rgba(0,0,0,0.5);
+}
+
+.tab{
+    width: 100%;
+    color: $clr-charcoal;
+    overflow: hidden;
+
+    &-label{
+        display: flex;
+        justify-content: space-between;
+        padding: 1em;
+        background: $clr-mist;
+        font-weight: bold;
+        cursor: pointer;
+
+        &:hover{
+            background: $clr-dove;
+        }
+
+        &::after{
+            content: "+";
+            width: 1em;
+            height: 1em;
+            text-align: center;
+            transition: all .35s;
+        }
+    }
+    &-content {
+        max-height: 0;
+        padding: 0 1em;
+        color: $clr-charcoal;
+        background: $clr-white;
+        transition: all .35s;
+    }
+}
+
+// :Checked
+input:checked {
+    + .tab-label {
+      background: $clr-dove;
+      &::after {
+        transform: rotate(135deg);
+      }
+    }
+    ~ .tab-content {
+      max-height: 100vh;
+      padding: 1em;
     }
   }

@@ -87,9 +87,12 @@ export default class BlogPost extends PageManager {
         for (let i = 0; i < this.relatedPosts.length; i++) {
             
             let tpl = this.Blog.blogPod(this.relatedPosts[i]);
-            $(tpl).appendTo(this.relatedCntr);
 
             if( i > 2 ){ break; }
+
+            $(tpl).appendTo(this.relatedCntr);
+
+            
         }
     }
 

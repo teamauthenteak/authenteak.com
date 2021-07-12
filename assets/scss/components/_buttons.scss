@@ -74,7 +74,7 @@
 .button-primary{
     border-color: $clr-charcoal;
     background-color: $clr-charcoal;
-    color: #fff;
+    color: #fff !important;
 
 
     &:hover{
@@ -120,9 +120,15 @@
     }
 
     &--white {
-        background-color:#fff;
-        border-color: #4D5060;
-        color: #4D5060;
+        background-color: $clr-white;
+        border: 2px solid var($clr-charcoal);
+        color: $clr-charcoal !important;
+
+        &:hover{
+            background-color: $clr-ocean;
+            border-color: $clr-ocean;
+            color: $clr-white;
+        }
     }
 
     &--darkGray {
@@ -140,7 +146,7 @@
     &--reverse {
         background-color: $clr-dove;
         border-color: $clr-dove;
-        color: $clr-charcoal;
+        color: $clr-charcoal !important;
 
         &:hover{
             background-color: $clr-ice;
@@ -152,18 +158,19 @@
     &--transparent {
         background-color: transparent;
         border: 2px solid $clr-charcoal;
-        color: $clr-charcoal;
+        color: $clr-charcoal !important;
 
         &:hover{
-            background-color: $clr-charcoal;
+            background-color: $clr-charcoal !important;
+            border-color: $clr-charcoal !important;
             color: $clr-white;
         }
     }
 
     &--transparentWhite {
         background-color: transparent;
-        border: 2px solid $clr-white;
-        color: $clr-white;
+        border: 2px solid $clr-white !important;
+        color: $clr-white !important;
     }
 
     &--ocean {
