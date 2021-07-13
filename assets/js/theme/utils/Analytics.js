@@ -235,35 +235,33 @@ _learnq.push(['account', 'JL4kkS']);
 window.addEventListener("load", function(){
 
 
-        if(document.getElementById("klaviyo")){
-                let klaviyoProduct = JSON.parse(document.getElementById("klaviyo").innerHtml)
+    if(document.getElementById("klaviyo")){
+            let klaviyoProduct = JSON.parse(document.getElementById("klaviyo").innerHTML)
 
-                let _learnq = _learnq || [];
+            _learnq.push(['track', 'Viewed Products', klaviyoProduct]);
 
-                _learnq.push(['track', 'Viewed Products', klaviyoProduct]);
+            _learnq.push(['trackViewedItems', {
+                Title: klaviyoProduct.Name,
+                ItemId: klaviyoProduct.ProductID, 
+                Categories: klaviyoProduct.Categories, 
+                ImageURL: klaviyoProduct.ImageURL, 
+                Url: klaviyoProduct.URL, 
+                Metadata: {
+                    Brand: klaviyoProduct.Brand, 
+                    Price: klaviyoProduct.Price, 
+                    CompareAtPrice: klaviyoProduct.CompareAtPrice
+                }
+            }]);
 
-                _learnq.push(['trackViewedItems', {
-                    Title: klaviyoProduct.Name,
-                    ItemId: klaviyoProduct.ProductID, 
-                    Categories: klaviyoProduct.Categories, 
-                    ImageURL: klaviyoProduct.ImageURL, 
-                    Url: klaviyoProduct.URL, 
-                    Metadata: {
-                        Brand: klaviyoProduct.Brand, 
-                        Price: klaviyoProduct.Price, 
-                        CompareAtPrice: klaviyoProduct.CompareAtPrice
-                    }
-                }]);
-
-            let classname = document.getElementsByClassName("add-to-cart");
-            let addToCart = function() {
-                _learnq.push(['track', 'Added to Cart', klaviyoProduct]);
-            };   
-            
-            for (let i = 0; i < classname.length; i++) {
-                classname[i].addEventListener('click', addToCart, false);
-            }
+        let classname = document.getElementsByClassName("add-to-cart");
+        let addToCart = function() {
+            _learnq.push(['track', 'Added to Cart', klaviyoProduct]);
+        };   
+        
+        for (let i = 0; i < classname.length; i++) {
+            classname[i].addEventListener('click', addToCart, false);
         }
+    }
     
 
     function identifyKlaviyoEmail(klaviyo_email) {
