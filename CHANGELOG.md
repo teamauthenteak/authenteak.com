@@ -3,6 +3,7 @@
 ## [1.20.39]
 - VDS Updates
 - PDP Fix
+- Klaviyo Tracking Code
 
 ## [1.20.38]
 - cart qty position fix

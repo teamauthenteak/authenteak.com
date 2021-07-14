@@ -236,7 +236,7 @@ window.addEventListener("load", function(){
 
 
     if(document.getElementById("klaviyo")){
-            let klaviyoProduct = JSON.parse(document.getElementById("klaviyo").innerHTML)
+            let klaviyoProduct = JSON.parse(document.getElementById("klaviyo").innerHTML);
 
             _learnq.push(['track', 'Viewed Products', klaviyoProduct]);
 
@@ -254,6 +254,7 @@ window.addEventListener("load", function(){
             }]);
 
         let classname = document.getElementsByClassName("add-to-cart");
+        
         let addToCart = function() {
             _learnq.push(['track', 'Added to Cart', klaviyoProduct]);
         };   
